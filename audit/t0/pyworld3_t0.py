@@ -7,6 +7,7 @@ must be known before it can serve as a yardstick for another implementation.
 Outputs go to $F3_OUT (default: audit/results).
 """
 import os
+import re
 from pathlib import Path
 
 import numpy as np
@@ -26,14 +27,22 @@ STOCKS = ["p1", "p2", "p3", "p4", "ic", "sc", "al", "pal", "uil", "lfert", "ppol
 VARIABLES = STOCKS + PLOTTED
 
 
-def solve(dt):
+def solve(dt, ppgr_start=None):
+    """ppgr_start: DIAGNOSTIC ONLY. If given, the start value of PyWorld3's third-order
+    delay on the persistent-pollution generation rate (PPGR -> PPAPR) is overridden at
+    run time on the instance. No PyWorld3 code is copied or edited. The unmodified run
+    (ppgr_start=None) is always reported alongside."""
     from pyworld3 import World3
     w = World3(dt=dt)  # 1900-2100
     w.init_world3_constants()
     w.init_world3_variables()
     w.set_world3_table_functions()
     w.set_world3_delay_functions()
+    if ppgr_start is not None:
+        d = w.delay3_ppgr
+        d._init_out_arr = lambda delay, d=d: d.out_arr.__setitem__((0, slice(None)), ppgr_start)
     w.run_world3(fast=False)
+    solve.last = w
     data = {"time": np.asarray(w.time)}
     for v in VARIABLES:
         if hasattr(w, v):
@@ -72,6 +81,31 @@ try:
                 r = np.abs(df[v].to_numpy() - ref) / np.maximum(np.abs(ref), floor if floor > 0 else 1.0)
                 rows.append(f"`{v}` {r.max() * 100:.2f}% ({df['time'].iloc[int(r.argmax())]:.0f})")
         report.append("- Time-step error by stock, max (year of max): " + "; ".join(rows))
+
+        # Start-up of the pollution delay (found in T0 run #6, see T0-FINDINGS.md).
+        solve(0.05)  # re-run to get the model object for its own ppgr(0), ppapr(0)
+        w = solve.last
+        own_ppgr0, own_ppapr0 = float(w.ppgr[0]), float(w.ppapr[0])
+        report.append(f"- PyWorld3 as shipped: ppgr(1900) = {own_ppgr0:.4e}, but the delay output "
+                      f"ppapr(1900) = {own_ppapr0:.4e}, i.e. {own_ppapr0 / own_ppgr0:.3f} of its input "
+                      f"(a steady-state start would give 1.000; 3/delay = {3 / float(w.pptd1):.3f}).")
+        wd_csv = OUT / "world3_worlddynamics_states_noinit_tight.csv"
+        if wd_csv.exists():
+            wd = pd.read_csv(wd_csv)
+            cols = [c for c in wd.columns if re.search(r"ppapr3\(t\)$", c)]
+            if len(cols) == 1:
+                ppgr_wd = float(wd[cols[0]].iloc[0]) * 3 / float(w.pptd1)  # ppapr3(0) = pptd * ppgr / 3
+                report.append(f"- WorldDynamics.jl starts the same delay chain at ppapr3(1900) = "
+                              f"{float(wd[cols[0]].iloc[0]):.4e}, i.e. an implied ppgr of {ppgr_wd:.4e} "
+                              f"({ppgr_wd / own_ppgr0:.3f} x PyWorld3's own ppgr(1900)).")
+                diag = solve(0.05, ppgr_start=ppgr_wd)
+                diag.to_csv(OUT / "world3_pyworld3_fine_wdstart.csv", index=False)
+                report.append("- ✅ Diagnostic run (dt=0.05, pollution delay started at the WorldDynamics.jl value): "
+                              "`world3_pyworld3_fine_wdstart.csv`. Diagnostic only, not a reference.")
+            else:
+                report.append(f"- ⚠️ ppapr3 column not identified unambiguously: {cols}")
+        else:
+            report.append("- (WorldDynamics.jl export not found; diagnostic run skipped)")
     except Exception as e:
         report.append(f"- ⚠️ Fine run failed: {type(e).__name__}: {e}")
 

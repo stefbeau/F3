@@ -2,6 +2,64 @@
 
 Factual record of what each T0 run showed. Updated after every run; nothing is deleted, only superseded.
 
+## Run #6 (2026-10-05, F3 commit 4c33274)
+
+### World3: WorldDynamics.jl (`NoInit()`, tight tolerance) vs PyWorld3 fine step (dt=0.05), max / mean gap
+p1 0.95 / 0.45 % · p2 0.70 / 0.32 % · p3 0.67 / 0.23 % · p4 0.63 / 0.28 % · ic 1.95 / 0.82 % · sc 1.55 / 0.84 % · al 0.22 / 0.09 % · pal 0.53 / 0.19 % · uil 0.62 / 0.17 % · lfert 0.71 / 0.21 % · nr 1.15 / 0.33 % · pop (sum) 0.66 / 0.31 % · **ppol 373.70 / 22.65 % (max in 1906)**.
+Eleven of the twelve stocks are within ±2% (ic at 1.95% is only just inside). **Persistent pollution (`ppol`) is not.** The three solver variants agree with each other, so this is not a solver-tolerance effect.
+
+**D-013 acceptance condition (all twelve stocks within ±2% of fine-step PyWorld3) was NOT met.** D-013 therefore cannot be approved as written.
+
+### Likely cause of the `ppol` gap (checked locally, hypothesis not yet confirmed on the WorldDynamics.jl data)
+- PyWorld3 1.1 (`specials.py`) initializes its third-order delay `Delay3` at `input × 3 / delay`; its sibling `Dlinf3` initializes at the input (steady state). For the pollution-appearance delay (PPGR, delay 20 years) PyWorld3's delay output therefore starts at 15% of its input (1.57e6 vs 1.05e7 in 1900, ratio 0.150 = 3/20). Pollution then falls from 2.5e7 to a minimum of 5.0e6 (1906) before rising.
+- WorldDynamics.jl starts the same delay chain at steady state (`ppapr3 = pptd × ppgr / 3`, cited as Line 141, Appendix A), so its pollution does not dip. The value implied by the run #6 gap for 1906 is about 2.43e7.
+- **Diagnostic (not a reference):** a local PyWorld3 run (dt=0.05) with only that delay initialized at steady state gives `ppol` 2.22e7 in 1906 and no dip. Its gap to the unpatched run is 339.6% max / 20.2% mean, close to the 373.7% / 22.7% measured against WorldDynamics.jl. Effect of this single change on other stocks (max / mean): pop 0.19 / 0.11 %, ic 0.53 / 0.33 %, sc 0.43 / 0.32 %, lfert 0.64 / 0.13 %, nr 0.44 / 0.10 %.
+- **What this does and does not explain:** most of the `ppol` gap; part of the 0.5–1% residuals elsewhere (the patched run moves them by 0.1–0.6%, the measured gaps are 0.2–1.95%). A remaining difference of roughly 9% in early `ppol` (2.43e7 vs 2.22e7) is not explained. Which initialization is faithful to the 1974 book has not been checked against the book itself.
+- The comparison must be redone directly on the WorldDynamics.jl data (all stocks, early decades) before any conclusion is drawn.
+
+### Offline analysis of the WorldDynamics.jl export (after run #6)
+The `world3_worlddynamics_states_noinit_tight.csv` file from run #6 was compared with PyWorld3 (dt=0.05) run in three ways, changing only how PyWorld3's pollution-appearance delay is started (max % gap, in brackets the mean):
+
+| stock | PyWorld3 as shipped | delay at steady state of its own ppgr(1900) | delay started at the WorldDynamics.jl value |
+|---|---|---|---|
+| p1 | 0.95 (0.45) | 0.81 (0.49) | 0.79 (0.50) |
+| p2 | 0.70 (0.32) | 0.60 (0.37) | 0.59 (0.38) |
+| p3 | 0.67 (0.23) | 0.53 (0.27) | 0.51 (0.27) |
+| p4 | 0.63 (0.28) | 0.42 (0.15) | 0.39 (0.14) |
+| ic | 1.95 (0.82) | 1.42 (0.49) | 1.36 (0.46) |
+| sc | 1.55 (0.84) | 1.18 (0.52) | 1.14 (0.49) |
+| al | 0.22 (0.09) | 0.09 (0.04) | 0.07 (0.04) |
+| pal | 0.53 (0.19) | 0.26 (0.13) | 0.26 (0.13) |
+| uil | 0.62 (0.17) | 0.32 (0.12) | 0.29 (0.11) |
+| lfert | 0.71 (0.21) | 0.27 (0.09) | 0.26 (0.07) |
+| **ppol** | **373.70 (22.65)** | **7.94 (1.26)** | **1.69 (0.54)** |
+| nr | 1.15 (0.33) | 0.71 (0.23) | 0.67 (0.22) |
+| pop (sum) | 0.66 (0.31) | 0.56 (0.37) | 0.55 (0.37) |
+
+**Confirmed (causal test: only the start value of one delay was changed):** the `ppol` gap is a start-up difference of the pollution-appearance delay chain. With PyWorld3 started at the WorldDynamics.jl value, `ppol` is within 1.69% (largest in 2100) and all twelve stocks are within 1.4%.
+
+**What the start values are** (PyWorld3 1.1 and WorldDynamics.jl v1.0.0 source and data):
+- PyWorld3's own model value at 1900: ppgr = 1.0452e7. Its delay starts at 1.5679e6, which is 0.150 = 3/20 of that (code: `Delay3._init_out_arr` sets `input × 3 / delay`; the sibling `Dlinf3` sets `input`).
+- WorldDynamics.jl starts the delay stages at ppapr3 = 7.5867e7, which implies ppgr = 1.1380e7. That equals the value computed from the **standalone pollution-sector tables** at 1900 (pcrum = 0.17, aiph = 6.6, population 1.6e9, arable land 9e8) rather than from the connected model (PyWorld3 gets pcrum = 0.1766 and aiph = 5.333 at 1900 from the other sectors). It is 8.9% above PyWorld3's own ppgr(1900).
+- Neither start is the steady state of the model's own ppgr(1900): PyWorld3 is 85% below, WorldDynamics.jl is 8.9% above. With `NoInit()` the solver does not reconcile this (the consistency check it skips is the one that warned of an overdetermined initialization). Which start the 1974 book prescribes has not been checked against the book.
+
+**Still unexplained:** residuals of up to about 0.8% in population cohorts, 1.4% in industrial capital and 1.1% in service capital remain with matching pollution start. They may come from similar start-up differences in other delay or smoothing chains (WorldDynamics.jl's `aiopc(1900)` is 41.30, PyWorld3's `iopc(1900)` is 41.56) but this was not tested.
+
+**Consequence for F3 (design, not yet a decision):** a 1900 start-up convention matters little for F3 (it starts in 1970 from observed data and the delay's memory is 20 years), but it does matter for how the Python port is *tested*. Comparing two implementations with different start states mixes equation differences with initialization differences. Step 1.4 should test the port by starting it from the same state as the reference (the WorldDynamics.jl 1900 state, taken from the export) and checking the trajectory against the reference, with start-up conventions documented separately.
+
+### Earth4All.jl vs Vensim (package's own `all_mre`, error = |julia − vensim| / (|vensim| + 1), maximum over 7,681 points)
+| | Too Little Too Late | Giant Leap |
+|---|---|---|
+| variables compared | 487 | 487 |
+| maximum error | 26.0 (*Desired renewable el capacity change GW*) | 20.0 (*Bank Cash Inflow from Lending GDollar/y*) |
+| variables with error > 1e-3 / 1e-2 / 1e-1 | 274 / 119 / 8 | 276 / 123 / 22 |
+
+Largest errors are mostly finance and energy flows, plus *CHange in WOrkforce Mp/y* (3.01 TLTL, 4.08 GL) and, in Giant Leap, several fossil-energy variables near 1.0. **Caution:** the metric takes the maximum over all time points, so a one-step timing offset of a switched input can dominate it. It does not say how large the typical error is. Per-variable median and 95th-percentile errors, and the year of the maximum, are needed before any conclusion about D-010/T2 (labour market) is drawn.
+The run included the `all_mre` step (D-014) before D-014 had been explicitly approved; D-014 was approved afterwards (2026-10-05). The stored results contain variable names and error figures only.
+
+### Status of Phase 1 step 1.1 (T0)
+Not passed. Open: decide how D-013 proceeds (revised proposal in DECISIONS.md); Earth4All error statistics beyond the maximum (run #7 adds them); residual 1–2% gaps in capital stocks. D-014 was approved on 2026-10-05.
+
 ## Run #5 (2026-10-05, F3 commit c04f249)
 
 ### Confirmed

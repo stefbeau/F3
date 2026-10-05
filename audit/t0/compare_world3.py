@@ -77,6 +77,10 @@ try:
     refs = [("PyWorld3 dt=0.5", py)]
     if fine_path.exists():
         refs.append(("PyWorld3 dt=0.05", pd.read_csv(fine_path)))
+    diag_path = OUT / "world3_pyworld3_fine_wdstart.csv"
+    if diag_path.exists():
+        refs.append(("PyWorld3 dt=0.05, pollution delay started as in WorldDynamics.jl (diagnostic)",
+                     pd.read_csv(diag_path)))
     files = sorted(OUT.glob("world3_worlddynamics_states_*.csv"))
     if not files:
         report.append("- ❌ No WorldDynamics.jl export found (an earlier step failed)")

@@ -129,5 +129,62 @@ for (scen, fname) in [("TLTL", :run_tltl_solution), ("GL", :run_gl_solution)]
     end
 end
 
+# Error statistics beyond the maximum (D-014 approved 2026-10-05). The package's `all_mre`
+# reports only the worst of 7,681 time points per variable, which a one-step timing offset
+# of a switched input can dominate. Here the same comparison (same data, same metric
+# |julia - vensim| / (|vensim| + 1), same variable filter as `mre_sys`) is repeated with
+# median, mean and 95th percentile over time and the year of the maximum.
+# Only variable descriptions and error figures are stored; no Vensim values (D-014).
+for (scen, fname) in [("TLTL", :run_tltl_solution), ("GL", :run_gl_solution)]
+    step("Error statistics per variable, $scen (median, 95th percentile, year of maximum)") do
+        mod = getfield(Main, :Earth4All)
+        sol = Base.invokelatest(getfield(mod, fname))
+        sa = Base.invokelatest(getfield(mod, :system_array))
+        sn = Base.invokelatest(getfield(mod, :sector_name))
+        MTK = parentmodule(typeof(sa[1]))                      # ModelingToolkit
+        nt = 7681
+        rows = NamedTuple[]
+        skipped = 0
+        for (s, sector) in enumerate(sn)
+            path = joinpath(CLONE, "VensimOutput", lowercase(scen), sector * ".txt")
+            vs = Base.invokelatest(getfield(mod, :read_vensim_dataset), path, " : E4A-220501 " * scen)
+            for v in Base.invokelatest(MTK.namespace_variables, sa[s])
+                d = Base.invokelatest(MTK.getdescription, v)
+                (d == "" || d == "Time instants" || startswith(d, "LV functions") || startswith(d, "RT functions")) && continue
+                try
+                    a = Base.invokelatest(getindex, sol, v)[1:nt]
+                    b = vs[lowercase(d)]
+                    re = abs.(a .- b) ./ (abs.(b) .+ 1)
+                    srt = sort(re)
+                    n = length(srt)
+                    imax = argmax(re)
+                    push!(rows, (sector = sector, variable = d, max_error = re[imax],
+                                 year_of_max = sol.t[imax], median_error = srt[(n + 1) ÷ 2],
+                                 mean_error = sum(re) / n, p95_error = srt[clamp(ceil(Int, 0.95 * n), 1, n)]))
+                catch
+                    skipped += 1
+                end
+            end
+        end
+        isempty(rows) && error("no variable could be compared")
+        df = DataFrame(map(identity, rows))          # concrete element type
+        CSV.write(joinpath(OUT, "earth4all_error_stats_$(scen).csv"), df)
+        sortedp = sort(df, :p95_error; rev = true)
+        push!(REPORT, "  - $(nrow(df)) variables ($(skipped) skipped); median of per-variable medians **$(round(sort(df.median_error)[(nrow(df) + 1) ÷ 2]; sigdigits = 3))**; " *
+                      "95th percentile above 1e-2: $(count(>(1e-2), df.p95_error)); above 1e-1: $(count(>(1e-1), df.p95_error)); " *
+                      "maximum above 1e-1: $(count(>(1e-1), df.max_error))")
+        for sector in sn
+            sub = df[df.sector .== sector, :]
+            nrow(sub) == 0 && continue
+            push!(REPORT, "  - `$sector`: $(nrow(sub)) variables, 95th percentile above 1e-2: $(count(>(1e-2), sub.p95_error)), maximum above 1e-1: $(count(>(1e-1), sub.max_error))")
+        end
+        push!(REPORT, "  - ten largest by 95th percentile: " * join(["`$(r.variable)` (p95 $(round(r.p95_error; sigdigits = 3)), max $(round(r.max_error; sigdigits = 3)) in $(round(r.year_of_max; digits = 1)))" for r in eachrow(sortedp[1:min(10, nrow(sortedp)), :])], "; "))
+        lab = df[occursin.(r"(?i)workforce|employ|labou?r", df.variable), :]
+        if nrow(lab) > 0
+            push!(REPORT, "  - labour-related variables (D-010 test T2): " * join(["`$(r.variable)` (median $(round(r.median_error; sigdigits = 2)), p95 $(round(r.p95_error; sigdigits = 2)), max $(round(r.max_error; sigdigits = 2)) in $(round(r.year_of_max; digits = 1)))" for r in eachrow(lab[1:min(12, nrow(lab)), :])], "; "))
+        end
+    end
+end
+
 write(joinpath(OUT, "t0_2_earth4all_report.md"), join(REPORT, "\n") * "\n")
 println(join(REPORT, "\n"))
