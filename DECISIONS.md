@@ -29,8 +29,8 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-010 | Scientific robustness of Earth4All as a baseline | Approved | 1 |
 | D-011 | Earth4All reference implementation (supersedes D-002) | Approved | 0 |
 | D-012 | World3 reference implementation | Approved | 1 |
-| D-013 | WorldDynamics.jl solver configuration | Proposed (awaits run #6) | 1 |
-| D-014 | Use of the Vensim output shipped with Earth4All.jl | Proposed | 1 |
+| D-013 | WorldDynamics.jl solver configuration | Proposed — original condition not met; revised proposal awaits your decision | 1 |
+| D-014 | Use of the Vensim output shipped with Earth4All.jl | Approved | 1 |
 
 ---
 
@@ -218,13 +218,19 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 
 ## D-013 — WorldDynamics.jl solver configuration
 
-- **Status:** Proposed (approval to wait for T0 run #6, see acceptance condition)
+- **Status:** Proposed. **Run #6 result: the original acceptance condition (item 3 of the proposal) was NOT met**; a revised proposal follows the result and awaits the editor-in-chief's decision.
 - **Context:** With the dependency versions that install today (ModelingToolkit 9.84.0, DifferentialEquations 7.17.0, OrdinaryDiffEq 6.105.0, SciMLBase 2.153.1), `WorldDynamics.solve` on the World3 system returns `InitialFailure` and a single time point. The package's own warning says its initialization system is overdetermined (16 equations for 7 unknowns). With `initializealg = NoInit()` the same call returns `Success` over 1900–2100. Only a solver option changes; no equation, parameter or package file does. T0 run #5 population results: all solver variants within 0.5–0.7% (max) of PyWorld3 run at a fine time step; tightening the solver tolerance to 1e-8 did not bring the result closer (0.67% vs 0.53%), so the remaining gap is not a WorldDynamics.jl tolerance effect. Its cause is not yet explained.
 - **Proposal:**
   1. F3 uses WorldDynamics.jl only with `initializealg = NoInit()` and saves the solution every 0.5 year. This is a documented deviation from the package defaults.
   2. The dependency versions of an approved audit run are pinned by committing `audit/env/Project.toml` and `Manifest.toml`.
   3. **Acceptance condition:** the decision is approved only if T0 run #6 shows all twelve main stocks within ±2% of the fine-step PyWorld3 run (dt=0.05), with the largest gaps explained in `audit/T0-FINDINGS.md`.
   4. With the editor-in-chief's agreement, the `InitialFailure` behaviour is reported to the WorldDynamics.jl maintainers as an issue.
+- **Run #6 result (2026-10-05):** eleven of twelve stocks are within ±2% of the fine-step PyWorld3 run (largest: ic 1.95%). Persistent pollution `ppol` is not: 373.7% maximum, 22.7% mean, largest in 1906. Likely cause (checked only on PyWorld3 so far): PyWorld3's `Delay3` starts the pollution-appearance delay at 15% of its input, while WorldDynamics.jl starts it at steady state. Details and caveats in `audit/T0-FINDINGS.md`. The original condition is left unchanged above; any revised condition is a new proposal for the editor-in-chief, not a retroactive pass.
+- **Revised proposal (2026-10-05, after the run #6 data was analysed; this is a post-hoc revision and is labelled as such):**
+  1. *Finding:* the `ppol` gap is a start-up difference of the pollution-appearance delay between the two implementations, not a solver effect. Starting PyWorld3's delay at the WorldDynamics.jl value (one change, a documented diagnostic, PyWorld3 code untouched) brings `ppol` from 373.7% to 1.69% and keeps all twelve stocks within 1.4% (details in `audit/T0-FINDINGS.md`).
+  2. *Revised acceptance condition:* WorldDynamics.jl with `NoInit()` is accepted as F3's World3 reference for the 1974 model if, against fine-step PyWorld3 with that diagnostic start-up, all twelve main stocks stay within ±2% (**met: worst 1.69%**), and the as-shipped PyWorld3 comparison is always reported alongside (**fails for `ppol`, explained above**).
+  3. *Known limitation:* neither implementation starts the delay at the steady state of the model's own initial value; WorldDynamics.jl is 8.9% above it. This is to be handled in step 1.4 by testing the Python port from the same initial state as the reference.
+  4. *Why this is weaker than the original condition:* the criterion was chosen after seeing the result, and it relies on a diagnostic modification of PyWorld3 that I designed. The editor-in-chief may therefore prefer to reject D-013 as written, or to approve it and require a further independent check (for example, comparison with the book's printed Figure 7.7).
 - **Alternatives considered:** Pin older versions of the dependencies the package was built against (April 2024), which needs a separate experiment; port World3 from the book's equations without the package (highest error risk).
 - **Sources:** T0 runs #3–#5 (`audit/T0-FINDINGS.md`); WorldDynamics.jl v1.0.0 `src/solvesystems.jl`.
 - **Proposed by:** Claude (Validator agent role)
@@ -233,7 +239,7 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 
 ## D-014 — Use of the Vensim output shipped with Earth4All.jl
 
-- **Status:** Proposed
+- **Status:** Approved
 - **Context:** The Earth4All.jl repository (MIT-licensed, `LICENSE`: "Copyright (c) 2023 World Dynamics") contains `VensimOutput/{tltl,gl}/<sector>.txt` (twelve files per scenario) and `vensim_source/` (two `.mdl` model files). Its function `Earth4All.all_mre` compares the Julia solution with that Vensim output variable by variable (error metric |julia − vensim| / (|vensim| + 1)). It is not part of any test suite; the repository has no test folder. D-011 keeps the original Vensim files out of the F3 repository because their licence status is unclear.
 - **Proposal:**
   1. The audit may read `VensimOutput/` from a clone made at run time, to run the package's own `all_mre`. This is the numeric check that Earth4All.jl matches Vensim.
@@ -242,8 +248,8 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Alternatives considered:** Ask the Earth4All team for explicit permission first (slower); skip the numeric check and rely on visual comparison only (weaker).
 - **Sources:** `src/functions.jl` and `LICENSE` of Earth4All.jl at commit `16f37d0`.
 - **Proposed by:** Claude (Research agent role)
-- **Decision:** —
-- **Date:** —
+- **Decision:** Approved by Stéphane Beau (run #6 had already executed the step; approval given afterwards, on 2026-10-05, after the results were reviewed)
+- **Date:** 2026-10-05
 
 ---
 
