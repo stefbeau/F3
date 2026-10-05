@@ -4,7 +4,7 @@ Every external model F3 audits or ports from, pinned to an exact version. Update
 
 | Reference | Role | License | Pinned version | Status |
 |---|---|---|---|---|
-| WorldDynamics.jl | World3 reference (D-012) | MIT | v1.0.0 | ⚠️ Solves World3; `World3.fig_7()` fails in v1.0.0, run-time workaround works (see T0-FINDINGS.md) |
+| WorldDynamics.jl | World3 reference (D-012) | MIT | v1.0.0 | ⚠️ Default solve fails (`InitialFailure`) with current dependencies; works with `initializealg = NoInit()` (T0 run #4); under validation, see T0-FINDINGS.md |
 | Earth4All.jl | Earth4All reference for audit (D-011) | MIT | Commit `16f37d013a2f68135f03e7815bf861dbf47311f2` (branch `master`), observed in T0 run #2 | 🟡 Runs; see T0-FINDINGS.md |
 | PyWorld3 | Independent World3 second check, used unmodified (D-001, D-012) | CeCILL 2.1 | 1.1, observed in T0 run #2 | 🟡 Runs; see T0-FINDINGS.md |
 | Julia | Runtime | MIT | 1.10 series; 1.10.12 in T0 run #2 | Pinned to 1.10 series |

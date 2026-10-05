@@ -2,6 +2,25 @@
 
 Factual record of what each T0 run showed. Updated after every run; nothing is deleted, only superseded.
 
+## Run #4 (2026-10-05, F3 commit 78f260e)
+
+### Confirmed
+- **The World3 solver problem is a solver-initialization failure.** `WorldDynamics.solve` with default options returns `InitialFailure` and one time point (1900). With `initializealg = NoInit()` it returns `Success` over 1900–2100 (50 saved points). The package's own failure therefore comes from how the current dependency versions handle initialization, not from the World3 equations.
+- **Versions in play:** ModelingToolkit 9.84.0 · DifferentialEquations 7.17.0 · OrdinaryDiffEq 6.105.0 · OrdinaryDiffEqCore 2.3.0 · DiffEqBase 6.213.0 · SciMLBase 2.153.1 (package v1.0.0 dates from April 2024).
+- **First valid cross-check (population only):** WorldDynamics.jl with `NoInit()` vs PyWorld3 (dt=0.5): max 0.91% (1985), mean 0.43%, within the ±2% band of D-004, on 50 time points.
+
+### Caveats (do not skip)
+- **Population only.** One variable, not the full set of key variables in D-004.
+- **Coarse.** 50 saved points (about 4 years apart) can hide short features.
+- **`NoInit()` skips the solver's initialization consistency check.** It is a deviation from the package defaults and must be logged as a decision before F3 relies on it. The agreement with an independent implementation is the evidence for it, not a proof.
+- **PyWorld3 is not an exact yardstick.** A local test (PyWorld3 1.1) shows its own population differs by up to ~0.9–1.0% between dt=0.5 (default) and dt=0.05, which is as large as the gap measured. **Hypothesis:** most of the gap is PyWorld3's fixed-step error, not a model difference. Run #5 tests this against a fine-step PyWorld3 run and a tight-tolerance WorldDynamics.jl run.
+- **Which World3 version does each implement?** The package's test set is named `World3_03`; PyWorld3's documentation should be checked for the version it implements. Agreement within 1% suggests they are the same model, but this has to be confirmed from the documentation, not inferred.
+- WorldDynamics.jl's own test suite still errors 5/5. It calls the solver with default options, so this is expected and adds no new information.
+- Earth4All.jl: unchanged (see run #3, problem 4). Run #5 lists the repository layout to find out whether reference output ships with it.
+
+### Status of Phase 1 step 1.1 (T0)
+Not passed. Open: confirm the size of the numerical gap (run #5), log the solver-option decision, answer the World3-version question, and decide how Earth4All.jl is checked against Vensim.
+
 ## Run #3 (2026-10-05, F3 commit c4db929)
 
 **Environment:** Julia 1.10.12 · WorldDynamics.jl v1.0.0 · Earth4All.jl `16f37d0` (branch `master`) · PyWorld3 1.1

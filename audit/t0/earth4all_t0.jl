@@ -49,6 +49,22 @@ step("Load Earth4All module from the clone") do
     include(joinpath(CLONE, "src", "Earth4All.jl"))
 end
 
+# Discovery: repository layout of the clone (top two levels). Needed to find out
+# whether reference output for the Vensim comparison ships with the repository.
+step("Record the repository layout of the clone") do
+    lines = String[]
+    for (root, dirs, files) in walkdir(CLONE)
+        rel = relpath(root, CLONE)
+        (rel == ".git" || startswith(rel, ".git/")) && continue
+        depth = rel == "." ? 0 : length(splitpath(rel))
+        depth > 2 && continue
+        listing = isempty(files) ? "" : " — " * join(first(sort(files), 15), ", ") * (length(files) > 15 ? ", …" : "")
+        push!(lines, "$(rel)/  ($(length(files)) files)$(listing)")
+    end
+    write(joinpath(OUT, "earth4all_repo_tree.txt"), join(lines, "\n") * "\n")
+    push!(REPORT, "  - " * join(first(lines, 30), "\n  - "))
+end
+
 # Discovery: record what the module offers, so T1–T4 can target real names.
 step("List module functions in `earth4all_module_names.txt`") do
     mod = getfield(Main, :Earth4All)
