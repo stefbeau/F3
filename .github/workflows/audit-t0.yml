@@ -1,0 +1,113 @@
+# F3 — Phase 1, Step 1.0 + 1.1: reference environment and T0 sanity check.
+# Runs only when started by hand (Actions tab → "Audit T0" → Run workflow).
+name: Audit T0 — reference sanity check
+
+on:
+  workflow_dispatch:
+    inputs:
+      earth4all_ref:
+        description: "Earth4All.jl git ref to audit (branch, tag or commit hash)"
+        required: true
+        default: "main"
+
+permissions:
+  contents: read
+
+jobs:
+  t0:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      F3_OUT: ${{ github.workspace }}/audit/results
+      E4A_REF: ${{ inputs.earth4all_ref }}
+    steps:
+      - name: Check out F3
+        uses: actions/checkout@v4
+
+      - name: Set up Julia 1.10 (LTS)
+        uses: julia-actions/setup-julia@v2
+        with:
+          version: "1.10"
+
+      - name: Cache Julia packages
+        uses: julia-actions/cache@v2
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Prepare output folder
+        run: mkdir -p "$F3_OUT"
+
+      # ---- World3 reference (D-012) ----
+      - name: Install WorldDynamics.jl v1.0.0
+        run: >
+          julia --project=audit/env -e
+          'using Pkg;
+          Pkg.add(name="WorldDynamics", version="1.0.0");
+          Pkg.add(["DataFrames", "CSV"]);
+          Pkg.precompile()'
+
+      - name: T0.1 — World3 with WorldDynamics.jl
+        continue-on-error: true
+        run: julia --project=audit/env audit/t0/world3_t0.jl
+
+      # ---- Earth4All reference (D-011): run as published, outside the F3 repo ----
+      - name: Clone Earth4All.jl at the requested ref
+        run: |
+          git clone https://github.com/worlddynamics/Earth4All.jl "$RUNNER_TEMP/Earth4All.jl"
+          cd "$RUNNER_TEMP/Earth4All.jl"
+          git checkout "$E4A_REF"
+          echo "EARTH4ALL_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Install the Earth4All.jl environment as published
+        run: >
+          julia --project="$RUNNER_TEMP/Earth4All.jl" -e
+          'using Pkg; Pkg.instantiate(); Pkg.add(["DataFrames", "CSV"])'
+
+      - name: T0.2 — Earth4All with Earth4All.jl
+        continue-on-error: true
+        run: julia --project="$RUNNER_TEMP/Earth4All.jl" audit/t0/earth4all_t0.jl "$RUNNER_TEMP/Earth4All.jl"
+
+      # ---- World3 second check (D-012) ----
+      - name: T0.3 — World3 with PyWorld3 (unmodified)
+        continue-on-error: true
+        run: |
+          pip install pyworld3 pandas matplotlib
+          python audit/t0/pyworld3_t0.py
+
+      - name: T0.4 — Cross-check WorldDynamics.jl vs PyWorld3
+        continue-on-error: true
+        run: python audit/t0/compare_world3.py
+
+      # ---- Provenance ----
+      - name: Record exact versions used
+        run: |
+          {
+            echo "## Versions used in this run"
+            echo ""
+            echo "- Run date (UTC): $(date -u +%Y-%m-%dT%H:%MZ)"
+            echo "- F3 commit: \`$GITHUB_SHA\`"
+            echo "- Julia: \`$(julia --version)\`"
+            echo "- Earth4All.jl commit: \`${EARTH4ALL_COMMIT:-not cloned}\`"
+            echo "- PyWorld3: \`$(pip show pyworld3 2>/dev/null | grep '^Version' || echo 'not installed')\`"
+            echo ""
+            echo "### WorldDynamics.jl environment"
+            echo '```'
+            julia --project=audit/env -e 'using Pkg; Pkg.status()'
+            echo '```'
+          } > "$F3_OUT/t0_0_versions_report.md"
+          cp audit/env/Project.toml audit/env/Manifest.toml "$F3_OUT/" || true
+
+      - name: Publish summary on the run page
+        if: always()
+        run: cat "$F3_OUT"/t0_*_report.md >> "$GITHUB_STEP_SUMMARY" || true
+
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-t0-results
+          path: audit/results/
+          retention-days: 90
