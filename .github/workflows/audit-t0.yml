@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
     inputs:
       earth4all_ref:
-        description: "Earth4All.jl git ref to audit (branch, tag or commit hash)"
-        required: true
-        default: "main"
+        description: "Earth4All.jl git ref to audit (branch, tag or commit hash). Leave empty for the repository's default branch."
+        required: false
+        default: ""
 
 permissions:
   contents: read
@@ -42,6 +42,7 @@ jobs:
 
       # ---- World3 reference (D-012) ----
       - name: Install WorldDynamics.jl v1.0.0
+        continue-on-error: true
         run: >
           julia --project=audit/env -e
           'using Pkg;
@@ -55,13 +56,16 @@ jobs:
 
       # ---- Earth4All reference (D-011): run as published, outside the F3 repo ----
       - name: Clone Earth4All.jl at the requested ref
+        continue-on-error: true
         run: |
           git clone https://github.com/worlddynamics/Earth4All.jl "$RUNNER_TEMP/Earth4All.jl"
           cd "$RUNNER_TEMP/Earth4All.jl"
-          git checkout "$E4A_REF"
+          if [ -n "$E4A_REF" ]; then git checkout "$E4A_REF"; fi
+          echo "EARTH4ALL_BRANCH=$(git rev-parse --abbrev-ref HEAD)" >> "$GITHUB_ENV"
           echo "EARTH4ALL_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
 
       - name: Install the Earth4All.jl environment as published
+        continue-on-error: true
         run: >
           julia --project="$RUNNER_TEMP/Earth4All.jl" -e
           'using Pkg; Pkg.instantiate(); Pkg.add(["DataFrames", "CSV"])'
@@ -83,6 +87,7 @@ jobs:
 
       # ---- Provenance ----
       - name: Record exact versions used
+        if: always()
         run: |
           {
             echo "## Versions used in this run"
@@ -90,7 +95,7 @@ jobs:
             echo "- Run date (UTC): $(date -u +%Y-%m-%dT%H:%MZ)"
             echo "- F3 commit: \`$GITHUB_SHA\`"
             echo "- Julia: \`$(julia --version)\`"
-            echo "- Earth4All.jl commit: \`${EARTH4ALL_COMMIT:-not cloned}\`"
+            echo "- Earth4All.jl commit: \`${EARTH4ALL_COMMIT:-not cloned}\` (branch: ${EARTH4ALL_BRANCH:-unknown})"
             echo "- PyWorld3: \`$(pip show pyworld3 2>/dev/null | grep '^Version' || echo 'not installed')\`"
             echo ""
             echo "### WorldDynamics.jl environment"
