@@ -85,6 +85,35 @@ jobs:
         continue-on-error: true
         run: python audit/t0/compare_world3.py
 
+      # ---- The packages' own test suites, as published ----
+      - name: T0.5 — WorldDynamics.jl test suite
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          julia --project=audit/env -e 'using Pkg; Pkg.test("WorldDynamics")' 2>&1 | tee "$F3_OUT/worlddynamics_tests.log" | tail -n 40
+
+      - name: T0.5 — Earth4All.jl test suite
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          if [ -d "$RUNNER_TEMP/Earth4All.jl/test" ]; then
+            julia --project="$RUNNER_TEMP/Earth4All.jl" -e 'using Pkg; Pkg.test()' 2>&1 | tee "$F3_OUT/earth4all_tests.log" | tail -n 40
+          else
+            echo "No test folder in Earth4All.jl" | tee "$F3_OUT/earth4all_tests.log"
+          fi
+
+      - name: T0.5 — Summarize test outcomes
+        if: always()
+        run: |
+          {
+            echo "## T0.5 — Package test suites (as published)"
+            for f in worlddynamics earth4all; do
+              echo ""; echo "### $f"; echo '```'
+              tail -n 25 "$F3_OUT/${f}_tests.log" 2>/dev/null || echo "no log"
+              echo '```'
+            done
+          } > "$F3_OUT/t0_5_tests_report.md"
+
       # ---- Provenance ----
       - name: Record exact versions used
         if: always()
