@@ -21,6 +21,15 @@ try:
     wd = pd.read_csv(OUT / "world3_worlddynamics_states.csv")
     py = pd.read_csv(OUT / "world3_pyworld3.csv")
     time_col = wd.columns[0]
+    # Guard added after run #3: a one-row export produced a false "0.00% gap"
+    # (it compared only the shared 1900 starting value).
+    MIN_POINTS = 50
+    if len(wd) < MIN_POINTS:
+        raise ValueError(f"WorldDynamics.jl export has only {len(wd)} time points "
+                         f"(need >= {MIN_POINTS}); comparison would be meaningless")
+    if wd[time_col].min() > 1901 or wd[time_col].max() < 2099:
+        raise ValueError(f"WorldDynamics.jl time range {wd[time_col].min():.0f}-"
+                         f"{wd[time_col].max():.0f} does not cover 1900-2100")
     cohorts = {}
     for col in wd.columns[1:]:
         m = COHORT.search(col)
@@ -37,6 +46,7 @@ try:
         py_pop = np.interp(wd_t, py["time"], py["pop"])
         rel = np.abs(wd_pop - py_pop) / py_pop
         worst = int(np.argmax(rel))
+        report.append(f"- Time points compared: {len(wd_t)} ({wd_t.min():.0f}-{wd_t.max():.0f})")
         report.append(f"- Columns used: `{cols}`")
         report.append(f"- Maximum relative gap: **{rel.max() * 100:.2f}%** in {wd_t[worst]:.0f}")
         report.append(f"- Mean relative gap: {rel.mean() * 100:.2f}%")

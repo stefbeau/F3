@@ -3,6 +3,7 @@
 # Run from the repository root:
 #   julia --project=audit/env audit/t0/world3_t0.jl
 #
+# RUN #4 (run #3 notes below still apply).
 # RUN #3. Run #2 showed that `World3.fig_7()` fails inside the package:
 # `historicalrunsolution()` (plots.jl:6) calls `solve`, which is not visible in
 # the World3 module. `WorldDynamics.solve` itself exists. This version
@@ -66,16 +67,26 @@ end
 
 step("Solve it with `WorldDynamics.solve(system, (1900, 2100))`") do
     SOL[] = Base.invokelatest(WorldDynamics.solve, SYS[], (1900, 2100))
-    push!(REPORT, "  - solution type: `$(typeof(SOL[]))`")
+    push!(REPORT, "  - solved: $(length(SOL[].t)) time points")
 end
 
 step("Export states to `world3_worlddynamics_states.csv`") do
-    df = DataFrame(SOL[])
+    sol = SOL[]
+    # Run #3: DataFrame(sol) returned 1 row x 30 columns, i.e. NOT the time series.
+    # Build the table explicitly: sol.t = times, sol.u = one state vector per time.
+    ts = collect(sol.t)
+    length(ts) >= 50 || error("solution has only $(length(ts)) time points")
+    MTK = parentmodule(typeof(SYS[]))                 # ModelingToolkit
+    syms = string.(Base.invokelatest(MTK.unknowns, sol.prob.f.sys))
+    M = permutedims(reduce(hcat, sol.u))              # time x states
+    size(M, 2) == length(syms) || error("$(size(M, 2)) state columns but $(length(syms)) names")
+    df = DataFrame(M, syms; makeunique = true)
+    insertcols!(df, 1, :time => ts)
     CSV.write(joinpath(OUT, "world3_worlddynamics_states.csv"), df)
     open(joinpath(OUT, "world3_worlddynamics_columns.txt"), "w") do io
         foreach(c -> println(io, c), names(df))
     end
-    push!(REPORT, "  - $(nrow(df)) time points, $(ncol(df)) columns")
+    push!(REPORT, "  - $(nrow(df)) time points from $(first(ts)) to $(last(ts)), $(ncol(df)) columns")
     pop_cols = [c for c in names(df) if occursin(r"(^|[₊.])p[1-4](\(t\))?$", c)]
     push!(REPORT, "  - candidate population-cohort columns: `$(pop_cols)`")
 end
