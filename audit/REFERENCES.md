@@ -4,10 +4,10 @@ Every external model F3 audits or ports from, pinned to an exact version. Update
 
 | Reference | Role | License | Pinned version | Status |
 |---|---|---|---|---|
-| WorldDynamics.jl | World3 reference (D-012) | MIT | v1.0.0 | Pinned |
-| Earth4All.jl | Earth4All reference for audit (D-011) | MIT | Commit hash to record from the first T0 run | ⏳ Pending first run |
-| PyWorld3 | Independent World3 second check, used unmodified (D-001, D-012) | CeCILL 2.1 | Version to record from the first T0 run | ⏳ Pending first run |
-| Julia | Runtime | MIT | 1.10 (LTS); exact patch version recorded per run | Pinned to 1.10 series |
+| WorldDynamics.jl | World3 reference (D-012) | MIT | v1.0.0 | ⚠️ Installs; `World3.fig_7()` fails in v1.0.0 (see T0 run #2), workaround under test |
+| Earth4All.jl | Earth4All reference for audit (D-011) | MIT | Commit `16f37d013a2f68135f03e7815bf861dbf47311f2` (branch `master`), observed in T0 run #2 | 🟡 Runs; awaiting figure review |
+| PyWorld3 | Independent World3 second check, used unmodified (D-001, D-012) | CeCILL 2.1 | 1.1, observed in T0 run #2 | 🟡 Runs; awaiting figure review |
+| Julia | Runtime | MIT | 1.10 series; 1.10.12 in T0 run #2 | Pinned to 1.10 series |
 
 ## How a pin is updated
 

@@ -6,7 +6,7 @@ This folder holds everything needed to **rerun F3's audits of external models** 
 
 Audits run on **GitHub Actions**, not on anyone's personal machine, so every run is public, logged and reproducible.
 
-To run T0: open the repository's **Actions** tab, select **Audit T0 — reference sanity check**, click **Run workflow**, keep the default ref (`main`) and confirm. A run takes roughly 20–60 minutes; most of that time is Julia installing and compiling packages.
+To run T0: open the repository's **Actions** tab, select **Audit T0 — reference sanity check**, click **Run workflow**, leave the ref box empty (Earth4All.jl's default branch is `master`) and confirm. A run takes roughly 20–60 minutes; most of that time is Julia installing and compiling packages.
 
 Results appear in two places:
 
