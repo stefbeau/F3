@@ -3,24 +3,28 @@
 # Run from the repository root:
 #   julia --project=audit/env audit/t0/world3_t0.jl
 #
-# RUN #4 (run #3 notes below still apply).
-# RUN #3. Run #2 showed that `World3.fig_7()` fails inside the package:
-# `historicalrunsolution()` (plots.jl:6) calls `solve`, which is not visible in
-# the World3 module. `WorldDynamics.solve` itself exists. This version
-#   1. repeats the plain call (to keep the failure documented),
-#   2. solves the historical run directly: World3.historicalrun() + WorldDynamics.solve,
-#   3. retries Figure 7.7 after making `solve` visible inside the World3 module.
-# Step 3 only changes name visibility at run time. No equation, parameter or
-# package file is modified. Every step is isolated and reported.
+# RUN #4 — diagnosis revised after reading the package's own test log (run #3):
+#   * Its tests fail with `BoundsError: attempt to access 1-element Vector{Float64}`,
+#     i.e. the solver returns a ONE-point solution. That also explains the empty
+#     Figure 7.7 and the 1-row export seen in run #3 (not an export problem).
+#   * The log shows a warning "Initialization system is overdetermined. 16 equations
+#     for 7 unknowns" and dependencies far newer than the package (ModelingToolkit
+#     v9.84.0, OrdinaryDiffEq v6.105.0; the package dates from April 2024).
+#   * Working hypothesis (NOT yet confirmed): the solver's initialization step fails
+#     and returns early. This script records the return code and tries the solver's
+#     documented initialization options. No equation, parameter or package file is
+#     modified; only solver options are changed, and the cross-check against PyWorld3
+#     then decides whether the result is right.
 
-using WorldDynamics, DataFrames, CSV
+using WorldDynamics, DataFrames, CSV, Pkg
 
 const OUT = get(ENV, "F3_OUT", joinpath(@__DIR__, "..", "results"))
 mkpath(OUT)
 const REPORT = ["## T0 — World3 reference (WorldDynamics.jl)", ""]
 const W3 = WorldDynamics.World3
 const SYS = Ref{Any}(nothing)
-const SOL = Ref{Any}(nothing)
+const SOL = Ref{Any}(nothing)     # first solution with enough time points
+const FIRST = Ref{Any}(nothing)   # any solution at all (used to locate SciMLBase)
 
 function step(f, name)
     try
@@ -35,29 +39,12 @@ function step(f, name)
     end
 end
 
-function save_figure(fig, base)
-    saved = String[]
-    if showable(MIME"text/html"(), fig)
-        open(joinpath(OUT, base * ".html"), "w") do io
-            show(io, MIME"text/html"(), fig)
-        end
-        push!(saved, base * ".html")
+step("Versions of key packages in this environment") do
+    keep = ["WorldDynamics", "ModelingToolkit", "DifferentialEquations", "OrdinaryDiffEq",
+            "OrdinaryDiffEqCore", "SciMLBase", "DiffEqBase"]
+    for (_, info) in Pkg.dependencies()
+        info.name in keep && push!(REPORT, "  - $(info.name) $(info.version)")
     end
-    if showable(MIME"image/png"(), fig)
-        try
-            open(joinpath(OUT, base * ".png"), "w") do io
-                show(io, MIME"image/png"(), fig)
-            end
-            push!(saved, base * ".png")
-        catch
-        end
-    end
-    isempty(saved) && error("figure of type $(typeof(fig)) could not be saved as HTML or PNG")
-    push!(REPORT, "  - saved: " * join(saved, ", ") * " (type `$(typeof(fig))`)")
-end
-
-step("Plain `World3.fig_7()` (known to fail in v1.0.0 — see run #2)") do
-    save_figure(Base.invokelatest(W3.fig_7), "world3_fig_7_7_plain")
 end
 
 step("Build the system with `World3.historicalrun()`") do
@@ -65,17 +52,44 @@ step("Build the system with `World3.historicalrun()`") do
     push!(REPORT, "  - returned type: `$(typeof(SYS[]))`")
 end
 
-step("Solve it with `WorldDynamics.solve(system, (1900, 2100))`") do
-    SOL[] = Base.invokelatest(WorldDynamics.solve, SYS[], (1900, 2100))
-    push!(REPORT, "  - solved: $(length(SOL[].t)) time points")
+# One solve attempt. Never throws away information: the return code and the
+# number of time points are always reported.
+function attempt(label, kw)
+    step("Solve (1900–2100), $label") do
+        sol = Base.invokelatest(WorldDynamics.solve, SYS[], (1900, 2100); kw...)
+        FIRST[] === nothing && (FIRST[] = sol)
+        n = length(sol.t)
+        push!(REPORT, "  - return code: `$(sol.retcode)`; $n time point(s); last time $(last(sol.t))")
+        if n >= 50
+            if SOL[] === nothing
+                SOL[] = sol
+                push!(REPORT, "  - **usable: this solution is used for the export and the cross-check**")
+            end
+        else
+            push!(REPORT, "  - ⚠️ not usable: too few time points")
+        end
+    end
+end
+
+attempt("default options", NamedTuple())
+
+step("Try solver initialization options") do
+    FIRST[] === nothing && error("no solution object available to locate SciMLBase")
+    SB = parentmodule(typeof(FIRST[]))
+    push!(REPORT, "  - solution type lives in module `$SB`")
+    for name in (:NoInit, :BrownFullBasicInit, :ShampineCollocationInit)
+        if isdefined(SB, name)
+            attempt("initializealg = $name()", (initializealg = getfield(SB, name)(),))
+        else
+            push!(REPORT, "  - ⚠️ `$name` not defined in `$SB`")
+        end
+    end
 end
 
 step("Export states to `world3_worlddynamics_states.csv`") do
     sol = SOL[]
-    # Run #3: DataFrame(sol) returned 1 row x 30 columns, i.e. NOT the time series.
-    # Build the table explicitly: sol.t = times, sol.u = one state vector per time.
+    sol === nothing && error("no solver variant produced a usable solution")
     ts = collect(sol.t)
-    length(ts) >= 50 || error("solution has only $(length(ts)) time points")
     MTK = parentmodule(typeof(SYS[]))                 # ModelingToolkit
     syms = string.(Base.invokelatest(MTK.unknowns, sol.prob.f.sys))
     M = permutedims(reduce(hcat, sol.u))              # time x states
@@ -91,10 +105,9 @@ step("Export states to `world3_worlddynamics_states.csv`") do
     push!(REPORT, "  - candidate population-cohort columns: `$(pop_cols)`")
 end
 
-step("Figure 7.7 after making `solve` visible inside World3 (run-time workaround)") do
-    isdefined(W3, :solve) || Core.eval(W3, :(solve = $(WorldDynamics.solve)))
-    save_figure(Base.invokelatest(W3.fig_7), "world3_fig_7_7")
-end
+# The package's own figure functions call `solve` with default options, so they
+# cannot work while the default solve returns a single point. Our own figure is
+# drawn from the exported CSV by compare_world3.py instead.
 
 write(joinpath(OUT, "t0_1_world3_report.md"), join(REPORT, "\n") * "\n")
 println(join(REPORT, "\n"))

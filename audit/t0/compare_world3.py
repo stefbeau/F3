@@ -56,6 +56,20 @@ try:
         pd.DataFrame({"time": wd_t, "pop_worlddynamics": wd_pop, "pop_pyworld3": py_pop,
                       "relative_gap": rel}).to_csv(OUT / "world3_population_crosscheck.csv",
                                                    index=False)
+        try:
+            import matplotlib
+            matplotlib.use("Agg")
+            import matplotlib.pyplot as plt
+            fig, ax = plt.subplots(figsize=(9, 5))
+            ax.plot(wd_t, wd_pop / 1e9, label="WorldDynamics.jl (sum of 4 cohorts)")
+            ax.plot(wd_t, py_pop / 1e9, "--", label="PyWorld3")
+            ax.set_xlabel("Year"); ax.set_ylabel("Population (billions)")
+            ax.set_title("World3 standard run: population, two implementations")
+            ax.legend(); fig.tight_layout()
+            fig.savefig(OUT / "world3_population_crosscheck.png", dpi=120)
+            report.append("- Figure saved: `world3_population_crosscheck.png`")
+        except Exception as e:
+            report.append(f"- (figure not produced: {e})")
 except FileNotFoundError as e:
     report.append(f"- ❌ Input missing (an earlier step failed): {e.filename}")
 except Exception as e:
