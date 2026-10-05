@@ -94,5 +94,40 @@ for (label, fname) in [("TLTL figure vs Vensim", :fig_baserun_tltl),
     end
 end
 
+# Numeric Julia-vs-Vensim check, using the package's OWN function `Earth4All.all_mre`
+# (src/functions.jl). It reads the Vensim output shipped inside the clone
+# (VensimOutput/<scenario>/<sector>.txt) at run time, from the clone only (D-011, D-014):
+# nothing from VensimOutput/ is copied into the F3 repository or into the results.
+# Error metric defined by the package: |julia - vensim| / (|vensim| + 1), over 7681 points.
+# The function prints one line per variable ("description<TAB>error"); we capture and
+# summarise those lines. The package's own run is not a test suite; we only report.
+for (scen, fname) in [("TLTL", :run_tltl_solution), ("GL", :run_gl_solution)]
+    step("Julia vs Vensim with the package's own `all_mre(\"$scen\", sol)`") do
+        mod = getfield(Main, :Earth4All)
+        isdefined(mod, :all_mre) || error("`all_mre` is not defined in the Earth4All module")
+        sol = Base.invokelatest(getfield(mod, fname))
+        logfile = joinpath(OUT, "earth4all_all_mre_$(scen).txt")
+        cd(CLONE) do                       # all_mre uses paths relative to the clone root
+            open(logfile, "w") do io
+                redirect_stdout(io) do
+                    Base.invokelatest(getfield(mod, :all_mre), scen, sol)
+                end
+            end
+        end
+        errs = Tuple{String,Float64}[]
+        for line in eachline(logfile)
+            parts = split(line, '\t')
+            length(parts) == 2 || continue
+            v = tryparse(Float64, strip(parts[2]))
+            v === nothing || push!(errs, (String(parts[1]), v))
+        end
+        isempty(errs) && error("no per-variable errors found in the captured output ($(basename(logfile)))")
+        sort!(errs; by = x -> -x[2])
+        push!(REPORT, "  - $(length(errs)) variables compared; maximum error **$(round(errs[1][2]; sigdigits = 3))** (`$(errs[1][1])`)")
+        push!(REPORT, "  - variables with error above 1e-3: $(count(x -> x[2] > 1e-3, errs)); above 1e-2: $(count(x -> x[2] > 1e-2, errs)); above 1e-1: $(count(x -> x[2] > 1e-1, errs))")
+        push!(REPORT, "  - ten largest: " * join(["`$(x[1])` ($(round(x[2]; sigdigits = 3)))" for x in errs[1:min(10, length(errs))]], "; "))
+    end
+end
+
 write(joinpath(OUT, "t0_2_earth4all_report.md"), join(REPORT, "\n") * "\n")
 println(join(REPORT, "\n"))

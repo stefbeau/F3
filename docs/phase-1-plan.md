@@ -1,6 +1,6 @@
 # F3 — Phase 1 Plan: Reproduce & Audit
 
-**Status:** Planned · **Depends on:** Phase 0 (complete) · **Governing decisions:** D-001, D-004, D-010, D-011, D-012 (proposed)
+**Status:** Planned · **Depends on:** Phase 0 (complete) · **Governing decisions:** D-001, D-004, D-010, D-011, D-012 (and proposed D-013, D-014)
 
 ---
 
@@ -40,7 +40,7 @@ Before auditing Earth4All, confirm the Julia implementation behaves as published
 - Run Earth4All.jl's "Too Little Too Late" and "Giant Leap" scenarios and regenerate its comparison figures against Vensim.
 - Run WorldDynamics.jl's World3 standard run and regenerate its comparison with the original book figure.
 
-**Pass:** Visual and numerical agreement with the published figures. Any mismatch is logged before going further.
+**Pass:** Visual and numerical agreement with the published figures. Any mismatch is logged before going further. For Earth4All.jl the numeric check is the package's own `all_mre` against the Vensim output in its repository (D-014). For WorldDynamics.jl the numeric check is the cross-check against PyWorld3 (D-013).
 ✋ **Checkpoint:** Editor-in-chief reviews the T0 figures.
 
 ### Step 1.2 — Earth4All audit (T1–T4)
@@ -58,12 +58,12 @@ Run on Earth4All.jl as published, for both scenarios, 1980–2100 unless stated.
 
 ### Step 1.3 — Audit verdict
 
-Turn the audit into a decision: a new entry in `DECISIONS.md` (D-013) listing, sector by sector, whether F3 **reuses**, **reuses with changes**, or **replaces** each Earth4All component. MODEL_SPEC is updated to match.
-✋ **Checkpoint:** Editor-in-chief approves D-013.
+Turn the audit into a decision: a new entry in `DECISIONS.md` (D-016) listing, sector by sector, whether F3 **reuses**, **reuses with changes**, or **replaces** each Earth4All component. MODEL_SPEC is updated to match.
+✋ **Checkpoint:** Editor-in-chief approves D-016.
 
 ### Step 1.4 — World3 population sector in Python (S1)
 
-Assumes D-012 is approved (port from WorldDynamics.jl with MIT attribution).
+Per D-012: port from WorldDynamics.jl with MIT attribution.
 
 1. **Port** the World3 population sector to `f3/sectors/s1_population.py`, with an attribution header and a `NOTICE` entry.
 2. **Test it in isolation.** The population sector depends on inputs from other World3 sectors (food, industrial output, services, pollution). For the test, these inputs are fed in as time series recorded from a full WorldDynamics.jl run, so the test isolates the population equations alone.
@@ -84,7 +84,7 @@ Update `MODEL_SPEC.md`, `README.md` and the roadmap; list open issues carried in
 | 1.0 | Validator | — | `audit/` environment, `REFERENCES.md` |
 | 1.1 | Validator | Research | T0 figures and notes |
 | 1.2 | Validator | Research (reads equations, links findings to the D-010 review) | `audit/earth4all-audit.md` |
-| 1.3 | Research | Validator | D-013 draft |
+| 1.3 | Research | Validator | D-016 draft |
 | 1.4 | Modeler | Validator (tests), Research (equation sources) | `f3/sectors/s1_population.py`, `tests/test_s1_population.py`, comparison report |
 | 1.5 | Publisher | All | Updated docs |
 
@@ -94,7 +94,7 @@ Phase 1 is complete when:
 
 - [ ] References pinned and T0 passed
 - [ ] T1–T4 run and published in `audit/earth4all-audit.md`
-- [ ] D-013 approved and MODEL_SPEC updated
+- [ ] D-016 approved and MODEL_SPEC updated
 - [ ] S1 population passes ±2% against WorldDynamics.jl, with PyWorld3 gaps explained
 - [ ] 1970 initialization decision logged
 - [ ] README roadmap updated

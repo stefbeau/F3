@@ -29,6 +29,8 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-010 | Scientific robustness of Earth4All as a baseline | Approved | 1 |
 | D-011 | Earth4All reference implementation (supersedes D-002) | Approved | 0 |
 | D-012 | World3 reference implementation | Approved | 1 |
+| D-013 | WorldDynamics.jl solver configuration | Proposed (awaits run #6) | 1 |
+| D-014 | Use of the Vensim output shipped with Earth4All.jl | Proposed | 1 |
 
 ---
 
@@ -213,6 +215,35 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Proposed by:** Claude (Research agent role)
 - **Decision:** Approved by Stéphane Beau
 - **Date:** 2026-10-04
+
+## D-013 — WorldDynamics.jl solver configuration
+
+- **Status:** Proposed (approval to wait for T0 run #6, see acceptance condition)
+- **Context:** With the dependency versions that install today (ModelingToolkit 9.84.0, DifferentialEquations 7.17.0, OrdinaryDiffEq 6.105.0, SciMLBase 2.153.1), `WorldDynamics.solve` on the World3 system returns `InitialFailure` and a single time point. The package's own warning says its initialization system is overdetermined (16 equations for 7 unknowns). With `initializealg = NoInit()` the same call returns `Success` over 1900–2100. Only a solver option changes; no equation, parameter or package file does. T0 run #5 population results: all solver variants within 0.5–0.7% (max) of PyWorld3 run at a fine time step; tightening the solver tolerance to 1e-8 did not bring the result closer (0.67% vs 0.53%), so the remaining gap is not a WorldDynamics.jl tolerance effect. Its cause is not yet explained.
+- **Proposal:**
+  1. F3 uses WorldDynamics.jl only with `initializealg = NoInit()` and saves the solution every 0.5 year. This is a documented deviation from the package defaults.
+  2. The dependency versions of an approved audit run are pinned by committing `audit/env/Project.toml` and `Manifest.toml`.
+  3. **Acceptance condition:** the decision is approved only if T0 run #6 shows all twelve main stocks within ±2% of the fine-step PyWorld3 run (dt=0.05), with the largest gaps explained in `audit/T0-FINDINGS.md`.
+  4. With the editor-in-chief's agreement, the `InitialFailure` behaviour is reported to the WorldDynamics.jl maintainers as an issue.
+- **Alternatives considered:** Pin older versions of the dependencies the package was built against (April 2024), which needs a separate experiment; port World3 from the book's equations without the package (highest error risk).
+- **Sources:** T0 runs #3–#5 (`audit/T0-FINDINGS.md`); WorldDynamics.jl v1.0.0 `src/solvesystems.jl`.
+- **Proposed by:** Claude (Validator agent role)
+- **Decision:** —
+- **Date:** —
+
+## D-014 — Use of the Vensim output shipped with Earth4All.jl
+
+- **Status:** Proposed
+- **Context:** The Earth4All.jl repository (MIT-licensed, `LICENSE`: "Copyright (c) 2023 World Dynamics") contains `VensimOutput/{tltl,gl}/<sector>.txt` (twelve files per scenario) and `vensim_source/` (two `.mdl` model files). Its function `Earth4All.all_mre` compares the Julia solution with that Vensim output variable by variable (error metric |julia − vensim| / (|vensim| + 1)). It is not part of any test suite; the repository has no test folder. D-011 keeps the original Vensim files out of the F3 repository because their licence status is unclear.
+- **Proposal:**
+  1. The audit may read `VensimOutput/` from a clone made at run time, to run the package's own `all_mre`. This is the numeric check that Earth4All.jl matches Vensim.
+  2. Nothing from `VensimOutput/` or `vensim_source/` is copied into the F3 repository or into stored results. Stored results contain only per-variable error figures and variable names.
+  3. `vensim_source/` is not used at all.
+- **Alternatives considered:** Ask the Earth4All team for explicit permission first (slower); skip the numeric check and rely on visual comparison only (weaker).
+- **Sources:** `src/functions.jl` and `LICENSE` of Earth4All.jl at commit `16f37d0`.
+- **Proposed by:** Claude (Research agent role)
+- **Decision:** —
+- **Date:** —
 
 ---
 

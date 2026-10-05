@@ -2,6 +2,30 @@
 
 Factual record of what each T0 run showed. Updated after every run; nothing is deleted, only superseded.
 
+## Run #5 (2026-10-05, F3 commit c04f249)
+
+### Confirmed
+- **Solver variants (WorldDynamics.jl, `World3`):** default options → `InitialFailure`, 1 point; `NoInit()` → `Success` with 50 points; `NoInit()` + `saveat = 0.5` → 401 points; `NoInit()` + `saveat = 0.5` + tolerance 1e-8 → 401 points.
+- **Population cross-check, all three usable variants** (max / mean): vs PyWorld3 dt=0.5: 0.91 / 0.43 %, 0.91 / 0.50 %, 0.97 / 0.53 %; vs PyWorld3 dt=0.05: 0.53 / 0.24 %, 0.54 / 0.25 %, 0.67 / 0.31 %. All within the ±2% band of D-004.
+- **Both implementations are the 1974 World3 model.** WorldDynamics.jl's `World3` module reproduces *Dynamics of Growth in a Finite World* (README, Figure 7.7); PyWorld3 documents the same book. (WorldDynamics.jl also contains `World3_91` and `World3_03`, the 2004 update.) The like-for-like question from run #4 is answered.
+- **The package's failing tests are for a different variant.** Its test suite covers `World3_03`, not the `World3` module audited here. Their failure (`BoundsError` on a 1-element vector) is consistent with the same initialization problem but was not verified for that variant.
+- **Earth4All.jl ships Vensim reference output** (`VensimOutput/tltl` and `VensimOutput/gl`, twelve sector files each) and the two Vensim `.mdl` sources (`vensim_source/`). The package has its own numeric comparison function `Earth4All.all_mre(scenario, solution)` (error |julia − vensim| / (|vensim| + 1)), which is not wired into any test. Its README validates by visual comparison of figures. The audited commit is `16f37d0` (21 Sep 2026), licence MIT.
+
+### My prediction that did not hold
+Run #4 notes predicted that a tight-tolerance WorldDynamics.jl run would land within a few hundredths of a percent of fine-step PyWorld3. It did not: the tight run is slightly *farther* away (0.67%) than the loose ones (0.53%). So the remaining gap of about 0.5–0.7% in population is **not** explained by PyWorld3's step size alone (that explained part of it: 0.9% → 0.5%) and **not** by WorldDynamics.jl's tolerance. Cause unknown. Candidates, none tested: small differences in how the two codes implement delays or smoothing, in table interpolation, or in the timing of the switched policy inputs.
+
+### Local test of the yardstick (PyWorld3 1.1, run on the same code outside CI)
+PyWorld3 at its default step is far from its own fine-step run for some stocks: maximum gap by stock (year): p1 1.45 % (2025), p2 0.96 % (2043), p3 1.14 % (2054), p4 1.62 % (1986), ic 2.54 % (2040), sc 3.42 % (2030), al 0.81 % (1994), pal 1.89 % (2006), uil 2.01 % (1992), lfert 2.41 % (2042), ppol 11.57 % (1904), nr 3.51 % (2018). **Consequence:** a ±2% test against PyWorld3 at dt=0.5 could fail a correct implementation. Comparisons must use the fine-step run (and D-012 already makes WorldDynamics.jl, not PyWorld3, the primary reference for the Python port).
+
+### Still open
+- All main stocks, not only population, still have to be compared with real data (run #6).
+- The residual gap is unexplained (see above).
+- Earth4All.jl has not yet been compared numerically with Vensim (run #6 runs the package's own `all_mre`; needs D-014).
+- Which World3 variant (1974 or 2003) F3's population sector should be based on has to be decided before step 1.4. WorldDynamics.jl offers both; the 2003 variant is the one in *The Limits to Growth: The 30-Year Update*.
+
+### Status of Phase 1 step 1.1 (T0)
+Not passed. Population is within ±2% of the references; the rest of the T0 evidence is being collected in run #6.
+
 ## Run #4 (2026-10-05, F3 commit 78f260e)
 
 ### Confirmed

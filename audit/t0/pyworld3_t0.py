@@ -16,9 +16,14 @@ OUT = Path(os.environ.get("F3_OUT", Path(__file__).resolve().parents[1] / "resul
 OUT.mkdir(parents=True, exist_ok=True)
 report = ["## T0 — World3 second check (PyWorld3)", ""]
 
-# Key World3 variables: population, nonrenewable resource fraction, industrial
-# output per capita, food per capita, persistent pollution index, life expectancy.
-VARIABLES = ["pop", "nrfr", "iopc", "fpc", "ppolx", "le"]
+# Plotted variables: population, nonrenewable resource fraction, industrial output
+# per capita, food per capita, persistent pollution index, life expectancy.
+PLOTTED = ["pop", "nrfr", "iopc", "fpc", "ppolx", "le"]
+# Main stocks (levels) compared with WorldDynamics.jl: population cohorts, industrial
+# and service capital, arable land, potentially arable land, urban-industrial land,
+# land fertility, persistent pollution, nonrenewable resources.
+STOCKS = ["p1", "p2", "p3", "p4", "ic", "sc", "al", "pal", "uil", "lfert", "ppol", "nr"]
+VARIABLES = STOCKS + PLOTTED
 
 
 def solve(dt):
@@ -56,6 +61,17 @@ try:
         report.append(f"- PyWorld3's own time-step error in population (dt=0.5 vs dt=0.05): "
                       f"max {rel.max() * 100:.2f}% in {df['time'].iloc[int(rel.argmax())]:.0f}, "
                       f"mean {rel.mean() * 100:.2f}%")
+        # Same for every stock (same gap metric as compare_world3.py: denominator floored
+        # at 0.1% of the variable's maximum). Shows how far PyWorld3 at its default step
+        # is from its own near-continuous limit, i.e. how good a yardstick it is.
+        rows = []
+        for v in STOCKS:
+            if v in df and v in fine:
+                ref = np.interp(df["time"], fine["time"], fine[v])
+                floor = 1e-3 * np.abs(fine[v]).max()
+                r = np.abs(df[v].to_numpy() - ref) / np.maximum(np.abs(ref), floor if floor > 0 else 1.0)
+                rows.append(f"`{v}` {r.max() * 100:.2f}% ({df['time'].iloc[int(r.argmax())]:.0f})")
+        report.append("- Time-step error by stock, max (year of max): " + "; ".join(rows))
     except Exception as e:
         report.append(f"- ⚠️ Fine run failed: {type(e).__name__}: {e}")
 
@@ -65,7 +81,7 @@ try:
         import matplotlib.pyplot as plt
 
         fig, ax = plt.subplots(figsize=(9, 5))
-        for v in VARIABLES:
+        for v in PLOTTED:
             if v in df:
                 ax.plot(df["time"], df[v] / df[v].max(), label=v)
         ax.set_title("World3 standard run (PyWorld3) — each variable scaled to its maximum")
