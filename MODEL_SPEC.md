@@ -1,7 +1,7 @@
 # F3 — Foundation for Earth
 ## Global Model Specification · v0.1 (draft)
 
-**Status:** v0.1 draft, updated after decisions D-001 to D-004, D-010 and D-011 · **Owner:** Stéphane Beau (editor-in-chief) · **Repo:** github.com/stefbeau/f3
+**Status:** v0.1 draft, updated after decisions D-001 to D-004, D-010, D-011 and D-012 · **Owner:** Stéphane Beau (editor-in-chief) · **Repo:** github.com/stefbeau/f3
 **Last updated:** 2026-10-04
 
 ---
@@ -41,15 +41,15 @@ F3 does not predict the future. Every output is a **conditional scenario**: *if*
 | Time step | 1 year for output; 0.25 year internal integration (to be confirmed, see D-003) |
 | Spatial resolution | One global region |
 | Language | Python 3.11+ |
-| Core libraries | PyWorld3 (unmodified, for reproduction tests only — see D-001), FaIR (climate emulator), NumPy, pandas, SALib (sensitivity analysis) |
-| Reference implementations | Earth4All.jl (MIT), run in Julia for the D-010 audit tests T1–T4; passing components ported to Python (D-011) |
+| Core libraries | FaIR (climate emulator), NumPy, pandas, SALib (sensitivity analysis) |
+| Reference implementations | WorldDynamics.jl v1.0.0 (MIT) for World3 (D-012); Earth4All.jl (MIT) for the D-010 audit tests T1–T4 (D-011); PyWorld3, unmodified, as an independent second check for World3. All pinned in `audit/REFERENCES.md`. |
 | Uncertainty | Monte Carlo (≥1,000 runs per scenario) with Latin hypercube sampling |
 
 ### Sector map
 
 | # | Sector | Primary source model | New in F3? |
 |---|---|---|---|
-| S1 | Population | World3 population sector (re-implemented from published equations) | Adapted |
+| S1 | Population | World3 population sector (ported from WorldDynamics.jl with attribution) | Adapted |
 | S2 | Economy & capital | Earth4All output/demand structure, conditional on audit (D-010); GATE task-based production | Adapted, conditional |
 | S3 | AI development & automation | GATE | Adapted, newly coupled |
 | S4 | Energy | Earth4All capacity structure + new data-center module, coupled to material limits | Extended |
@@ -67,7 +67,7 @@ Notation is indicative. Final equations are fixed in v0.2 after the reproduction
 
 ### S1 — Population
 
-- **Origin:** World3 population sector (age cohorts, fertility, mortality in every cohort), re-implemented from the published equations rather than copied from PyWorld3 (D-001). Well-being moves to S7.
+- **Origin:** World3 population sector (age cohorts, fertility, mortality in every cohort), ported from WorldDynamics.jl (MIT) with attribution (D-012). Well-being moves to S7.
 - **Key stocks:** Population by age group (0–14, 15–44, 45–64, 65+).
 - **Key flows:** Births, deaths, aging.
 - **Drivers:** Income per person, food per person (World3 agriculture sector in v0.1), health services, temperature stress (from S6), well-being (from S7).
@@ -177,7 +177,7 @@ The scientific core of F3 is the race between **R1/R3** (AI-driven acceleration)
 
 ## 7. Validation plan
 
-1. **Reproduction tests:** F3's World3-based sectors match the published World3 standard run (checked against unmodified PyWorld3) within ±2% (D-004). Earth4All components are audited with tests T1–T4 (D-010) before any reuse.
+1. **Reproduction tests:** F3's World3-based sectors match WorldDynamics.jl within ±2% (D-004), with unmodified PyWorld3 as an independent second check (D-012). Earth4All components are audited with tests T1–T4 (D-010) before any reuse.
 2. **Backtest 1970–2025:** Key outputs (population, GDP, energy, CO₂, temperature) compared with observed data, with error metrics reported.
 3. **AI-sector check:** With F3 constraints switched off, S3 approximately reproduces GATE sandbox presets.
 4. **Sensitivity analysis:** Sobol indices (SALib) identify which parameters drive outcome uncertainty.
@@ -206,6 +206,7 @@ The scientific core of F3 is the race between **R1/R3** (AI-driven acceleration)
 | D-001 | Licensing | **Approved:** Apache 2.0 for code, CC BY 4.0 for docs and data; no PyWorld3 code copied |
 | D-002 | Earth4All integration route | Superseded by D-011 |
 | D-011 | Earth4All reference implementation | **Approved:** Earth4All.jl only; audit in Julia, port only what passes |
+| D-012 | World3 reference implementation | **Approved:** port from WorldDynamics.jl (MIT) with attribution; PyWorld3 as second check |
 | D-003 | Internal time step | **Approved:** 0.25 year |
 | D-004 | Reproduction tolerance | **Approved:** ±2% on key variables |
 | D-005 | AI sector integration | Re-implement GATE's three modules in simplified form (GATE's optimization-based investment is replaced by a behavioral rule) |

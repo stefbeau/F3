@@ -1,0 +1,14 @@
+F3 — Foundation for Earth
+Copyright 2026 Stéphane Beau
+
+This product includes software developed by third parties:
+
+WorldDynamics.jl
+  Copyright (c) the WorldDynamics.jl contributors
+  (Pierluigi Crescenzi, Emanuele Natale, Aurora Rossi, Paulo Bruno Serafim and others)
+  https://github.com/worlddynamics/WorldDynamics.jl
+  Licensed under the MIT License.
+  Portions of F3's World3-based sectors are ported from this project (see D-012).
+
+The full MIT License text for each attributed project is reproduced in
+licenses/ when the first ported file is committed.

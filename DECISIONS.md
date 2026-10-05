@@ -28,7 +28,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-009 | Dashboard stack | Proposed (deferred) | 4 |
 | D-010 | Scientific robustness of Earth4All as a baseline | Approved | 1 |
 | D-011 | Earth4All reference implementation (supersedes D-002) | Approved | 0 |
-| D-012 | World3 reference implementation | Proposed | 1 |
+| D-012 | World3 reference implementation | Approved | 1 |
 
 ---
 
@@ -199,7 +199,7 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 
 ## D-012 — World3 reference implementation
 
-- **Status:** Proposed
+- **Status:** Approved
 - **Context:** Found while preparing Phase 1. WorldDynamics.jl, from the same research group as Earth4All.jl (Université Côte d'Azur, Inria, CNRS), is **MIT-licensed**. It implements World3 and reproduces figures from *Dynamics of Growth in a Finite World*, and it also contains an Earth4All implementation. Under D-001, F3 can only use PyWorld3 (CeCILL 2.1) unmodified, which forces a re-implementation of World3 from the book's equations — the most error-prone route.
 - **Proposal:**
   1. Use **WorldDynamics.jl** (pinned to v1.0.0) as F3's World3 reference.
@@ -211,8 +211,8 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Alternatives considered:** Re-implement from the book (higher error risk); use PyWorld3 code (not allowed under D-001).
 - **Sources:** github.com/worlddynamics/WorldDynamics.jl; Crescenzi et al. (2024), *Journal of Open Source Software* 9(95), 5772.
 - **Proposed by:** Claude (Research agent role)
-- **Decision:** —
-- **Date:** —
+- **Decision:** Approved by Stéphane Beau
+- **Date:** 2026-10-04
 
 ---
 
