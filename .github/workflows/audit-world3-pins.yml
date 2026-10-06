@@ -1,0 +1,95 @@
+# F3 — World3 reference: search for a dependency set in which WorldDynamics.jl v1.0.0
+# solves the World3 system with DEFAULT solver options (no workaround).
+# Background: with the newest ModelingToolkit it returns InitialFailure (T0 runs #3-#7).
+# The package accepts any ModelingToolkit 9.x (compat "9.0") and was released in April
+# 2024 (ModelingToolkit 9.12 era). Each job pins one ModelingToolkit version; Pkg picks
+# the rest. Started by hand: Actions tab -> "Audit World3 - pinned dependency search".
+name: Audit World3 — pinned dependency search
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pin:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        mtk: ["9.12.0", "9.20.0", "9.28.0", "9.36.0", "9.44.0", "9.52.0", "9.60.0", "9.68.0", "9.76.0"]
+    env:
+      MTK: ${{ matrix.mtk }}
+      F3_OUT: ${{ github.workspace }}/audit/results/pin_${{ matrix.mtk }}
+    steps:
+      - name: Check out F3
+        uses: actions/checkout@v4
+
+      - name: Set up Julia 1.10 (LTS)
+        uses: julia-actions/setup-julia@v2
+        with:
+          version: "1.10"
+
+      - name: Cache Julia packages
+        uses: julia-actions/cache@v2
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Prepare output folder
+        run: mkdir -p "$F3_OUT"
+
+      - name: Install WorldDynamics.jl 1.0.0 with ModelingToolkit pinned
+        continue-on-error: true
+        run: |
+          julia --project=audit/env_pin -e '
+          using Pkg
+          mtk = VersionNumber(ENV["MTK"])
+          Pkg.add([PackageSpec(name="WorldDynamics", version="1.0.0"),
+                   PackageSpec(name="ModelingToolkit", version=mtk),
+                   PackageSpec(name="DataFrames"),
+                   PackageSpec(name="CSV")])
+          Pkg.precompile()'
+
+      - name: World3 with WorldDynamics.jl (default and NoInit variants)
+        continue-on-error: true
+        run: julia --project=audit/env_pin audit/t0/world3_t0.jl
+
+      - name: World3 with PyWorld3 (unmodified, plus diagnostic)
+        continue-on-error: true
+        run: |
+          pip install pyworld3 pandas matplotlib
+          python audit/t0/pyworld3_t0.py
+
+      - name: Cross-check WorldDynamics.jl vs PyWorld3
+        continue-on-error: true
+        run: python audit/t0/compare_world3.py
+
+      - name: Keep the exact environment of this job
+        if: always()
+        run: cp audit/env_pin/Project.toml audit/env_pin/Manifest.toml "$F3_OUT/" || true
+
+      - name: Compact summary on the run page
+        if: always()
+        run: |
+          {
+            echo "## ModelingToolkit ${MTK} pinned"
+            echo ""
+            echo '```'
+            grep -hE "ModelingToolkit [0-9]|SciMLBase [0-9]|OrdinaryDiffEq [0-9]|DiffEqBase [0-9]|DifferentialEquations [0-9]|return code|Solve \(|❌|not usable|not defined" "$F3_OUT/t0_1_world3_report.md" 2>/dev/null || echo "no World3 report (installation probably failed)"
+            echo ""
+            grep -hE '^- `|^  - vs' "$F3_OUT/t0_4_crosscheck_report.md" 2>/dev/null || echo "no cross-check report"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: world3-pin-${{ matrix.mtk }}
+          path: audit/results/
+          retention-days: 90
