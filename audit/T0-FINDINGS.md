@@ -23,13 +23,28 @@ Variables with 95th-percentile error above 1e-2, by sector (TLTL / GL, of total)
 
 **Labour market (D-010, test T2):** the stock variables agree with Vensim to about 0.3% at the worst point (*WorkForce Mp* maximum 0.0022 TLTL / 0.0026 GL; labour participation rate ≤ 0.0009; perceived unemployment ≤ 0.0015). The flow *CHange in WOrkforce* and *UNEMployed Mp* deviate more (UNEMployed: p95 0.058 / 0.095, maximum 0.078 TLTL / 0.758 GL in 2056.9).
 
-**What this does and does not say:** the Julia port is a close numerical copy of the Vensim model for most variables, so it is a reasonable proxy for running the D-010 audit tests (T1–T4) on. It says nothing about whether the model itself is sound; any structural problem present in Vensim would be reproduced. The six headline variables of the figures (population, GDP per person, well-being, social tension, inequality, global warming) have not yet been checked individually against D-004's ±2%; their per-variable figures are in `earth4all_error_stats_TLTL.csv` and `earth4all_error_stats_GL.csv` in the run artifact.
+**What this does and does not say:** the Julia port is a close numerical copy of the Vensim model for most variables, so it is a reasonable proxy for running the D-010 audit tests (T1–T4) on. It says nothing about whether the model itself is sound; any structural problem present in Vensim would be reproduced. The six headline variables are checked individually against D-004 in the next section.
+
+### Earth4All.jl vs Vensim, the six headline variables against D-004 (±2%)
+The package's error metric divides by |vensim| + 1, which hides relative errors for variables of order 1. The table converts the maximum metric error (from `earth4all_error_stats_*.csv`) to true relative error |julia − vensim| / |vensim|, using the Vensim value at that time point (read from a clone, D-014) and, as an upper bound, the smallest Vensim value of the series. The conversion is approximate: the maximum of the true relative error may fall at a different point than the maximum of the package metric, which the bound allows for.
+
+| variable | TLTL: true rel. at max / bound | GL: true rel. at max / bound | Vensim range (TLTL) |
+|---|---|---|---|
+| Population Mp | 0.24% / 0.24% | 0.20% / 0.20% | 4,420–8,790 |
+| GDP per person | 1.20% / 1.35% | 1.12% / 1.26% | 6.35–46 |
+| **Average WellBeing Index** | **4.37% / 4.73%** | **2.77% / 4.26%** | 0.62–1.44 |
+| Social tension | 1.29% / 1.54% | 0.91% / 1.01% | 1.01–1.60 |
+| INEQuality Index | 1.96% / 2.44% | 1.74% / 2.22% | 0.80–1.41 |
+| Observed warming | 0.03% / 0.08% | 0.00% / 0.01% | 0.40–2.35 |
+
+**Result:** by D-004's standard (every key variable within ±2% at every reported year) Earth4All.jl does **not** reproduce the Vensim run for the **Average WellBeing Index** (about 4.4% at its worst point in 2077, TLTL; about 2.8% in 2058, GL) and is borderline for the **inequality index** (1.96% at the worst point of the package metric, with a worst-case bound of 2.4%). Population, GDP per person, social tension and warming are within ±2%.
+**Context, not excuse:** the well-being index oscillates in both runs (see the run #1 figures), so small differences in the timing of oscillations produce errors of a few percent at the peaks; the Vensim and Julia solvers also differ. Whether that is the cause was not tested. D-004's ±2% was written for reproducing a model, and it is not met here; whether to relax it for oscillating variables, or to treat Earth4All.jl as a reference implementation in its own right (D-011) and report these deviations, is a decision for the editor-in-chief.
 
 ### Direction from the editor-in-chief (2026-10-05)
 Asked how to proceed on D-013 (approve as revised, approve with a further check, or reject and pin older dependencies), the editor-in-chief answered: "I want a version that works!" Interpreted as: do not build on the `NoInit()` workaround; find a dependency set in which World3 solves with default options. A pinned-dependency search has been prepared (workflow `audit-world3-pins.yml`, nine ModelingToolkit versions from 9.12.0, April 2024, to 9.76.0). D-013 remains Proposed until its result is in.
 
 ### Status of Phase 1 step 1.1 (T0)
-Not passed. Open: pinned-dependency search for a World3 setup that works with defaults; check of the six headline Earth4All variables against D-004; the T0 checkpoint review by the editor-in-chief.
+Not passed. Open: pinned-dependency search for a World3 setup that works with defaults; decision on how to treat the Earth4All well-being and inequality deviations from Vensim (D-004); the T0 checkpoint review by the editor-in-chief.
 
 ## Run #6 (2026-10-05, F3 commit 4c33274)
 
