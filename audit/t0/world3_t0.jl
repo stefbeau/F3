@@ -3,6 +3,9 @@
 # Run from the repository root:
 #   julia --project=audit/env audit/t0/world3_t0.jl
 #
+# RUN #8 (pinned-dependency search, see .github/workflows/audit-world3-pins.yml): default-option
+# variants added, so the same script can show whether a given dependency set solves World3
+# WITHOUT any workaround. (Notes from run #5 below.)
 # RUN #5. Findings so far (see audit/T0-FINDINGS.md):
 #   * Run #4 confirmed that with default options the solver returns
 #     `InitialFailure` and a single time point, while `initializealg = NoInit()`
@@ -67,11 +70,17 @@ function attempt(tag, label, kw)
 end
 
 attempt("default", "default options", NamedTuple())
+attempt("default_saveat", "default options, saveat = 0.5", (saveat = 0.5,))
+attempt("default_tight", "default options, saveat = 0.5, reltol = abstol = 1e-8",
+        (saveat = 0.5, reltol = 1e-8, abstol = 1e-8))
 
 step("Try solver variants with `initializealg = NoInit()`") do
     FIRST[] === nothing && error("no solution object available to locate SciMLBase")
     SB = parentmodule(typeof(FIRST[]))
-    isdefined(SB, :NoInit) || error("`NoInit` not defined in `$SB`")
+    if !isdefined(SB, :NoInit)
+        push!(REPORT, "  - `NoInit` is not defined in `$SB`: variants skipped")
+        return
+    end
     ni = getfield(SB, :NoInit)()
     attempt("noinit", "NoInit()", (initializealg = ni,))
     attempt("noinit_saveat", "NoInit(), saveat = 0.5", (initializealg = ni, saveat = 0.5))

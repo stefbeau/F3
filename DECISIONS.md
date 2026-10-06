@@ -29,7 +29,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-010 | Scientific robustness of Earth4All as a baseline | Approved | 1 |
 | D-011 | Earth4All reference implementation (supersedes D-002) | Approved | 0 |
 | D-012 | World3 reference implementation | Approved | 1 |
-| D-013 | WorldDynamics.jl solver configuration | Proposed — original condition not met; revised proposal awaits your decision | 1 |
+| D-013 | WorldDynamics.jl solver configuration | Proposed — pinned-dependency search under way (editor-in-chief's direction) | 1 |
 | D-014 | Use of the Vensim output shipped with Earth4All.jl | Approved | 1 |
 
 ---
@@ -231,7 +231,8 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
   2. *Revised acceptance condition:* WorldDynamics.jl with `NoInit()` is accepted as F3's World3 reference for the 1974 model if, against fine-step PyWorld3 with that diagnostic start-up, all twelve main stocks stay within ±2% (**met: worst 1.69%**), and the as-shipped PyWorld3 comparison is always reported alongside (**fails for `ppol`, explained above**).
   3. *Known limitation:* neither implementation starts the delay at the steady state of the model's own initial value; WorldDynamics.jl is 8.9% above it. This is to be handled in step 1.4 by testing the Python port from the same initial state as the reference.
   4. *Why this is weaker than the original condition:* the criterion was chosen after seeing the result, and it relies on a diagnostic modification of PyWorld3 that I designed. The editor-in-chief may therefore prefer to reject D-013 as written, or to approve it and require a further independent check (for example, comparison with the book's printed Figure 7.7).
-- **Alternatives considered:** Pin older versions of the dependencies the package was built against (April 2024), which needs a separate experiment; port World3 from the book's equations without the package (highest error risk).
+- **Editor-in-chief's direction (2026-10-05):** "I want a version that works!" Read as: prefer a dependency set in which World3 solves with default options over the `NoInit()` workaround. The pinned-dependency search (`.github/workflows/audit-world3-pins.yml`) is the next step; D-013 stays Proposed until its result is reviewed, then is approved, rejected or superseded explicitly.
+- **Alternatives considered:** Pin older versions of the dependencies the package was built against (April 2024), which needs a separate experiment (now under way, see above); port World3 from the book's equations without the package (highest error risk).
 - **Sources:** T0 runs #3–#5 (`audit/T0-FINDINGS.md`); WorldDynamics.jl v1.0.0 `src/solvesystems.jl`.
 - **Proposed by:** Claude (Validator agent role)
 - **Decision:** —

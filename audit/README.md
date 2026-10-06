@@ -46,4 +46,4 @@ audit/
 └── env/               Julia environment (Project.toml and Manifest.toml are committed after the first approved run)
 ```
 
-The workflow itself is in [`.github/workflows/audit-t0.yml`](../.github/workflows/audit-t0.yml).
+The workflows are in [`.github/workflows/`](../.github/workflows/): `audit-t0.yml` (reference sanity checks) and `audit-world3-pins.yml` (searches for a ModelingToolkit version with which WorldDynamics.jl solves World3 with default options; nine parallel jobs).

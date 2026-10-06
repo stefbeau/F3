@@ -89,8 +89,12 @@ try:
         report.append(f"- PyWorld3 as shipped: ppgr(1900) = {own_ppgr0:.4e}, but the delay output "
                       f"ppapr(1900) = {own_ppapr0:.4e}, i.e. {own_ppapr0 / own_ppgr0:.3f} of its input "
                       f"(a steady-state start would give 1.000; 3/delay = {3 / float(w.pptd1):.3f}).")
-        wd_csv = OUT / "world3_worlddynamics_states_noinit_tight.csv"
-        if wd_csv.exists():
+        wd_csv = next((OUT / f"world3_worlddynamics_states_{k}.csv"
+                       for k in ("default_tight", "default_saveat", "default", "noinit_tight",
+                                 "noinit_saveat", "noinit")
+                       if (OUT / f"world3_worlddynamics_states_{k}.csv").exists()), None)
+        if wd_csv is not None:
+            report.append(f"- Start value taken from `{wd_csv.name}`")
             wd = pd.read_csv(wd_csv)
             cols = [c for c in wd.columns if re.search(r"ppapr3\(t\)$", c)]
             if len(cols) == 1:

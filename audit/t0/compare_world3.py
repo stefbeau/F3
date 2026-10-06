@@ -113,7 +113,8 @@ try:
         report.append(line)
 
     if results:
-        best = "noinit_tight" if "noinit_tight" in results else max(results, key=lambda k: len(results[k][0]))
+        preferred = ["default_tight", "default_saveat", "noinit_tight", "noinit_saveat", "noinit", "default"]
+        best = next((k for k in preferred if k in results), max(results, key=lambda k: len(results[k][0])))
         df, rows, _ = results[best]
         report.append("")
         report.append(f"### Per-variable gaps, variant `{best}`")

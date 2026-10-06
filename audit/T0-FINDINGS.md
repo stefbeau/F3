@@ -2,6 +2,35 @@
 
 Factual record of what each T0 run showed. Updated after every run; nothing is deleted, only superseded.
 
+## Run #7 (2026-10-05, F3 commit 9eb4022)
+
+### World3: the start-up diagnostic, reproduced in CI
+With PyWorld3's pollution delay started at the WorldDynamics.jl value, the worst gap over all twelve stocks is `ppol`: 1.20% (variants `noinit` and `noinit_saveat`) and 1.70% (`noinit_tight`), in 2100; all within ±2%. As shipped, PyWorld3 still differs from WorldDynamics.jl by 373.7% in `ppol` (unchanged). This confirms the offline analysis of the run #6 export.
+
+### Earth4All.jl vs Vensim, error statistics (variable descriptions and error figures only, D-014)
+Error = |julia − vensim| / (|vensim| + 1) per time point (the package's own metric), 487 variables, 7,681 time points.
+
+| | Too Little Too Late | Giant Leap |
+|---|---|---|
+| median over variables of each variable's median error | 1.6e-4 | 6.0e-5 |
+| variables whose 95th-percentile error exceeds 1e-2 | 101 (21%) | 63 (13%) |
+| …exceeds 1e-1 | 3 | 2 |
+| variables whose maximum error exceeds 1e-1 | 8 | 22 |
+
+Variables with 95th-percentile error above 1e-2, by sector (TLTL / GL, of total): demand 36 / 36 (of 71), energy 23 / 12 (of 80), foodland 7 / 3 (of 87), inventory 8 / 0 (of 20), output 6 / 3 (of 40), labour market 5 / 4 (of 41), wellbeing 8 / 3 (of 20), public 4 / 1 (of 21), population 2 / 0 (of 30), other 2 / 1 (of 8); climate 0 (of 55) and finance 0 (of 14).
+
+**Reading:** Earth4All.jl reproduces the Vensim output closely for the large majority of variables (typical error about 1e-4). A minority has larger deviations, concentrated in the demand sector (half its variables), energy and labour-market flows. The large maxima are isolated points, not typical behaviour: *Desired renewable el capacity change GW* has a 95th-percentile error of 0.16 but a maximum of 26.0 (2067.8, TLTL); *CHange in WOrkforce Mp/y* has p95 0.24 / 0.13 but a maximum of 3.0 (2061.7, TLTL) / 4.1 (2047.6, GL). The cause of the deviations has not been investigated (a timing offset of switched inputs is a candidate, not a finding).
+
+**Labour market (D-010, test T2):** the stock variables agree with Vensim to about 0.3% at the worst point (*WorkForce Mp* maximum 0.0022 TLTL / 0.0026 GL; labour participation rate ≤ 0.0009; perceived unemployment ≤ 0.0015). The flow *CHange in WOrkforce* and *UNEMployed Mp* deviate more (UNEMployed: p95 0.058 / 0.095, maximum 0.078 TLTL / 0.758 GL in 2056.9).
+
+**What this does and does not say:** the Julia port is a close numerical copy of the Vensim model for most variables, so it is a reasonable proxy for running the D-010 audit tests (T1–T4) on. It says nothing about whether the model itself is sound; any structural problem present in Vensim would be reproduced. The six headline variables of the figures (population, GDP per person, well-being, social tension, inequality, global warming) have not yet been checked individually against D-004's ±2%; their per-variable figures are in `earth4all_error_stats_TLTL.csv` and `earth4all_error_stats_GL.csv` in the run artifact.
+
+### Direction from the editor-in-chief (2026-10-05)
+Asked how to proceed on D-013 (approve as revised, approve with a further check, or reject and pin older dependencies), the editor-in-chief answered: "I want a version that works!" Interpreted as: do not build on the `NoInit()` workaround; find a dependency set in which World3 solves with default options. A pinned-dependency search has been prepared (workflow `audit-world3-pins.yml`, nine ModelingToolkit versions from 9.12.0, April 2024, to 9.76.0). D-013 remains Proposed until its result is in.
+
+### Status of Phase 1 step 1.1 (T0)
+Not passed. Open: pinned-dependency search for a World3 setup that works with defaults; check of the six headline Earth4All variables against D-004; the T0 checkpoint review by the editor-in-chief.
+
 ## Run #6 (2026-10-05, F3 commit 4c33274)
 
 ### World3: WorldDynamics.jl (`NoInit()`, tight tolerance) vs PyWorld3 fine step (dt=0.05), max / mean gap
