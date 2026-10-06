@@ -1,0 +1,112 @@
+# F3 — World3 reference: look for a CONSISTENT dependency set in which WorldDynamics.jl v1.0.0
+# solves World3 with DEFAULT solver options (no workaround).
+# Why snapshots: the first search (audit-world3-pins.yml) pinned ModelingToolkit alone and left
+# every other package at its newest version, which mixes eras (T0-FINDINGS.md, "Pinned search #1").
+# Here every package is resolved from the Julia General registry AS IT WAS on a given date, so the
+# whole stack (ModelingToolkit, SciMLBase, DiffEqBase, OrdinaryDiffEq, ...) is from the same era.
+# Started by hand: Actions tab -> "Audit World3 - registry snapshot search" -> Run workflow.
+name: Audit World3 — registry snapshot search
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  snap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        date: ["2024-04-25", "2024-07-01", "2024-10-01", "2025-01-15", "2025-05-01", "2025-09-01"]
+    env:
+      SNAP: ${{ matrix.date }}
+      JULIA_DEPOT_PATH: ${{ github.workspace }}/.depot_snap
+      F3_OUT: ${{ github.workspace }}/audit/results/snap_${{ matrix.date }}
+    steps:
+      - name: Check out F3
+        uses: actions/checkout@v4
+
+      - name: Set up Julia 1.10 (LTS)
+        uses: julia-actions/setup-julia@v2
+        with:
+          version: "1.10"
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Prepare output folder
+        run: mkdir -p "$F3_OUT"
+
+      - name: Build the registry snapshot for the chosen date
+        run: |
+          set -euo pipefail
+          mkdir -p "$JULIA_DEPOT_PATH/registries"
+          git clone --quiet --filter=blob:none --no-checkout \
+            https://github.com/JuliaRegistries/General "$JULIA_DEPOT_PATH/registries/General"
+          cd "$JULIA_DEPOT_PATH/registries/General"
+          COMMIT=$(git rev-list -1 --before="$SNAP 23:59" origin/master)
+          git checkout --quiet "$COMMIT"
+          echo "$COMMIT" > "$F3_OUT/registry_commit.txt"
+          rm -rf .git    # a plain directory registry: Pkg cannot update it behind our back
+          echo "Registry snapshot for $SNAP is commit $COMMIT"
+
+      - name: Install WorldDynamics.jl 1.0.0 from that snapshot
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          julia --project=audit/env_snap -e '
+          using Pkg
+          isdefined(Pkg, :UPDATED_REGISTRY_THIS_SESSION) && (Pkg.UPDATED_REGISTRY_THIS_SESSION[] = true)
+          Pkg.add([PackageSpec(name="WorldDynamics", version="1.0.0"),
+                   PackageSpec(name="DataFrames"),
+                   PackageSpec(name="CSV")])
+          Pkg.precompile()' 2>&1 | tee "$F3_OUT/install.log"
+
+      - name: World3 with WorldDynamics.jl (default and NoInit variants)
+        continue-on-error: true
+        run: julia --project=audit/env_snap audit/t0/world3_t0.jl
+
+      - name: World3 with PyWorld3 (unmodified, plus diagnostic)
+        continue-on-error: true
+        run: |
+          pip install pyworld3 pandas matplotlib
+          python audit/t0/pyworld3_t0.py
+
+      - name: Cross-check WorldDynamics.jl vs PyWorld3
+        continue-on-error: true
+        run: python audit/t0/compare_world3.py
+
+      - name: Keep the exact environment of this job
+        if: always()
+        run: cp audit/env_snap/Project.toml audit/env_snap/Manifest.toml "$F3_OUT/" || true
+
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: world3-snap-${{ matrix.date }}
+          path: audit/results/
+          retention-days: 90
+
+  report:
+    needs: snap
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out F3
+        uses: actions/checkout@v4
+
+      - name: Download all snapshot results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: world3-snap-*
+          path: audit/results
+          merge-multiple: true
+
+      - name: One table for all snapshots
+        run: python audit/t0/snapshot_table.py audit/results >> "$GITHUB_STEP_SUMMARY"
