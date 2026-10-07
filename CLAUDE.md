@@ -11,7 +11,7 @@ It asks how a fast AI race interacts with energy, materials, water, climate and 
 
 ## People and authority
 - **Editor-in-chief: Stéphane Beau** (GitHub `stefbeau`). He is a technical writer, not a programmer; he reads English (his app language is French) and works on Windows; the shell on his machine is PowerShell, not Command Prompt.
-- **Only he approves, rejects or supersedes decisions** in `DECISIONS.md`. You draft decisions with status `Proposed`. Mark one `Approved` only after he has said so in the session, and record the date and what he approved. **Never edit an approved decision**: supersede it with a new one.
+- **Only he approves, rejects or supersedes decisions** in `DECISIONS.md`. You draft decisions with status `Proposed`. Mark one `Approved` only after he has said so in the session, and record the date and what he approved. **Never edit an approved decision**: supersede it with a new one. Approved decisions may receive appended, dated outcome notes (for example the result of a condition, or a pointer to the decision that supersedes them). Their wording and status never change.
 - He dislikes repeated manual steps. **Commit and push yourself**; never ask him to upload, paste or edit files by hand.
 
 ## How we work (rules that have already mattered)
