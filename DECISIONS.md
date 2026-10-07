@@ -31,6 +31,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-012 | World3 reference implementation | Approved | 1 |
 | D-013 | WorldDynamics.jl solver configuration | Superseded by D-017 | 1 |
 | D-014 | Use of the Vensim output shipped with Earth4All.jl | Approved | 1 |
+| D-016 | Earth4All audit verdict: which components F3 reuses, changes or replaces | Proposed | 1 |
 | D-017 | World3 reference environment: dated registry snapshot, default solver options | Approved (condition a pending the next run) | 1 |
 | D-018 | Earth4All.jl is the Earth4All reference implementation; deviations from Vensim reported | Approved | 1 |
 
@@ -288,6 +289,43 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Sources:** `audit/T0-FINDINGS.md` (run #7 error statistics, headline-variable table); Earth4All.jl `src/functions.jl` (`all_mre`).
 - **Proposed by:** Claude (Validator agent role)
 - **Decision:** Approved by Stéphane Beau
+- **Date:** 2026-10-07
+
+---
+
+## D-016 — Earth4All audit verdict: reuse, reuse with changes, or replace, sector by sector
+
+- **Status:** Proposed
+- **Context:** D-010 made Earth4All a reference model and component library, to be reused only after tests T1–T4. The tests have been run on Earth4All.jl at commit `16f37d0` (`audit/earth4all-audit.md`); D-018 fixes how its deviations from Vensim are reported. This entry turns the evidence into a per-sector verdict, so that MODEL_SPEC can be updated to match. It is a proposal: the evidence below is measured, the verdicts are the Validator's recommendation.
+- **Evidence in one place** (details and caveats in `audit/earth4all-audit.md` and `audit/T0-FINDINGS.md`):
+  - **T1:** no death flow out of the cohorts below 60 (by design). **T1b:** no cohort stock is negative before 2100 in either scenario (smallest 617.7 Mp).
+  - **T2:** workforce never exceeds working-age population (121 of 121 years, both scenarios; maximum ratio 0.825), under the definition employed = `WF`, working-age = `WAP`. It exceeds the available workforce by at most 0.59% in a few years.
+  - **T3:** of the 40 explicit time-driven equations, 9 are behaviour forcing, all in **climate (2), foodland (5) and population (2)**. None is in output, demand, inventory, finance, public, energy, labour market or well-being. The two population ramps (`SSP2FA2022F`) move 2100 population by 28% and the well-being index by 30% (TLTL counterfactual).
+  - **T4:** Too Little Too Late runs to 2200 without a non-finite value; Giant Leap becomes unstable at 2197.3. Informational (F3 stops at 2100).
+  - **Deviation from Vensim** (variables whose 95th-percentile error exceeds 1e-2, TLTL / GL, of total): demand 36 / 36 of 71, energy 23 / 12 of 80, wellbeing 8 / 3 of 20, inventory 8 / 0 of 20, foodland 7 / 3 of 87, output 6 / 3 of 40, labour market 5 / 4 of 41, public 4 / 1 of 21, population 2 / 0 of 30, other 2 / 1 of 8; climate 0 of 55, finance 0 of 14. Headline variables above D-004's ±2%: well-being index (4.37% TLTL, 2.77% GL).
+- **Proposal** (verdict per Earth4All.jl sector; "reuse" means port or call the component in F3 after it is documented and tested against Earth4All.jl within D-004's tolerance, per D-011):
+
+| Earth4All sector | Verdict | Reason from the evidence | F3 sector (MODEL_SPEC) |
+|---|---|---|---|
+| population | **Replace** | no mortality below 60 (T1); two exogenous ramps that move 2100 population by 28% (T3). D-010 already assigns S1 to World3's population sector | S1 (World3) |
+| output | **Reuse** | no behaviour forcing; 6 / 3 of 40 variables deviate from Vensim at p95 | S2 |
+| demand | **Reuse with changes** | no behaviour forcing; its policy levers are zero in TLTL; but it is the sector with the largest deviation from Vensim (half of its variables at p95 above 1e-2), so it needs a component-level comparison before it is relied on | S2 |
+| inventory | **Reuse** | the single time switch (1984) has no effect (`PNIS = 1`); 8 / 0 of 20 deviate | S2 |
+| finance | **Reuse** | no time-driven equation; 0 of 14 deviate | S2 |
+| public | **Reuse with changes** | no behaviour forcing, but `EDROTA2022 = 0.003` is non-zero in both scenarios and was not measured; F3 should expose it as a documented parameter | S2 |
+| labour market | **Reuse (provisional)** | T2 passes under the stated definition. Provisional because automation to labour is F3's core link and the AI sector (S3) is not yet coupled; reconsider when S3 is specified | S2 / S3 |
+| energy | **Reuse with changes** | no behaviour forcing; D-010 already plans to extend it with data-center demand and material limits (S5). 23 / 12 of 80 deviate | S4 |
+| climate | **Replace** | D-010 assigns S6 to FaIR; two exogenous 1%/y emission-intensity declines are behaviour forcing | S6 (FaIR) |
+| foodland | **Replace** (v0.1) | five behaviour-forcing equations (SSP2 land-management ramps, food productivity trend); D-010 assigns v0.1 food to World3's agriculture, revisit in v0.2 | S1 food (World3) |
+| wellbeing | **Replace** with F3's own S7, keeping Earth4All's indices as a comparison output | its indices are the deviating headline variables (4.37% / 2.77% against D-004) and oscillate; D-010 assigns S7 to a new module with explicit stocks | S7 |
+| other | **Not assessed** | 8 variables, 7 equations, no time-driven equation; follows whichever sector needs it | — |
+
+  Where F3 reuses Earth4All results or components it states the caveats of D-018. F3 does not run Earth4All past 2100.
+- **Alternatives considered:** reuse every sector except population (simplest, but carries the climate and food forcing into F3's feedback loops, which is the property F3 is meant to show); replace all of Earth4All with new sectors (highest effort and error risk, and discards 6 sectors with no behaviour forcing); decide per sector later when each is needed (keeps options open but leaves MODEL_SPEC inconsistent).
+- **Open points for the editor-in-chief:** (1) whether the T2 definition (employed = `WF`, working-age = `WAP`) is the one D-010 meant; (2) whether the nine behaviour-forcing equations are acceptable inside a reused sector if exposed as scenario switches (the SSP2 ramps can be switched off by package parameters), instead of replacing the sector; (3) the T3 classification is a reading of 40 equations and is open to challenge, equation by equation, in `audit/earth4all-time-driven-equations.csv`.
+- **Sources:** `audit/earth4all-audit.md`; `audit/earth4all-time-driven-equations.csv`; `audit/T0-FINDINGS.md` (run #7); Earth4All.jl source at `16f37d0`.
+- **Proposed by:** Claude (Validator and Research agent roles)
+- **Decision:** Proposed. Not approved.
 - **Date:** 2026-10-07
 
 ---

@@ -1,0 +1,6 @@
+scenario,kind,sector,variable,first_time,max_abs_1980_2100,value_at_first,value_at_end
+TLTL,turns_negative,other,Rate of Growth in GDP per Person 1/y,2117.109375,0.034507513086930404,-8.065305116624378e-5,-0.004529041543065449
+TLTL,turns_negative,inventory,Inflation Rate 1/y,2121.125,0.02892112047849705,-7.876615195794301e-6,0.006737834593291979
+TLTL,turns_negative,inventory,Change in Price Index 1/y,2121.125,0.20679113536111787,-8.597381015491932e-5,0.2787272570045367
+TLTL,turns_negative,climate,CO2 per GDP (kgCO2/Dollar),2187.3125,0.7122041713337495,-5.8542429199410836e-8,-0.001884671971993855
+TLTL,turns_negative,climate,CO2 emissions GtCO2/y,2187.3125,40.3616594587065,-1.5853281291722254e-5,-0.4400595810755541
