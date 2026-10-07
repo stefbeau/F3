@@ -38,6 +38,9 @@ T0 is also a **discovery run**. It records the variable and function names each 
 audit/
 ├── README.md          this file
 ├── REFERENCES.md      pinned versions of every external model
+├── T0-FINDINGS.md     running log of what each T0 run showed
+├── earth4all-audit.md Earth4All.jl audit (D-010 tests T1–T4), in progress
+├── earth4all-time-driven-equations.csv  the 40 explicitly time-driven equations (T3 inventory)
 ├── t0/
 │   ├── world3_t0.jl       T0.1
 │   ├── earth4all_t0.jl    T0.2

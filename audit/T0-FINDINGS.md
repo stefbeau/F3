@@ -90,7 +90,7 @@ Every package resolved from the Julia General registry as of the date (registry 
 Asked how to proceed on D-013 (approve as revised, approve with a further check, or reject and pin older dependencies), the editor-in-chief answered: "I want a version that works!" Interpreted as: do not build on the `NoInit()` workaround; find a dependency set in which World3 solves with default options. A first pinned-dependency search was inconclusive; the registry-snapshot search then found working environments (see above). D-017 proposes adopting one of them; D-013 would be superseded.
 
 ### Status of Phase 1 step 1.1 (T0)
-Not passed. Open: approval of D-017 (conditions b and c met; a is tested by the next run); decision on how to treat the Earth4All well-being and inequality deviations from Vensim (D-004); the T0 checkpoint review by the editor-in-chief.
+Decisions taken on 2026-10-07: D-017 approved (World3 environment; condition a is tested by the next run) and D-018 approved (Earth4All.jl is the reference; deviations from Vensim reported). Earth4All part of T0: closed with the deviations logged. World3 part of T0: passes once the next run confirms condition (a), including the package's own test suite. Open: decision on how to treat the Earth4All well-being and inequality deviations from Vensim (D-004); the T0 checkpoint review by the editor-in-chief.
 
 ## Run #6 (2026-10-05, F3 commit 4c33274)
 

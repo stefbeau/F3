@@ -1,6 +1,6 @@
 # F3 — Phase 1 Plan: Reproduce & Audit
 
-**Status:** Planned · **Depends on:** Phase 0 (complete) · **Governing decisions:** D-001, D-004, D-010, D-011, D-012 (and proposed D-013, D-014)
+**Status:** In progress (see `docs/STATUS.md` for the current state of each step) · **Depends on:** Phase 0 (complete) · **Governing decisions:** D-001, D-004, D-010, D-011, D-012 (and proposed D-013, D-014)
 
 ---
 

@@ -1,7 +1,7 @@
 # F3 — Foundation for Earth
 ## Global Model Specification · v0.1 (draft)
 
-**Status:** v0.1 draft, updated after decisions D-001 to D-004, D-010, D-011 and D-012 · **Owner:** Stéphane Beau (editor-in-chief) · **Repo:** github.com/stefbeau/f3
+**Status:** v0.1 draft, updated after decisions D-001 to D-004, D-010, D-011, D-012, D-014, D-017 and D-018 (decision register: DECISIONS.md) · **Owner:** Stéphane Beau (editor-in-chief) · **Repo:** github.com/stefbeau/f3
 **Last updated:** 2026-10-04
 
 ---
@@ -42,7 +42,7 @@ F3 does not predict the future. Every output is a **conditional scenario**: *if*
 | Spatial resolution | One global region |
 | Language | Python 3.11+ |
 | Core libraries | FaIR (climate emulator), NumPy, pandas, SALib (sensitivity analysis) |
-| Reference implementations | WorldDynamics.jl v1.0.0 (MIT) for World3 (D-012); Earth4All.jl (MIT) for the D-010 audit tests T1–T4 (D-011); PyWorld3, unmodified, as an independent second check for World3. All pinned in `audit/REFERENCES.md`. |
+| Reference implementations | WorldDynamics.jl v1.0.0 (MIT) for World3 (D-012), run with default solver options in the pinned environment `audit/env` (D-017); Earth4All.jl (MIT, commit `16f37d0`) as the Earth4All reference, with its deviations from Vensim reported (D-011, D-018), audited by tests T1–T4 (D-010); PyWorld3, unmodified, as an independent second check for World3. All pinned in `audit/REFERENCES.md`. |
 | Uncertainty | Monte Carlo (≥1,000 runs per scenario) with Latin hypercube sampling |
 
 ### Sector map
@@ -207,6 +207,9 @@ The scientific core of F3 is the race between **R1/R3** (AI-driven acceleration)
 | D-002 | Earth4All integration route | Superseded by D-011 |
 | D-011 | Earth4All reference implementation | **Approved:** Earth4All.jl only; audit in Julia, port only what passes |
 | D-012 | World3 reference implementation | **Approved:** port from WorldDynamics.jl (MIT) with attribution; PyWorld3 as second check |
+| D-014 | Vensim output shipped with Earth4All.jl | **Approved:** read at run time from a clone for the package's own comparison; never stored in F3 |
+| D-017 | World3 reference environment | **Approved:** Julia registry snapshot 2024-04-25, default solver options, pinned in `audit/env` |
+| D-018 | Earth4All reference status | **Approved:** Earth4All.jl is the reference; deviations from Vensim reported openly |
 | D-003 | Internal time step | **Approved:** 0.25 year |
 | D-004 | Reproduction tolerance | **Approved:** ±2% on key variables |
 | D-005 | AI sector integration | Re-implement GATE's three modules in simplified form (GATE's optimization-based investment is replaced by a behavioral rule) |

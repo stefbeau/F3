@@ -29,9 +29,10 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-010 | Scientific robustness of Earth4All as a baseline | Approved | 1 |
 | D-011 | Earth4All reference implementation (supersedes D-002) | Approved | 0 |
 | D-012 | World3 reference implementation | Approved | 1 |
-| D-013 | WorldDynamics.jl solver configuration | Proposed — to be superseded by D-017 on approval | 1 |
+| D-013 | WorldDynamics.jl solver configuration | Superseded by D-017 | 1 |
 | D-014 | Use of the Vensim output shipped with Earth4All.jl | Approved | 1 |
-| D-017 | World3 reference environment: dated registry snapshot (supersedes D-013 if approved) | Proposed | 1 |
+| D-017 | World3 reference environment: dated registry snapshot, default solver options | Approved (condition a pending the next run) | 1 |
+| D-018 | Earth4All.jl is the Earth4All reference implementation; deviations from Vensim reported | Approved | 1 |
 
 ---
 
@@ -219,7 +220,7 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 
 ## D-013 — WorldDynamics.jl solver configuration
 
-- **Status:** Proposed. **Run #6 result: the original acceptance condition (item 3 of the proposal) was NOT met**; a revised proposal follows the result and awaits the editor-in-chief's decision.
+- **Status:** Superseded by D-017 (2026-10-07). Never approved; the `NoInit()` configuration is not used by F3.
 - **Context:** With the dependency versions that install today (ModelingToolkit 9.84.0, DifferentialEquations 7.17.0, OrdinaryDiffEq 6.105.0, SciMLBase 2.153.1), `WorldDynamics.solve` on the World3 system returns `InitialFailure` and a single time point. The package's own warning says its initialization system is overdetermined (16 equations for 7 unknowns). With `initializealg = NoInit()` the same call returns `Success` over 1900–2100. Only a solver option changes; no equation, parameter or package file does. T0 run #5 population results: all solver variants within 0.5–0.7% (max) of PyWorld3 run at a fine time step; tightening the solver tolerance to 1e-8 did not bring the result closer (0.67% vs 0.53%), so the remaining gap is not a WorldDynamics.jl tolerance effect. Its cause is not yet explained.
 - **Proposal:**
   1. F3 uses WorldDynamics.jl only with `initializealg = NoInit()` and saves the solution every 0.5 year. This is a documented deviation from the package defaults.
@@ -253,9 +254,9 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Decision:** Approved by Stéphane Beau (run #6 had already executed the step; approval given afterwards, on 2026-10-05, after the results were reviewed)
 - **Date:** 2026-10-05
 
-## D-017 — World3 reference environment: dated registry snapshot, default solver options (supersedes D-013 if approved)
+## D-017 — World3 reference environment: dated registry snapshot, default solver options (supersedes D-013)
 
-- **Status:** Proposed
+- **Status:** Approved (2026-10-07). Condition (a) is tested by the next T0 run; if it fails, this decision is reopened.
 - **Context:** The editor-in-chief asked for "a version that works" (2026-10-05). A search over Julia registry snapshots (`audit/T0-FINDINGS.md`, "Registry-snapshot search #1") found that WorldDynamics.jl v1.0.0 solves World3 with default solver options in the dependency sets of 2024-04-25 (ModelingToolkit 9.12.1, SciMLBase 2.35.0, OrdinaryDiffEq 6.74.1) and 2024-07-01 (9.22.0, 2.42.0, 6.85.0), and not in later ones. In the working stacks the PyWorld3 cross-check numbers equal those obtained with `NoInit()` on the newest stack.
 - **Proposal:**
   1. F3's World3 reference environment is Julia 1.10 with the packages resolved from the General registry as of **2024-04-25** (registry commit `ec06aa53f5a2d5c46f7d70440c86911050375882`), the one closest to the package's release (2024-04-18).
@@ -269,8 +270,24 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Alternatives considered:** `NoInit()` on the newest stack (D-013), set aside by the editor-in-chief's direction; the 2024-07-01 snapshot (also works; newer, but further from the package's release); porting World3 from the book's equations without the package (highest error risk).
 - **Sources:** snapshot search run #1 (2026-10-06), `audit/T0-FINDINGS.md`.
 - **Proposed by:** Claude (Validator agent role)
-- **Decision:** —
-- **Date:** —
+- **Decision:** Approved by Stéphane Beau. D-013 is superseded.
+- **Date:** 2026-10-07
+
+## D-018 — Earth4All.jl is F3's Earth4All reference implementation; deviations from Vensim are reported, not tolerated away
+
+- **Status:** Approved (2026-10-07)
+- **Context:** T0 showed that Earth4All.jl reproduces the Vensim output closely for most variables but not within D-004's ±2% for all headline variables. True relative error at the worst point: Average WellBeing Index 4.37% (Too Little Too Late, 2077) and 2.77% (Giant Leap, 2058), with a worst-case bound of 4.7% and 4.3%; inequality index 1.96% and 1.74% (bound 2.4% and 2.2%); population, GDP per person, social tension and warming are within 2%. About 21% (TLTL) and 13% (GL) of the 487 variables have a 95th-percentile error above 1e-2, concentrated in the demand, energy and labour-market flow variables. Details in `audit/T0-FINDINGS.md`. The well-being index oscillates, so small timing differences of the oscillations produce errors of a few percent at the peaks; whether that is the cause was not tested.
+- **Decision (as proposed by Claude and approved by the editor-in-chief):** F3 treats Earth4All.jl (commit `16f37d013a2f68135f03e7815bf861dbf47311f2`, D-011) as a reference implementation in its own right, and reports its deviations from Vensim openly, instead of relaxing D-004 for oscillating variables.
+- **Consequences:**
+  1. D-004's ±2% criterion is not applied to Earth4All.jl against Vensim. The T0 audit of Earth4All.jl is closed with these deviations logged.
+  2. Wherever F3 shows or describes results derived from Earth4All, it states that Earth4All.jl follows the Vensim output closely for most variables, and gives the headline deviations (the table in `audit/T0-FINDINGS.md`). It does not claim that it "reproduces Vensim" without that qualification.
+  3. Clarification of D-004 (not a change to it): its ±2% criterion remains in force for F3's own ports, for example a Python port measured against its reference implementation (World3: WorldDynamics.jl, D-012 and D-017; Earth4All components: Earth4All.jl).
+  4. The D-010 audit tests (T1–T4) run on Earth4All.jl as published, which T0 supports as a close numerical copy of the Vensim model; they say nothing about whether the model itself is sound.
+- **Alternatives considered:** relax D-004 to a wider band for oscillating variables (rejected by the editor-in-chief's choice: it hides a 4% gap); re-implement from the Vensim source (excluded by D-011).
+- **Sources:** `audit/T0-FINDINGS.md` (run #7 error statistics, headline-variable table); Earth4All.jl `src/functions.jl` (`all_mre`).
+- **Proposed by:** Claude (Validator agent role)
+- **Decision:** Approved by Stéphane Beau
+- **Date:** 2026-10-07
 
 ---
 

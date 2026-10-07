@@ -1,0 +1,7 @@
+audit/results/
+.depot_snap/
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
+Thumbs.db
