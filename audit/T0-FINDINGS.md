@@ -2,6 +2,27 @@
 
 Factual record of what each T0 run showed. Updated after every run; nothing is deleted, only superseded.
 
+## Local verification (2026-10-07, Stéphane Beau's machine, Windows, F3 commit 455cebc)
+
+Purpose: test D-017 condition (a) from the committed `audit/env/Manifest.toml` alone, and close T0 for World3. Julia 1.10.12 (juliaup), Python 3.12.10, PyWorld3 from PyPI (unmodified), `PYTHONUTF8=1`. Results were written to `audit/results/` (git-ignored).
+
+**Environment.** `Pkg.instantiate()` on `audit/env` ran to the end; the only noise was the precompilation messages already recorded (one "Method overwriting is not permitted during Module precompilation" message, and the MKL artifact download). The Manifest was not changed. Versions reported by the run: WorldDynamics 1.0.0, ModelingToolkit 9.12.1, DifferentialEquations 7.13.0, OrdinaryDiffEq 6.74.1, DiffEqBase 6.149.1, SciMLBase 2.35.0.
+
+**Condition (a): met.** `world3_t0.jl` solves World3 (1900–2100) with default options: `Success` in every default-option variant (plain: 73 saved points; `saveat = 0.5`: 401 points; `saveat = 0.5` with reltol = abstol = 1e-8: 401 points). `NoInit()` variants also `Success`, as before. Each state export has 29 states.
+
+**Cross-check against PyWorld3 at dt=0.05** (`compare_world3.py`; variant `default_saveat`, and `default_tight` where it differs), worst gap over the twelve main stocks and total population:
+| comparison | worst gap | stocks outside ±2% |
+|---|---|---|
+| PyWorld3 with the diagnostic start-up (pollution delay started as in WorldDynamics.jl) | **1.54%** (`ppol`, 2100) for `default_saveat`; **1.70%** (`ppol`, 2100) for `default_tight` | 0 of 13 |
+| PyWorld3 as shipped | **373.70%** (`ppol`, 1906) | 1 of 13 (`ppol`) |
+| PyWorld3 as shipped, default step dt=0.5 | **423.66%** (`ppol`, 1906) | 5 of 13 (PyWorld3's own step error, see run #5) |
+
+The next-largest gaps with the diagnostic start-up (`default_tight`, max / mean): `ic` 1.37% / 0.46%, `sc` 1.15% / 0.49%, `p1` 0.80% / 0.50%, `pop` 0.55% / 0.37%; the other stocks are below 0.7%. These match the values recorded earlier (worst 1.70%, pollution, 2100; as shipped 373.70%).
+
+**Package test suite** (`Pkg.test("WorldDynamics")` in the pinned environment): **passed.** `Functions`: 23 of 23 (interpolate interval 7/7, interpolate single value 5/5, clip 3/3, step 3/3, switch 5/5); `World3_03`: 5 of 5 (21.9 s). Final line: "Testing WorldDynamics tests passed". One warning: the Kaleido process (PlotlyKaleido, used for saving figures) did not respond on Windows; it does not affect the tests. In the newest-stack run #4 the same suite errored 5/5 with default options (see run #4/#5); in the pinned environment it passes. Note that these tests cover `World3_03`, not the 1974 `World3` module used for the cross-check (run #5).
+
+**Result.** D-017 conditions (a), (b) and (c) are all met. T0 for World3 is closed: nothing in this run contradicts the record above. The 1974-versus-2004 variant question (D-015) and the start-up difference of the pollution delay remain open as before; they are not T0 matters.
+
 ## Run #7 (2026-10-05, F3 commit 9eb4022)
 
 ### World3: the start-up diagnostic, reproduced in CI

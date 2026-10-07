@@ -15,7 +15,7 @@
 | Step | Status |
 |---|---|
 | 1.0 reference environment | Done: pinned Julia environment in `audit/env` (D-017); Earth4All.jl audited at commit `16f37d0` |
-| 1.1 T0 sanity check | Earth4All part closed (D-018). World3 part: conditions (b) and (c) of D-017 met; condition (a), a fresh run from the pinned environment alone plus the package's own test suite, **not yet confirmed** |
+| 1.1 T0 sanity check | Earth4All part closed (D-018). World3 part: closed 2026-10-07. D-017 conditions (a), (b) and (c) all met; condition (a) confirmed by a local run from the pinned environment alone, and the package's own test suite passes there |
 | 1.2 Earth4All audit T1–T4 | Started: T1 read from the code (no mortality below age 60, by design), T3 inventory of 40 time-driven equations. Still to do: T1b (stock minima), T2 (employment vs working-age population), T3 classification, T4 (run to 2200). See `audit/earth4all-audit.md` |
 | 1.3 audit verdict (D-016) | Not started |
 | 1.4 Python port of World3 population sector (S1) | Not started. Needs D-015 (which World3 variant) first |
