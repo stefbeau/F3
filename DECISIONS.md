@@ -29,8 +29,9 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-010 | Scientific robustness of Earth4All as a baseline | Approved | 1 |
 | D-011 | Earth4All reference implementation (supersedes D-002) | Approved | 0 |
 | D-012 | World3 reference implementation | Approved | 1 |
-| D-013 | WorldDynamics.jl solver configuration | Proposed — registry-snapshot search prepared (editor-in-chief's direction) | 1 |
+| D-013 | WorldDynamics.jl solver configuration | Proposed — to be superseded by D-017 on approval | 1 |
 | D-014 | Use of the Vensim output shipped with Earth4All.jl | Approved | 1 |
+| D-017 | World3 reference environment: dated registry snapshot (supersedes D-013 if approved) | Proposed | 1 |
 
 ---
 
@@ -251,6 +252,24 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Proposed by:** Claude (Research agent role)
 - **Decision:** Approved by Stéphane Beau (run #6 had already executed the step; approval given afterwards, on 2026-10-05, after the results were reviewed)
 - **Date:** 2026-10-05
+
+## D-017 — World3 reference environment: dated registry snapshot, default solver options (supersedes D-013 if approved)
+
+- **Status:** Proposed
+- **Context:** The editor-in-chief asked for "a version that works" (2026-10-05). A search over Julia registry snapshots (`audit/T0-FINDINGS.md`, "Registry-snapshot search #1") found that WorldDynamics.jl v1.0.0 solves World3 with default solver options in the dependency sets of 2024-04-25 (ModelingToolkit 9.12.1, SciMLBase 2.35.0, OrdinaryDiffEq 6.74.1) and 2024-07-01 (9.22.0, 2.42.0, 6.85.0), and not in later ones. In the working stacks the PyWorld3 cross-check numbers equal those obtained with `NoInit()` on the newest stack.
+- **Proposal:**
+  1. F3's World3 reference environment is Julia 1.10 with the packages resolved from the General registry as of **2024-04-25** (registry commit `ec06aa53f5a2d5c46f7d70440c86911050375882`), the one closest to the package's release (2024-04-18).
+  2. WorldDynamics.jl is run with **default solver options**. `NoInit()` is not used.
+  3. The environment is pinned by committing the `Project.toml` and `Manifest.toml` of that job (artifact `world3-snap-2024-04-25`) to `audit/env/`; later audit runs install from them with `Pkg.instantiate()`.
+  4. **Acceptance conditions, fixed before the follow-up checks:** (a) in a fresh run that uses only the committed Manifest, the default-option solve returns `Success` with at least 401 saved points (saveat 0.5); (b) its twelve main stocks agree with the `NoInit()` solution of the newest stack within 0.1% at every saved time (this tests whether the earlier workaround changed the solution); (c) against fine-step PyWorld3 with the diagnostic start-up, all twelve stocks stay within ±2% (already seen: worst 1.70%), and the as-shipped comparison is reported alongside (`ppol` 373.7%, explained by the start-up difference).
+  5. With the editor-in-chief's agreement, the evidence (working until the 2024-07-01 snapshot; a different error at 2024-10-01; `InitialFailure` from 2025-01-15) is reported to the WorldDynamics.jl maintainers as an issue.
+  6. D-013 is withdrawn in favour of this decision.
+- **Known limitations:** the start-up difference between WorldDynamics.jl and PyWorld3 in the pollution delay is unchanged (WorldDynamics.jl starts 8.9% above steady state, see D-013's run #6 result) and is handled in step 1.4 by testing the Python port from the same initial state as the reference. The cause of the break between July and October 2024 was not investigated. An environment from 2024 will age; the committed Manifest keeps it reproducible but not maintained.
+- **Alternatives considered:** `NoInit()` on the newest stack (D-013), set aside by the editor-in-chief's direction; the 2024-07-01 snapshot (also works; newer, but further from the package's release); porting World3 from the book's equations without the package (highest error risk).
+- **Sources:** snapshot search run #1 (2026-10-06), `audit/T0-FINDINGS.md`.
+- **Proposed by:** Claude (Validator agent role)
+- **Decision:** —
+- **Date:** —
 
 ---
 

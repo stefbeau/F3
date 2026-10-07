@@ -52,11 +52,27 @@ What the three jobs showed (and what they do not):
 ### Next experiment: registry snapshots (workflow `audit-world3-snapshot.yml`)
 Instead of pinning one package, resolve **all** packages from the Julia General registry as it was on a given date, so the whole stack is from one era. Snapshots: 2024-04-25 (a week after WorldDynamics.jl 1.0.0; the registry then offers ModelingToolkit 9.12.1, SciMLBase 2.35.0, DiffEqBase 6.149.1, OrdinaryDiffEq 6.74.1, DifferentialEquations 7.13.0), 2024-07-01, 2024-10-01, 2025-01-15, 2025-05-01, 2025-09-01. One merged table is written to the run page. Install logs are captured. Not yet run; the registry-directory mechanism (a plain directory without `.git` in an isolated Julia depot) is untested on Pkg 1.10.
 
+### Registry-snapshot search #1 (workflow `audit-world3-snapshot.yml`, 2026-10-06): a working version found
+Every package resolved from the Julia General registry as of the date (registry commits in the third column). Merged table from the run page:
+
+| snapshot | registry commit | ModelingToolkit | SciMLBase | OrdinaryDiffEq | default options | `NoInit()` | works with defaults | cross-check (best variant): shipped / diagnostic |
+|---|---|---|---|---|---|---|---|---|
+| 2024-04-25 | ec06aa53 | 9.12.1 | 2.35.0 | 6.74.1 | Success (73 pt) | Success (73 pt) | **YES** | `default_tight`: `ppol` 373.70% / 1.70% |
+| 2024-07-01 | 9fd3085b | 9.22.0 | 2.42.0 | 6.85.0 | Success (50 pt) | Success (50 pt) | **YES** | `default_tight`: 373.70% / 1.70% |
+| 2024-10-01 | 975393f5 | 9.41.0 | 2.55.0 | 6.89.0 | error: `ArgumentError: Any[dr₊pop(1900)] are either missing from the variable map or mis…` | — | no | — |
+| 2025-01-15 | 1ceb2c06 | 9.60.0 | 2.70.0 | 6.90.1 | InitialFailure (1 pt) | Success (50 pt) | no | `noinit_tight`: 373.70% / 1.69% |
+| 2025-05-01 | b3e04070 | 9.76.0 | 2.86.2 | 6.95.1 | InitialFailure (1 pt) | Success (50 pt) | no | `noinit_tight`: 373.70% / 1.70% |
+| 2025-09-01 | 1730f68f | 9.68.1 | 2.115.0 | 6.102.0 | InitialFailure (1 pt) | Success (50 pt) | no | `noinit_tight`: 373.70% / 1.70% |
+
+**Confirmed from the table:** with the April and July 2024 dependency sets, `WorldDynamics.solve` solves World3 with default options (no `NoInit()`); from October 2024 it fails with a different error, and from January 2025 with `InitialFailure`. The package was released on 2024-04-18, so the working stacks are the ones it was built and tested against. The break lies between ModelingToolkit 9.22 and 9.41 (July–October 2024); its cause was not investigated (the new ModelingToolkit initialization system is a candidate, not a finding).
+**Also confirmed:** in the working stacks, the cross-check numbers against PyWorld3 are the same as those obtained with `NoInit()` on the newest stack (shipped PyWorld3: `ppol` 373.70%; with the diagnostic start-up: 1.70%). The start-up difference in the pollution delay is therefore a property of the WorldDynamics.jl model itself, not an effect of the `NoInit()` workaround.
+**Not yet verified:** that the default-option solution of the 2024-04-25 stack equals the `NoInit()` solution of the newest stack at the level of the state values (the artifact CSVs are needed); the exact content of the working `Manifest.toml`; that the environment can be rebuilt from that Manifest alone with `Pkg.instantiate()`.
+
 ### Direction from the editor-in-chief (2026-10-05)
-Asked how to proceed on D-013 (approve as revised, approve with a further check, or reject and pin older dependencies), the editor-in-chief answered: "I want a version that works!" Interpreted as: do not build on the `NoInit()` workaround; find a dependency set in which World3 solves with default options. A pinned-dependency search was run (see above: flawed, inconclusive) and a registry-snapshot search has been prepared to replace it. D-013 remains Proposed until its result is in.
+Asked how to proceed on D-013 (approve as revised, approve with a further check, or reject and pin older dependencies), the editor-in-chief answered: "I want a version that works!" Interpreted as: do not build on the `NoInit()` workaround; find a dependency set in which World3 solves with default options. A first pinned-dependency search was inconclusive; the registry-snapshot search then found working environments (see above). D-017 proposes adopting one of them; D-013 would be superseded.
 
 ### Status of Phase 1 step 1.1 (T0)
-Not passed. Open: registry-snapshot search for a World3 setup that works with defaults; decision on how to treat the Earth4All well-being and inequality deviations from Vensim (D-004); the T0 checkpoint review by the editor-in-chief.
+Not passed. Open: approval of D-017 (World3 reference environment) and its checks; decision on how to treat the Earth4All well-being and inequality deviations from Vensim (D-004); the T0 checkpoint review by the editor-in-chief.
 
 ## Run #6 (2026-10-05, F3 commit 4c33274)
 
