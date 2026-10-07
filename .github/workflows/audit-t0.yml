@@ -40,14 +40,13 @@ jobs:
       - name: Prepare output folder
         run: mkdir -p "$F3_OUT"
 
-      # ---- World3 reference (D-012) ----
-      - name: Install WorldDynamics.jl v1.0.0
+      # ---- World3 reference (D-012); environment pinned by audit/env/Manifest.toml (D-017) ----
+      - name: Install the pinned World3 environment (D-017)
         continue-on-error: true
         run: >
           julia --project=audit/env -e
           'using Pkg;
-          Pkg.add(name="WorldDynamics", version="1.0.0");
-          Pkg.add(["DataFrames", "CSV"]);
+          Pkg.instantiate();
           Pkg.precompile()'
 
       - name: T0.1 — World3 with WorldDynamics.jl
