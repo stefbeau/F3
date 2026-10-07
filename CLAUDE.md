@@ -10,7 +10,7 @@ F3 is an open global simulation model that puts two families of models into one 
 It asks how a fast AI race interacts with energy, materials, water, climate and social stability, and which policy levers change the outcome. Output: **conditional scenarios with uncertainty bands, never forecasts**. End product: a public dashboard where anyone can run scenarios. The value is showing which levers and feedback loops matter. Specification: `MODEL_SPEC.md`. Plan: `docs/phase-1-plan.md`. Source register: `research/SOURCES.md`.
 
 ## People and authority
-- **Editor-in-chief: Stéphane Beau** (GitHub `stefbeau`). He is a technical writer, not a programmer; he reads English (his app language is French) and works on Windows with Command Prompt.
+- **Editor-in-chief: Stéphane Beau** (GitHub `stefbeau`). He is a technical writer, not a programmer; he reads English (his app language is French) and works on Windows; the shell on his machine is PowerShell, not Command Prompt.
 - **Only he approves, rejects or supersedes decisions** in `DECISIONS.md`. You draft decisions with status `Proposed`. Mark one `Approved` only after he has said so in the session, and record the date and what he approved. **Never edit an approved decision**: supersede it with a new one.
 - He dislikes repeated manual steps. **Commit and push yourself**; never ask him to upload, paste or edit files by hand.
 
@@ -46,7 +46,7 @@ docs/phase-1-plan.md      Phase 1 plan
 research/SOURCES.md       latest verified information per topic
 audit/                    audits of reference models (README.md, T0-FINDINGS.md, earth4all-audit.md, REFERENCES.md)
 audit/env/                pinned Julia environment for WorldDynamics.jl (D-017)
-audit/t0/                 audit scripts (Julia and Python)
+audit/t0/                 audit scripts (world3_t0.jl, earth4all_t0.jl, pyworld3_t0.py, compare_world3.py, snapshot_table.py)
 audit/data/               stored error statistics (variable names and error figures only)
 .github/workflows/        audit-t0.yml (current), audit-world3-snapshot.yml and audit-world3-pins.yml (records of the dependency search)
 ```
@@ -54,7 +54,7 @@ Planned, not yet created: `f3/` (model code: `f3/sectors/s1_population.py` …),
 
 ## Running things on Stéphane's machine (Windows)
 - Set `PYTHONUTF8=1` (the scripts print Unicode such as `₊` and `✅`).
-- Julia 1.10 via juliaup: `winget install --id Julialang.juliaup -e`, then `juliaup add 1.10`; run as `julia +1.10 …`.
+- Julia 1.10 via juliaup: `winget install --id Julialang.juliaup -e --source winget` (without `--source winget` it finds no package), then `juliaup add 1.10`; run as `julia +1.10 …`. The first `juliaup add 1.10` can fail with a file-lock error ("Accès refusé"); a retry works.
 - World3 audit: `julia +1.10 --project=audit/env -e "using Pkg; Pkg.instantiate()"`, then `julia +1.10 --project=audit/env audit/t0/world3_t0.jl` with `F3_OUT` set; then `python audit/t0/pyworld3_t0.py` and `python audit/t0/compare_world3.py` (`pip install pyworld3 pandas matplotlib`).
 - Earth4All audit: clone `https://github.com/worlddynamics/Earth4All.jl` **outside** this repo, check out `16f37d013a2f68135f03e7815bf861dbf47311f2`, instantiate its own environment, run `audit/t0/earth4all_t0.jl <clone path>`. `.github/workflows/audit-t0.yml` is the executable recipe.
 
