@@ -43,7 +43,7 @@ audit/
 │   ├── earth4all_t0.jl    T0.2
 │   ├── pyworld3_t0.py     T0.3
 │   └── compare_world3.py  T0.4
-└── env/               Julia environment (Project.toml and Manifest.toml are committed after the first approved run)
+└── env/               Pinned Julia environment for WorldDynamics.jl (Project.toml and Manifest.toml from the 2024-04-25 registry snapshot, D-017); the T0 workflow installs from it with Pkg.instantiate()
 ```
 
 The workflows are in [`.github/workflows/`](../.github/workflows/): `audit-t0.yml` (reference sanity checks) and `audit-world3-pins.yml` (first search: pins ModelingToolkit only; inconclusive, kept for the record) and `audit-world3-snapshot.yml` (second search: resolves the whole dependency stack from the Julia registry as of six dates; merged table on the run page, built by `audit/t0/snapshot_table.py`).

@@ -68,11 +68,29 @@ Every package resolved from the Julia General registry as of the date (registry 
 **Also confirmed:** in the working stacks, the cross-check numbers against PyWorld3 are the same as those obtained with `NoInit()` on the newest stack (shipped PyWorld3: `ppol` 373.70%; with the diagnostic start-up: 1.70%). The start-up difference in the pollution delay is therefore a property of the WorldDynamics.jl model itself, not an effect of the `NoInit()` workaround.
 **Not yet verified:** that the default-option solution of the 2024-04-25 stack equals the `NoInit()` solution of the newest stack at the level of the state values (the artifact CSVs are needed); the exact content of the working `Manifest.toml`; that the environment can be rebuilt from that Manifest alone with `Pkg.instantiate()`.
 
+### D-017 checks on the 2024-04-25 snapshot artifact (2026-10-06)
+**The pinned environment** (`Manifest.toml` from the job artifact, now committed in `audit/env/`): Julia 1.10.12, 273 packages, registry commit `ec06aa53f5a2d5c46f7d70440c86911050375882`; WorldDynamics 1.0.0, ModelingToolkit 9.12.1, DifferentialEquations 7.13.0, OrdinaryDiffEq 6.74.1, DiffEqBase 6.149.1, SciMLBase 2.35.0, Symbolics 5.28.0, SymbolicUtils 1.5.1, SymbolicIndexingInterface 0.3.16, DataFrames 1.6.1, CSV 0.10.14, PlotlyJS 0.18.13. The install log shows no errors (one harmless precompilation note about an MKL artifact download).
+
+**Solver results in that environment:** default options `Success` (73 saved points); with `saveat = 0.5` `Success` (401); with `saveat = 0.5` and tolerances 1e-8 `Success` (401); all `NoInit()` variants `Success` as well.
+
+**D-017 acceptance conditions:**
+| | condition | result |
+|---|---|---|
+| (a) | fresh run using only the committed Manifest: default solve succeeds with ≥ 401 saved points | **not yet testable.** The Manifest is committed with this update and `audit-t0.yml` now installs from it; the next T0 run is the test. The package's own test suite also runs in that run (T0.5), for the first time in an environment of the package's own era |
+| (b) | twelve main stocks within 0.1% of the `NoInit()` solution of the newest stack | **met: worst 0.0143%** (p4, 1940); all twelve below 0.015%. Same-stack comparison, default vs `NoInit()`: **identical (0.0000%)** |
+| (c) | within ±2% of fine-step PyWorld3 with the diagnostic start-up; as-shipped reported alongside | **met: worst 1.70%** (`ppol`, 2100), all twelve within ±2%. As shipped: `ppol` 373.70%, explained by the start-up difference |
+
+**Further observations:**
+- Of all 29 state variables, only one differs from the newest-stack `NoInit()` solution by more than 0.1%: `br₊fcfpc1` (0.137%), a smoothing state in the food-per-capita chain, not one of the twelve main stocks.
+- The 1900 starting states are identical between the two environments when compared **by name** (relative difference 0). The two exports list the 29 states in a **different order**, so any comparison or test must index by name, never by position (a positional comparison gave nonsense in a first attempt).
+- The 73-point default solution is coarse; its cross-check gives worst 1.54% (`ppol`, 2100). Use `saveat` for any comparison.
+- Together with the earlier result (same numbers on the newest stack with `NoInit()`), this means the `NoInit()` workaround did not change the solution; the working environment simply does not need it.
+
 ### Direction from the editor-in-chief (2026-10-05)
 Asked how to proceed on D-013 (approve as revised, approve with a further check, or reject and pin older dependencies), the editor-in-chief answered: "I want a version that works!" Interpreted as: do not build on the `NoInit()` workaround; find a dependency set in which World3 solves with default options. A first pinned-dependency search was inconclusive; the registry-snapshot search then found working environments (see above). D-017 proposes adopting one of them; D-013 would be superseded.
 
 ### Status of Phase 1 step 1.1 (T0)
-Not passed. Open: approval of D-017 (World3 reference environment) and its checks; decision on how to treat the Earth4All well-being and inequality deviations from Vensim (D-004); the T0 checkpoint review by the editor-in-chief.
+Not passed. Open: approval of D-017 (conditions b and c met; a is tested by the next run); decision on how to treat the Earth4All well-being and inequality deviations from Vensim (D-004); the T0 checkpoint review by the editor-in-chief.
 
 ## Run #6 (2026-10-05, F3 commit 4c33274)
 
