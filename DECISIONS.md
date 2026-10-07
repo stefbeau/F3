@@ -31,6 +31,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-012 | World3 reference implementation | Approved | 1 |
 | D-013 | WorldDynamics.jl solver configuration | Superseded by D-017 | 1 |
 | D-014 | Use of the Vensim output shipped with Earth4All.jl | Approved | 1 |
+| D-015 | World3 variant for F3's population sector: 1974 or 2004 parameter set | Proposed | 1 |
 | D-016 | Earth4All audit verdict: which components F3 reuses, changes or replaces | Proposed | 1 |
 | D-017 | World3 reference environment: dated registry snapshot, default solver options | Approved (condition a pending the next run) | 1 |
 | D-018 | Earth4All.jl is the Earth4All reference implementation; deviations from Vensim reported | Approved | 1 |
@@ -289,6 +290,61 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Sources:** `audit/T0-FINDINGS.md` (run #7 error statistics, headline-variable table); Earth4All.jl `src/functions.jl` (`all_mre`).
 - **Proposed by:** Claude (Validator agent role)
 - **Decision:** Approved by Stéphane Beau
+- **Date:** 2026-10-07
+
+---
+
+## D-015 — World3 variant for F3's population sector: 1974 or 2004 parameter set
+
+- **Status:** Proposed
+- **Context:** Step 1.4 ports the World3 population sector (D-012) and needs to know which variant it is based on. WorldDynamics.jl v1.0.0 ships `World3` (the 1974 model; the one all T0 cross-checks used), `World3_91` and `World3_03` (the 2004 variant, *The Limits to Growth: The 30-Year Update*). PyWorld3 implements the 1974 model only. Evidence below was produced in the pinned environment `audit/env` (D-017) with default solver options, by `audit/t0/world3_variants.jl`; both runs returned `Success` with 401 points.
+- **Finding 1: the two variants share the same equations.** In WorldDynamics.jl, `World3_03.scenario1()` is `World3_91.scenario1()` (which calls `World3.historicalrun()` with overridden parameters and tables) plus one more table override (`sfsn`) and two added subsystems, a human welfare index and a human ecological footprint. The two added subsystems only read from the model (life expectancy, industrial output per capita, pollution, land); nothing reads from them (`src/World3_03/world3_03/scenarios.jl`). So for the population sector, the choice is a choice of **parameters and tables, not of equations**. The complete list of differences in the five modules F3 would use (1974 → 2004):
+  - population: `dcfsn` 4 → 3.8; table `fm` (0, .2, .4, .6, .8, .9, 1, 1.05, 1.1) → (0, .2, .4, .6, .7, .75, .79, .84, .87); table `lmf` (0, 1, 1.2, 1.3, 1.35, 1.4) → (0, 1, 1.43, 1.5, 1.5, 1.5); table `lmhs2` (1, 1.4, 1.6, 1.8, 1.95, 2) → (1, 1.5, 1.9, 2, 2, 2); table `sfsn` (1.25, 1, .9, .8, .75) → (1.25, .94, .715, .59, .5)
+  - agriculture: `alln` 6000 → 1000; table `lymc` (higher yield response to inputs in the 2004 set)
+  - non-renewable resources: table `pcrum` (lower per-capita resource use at high output in the 2004 set: 7.0 → 5.0 at the top)
+  - capital and pollution: no differences.
+
+  I did **not** check this list against the book's Appendix A or against the 2004 book's own tables; it is what WorldDynamics.jl implements. I did not find out whether the 2004 book changes anything the package does not model.
+- **Finding 2: the trajectories differ, mostly in age structure and agriculture.** Differences of the 29 common states, compared by name (`audit/data/world3_variants_state_differences.csv`):
+
+| quantity | 1970 | 2000 | 2025 | 2100 | largest over 1900–2100 |
+|---|---|---|---|---|---|
+| population, age 0–14 (p1) | 2.4% | 1.6% | 7.3% | 15.8% | 16.2% (2088) |
+| population, age 15–44 (p2) | 3.5% | 5.5% | 2.7% | 12.6% | 12.6% (2100) |
+| population, age 45–64 (p3) | 9.7% | 12.9% | 11.7% | 9.0% | 13.5% (2009) |
+| population, age 65+ (p4) | 23.5% | 32.1% | 39.3% | 4.2% | 40.0% (2018) |
+| industrial capital | 6.2% | 3.8% | 1.8% | 13.7% | 13.7% (2100) |
+| arable land | 6.5% | 14.2% | 21.6% | 28.8% | 28.8% (2100) |
+| non-renewable resources | 0.5% | 4.3% | 10.3% | 3.6% | 11.6% (2020) |
+| persistent pollution | 2.8% | 11.5% | 9.4% | 25.8% | 25.8% (2100) |
+
+  Total population (billions): 1974 model 3.66 (1970), 5.69 (2000), 7.06 (2025), 4.00 (2100), peak 7.06 in 2026; 2004 variant 3.79, 6.09, 7.52, 3.51, peak 7.53 in 2026. The peak year is the same; the 2004 variant is about 6–7% higher around the peak and falls faster after 2050.
+- **Finding 3: against observed world population (UN World Population Prospects 2024, 28th edition; values for 1 January from `UN_2024_WorldPop-Historical-Plot.xlsx`, downloaded 2026-10-07 from population.un.org):**
+
+| year | observed (bn) | 1974 model | 2004 variant |
+|---|---|---|---|
+| 1970 | 3.695 | 3.657 (−1.0%) | 3.792 (+2.6%) |
+| 1980 | 4.448 | 4.294 (−3.4%) | 4.486 (+0.9%) |
+| 2000 | 6.172 | 5.693 (−7.8%) | 6.092 (−1.3%) |
+| 2010 | 7.022 | 6.396 (−8.9%) | 6.852 (−2.4%) |
+| 2020 | 7.887 | 6.961 (−11.7%) | 7.402 (−6.1%) |
+| 2025 | 8.232 | 7.057 (−14.3%) | 7.523 (−8.6%) |
+
+  The models run from 1900 with no recalibration and are not forecasts, so this is a check of how far each has drifted, not a fit. Neither variant stays within D-004's ±2% of the observed series to 2025 (D-004 was written for ports against their reference, so this is a different use of the number). The 2004 variant is nearer from 1980 on; the 1974 model is nearer in 1970 only. **This checks total population only.** I did not compare the age cohorts, food, industrial output, resources or pollution with observed data, and I did not find primary data for them in this task.
+- **Finding 4: which variant is used in recent comparisons with data.** Herrington (2021), *Update to limits to growth: Comparing the World3 model with empirical data*, Journal of Industrial Ecology 25(3), 614–626, DOI 10.1111/jiec.13084, uses four scenarios from the revised model, which the paper calls "World3" and which is World3-03, with data for ten variables including population, and adds human welfare and ecological footprint (the two variables World3_03 added). Turner (2008), *A comparison of The Limits to Growth with 30 years of reality*, Global Environmental Change 18(3), 397–411, compares the 1974 model's scenarios with 1970–2000 data. **Verification status:** both statements come from the publishers' abstract pages and search summaries. The full text of Herrington could not be read in this session (the PDFs would not convert to text), so the scenario definitions, the data sources for each variable, and the paper's own population comparison are **not verified**; neither is whether Herrington's "BAU" scenario is the one the package calls `scenario1`. They must be read from the paper before any claim is made about them.
+- **Finding 5: tests of the variants.** The package's own test suite covers `World3_03` only (5 tests, compared with Vensim solutions stored in the package) and passes in the pinned environment (`audit/T0-FINDINGS.md`, Local verification). The cross-check of D-017 (all twelve stocks within 1.70% of PyWorld3) is for the 1974 model; there is no independent second implementation of the 2004 variant, because PyWorld3 does not have it.
+- **Proposal:**
+  1. F3's population sector (S1) uses the **2004 parameter set** (`World3_03`) as its default.
+  2. The port (step 1.4) carries **both parameter sets** in a single piece of code, since only parameters and tables differ. The 1974 set is a regression test: the port must match WorldDynamics.jl `World3` within ±2% (D-004) with PyWorld3 as second check, as planned. The 2004 set is checked against WorldDynamics.jl `World3_03` within ±2%; any second check of it (for example PyWorld3 with its tables overridden on the instance) is labelled diagnostic, per `CLAUDE.md`.
+  3. Before relying on the 2004 variant for backtesting from 1970, someone reads Herrington (2021) in full and the book's tables to confirm what WorldDynamics.jl's `World3_03` leaves out or changes, and the age-structure data (UN WPP) are compared with the p1–p4 cohorts, where the variants differ most (65+: 23–39% apart in 1970–2025). Those two checks are cheap relative to step 1.4 and do not block starting it.
+- **What each choice means:**
+  - *2004 (proposed):* population is closer to observed values from 1980 to 2025 (−8.6% against −14.3% in 2025); matches the variant used in the most recent comparison with data (subject to the verification note); no second implementation to cross-check; the 1970 starting population is 2.6% above observed instead of 1% below.
+  - *1974:* matches everything already cross-checked (T0, D-017 and PyWorld3), the book that the package's Figure 7.7 reproduces, and Turner's 1970–2000 comparison; drifts further from observed population (−14.3% in 2025), so a backtest from 1970 would start from a larger structural gap.
+  - *Either choice:* F3 starts in 1970 from observed data (open question: the 1970 initialisation decision in the Phase 1 plan), so how the model reaches 1970 from 1900 matters less than how it behaves afterwards; and the effect on the equations to port is nil, only the parameter and table set differs.
+- **Alternatives considered:** 1974 as default with 2004 as an option (lower cross-check risk, but the worse fit to observed population would carry into every backtest); port only one variant (smaller, but the choice cannot then be revisited without redoing the tests); decide after the two checks in proposal step 3 (cleanest evidence, delays step 1.4 for work that does not change the equations).
+- **Sources:** `audit/t0/world3_variants.jl`; `audit/data/world3_variants_report.md`; `audit/data/world3_variants_state_differences.csv`; WorldDynamics.jl v1.0.0 source (`src/World3`, `src/World3_91`, `src/World3_03`); UN World Population Prospects 2024, https://population.un.org/wpp/ (file `UN_2024_WorldPop-Historical-Plot.xlsx`; licence and citation terms not checked); Herrington (2021), DOI 10.1111/jiec.13084 (abstract only); Turner (2008), Global Environmental Change 18(3), 397–411 (abstract only).
+- **Proposed by:** Claude (Research agent role)
+- **Decision:** Proposed. Not approved.
 - **Date:** 2026-10-07
 
 ---
