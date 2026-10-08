@@ -35,6 +35,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-016 | Earth4All audit verdict: which components F3 reuses, changes or replaces | Approved | 1 |
 | D-017 | World3 reference environment: dated registry snapshot, default solver options | Approved; condition (a) met 2026-10-07 | 1 |
 | D-018 | Earth4All.jl is the Earth4All reference implementation; deviations from Vensim reported | Approved | 1 |
+| D-019 | How F3 initialises its stocks in 1970 | Proposed | 1 |
 
 ---
 
@@ -398,6 +399,38 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
   1. The T2 definition (employed = `WF`, working-age = `WAP`) is accepted. The caveat stays on record: a different pair of variables could give a different answer (`audit/earth4all-audit.md`, T2).
   2. No decision is needed on exposing the nine behaviour-forcing equations as switches inside a reused sector, because the three sectors concerned (population, climate, foodland) are replaced.
   3. The T3 classification stands. A second read of the 9 behaviour-forcing equations, the 3 historical-then-goal paths, the 7 feedback switches and the one non-zero policy input found nothing to reclassify. The other 18 policy inputs were not re-read.
+
+---
+
+## D-019 — How F3 initialises its stocks in 1970
+
+- **Status:** Proposed
+- **Context:** World3 runs from 1900; F3 is specified to start in 1970 (`MODEL_SPEC.md`), and `docs/phase-1-plan.md` (step 1.4) says the 1970 initialisation gets its own decision. The population-sector port (`f3/sectors/s1_population.py`) is finished and tested from 1900 against WorldDynamics.jl (`audit/s1-port-report.md`), so there is now evidence on what starting in 1970 does. **Scope of the evidence:** the S1 population sector only, with its four inputs (food, service output and industrial output per capita, pollution index) held at the series the 1900 WorldDynamics.jl run produced. Other sectors, and the feedbacks of a coupled model, are not tested.
+- **Evidence** (measured with the port; `audit/t0/s1_report.py` and the checks below; observed population is UN World Population Prospects 2024, 1 July values):
+  1. *Restarting at 1970 is mechanically sound.* Started in 1970 from the reference's own 1970 state, the port reproduces the same port run from 1900 to within 0.11% (1974 parameter set) and 0.006% (2004 set) on all 15 states, and the WorldDynamics.jl reference to within 0.039% and 0.025%.
+  2. *The model's own 1970 state is not the observed one.* Total population in 1970: 3.657 bn (1974 set, −1.0% against observed 3.695) and 3.792 bn (2004 set, +2.6%). The model's 1970 age shares (0–14 / 15–44 / 45–64 / 65+) are 36.7 / 41.0 / 15.2 / 7.1% (1974 set) and 34.5 / 40.9 / 16.1 / 8.5% (2004 set). **They were not compared with the UN age structure** (the age-cohort check left open in D-015).
+  3. *Matching the 1970 total does not by itself improve the later fit.* One experiment: scale the four cohorts by a common factor to the observed 1970 total, keep the other eleven states as they are in the 1900 run, run to 2025:
+
+| parameter set | start | 2000 vs observed | 2025 vs observed |
+|---|---|---|---|
+| 1974 | 1970 state from the 1900 run | −7.8% | −14.3% |
+| 1974 | cohorts scaled to observed 1970 total | −6.8% | −13.4% |
+| 2004 | 1970 state from the 1900 run | −1.3% | −8.6% |
+| 2004 | cohorts scaled to observed 1970 total | −3.8% | −11.0% |
+
+     So for the 2004 set the better 1970 start leaves it further from observed population by 2000 and 2025; for the 1974 set it helps by about one point. The drift after 1970 is therefore mostly a property of the parameters and inputs, not of the 1970 start, and the experiment says nothing about how age cohorts, or the other eleven states, should be initialised. It is a single-variable experiment, not a calibration.
+  4. *Eleven of the fifteen states are not observable.* The delayed and smoothed variables (health services, perceived life expectancy, delayed and average industrial output per capita, fertility-control facilities, with their delay stages) have no data series. A 1970 start needs a rule for them: take them from the 1900 run, or set them to the steady state of the 1970 inputs. The second rule was not tested.
+- **Proposal** (the decision is the editor-in-chief's; the options are mutually exclusive):
+  - **Option A — spin-up from 1900.** F3 keeps a 1900 start inside the model and reports 1970–2100. Every stock, in every sector, is the model's own; fully reproducible against the references; the 1970 state is not observed data.
+  - **Option B — observed 1970 state.** Set every stock that has data to its observed 1970 value (cohorts from the UN age structure, others from their sources) and every other state to the steady state of the 1970 inputs. Starts from reality, but needs a data source per stock, the steady-state rule is untested, and item 3 shows no guarantee of a better 1970–2025 fit.
+  - **Option C — A for Phases 1 and 2, B as a calibration choice in Phase 3.** Until the model is coupled and calibrated, F3 starts in 1970 from the model's own 1900-run state (A). Whether to initialise from observed values is then treated as a calibration choice and judged on the Phase 3 backtest, with 2000–2025 as the out-of-sample period (as the D-015 amendment already sets for the parameter-set choice).
+  - **Recommendation (Validator): Option C.** It keeps the reproduction tests exact, does not commit to an untested steady-state rule, and puts the question where its answer can be measured. This is a recommendation, not a decision.
+- **What each option means for the work already done:** none requires changing the port: its `run()` already accepts a start year and an initial state (`t0`, `y0`). Option B needs the UN age-cohort comparison (D-015's open check) and a data source for each stock of every sector.
+- **Alternatives considered:** initialising from the 1900 run but rescaling cohorts to the observed 1970 total (evidence item 3 shows it moves the 2004 set the wrong way, and it mixes a data value with model-consistent delays); starting the whole model in 1900 and reporting from 1970 as the only horizon (that is Option A).
+- **Sources:** `audit/s1-port-report.md`; `f3/sectors/s1_population.py`; `tests/fixtures/` (WorldDynamics.jl exports); UN World Population Prospects 2024 (`UN_2024_WorldPop-Historical-Plot.xlsx`); D-003, D-004, D-015.
+- **Proposed by:** Claude (Modeler and Validator agent roles)
+- **Decision:** Proposed. Not approved.
+- **Date:** 2026-10-08
 
 ---
 

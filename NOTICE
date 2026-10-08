@@ -9,6 +9,9 @@ WorldDynamics.jl
   https://github.com/worlddynamics/WorldDynamics.jl
   Licensed under the MIT License.
   Portions of F3's World3-based sectors are ported from this project (see D-012).
+  Ported so far: f3/sectors/s1_population.py (World3 population sector, 1974 and
+  2004 parameter sets; from src/World3/population and src/World3_03). The full
+  MIT License text is in licenses/WorldDynamics.jl-MIT.txt.
 
-The full MIT License text for each attributed project is reproduced in
-licenses/ when the first ported file is committed.
+PyWorld3 (CeCILL 2.1) is used unmodified from PyPI as a second check in tests;
+none of its code is copied into F3 (see D-001, D-012).

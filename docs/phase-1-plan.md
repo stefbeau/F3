@@ -99,6 +99,6 @@ Phase 1 is complete when:
 - [x] References pinned and T0 passed
 - [x] T1–T4 run and published in `audit/earth4all-audit.md`
 - [x] D-016 approved and MODEL_SPEC updated
-- [ ] S1 population passes ±2% against WorldDynamics.jl, with PyWorld3 gaps explained
-- [ ] 1970 initialization decision logged
+- [x] S1 population passes ±2% against WorldDynamics.jl, with PyWorld3 gaps explained (`audit/s1-port-report.md`)
+- [ ] 1970 initialization decision logged (drafted as D-019, Proposed; waiting for the editor-in-chief)
 - [ ] README roadmap updated

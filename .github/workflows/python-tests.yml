@@ -1,0 +1,30 @@
+name: python-tests
+
+# Runs the Python tests (S1 population sector against fixtures exported from WorldDynamics.jl, and against
+# PyWorld3 unmodified from PyPI). Local runs are preferred for development; this is the public, repeatable record.
+on:
+  push:
+    paths:
+      - "f3/**"
+      - "tests/**"
+      - "pyproject.toml"
+      - "uv.lock"
+      - ".github/workflows/python-tests.yml"
+  pull_request:
+    paths:
+      - "f3/**"
+      - "tests/**"
+      - "pyproject.toml"
+      - "uv.lock"
+  workflow_dispatch:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Install (locked)
+        run: uv sync --group dev --locked
+      - name: Run tests
+        run: uv run pytest -q
