@@ -269,3 +269,47 @@ Done in M0–M2 by the Research role, since the plan depends on them: (1) what t
 ## 13. What this plan does not do
 
 It does not approve a decision, choose between the damage functions, select a social-tension proxy, set a dashboard stack, or settle the initialisation of any sector other than World3's (D-019). It does not claim any number is a forecast. Numbers marked *proposed* are the Validator's and are not accepted until the editor accepts them. Anything outside the milestones above (regional disaggregation, a live dashboard, Monte Carlo) belongs to later phases.
+
+
+---
+
+## 14. Amendment of 2026-10-08, after the approval of D-020 to D-025
+
+The sections above are the plan as approved on 2026-10-08 and are not rewritten. This section records what the decisions taken at the M0 checkpoint change. It applies to the milestones from M1 on. The wording of the decisions is in `DECISIONS.md`; where this section and a decision differ, the decision governs.
+
+### 14.1 What D-020 changes (the editor asked for these two to be recorded)
+
+D-020 (question 1 option A, question 2 option (i)) fixes when each part of the model starts:
+
+| Part | Starts | Before that |
+|---|---|---|
+| World3-based sectors (S1, and M3's agriculture, capital, resources, pollution) | 1970, from the model's own state (D-019 Option C) | not applicable |
+| Reused Earth4All sectors (M4) | **1980**, from their own initial state | undefined or prescribed; from 1970 to 1980 only the World3-based sectors run |
+| S3 AI sector and the data-centre module (M1, M2) | **2025**, from GATE's initial values | the automation fraction is held at GATE's initial value; data-centre electricity is prescribed from IEA estimates where available |
+| FaIR (S6) | its own history: it is re-run from the start each year (D-021) with prescribed historical emissions | not applicable |
+
+**A6.6 (initialisation)**, as approved, read: "The 1970 state follows D-019 Option C; the Phase 3 question (observed 1970 start) stays open, as D-019 says." It now reads, in addition: the World3-based sectors start in 1970, the Earth4All sectors in 1980 and S3 in 2025, each from the starting point D-020 fixes; **nothing is coupled before 1980**, so a coupled run reports from 1980, and 1970 to 1980 is reported from the World3-based sectors alone.
+
+**Demo 0 (section 10)**, as approved, shows "three AI-investment settings ... from 1970 to 2100". Under D-020 it shows the AI sector (compute, automation fraction, data-centre electricity) **from 2025 to 2100**; the slice's climate part (temperature under the three damage options) can still be shown from 1970 because FaIR runs from its own history with prescribed emissions (D-021). Data-centre electricity before 2025 appears only as prescribed IEA values, labelled as inputs, not as model output; the only values read so far are 415 TWh for 2024 and 485 TWh for 2025, and the IEA's earlier series was not read. The page also carries the label D-021 requires: **"non-CO2 emissions are prescribed, not modelled"**.
+
+### 14.2 Other consequences noticed while recording the decisions (listed for the editor's confirmation; **not applied**)
+
+These follow from the approved decisions but touch acceptance tests or documents that were approved earlier. None has been changed.
+
+1. **A2.2 cannot be an independent test of the data-centre module for 2024 or 2025.** Under D-020 the module is switched on in 2025 from GATE's initial values, and the 2024 value is prescribed; the 2025 value is an initial condition, so comparing it with the IEA's 485 TWh checks the initialisation, not the model's dynamics. As written, A2.2 also asks the module to "reproduce" 2024. Proposed reading, for confirmation: A2.2 becomes a consistency check of the 2025 initial value against 485 TWh within the stated ±10%, the 2024 value is an input, and the plan states that **no independent test of modelled data-centre electricity against estimates exists before 2025**; the IEA's 2030 figure stays report-only. This is a consequence of the decision, not a relaxation after seeing a result, but it changes an approved test and so waits for the editor.
+2. **GATE's economy and Earth4All's economy are two models of the same world** (GATE: output 110 trillion USD/year and capital 450 trillion USD at the start of 2025, as read from its Appendix D). From 2025 the coupled model needs a rule saying which one drives output, or how they are reconciled. This does not arise in M1 or in the slice (whose economy is GATE's own); it must be settled before M4 couples the Earth4All economy to S3, and D-020's text names it as open.
+3. **A4.5 and the Earth4All sector tests** are already on a 1980 horizon (the package solves 1980 to 2100); no change.
+4. **A5.4 (hindcast, 1970 to 2024)**: variables produced by the Earth4All sectors (labour share in its labour market, the inequality index) exist only from 1980; the hindcast window for them starts in 1980, and for a variable from outside those sectors (for example observed WID series used only as data) it can start earlier. The editor sets the window when the thresholds are set (D-024).
+5. **`MODEL_SPEC.md`** still says "Time horizon 1970-2100" (section 3) and its sector text assumes a 1970 start for every sector. It has not been changed; it should say that the horizon is 1970 to 2100 for the World3-based sectors, 1980 to 2100 for the Earth4All sectors and 2025 to 2100 for S3, and that the coupled run reports from 1980. Wording to be agreed with the editor.
+6. **`docs/phase-1-review.md`**, section 2 ("Starting in 1970"), still says the rescaling helped the 1974 set by about one point; D-019's dated outcome note of 2026-10-08 corrects that statement and the review has not been edited.
+
+### 14.3 What the other approvals change in the plan
+
+| Decision | Effect on the milestones |
+|---|---|
+| D-021: FaIR re-run from the start each year; non-CO2 emissions prescribed | M2's FaIR coupling is the re-run; options (b) and (c) are re-tested once a real configuration exists and the editor then decides; Demo 0 carries the label above. Cost per full run is not yet measured with a real configuration (the toy case was 24 s for 130 annual re-runs) |
+| D-022: explicit coupling at 0.25 year; t = Y is 1 January | A2.6 tests the loop step with live partners; observed 1 January values are compared with the model at t = Y (written into `MODEL_SPEC.md` as A0.3) |
+| D-023: option C | M4 tests each sector against replayed Earth4All series first and builds adapters for the coupled model afterwards, reporting the adapters' effect; the warming baseline of `OW` and the working-age mapping are settled before M4's output, public and labour-market tests |
+| D-024: framework approved, thresholds set by the editor before the series are loaded | Before the M5 hindcast the editor sets thresholds; the age-structure numbers were already seen at approval and any age-structure threshold must say so; each criterion states what a failure triggers (D-024 Decision) |
+| D-025: Phase 3 entry conditions as drafted | M6 closes against the six conditions in D-025 |
+| M0 | Closed on 2026-10-08 (A0.1 to A0.5 met; see `docs/STATUS.md`) |
