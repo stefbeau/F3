@@ -40,20 +40,28 @@ CLAUDE.md                 this file
 DECISIONS.md              decision register (authoritative)
 MODEL_SPEC.md             model specification v0.1
 README.md  LICENSE  NOTICE
+pyproject.toml  uv.lock   Python environment (uv sync --group dev); pytest configuration
 docs/STATUS.md            where we stand (keep current)
 docs/HANDOVER.md          prompts for the next tasks, in order
 docs/phase-1-plan.md      Phase 1 plan (done)
 docs/phase-1-review.md    Phase 1 review: evidence, decisions, open issues carried into Phase 2
-docs/phase-2-plan.md      Phase 2 plan: a PROPOSAL until the editor approves it
-research/SOURCES.md       latest verified information per topic
-audit/                    audits of reference models (README.md, T0-FINDINGS.md, earth4all-audit.md, REFERENCES.md)
+docs/phase-2-plan.md      Phase 2 plan (approved 2026-10-08, order B); milestones M0 to M6 with acceptance tests
+docs/coupling-interface.md        sector interface and coupling loop (M0); the Proposed decision is D-022
+docs/time-convention-evidence.md  what World3 says about the calendar meaning of t (M0; evidence only)
+research/SOURCES.md       source register: what is verified, what could not be read
+research/damage-functions.md      candidate sources for the damage function (D-007); a note, not a choice
+f3/core/                  coupling core: sector.py (interface), model.py (loop, recording), replay.py (recorded series)
+f3/sectors/               s1_population.py (S1, equations, both World3 parameter sets), s1_sector.py (S1 in the loop)
+tests/                    pytest: test_s1_population.py, test_s1_in_model.py; pyworld3_check.py; fixtures/ (exported from the pinned Julia run)
+licenses/                 MIT text of ported code (WorldDynamics.jl)
+audit/                    audits of reference models (README.md, T0-FINDINGS.md, earth4all-audit.md, earth4all-time-driven-equations.csv, s1-port-report.md, REFERENCES.md)
 audit/env/                pinned Julia environment for WorldDynamics.jl (D-017)
 audit/env-earth4all/      pinned Julia environment for the Earth4All.jl audit (commit 16f37d0 plus DataFrames and CSV)
-audit/t0/                 audit scripts (world3_t0.jl, earth4all_t0.jl, pyworld3_t0.py, compare_world3.py, snapshot_table.py)
-audit/data/               stored error statistics (variable names and error figures only)
-.github/workflows/        audit-t0.yml (current), audit-world3-snapshot.yml and audit-world3-pins.yml (records of the dependency search)
+audit/t0/                 audit and evidence scripts (Julia and Python); the headers say what each does
+audit/data/               stored results: error statistics, Earth4All audit tables, cross-sector links (names and figures only)
+.github/workflows/        audit-t0.yml, python-tests.yml (current); audit-world3-snapshot.yml, audit-world3-pins.yml (records of the dependency search)
 ```
-Model code: `f3/sectors/s1_population.py` (S1, both World3 parameter sets), tests in `tests/` (fixtures exported from the pinned Julia run in `tests/fixtures/`), `pyproject.toml` and `uv.lock` (Python environment, `uv sync --group dev`), `licenses/` (MIT text of ported code). Planned, not yet created: `dashboard/`, `data/`.
+Planned, not yet created: `dashboard/`, `data/`.
 
 ## Running things on Stéphane's machine (Windows)
 - Set `PYTHONUTF8=1` (the scripts print Unicode such as `₊` and `✅`).
