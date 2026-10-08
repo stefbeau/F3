@@ -42,7 +42,9 @@ MODEL_SPEC.md             model specification v0.1
 README.md  LICENSE  NOTICE
 docs/STATUS.md            where we stand (keep current)
 docs/HANDOVER.md          prompts for the next tasks, in order
-docs/phase-1-plan.md      Phase 1 plan
+docs/phase-1-plan.md      Phase 1 plan (done)
+docs/phase-1-review.md    Phase 1 review: evidence, decisions, open issues carried into Phase 2
+docs/phase-2-plan.md      Phase 2 plan: a PROPOSAL until the editor approves it
 research/SOURCES.md       latest verified information per topic
 audit/                    audits of reference models (README.md, T0-FINDINGS.md, earth4all-audit.md, REFERENCES.md)
 audit/env/                pinned Julia environment for WorldDynamics.jl (D-017)
@@ -51,7 +53,7 @@ audit/t0/                 audit scripts (world3_t0.jl, earth4all_t0.jl, pyworld3
 audit/data/               stored error statistics (variable names and error figures only)
 .github/workflows/        audit-t0.yml (current), audit-world3-snapshot.yml and audit-world3-pins.yml (records of the dependency search)
 ```
-Planned, not yet created: `f3/` (model code: `f3/sectors/s1_population.py` …), `tests/`, `dashboard/`.
+Model code: `f3/sectors/s1_population.py` (S1, both World3 parameter sets), tests in `tests/` (fixtures exported from the pinned Julia run in `tests/fixtures/`), `pyproject.toml` and `uv.lock` (Python environment, `uv sync --group dev`), `licenses/` (MIT text of ported code). Planned, not yet created: `dashboard/`, `data/`.
 
 ## Running things on Stéphane's machine (Windows)
 - Set `PYTHONUTF8=1` (the scripts print Unicode such as `₊` and `✅`).
