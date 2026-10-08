@@ -1,6 +1,6 @@
 # F3 — Phase 2 Plan: Couple (PROPOSAL)
 
-**Status: PROPOSAL, drafted 2026-10-08 for the editor-in-chief. Nothing in this document is approved.** It becomes the plan only when Stéphane says so in a session; this line is then changed and the date recorded. · **Depends on:** Phase 1 (done, `docs/phase-1-review.md`) · **Governing decisions so far:** D-001, D-003, D-004, D-010 to D-012, D-014 to D-019 · **Decisions this plan needs:** D-005 to D-009 and six new ones (section 8). No approved decision is changed by this document.
+**Status: Approved by the editor-in-chief on 2026-10-08, order B.** · **Depends on:** Phase 1 (done, `docs/phase-1-review.md`) · **Governing decisions so far:** D-001, D-003, D-004, D-010 to D-012, D-014 to D-019 · **Decisions this plan needs:** D-005 to D-009 and six new ones (section 8). No approved decision is changed by this document.
 
 ---
 

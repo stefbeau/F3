@@ -7,9 +7,22 @@
 |---|---|---|
 | 0 Setup | repo, specification, decision log | Done |
 | 1 Reproduce and audit | trust the reference models; World3 population sector in Python | **Done 2026-10-08** (`docs/phase-1-review.md`) |
-| 2 Couple | AI sector, energy, materials, water, social stability, climate, linked by feedback loops | **Next**: not started; no Phase 2 plan written yet |
+| 2 Couple | AI sector, energy, materials, water, social stability, climate, linked by feedback loops | **In progress** (plan approved 2026-10-08, order B; M0 starting) |
 | 3 Calibrate | backtest 1970–2025, Monte Carlo, sensitivity, validation report | Not started |
 | 4 Publish | public scenario dashboard, methodology | Not started |
+
+## Phase 2 milestones (`docs/phase-2-plan.md`, approved 2026-10-08, order B: thin slice first)
+| Milestone | Sessions (estimate) | Status |
+|---|---|---|
+| M0 Carry-over, interfaces, first decisions (N1-N6 drafted) | 1-2 | **Starting** |
+| M1 S3 AI sector, GATE-like, standalone | 4-6 | Not started (needs D-005 amended) |
+| M2 Slice: AI, electricity, climate; Demo 0 | 3-5 (+1-2 demo) | Not started |
+| M3 Complete World3 in Python (agriculture, capital, resources, pollution) | 5-8 | Not started |
+| M4 Port the reused Earth4All sectors | 6-10 | Not started |
+| M5 New modules: S7 social, S5 minerals and water, warming channels in replaced sectors | 6-10 | Not started |
+| M6 Integration and Phase 2 review | 4-7 | Not started |
+
+The external review of Demo 0 is deferred until Demo 0 is ready (editor's decision, 2026-10-08).
 
 ## Phase 1 steps
 | Step | Status |
@@ -37,4 +50,4 @@
 3. Item 12 of the Phase 1 review (Earth4All environment not pinned) is resolved (2026-10-08). Item 11 (only the population sector is ported, so F3 cannot run World3 end to end) is carried into the Phase 2 plan, which is a proposal for your decision.
 
 ## Next tasks
-**Decision for the editor:** `docs/phase-2-plan.md` is a **proposal** (drafted 2026-10-08, nothing approved): seven milestones with acceptance tests stated beforehand, a recommended order (a thin slice with the AI sector first, a public demo after about 9–15 sessions) and one alternative (complete World3 first). Phase 2 starts only when you approve a plan. Remaining from `docs/HANDOVER.md`: Prompt 5 (automation of reports and CI). The open issues carried into Phase 2 are in `docs/phase-1-review.md`, section 4.
+M0 of the Phase 2 plan: sector interface and coupling loop (A0.1, A0.2), the time convention (review item 16, evidence first), drafts of decisions N1-N6 as Proposed (A0.4), the repository-map check (A0.5). It stops at the M0 checkpoint for the editor; M1 does not start until that checkpoint is passed. Also pending: run the `audit-t0` workflow on GitHub to confirm the pinned Earth4All environment installs in CI, and `docs/HANDOVER.md` Prompt 5 (automation of reports and CI). The open issues carried into Phase 2 are in `docs/phase-1-review.md`, section 4.
