@@ -15,7 +15,7 @@
 | Milestone | Sessions (estimate) | Status |
 |---|---|---|
 | M0 Carry-over, interfaces, first decisions (N1-N6 drafted) | 1-2 | **Closed 2026-10-08**: A0.1 (S1 in the loop bit-identical to stand-alone), A0.2 (equations untouched), A0.3 (time convention in `MODEL_SPEC.md`, D-022), A0.4 (D-020 to D-025 drafted, then approved by the editor), A0.5 (repository map matches) all met |
-| M1 S3 AI sector, GATE-like, standalone | 4-6 | **Not started.** Needs D-005 amended and approved (amendment drafted as Proposed; parameter settings for A1.3 await the editor's confirmation) |
+| M1 S3 AI sector, GATE-like, standalone | 4-6 | **Step 1 (A1.1) done 2026-10-08, waiting for the editor**: equations and defaults extracted (`research/gate-equations.md`); the playground ships three precomputed runs (default, conservative, aggressive) but **cannot export series for other settings**, so the approved Settings 1 and 2 have no series to compare with at 3 significant figures. No code written, no comparison run. D-005 approved with its amendment |
 | M2 Slice: AI, electricity, climate; Demo 0 | 3-5 (+1-2 demo) | Not started |
 | M3 Complete World3 in Python (agriculture, capital, resources, pollution) | 5-8 | Not started |
 | M4 Port the reused Earth4All sectors | 6-10 | Not started |
