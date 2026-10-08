@@ -126,6 +126,21 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 - **Decision:** —
 - **Date:** —
 
+- **Evidence note (2026-10-08, Research agent role; the entry above is unchanged and the decision is still open).** Candidates compared on coverage since 1970, global scope and terms. The full rows and what was verified are in `research/SOURCES.md` (section "Research for the missing rows"). Only the UCDP row was checked against a primary page; the others rest on library-guide summaries and are unverified.
+
+  | Candidate | Content | Coverage | Global from 1970? | Terms |
+  |---|---|---|---|---|
+  | UCDP/PRIO Armed Conflict | state-based armed conflict | 1946-2025 (verified) | yes, but armed conflict only | CC BY 4.0 (verified) |
+  | UCDP One-sided Violence, Non-State Conflict | violence against civilians; conflict between non-state groups | 1989-2025 (verified) | no, starts 1989 | CC BY 4.0 (verified) |
+  | Cross-National Time-Series Archive (Banks) | riots, strikes, demonstrations, assassinations, government crises, revolutions | 1815-2023 (unverified) | yes | paid licence; redistribution restricted (unverified) |
+  | Global Terrorism Database | terrorist events | from 1970 (unverified) | yes, terrorism only | not checked |
+  | GDELT | automated news-event coding, including protest | from 1979 (unverified) | from 1979 | not checked |
+  | ACLED | political violence and protest | modern; start date not given | no | not checked |
+  | SCAD | social conflict | 1990-2017, Africa and parts of the Americas (unverified) | no | not checked |
+
+  **Findings.** No candidate found combines global coverage, protest-type events and open terms from 1970. The only one with protest-type events before 1990 (CNTS) is paid, and its terms probably forbid publishing the underlying series, which conflicts with D-001's requirement to publish processed data under CC BY 4.0. UCDP is open and verified but measures armed conflict, not social tension, and has a coverage break at 1989 for two of its three datasets. Whether any of these measures "social tension" as Earth4All's index defines it (a smoothed index of inequality and well-being effects, not event counts) is not established: a proxy built from conflict events would be a different concept.
+
+  **Options for the editor-in-chief (not recommendations to adopt without a check of the terms):** (1) build a composite from open sources only (UCDP armed conflict from 1970, GTD from 1970 if its terms allow, GDELT from 1979), accepting uneven coverage and that it measures violence, not tension; (2) obtain a CNTS licence and publish only derived, non-reversible indices if its terms permit; (3) do not backtest the social-tension index against events, and calibrate S7 on its drivers instead (inequality from WID and labour share from ILOSTAT, both with terms still unverified), reporting tension as a model-internal index. **Not done:** the terms of GTD, GDELT, ACLED, WID and ILOSTAT were not read from their own pages, so no option is yet cleared for publication.
 ## D-009 — Dashboard stack
 
 - **Status:** Proposed (deferred to Phase 4)

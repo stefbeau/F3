@@ -37,4 +37,4 @@
 3. Two issues found in the Phase 1 review have no home yet (`docs/phase-1-review.md`, section 4, items 11 and 12): only the population sector is ported, so F3 cannot run World3 end to end; and the Earth4All.jl environment is not pinned in the repository. Which prompt or decision should carry them?
 
 ## Next tasks
-Phase 2 (couple) starts with decisions D-005 to D-007 and a Phase 2 plan, neither written yet. Remaining from `docs/HANDOVER.md`: Prompt 5 (automation of reports and CI), Prompt 6 (source verification, water and inequality data; in progress). The open issues carried into Phase 2 are listed in `docs/phase-1-review.md`, section 4.
+Phase 2 (couple) starts with decisions D-005 to D-007 and a Phase 2 plan, neither written yet. Remaining from `docs/HANDOVER.md`: Prompt 5 (automation of reports and CI), Prompt 6 is done (2026-10-08): `research/SOURCES.md` is verified where the primary pages were readable and says "could not verify" where not (LBNL water report, TSMC report, WID and ILOSTAT terms); D-008 has an evidence note and is still open. The open issues carried into Phase 2 are listed in `docs/phase-1-review.md`, section 4.
