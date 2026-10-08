@@ -31,7 +31,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-012 | World3 reference implementation | Approved | 1 |
 | D-013 | WorldDynamics.jl solver configuration | Superseded by D-017 | 1 |
 | D-014 | Use of the Vensim output shipped with Earth4All.jl | Approved | 1 |
-| D-015 | World3 variant for F3's population sector: 1974 or 2004 parameter set | Proposed | 1 |
+| D-015 | World3 variant for F3's population sector: 1974 or 2004 parameter set | Approved with amendment | 1 |
 | D-016 | Earth4All audit verdict: which components F3 reuses, changes or replaces | Approved | 1 |
 | D-017 | World3 reference environment: dated registry snapshot, default solver options | Approved; condition (a) met 2026-10-07 | 1 |
 | D-018 | Earth4All.jl is the Earth4All reference implementation; deviations from Vensim reported | Approved | 1 |
@@ -296,7 +296,7 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 
 ## D-015 — World3 variant for F3's population sector: 1974 or 2004 parameter set
 
-- **Status:** Proposed
+- **Status:** Approved with amendment (2026-10-07)
 - **Context:** Step 1.4 ports the World3 population sector (D-012) and needs to know which variant it is based on. WorldDynamics.jl v1.0.0 ships `World3` (the 1974 model; the one all T0 cross-checks used), `World3_91` and `World3_03` (the 2004 variant, *The Limits to Growth: The 30-Year Update*). PyWorld3 implements the 1974 model only. Evidence below was produced in the pinned environment `audit/env` (D-017) with default solver options, by `audit/t0/world3_variants.jl`; both runs returned `Success` with 401 points.
 - **Finding 1: the two variants share the same equations.** In WorldDynamics.jl, `World3_03.scenario1()` is `World3_91.scenario1()` (which calls `World3.historicalrun()` with overridden parameters and tables) plus one more table override (`sfsn`) and two added subsystems, a human welfare index and a human ecological footprint. The two added subsystems only read from the model (life expectancy, industrial output per capita, pollution, land); nothing reads from them (`src/World3_03/world3_03/scenarios.jl`). So for the population sector, the choice is a choice of **parameters and tables, not of equations**. The complete list of differences in the five modules F3 would use (1974 → 2004):
   - population: `dcfsn` 4 → 3.8; table `fm` (0, .2, .4, .6, .8, .9, 1, 1.05, 1.1) → (0, .2, .4, .6, .7, .75, .79, .84, .87); table `lmf` (0, 1, 1.2, 1.3, 1.35, 1.4) → (0, 1, 1.43, 1.5, 1.5, 1.5); table `lmhs2` (1, 1.4, 1.6, 1.8, 1.95, 2) → (1, 1.5, 1.9, 2, 2, 2); table `sfsn` (1.25, 1, .9, .8, .75) → (1.25, .94, .715, .59, .5)
@@ -354,7 +354,7 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Alternatives considered:** 1974 as default with 2004 as an option (lower cross-check risk, but the worse fit to observed population would carry into every backtest); port only one variant (smaller, but the choice cannot then be revisited without redoing the tests); decide after the two checks in proposal step 3 (cleanest evidence, delays step 1.4 for work that does not change the equations).
 - **Sources:** `audit/t0/world3_variants.jl`; `audit/data/world3_variants_report.md`; `audit/data/world3_variants_state_differences.csv`; WorldDynamics.jl v1.0.0 source (`src/World3`, `src/World3_91`, `src/World3_03`); UN World Population Prospects 2024, https://population.un.org/wpp/ (file `UN_2024_WorldPop-Historical-Plot.xlsx`; licence and citation terms not checked); WPP 2024 Summary of Results, https://population.un.org/wpp/assets/Files/WPP2024_Summary-of-Results.pdf (Table A2; note on the reference date); Herrington (2021), DOI 10.1111/jiec.13084 (article text read in full, Supporting Information not read); Turner (2008), Global Environmental Change 18(3), 397–411 (abstract only).
 - **Proposed by:** Claude (Research agent role)
-- **Decision:** Proposed. Not approved.
+- **Decision:** Approved with amendment: the port carries both parameter sets (1974 and 2004) in one codebase; the 2004 set is F3's provisional default; the final default is confirmed at the Phase 3 backtest on observed data, using 2000-2025 as the out-of-sample test. Before the 2004 set is relied on for backtests, the book's tables (and Herrington's Supporting Information) are read and the age cohorts are compared with UN WPP; these checks do not block step 1.4. (Approved by Stéphane Beau; this amends proposal item 1, whose text is kept as drafted.)
 - **Date:** 2026-10-07
 
 ---

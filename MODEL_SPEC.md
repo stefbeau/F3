@@ -1,7 +1,7 @@
 # F3 — Foundation for Earth
 ## Global Model Specification · v0.1 (draft)
 
-**Status:** v0.1 draft, updated after decisions D-001 to D-004, D-010, D-011, D-012, D-014, D-016, D-017 and D-018 (decision register: DECISIONS.md) · **Owner:** Stéphane Beau (editor-in-chief) · **Repo:** github.com/stefbeau/f3
+**Status:** v0.1 draft, updated after decisions D-001 to D-004, D-010, D-011, D-012, D-014, D-015, D-016, D-017 and D-018 (decision register: DECISIONS.md) · **Owner:** Stéphane Beau (editor-in-chief) · **Repo:** github.com/stefbeau/f3
 **Last updated:** 2026-10-08
 
 ---
@@ -83,6 +83,7 @@ Notation is indicative. Final equations are fixed in v0.2 after the reproduction
 ### S1 — Population
 
 - **Origin:** World3 population sector (age cohorts, fertility, mortality in every cohort), ported from WorldDynamics.jl (MIT) with attribution (D-012). It replaces Earth4All's population sector (no mortality below 60, two exogenous 2022–2100 ramps; D-016). Well-being moves to S7.
+- **Parameter sets (D-015):** the port carries **both** World3 parameter sets in one codebase, because they differ only in parameters and tables, not in equations. The **2004 set** (`World3_03`, *The Limits to Growth: The 30-Year Update*) is F3's **provisional default**; the final default is confirmed at the Phase 3 backtest on observed data, with 2000–2025 as the out-of-sample test. The **1974 set** (`World3`) is the regression test: the port must match WorldDynamics.jl `World3` within ±2% (D-004), with PyWorld3 as second check. The 2004 set is checked against WorldDynamics.jl `World3_03` within ±2%; any second check of it that overrides PyWorld3's tables is diagnostic and labelled so. Before the 2004 set is relied on for backtests, the book's tables and Herrington's (2021) Supporting Information are read and the age cohorts are compared with UN WPP.
 - **Key stocks:** Population by age group (0–14, 15–44, 45–64, 65+).
 - **Key flows:** Births, deaths, aging.
 - **Drivers:** Income per person, food per person (World3 agriculture sector in v0.1, which replaces Earth4All's foodland sector, D-016), health services, temperature stress (from S6), well-being (from S7).
@@ -223,6 +224,7 @@ The scientific core of F3 is the race between **R1/R3** (AI-driven acceleration)
 | D-011 | Earth4All reference implementation | **Approved:** Earth4All.jl only; audit in Julia, port only what passes |
 | D-012 | World3 reference implementation | **Approved:** port from WorldDynamics.jl (MIT) with attribution; PyWorld3 as second check |
 | D-014 | Vensim output shipped with Earth4All.jl | **Approved:** read at run time from a clone for the package's own comparison; never stored in F3 |
+| D-015 | World3 variant for S1 | **Approved with amendment:** port carries both parameter sets (1974, 2004); 2004 provisional default, confirmed at the Phase 3 backtest (2000–2025 out of sample); 1974 set is the regression test |
 | D-016 | Earth4All audit verdict | **Approved:** replace population, climate, foodland, wellbeing; reuse output, inventory, finance; reuse with changes demand, public, energy; labour market provisional |
 | D-017 | World3 reference environment | **Approved:** Julia registry snapshot 2024-04-25, default solver options, pinned in `audit/env` |
 | D-018 | Earth4All reference status | **Approved:** Earth4All.jl is the reference; deviations from Vensim reported openly |
