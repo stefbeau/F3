@@ -33,7 +33,7 @@
 - **Dependency search.** First attempt pinned ModelingToolkit only: flawed and inconclusive. Registry-snapshot search: works with defaults for the 2024-04-25 and 2024-07-01 snapshots, fails from 2024-10-01. Full record in `audit/T0-FINDINGS.md`.
 
 ## Open questions for the editor
-1. D-015: approve the 2004 parameter set as S1's default (the port carries both sets; only parameters and tables differ, not equations)? Two checks are still open and are listed in D-015: Herrington (2021) full text, and the age structure against UN data.
+1. D-015: approve the 2004 parameter set as S1's default (the port carries both sets; only parameters and tables differ, not equations)? Two checks are still open and are listed in D-015: the book's tables, and the age structure against UN data (Herrington 2021 has now been read; see D-015 Finding 4).
 2. Whether to report the WorldDynamics.jl break (between ModelingToolkit 9.22 and 9.41) upstream.
 
 ## Next tasks
