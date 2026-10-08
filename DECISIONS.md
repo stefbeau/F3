@@ -21,7 +21,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-002 | Earth4All integration route | Superseded by D-011 | 0 |
 | D-003 | Internal time step | Approved | 0 |
 | D-004 | Reproduction tolerance | Approved | 0 |
-| D-005 | AI sector integration approach | Proposed (an amendment with numeric criteria is drafted, Proposed) | 2 |
+| D-005 | AI sector integration approach | Approved, with the amendment of 2026-10-08 (numeric criteria A1.2 to A1.6) | 2 |
 | D-006 | Critical minerals granularity in v0.1 | Proposed | 2 |
 | D-007 | Climate damage function | Proposed | 2 |
 | D-008 | Social tension historical proxy | Proposed (research needed) | 3 |
@@ -102,12 +102,12 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 
 ## D-005 — AI sector integration approach
 
-- **Status:** Proposed
+- **Status:** Approved (2026-10-08)
 - **Context:** GATE determines investment through an optimization step that does not fit naturally into a system dynamics model.
 - **Proposal:** Re-implement GATE's three modules (AI development, automation, growth) in simplified form, replacing the optimization with a behavioral investment rule. Check against GATE sandbox presets (MODEL_SPEC §7.3).
 - **Alternatives considered:** Coupling to GATE's own code (harder to integrate and maintain).
-- **Decision:** —
-- **Date:** —
+- **Decision:** Approved by Stéphane Beau: re-implement GATE's three modules in simplified form with a behavioural investment rule (the Proposal above), with the amendment below approved with the fix recorded in its approval note (A1.5(d) corrected; criteria for A1.2 to A1.6; the two settings and the Setting 2 replacement rule; the rule for the λ ambiguity).
+- **Date:** 2026-10-08
 
 - **Amendment proposal A (2026-10-08, Proposed; the editor's confirmation is needed before any comparison run).** The entry above is the approved-for-drafting text and is not changed. This amendment fixes the numeric criteria that plan tests A1.2 to A1.6 call for. It is written before any code, so the criteria cannot be shaped by results. **Nothing here is approved.** When approved, this block becomes the record and D-005's Status, Decision and Date lines are filled.
 
@@ -127,7 +127,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
   |---|---|---|
   | **A1.3** same equations, GATE's investment path supplied as input | For the **three settings** below (the default and the two proposed by the Validator), S3's effective compute, algorithmic and hardware efficiency, automation fraction and output match the sandbox within **±2%** at every year of 2025 to 2100, **provided** the sandbox's series can be exported to at least three significant figures. | This part of S3 re-implements the same equations, so D-004's ±2% is the natural bar. It is stated before any run; a failure is reported, not relaxed, and a revised criterion would be a new labelled proposal. If the export is coarser than three significant figures, the criterion becomes ±2% plus the export's rounding, stated in the report. |
   | **A1.4** behavioural rule against GATE's optimised path | **Report only, no pass or fail.** For each setting: the largest and mean relative difference of the investment shares, of effective compute and of output, and the first year each exceeds 5% and 10%. | D-005 deliberately replaces the optimisation; a pass/fail would test the replacement against the thing it replaces. |
-  | **A1.5** extreme conditions | **Pass if all hold, 2025 to 2100, on each setting:** (a) hardware efficiency and software efficiency growth set to zero (R&D productivity zero): effective compute grows only through compute stock and the automation fraction never falls; (b) zero investment in compute and R&D: compute stock falls by depreciation and no stock turns negative; (c) the automation fraction is non-decreasing in effective compute at every year; (d) no NaN, no negative stock, and no stock that exceeds the paper's physical compute limit `C_L` (2e38 FLOP/year by default). | These are the plan's extreme-condition tests made concrete. Each is a property of the equations, not of a reference. Whether (a) holds exactly depends on a reading of the paper's law of motion for the largest training run that was not completed here; the criterion is therefore stated as a property and the Modeler states, before running, the exact equation it applies to. |
+  | **A1.5** extreme conditions | **Pass if all hold, 2025 to 2100, on each setting:** (a) hardware efficiency and software efficiency growth set to zero (R&D productivity zero): effective compute grows only through compute stock and the automation fraction never falls; (b) zero investment in compute and R&D: compute stock falls by depreciation and no stock turns negative; (c) the automation fraction is non-decreasing in effective compute at every year; (d) no NaN and no negative stock; and **usable compute `g(Q)`, which the paper's equation 10 defines as `g(Q) = Q / (Q/C_L + 1)`, never exceeds `C_L`** (2e38 FLOP/year by default). **`C_L` bounds usable compute only: the raw compute stock `Q` and effective compute (usable compute times software efficiency `S`, equation 11, `C(0) = g(Q(0)) S(0)`) are not capped by `C_L` and may exceed it.** The report states the criterion on `g(Q)` and reports the raw stock `Q` and the effective compute beside it, so that nobody reads a value of `Q` or of effective compute above `C_L` as a violation. (Corrected 2026-10-08 at the editor's instruction; the first wording said "no stock that exceeds the paper's physical compute limit", which would have wrongly applied the cap to `Q` and to effective compute. Checked against equations 9 to 11 of arXiv:2503.04941v2.) | These are the plan's extreme-condition tests made concrete. Each is a property of the equations, not of a reference. Whether (a) holds exactly depends on a reading of the paper's law of motion for the largest training run that was not completed here; the criterion is therefore stated as a property and the Modeler states, before running, the exact equation it applies to. |
   | **A1.6** fallback (only if A1.1 shows nothing can be exported) | The default setting reproduces the **published figures of the posts** within **±10%**: the investment share in 2025 (20% or 24%, whichever the editor accepts as the reference; the two posts disagree), the growth rate of 23% in 2027, and the automation fraction at which growth first exceeds 20% (about 30%) and exceeds 30% (50 to 70%). The ±10% is looser because these are blog figures of unknown precision and version, not series. **It is a fallback, labelled so everywhere it is reported, and the editor decides whether it is enough to proceed.** | Without a series the comparison is against statements, which carry less information. |
   | **A1.2** | This amendment, once approved, **is** A1.2. | |
 
@@ -150,6 +150,12 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 
   **What this amendment does not do.** It does not choose the behavioural investment rule (the Modeler proposes it in M1 and it is reported by A1.4); it does not settle which economy drives output from 2025 (D-020, plan amendment 14.2); it does not claim the settings coincide with the playground's presets.
 
+- **Approval of the amendment (recorded 2026-10-08).** Stéphane Beau approved the D-005 amendment above **with the following fix and decisions**:
+  1. **A1.5(d) is corrected** as written in the table above: the physical limit applies to usable compute `g(Q)` (equation 10), not to the raw stock `Q` or to effective compute; the report gives the criterion on `g(Q)` and reports `Q` and effective compute beside it.
+  2. **The numeric criteria of A1.2 to A1.6 are approved as proposed** (A1.3 within ±2% at every year of 2025 to 2100 for three settings, provided the sandbox exports at least three significant figures; A1.4 report only; A1.5 as corrected; A1.6, the ±10% fallback, only if nothing can be exported and only with the editor's decision before any comparison).
+  3. **The two parameter settings for A1.3 are approved**, together with the default (Setting 0): **Setting 1 (slow):** `T` = 1e41 eFLOP, `λ_H` = `λ_S` = 0.25. **Setting 2 (fast):** `T` = 1e33 eFLOP, `λ_H` = `λ_S` = 1, with the **replacement rule for Setting 2** as written above (if the sandbox refuses Setting 2, it is replaced by `λ` = 0.5 for both and `T` = 1e34.5, and the report says so).
+  4. **Rule for the `λ` ambiguity** (the paper's tables and text disagree on the defaults and lows of `λ_H` and `λ_S`): the Modeler **runs both readings and reports the difference**; **if the playground shows its parameter values, those decide**; the **working default is the text's reading, 0.14 for both** `λ_H` and `λ_S`.
+  Nothing else in the amendment changed.
 ## D-006 — Critical minerals granularity in v0.1
 
 - **Status:** Proposed
