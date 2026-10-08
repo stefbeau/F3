@@ -5,7 +5,7 @@ Every external model F3 audits or ports from, pinned to an exact version. Update
 | Reference | Role | License | Pinned version | Status |
 |---|---|---|---|---|
 | WorldDynamics.jl | World3 reference (D-012) | MIT | v1.0.0, environment pinned by `audit/env/Manifest.toml` (Julia 1.10.12; ModelingToolkit 9.12.1, SciMLBase 2.35.0, OrdinaryDiffEq 6.74.1; registry snapshot 2024-04-25, D-017 proposed); default solver options | 🟡 Pinned; checks (b) and (c) met, (a) tested by the next run |
-| Earth4All.jl | Earth4All reference for audit (D-011) | MIT | Commit `16f37d013a2f68135f03e7815bf861dbf47311f2` (branch `master`), observed in T0 run #2 | 🟡 Runs; see T0-FINDINGS.md |
+| Earth4All.jl | Earth4All reference for audit (D-011) | MIT | Commit `16f37d013a2f68135f03e7815bf861dbf47311f2` (branch `master`); audit environment pinned by `audit/env-earth4all/Manifest.toml` (Julia 1.10.12, 348 packages: ModelingToolkit 9.84.0, OrdinaryDiffEq 6.105.0, SciMLBase 2.153.1, DifferentialEquations 7.17.0, WorldDynamics 1.0.0, DataFrames 1.8.2, CSV 0.10.17), resolved once on 2026-10-08 | 🟢 Pinned; audit results reproduced with it, see `audit/earth4all-audit.md` |
 | PyWorld3 | Independent World3 second check, used unmodified (D-001, D-012) | CeCILL 2.1 | 1.1, observed in T0 run #2 | 🟡 Runs; see T0-FINDINGS.md |
 | Julia | Runtime | MIT | 1.10 series; 1.10.12 in T0 run #2 | Pinned to 1.10 series |
 

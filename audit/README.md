@@ -18,7 +18,7 @@ Results appear in two places:
 | Step | Reference | Checks |
 |---|---|---|
 | T0.1 | WorldDynamics.jl v1.0.0 (MIT) | Solves the World3 standard run (1900–2100), exports its states, regenerates the book's Figure 7.7 |
-| T0.2 | Earth4All.jl (MIT), as published | Solves "Too Little Too Late" and "Giant Leap", exports states, regenerates the comparison figures against Vensim |
+| T0.2 | Earth4All.jl (MIT), as published, in the pinned environment `audit/env-earth4all` | Solves "Too Little Too Late" and "Giant Leap", exports states, regenerates the comparison figures against Vensim |
 | T0.3 | PyWorld3 (CeCILL 2.1), installed unmodified | Solves the World3 standard run as an independent second check |
 | T0.4 | — | Compares World3 population between WorldDynamics.jl and PyWorld3 (informational) |
 

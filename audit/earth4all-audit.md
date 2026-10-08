@@ -6,6 +6,8 @@ This file states facts and evidence. It does not judge the model's authors or it
 
 **Scripts:** `audit/t0/earth4all_audit.jl` (T1b, T2, T3 counterfactual, T4; run inside the clone's environment), `audit/t0/earth4all_explore.jl` (name discovery). **Stored results** (small CSVs, no Vensim values): `audit/data/earth4all_t1b_cohort_minima.csv`, `earth4all_t2_summary.csv`, `earth4all_t2_yearly_{TLTL,GL}.csv`, `earth4all_t3_counterfactual.csv`, `earth4all_t4_offenders_{TLTL,GL}.csv`.
 
+**Environment note (2026-10-08).** The audit environment is now pinned: `audit/env-earth4all/Project.toml` (the package's own at the commit above) and `Manifest.toml`, resolved once with DataFrames and CSV added; the scripts and the T0 workflow install from it instead of resolving at run time. The first audit run (2026-10-07) had resolved its own environment; the pinned one differs from it in 4 of 348 packages, all patch releases (ArrayLayouts 1.13.1 to 1.14.0, LazyArrays 2.14.3 to 2.14.4, Roots 3.0.10 to 3.0.11, SparseConnectivityTracer 1.2.3 to 1.2.4). The T0 error statistics and the T1b, T2, T3 counterfactual and T4 scripts were re-run in the pinned environment: every stored result is identical, except that the per-variable error statistics differ by at most 1.8e-15 relative (floating-point rounding in one mean-error cell), and the report text is identical. The results below are therefore unchanged and reproducible from the committed Manifest.
+
 ## Summary of results
 
 | Test | Result | Verdict against D-010's pass criterion |

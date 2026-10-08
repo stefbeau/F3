@@ -17,7 +17,7 @@ It asks how a fast AI race interacts with energy, materials, water, climate and 
 ## How we work (rules that have already mattered)
 1. **Facts, not spin.** Say what was measured, what was inferred and what is unverified. Check the evidence before writing a cause. Correct earlier mistakes openly with a visible note in the log; never delete them.
 2. **Do not relax a pre-set acceptance condition after seeing the data.** If a condition fails, record the failure; a revised condition is a new, labelled post-hoc proposal for the editor.
-3. **Pin everything.** External models are never copied into this repo. Julia: `audit/env/Manifest.toml`. Others: `audit/REFERENCES.md`. Do not run `Pkg.update` or add packages to `audit/env` without a decision.
+3. **Pin everything.** External models are never copied into this repo. Julia: `audit/env/Manifest.toml` (World3, D-017) and `audit/env-earth4all/Manifest.toml` (Earth4All audit). Others: `audit/REFERENCES.md`. Do not run `Pkg.update` or add packages to either environment without a decision.
 4. **Licences (D-001, D-011, D-012, D-014).** F3 code is Apache 2.0; docs and processed data CC BY 4.0.
    - PyWorld3 is CeCILL 2.1 (copyleft): use it unmodified from PyPI. Never copy or edit its code into F3. A runtime override on an instance, for diagnosis only, is allowed and must be labelled.
    - WorldDynamics.jl and Earth4All.jl are MIT: ports need attribution (`NOTICE` plus the licence text under `licenses/`).
@@ -46,6 +46,7 @@ docs/phase-1-plan.md      Phase 1 plan
 research/SOURCES.md       latest verified information per topic
 audit/                    audits of reference models (README.md, T0-FINDINGS.md, earth4all-audit.md, REFERENCES.md)
 audit/env/                pinned Julia environment for WorldDynamics.jl (D-017)
+audit/env-earth4all/      pinned Julia environment for the Earth4All.jl audit (commit 16f37d0 plus DataFrames and CSV)
 audit/t0/                 audit scripts (world3_t0.jl, earth4all_t0.jl, pyworld3_t0.py, compare_world3.py, snapshot_table.py)
 audit/data/               stored error statistics (variable names and error figures only)
 .github/workflows/        audit-t0.yml (current), audit-world3-snapshot.yml and audit-world3-pins.yml (records of the dependency search)
@@ -56,7 +57,7 @@ Planned, not yet created: `f3/` (model code: `f3/sectors/s1_population.py` …),
 - Set `PYTHONUTF8=1` (the scripts print Unicode such as `₊` and `✅`).
 - Julia 1.10 via juliaup: `winget install --id Julialang.juliaup -e --source winget` (without `--source winget` it finds no package), then `juliaup add 1.10`; run as `julia +1.10 …`. The first `juliaup add 1.10` can fail with a file-lock error ("Accès refusé"); a retry works.
 - World3 audit: `julia +1.10 --project=audit/env -e "using Pkg; Pkg.instantiate()"`, then `julia +1.10 --project=audit/env audit/t0/world3_t0.jl` with `F3_OUT` set; then `python audit/t0/pyworld3_t0.py` and `python audit/t0/compare_world3.py` (`pip install pyworld3 pandas matplotlib`).
-- Earth4All audit: clone `https://github.com/worlddynamics/Earth4All.jl` **outside** this repo, check out `16f37d013a2f68135f03e7815bf861dbf47311f2`, instantiate its own environment, run `audit/t0/earth4all_t0.jl <clone path>`. `.github/workflows/audit-t0.yml` is the executable recipe.
+- Earth4All audit: clone `https://github.com/worlddynamics/Earth4All.jl` **outside** this repo and check out `16f37d013a2f68135f03e7815bf861dbf47311f2` (its sources and `VensimOutput/` are only read). Packages come from the committed Manifest, not from the clone's own `Project.toml`: `julia +1.10 --project=audit/env-earth4all -e "using Pkg; Pkg.instantiate()"`, then `julia +1.10 --project=audit/env-earth4all audit/t0/earth4all_t0.jl <clone path>` and `audit/t0/earth4all_audit.jl <clone path>`, with `F3_OUT` set. `.github/workflows/audit-t0.yml` is the executable recipe.
 
 ## Next
 `docs/STATUS.md` says where we stand; `docs/HANDOVER.md` lists the next tasks as ready-to-run prompts.

@@ -34,7 +34,7 @@
 ## Open questions for the editor
 1. D-015: the 2004 set is closer on total population but worse on age structure (65+ share 8.5% in 1970 against 5.3% observed; 16.8% in 2025 against 10.3% projected; the 1974 set is 7.1% and 12.8%). Should age structure be a named criterion of the Phase 3 backtest? (Recommended in the D-015 outcome note; the Decision text is unchanged.) The book's tables and Herrington's Supporting Information are still unread.
 2. Whether to report the WorldDynamics.jl break (between ModelingToolkit 9.22 and 9.41) upstream.
-3. Two issues found in the Phase 1 review have no home yet (`docs/phase-1-review.md`, section 4, items 11 and 12): only the population sector is ported, so F3 cannot run World3 end to end; and the Earth4All.jl environment is not pinned in the repository. Which prompt or decision should carry them?
+3. Item 12 of the Phase 1 review (Earth4All environment not pinned) is resolved (2026-10-08). Item 11 (only the population sector is ported, so F3 cannot run World3 end to end) is carried into the Phase 2 plan, which is a proposal for your decision.
 
 ## Next tasks
 Phase 2 (couple) starts with decisions D-005 to D-007 and a Phase 2 plan, neither written yet. Remaining from `docs/HANDOVER.md`: Prompt 5 (automation of reports and CI), Prompt 6 is done (2026-10-08): `research/SOURCES.md` is verified where the primary pages were readable and says "could not verify" where not (LBNL water report, TSMC report, WID and ILOSTAT terms); D-008 has an evidence note and is still open. The open issues carried into Phase 2 are listed in `docs/phase-1-review.md`, section 4.

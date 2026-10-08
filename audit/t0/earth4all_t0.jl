@@ -1,10 +1,14 @@
 # T0 — Earth4All sanity check with Earth4All.jl, run as published (D-011).
 #
-# Run from the repository root, inside the Earth4All.jl clone's own environment:
-#   julia --project=<clone> audit/t0/earth4all_t0.jl <clone>
+# Run from the repository root, in the pinned environment audit/env-earth4all (Project.toml and
+# Manifest.toml committed; resolved once for commit 16f37d0 plus DataFrames and CSV), with the
+# Earth4All.jl clone outside this repository:
+#   julia --project=audit/env-earth4all -e 'using Pkg; Pkg.instantiate()'
+#   julia --project=audit/env-earth4all audit/t0/earth4all_t0.jl <clone>
 #
-# The model code is not modified. The only change to the clone's environment
-# is adding DataFrames and CSV so results can be exported.
+# The model code is not modified. The clone is only read (its src/ and, for the package's own
+# comparison, its VensimOutput/, D-014); the packages come from the committed Manifest, not from a
+# run-time resolve. The clone's own Project.toml is not used and is not modified.
 
 using DataFrames, CSV
 

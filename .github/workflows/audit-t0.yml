@@ -63,15 +63,21 @@ jobs:
           echo "EARTH4ALL_BRANCH=$(git rev-parse --abbrev-ref HEAD)" >> "$GITHUB_ENV"
           echo "EARTH4ALL_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
 
-      - name: Install the Earth4All.jl environment as published
+      # The packages come from the committed Manifest (audit/env-earth4all, resolved once for
+      # commit 16f37d0 plus DataFrames and CSV), not from a run-time resolve. If a different
+      # Earth4All.jl ref is requested, its sources are read from the clone but the packages are
+      # still these pinned ones; the versions report says so.
+      - name: Install the pinned Earth4All audit environment
         continue-on-error: true
         run: >
-          julia --project="$RUNNER_TEMP/Earth4All.jl" -e
-          'using Pkg; Pkg.instantiate(); Pkg.add(["DataFrames", "CSV"])'
+          julia --project=audit/env-earth4all -e
+          'using Pkg;
+          Pkg.instantiate();
+          Pkg.precompile()'
 
       - name: T0.2 — Earth4All with Earth4All.jl
         continue-on-error: true
-        run: julia --project="$RUNNER_TEMP/Earth4All.jl" audit/t0/earth4all_t0.jl "$RUNNER_TEMP/Earth4All.jl"
+        run: julia --project=audit/env-earth4all audit/t0/earth4all_t0.jl "$RUNNER_TEMP/Earth4All.jl"
 
       # ---- World3 second check (D-012) ----
       - name: T0.3 — World3 with PyWorld3 (unmodified)
@@ -95,8 +101,10 @@ jobs:
         continue-on-error: true
         run: |
           set -o pipefail
+          # Earth4All.jl at 16f37d0 has no test folder; if a later ref has one, it is not run here because
+          # the pinned audit environment is not the package's own environment.
           if [ -d "$RUNNER_TEMP/Earth4All.jl/test" ]; then
-            julia --project="$RUNNER_TEMP/Earth4All.jl" -e 'using Pkg; Pkg.test()' 2>&1 | tee "$F3_OUT/earth4all_tests.log" | tail -n 40
+            echo "Earth4All.jl has a test folder at this ref, but the pinned audit environment is not the package environment: not run." | tee "$F3_OUT/earth4all_tests.log"
           else
             echo "No test folder in Earth4All.jl" | tee "$F3_OUT/earth4all_tests.log"
           fi
@@ -130,8 +138,14 @@ jobs:
             echo '```'
             julia --project=audit/env -e 'using Pkg; Pkg.status()'
             echo '```'
+            echo ""
+            echo "### Earth4All audit environment (pinned, audit/env-earth4all)"
+            echo '```'
+            julia --project=audit/env-earth4all -e 'using Pkg; Pkg.status()'
+            echo '```'
           } > "$F3_OUT/t0_0_versions_report.md"
           cp audit/env/Project.toml audit/env/Manifest.toml "$F3_OUT/" || true
+          cp audit/env-earth4all/Manifest.toml "$F3_OUT/earth4all_Manifest.toml" || true
 
       - name: Publish summary on the run page
         if: always()

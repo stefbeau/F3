@@ -1,7 +1,8 @@
 # Earth4All.jl audit, D-010 tests T1b, T2, T3 (counterfactual), T4. Facts only.
 #
-# Run from the repository root, inside the Earth4All.jl clone's own environment:
-#   julia --project=<clone> audit/t0/earth4all_audit.jl <clone>
+# Run from the repository root, in the pinned environment audit/env-earth4all (see earth4all_t0.jl),
+# with the Earth4All.jl clone outside this repository:
+#   julia --project=audit/env-earth4all audit/t0/earth4all_audit.jl <clone>
 # The model code is not modified. Only the package's own parameters (SSP2 switches) are changed in T3.
 # Vensim files are not used (D-014). Outputs: $F3_OUT (default audit/results).
 
