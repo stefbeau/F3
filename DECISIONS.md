@@ -36,6 +36,12 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-017 | World3 reference environment: dated registry snapshot, default solver options | Approved; condition (a) met 2026-10-07 | 1 |
 | D-018 | Earth4All.jl is the Earth4All reference implementation; deviations from Vensim reported | Approved | 1 |
 | D-019 | How F3 initialises its stocks in 1970 | Approved (Option C) | 1 |
+| D-020 | Start years and initial states of the non-World3 sectors (plan N1) | Proposed | 2 |
+| D-021 | How FaIR is coupled; source of non-CO2 emissions (plan N2) | Proposed | 2 |
+| D-022 | Sector interface and time convention (plan N3) | Proposed | 2 |
+| D-023 | Inputs to the reused Earth4All sectors from replaced sectors (plan N4) | Proposed | 2 |
+| D-024 | Phase 3 backtest criteria (plan N5) | Proposed | 2 |
+| D-025 | Phase 3 entry conditions (plan N6, optional) | Proposed | 2 |
 
 ---
 
@@ -463,6 +469,182 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Sources:** `audit/s1-port-report.md`; `f3/sectors/s1_population.py`; `tests/fixtures/` (WorldDynamics.jl exports); UN World Population Prospects 2024 (`UN_2024_WorldPop-Historical-Plot.xlsx`); D-003, D-004, D-015.
 - **Proposed by:** Claude (Modeler and Validator agent roles)
 - **Decision:** Approved: Option C. Applies to the World3-based sectors; other F3 sectors define their own 1970 starting data in their own decisions. (Approved by Stéphane Beau, as drafted.)
+- **Date:** 2026-10-08
+
+---
+
+## D-020 — Start years and initial states of the sectors that are not World3-based (plan item N1)
+
+- **Status:** Proposed
+- **Context:** D-019 (Option C) fixes the 1970 start for the World3-based sectors and says other sectors define their own starting data in their own decisions. This is that decision for S3, the data-centre module, the reused Earth4All sectors and FaIR. The plan (`docs/phase-2-plan.md`, N1) named only S3 and the data-centre module; the Earth4All start year turned up while gathering the evidence and is included here because it has the same cause. Needed before M1.
+- **Evidence** (read 2026-10-08; where a figure comes through a summarising fetch tool rather than verbatim it is said):
+  1. *World3 sectors:* start 1900, reported from 1970 (D-019).
+  2. *Reused Earth4All sectors:* the package solves **1980 to 2100** (`src/earth4all/solutions.jl`: `WorldDynamics.solve(run_tltl(), (1980, 2100), ...)`), and its initial values are 1980 values. It has no 1970 state, so F3's 1970 start (MODEL_SPEC) is not available from it. The audit exports have 7,681 points, 120 years at 1/64 year.
+  3. *GATE* (arXiv:2503.04941 v2, whole HTML text read through a summarising tool, Appendices C and D included): initial conditions are "at the start of 2025" (labour force, capital, hardware R&D, software efficiency, largest training run, runtime compute); global output is "produced globally in 2024". Defaults: output 110 trillion USD/year, capital 450 trillion USD, labour 3.6 billion, hardware efficiency 1e18 FLOP/year/USD, software efficiency 1, largest training run 5e25 effective FLOP, runtime compute 1e28 effective FLOP/year, compute investment 2e11 USD/year, hardware R&D 1e11, software R&D 5e9. Time step 1 year; the planner's horizon is typically 80 periods (optimisation horizon 160 years); solved by gradient descent. The paper has internal inconsistencies (output "$105T" in text against 110 trillion in the table; software R&D "$10B/year" in a heading against $5B in the reasoning). It states no calibration period and no source for initial capital and output beyond a World Bank figure. Section 3.7 says the compute module "maps any given path of investment" into effective compute, which suggests an investment path can be supplied; no exogenous-path mode is described.
+  4. *Epoch AI data* (pages opened): the AI-models dataset covers "from 1950 to today"; the AI-data-centers dataset covers sites operational "in 2024 or later, with some exceptions", with a timeline axis from Q1 2023.
+  5. *IEA:* data-centre electricity about 415 TWh in 2024 (*Energy and AI*) and 485 TWh in 2025 (*Key Questions*). The historical series before 2024 was not read.
+  6. *FaIR:* needs an emissions history; the calibrated versions use historical emissions that start long before 1970 (see D-021).
+- **Consequence to settle:** GATE's economy (output 110 trillion, capital 450 trillion in 2025) and Earth4All's economy in 2025 are two different models of the same world; they will not agree, and which one the coupled model uses from 2025 has to be decided (see option A).
+- **Proposal** (options, mutually exclusive for each question; the decision is the editor-in-chief's):
+  - **Question 1, S3 and the data-centre module.**
+    - **A. Switch on in 2025** from GATE's initial values. Before 2025 the automation fraction is held at GATE's initial value and data-centre electricity is prescribed from IEA estimates where available. Uses GATE as published; no S3 backtest before 2025; needs a rule for reconciling GATE's economy with Earth4All's in 2025.
+    - **B. Start in 1970** with back-cast values. No data for the AI sector that far back (data centres 2023 on, GATE not calibrated before 2025); the back-cast would be invented.
+    - **C. Start earlier than 2025 (for example 2010)** using Epoch's training-compute series as a hindcast of compute only, with the automation fraction and GATE's economy from 2025. Gives a partial backtest of compute; adds a second start rule.
+  - **Question 2, the reused Earth4All sectors.**
+    - **(i)** They enter in 1980 from their own initial state; from 1970 to 1980 only the World3-based sectors run and the Earth4All variables are undefined (or prescribed).
+    - **(ii)** F3's coupled run starts in 1980 and 1970 to 1980 is reported from World3 alone.
+    - **(iii)** Back-cast Earth4All's 1980 state to 1970 (no method exists in the package; the cost is not known).
+  - **Validator's recommendation: A for question 1 and (i) for question 2.** Reasons: they use each reference as published and do not invent data; the price is that nothing coupled is reported before 1980 and nothing from S3 before 2025. This is a recommendation, not a decision.
+- **What each choice does to the plan:** A and (i) change A6.6 (the 1970 state) to "World3-based sectors from 1970, Earth4All sectors from 1980, S3 from 2025", and make the backtest of the coupled economy start in 1980; a 1970 backtest then applies to population only. B and (iii) keep a 1970 backtest of everything, at the cost of invented starting values.
+- **Alternatives considered:** a single common start year for all sectors (2025, losing the historical comparison; or 1980, losing 1970 to 1980).
+- **Sources:** `src/earth4all/solutions.jl` in Earth4All.jl at `16f37d0`; arXiv:2503.04941 v2 (CC BY 4.0); https://epoch.ai/data (licence wording verified); IEA reports (CC BY 4.0); D-019.
+- **Proposed by:** Claude (Research and Validator roles)
+- **Decision:** Proposed. Not approved.
+- **Date:** 2026-10-08
+
+---
+
+## D-021 — How FaIR is coupled, and the source of non-CO2 emissions (plan item N2)
+
+- **Status:** Proposed
+- **Context:** S6 uses FaIR (D-010, MODEL_SPEC). Two things are open: how an annual climate model with memory is advanced inside a feedback loop (the M2 risk the plan names), and where emissions of non-CO2 gases and land-use CO2 come from, since D-016 replaces the Earth4All climate and foodland sectors that produced them and World3 agriculture has none. Needed before M2.
+- **Evidence:**
+  1. *FaIR 2.2.4 documentation* (docs.fairmodel.net, "Introduction" and "Basic example", read 2026-10-08): time is defined once with `define_time(start, end, step)` and need not be integer years; a run is one `f.run()` over that horizon; initial conditions at the first time bound are set with `initialise(...)`; temperature and the other states sit on time bounds, emissions on time points at step centres. **The pages do not describe running in segments or restarting from a previous state.** A search found no documented restart method.
+  2. *Probe, run here* (`audit/t0/fair_segment_probe.py`, FaIR 2.2.4 in a scratch environment; **toy case**: CO2 only, one scenario, one configuration, **illustrative climate parameters, not a calibrated configuration**; a real configuration has about 61 species). Carrying the last-time-bound state (concentration, forcing, temperature, cumulative and airborne emissions, ocean heat content, gas-box partitions) into the next segment:
+
+| segmentation, 2000 to 2040 or 2020 | result against one run |
+|---|---|
+| one run 2000-2020, step 1.0 / 0.5 / 0.25 year | T(2020) 0.109351 / 0.109410 / 0.109435 K (the step effect inside one run) |
+| 20 annual segments, 2000-2020 | T(2020) 0.109797 K, **+4.5e-4 K (0.41% of the warming)** |
+| 1 restart (2 segments), 2000-2040 | +7.7e-6 K (0.003%) |
+| 3 restarts | +2.9e-5 K (0.01%) |
+| 39 annual restarts | +5.2e-4 K (0.20%) |
+| **re-run from the start every year** (1750 to y, 130 runs) | **0.0 K difference** |
+
+     So carrying state works mechanically but is **not equivalent** to one run (the error grows with the number of restarts; carrying the unreported state variables I tried gave no improvement; the cause was not found). Re-running from the start is exact. Cost in the toy: 0.25 s for a 350-year run, 24 s for 130 annual re-runs; with about 61 species the cost is **not measured** and is probably much higher.
+  3. *Emissions inputs:* the AR6-consistent FaIR calibration takes historical emissions of CO2 and the short-lived species from RCMIP v5.1.0 (from search results on fair-calibrate and its documentation, secondary; some versions replace CO2 with Global Carbon Project estimates). The Community Emissions Data System covers BC, OC, SO2, NOx, NH3, CH4, CO, NMVOC, CO2 and N2O, with CH4 and N2O only from 1970 in its main system (search summary, secondary; licence **not verified**). The licence of RCMIP was not checked.
+  4. *Earth4All's own producers:* methane and nitrous oxide emissions come from the climate sector (`MMCH4E`, `MMN2OE`) via the exogenous 1%-per-year intensity declines classed as behaviour forcing (D-016); land-use CO2 from foodland. Both sectors are replaced.
+- **Proposal:**
+  - **Coupling question.**
+    - **(a) Re-run from the start each year**: exact, simple, cost unknown with a real configuration and multiplied by the Monte Carlo count in Phase 3 (the toy figure of 24 s per full run would be about 6.7 hours for 1,000 runs on one core, for FaIR alone).
+    - **(b) Carry state between annual segments**: fast; the toy error is 0.2% to 0.4% of the warming and unexplained; acceptable only if its size with a real configuration is measured and accepted by the editor.
+    - **(c) Restart rarely** (for example every 10 or 20 years, with the state carried and one-year steps in between by re-running only the last window): error between the two above; not tested beyond the toy's 1 and 3 restarts.
+    - **(d) Run FaIR once per scenario outside the loop** with prescribed emissions: no feedback from temperature to the economy, so loop B2 and every warming channel would be open-loop. Listed for completeness; it does not meet the plan's A2.3.
+  - **Emissions question.**
+    - **(A) Prescribe non-CO2 emissions and land-use CO2** from RCMIP historical series and a chosen SSP scenario for the future, independent of F3: simple; they do not respond to F3's economy, so F3 would say nothing about methane or land-use policy.
+    - **(B) Recorded Earth4All series**: tied to its scenarios and to 1980 on.
+    - **(C) A simplified F3 module** producing methane, nitrous oxide and land-use CO2: responsive, but new and unreferenced (M5 scale work).
+  - **Validator's recommendation: (a) for the slice and for M2's acceptance tests, with (b) and (c) tested once a real configuration exists and the editor decides; and (A) for M2, labelled on the demo as "non-CO2 emissions are prescribed, not modelled".** A calibrated configuration (fair-calibrate's published ensemble or a single configuration from it) was not tried. This is a recommendation.
+- **Not done:** a real FaIR configuration; a check that FaIR's temperature baseline (pre-industrial) matches Earth4All's observed-warming baseline `OW2022` (see D-023, warming baseline); the licences of RCMIP and CEDS.
+- **Alternatives considered:** a simplified FaIR-like response model written by F3 (more control, new unreferenced code, D-010's choice of FaIR would be reopened).
+- **Sources:** FaIR 2.2.4 documentation and code (Apache 2.0); `audit/t0/fair_segment_probe.py`; fair-calibrate (GMD 17, 8569, 2024); Global Carbon Budget 2025 (CC BY 4.0, verified).
+- **Proposed by:** Claude (Research role)
+- **Decision:** Proposed. Not approved.
+- **Date:** 2026-10-08
+
+---
+
+## D-022 — Sector interface and time convention (plan item N3)
+
+- **Status:** Proposed
+- **Context:** M0 built the interface (`docs/coupling-interface.md`, `f3/core/`) and ran S1 inside it. This decision records its rules and settles the time convention (review item 16). Needed before M1 builds on it. **The evidence for the time convention is in `docs/time-convention-evidence.md`, which should be read first.**
+- **Interface evidence:** S1 inside the loop equals stand-alone S1 bit for bit (worst relative difference 0.0 on all 15 states, both parameter sets; criterion 1e-9). The first-order error of start-of-step coupling, measured with S1 and recorded inputs (`audit/t0/coupling_error.py`, held against exact):
+
+| loop step | 1974 set, worst state (fcfpc1) | 1974 total population | 2004 set, worst state | 2004 total population |
+|---|---|---|---|---|
+| 0.5 year | 2.15% | 0.38% | 1.87% | 0.49% |
+| **0.25 year (D-003)** | **1.04%** | **0.19%** | **0.93%** | **0.24%** |
+| 0.125 year | 0.51% | 0.09% | 0.46% | 0.12% |
+| 0.0625 year | 0.25% | 0.05% | 0.23% | 0.06% |
+
+  The error halves when the step halves (first order). It is for S1 with recorded partners; the error with live partners is unknown and is tested in M2 (A2.6).
+- **Time convention evidence, summarised:** neither reference nor the equations say what a time value means on a calendar. A half-year shift moves population comparisons by up to about 2 points around 1970 and about 0.4 points in 2025, and calendar-year flow comparisons by up to about 1%. FaIR's own documented convention is that temperature and other states are on time bounds (step boundaries) and emissions on time points at step centres.
+- **Proposal:**
+  - **Interface (as built):** fixed step 0.25 year (D-003); explicit coupling at step boundaries (each sector reads the start-of-step values of the others); units checked, never converted; a sector with a longer period (FaIR, annual) advances every fourth step; every exchanged series recorded with units; a coupling is refused if a switch time would fall inside a step. **Alternative:** add a predictor-corrector (implicit coupling) now: halves the error order at the cost of two sector advances per step and a state save/restore the interface does not have. **Validator's recommendation:** keep explicit coupling; revisit only if A2.6 shows the step matters.
+  - **Time convention.** **(1)** `t = Y` is 1 January of year Y: stocks are values on that date, flows are rates per year at that instant, and a calendar-year total is the integral over `[Y, Y+1]`. **(2)** `t = Y` is mid-year. **(3)** No convention is adopted; every comparison states its date basis and compares like with like. **Validator's recommendation: (1)**, because it matches FaIR's boundary-and-centre convention (states on boundaries), puts F3's yearly reporting on the same grid as the UN's 1 January file and the 1970 start of D-019, and costs nothing in the equations. The evidence does **not** show that the World3 authors intended it; it is a labelling choice, and the 2% tolerance of D-004 between F3 and a reference on the same time axis is unaffected by it.
+- **What this changes:** under (1), earlier comparisons with mid-year data (D-015 Finding 3, D-019) are re-read as reading B of the evidence page; the matching comparison is reading A (differences of 0.4 to 1.0 point). No approved decision is edited; an outcome note would be added.
+- **Not covered:** parallel advance, state save and restore, sub-stepping, regional vectors (listed in `docs/coupling-interface.md`, "Not in this interface").
+- **Sources:** `docs/coupling-interface.md`; `docs/time-convention-evidence.md`; `audit/t0/coupling_error.py`; FaIR documentation.
+- **Proposed by:** Claude (Modeler and Validator roles)
+- **Decision:** Proposed. Not approved.
+- **Date:** 2026-10-08
+
+---
+
+## D-023 — Inputs to the reused Earth4All sectors from the sectors F3 replaces (plan item N4)
+
+- **Status:** Proposed
+- **Context:** D-016 replaces Earth4All's population, climate, foodland and wellbeing sectors and reuses the others. The reused sectors read variables the replaced sectors compute, and the replaced sectors read some of theirs. Needed before M4.
+- **Evidence** (`audit/t0/earth4all_links.jl`, from the composed TLTL system; `audit/data/earth4all_cross_sector_links.csv`): the composed model has 71 cross-sector connections: 45 within the same group, **18 from replaced to reused**, 8 from reused to replaced. The 18 carry **eight distinct signals**:
+
+| signal | computed by (replaced) | read by (reused) | what F3 would use instead |
+|---|---|---|---|
+| `POP` population | population | demand, energy, other, public | S1 total population (persons against Earth4All's Mp: a unit adapter) |
+| `GDPP` GDP per person | population | energy, labour market, other, output, public | S2's GDP divided by S1 population: **new equation, not in S1** |
+| `EGDPP` effective GDP per person (a smoothed variable) | population | demand | a smoothing of `GDPP` with Earth4All's own time constant: **new equation** |
+| `A20PA` aged 20 to pension age | population | labour market | from World3's cohorts, **whose age bands differ** (see below) |
+| `OW` observed warming | climate | output, public | FaIR temperature anomaly; **baseline not checked** |
+| `CAC` cost of air capture | climate | energy | `DACCO2` times a capture cost: **new equation** (zero when direct air capture is zero, as in Too Little Too Late) |
+| `COFO` cost of food | foodland | other | World3 agriculture has no equivalent; "other" is not assessed in D-016 |
+| `IPP` policy introduction period | wellbeing | demand, energy, labour market | a scenario constant (it is `EIP` or `RD` depending on a flag), not a state |
+
+  The 8 reused-to-replaced connections carry `GDP` (inventory to climate, foodland, population), `INEQ` and `WDI` (demand to wellbeing), `LPR` (labour market to wellbeing), `PSP` (public to wellbeing) and `CO2EI` (energy to climate).
+  **Age bands.** Earth4All's cohorts are 0-20, 20-40, 40-60 and 60+; World3's are 0-14, 15-44, 45-64 and 65+; Earth4All's working-age population is 20 to pension age (`A20PA = A2040 + A4060 + A60PL - OP`) and the labour market reads it. Measured shares for comparison (not an error measure, since the definitions differ): Earth4All TLTL working-age share 44.7% (1980), 54.8% (2000), 61.0% (2020); World3 ages 15-64 share 56.9% / 58.4% / 60.5% (1974 set) and 57.4% / 58.7% / 60.3% (2004 set). The gap in 1980 is 12 points, in 2020 under 1 point. **The labour market's T2 result (D-016) was obtained with Earth4All's own population; with World3's cohorts the working-age series would differ, so T2 has to be re-run on the coupled model.**
+- **Proposal:**
+  - **A. Replay Earth4All's recorded series for these signals** in every test and in a first coupled version: exact, tied to its scenarios and to 1980, no adapters to validate. It cannot represent F3's own population or climate.
+  - **B. F3's own sectors from the start**, through adapters for the eight signals: the coupled model F3 wants; each adapter is new code that needs a test, and the working-age and warming-baseline mappings are open questions.
+  - **C. Both, in sequence** (the plan's A4.1 and A4.5 already test the sectors against recorded inputs first): replay for the sector tests, adapters for the coupled model, with the difference between the two runs reported as the adapters' effect.
+  - **Validator's recommendation: C.** The interface is small (eight signals), so the adapters are cheap relative to the sectors; the working-age mapping and the warming baseline must be settled before M4's labour-market and output tests, not after.
+- **Warming baseline, evidence (read from the code):** the reused sectors divide the observed warming by a **fixed constant**: `OW / OW2022` with `OW2022 = 1.35` (a parameter, 1.35 degrees C, stated in the parameter files of output, population, foodland and climate as "observed warming in 2022"). Earth4All's own `OW` is `WA1980 + (EHS - EH1980) * WFEH` in the climate sector, that is a warming relative to a 1980 anchor plus a response to ocean heat; its reference period relative to pre-industrial was not read. FaIR reports temperature relative to its own pre-industrial reference. If F3 feeds FaIR's anomaly into `OW`, the ratio `OW / 1.35` is meaningful only if both are on the same baseline; **this was not checked**, and an offset of a few tenths of a degree would change the size of the three warming channels in output and public. It has to be settled before the M4 tests of those two sectors.
+- **Open before M4:** the warming baseline above; which pension-age rule applies when the cohorts are World3's.
+- **Sources:** `audit/data/earth4all_cross_sector_links.csv`; `audit/t0/earth4all_links.jl`; `src/*/subsystems.jl` in Earth4All.jl; `audit/earth4all-audit.md` (T2).
+- **Proposed by:** Claude (Modeler role)
+- **Decision:** Proposed. Not approved.
+- **Date:** 2026-10-08
+
+---
+
+## D-024 — Phase 3 backtest criteria, fixed before the data are used (plan item N5)
+
+- **Status:** Proposed
+- **Context:** Phase 3 backtests F3 against observed data. D-015's amendment fixes 2000 to 2025 as the out-of-sample period for the choice of World3 parameter set; the plan asks for the criteria to be fixed now so that "good" is defined before the data are seen, in the way D-004 and D-017 were. This entry proposes a framework and leaves numerical thresholds to the editor, to be set before the series are loaded (plan A5.4). Needed before the M5 hindcast and before Phase 3.
+- **Evidence** (computed with the port's reference runs and the UN WPP 2024 age-group file, 1 January values; `/tmp` script not committed, reproducible with `audit/t0/time_convention.py`'s data):
+  1. *The out-of-sample window.* The UN file's estimates end in 2023; 2024 and 2025 are medium-variant projections. A test over "2000 to 2025" therefore ends with two projected years. **Proposal: test on 2000 to 2023 and report 2024 and 2025 separately as comparisons with projections.**
+  2. *Naive benchmarks.* A model has to beat a trivial forecast to claim skill. Fitted on data before 2000 only, total population 2000 to 2023, mean absolute relative error: **World3 1974 set 9.4%; World3 2004 set 3.3%; log-linear trend 1970 to 1999: 8.6%; the 1989 to 1999 growth rate held: 3.8%.** The 2004 set beats the second naive benchmark by 0.5 points, which is small; the 1974 set does not beat the first.
+  3. *Age structure* (D-015 outcome note): the 65+ share is too high in both sets, by 27% to 41% (1974 set) and 66% to 81% (2004 set) relative to observed, 2000 to 2023 (observed 6.8% in 2000, 9.9% in 2023; 2004 set 11.8% and 16.4%). A total-population criterion alone hides this.
+  4. *The literature's own yardstick.* Herrington (2021) and Turner use a value-difference range of 20%, 50% for the rate of change and 20% for the normalised RMSD. Both sets are inside 20% for total population in 2020 and 2023 (1974 set -11.3% and -12.7%, 2004 set -5.7% and -7.0%). These are the references' ranges, not targets F3 adopts.
+- **Proposal** (framework):
+  - **Out-of-sample period:** 2000 to 2023 for estimates; 2024 to 2025 reported separately.
+  - **Variables:** total population and the four cohort shares; GDP; primary energy and electricity; CO2 emissions; warming; data-centre electricity against the IEA's 2024 and 2025 values (an estimate and a projection respectively, reported separately).
+  - **Metrics:** relative error at stated years; mean absolute relative error over the window; normalised RMSD as in Herrington; each against the naive benchmarks of the same variable.
+  - **Rules:** every criterion lists its observed series and its date basis before the run; a variable fails if it does not beat the naive benchmark, whatever its error; failures are reported, not relaxed (plan principle 4).
+  - **Thresholds:** **left blank for the editor**, to be set before the series are loaded, as the plan's A5.4 says. The 20% figure is the literature's, not a proposal.
+  - **Age structure is a named criterion**, as the D-015 note recommends.
+- **Alternatives considered:** only a total-population criterion (simplest; hides the age-structure failure); thresholds set now (would be guesses).
+- **Not done:** series for GDP, energy, CO2 and warming are not yet in `research/SOURCES.md` with verified terms; the naive benchmarks for those variables are not computed.
+- **Sources:** UN WPP 2024 age-group file (licence terms not stated on the pages read); D-015 and its outcome note; Herrington (2021) as read for D-015.
+- **Proposed by:** Claude (Validator role)
+- **Decision:** Proposed. Not approved.
+- **Date:** 2026-10-08
+
+---
+
+## D-025 — Phase 3 entry conditions (plan item N6, optional)
+
+- **Status:** Proposed
+- **Context:** The plan lists this as optional and needed before M6. Drafted now so that the editor can see what "Phase 2 done" would have to show before the work is spent.
+- **Evidence for the speed condition:** one S1 run (1970 to 2100, step 0.25 year) takes 0.24 s; a full model's run time is **not measured** (plan tests A3.5 and A6.5 measure it); the FaIR re-run option of D-021 costs 24 s per run in a toy configuration, which would be about 6.7 hours for a 1,000-run Monte Carlo on one core for FaIR alone.
+- **Proposal:** Phase 3 starts when all of the following hold:
+  1. Every acceptance test of M0 to M6 has been run and its result published, passed or failed; failures each have a written disposition approved by the editor.
+  2. The baseline scenario (A6.1) reproduces the full World3 run within ±2% (D-004).
+  3. D-005 to D-009 and D-020 to D-024 are decided (or the editor records why one is deferred).
+  4. The full run time is measured, and a Monte Carlo budget derived from it is acceptable (D-021 chooses the FaIR coupling with this in view).
+  5. Every dataset to be published has its licence read from its own page (WID and ILOSTAT are unknown today).
+  6. The Phase 2 review is written.
+- **Alternatives:** *strict* (all tests pass before Phase 3; may block on a single hard test); *lenient* (start Phase 3 with documented failures; the risk is calibrating around a known fault). The list above is the middle: failures are allowed if each has a disposition.
+- **Sources:** `docs/phase-2-plan.md` (A3.5, A6.1 to A6.7).
+- **Proposed by:** Claude (Validator role)
+- **Decision:** Proposed. Not approved.
 - **Date:** 2026-10-08
 
 ---
