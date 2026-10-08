@@ -37,7 +37,7 @@ F3 does not predict the future. Every output is a **conditional scenario**: *if*
 | Item | v0.1 choice |
 |---|---|
 | Method | System dynamics (stocks, flows, feedback loops) |
-| Time horizon | 1970–2100 |
+| Time horizon | **1970–2100 for the World3-based sectors; 1980–2100 for the Earth4All sectors; 2025–2100 for S3 (the AI sector) and the data-centre module (D-020).** The coupled run reports from 1980; 1970 to 1980 is reported from the World3-based sectors alone. FaIR runs from its own history with prescribed emissions (D-021). The World3-based sectors start from the model's own state until the Phase 3 calibration (D-019) |
 | Time step | 1 year for output; 0.25 year internal integration (D-003), with explicit coupling between sectors at step boundaries (D-022) |
 | Time convention | `t = Y` is **1 January of year Y** (D-022): stocks are values on that date, flows are rates per year at that instant, a calendar-year total is the integral over `[Y, Y+1]`. See "Time convention" below |
 | Spatial resolution | One global region |
