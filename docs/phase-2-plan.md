@@ -303,6 +303,15 @@ These follow from the approved decisions but touch acceptance tests or documents
 5. **`MODEL_SPEC.md`** still says "Time horizon 1970-2100" (section 3) and its sector text assumes a 1970 start for every sector. It has not been changed; it should say that the horizon is 1970 to 2100 for the World3-based sectors, 1980 to 2100 for the Earth4All sectors and 2025 to 2100 for S3, and that the coupled run reports from 1980. Wording to be agreed with the editor.
 6. **`docs/phase-1-review.md`**, section 2 ("Starting in 1970"), still says the rescaling helped the 1974 set by about one point; D-019's dated outcome note of 2026-10-08 corrects that statement and the review has not been edited.
 
+### 14.2a Confirmation of consequences 1, 5 and 6 (2026-10-08)
+
+Stéphane Beau confirmed three of the six consequences listed in 14.2. The text of 14.2 above is unchanged; this note records what became effective.
+
+- **Consequence 1 is confirmed as proposed.** A2.2 now reads as a consistency check, not an independent test: the 2025 initial value of data-centre electricity is checked against the IEA's 485 TWh within the stated ±10%; the 2024 value is an input; the plan states that **no independent test of modelled data-centre electricity against estimates exists before 2025**; the IEA's 2030 figure stays report-only and is never a target.
+- **Consequence 5 is confirmed as proposed and applied** to `MODEL_SPEC.md` (the horizon row of section 3): 1970 to 2100 for the World3-based sectors, 1980 to 2100 for the Earth4All sectors, 2025 to 2100 for S3, and the coupled run reports from 1980.
+- **Consequence 6 is confirmed**: `docs/phase-1-review.md`, section 2, has received a dated note correcting the "about one point" sentence (a note, not a rewrite).
+- **Consequences 2, 3 and 4 are acknowledged and stay open as listed**: the GATE-versus-Earth4All economy from 2025 (to be settled before M4 couples them); the Earth4All sector tests on a 1980 horizon (no change needed); the hindcast window for variables from the Earth4All sectors (the editor sets it when the D-024 thresholds are set).
+
 ### 14.3 What the other approvals change in the plan
 
 | Decision | Effect on the milestones |
