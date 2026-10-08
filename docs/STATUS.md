@@ -1,13 +1,13 @@
 # F3 — Status
 
-**As of 2026-10-07.** `DECISIONS.md` is authoritative for decisions; this page summarises. Keep it current: update it in the same commit as any change of status.
+**As of 2026-10-08.** `DECISIONS.md` is authoritative for decisions; this page summarises. Keep it current: update it in the same commit as any change of status.
 
 ## Phases
 | Phase | Goal | Status |
 |---|---|---|
 | 0 Setup | repo, specification, decision log | Done |
-| 1 Reproduce and audit | trust the reference models; World3 population sector in Python | In progress |
-| 2 Couple | AI sector, energy, materials, water, social stability, climate, linked by feedback loops | Not started |
+| 1 Reproduce and audit | trust the reference models; World3 population sector in Python | **Done 2026-10-08** (`docs/phase-1-review.md`) |
+| 2 Couple | AI sector, energy, materials, water, social stability, climate, linked by feedback loops | **Next**: not started; no Phase 2 plan written yet |
 | 3 Calibrate | backtest 1970–2025, Monte Carlo, sensitivity, validation report | Not started |
 | 4 Publish | public scenario dashboard, methodology | Not started |
 
@@ -19,7 +19,7 @@
 | 1.2 Earth4All audit T1–T4 | Done 2026-10-07 (`audit/earth4all-audit.md`): T1 no mortality below 60 by design; T1b no negative cohort stock; T2 workforce never above working-age population (under the stated definition); T3 40 equations classified, 9 behaviour forcing (climate, foodland, population), none in output, demand, inventory, finance, public, energy; T4 Giant Leap unstable at 2197 |
 | 1.3 audit verdict (D-016) | Done: D-016 approved 2026-10-07; MODEL_SPEC updated 2026-10-08 |
 | 1.4 Python port of World3 population sector (S1) | **Done 2026-10-08**. Port (`f3/sectors/s1_population.py`, both parameter sets): all 15 states within 0.25% (2004 set) and 1.57% (1974 set, a delay stage; the reference's own solver gap there is 1.61%) of WorldDynamics.jl, key variables within 0.21%; PyWorld3 second check within 0.1% for the cohorts from the same start (`audit/s1-port-report.md`). 22 tests pass locally and in CI (workflow `python-tests`, commit `cc9f791`). Done: D-019 (1970 initialisation, Option C) approved 2026-10-08 |
-| 1.5 phase review | Not started |
+| 1.5 phase review | Done 2026-10-08: `docs/phase-1-review.md`; the UN age-cohort check of D-015 is done (outcome note in D-015) |
 
 ## Decisions
 - **Approved:** D-001 licensing · D-003 time step 0.25 y · D-004 ±2% tolerance (for ports against their reference) · D-010 Earth4All is a reference and component library, audited · D-011 Earth4All.jl is the reference, audit before porting · D-012 WorldDynamics.jl is the World3 reference, PyWorld3 the second check · D-014 Vensim output read at run time only · D-015 World3 variant for S1: both parameter sets carried, 2004 provisional default, confirmed at the Phase 3 backtest · D-019 1970 initialisation: Option C (World3-based sectors start from the model's own state until the Phase 3 calibration) · D-016 Earth4All audit verdict (replace population, climate, foodland, wellbeing; reuse the rest, with changes for demand, public, energy) · D-017 World3 environment: registry snapshot 2024-04-25, default solver options · D-018 Earth4All.jl is the reference; deviations from Vensim reported.
@@ -32,8 +32,9 @@
 - **Dependency search.** First attempt pinned ModelingToolkit only: flawed and inconclusive. Registry-snapshot search: works with defaults for the 2024-04-25 and 2024-07-01 snapshots, fails from 2024-10-01. Full record in `audit/T0-FINDINGS.md`.
 
 ## Open questions for the editor
-1. D-015 follow-ups (do not block step 1.4): read the book's tables and Herrington's Supporting Information, and compare the age cohorts with UN WPP, before the 2004 set is relied on for backtests.
+1. D-015: the 2004 set is closer on total population but worse on age structure (65+ share 8.5% in 1970 against 5.3% observed; 16.8% in 2025 against 10.3% projected; the 1974 set is 7.1% and 12.8%). Should age structure be a named criterion of the Phase 3 backtest? (Recommended in the D-015 outcome note; the Decision text is unchanged.) The book's tables and Herrington's Supporting Information are still unread.
 2. Whether to report the WorldDynamics.jl break (between ModelingToolkit 9.22 and 9.41) upstream.
+3. Two issues found in the Phase 1 review have no home yet (`docs/phase-1-review.md`, section 4, items 11 and 12): only the population sector is ported, so F3 cannot run World3 end to end; and the Earth4All.jl environment is not pinned in the repository. Which prompt or decision should carry them?
 
 ## Next tasks
-In `docs/HANDOVER.md`, in order (done: sync, local verification, Earth4All audit, D-016 and D-015 approved): Python S1 → automation of reports and CI → source verification and the missing research (water, inequality).
+Phase 2 (couple) starts with decisions D-005 to D-007 and a Phase 2 plan, neither written yet. Remaining from `docs/HANDOVER.md`: Prompt 5 (automation of reports and CI), Prompt 6 (source verification, water and inequality data; in progress). The open issues carried into Phase 2 are listed in `docs/phase-1-review.md`, section 4.

@@ -1,6 +1,6 @@
 # F3 — Phase 1 Plan: Reproduce & Audit
 
-**Status:** In progress (see `docs/STATUS.md` for the current state of each step) · **Depends on:** Phase 0 (complete) · **Governing decisions:** D-001, D-004, D-010, D-011, D-012, D-014, D-016, D-017, D-018
+**Status:** Done 2026-10-08 (review: `docs/phase-1-review.md`; see `docs/STATUS.md`) · **Depends on:** Phase 0 (complete) · **Governing decisions:** D-001, D-004, D-010, D-011, D-012, D-014, D-016, D-017, D-018
 
 ---
 
@@ -81,6 +81,8 @@ Per D-012: port from WorldDynamics.jl with MIT attribution.
 
 ### Step 1.5 — Phase 1 review
 
+**Status: done 2026-10-08.** `docs/phase-1-review.md`.
+
 Update `MODEL_SPEC.md`, `README.md` and the roadmap; list open issues carried into Phase 2.
 
 ## 4. Agent assignments
@@ -103,4 +105,4 @@ Phase 1 is complete when:
 - [x] D-016 approved and MODEL_SPEC updated
 - [x] S1 population passes ±2% against WorldDynamics.jl, with PyWorld3 gaps explained (`audit/s1-port-report.md`)
 - [x] 1970 initialization decision logged (D-019, approved 2026-10-08, Option C)
-- [ ] README roadmap updated
+- [x] README roadmap updated

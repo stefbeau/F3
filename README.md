@@ -2,8 +2,8 @@
 
 **An open global model of how the AI race interacts with the planet's limits and society's stability.**
 
-> **Status:** Phase 0 complete · Phase 1 (Reproduce & audit) in progress · v0.1 specification in draft
-> F3 is under construction. No model results are published yet. The reference-model audits are public: see [`audit/`](audit/).
+> **Status:** Phases 0 and 1 complete · Phase 2 (Couple) next · v0.1 specification in draft
+> F3 is under construction. No model results are published yet. The reference-model audits and the Phase 1 review are public: see [`audit/`](audit/) and [`docs/phase-1-review.md`](docs/phase-1-review.md).
 
 ---
 
@@ -27,10 +27,10 @@ Seven coupled sectors, running yearly from 1970 to 2100:
 
 | Sector | Based on |
 |---|---|
-| S1 Population | World3 |
-| S2 Economy & capital | Earth4All (after audit), GATE |
+| S1 Population | World3 (ported to Python; 1974 and 2004 parameter sets) |
+| S2 Economy & capital | Earth4All (audited; reuse per [D-016](DECISIONS.md)), GATE |
 | S3 AI development & automation | GATE |
-| S4 Energy (incl. data centers) | Earth4All, extended with material limits |
+| S4 Energy (incl. data centers) | Earth4All energy sector (reused with changes), extended with material limits |
 | S5 Materials & water | World3, extended |
 | S6 Climate | FaIR |
 | S7 Social stability & well-being | New F3 module (informed by Earth4All, structural-demographic theory) |
@@ -51,8 +51,8 @@ Every assumption is recorded and approved in [DECISIONS.md](DECISIONS.md).
 | Phase | Goal | Status |
 |---|---|---|
 | 0 — Setup | Repository, specification, decision log | ✅ Done |
-| 1 — Reproduce & audit | World3 sectors in Python; Earth4All audited | 🟡 In progress: reference-model audit (T0) under way ([plan](docs/phase-1-plan.md), [findings](audit/T0-FINDINGS.md)) |
-| 2 — Couple | AI sector linked to energy, materials, society | ⚪ Not started |
+| 1 — Reproduce & audit | World3 population sector in Python; Earth4All audited | ✅ Done 2026-10-08 ([review](docs/phase-1-review.md), [plan](docs/phase-1-plan.md), [audit findings](audit/T0-FINDINGS.md), [S1 port report](audit/s1-port-report.md)) |
+| 2 — Couple | AI sector linked to energy, materials, society | ⚪ Next: not started |
 | 3 — Calibrate | Backtest and uncertainty analysis | ⚪ Not started |
 | 4 — Publish | Public scenario dashboard | ⚪ Not started |
 

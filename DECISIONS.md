@@ -358,6 +358,24 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Decision:** Approved with amendment: the port carries both parameter sets (1974 and 2004) in one codebase; the 2004 set is F3's provisional default; the final default is confirmed at the Phase 3 backtest on observed data, using 2000-2025 as the out-of-sample test. Before the 2004 set is relied on for backtests, the book's tables (and Herrington's Supporting Information) are read and the age cohorts are compared with UN WPP; these checks do not block step 1.4. (Approved by Stéphane Beau; this amends proposal item 1, whose text is kept as drafted.)
 - **Date:** 2026-10-07
 
+- **Outcome note (2026-10-08): the age-cohort check left open above.** Data: UN World Population Prospects 2024, file `WPP2024_Population1JanuaryByAge5GroupSex_Medium.csv.gz` (1 January, World, Medium variant, 5-year age groups; downloaded 2026-10-08 into a scratch folder outside the repository; https://population.un.org/wpp/). The 0-14, 15-44, 45-64 and 65+ cohorts of World3 are formed from the 5-year groups at exactly those boundaries. Model values are the 1900 runs of the port's reference (WorldDynamics.jl), taken at t equal to the calendar year, unscaled. The file is labelled Medium variant, and the WPP 2024 Summary of Results lists 2024 among its projections ("estimates for 1995 and projections (medium scenario), 2024, 2054 and 2100"): the 2025 values are therefore **medium-variant projections, not counts**, and earlier entries that call them "observed" should be read that way (1970 and 2000 are estimates). The mid-year (1 July) shares differ from the 1 January shares by at most 0.2 points.
+
+  | | 0-14 | 15-44 | 45-64 | 65+ |
+  |---|---|---|---|---|
+  | **1970 observed share** | 37.8% | 42.3% | 14.7% | 5.3% |
+  | 1970, 1974 set (model minus observed, points) | 36.7% (-1.1) | 41.0% (-1.3) | 15.2% (+0.5) | 7.1% (+1.9) |
+  | 1970, 2004 set | 34.5% (-3.3) | 40.9% (-1.3) | 16.1% (+1.4) | 8.5% (+3.2) |
+  | **2025 observed share** | 24.6% | 44.1% | 21.0% | 10.3% |
+  | 2025, 1974 set | 25.6% (+1.0) | 42.0% (-2.1) | 19.6% (-1.4) | 12.8% (+2.5) |
+  | 2025, 2004 set | 22.2% (-2.3) | 40.5% (-3.7) | 20.6% (-0.5) | 16.8% (+6.4) |
+
+  The 65+ group in millions, model against observed: 1970, 261 (1974 set) and 322 (2004 set) against 192, that is +35% and +67%; 2025, 905 and 1260 against 845, that is +7% and +49%. For 2025 the other groups are also below observed in the 2004 set: 0-14 by 17%, 15-44 by 16%, 45-64 by 10% (1974 set: by 10%, 18% and 20%).
+
+  **What this shows.** The 2004 parameter set's closer total population (Finding 3) comes with a **worse age structure**: it has too many people aged 65 and over from the start (8.5% against 5.3% in 1970) and, by 2025, 16.8% against 10.3% projected, while its working-age and young groups fall short. The 1974 set is closer in age structure at both dates (largest share gap: 1.9 points in 1970 and 2.5 in 2025, against 3.3 and 6.4 for the 2004 set). The two criteria point in opposite directions, so the 2004 set's lead on the total does not establish that it is the better set for population as a whole. This bears on the amended Decision (2004 provisional default, confirmed at the Phase 3 backtest) and is a reason to include age structure, not only total population, among the backtest criteria; it does not change the Decision.
+
+  **Date basis (additional correction).** Against the 1 January totals in this file, the model's 1970 population is 3.657 bn for the 1974 set (observed 3.657 bn, +0.0%) and 3.792 bn for the 2004 set (+3.7%); in 2000 the gaps are -7.1% and -0.6%, and in 2025 -13.9% and -8.2%. Finding 3 above compares the same model values with 1 July totals (-1.0% / +2.6% in 1970, -7.8% / -1.3% in 2000, -14.3% / -8.6% in 2025). Which date matches the model's t is not established (World3's time convention within a year was not checked), so the true gap lies within about one point of either table; the conclusions of Finding 3 do not depend on it. The same applies to the evidence table in D-019, which uses the 1 July values.
+
+  **Not done:** the book's tables and Herrington's Supporting Information remain unread (the other check named in the amended Decision). Only the world total was used; no regional comparison.
 ---
 
 ## D-016 — Earth4All audit verdict: reuse, reuse with changes, or replace, sector by sector
