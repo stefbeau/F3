@@ -35,7 +35,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-016 | Earth4All audit verdict: which components F3 reuses, changes or replaces | Approved | 1 |
 | D-017 | World3 reference environment: dated registry snapshot, default solver options | Approved; condition (a) met 2026-10-07 | 1 |
 | D-018 | Earth4All.jl is the Earth4All reference implementation; deviations from Vensim reported | Approved | 1 |
-| D-019 | How F3 initialises its stocks in 1970 | Proposed | 1 |
+| D-019 | How F3 initialises its stocks in 1970 | Approved (Option C) | 1 |
 
 ---
 
@@ -404,7 +404,7 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 
 ## D-019 — How F3 initialises its stocks in 1970
 
-- **Status:** Proposed
+- **Status:** Approved (2026-10-08)
 - **Context:** World3 runs from 1900; F3 is specified to start in 1970 (`MODEL_SPEC.md`), and `docs/phase-1-plan.md` (step 1.4) says the 1970 initialisation gets its own decision. The population-sector port (`f3/sectors/s1_population.py`) is finished and tested from 1900 against WorldDynamics.jl (`audit/s1-port-report.md`), so there is now evidence on what starting in 1970 does. **Scope of the evidence:** the S1 population sector only, with its four inputs (food, service output and industrial output per capita, pollution index) held at the series the 1900 WorldDynamics.jl run produced. Other sectors, and the feedbacks of a coupled model, are not tested.
 - **Evidence** (measured with the port; `audit/t0/s1_report.py` and the checks below; observed population is UN World Population Prospects 2024, 1 July values):
   1. *Restarting at 1970 is mechanically sound.* Started in 1970 from the reference's own 1970 state, the port reproduces the same port run from 1900 to within 0.11% (1974 parameter set) and 0.006% (2004 set) on all 15 states, and the WorldDynamics.jl reference to within 0.039% and 0.025%.
@@ -429,7 +429,7 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Alternatives considered:** initialising from the 1900 run but rescaling cohorts to the observed 1970 total (evidence item 3 shows it moves the 2004 set the wrong way, and it mixes a data value with model-consistent delays); starting the whole model in 1900 and reporting from 1970 as the only horizon (that is Option A).
 - **Sources:** `audit/s1-port-report.md`; `f3/sectors/s1_population.py`; `tests/fixtures/` (WorldDynamics.jl exports); UN World Population Prospects 2024 (`UN_2024_WorldPop-Historical-Plot.xlsx`); D-003, D-004, D-015.
 - **Proposed by:** Claude (Modeler and Validator agent roles)
-- **Decision:** Proposed. Not approved.
+- **Decision:** Approved: Option C. Applies to the World3-based sectors; other F3 sectors define their own 1970 starting data in their own decisions. (Approved by Stéphane Beau, as drafted.)
 - **Date:** 2026-10-08
 
 ---

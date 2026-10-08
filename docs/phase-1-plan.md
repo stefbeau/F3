@@ -67,6 +67,8 @@ Turn the audit into a decision: a new entry in `DECISIONS.md` (D-016) listing, s
 
 ### Step 1.4 — World3 population sector in Python (S1)
 
+**Status: done 2026-10-08.** Port, tests and comparison report in `audit/s1-port-report.md`; the 1970 initialisation is decided in D-019 (approved, Option C).
+
 Per D-012: port from WorldDynamics.jl with MIT attribution.
 
 1. **Port** the World3 population sector to `f3/sectors/s1_population.py`, with an attribution header and a `NOTICE` entry.
@@ -100,5 +102,5 @@ Phase 1 is complete when:
 - [x] T1–T4 run and published in `audit/earth4all-audit.md`
 - [x] D-016 approved and MODEL_SPEC updated
 - [x] S1 population passes ±2% against WorldDynamics.jl, with PyWorld3 gaps explained (`audit/s1-port-report.md`)
-- [ ] 1970 initialization decision logged (drafted as D-019, Proposed; waiting for the editor-in-chief)
+- [x] 1970 initialization decision logged (D-019, approved 2026-10-08, Option C)
 - [ ] README roadmap updated
