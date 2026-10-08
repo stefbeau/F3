@@ -1,8 +1,8 @@
 # F3 — Foundation for Earth
 ## Global Model Specification · v0.1 (draft)
 
-**Status:** v0.1 draft, updated after decisions D-001 to D-004, D-010, D-011, D-012, D-014, D-017 and D-018 (decision register: DECISIONS.md) · **Owner:** Stéphane Beau (editor-in-chief) · **Repo:** github.com/stefbeau/f3
-**Last updated:** 2026-10-04
+**Status:** v0.1 draft, updated after decisions D-001 to D-004, D-010, D-011, D-012, D-014, D-016, D-017 and D-018 (decision register: DECISIONS.md) · **Owner:** Stéphane Beau (editor-in-chief) · **Repo:** github.com/stefbeau/f3
+**Last updated:** 2026-10-08
 
 ---
 
@@ -50,14 +50,29 @@ F3 does not predict the future. Every output is a **conditional scenario**: *if*
 | # | Sector | Primary source model | New in F3? |
 |---|---|---|---|
 | S1 | Population | World3 population sector (ported from WorldDynamics.jl with attribution) | Adapted |
-| S2 | Economy & capital | Earth4All output/demand structure, conditional on audit (D-010); GATE task-based production | Adapted, conditional |
+| S2 | Economy & capital | Earth4All output, inventory and finance (reused), demand and public (reused with changes), labour market (reused, provisionally), per the audit verdict (D-016); GATE task-based production | Adapted |
 | S3 | AI development & automation | GATE | Adapted, newly coupled |
-| S4 | Energy | Earth4All capacity structure + new data-center module, coupled to material limits | Extended |
+| S4 | Energy | Earth4All energy sector (reused with changes, D-016) + new data-center module, coupled to material limits | Extended |
 | S5 | Materials & water | World3 resources + new critical-minerals and water modules; WORLD7 as reference | Extended |
 | S6 | Climate | FaIR emulator | Adopted |
-| S7 | Social stability & well-being | New F3 module with explicit stocks, informed by Earth4All and Turchin | New |
+| S7 | Social stability & well-being | New F3 module with explicit stocks, informed by Earth4All and Turchin; Earth4All's indices kept as a comparison output (D-016) | New |
 
-**Role of Earth4All (D-010):** Earth4All is a *reference model and component library*, not F3's baseline. Its components are reused only after passing the audit tests T1–T4 listed in `DECISIONS.md`.
+**Role of Earth4All (D-010, D-016):** Earth4All is a *reference model and component library*, not F3's baseline. The audit (tests T1–T4, `audit/earth4all-audit.md`) is done and D-016 (approved 2026-10-07) fixes the verdict per Earth4All.jl sector:
+
+| Earth4All sector | Verdict (D-016) | Goes to |
+|---|---|---|
+| population | Replace | S1, World3 population sector |
+| climate | Replace | S6, FaIR |
+| foodland | Replace (v0.1) | S1 food, World3 agriculture; revisit in v0.2 |
+| wellbeing | Replace, keeping Earth4All's indices as a comparison output | S7, F3's own module |
+| output, inventory, finance | Reuse | S2 |
+| demand | Reuse with changes: a component-level comparison with Vensim before it is relied on (half its variables deviate at the 95th percentile) | S2 |
+| public | Reuse with changes: expose the non-zero `EDROTA2022` as a documented parameter | S2 |
+| energy | Reuse with changes: extended with data-center demand and material limits | S4 |
+| labour market | Reuse, provisionally: reconsider when S3 is specified | S2, S3 |
+| other | Not assessed | whichever sector needs it |
+
+**Warming input needed from S6.** Seven equations in Earth4All.jl are *feedback switches*: a factor equal to 1 before 2022 and an endogenous function of observed warming afterwards (climate 1, foodland 2, output 2, population 1, public 1; `audit/earth4all-time-driven-equations.csv`). The ones in the sectors F3 reuses (output and public: effects of warming on the cost of capital, the loss of capital and productivity) need a warming input, which F3 takes from FaIR (S6). How warming reaches the economy is the open decision D-007 (climate damage function); these channels are to be handled there.
 
 ---
 
@@ -67,16 +82,16 @@ Notation is indicative. Final equations are fixed in v0.2 after the reproduction
 
 ### S1 — Population
 
-- **Origin:** World3 population sector (age cohorts, fertility, mortality in every cohort), ported from WorldDynamics.jl (MIT) with attribution (D-012). Well-being moves to S7.
+- **Origin:** World3 population sector (age cohorts, fertility, mortality in every cohort), ported from WorldDynamics.jl (MIT) with attribution (D-012). It replaces Earth4All's population sector (no mortality below 60, two exogenous 2022–2100 ramps; D-016). Well-being moves to S7.
 - **Key stocks:** Population by age group (0–14, 15–44, 45–64, 65+).
 - **Key flows:** Births, deaths, aging.
-- **Drivers:** Income per person, food per person (World3 agriculture sector in v0.1), health services, temperature stress (from S6), well-being (from S7).
+- **Drivers:** Income per person, food per person (World3 agriculture sector in v0.1, which replaces Earth4All's foodland sector, D-016), health services, temperature stress (from S6), well-being (from S7).
 - **Outputs to other sectors:** Labor force (S2, S3), consumption demand (S2, S4).
 - **Calibration data:** UN World Population Prospects.
 
 ### S2 — Economy & capital
 
-- **Origin:** Earth4All output, demand and public sectors, **reused only if they pass audit tests T2 and T3** (D-010). The labor module is built by F3 if T2 fails.
+- **Origin:** Earth4All output, inventory and finance sectors (reused), demand and public sectors (reused with changes, D-016), and the labour market (reused, provisionally: it passed test T2 under the definition accepted in D-016, and is reconsidered when S3 is specified). Conditions in D-016: demand needs a component-level comparison with Vensim before it is relied on; public exposes `EDROTA2022` (non-zero in both Earth4All scenarios) as a documented parameter.
 - **Key stocks:** Physical capital (K), public capital, debt.
 - **Production (indicative):** task-based production in which output Y combines human labor on non-automated tasks and AI/capital on automated tasks:
   `Y = A · F(K, L · (1 − f), K_AI · f)`
@@ -99,7 +114,7 @@ Notation is indicative. Final equations are fixed in v0.2 after the reproduction
 
 ### S4 — Energy
 
-- **Origin:** Earth4All energy capacity structure, extended. Renewable build-out is constrained by S5 material availability, which Earth4All lacks (D-010).
+- **Origin:** Earth4All energy sector, reused with changes (D-016) and extended. Renewable build-out is constrained by S5 material availability, which Earth4All lacks (D-010). Its scenario levers (for example `GFNE`, `GREF`, `FCO2SCCS`) are policy inputs, set by F3's scenarios.
 - **Key stocks:** Fossil generating capacity, renewable capacity, nuclear capacity, data-center electricity load.
 - **New module — data-center demand:**
   `E_dc = C_hw_operating / η_hw · PUE`
@@ -120,14 +135,14 @@ Notation is indicative. Final equations are fixed in v0.2 after the reproduction
 
 ### S6 — Climate
 
-- **Origin:** FaIR (Finite-amplitude Impulse Response) open-source climate emulator.
+- **Origin:** FaIR (Finite-amplitude Impulse Response) open-source climate emulator. It replaces Earth4All's climate sector (D-016), which contains exogenous 1%-per-year declines in the N2O and CH4 emission intensities of agriculture.
 - **Inputs:** CO₂ and other emissions from S4 and S2 (land use, industry).
-- **Outputs:** Global mean temperature anomaly (to S1, S2, S7), optional food-yield stress (to S1).
+- **Outputs:** Global mean temperature anomaly (to S1, S2, S7), optional food-yield stress (to S1). The reused Earth4All sectors read observed warming through seven feedback switches (see the note under the sector map); the damage function that sets how warming affects the economy is D-007.
 - **Calibration data:** Global Carbon Budget, HadCRUT / NOAA temperature records.
 
 ### S7 — Social stability & well-being
 
-- **Origin:** New F3 module (D-010). Draws on the concepts of Earth4All's Social Tension and Average Wellbeing indices and on structural-demographic theory (Turchin), but uses explicit stocks rather than smoothed indices.
+- **Origin:** New F3 module (D-010, D-016). Draws on the concepts of Earth4All's Social Tension and Average Wellbeing indices and on structural-demographic theory (Turchin), but uses explicit stocks rather than smoothed indices. Earth4All's indices are kept as a comparison output.
 - **Key stocks:** Inequality (e.g. income share of top 10%), social trust, social tension, well-being.
 - **Drivers:** Change in well-being, labor share of income (falls as `f` rises unless redistributed), unemployment or underemployment from automation, temperature stress.
 - **Feedback to the system:** High tension reduces governance capacity and investment efficiency (S2) and triggers delayed policy responses (redistribution, AI regulation) defined as scenario levers.
@@ -208,6 +223,7 @@ The scientific core of F3 is the race between **R1/R3** (AI-driven acceleration)
 | D-011 | Earth4All reference implementation | **Approved:** Earth4All.jl only; audit in Julia, port only what passes |
 | D-012 | World3 reference implementation | **Approved:** port from WorldDynamics.jl (MIT) with attribution; PyWorld3 as second check |
 | D-014 | Vensim output shipped with Earth4All.jl | **Approved:** read at run time from a clone for the package's own comparison; never stored in F3 |
+| D-016 | Earth4All audit verdict | **Approved:** replace population, climate, foodland, wellbeing; reuse output, inventory, finance; reuse with changes demand, public, energy; labour market provisional |
 | D-017 | World3 reference environment | **Approved:** Julia registry snapshot 2024-04-25, default solver options, pinned in `audit/env` |
 | D-018 | Earth4All reference status | **Approved:** Earth4All.jl is the reference; deviations from Vensim reported openly |
 | D-003 | Internal time step | **Approved:** 0.25 year |
@@ -226,7 +242,7 @@ The scientific core of F3 is the race between **R1/R3** (AI-driven acceleration)
 | Phase | Goal | Done when |
 |---|---|---|
 | 0 — Setup | Repo, structure, `DECISIONS.md`, agent workflow | Repo live, D-001 to D-004 and D-010 approved ✅ |
-| 1 — Reproduce & audit | World3 sectors re-implemented; Earth4All audited | Reproduction tests and T1–T4 complete |
+| 1 — Reproduce & audit | World3 sectors re-implemented; Earth4All audited | Reproduction tests and T1–T4 complete (T1–T4 done, D-016 approved; the S1 port and the phase review remain) |
 | 2 — Couple | S3 AI sector added and linked to S4, S5, S7 | All loops in section 5 active |
 | 3 — Calibrate & quantify uncertainty | Backtest and Monte Carlo | Validation report published |
 | 4 — Publish | Public dashboard with scenario levers | Dashboard live, methodology documented |

@@ -1,6 +1,6 @@
 # F3 — Phase 1 Plan: Reproduce & Audit
 
-**Status:** In progress (see `docs/STATUS.md` for the current state of each step) · **Depends on:** Phase 0 (complete) · **Governing decisions:** D-001, D-004, D-010, D-011, D-012 (and proposed D-013, D-014)
+**Status:** In progress (see `docs/STATUS.md` for the current state of each step) · **Depends on:** Phase 0 (complete) · **Governing decisions:** D-001, D-004, D-010, D-011, D-012, D-014, D-016, D-017, D-018
 
 ---
 
@@ -45,6 +45,8 @@ Before auditing Earth4All, confirm the Julia implementation behaves as published
 
 ### Step 1.2 — Earth4All audit (T1–T4)
 
+**Status: done 2026-10-07** (`audit/earth4all-audit.md`).
+
 Run on Earth4All.jl as published, for both scenarios, 1980–2100 unless stated.
 
 | Test | Question | Method | Pass criterion |
@@ -57,6 +59,8 @@ Run on Earth4All.jl as published, for both scenarios, 1980–2100 unless stated.
 **Deliverable:** `audit/earth4all-audit.md`: method, raw results, figures and a per-test verdict. The audit report states facts and evidence, not opinions about the model's authors or its critics.
 
 ### Step 1.3 — Audit verdict
+
+**Status: done.** D-016 approved by the editor-in-chief on 2026-10-07; MODEL_SPEC updated.
 
 Turn the audit into a decision: a new entry in `DECISIONS.md` (D-016) listing, sector by sector, whether F3 **reuses**, **reuses with changes**, or **replaces** each Earth4All component. MODEL_SPEC is updated to match.
 ✋ **Checkpoint:** Editor-in-chief approves D-016.
@@ -92,9 +96,9 @@ Update `MODEL_SPEC.md`, `README.md` and the roadmap; list open issues carried in
 
 Phase 1 is complete when:
 
-- [ ] References pinned and T0 passed
-- [ ] T1–T4 run and published in `audit/earth4all-audit.md`
-- [ ] D-016 approved and MODEL_SPEC updated
+- [x] References pinned and T0 passed
+- [x] T1–T4 run and published in `audit/earth4all-audit.md`
+- [x] D-016 approved and MODEL_SPEC updated
 - [ ] S1 population passes ±2% against WorldDynamics.jl, with PyWorld3 gaps explained
 - [ ] 1970 initialization decision logged
 - [ ] README roadmap updated

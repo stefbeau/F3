@@ -32,7 +32,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-013 | WorldDynamics.jl solver configuration | Superseded by D-017 | 1 |
 | D-014 | Use of the Vensim output shipped with Earth4All.jl | Approved | 1 |
 | D-015 | World3 variant for F3's population sector: 1974 or 2004 parameter set | Proposed | 1 |
-| D-016 | Earth4All audit verdict: which components F3 reuses, changes or replaces | Proposed | 1 |
+| D-016 | Earth4All audit verdict: which components F3 reuses, changes or replaces | Approved | 1 |
 | D-017 | World3 reference environment: dated registry snapshot, default solver options | Approved; condition (a) met 2026-10-07 | 1 |
 | D-018 | Earth4All.jl is the Earth4All reference implementation; deviations from Vensim reported | Approved | 1 |
 
@@ -361,7 +361,7 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 
 ## D-016 — Earth4All audit verdict: reuse, reuse with changes, or replace, sector by sector
 
-- **Status:** Proposed
+- **Status:** Approved (2026-10-07)
 - **Context:** D-010 made Earth4All a reference model and component library, to be reused only after tests T1–T4. The tests have been run on Earth4All.jl at commit `16f37d0` (`audit/earth4all-audit.md`); D-018 fixes how its deviations from Vensim are reported. This entry turns the evidence into a per-sector verdict, so that MODEL_SPEC can be updated to match. It is a proposal: the evidence below is measured, the verdicts are the Validator's recommendation.
 - **Evidence in one place** (details and caveats in `audit/earth4all-audit.md` and `audit/T0-FINDINGS.md`):
   - **T1:** no death flow out of the cohorts below 60 (by design). **T1b:** no cohort stock is negative before 2100 in either scenario (smallest 617.7 Mp).
@@ -391,8 +391,13 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Open points for the editor-in-chief:** (1) whether the T2 definition (employed = `WF`, working-age = `WAP`) is the one D-010 meant; (2) whether the nine behaviour-forcing equations are acceptable inside a reused sector if exposed as scenario switches (the SSP2 ramps can be switched off by package parameters), instead of replacing the sector; (3) the T3 classification is a reading of 40 equations and is open to challenge, equation by equation, in `audit/earth4all-time-driven-equations.csv`.
 - **Sources:** `audit/earth4all-audit.md`; `audit/earth4all-time-driven-equations.csv`; `audit/T0-FINDINGS.md` (run #7); Earth4All.jl source at `16f37d0`.
 - **Proposed by:** Claude (Validator and Research agent roles)
-- **Decision:** Proposed. Not approved.
+- **Decision:** Approved by Stéphane Beau, as drafted.
 - **Date:** 2026-10-07
+
+- **Outcome note (2026-10-08), answers of the editor-in-chief to the three open points above:**
+  1. The T2 definition (employed = `WF`, working-age = `WAP`) is accepted. The caveat stays on record: a different pair of variables could give a different answer (`audit/earth4all-audit.md`, T2).
+  2. No decision is needed on exposing the nine behaviour-forcing equations as switches inside a reused sector, because the three sectors concerned (population, climate, foodland) are replaced.
+  3. The T3 classification stands. A second read of the 9 behaviour-forcing equations, the 3 historical-then-goal paths, the 7 feedback switches and the one non-zero policy input found nothing to reclassify. The other 18 policy inputs were not re-read.
 
 ---
 
