@@ -36,12 +36,12 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-017 | World3 reference environment: dated registry snapshot, default solver options | Approved; condition (a) met 2026-10-07 | 1 |
 | D-018 | Earth4All.jl is the Earth4All reference implementation; deviations from Vensim reported | Approved | 1 |
 | D-019 | How F3 initialises its stocks in 1970 | Approved (Option C) | 1 |
-| D-020 | Start years and initial states of the non-World3 sectors (plan N1) | Proposed | 2 |
-| D-021 | How FaIR is coupled; source of non-CO2 emissions (plan N2) | Proposed | 2 |
-| D-022 | Sector interface and time convention (plan N3) | Proposed | 2 |
-| D-023 | Inputs to the reused Earth4All sectors from replaced sectors (plan N4) | Proposed | 2 |
-| D-024 | Phase 3 backtest criteria (plan N5) | Proposed | 2 |
-| D-025 | Phase 3 entry conditions (plan N6, optional) | Proposed | 2 |
+| D-020 | Start years and initial states of the non-World3 sectors (plan N1) | Approved (question 1 option A, question 2 option (i)) | 2 |
+| D-021 | How FaIR is coupled; source of non-CO2 emissions (plan N2) | Approved (re-run each year; emissions prescribed) | 2 |
+| D-022 | Sector interface and time convention (plan N3) | Approved (explicit coupling; t = Y is 1 January) | 2 |
+| D-023 | Inputs to the reused Earth4All sectors from replaced sectors (plan N4) | Approved (option C) | 2 |
+| D-024 | Phase 3 backtest criteria (plan N5) | Approved as a framework; thresholds set by the editor before the M5 hindcast | 2 |
+| D-025 | Phase 3 entry conditions (plan N6, optional) | Approved | 2 |
 
 ---
 
@@ -475,7 +475,7 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 
 ## D-020 — Start years and initial states of the sectors that are not World3-based (plan item N1)
 
-- **Status:** Proposed
+- **Status:** Approved (2026-10-08)
 - **Context:** D-019 (Option C) fixes the 1970 start for the World3-based sectors and says other sectors define their own starting data in their own decisions. This is that decision for S3, the data-centre module, the reused Earth4All sectors and FaIR. The plan (`docs/phase-2-plan.md`, N1) named only S3 and the data-centre module; the Earth4All start year turned up while gathering the evidence and is included here because it has the same cause. Needed before M1.
 - **Evidence** (read 2026-10-08; where a figure comes through a summarising fetch tool rather than verbatim it is said):
   1. *World3 sectors:* start 1900, reported from 1970 (D-019).
@@ -499,14 +499,14 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Alternatives considered:** a single common start year for all sectors (2025, losing the historical comparison; or 1980, losing 1970 to 1980).
 - **Sources:** `src/earth4all/solutions.jl` in Earth4All.jl at `16f37d0`; arXiv:2503.04941 v2 (CC BY 4.0); https://epoch.ai/data (licence wording verified); IEA reports (CC BY 4.0); D-019.
 - **Proposed by:** Claude (Research and Validator roles)
-- **Decision:** Proposed. Not approved.
+- **Decision:** Approved by Stéphane Beau: question 1 option A (S3 and the data-centre module switch on in 2025 from GATE's initial values; before 2025 the automation fraction is held at GATE's initial value and data-centre electricity is prescribed from IEA estimates where available); question 2 option (i) (the reused Earth4All sectors enter in 1980 from their own initial state; from 1970 to 1980 only the World3-based sectors run, and the Earth4All variables are undefined or prescribed). The Validator's recommendation was adopted as drafted.
 - **Date:** 2026-10-08
 
 ---
 
 ## D-021 — How FaIR is coupled, and the source of non-CO2 emissions (plan item N2)
 
-- **Status:** Proposed
+- **Status:** Approved (2026-10-08)
 - **Context:** S6 uses FaIR (D-010, MODEL_SPEC). Two things are open: how an annual climate model with memory is advanced inside a feedback loop (the M2 risk the plan names), and where emissions of non-CO2 gases and land-use CO2 come from, since D-016 replaces the Earth4All climate and foodland sectors that produced them and World3 agriculture has none. Needed before M2.
 - **Evidence:**
   1. *FaIR 2.2.4 documentation* (docs.fairmodel.net, "Introduction" and "Basic example", read 2026-10-08): time is defined once with `define_time(start, end, step)` and need not be integer years; a run is one `f.run()` over that horizon; initial conditions at the first time bound are set with `initialise(...)`; temperature and the other states sit on time bounds, emissions on time points at step centres. **The pages do not describe running in segments or restarting from a previous state.** A search found no documented restart method.
@@ -539,14 +539,14 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Alternatives considered:** a simplified FaIR-like response model written by F3 (more control, new unreferenced code, D-010's choice of FaIR would be reopened).
 - **Sources:** FaIR 2.2.4 documentation and code (Apache 2.0); `audit/t0/fair_segment_probe.py`; fair-calibrate (GMD 17, 8569, 2024); Global Carbon Budget 2025 (CC BY 4.0, verified).
 - **Proposed by:** Claude (Research role)
-- **Decision:** Proposed. Not approved.
+- **Decision:** Approved by Stéphane Beau: coupling option (a), FaIR is re-run from the start each year, for the slice and for M2's acceptance tests; options (b) and (c) are to be re-tested once a real FaIR configuration exists, and the editor then decides. Emissions option (A): non-CO2 emissions and land-use CO2 are prescribed, and every use of F3 results that depends on them is labelled "non-CO2 emissions are prescribed, not modelled".
 - **Date:** 2026-10-08
 
 ---
 
 ## D-022 — Sector interface and time convention (plan item N3)
 
-- **Status:** Proposed
+- **Status:** Approved (2026-10-08)
 - **Context:** M0 built the interface (`docs/coupling-interface.md`, `f3/core/`) and ran S1 inside it. This decision records its rules and settles the time convention (review item 16). Needed before M1 builds on it. **The evidence for the time convention is in `docs/time-convention-evidence.md`, which should be read first.**
 - **Interface evidence:** S1 inside the loop equals stand-alone S1 bit for bit (worst relative difference 0.0 on all 15 states, both parameter sets; criterion 1e-9). The first-order error of start-of-step coupling, measured with S1 and recorded inputs (`audit/t0/coupling_error.py`, held against exact):
 
@@ -566,14 +566,14 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Not covered:** parallel advance, state save and restore, sub-stepping, regional vectors (listed in `docs/coupling-interface.md`, "Not in this interface").
 - **Sources:** `docs/coupling-interface.md`; `docs/time-convention-evidence.md`; `audit/t0/coupling_error.py`; FaIR documentation.
 - **Proposed by:** Claude (Modeler and Validator roles)
-- **Decision:** Proposed. Not approved.
+- **Decision:** Approved by Stéphane Beau: explicit coupling at step boundaries with the 0.25-year step (as built, no predictor-corrector); time convention (1): t = Y is 1 January of year Y, stocks are values on that date, flows are rates per year at that instant, and a calendar-year total is the integral over [Y, Y+1].
 - **Date:** 2026-10-08
 
 ---
 
 ## D-023 — Inputs to the reused Earth4All sectors from the sectors F3 replaces (plan item N4)
 
-- **Status:** Proposed
+- **Status:** Approved (2026-10-08)
 - **Context:** D-016 replaces Earth4All's population, climate, foodland and wellbeing sectors and reuses the others. The reused sectors read variables the replaced sectors compute, and the replaced sectors read some of theirs. Needed before M4.
 - **Evidence** (`audit/t0/earth4all_links.jl`, from the composed TLTL system; `audit/data/earth4all_cross_sector_links.csv`): the composed model has 71 cross-sector connections: 45 within the same group, **18 from replaced to reused**, 8 from reused to replaced. The 18 carry **eight distinct signals**:
 
@@ -599,14 +599,14 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Open before M4:** the warming baseline above; which pension-age rule applies when the cohorts are World3's.
 - **Sources:** `audit/data/earth4all_cross_sector_links.csv`; `audit/t0/earth4all_links.jl`; `src/*/subsystems.jl` in Earth4All.jl; `audit/earth4all-audit.md` (T2).
 - **Proposed by:** Claude (Modeler role)
-- **Decision:** Proposed. Not approved.
+- **Decision:** Approved by Stéphane Beau: option C. Recorded Earth4All series are replayed for the sector tests, and adapters from F3's own sectors are used for the coupled model, with the difference between the two runs reported as the adapters' effect. The warming baseline and the working-age mapping stay open before M4, as the entry says.
 - **Date:** 2026-10-08
 
 ---
 
 ## D-024 — Phase 3 backtest criteria, fixed before the data are used (plan item N5)
 
-- **Status:** Proposed
+- **Status:** Approved as a framework (2026-10-08)
 - **Context:** Phase 3 backtests F3 against observed data. D-015's amendment fixes 2000 to 2025 as the out-of-sample period for the choice of World3 parameter set; the plan asks for the criteria to be fixed now so that "good" is defined before the data are seen, in the way D-004 and D-017 were. This entry proposes a framework and leaves numerical thresholds to the editor, to be set before the series are loaded (plan A5.4). Needed before the M5 hindcast and before Phase 3.
 - **Evidence** (computed with the port's reference runs and the UN WPP 2024 age-group file, 1 January values; `/tmp` script not committed, reproducible with `audit/t0/time_convention.py`'s data):
   1. *The out-of-sample window.* The UN file's estimates end in 2023; 2024 and 2025 are medium-variant projections. A test over "2000 to 2025" therefore ends with two projected years. **Proposal: test on 2000 to 2023 and report 2024 and 2025 separately as comparisons with projections.**
@@ -624,14 +624,14 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Not done:** series for GDP, energy, CO2 and warming are not yet in `research/SOURCES.md` with verified terms; the naive benchmarks for those variables are not computed.
 - **Sources:** UN WPP 2024 age-group file (licence terms not stated on the pages read); D-015 and its outcome note; Herrington (2021) as read for D-015.
 - **Proposed by:** Claude (Validator role)
-- **Decision:** Proposed. Not approved.
+- **Decision:** Approved by Stéphane Beau as a framework. The numerical thresholds are to be set by the editor-in-chief before the series are loaded, that is before the M5 hindcast (plan A5.4); they are not set by this approval. Two conditions recorded at approval: (1) the age-structure numbers in this entry (65+ share too high by 27% to 41% for the 1974 set and 66% to 81% for the 2004 set, 2000 to 2023) were already seen when the framework was approved, so any threshold set for age structure is not blind to them and must say so; (2) each criterion must state what a failure triggers (for example: a variable that fails is reported and its sector is flagged, or the parameter-set choice is reopened, or Phase 3 does not start), written when the threshold is set; a criterion without a stated consequence is incomplete.
 - **Date:** 2026-10-08
 
 ---
 
 ## D-025 — Phase 3 entry conditions (plan item N6, optional)
 
-- **Status:** Proposed
+- **Status:** Approved (2026-10-08)
 - **Context:** The plan lists this as optional and needed before M6. Drafted now so that the editor can see what "Phase 2 done" would have to show before the work is spent.
 - **Evidence for the speed condition:** one S1 run (1970 to 2100, step 0.25 year) takes 0.24 s; a full model's run time is **not measured** (plan tests A3.5 and A6.5 measure it); the FaIR re-run option of D-021 costs 24 s per run in a toy configuration, which would be about 6.7 hours for a 1,000-run Monte Carlo on one core for FaIR alone.
 - **Proposal:** Phase 3 starts when all of the following hold:
@@ -644,7 +644,7 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Alternatives:** *strict* (all tests pass before Phase 3; may block on a single hard test); *lenient* (start Phase 3 with documented failures; the risk is calibrating around a known fault). The list above is the middle: failures are allowed if each has a disposition.
 - **Sources:** `docs/phase-2-plan.md` (A3.5, A6.1 to A6.7).
 - **Proposed by:** Claude (Validator role)
-- **Decision:** Proposed. Not approved.
+- **Decision:** Approved by Stéphane Beau, as drafted.
 - **Date:** 2026-10-08
 
 ---
