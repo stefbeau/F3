@@ -38,12 +38,23 @@ F3 does not predict the future. Every output is a **conditional scenario**: *if*
 |---|---|
 | Method | System dynamics (stocks, flows, feedback loops) |
 | Time horizon | 1970–2100 |
-| Time step | 1 year for output; 0.25 year internal integration (to be confirmed, see D-003) |
+| Time step | 1 year for output; 0.25 year internal integration (D-003), with explicit coupling between sectors at step boundaries (D-022) |
+| Time convention | `t = Y` is **1 January of year Y** (D-022): stocks are values on that date, flows are rates per year at that instant, a calendar-year total is the integral over `[Y, Y+1]`. See "Time convention" below |
 | Spatial resolution | One global region |
 | Language | Python 3.11+ |
 | Core libraries | FaIR (climate emulator), NumPy, pandas, SALib (sensitivity analysis) |
 | Reference implementations | WorldDynamics.jl v1.0.0 (MIT) for World3 (D-012), run with default solver options in the pinned environment `audit/env` (D-017); Earth4All.jl (MIT, commit `16f37d0`) as the Earth4All reference, with its deviations from Vensim reported (D-011, D-018), audited by tests T1–T4 (D-010); PyWorld3, unmodified, as an independent second check for World3. All pinned in `audit/REFERENCES.md`. |
 | Uncertainty | Monte Carlo (≥1,000 runs per scenario) with Latin hypercube sampling |
+
+### Time convention (D-022, acceptance test A0.3)
+
+**Rule.** In F3, `t = Y` (for example `1970.0`) is 1 January of year Y. A stock (population, capital, temperature) is its value on that date. A flow (births, output, emissions) is a rate per year at that instant; the total for calendar year Y is the integral of the rate over `[Y, Y+1]`. Observed 1 January values are compared with the model at `t = Y`; observed mid-year (1 July) values are compared with the model at `t = Y + 0.5`; a comparison always states its date basis.
+
+**Why this is a choice and not a derivation.** Neither WorldDynamics.jl v1.0.0 nor PyWorld3 1.1 says what a time value means on a calendar (a keyword search of their sources, READMEs and docs found nothing; search results are "none found", not "none exists"), and the equations are silent: World3 is a continuous-time model whose switches sit at integer years without a date within the year. What the 1974 book says about its time axis was not read. The convention was chosen because it matches FaIR's documented layout (states on time bounds, emissions at step centres), puts yearly reporting on the same grid as the UN's 1 January population file, and costs nothing in the equations. The evidence is in `docs/time-convention-evidence.md`.
+
+**What it changes in comparisons with data (measured).** For total population against the UN World Population Prospects 2024, a half-year shift moves the gap by up to about 2 points near 1970, about 1.3 points in 2000 and about 0.4 points in 2025; calendar-year flow comparisons move by up to about 1%. It does not change which World3 parameter set is nearer observed total population. **It does not affect comparisons between F3 and a reference run on the same time axis** (D-004's 2% applies there), where the convention cancels.
+
+**Consequences for earlier results.** The population gaps in D-015 (Finding 3) and D-019 were computed against the UN's 1 July values, which is "reading B" of the evidence page. Under this convention the matching comparison is reading A (model at `t = Y` against the 1 January value); the dated outcome notes on D-015 and D-019 give the re-computed figures. No conclusion of either decision changes, with one correction to a sub-statement of D-019 recorded in its note.
 
 ### Sector map
 

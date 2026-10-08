@@ -397,6 +397,19 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
   **Date basis (additional correction).** Against the 1 January totals in this file, the model's 1970 population is 3.657 bn for the 1974 set (observed 3.657 bn, +0.0%) and 3.792 bn for the 2004 set (+3.7%); in 2000 the gaps are -7.1% and -0.6%, and in 2025 -13.9% and -8.2%. Finding 3 above compares the same model values with 1 July totals (-1.0% / +2.6% in 1970, -7.8% / -1.3% in 2000, -14.3% / -8.6% in 2025). Which date matches the model's t is not established (World3's time convention within a year was not checked), so the true gap lies within about one point of either table; the conclusions of Finding 3 do not depend on it. The same applies to the evidence table in D-019, which uses the 1 July values.
 
   **Not done:** the book's tables and Herrington's Supporting Information remain unread (the other check named in the amended Decision). Only the world total was used; no regional comparison.
+
+- **Outcome note (2026-10-08, after D-022): date basis of Finding 3.** The gaps in Finding 3 compare the model value at `t = Y` with the UN **1 July** value: that is reading B of `docs/time-convention-evidence.md`. D-022 adopts `t = Y` as 1 January of year Y, so the matching comparison is reading A: the model at `t = Y` against the UN **1 January** value (file `WPP2024_Population1JanuaryByAge5GroupSex_Medium.csv.gz`, world total as the sum of the age groups; values after 2023 are medium-variant projections). Finding 3's table under reading A:
+
+  | year | UN 1 January (bn) | 1974 model | 2004 variant |
+  |---|---|---|---|
+  | 1970 | 3.657 | 3.657 (+0.0%) | 3.792 (+3.7%) |
+  | 1980 | 4.408 | 4.294 (-2.6%) | 4.486 (+1.8%) |
+  | 2000 | 6.130 | 5.693 (-7.1%) | 6.092 (-0.6%) |
+  | 2010 | 6.977 | 6.396 (-8.3%) | 6.852 (-1.8%) |
+  | 2020 | 7.851 | 6.961 (-11.3%) | 7.402 (-5.7%) |
+  | 2025 | 8.197 | 7.057 (-13.9%) | 7.523 (-8.2%) |
+
+  Every gap moves by 0.4 to 1.0 point. The conclusions of Finding 3 are unchanged: the 1974 model is nearer in 1970 only, the 2004 variant is nearer from 1980 on, and neither stays within 2% to 2025. The earlier date-basis note above (which gave both date bases) is consistent with this one. The Decision (2004 set as provisional default) is unaffected.
 ---
 
 ## D-016 — Earth4All audit verdict: reuse, reuse with changes, or replace, sector by sector
@@ -471,6 +484,16 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Decision:** Approved: Option C. Applies to the World3-based sectors; other F3 sectors define their own 1970 starting data in their own decisions. (Approved by Stéphane Beau, as drafted.)
 - **Date:** 2026-10-08
 
+- **Outcome note (2026-10-08, after D-022): date basis and one correction.** The population gaps in evidence items 2 and 3 compare the model at `t = Y` with the UN **1 July** value (reading B of `docs/time-convention-evidence.md`). D-022 adopts `t = Y` as 1 January, so the matching reading is A (UN 1 January values; see the outcome note on D-015). Under reading A, item 2 becomes: model total population in 1970 is 3.657 bn for the 1974 set (UN 1 January 3.657 bn, +0.0%) and 3.792 bn for the 2004 set (+3.7%). Item 3's experiment, re-run with the cohorts scaled to the UN 1 January 1970 total (3.6567 bn):
+
+  | parameter set | start | 2000 vs observed | 2025 vs observed |
+  |---|---|---|---|
+  | 1974 | 1970 state from the 1900 run | -7.1% | -13.9% |
+  | 1974 | cohorts scaled to the UN 1 January 1970 total | -7.1% | -13.9% |
+  | 2004 | 1970 state from the 1900 run | -0.6% | -8.2% |
+  | 2004 | cohorts scaled to the UN 1 January 1970 total | -4.2% | -11.5% |
+
+  **Correction to item 3.** The sentence "for the 1974 set it helps by about one point" does **not** hold under reading A. The 1974 set's 1970 total already equals the UN 1 January total (scale factor 1.0000), so the scaling changes nothing for it; the one-point gain in the table above came from comparing with the 1 July value. For the 2004 set the finding holds and is slightly stronger (2000: -0.6% becomes -4.2%; 2025: -8.2% becomes -11.5%, against -3.8% and -11.0% before). So the conclusion drawn from item 3, that matching the 1970 total does not by itself improve the later fit, stands, and the Decision (Option C) is unaffected. `docs/phase-1-review.md`, section 2 ("Starting in 1970"), repeats the 1974 sentence and has not been edited.
 ---
 
 ## D-020 — Start years and initial states of the sectors that are not World3-based (plan item N1)
