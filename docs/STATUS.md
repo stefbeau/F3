@@ -14,7 +14,7 @@
 ## Phase 2 milestones (`docs/phase-2-plan.md`, approved 2026-10-08, order B: thin slice first)
 | Milestone | Sessions (estimate) | Status |
 |---|---|---|
-| M0 Carry-over, interfaces, first decisions (N1-N6 drafted) | 1-2 | **Starting** |
+| M0 Carry-over, interfaces, first decisions (N1-N6 drafted) | 1-2 | **At the checkpoint** (2026-10-08): interface built and tested (A0.1, A0.2, A0.5 met), time-convention evidence written, D-020 to D-025 drafted as Proposed, damage-function note written. A0.3 waits for the editor's choice of convention; M1 not started |
 | M1 S3 AI sector, GATE-like, standalone | 4-6 | Not started (needs D-005 amended) |
 | M2 Slice: AI, electricity, climate; Demo 0 | 3-5 (+1-2 demo) | Not started |
 | M3 Complete World3 in Python (agriculture, capital, resources, pollution) | 5-8 | Not started |
@@ -50,4 +50,4 @@ The external review of Demo 0 is deferred until Demo 0 is ready (editor's decisi
 3. Item 12 of the Phase 1 review (Earth4All environment not pinned) is resolved (2026-10-08). Item 11 (only the population sector is ported, so F3 cannot run World3 end to end) is carried into the Phase 2 plan, which is a proposal for your decision.
 
 ## Next tasks
-M0 of the Phase 2 plan: sector interface and coupling loop (A0.1, A0.2), the time convention (review item 16, evidence first), drafts of decisions N1-N6 as Proposed (A0.4), the repository-map check (A0.5). It stops at the M0 checkpoint for the editor; M1 does not start until that checkpoint is passed. Also pending: run the `audit-t0` workflow on GitHub to confirm the pinned Earth4All environment installs in CI, and `docs/HANDOVER.md` Prompt 5 (automation of reports and CI). The open issues carried into Phase 2 are in `docs/phase-1-review.md`, section 4.
+**Checkpoint for the editor (M0):** read `docs/coupling-interface.md` (the interface), `docs/time-convention-evidence.md` (the evidence), and D-020 to D-025 in `DECISIONS.md` (Proposed; options and a recommendation each). M1 does not start until you say so; it needs D-005 amended, D-020 and D-022 approved (`docs/HANDOVER.md`, Prompt P2-M1). Also open: Prompt 5 (automation of reports and CI). The open issues carried into Phase 2 are in `docs/phase-1-review.md`, section 4.

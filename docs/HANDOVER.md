@@ -1,5 +1,7 @@
 # Prompts for Claude Code
 
+**Status (2026-10-08):** Prompts 0 to 4 and 6 are done (see `docs/phase-1-review.md`). Prompt 5 is open. The Phase 2 prompts are at the end of this file.
+
 Paste these in order, one per session or task. Each ends with what "done" means and when to stop and ask. Before every task: read `CLAUDE.md` and `docs/STATUS.md`.
 
 ---
@@ -100,3 +102,48 @@ Goal: make research/SOURCES.md reliable. Follow CLAUDE.md.
 
 Done when: every row has a primary-source URL or an explicit "could not verify", the file is pushed, and you have summarised what changed in at most 12 lines.
 ```
+
+---
+
+# Phase 2 prompts
+
+Written 2026-10-08 from `docs/phase-2-plan.md` (approved, order B). Each prompt is one session or task. They follow the plan's milestones; the acceptance tests (A-numbers) are in the plan and were stated before the work. Every prompt starts with `CLAUDE.md` and `docs/STATUS.md`. **Each stops at its checkpoint for the editor-in-chief. A prompt marked "needs" must not start before that decision is approved.** The plan's milestones M0 to M2 are written out here in detail; M3 to M6 are listed with a pointer and are turned into full prompts when their predecessors are finished, so that they use what was learned.
+
+## Prompt P2-M0 — carry-over and interfaces (done as far as the checkpoint)
+Done in the session of 2026-10-08: the sector interface and coupling loop with S1 inside (A0.1, A0.2: `f3/core/`, `docs/coupling-interface.md`), the time-convention evidence (`docs/time-convention-evidence.md`), decisions D-020 to D-025 drafted as Proposed, the damage-function sources note (`research/damage-functions.md`), and the repository-map check (A0.5). **Waiting for the editor's checkpoint**: read the interface and D-020 to D-025. Remaining in M0 once approved: write the chosen time convention into `MODEL_SPEC.md` (A0.3), then close M0 in `docs/STATUS.md`.
+
+## Prompt P2-M1 — S3 AI sector, GATE-like, standalone
+```
+Needs: D-005 amended with numeric criteria (plan A1.2) and approved; D-020 (start years) approved; D-022 (interface and time convention) approved.
+Goal: milestone M1 of docs/phase-2-plan.md. Follow CLAUDE.md. Stop and ask before changing anything in a ported sector.
+
+1. A1.1 first, before any code: extract GATE's equations and default parameters from the paper (arXiv:2503.04941 v2; the appendix tables give the defaults) into research/gate-equations.md, with the section of each. Establish what the sandbox at epoch.ai/gate can export (named presets? downloadable results?). If nothing can be exported, say so and propose the fallback A1.6 for the editor; do not start the comparison.
+2. Write f3/sectors/s3_ai.py as a Sector of the coupling loop, with the behavioural investment rule of D-005. Carry the paper's defaults.
+3. Run the plan's tests A1.3 to A1.6 and write the comparison report (as audit/s1-port-report.md was written: real runs, the reference's own error beside each figure).
+4. Commit after each of the three steps.
+
+Done when: the report is pushed and you have told me, in at most 10 lines, which of A1.3 to A1.6 passed, failed or were not run. Then STOP at the M1 checkpoint.
+```
+
+## Prompt P2-M2 — slice: AI, electricity, climate, and Demo 0
+```
+Needs: M1 checkpoint passed; D-007 (damage function) approved; D-021 (FaIR coupling and non-CO2 emissions) approved; D-022 approved.
+Goal: milestone M2. Follow CLAUDE.md.
+
+1. Add FaIR to the project environment (pin it). Run it alone first (A2.1): historical emissions from the sources D-021 fixes; observed-warming dataset added to research/SOURCES.md and verified before the test; uncertainty read from the dataset.
+2. Data-centre electricity module (A2.2) against the IEA estimates for 2024 and 2025; the IEA 2030 figure is compared and reported, never a target.
+3. S6 climate (FaIR as a sector with its period), the damage function with the three options of D-007, and the coupled slice. Tests A2.3 to A2.6.
+4. Demo 0: a static page of precomputed runs, labelled "conditional scenarios, not forecasts", with the caveats listed in plan section 10. Do not publish; show the content to the editor (A2.7).
+
+Done when: tests are run and reported, Demo 0 content is ready for review, and you have told me in at most 12 lines what passed and what did not. STOP at the M2 checkpoint.
+```
+
+## Prompts for M3 to M6 (to be written when each is next)
+- **M3** complete World3 in Python: agriculture, capital, non-renewable resources, pollution. One sector per commit; the method of `audit/s1-port-report.md`; tests A3.1 to A3.5. No decision needed.
+- **M4** the reused Earth4All sectors. Needs D-023 (inputs from replaced sectors) and, for the materials link, D-006. Tests A4.1 to A4.6; the step mismatch (Earth4All.jl solves at 1/64 year) is measured first.
+- **M5** new modules: S7 social, S5 minerals and water, and any warming channels in replaced sectors. Needs D-006, D-008, D-024; the documentation-first rule (A5.1) applies. No dataset is committed before its licence is read from its own page (A5.6).
+- **M6** integration and the Phase 2 review. Needs D-025 if it is to be used.
+
+## Other open prompts (carried from Phase 1)
+- **Prompt 5** (automation of audit reports and CI) in the section above can run at any time in parallel; note the audit-t0 workflow now installs two pinned environments.
+- **Reading tasks the editor may be able to do faster than automated access can** (publisher sites refused): the full text of Herrington (2021)'s Supporting Information; the damage-function sections of Nordhaus (2017) or Barrage and Nordhaus (2024), Howard and Sterner (2017) and Burke et al. (2015); the LBNL data-centre report and TSMC sustainability report; the licence terms of WID and ILOSTAT.
