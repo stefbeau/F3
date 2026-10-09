@@ -21,7 +21,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-002 | Earth4All integration route | Superseded by D-011 | 0 |
 | D-003 | Internal time step | Approved | 0 |
 | D-004 | Reproduction tolerance | Approved | 0 |
-| D-005 | AI sector integration approach | Approved, with the amendment of 2026-10-08 (numeric criteria A1.2 to A1.6) | 2 |
+| D-005 | AI sector integration approach | Approved, with the amendment of 2026-10-08 (numeric criteria A1.2 to A1.6); amendment B (the three A1.3 settings replaced by the playground's shipped runs) drafted, Proposed | 2 |
 | D-006 | Critical minerals granularity in v0.1 | Proposed | 2 |
 | D-007 | Climate damage function | Proposed | 2 |
 | D-008 | Social tension historical proxy | Proposed (research needed) | 3 |
@@ -42,6 +42,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-023 | Inputs to the reused Earth4All sectors from replaced sectors (plan N4) | Approved (option C) | 2 |
 | D-024 | Phase 3 backtest criteria (plan N5) | Approved as a framework; thresholds set by the editor before the M5 hindcast | 2 |
 | D-025 | Phase 3 entry conditions (plan N6, optional) | Approved | 2 |
+| D-026 | Handling of Epoch AI's GATE playground data (the shipped runs) | Proposed | 2 |
 
 ---
 
@@ -156,6 +157,43 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
   3. **The two parameter settings for A1.3 are approved**, together with the default (Setting 0): **Setting 1 (slow):** `T` = 1e41 eFLOP, `λ_H` = `λ_S` = 0.25. **Setting 2 (fast):** `T` = 1e33 eFLOP, `λ_H` = `λ_S` = 1, with the **replacement rule for Setting 2** as written above (if the sandbox refuses Setting 2, it is replaced by `λ` = 0.5 for both and `T` = 1e34.5, and the report says so).
   4. **Rule for the `λ` ambiguity** (the paper's tables and text disagree on the defaults and lows of `λ_H` and `λ_S`): the Modeler **runs both readings and reports the difference**; **if the playground shows its parameter values, those decide**; the **working default is the text's reading, 0.14 for both** `λ_H` and `λ_S`.
   Nothing else in the amendment changed.
+
+- **Amendment proposal B (2026-10-09, Proposed; nothing here is approved; it changes nothing above, and A1.3, A1.4 and A1.6 as approved stay in force until the editor approves this block).** Written before any comparison code exists and before any comparison has been run.
+
+  **What B changes, in one sentence.** It replaces the three settings that A1.3 is tested on, **D-005 Settings 0, 1 and 2, with the three runs the GATE playground ships** (default, conservative, aggressive), and keeps the approved slow and fast settings as report-only stress runs.
+
+  **Why (the reason is data availability, not a result).** The approved A1.3 needs a reference series for each setting at three significant figures. `research/gate-equations.md` (A1.1, 2026-10-08) found that the playground ships exactly three runs as series, each with 80 yearly states stored to about 16 significant digits, and has no way to export any other run: it downloads a parameter file and chart images only. The approved Settings 1 and 2 (T = 1e41 with λ = 0.25; T = 1e33 with λ = 1) are **not among the shipped runs** and therefore have **no reference series at all**; they could not be tested to ±2% by any means available. Of the approved three settings, only the default has a series. **This is a change of the reference, forced by what exists; it is not a change of the standard.** It is written before any S3 code exists, so it cannot have been chosen to make a test pass, and the pass bar (±2%) and the rule that a failure is reported and not relaxed are kept unchanged. What it gives up is the coverage that Settings 1 and 2 would have given of parameters that change λ directly (the shipped presets change `T` and the returns ratios, not λ), and that loss is stated, not hidden.
+
+  **The three A1.3 settings under B** (parameters as read in the playground's own table and in the parameter blocks of the shipped runs; all other parameters at the playground's defaults, which for λ_H and λ_S are 0.14 for both):
+
+  | | **B0: default** | **B1: conservative** | **B2: aggressive** |
+  |---|---|---|---|
+  | AGI training requirement `T` | 1e36.5 eFLOP | 1e38 | 1e33 |
+  | Hardware R&D returns ratio `r_H` | 5.2 | 1 | 7.1 |
+  | Software R&D returns ratio `r_S` | 1.25 | 1 | 2 |
+  | Implied fishing-out exponents `φ_H = (λ_H/γ_H)/r_H`, `φ_S = (λ_S/γ_S)/r_S` (λ/γ = 0.4) | 0.0769, 0.32 | 0.4, 0.4 | 0.0563, 0.2 |
+  | Everything else | default | default | default |
+
+  (The `φ` values are derived, and they were checked: at stored index 0 the hardware and software efficiencies of all three shipped runs equal the paper's equation 4 evaluated with these `φ`, ratio 1.000000. The names "conservative" and "aggressive" are the playground's.)
+
+  **Numeric criteria under B (A1.3 only; A1.2, A1.4, A1.5 and A1.6 stay as approved, except as stated under "Report-only stress runs").**
+
+  | Item | Criterion |
+  |---|---|
+  | **Compared quantities** | S3's effective compute, hardware efficiency, software efficiency, automation fraction and output, against the stored `compute`, `hardware`, `software`, `frac_automated` and `gwp`, and S3's capital stock, labour and the output-allocation shares against `capital`, `labor` and the stored shares. The shipped series are the reference **with GATE's own investment path supplied to S3 as input** (the stored investment shares), as A1.3 already says |
+  | **Tolerance** | **±2% relative, at every annual period end, 2025 to 2100**, for each compared quantity and each of the three settings |
+  | **Alignment in time (fixed now, from `research/gate-equations.md` section 5)** | The stored index `k` is the **end of period k, 0-based**, so index 0 is the end of 2025 and index 79 the end of 2104; comparisons are made at those period ends (an annual grid), not at `t = 0`. The initial conditions are the start of 2025. **Automation lags by one period:** the stored `frac_automated[k]` is equations 13 and 2 evaluated on the largest training run stored at index `k − 1` (the initial run at `k = 0`); S3 reproduces that lag explicitly, and a comparison without the lag is not a valid comparison. Effective training compute is accumulated at the **previous** period's software efficiency (`best_training_run[k] = best[k−1] + training_compute[k] × S[k−1]`). The comparison window **2025 to 2100 is indices 0 to 75** (the shipped series run to index 79, which is the end of 2104, and are not used beyond index 75) |
+  | **F3's own step** | S3 runs inside the 0.25-year loop (D-022); the comparison is at the annual period ends only; the effect of the loop step on S3 is reported separately (plan A2.6), not folded into this criterion |
+  | **What a failure means** | **Reported, not relaxed.** A failure of any quantity at any year in any setting is recorded with its size and first year; a revised criterion would be a new labelled proposal for the editor. No year or setting is dropped because it fails |
+  | **Years where the raw stock `Q` exceeds 10% of `C_L`** | **Reported separately and not excluded from the criterion.** The paper does not state the law of motion for effective compute once `Q` approaches or exceeds `C_L` (footnote 11 says it "must be adjusted" and does not give the adjustment), so S3 will have to supply one there and the comparison in those years tests that choice as much as the paper. The report therefore gives, for each setting, the largest and mean difference **in two groups of years**: those where `Q ≤ 0.1 C_L` and those where `Q > 0.1 C_L`, and the first year of the second group. **How the second group is identified** is limited by what the playground stores: the raw stock `Q` and usable compute `g(Q)` are **not stored** in the shipped series. The report therefore identifies those years from **S3's own `Q`** (fed GATE's investment path) and states that it did so; as a cross-check it also gives the years where the stored `compute / software` exceeds `C_L/11`, which equals the same condition **only if** the stored `compute` is `g(Q) S` (unverified: that ratio exceeds `C_L` by factors of 30 to 900 late in the shipped runs, which is impossible if it is `g(Q)`, so the stored `compute` may not be `g(Q) S`, see `research/gate-equations.md`, section 6, item 4). Both groups are in the criterion |
+  | **Precision of the reference** | The shipped runs came from a solver with tolerance 0.02 and at most 40 iterations (`research/gate-equations.md`, section 4). With GATE's investment path supplied as input, S3's equations are deterministic given that path, so the solver's tolerance affects only whether the stored investment path is the optimum, not S3's response to it; the ±2% is applied to S3's response. If the comparison nevertheless shows differences that look like solver noise rather than equations, the report says so and does not change the criterion |
+
+  **Report-only stress runs (the approved slow and fast settings).** Approved Settings 1 (slow: `T` = 1e41, λ_H = λ_S = 0.25) and 2 (fast: `T` = 1e33, λ_H = λ_S = 1, with the replacement rule for Setting 2 as already approved) are **kept**, with these changes only: they are **report-only** and have **no reference series**. They are run for A1.5 (the extreme-condition properties, including the corrected (d) on usable compute `g(Q)`) and for **finiteness** (no NaN, no negative stock, no overflow, all stocks finite to 2100). For these two runs S3 uses a behavioural investment path of its own (no GATE path exists), and the report states that. **They become A1.3 settings, with the ±2% criterion above, only if Epoch supplies the series** (for example in answer to a request to `info@epoch.ai`, the address the playground gives for questions), and then by a further dated note, not by this amendment.
+
+  **Not changed by B.** The Proposal and the Decision of D-005 (the behavioural investment rule replaces the planner's optimisation); A1.4 (report only, for each of the three B settings); A1.6 (the ±10% fallback, now less likely to be needed since series exist for the three B settings, but still the fallback if the series prove unusable); the corrected A1.5(d); the λ rule (the playground shows 0.14 for both, which decides); the ±2% tolerance; the rule that failures are reported and not relaxed.
+
+  **Open points B does not settle.** (1) The adjusted law for effective compute near `C_L` (above). (2) Whether the stored `compute` is `g(Q) S`. (3) The licence status of the shipped series: see D-026. B uses the three runs as reference values only under D-026's pattern; **if D-026 is not approved, B cannot be run as written** (the comparison needs the reference values at test time).
+
 ## D-006 — Critical minerals granularity in v0.1
 
 - **Status:** Proposed
@@ -716,6 +754,35 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Proposed by:** Claude (Validator role)
 - **Decision:** Approved by Stéphane Beau, as drafted.
 - **Date:** 2026-10-08
+
+---
+
+## D-026 — Handling of Epoch AI's GATE playground data (the shipped runs)
+
+- **Status:** Proposed
+- **Context:** D-005's amendment B needs reference series to test S3 against. The only series available are three precomputed runs (default, conservative, aggressive) that Epoch AI's playground page (https://epoch.ai/gate) ships inside its script bundle (https://epoch.ai/generated/gate.js): 80 yearly states each, stored to about 16 significant digits. They are Epoch's output numbers. **What Epoch states about use** (read 2026-10-08 and 2026-10-09): the playground and data pages say its work is "free to use, distribute, and reproduce" with the source and authors credited, "under the Creative Commons Attribution license" (the playground footer links CC BY 4.0). **No licence is stated for the script bundle or for the data inside it**, and the bundle also contains a compiled solver that F3 does not use and does not reuse. Whether the sentence about "Epoch's work" covers numbers embedded in a script file is not settled by the page: that is a reading, not a statement. A request for permission has **not** been sent (an unsent draft is in `docs/drafts/epoch-gate-email.md`); this entry treats permission as **not yet requested**. The same situation was met for Vensim output in D-014, which this entry follows.
+- **Evidence:**
+  1. *The bundle's identity.* Fetched on 2026-10-08 and again on 2026-10-09: the same 3,167,570 bytes, sha256 `3afe8e4df5260ee062d987ce38a984fc37b488b6dcb5596a317b1fde106c55bf`, byte for byte (the server answers `Cache-Control: public, max-age=0, must-revalidate`, an ETag `735017e30aa343030d708382921dece0`, no stated last-modified date). **A file at a fixed URL that the owner may change at any time**, so a pin by hash is meaningful and will break when Epoch updates the page.
+  2. *What the three runs are, structurally* (`audit/t0/gate_playground_probe.py`, `research/gate-equations.md`): they sit as a JSON array in the script (`legacy/one-offs/gate/backend/cache.json` in the bundle's source map comments), keyed by their parameter blocks; they were produced by the page's own solver (C++, double precision, one-year step, tolerance 0.02, at most 40 iterations).
+  3. *Size of what would be stored:* three runs of 80 states with 31 fields come to 767,428 bytes (about 750 KB) as stored in the script; the comparison in amendment B needs about 17 of the 31 fields from each run (output, capital, labour, hardware, software, effective compute, automation, and the output shares).
+  4. *D-014's pattern, as approved:* the audit may read the reference data from a clone made at run time; nothing from it is copied into the repository or into stored results; stored results hold only variable names and error figures.
+- **Proposal** (the D-014 pattern, adapted):
+  1. **Nothing from the bundle is committed to the F3 repository**: no series, no part of the script, no copy of the bundle, and none of its code. The bundle's solver is not used.
+  2. **Reference values are read at test time from a local copy of the public bundle**, downloaded from `https://epoch.ai/generated/gate.js` into a folder outside the repository (an environment variable names the path; the default is a git-ignored cache folder). **The copy is pinned by sha256**: before any test uses it, the test checks the hash against the one recorded in the repository (above) and **fails with a clear message if it differs**: "The GATE playground bundle has changed since the hash recorded in D-026 (expected …, got …). The reference runs may have changed. Re-read `research/gate-equations.md` sections 3 to 5, compare the three runs' parameter blocks and timing, and record the new hash by a dated note on D-026 before running comparisons." A changed hash is a stop, not an automatic update.
+  3. **CI fetches the bundle** in a step of its own (`curl` to the pinned URL), checks the hash, and runs the comparison; if the download fails or the hash differs the comparison step **fails visibly** and is not silently skipped. The existing `python-tests` workflow stays green without it: the GATE comparison tests are marked so that they are skipped, with a stated reason, when no local copy is configured, and run when one is (locally or in the dedicated CI job). **A skip is reported as a skip**, never as a pass.
+  4. **Only comparison figures and parameter names are stored** in the repository: per setting and per compared quantity, the largest and mean relative differences, the first year a tolerance is exceeded, and the year groups of amendment B; the names of the parameters and of the stored fields; the sha256 of the bundle; and the parameter values of the three runs **only as far as they are the playground's published parameter table** (names and default values are a description of the model, also in the paper's Appendix D and credited to it). No stored figure allows the series to be reconstructed.
+  5. **Permission.** If Epoch AI grants permission in writing (for example in reply to the draft email, which asks for it), the three series **may then be committed as test fixtures with attribution** ("Epoch AI, GATE playground, CC BY 4.0, accessed [date]") and a dated note on this entry records the reply, and the sha256 test becomes a check that the fixtures match the live page. **Silence is not permission**; a reply that declines means the pattern above stays.
+  6. **Attribution** in any report or figure that uses the comparison: "Reference values: Epoch AI, GATE playground (https://epoch.ai/gate), CC BY 4.0, read from the public page on [date], sha256 …".
+- **Alternatives considered:**
+  - **Store the three series now as fixtures** (the simplest and fastest for tests, CI and the reader: no network access, no hash drift). **Not recommended** because: (a) the page says Epoch's work is free to use with credit, which probably allows it, but it does not state a licence for the bundle or the data inside it, and "probably allows it" is the situation D-014 chose not to rely on for Vensim output; (b) CC BY lets others reuse the data with credit, but it is the owner's licence to give, and what the owner has licensed is not clear from what was read; (c) publishing the series in a public repository cannot be undone (they would remain in the history after deletion); (d) the cost of waiting is small: a download and a hash check at test time; (e) a request for permission costs one email and, if granted, removes the objection. If the editor judges that the CC BY sentence plainly covers the data, this alternative is a one-step change later, and the Validator's recommendation does not exclude it.
+  - **Store only a hash of each series** (so a fixture could be verified but not read): not usable for a comparison.
+  - **Ask permission first and wait:** correct in principle; the plan does not depend on a reply (the comparison can run from the local copy), so waiting would hold up nothing, but it would also hold up nothing if the pattern above is used meanwhile, which is why both are proposed together: use the pattern now, ask when the editor chooses.
+  - **Re-run GATE ourselves** (to produce our own reference series): not possible, since no source code is published and the solver in the bundle has no licence stated.
+- **What this does not settle:** whether Epoch's CC BY sentence covers the bundle's data (left open; the proposal does not depend on the answer); the terms for the compiled solver in the bundle (not used); the rights to Epoch's two posts (their figures are quoted in D-005's amendment with attribution, short quotes only).
+- **Sources:** https://epoch.ai/gate and https://epoch.ai/data (licence sentences, read 2026-10-08/09); the bundle at https://epoch.ai/generated/gate.js (sha256 above); D-014; `research/gate-equations.md`; `audit/t0/gate_playground_probe.py`; `docs/drafts/epoch-gate-email.md`.
+- **Proposed by:** Claude (Research and Validator roles)
+- **Decision:** Proposed. Not approved.
+- **Date:** 2026-10-09
 
 ---
 
