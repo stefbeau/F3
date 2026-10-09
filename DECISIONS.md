@@ -21,7 +21,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-002 | Earth4All integration route | Superseded by D-011 | 0 |
 | D-003 | Internal time step | Approved | 0 |
 | D-004 | Reproduction tolerance | Approved | 0 |
-| D-005 | AI sector integration approach | Approved, with the amendment of 2026-10-08 (numeric criteria A1.2 to A1.6); amendment B (the three A1.3 settings replaced by the playground's shipped runs) drafted, Proposed | 2 |
+| D-005 | AI sector integration approach | Approved, with the amendment of 2026-10-08 (numeric criteria A1.2 to A1.6); amendment B (the three A1.3 settings replaced by the playground's shipped runs, with the addition on equation-10 years) approved 2026-10-09 | 2 |
 | D-006 | Critical minerals granularity in v0.1 | Proposed | 2 |
 | D-007 | Climate damage function | Proposed | 2 |
 | D-008 | Social tension historical proxy | Proposed (research needed) | 3 |
@@ -42,7 +42,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-023 | Inputs to the reused Earth4All sectors from replaced sectors (plan N4) | Approved (option C) | 2 |
 | D-024 | Phase 3 backtest criteria (plan N5) | Approved as a framework; thresholds set by the editor before the M5 hindcast | 2 |
 | D-025 | Phase 3 entry conditions (plan N6, optional) | Approved | 2 |
-| D-026 | Handling of Epoch AI's GATE playground data (the shipped runs) | Proposed | 2 |
+| D-026 | Handling of Epoch AI's GATE playground data (the shipped runs) | Approved | 2 |
 
 ---
 
@@ -193,6 +193,11 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
   **Not changed by B.** The Proposal and the Decision of D-005 (the behavioural investment rule replaces the planner's optimisation); A1.4 (report only, for each of the three B settings); A1.6 (the ±10% fallback, now less likely to be needed since series exist for the three B settings, but still the fallback if the series prove unusable); the corrected A1.5(d); the λ rule (the playground shows 0.14 for both, which decides); the ±2% tolerance; the rule that failures are reported and not relaxed.
 
   **Open points B does not settle.** (1) The adjusted law for effective compute near `C_L` (above). (2) Whether the stored `compute` is `g(Q) S`. (3) The licence status of the shipped series: see D-026. B uses the three runs as reference values only under D-026's pattern; **if D-026 is not approved, B cannot be run as written** (the comparison needs the reference values at test time).
+
+- **Approval of amendment B (recorded 2026-10-09).** Stéphane Beau approved amendment B above, **with one addition**, which is part of the approved text:
+  > "If a failure is confined to years where the shipped series contradicts the paper's equation 10 (stored compute divided by software exceeds C_L), the report classifies it as 'playground differs from the paper'; S3 keeps the paper's equation; the criterion is still recorded as failed."
+
+  So, as approved: the three A1.3 settings are the playground's shipped runs (default; conservative, `T` = 38 with `r_H`, `r_S` = 1, 1; aggressive, `T` = 33 with `r_H`, `r_S` = 7.1, 2); the criterion is ±2% at every annual period end 2025 to 2100 with the one-period automation lag; a failure is reported and not relaxed; the years where `Q` exceeds 10% of `C_L` are reported separately and not excluded; the approved slow and fast settings are report-only stress runs; and the addition above governs how a failure that coincides with the stored-compute-above-`C_L` years is classified (the classification does not turn a recorded failure into a pass). Amendment B depends on D-026, which was approved the same day. The wording of this entry's earlier Status, Decision and Date lines is unchanged; they were approved on 2026-10-08 and this record is appended to them.
 
 ## D-006 — Critical minerals granularity in v0.1
 
@@ -759,7 +764,7 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 
 ## D-026 — Handling of Epoch AI's GATE playground data (the shipped runs)
 
-- **Status:** Proposed
+- **Status:** Approved (2026-10-09)
 - **Context:** D-005's amendment B needs reference series to test S3 against. The only series available are three precomputed runs (default, conservative, aggressive) that Epoch AI's playground page (https://epoch.ai/gate) ships inside its script bundle (https://epoch.ai/generated/gate.js): 80 yearly states each, stored to about 16 significant digits. They are Epoch's output numbers. **What Epoch states about use** (read 2026-10-08 and 2026-10-09): the playground and data pages say its work is "free to use, distribute, and reproduce" with the source and authors credited, "under the Creative Commons Attribution license" (the playground footer links CC BY 4.0). **No licence is stated for the script bundle or for the data inside it**, and the bundle also contains a compiled solver that F3 does not use and does not reuse. Whether the sentence about "Epoch's work" covers numbers embedded in a script file is not settled by the page: that is a reading, not a statement. A request for permission has **not** been sent (an unsent draft is in `docs/drafts/epoch-gate-email.md`); this entry treats permission as **not yet requested**. The same situation was met for Vensim output in D-014, which this entry follows.
 - **Evidence:**
   1. *The bundle's identity.* Fetched on 2026-10-08 and again on 2026-10-09: the same 3,167,570 bytes, sha256 `3afe8e4df5260ee062d987ce38a984fc37b488b6dcb5596a317b1fde106c55bf`, byte for byte (the server answers `Cache-Control: public, max-age=0, must-revalidate`, an ETag `735017e30aa343030d708382921dece0`, no stated last-modified date). **A file at a fixed URL that the owner may change at any time**, so a pin by hash is meaningful and will break when Epoch updates the page.
@@ -781,7 +786,7 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **What this does not settle:** whether Epoch's CC BY sentence covers the bundle's data (left open; the proposal does not depend on the answer); the terms for the compiled solver in the bundle (not used); the rights to Epoch's two posts (their figures are quoted in D-005's amendment with attribution, short quotes only).
 - **Sources:** https://epoch.ai/gate and https://epoch.ai/data (licence sentences, read 2026-10-08/09); the bundle at https://epoch.ai/generated/gate.js (sha256 above); D-014; `research/gate-equations.md`; `audit/t0/gate_playground_probe.py`; `docs/drafts/epoch-gate-email.md`.
 - **Proposed by:** Claude (Research and Validator roles)
-- **Decision:** Proposed. Not approved.
+- **Decision:** Approved by Stéphane Beau, as drafted.
 - **Date:** 2026-10-09
 
 ---
