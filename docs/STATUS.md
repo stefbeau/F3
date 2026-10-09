@@ -50,6 +50,7 @@ The external review of Demo 0 is deferred until Demo 0 is ready (editor's decisi
 3. **Plan amendment, section 14.2** (consequences of D-020 that touch approved tests and documents; not applied): A2.2's reading, the GATE-versus-Earth4All economy from 2025, the `MODEL_SPEC.md` time horizon wording, the hindcast window for variables from the Earth4All sectors.
 4. Whether to report the WorldDynamics.jl break (ModelingToolkit 9.22 to 9.41) upstream.
 5. Reading tasks the editor may do faster than automated access (publisher sites refused): the damage-function sections of Nordhaus, Howard and Sterner and Burke et al.; Herrington's Supporting Information; the LBNL and TSMC reports; the WID and ILOSTAT licences.
+6. Optional, pending: email to Epoch AI (docs/drafts/epoch-gate-email.md) asking permission to use the shipped playground runs as test references and for result series for the two stress settings. Not sent. The plan does not depend on a reply; D-026 treats permission as not yet requested.
 
 ## Next tasks
 M1 (the S3 AI sector) is next and does not start until you confirm the D-005 amendment. After it: M2 (the slice and Demo 0), which needs D-007 (damage function) decided. `docs/HANDOVER.md` has the Phase 2 prompts; Prompt 5 (automation of reports and CI) is open. The open issues carried into Phase 2 are in `docs/phase-1-review.md`, section 4.
