@@ -45,6 +45,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-026 | Handling of Epoch AI's GATE playground data (the shipped runs) | Approved | 2 |
 | D-027 | S3 production composite: footnote-38 task grids as a labelled variant | Approved 2026-10-12 | 1 |
 | D-028 | S3 investment rule: R3 (AI-race budget) calibrated with R1 curves | Approved 2026-10-12 | 1 |
+| D-029 | M1 closed with A1.3 failed; S3's composite is a known open difference | Approved 2026-10-12 | 1 |
 
 ---
 
@@ -819,6 +820,8 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 
 - **Outcome note (2026-10-12, appended; no earlier line changed).** Variant B (the paper's footnote-38 grids; implementation in `research/gate-equations.md` section 10) was run on the three shipped runs with the same criterion, indices and quantities. **Outcome (ii): B fails A1.3** on all three runs, with the same first failure years as variant A (output 2027, 2027, 2026; capital 2031, 2032, 2030; hardware 2030, 2033, 2029; software 2030, 2032, 2028; compute stock 2028, 2028, 2027; automation only in the conservative run, 2039). As pre-registered, the single named 101-point case was then tried once and **also fails**, in the same years; so "matches the playground, not the paper" does not apply. No other grid size was tried. A1.3 stays recorded as failed under variants A, B and the 101-point case; the default stays A. Measured: three discretisations give the same output to within a fraction of a percent, so the task grid is not the cause. The cause remains unresolved; composite work stops here until a new decision or a reply from Epoch. Figures: `audit/s3-gate-comparison.md` section 7. Both variants were run only after their implementation was written down; four dated corrections to the written implementation (a wrong formula, a corner case, two `f = 1` handlings) were made before any variant B comparison existed.
 
+- **Pointer note (2026-10-12, appended).** The disposition of this outcome is recorded in D-029: M1 closes with A1.3 failed and accepted as a known open difference; no further composite variants without a new decision.
+
 ## D-028 — S3 investment rule: R3 (AI-race budget) calibrated with R1 curves
 
 - **Status:** Approved (2026-10-12)
@@ -836,6 +839,27 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Date:** 2026-10-12
 
 - **Outcome note (2026-10-12, appended; no earlier line changed).** R3 was built (`f3/sectors/s3_rule_r3.py`; method in `docs/s3-investment-rule-r3.md`, written before the fit) and A1.4 was run, report only (`audit/s3-r3-a1.4.md`). With default levers and the curves fitted once to the three shipped runs: automation fraction within 9.5% at worst once Epoch's stored composite is supplied, but effective compute 43% to 72% off at worst, output 13% to 20% off, hardware up to 35% off; share errors up to 24 percentage points (capital) and 55 (training share). Most of the full-chain output error is the open composite (D-027), the rest is the rule. R3 was not tuned after seeing the numbers; any better fit would be a new labelled post-hoc proposal. A1.5 passes with S3 driven by R3 on the three shipped settings and the two stress settings.
+
+- **Pointer note (2026-10-12, appended).** D-029 records that R3 is a scenario-lever rule, not a GATE replica, and that a better fit is to be considered only after the composite is settled, because A1.4 mixes the rule's error with the composite's.
+
+## D-029 — M1 closed with A1.3 failed; S3's composite is a known open difference
+
+- **Status:** Approved (2026-10-12)
+- **Context:** M1 step 2 (S3 built and compared, `audit/s3-gate-comparison.md`) and the D-027 and D-028 follow-ups are done. A1.3 (D-005 amendment B) failed. This entry records the disposition.
+- **Facts (measured):**
+  1. A1.3 failed on all three shipped GATE runs under variant A (20,000 midpoints), variant B (the paper's footnote-38 grids) and the single named 101-point case (D-027 outcome ii), with the same first failure years (output 2026 to 2027).
+  2. With Epoch's stored composite `T` (`cognitive_ces_term`) supplied, every compared quantity passes at every year in all three runs. The gap is entirely the composite (the task-allocation step). **The cause is unresolved; the task grid is ruled out.**
+  3. A1.5 and finiteness pass; R3 (D-028) was built and A1.4 reported (`audit/s3-r3-a1.4.md`).
+- **Decision:**
+  1. **M1 closes with A1.3 recorded as failed**, and the failure is accepted as a known open difference. The criterion, its thresholds and the failed record stay as they are; **nothing is relaxed.**
+  2. **S3's absolute output (`gwp`, capital, effective compute) is UNVALIDATED against GATE after about 2027.** No further composite variants are tried without a new decision. The route to resolve it is Epoch's answer to the email in `docs/drafts/epoch-gate-email.md` (unsent; sending it is the editor's call).
+  3. **Labelling rule.** Every document, report or dashboard output that uses S3 must say that S3 failed A1.3 and that its absolute output is unvalidated against GATE. **Nothing may say the model "reproduces GATE".** The notice is carried in `f3/sectors/s3_ai.py`, `README.md` and `MODEL_SPEC.md`.
+  4. **R3 (D-028) is a scenario-lever rule, not a GATE replica.** The A1.4 numbers (effective compute 43% to 72% off at worst with the stored composite supplied; training share up to 55 percentage points off) are published as they are. A better fit would be a new, labelled post-hoc proposal, to be considered only after the composite is settled, because A1.4 mixes the rule's error with the composite's.
+- **Alternatives considered:** keep trying composite variants (open-ended, post-hoc, and the grid is already ruled out); relax A1.3 (not allowed); block M2 until Epoch replies (no deadline for a reply).
+- **Sources:** `audit/s3-gate-comparison.md`; `audit/s3-r3-a1.4.md`; D-005 (outcome note), D-027, D-028.
+- **Proposed by:** Claude (Validator role)
+- **Decision:** Approved by Stéphane Beau in session, as drafted.
+- **Date:** 2026-10-12
 
 ---
 
