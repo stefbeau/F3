@@ -795,6 +795,26 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Decision:** Approved by Stéphane Beau, as drafted.
 - **Date:** 2026-10-09
 
+## D-027 — S3 production composite: test the paper's footnote-38 task grids as a labelled variant
+
+- **Status:** Proposed (2026-10-12). Nothing here is approved; no variant B code exists.
+- **Context:** D-005 amendment B (approved) sets A1.3: S3 within ±2% of the three shipped GATE runs at every annual period end, 2025 to 2100, with GATE's investment path as input. A1.3 was run on 2026-10-12 and **failed on all three runs** (`audit/s3-gate-comparison.md`). **This proposal is post-hoc: it is made after seeing the A1.3 data.** It changes no tolerance and no criterion.
+- **Problem (measured):** with Epoch's stored composite task input `T` (`cognitive_ces_term`) supplied to S3 period by period, all three runs pass A1.3 at every year (output 3e-16 to 2e-16, hardware up to 1.8e-4, software up to 1.5e-3, compute stock up to 1.4e-4, automation 3e-15). With S3's own composite they fail from 2026 to 2027 (output 5.7% low in 2027, compounding through the investment feedback). The gap is entirely the task-allocation step (`research/gate-equations.md` section 9.1, identity 8). Its cause is **not established**; candidates are the solver's task discretisation, the stored allocation being a different iterate, and my reading of eqs. 14 to 16 and footnote 39.
+- **Proposal:**
+  1. Add **variant B** of the production block that uses the discretisation the paper states in footnote 38: **20 grid points for the allocation of digital workers, 100 for human workers and for the CES integral**. Variant B is a separate, named option of `f3/sectors/s3_ai.py`.
+  2. **Variant A** (current: 20,000 midpoints) **stays the default and stays recorded as failed.**
+  3. A1.3 is re-run for variant B with the same ±2% criterion, same indices, same quantities, and reported as a **second, labelled row**. Nothing is removed from the existing report.
+- **Outcomes pre-registered (written before any variant B run):**
+  - **(i) B passes:** A1.3 is recorded "**failed under A, passed under B (paper's own grids)**". The default stays A unless the editor decides otherwise.
+  - **(ii) B fails:** the failure is recorded with its size and first year, and work on the composite **stops**; no further variant is tried without a new decision.
+  - **(iii) Only a 101-point grid passes** (the size of the stored `compute_allocation`, which does not match the paper's footnote): reported as "**matches the playground, not the paper**", and the choice between them is left to the editor. A 101-point variant is tried **only** if B fails, and only as this one named case, not as a search over grid sizes.
+- **What this does not do:** no tolerance changes; no criterion is relaxed; no other equation is touched; variants are not tuned to the data (grid sizes are the paper's, or the stored allocation's, nothing else). The in-sample caveat of `research/gate-equations.md` section 9.2, item 3 applies.
+- **Alternatives considered:** (a) accept S3 as is, with the composite as a known open difference (A1.3 stays failed; cheapest, leaves S3's output unusable for comparison after 2027); (b) ask Epoch for the allocation convention (draft email updated, unsent; no deadline); (c) both: run B while waiting for a reply.
+- **Sources:** `audit/s3-gate-comparison.md`; `research/gate-equations.md` sections 9.1 and 9.3; arXiv:2503.04941 v2 footnotes 38 and 39; D-005 amendment B and its outcome note of 2026-10-12.
+- **Proposed by:** Claude (Modeler and Validator roles)
+- **Decision:** —
+- **Date:** —
+
 ---
 
 ## Template for new entries
