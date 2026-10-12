@@ -43,6 +43,8 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-024 | Phase 3 backtest criteria (plan N5) | Approved as a framework; thresholds set by the editor before the M5 hindcast | 2 |
 | D-025 | Phase 3 entry conditions (plan N6, optional) | Approved | 2 |
 | D-026 | Handling of Epoch AI's GATE playground data (the shipped runs) | Approved | 2 |
+| D-027 | S3 production composite: footnote-38 task grids as a labelled variant | Approved 2026-10-12 | 1 |
+| D-028 | S3 investment rule: R3 (AI-race budget) calibrated with R1 curves | Approved 2026-10-12 | 1 |
 
 ---
 
@@ -797,7 +799,7 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 
 ## D-027 — S3 production composite: test the paper's footnote-38 task grids as a labelled variant
 
-- **Status:** Proposed (2026-10-12). Nothing here is approved; no variant B code exists.
+- **Status:** Approved (2026-10-12)
 - **Context:** D-005 amendment B (approved) sets A1.3: S3 within ±2% of the three shipped GATE runs at every annual period end, 2025 to 2100, with GATE's investment path as input. A1.3 was run on 2026-10-12 and **failed on all three runs** (`audit/s3-gate-comparison.md`). **This proposal is post-hoc: it is made after seeing the A1.3 data.** It changes no tolerance and no criterion.
 - **Problem (measured):** with Epoch's stored composite task input `T` (`cognitive_ces_term`) supplied to S3 period by period, all three runs pass A1.3 at every year (output 3e-16 to 2e-16, hardware up to 1.8e-4, software up to 1.5e-3, compute stock up to 1.4e-4, automation 3e-15). With S3's own composite they fail from 2026 to 2027 (output 5.7% low in 2027, compounding through the investment feedback). The gap is entirely the task-allocation step (`research/gate-equations.md` section 9.1, identity 8). Its cause is **not established**; candidates are the solver's task discretisation, the stored allocation being a different iterate, and my reading of eqs. 14 to 16 and footnote 39.
 - **Proposal:**
@@ -812,8 +814,24 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Alternatives considered:** (a) accept S3 as is, with the composite as a known open difference (A1.3 stays failed; cheapest, leaves S3's output unusable for comparison after 2027); (b) ask Epoch for the allocation convention (draft email updated, unsent; no deadline); (c) both: run B while waiting for a reply.
 - **Sources:** `audit/s3-gate-comparison.md`; `research/gate-equations.md` sections 9.1 and 9.3; arXiv:2503.04941 v2 footnotes 38 and 39; D-005 amendment B and its outcome note of 2026-10-12.
 - **Proposed by:** Claude (Modeler and Validator roles)
-- **Decision:** —
-- **Date:** —
+- **Decision:** Approved by Stéphane Beau, as written.
+- **Date:** 2026-10-12
+
+## D-028 — S3 investment rule: R3 (AI-race budget) calibrated with R1 curves
+
+- **Status:** Approved (2026-10-12)
+- **Context:** D-005 replaces GATE's planner with a behavioural investment rule and says the editor chooses the rule after the note `docs/s3-investment-rule.md`; **this is that choice.** S3 (`f3/sectors/s3_ai.py`) takes six shares per year as input; the rule generates them.
+- **Decision (content from `docs/s3-investment-rule.md`, sections 2 and 3):**
+  1. **R3, the AI-race budget, with R1's fitted curves as its default calibration.** S3's equations are untouched; the rule only generates the six shares (`q_consumption`, `q_compute`, `q_capital`, `q_hardware_rnd`, `q_software_rnd`, and the training share of usable compute). The first five lie in [0, 1] and sum to 1; consumption is the remainder.
+  2. **Levers, exposed as named scenario parameters:** the initial overall AI share of output, its decay speed, the split into compute, hardware R&D and software R&D, the capital share rising with the automated fraction `f`, and the training share falling with `f`.
+  3. **Default calibration:** fitted once to the three shipped runs, each share as a piecewise-linear function of `f` and of `g(Q)/C_L` (R1 curves). Fitted parameters and comparison figures are stored; no bundle series (D-026).
+  4. **A1.4 is report only:** the largest and mean relative difference of the shares, of effective compute and of output against each shipped run, and the first year each exceeds 5% and 10%. R3 is not tuned after seeing these numbers.
+- **Caveats (as in the note):** only three solver paths exist and none is a converged optimum (tolerance 0.02, at most 40 iterations), so calibrating to them calibrates to Epoch's playground, not to a truth about investment behaviour; A1.4 differences mix the rule's error with the open production-composite difference (A1.3, D-027) unless the composite is settled, so A1.4 is reported with and without it.
+- **Alternatives considered:** R1 alone (no lever), R2 return-driven allocation (marginal-return formulas unverified).
+- **Sources:** `docs/s3-investment-rule.md`; D-005; D-027.
+- **Proposed by:** Claude (Modeler role)
+- **Decision:** Approved by Stéphane Beau: R3 with R1's fitted curves as its default calibration.
+- **Date:** 2026-10-12
 
 ---
 
