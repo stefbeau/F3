@@ -1,0 +1,248 @@
+{
+ "note": "comparison figures only",
+ "readings": "docs/m2-d021-measurement.md",
+ "runs": {
+  "stochastic, noise matched to the exact run": {
+   "exact_run_seconds_1750_2100": 18.04406976699829,
+   "(b) carry state from 1980": {
+    "seconds_per_segment_841": 11.178709890445074,
+    "errors_window": {
+     "max_abs_ensemble_mean_error_K": 0.024855746237271416,
+     "ensemble_mean_error_at_2100_K": 0.0011675367338098044,
+     "max_abs_member_error_K": 0.2697409377044826,
+     "median_over_members_of_max_abs_error_K": 0.020106455497687747,
+     "p95_over_members_abs_error_at_2100_K": 0.030663673552000503,
+     "share_of_warming_at_2100": 0.0004085701195674004,
+     "max_share_of_warming_2000_2100": 0.007024806993860759
+    },
+    "errors_2025_2100": {
+     "max_abs_ensemble_mean_error_K": 0.004688866009444777,
+     "ensemble_mean_error_at_2100_K": 0.0011675367338098044,
+     "max_abs_member_error_K": 0.2697409377044826,
+     "median_over_members_of_max_abs_error_K": 0.015499722599822796,
+     "p95_over_members_abs_error_at_2100_K": 0.030663673552000503,
+     "share_of_warming_at_2100": 0.0004085701195674004,
+     "max_share_of_warming_2000_2100": 0.0034829943711167945
+    }
+   },
+   "(c) restart every 10 years from 1980": {
+    "seconds_per_segment_841": 10.86346157193184,
+    "errors_window": {
+     "max_abs_ensemble_mean_error_K": 0.024965976643526094,
+     "ensemble_mean_error_at_2100_K": 0.0004117344658404901,
+     "max_abs_member_error_K": 0.2536141949978228,
+     "median_over_members_of_max_abs_error_K": 0.02030335627613855,
+     "p95_over_members_abs_error_at_2100_K": 0.03042454654170479,
+     "share_of_warming_at_2100": 0.00014408317534433376,
+     "max_share_of_warming_2000_2100": 0.0064389296833685175
+    },
+    "errors_2025_2100": {
+     "max_abs_ensemble_mean_error_K": 0.0025787623930241727,
+     "ensemble_mean_error_at_2100_K": 0.0004117344658404901,
+     "max_abs_member_error_K": 0.2536141949978228,
+     "median_over_members_of_max_abs_error_K": 0.015244630003589776,
+     "p95_over_members_abs_error_at_2100_K": 0.03042454654170479,
+     "share_of_warming_at_2100": 0.00014408317534433376,
+     "max_share_of_warming_2000_2100": 0.0019155622876104394
+    }
+   },
+   "(b) carry state from 2025 (realistic coupling window)": {
+    "seconds_per_segment_841": 10.800696983337403,
+    "errors_window": {
+     "max_abs_ensemble_mean_error_K": 0.002085522638609562,
+     "ensemble_mean_error_at_2100_K": 0.0008420600138049589,
+     "max_abs_member_error_K": 0.26549193745115796,
+     "median_over_members_of_max_abs_error_K": 0.01516764543859761,
+     "p95_over_members_abs_error_at_2100_K": 0.03021187033747541,
+     "share_of_warming_at_2100": 0.00029467215082867296,
+     "max_share_of_warming_2000_2100": 0.0010488048886039794
+    },
+    "errors_2025_2100": {
+     "max_abs_ensemble_mean_error_K": 0.002085522638609562,
+     "ensemble_mean_error_at_2100_K": 0.0008420600138049589,
+     "max_abs_member_error_K": 0.26549193745115796,
+     "median_over_members_of_max_abs_error_K": 0.01516764543859761,
+     "p95_over_members_abs_error_at_2100_K": 0.03021187033747541,
+     "share_of_warming_at_2100": 0.00029467215082867296,
+     "max_share_of_warming_2000_2100": 0.0010488048886039794
+    }
+   },
+   "(c) restart every 10 years from 2025 (realistic coupling window)": {
+    "seconds_per_segment_841": 11.643553667068481,
+    "errors_window": {
+     "max_abs_ensemble_mean_error_K": 0.0017781453092543449,
+     "ensemble_mean_error_at_2100_K": 0.00047795798338188454,
+     "max_abs_member_error_K": 0.22277461340452787,
+     "median_over_members_of_max_abs_error_K": 0.01495794576144327,
+     "p95_over_members_abs_error_at_2100_K": 0.030054659877755796,
+     "share_of_warming_at_2100": 0.00016725756437770614,
+     "max_share_of_warming_2000_2100": 0.0010488048886039794
+    },
+    "errors_2025_2100": {
+     "max_abs_ensemble_mean_error_K": 0.0017781453092543449,
+     "ensemble_mean_error_at_2100_K": 0.00047795798338188454,
+     "max_abs_member_error_K": 0.22277461340452787,
+     "median_over_members_of_max_abs_error_K": 0.01495794576144327,
+     "p95_over_members_abs_error_at_2100_K": 0.030054659877755796,
+     "share_of_warming_at_2100": 0.00016725756437770614,
+     "max_share_of_warming_2000_2100": 0.0010488048886039794
+    }
+   }
+  },
+  "deterministic (no internal variability)": {
+   "exact_run_seconds_1750_2100": 21.249242305755615,
+   "(b) carry state from 1980": {
+    "seconds_per_segment_841": 12.15161378979683,
+    "errors_window": {
+     "max_abs_ensemble_mean_error_K": 0.025380685910635435,
+     "ensemble_mean_error_at_2100_K": 0.0008619357412693015,
+     "max_abs_member_error_K": 0.1837383672525288,
+     "median_over_members_of_max_abs_error_K": 0.015288279715699071,
+     "p95_over_members_abs_error_at_2100_K": 0.003916298074375657,
+     "share_of_warming_at_2100": 0.0003022056714498924,
+     "max_share_of_warming_2000_2100": 0.006619580020538172
+    },
+    "errors_2025_2100": {
+     "max_abs_ensemble_mean_error_K": 0.004782553455886347,
+     "ensemble_mean_error_at_2100_K": 0.0008619357412693015,
+     "max_abs_member_error_K": 0.0665540699406153,
+     "median_over_members_of_max_abs_error_K": 0.0022712002590068447,
+     "p95_over_members_abs_error_at_2100_K": 0.003916298074375657,
+     "share_of_warming_at_2100": 0.0003022056714498924,
+     "max_share_of_warming_2000_2100": 0.003560803603185042
+    }
+   },
+   "(c) restart every 10 years from 1980": {
+    "seconds_per_segment_841": 11.02742335597674,
+    "errors_window": {
+     "max_abs_ensemble_mean_error_K": 0.025350698582826615,
+     "ensemble_mean_error_at_2100_K": 0.00027105381075736537,
+     "max_abs_member_error_K": 0.1881769425159791,
+     "median_over_members_of_max_abs_error_K": 0.015049238835476098,
+     "p95_over_members_abs_error_at_2100_K": 0.0015685385212562686,
+     "share_of_warming_at_2100": 9.50349254091189e-05,
+     "max_share_of_warming_2000_2100": 0.006986023026996367
+    },
+    "errors_2025_2100": {
+     "max_abs_ensemble_mean_error_K": 0.002616582462461491,
+     "ensemble_mean_error_at_2100_K": 0.00027105381075736537,
+     "max_abs_member_error_K": 0.04513653682141383,
+     "median_over_members_of_max_abs_error_K": 0.0011301418466238555,
+     "p95_over_members_abs_error_at_2100_K": 0.0015685385212562686,
+     "share_of_warming_at_2100": 9.50349254091189e-05,
+     "max_share_of_warming_2000_2100": 0.0019481509922060932
+    }
+   },
+   "(b) carry state from 2025 (realistic coupling window)": {
+    "seconds_per_segment_841": 10.893406047821045,
+    "errors_window": {
+     "max_abs_ensemble_mean_error_K": 0.0010046426032168097,
+     "ensemble_mean_error_at_2100_K": 0.0005100471957947636,
+     "max_abs_member_error_K": 0.03625675314104759,
+     "median_over_members_of_max_abs_error_K": 0.0004230007309722339,
+     "p95_over_members_abs_error_at_2100_K": 0.002676673773752025,
+     "share_of_warming_at_2100": 0.00017882905638569213,
+     "max_share_of_warming_2000_2100": 0.0006787478721650305
+    },
+    "errors_2025_2100": {
+     "max_abs_ensemble_mean_error_K": 0.0010046426032168097,
+     "ensemble_mean_error_at_2100_K": 0.0005100471957947636,
+     "max_abs_member_error_K": 0.03625675314104759,
+     "median_over_members_of_max_abs_error_K": 0.0004230007309722339,
+     "p95_over_members_abs_error_at_2100_K": 0.002676673773752025,
+     "share_of_warming_at_2100": 0.00017882905638569213,
+     "max_share_of_warming_2000_2100": 0.0006787478721650305
+    }
+   },
+   "(c) restart every 10 years from 2025 (realistic coupling window)": {
+    "seconds_per_segment_841": 11.305497579574585,
+    "errors_window": {
+     "max_abs_ensemble_mean_error_K": 0.0009505161678410731,
+     "ensemble_mean_error_at_2100_K": 0.00015983741690596672,
+     "max_abs_member_error_K": 0.022541400313436988,
+     "median_over_members_of_max_abs_error_K": 0.0004230007309722339,
+     "p95_over_members_abs_error_at_2100_K": 0.000867874512081368,
+     "share_of_warming_at_2100": 5.6041038311917645e-05,
+     "max_share_of_warming_2000_2100": 0.0006787478721650305
+    },
+    "errors_2025_2100": {
+     "max_abs_ensemble_mean_error_K": 0.0009505161678410731,
+     "ensemble_mean_error_at_2100_K": 0.00015983741690596672,
+     "max_abs_member_error_K": 0.022541400313436988,
+     "median_over_members_of_max_abs_error_K": 0.0004230007309722339,
+     "p95_over_members_abs_error_at_2100_K": 0.000867874512081368,
+     "share_of_warming_at_2100": 5.6041038311917645e-05,
+     "max_share_of_warming_2000_2100": 0.0006787478721650305
+    }
+   }
+  }
+ },
+ "representativeness": {
+  "rule": "every 42nd member in the ensemble's own order: rows 0, 42, ..., 798",
+  "n_subset": 20,
+  "member_labels": [
+   1234,
+   79138,
+   157966,
+   235104,
+   300869,
+   380268,
+   482056,
+   555355,
+   642460,
+   729117,
+   825529,
+   913987,
+   980126,
+   1050160,
+   1128601,
+   1213889,
+   1308466,
+   1387972,
+   1453057,
+   1513477
+  ],
+  "mean": {
+   "max_abs_diff_K_2025_2100": 0.05433753191581059,
+   "diff_at_2100_K": -0.010060836552235664,
+   "subset_at_2100": 2.847555709283295,
+   "full_at_2100": 2.8576165458355307
+  },
+  "p05": {
+   "max_abs_diff_K_2025_2100": 0.17550496047133812,
+   "diff_at_2100_K": 0.10811850637961706,
+   "subset_at_2100": 2.1465289616648917,
+   "full_at_2100": 2.0384104552852746
+  },
+  "p95": {
+   "max_abs_diff_K_2025_2100": 0.321354975203449,
+   "diff_at_2100_K": -0.321354975203449,
+   "subset_at_2100": 3.530569830943648,
+   "full_at_2100": 3.851924806147097
+  },
+  "subset_mean_2015_2024": 1.2071481849043804,
+  "hadcrut5_interval_2015_2024": [
+   1.233505165,
+   1.30535492
+  ],
+  "subset_mean_inside_interval": false
+ },
+ "cost_exact_reruns": {
+  "20 members": {
+   "seconds_per_rerun_end_years_1981_2040_2099_2100": [
+    0.9596104621887207,
+    0.934309720993042,
+    0.8256230354309082,
+    0.8331987857818604
+   ]
+  },
+  "841 members": {
+   "seconds_per_rerun_end_years_1981_2040_2099_2100": [
+    14.725418329238892,
+    15.232116937637329,
+    17.09295344352722,
+    16.2757511138916
+   ]
+  }
+ }
+}

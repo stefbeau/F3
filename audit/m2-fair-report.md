@@ -73,6 +73,8 @@ A full coupled loop 1980 to 2100 with all 841 members is **120 annual re-runs, a
 
 **Dated clarification (2026-10-12).** Checked against the table above: 1.06 s per annual re-run with 20 members gives about 2 minutes for one 1980-2100 loop (120 re-runs), and 19.4 s with 841 members gives about 39 minutes. The wording above is consistent with the table; no number was changed. The projection is slightly low: the timings were taken for re-runs ending in 2025 to 2030 (276 to 281 years of simulation), while re-runs for 1980 to 2100 average about 291 years, so roughly 4% more. `docs/m2-d021-measurement.md` measures a full loop directly.
 
+**Correction of that clarification (2026-10-12, later).** The statement that the projection was "slightly low, roughly 4% more" was **wrong** and is left above for the record. Re-measured in `audit/m2-d021-measurement.md` section 4: exact re-runs ending 1981 to 2100 took 14.7 to 17.1 s with 841 members on this machine, so a 120-year loop of exact re-runs costs about 30 to 34 minutes, not more than 39. Timings varied by about 20% between measurements; the cause was not investigated.
+
 ## 7. Sector tests
 
 | test | result |
