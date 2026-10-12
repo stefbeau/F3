@@ -23,9 +23,9 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-004 | Reproduction tolerance | Approved | 0 |
 | D-005 | AI sector integration approach | Approved, with the amendment of 2026-10-08 (numeric criteria A1.2 to A1.6); amendment B (the three A1.3 settings replaced by the playground's shipped runs, with the addition on equation-10 years) approved 2026-10-09 | 2 |
 | D-006 | Critical minerals granularity in v0.1 | Proposed | 2 |
-| D-007 | Climate damage function | Proposed | 2 |
+| D-007 | Climate damage function | Approved 2026-10-12 (three level-effect options, default central) | 2 |
 | D-008 | Social tension historical proxy | Proposed (research needed) | 3 |
-| D-009 | Dashboard stack | Proposed (deferred) | 4 |
+| D-009 | Dashboard stack | Approved 2026-10-12 (static site, precomputed scenario grids) | 4 |
 | D-010 | Scientific robustness of Earth4All as a baseline | Approved | 1 |
 | D-011 | Earth4All reference implementation (supersedes D-002) | Approved | 0 |
 | D-012 | World3 reference implementation | Approved | 1 |
@@ -218,11 +218,11 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 
 ## D-007 — Climate damage function
 
-- **Status:** Proposed
+- **Status:** Approved (2026-10-12)
 - **Context:** Estimates of economic damage from warming differ widely across the literature, and the choice strongly shapes results.
 - **Proposal:** Do not pick one. Offer three options (low / central / high) as a scenario lever, each traced to a published source.
-- **Decision:** —
-- **Date:** —
+- **Decision:** Approved by Stéphane Beau ("fast-track", 2026-10-12): three switchable level-of-output damage options, low = Nordhaus (2017), central = Barrage and Nordhaus (2024), high = Howard and Sterner (2017) with the catastrophic term; default = central; temperature baselines aligned as the draft below states.
+- **Date:** 2026-10-12
 
 - **Draft for decision (2026-10-12, Proposed; appended; the lines above are unchanged and the status stays Proposed).** Evidence: `research/damage-functions-verified.md` (every number marked read, derived or unverified; copies held outside the repository). Nothing here is approved.
 
@@ -251,6 +251,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 - **Two points added to the draft (2026-10-12, appended; nothing above is changed or deleted; the status stays Proposed).**
   1. **The three options are all level-of-output effects and do not include the growth-effect case.** Nordhaus (2017), Barrage and Nordhaus (2024) and Howard and Sterner (2017, with and without the catastrophic term) lower the **level** of output by a share that grows with warming. The growth-effect case, Burke, Hsiang and Miguel (2015), whose abstract reports average global incomes about 23% lower by 2100 under unmitigated warming (read in the abstract), is **not** among them. **So the "high" option is not the upper end of the literature**, and **any dashboard or report text that uses it must say so** (for example: "high damage option: the highest of three level-effect functions; growth-effect estimates in the literature are larger and are not offered"). The Burke coefficients are **[unverified]**: the regression table in our copy was an image, so the coefficients and the table of projections were not read; the full paper's Supplementary Information has not been read either. The only Burke facts used are those printed in the text layer of the copy obtained (the 23% headline, the maximum near 13 C, the approximately linear global losses). Newell, Prest and Sexton, read in abstract only, report that growth and level models can differ by orders of magnitude, so the gap above the "high" option is not small.
   2. **Temperature baseline (what each function and FaIR use).** The warming each damage function takes, **as read in the documents**: Barrage and Nordhaus (2024): "global temperature increase since preindustrial times (1765)" [read]. Howard and Sterner (2017): warming "relative to the pre-industrial or current time", with each study's reference period converted to pre-industrial [read]. Nordhaus (2017): "global mean surface temperature", **reference year not stated in the main text** (searched for the words pre-industrial, preindustrial, 1765, 1750 and 1900; none appears) **[unverified]**. Burke et al. (2015): each country's own **annual mean temperature in degrees C**, not an anomaly against any baseline [read]; it is a different kind of input. **FaIR** here gives warming above the **1850-1900** mean (`docs/m2-step1-fair.md`). **Alignment, if the editor adopts level-effect options:** pre-industrial warming from FaIR (1850-1900) is used as the damage function's temperature without an offset, which treats 1765 and 1850-1900 as the same reference; the difference between those periods is **not measured here and is not read from the documents** [unverified]. A further, measured offset: FaIR's decadal warming starts 0.04 to 0.07 K below observed (D-030, approved), which would lower damages slightly at the current decade. Whether to apply an offset is open (question 3 above).
+- **Outcome note (2026-10-12, appended; no earlier line changed).** Approved as stated in the Decision line. **Default option: central.** **The growth-effect case (Burke, Hsiang and Miguel 2015) is not represented, and every output that uses the "high" option must say that it is not the upper end of the literature** (growth-effect estimates are larger and are not offered). The three options are level-of-output effects; the damage function replaces or adds to the three Earth4All warming channels (replace-versus-add) is **not decided by this approval**: it bites from M4 and is delegated as a routine decision under the standing delegation in `CLAUDE.md`, to be recorded as Provisional. Until M4, the slice's economy has no warming channel and the damage function is the only one.
 
 ## D-008 — Social tension historical proxy
 
@@ -277,10 +278,11 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
   **Options for the editor-in-chief (not recommendations to adopt without a check of the terms):** (1) build a composite from open sources only (UCDP armed conflict from 1970, GTD from 1970 if its terms allow, GDELT from 1979), accepting uneven coverage and that it measures violence, not tension; (2) obtain a CNTS licence and publish only derived, non-reversible indices if its terms permit; (3) do not backtest the social-tension index against events, and calibrate S7 on its drivers instead (inequality from WID and labour share from ILOSTAT, both with terms still unverified), reporting tension as a model-internal index. **Not done:** the terms of GTD, GDELT, ACLED, WID and ILOSTAT were not read from their own pages, so no option is yet cleared for publication.
 ## D-009 — Dashboard stack
 
-- **Status:** Proposed (deferred to Phase 4)
+- **Status:** Approved (2026-10-12)
 - **Candidates:** Streamlit (live runs, simplest); static site with precomputed scenario runs (cheapest to host, fastest for users).
-- **Decision:** —
-- **Date:** —
+- **Decision:** Approved by Stéphane Beau ("fast-track", 2026-10-12): the dashboard is a static site that plays precomputed scenario grids, no backend.
+- **Date:** 2026-10-12
+- **Outcome note (2026-10-12, appended; no earlier line changed).** Scope as approved: **static site, precomputed scenario grids, no backend.** Live runs (for example Streamlit) are a later option and are **not part of Phase 2 or of Phase 4's first release.** Publishing anything remains the editor's decision (plan A2.7 for Demo 0).
 
 ## D-010 — Scientific robustness of Earth4All as a baseline
 

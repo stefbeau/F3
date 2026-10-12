@@ -69,5 +69,14 @@ Planned, not yet created: `dashboard/`, `data/`.
 - World3 audit: `julia +1.10 --project=audit/env -e "using Pkg; Pkg.instantiate()"`, then `julia +1.10 --project=audit/env audit/t0/world3_t0.jl` with `F3_OUT` set; then `python audit/t0/pyworld3_t0.py` and `python audit/t0/compare_world3.py` (`pip install pyworld3 pandas matplotlib`).
 - Earth4All audit: clone `https://github.com/worlddynamics/Earth4All.jl` **outside** this repo and check out `16f37d013a2f68135f03e7815bf861dbf47311f2` (its sources and `VensimOutput/` are only read). Packages come from the committed Manifest, not from the clone's own `Project.toml`: `julia +1.10 --project=audit/env-earth4all -e "using Pkg; Pkg.instantiate()"`, then `julia +1.10 --project=audit/env-earth4all audit/t0/earth4all_t0.jl <clone path>` and `audit/t0/earth4all_audit.jl <clone path>`, with `F3_OUT` set. `.github/workflows/audit-t0.yml` is the executable recipe.
 
+## Standing delegation (editor, 2026-10-12)
+The editor said "fast-track" on 2026-10-12 and approved the following in session. Only the editor approves decisions; this section changes how routine ones are handled, nothing else.
+
+- **Routine decisions: proceed on the Validator's/Claude's recommendation without waiting.** Record each in `DECISIONS.md` with status **"Provisional (delegated)"**, the date, the recommendation followed, the alternatives considered, and **the cost of reversing it**. "Provisional" is **not** "Approved". The editor reviews all Provisional decisions in one batch at each milestone and may reverse any of them.
+- **You must STOP and ask (one question) before:** relaxing, changing or dropping any acceptance criterion or tolerance; adding or removing a validation or uncertainty label on any output; any licence or third-party-data use not already covered by D-001, D-014 or D-026; any scientific claim stronger than what the tests show; sending email or posting anything; publishing or deploying anything public (Demo 0 needs the editor's approval, plan A2.7); deleting non-trivial files; spending money.
+- **Method is unchanged.** Tests and readings are written before results; failures are recorded, never adjusted; pre-registered rules stay in force.
+- **Milestone batch review.** At the end of each track write `docs/tracks/<track>-review.md` listing every Provisional decision, every failure, every label, and what you recommend the editor approve.
+- **Labels stay.** Everything labelled per D-029 (S3 unvalidated against GATE after about 2027) and D-030 (climate starts about 0.04-0.07 K below observed; non-CO2 prescribed) stays labelled, and every use of the D-007 "high" option says it is not the upper end of the literature.
+
 ## Next
 `docs/STATUS.md` says where we stand; `docs/HANDOVER.md` lists the next tasks as ready-to-run prompts.
