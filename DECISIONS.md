@@ -664,6 +664,8 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Decision:** Approved by Stéphane Beau: coupling option (a), FaIR is re-run from the start each year, for the slice and for M2's acceptance tests; options (b) and (c) are to be re-tested once a real FaIR configuration exists, and the editor then decides. Emissions option (A): non-CO2 emissions and land-use CO2 are prescribed, and every use of F3 results that depends on them is labelled "non-CO2 emissions are prescribed, not modelled".
 - **Date:** 2026-10-08
 
+- **Outcome note (2026-10-12, appended; no earlier line changed).** The cost of the re-run rule was measured with a real configuration in M2 step 1 (`audit/m2-fair-report.md`, section 6): the published fair-calibrate v1.4.1 constrained ensemble, annual re-runs from 1750. About 19 s per annual re-run with all 841 members (about 39 minutes for a 120-year loop, 1980 to 2100) and about 1 s with 20 members (about 2 minutes). Options (b) and (c) have not been re-tested; the editor decides per the entry above. Also: A2.1 failed in that step (ensemble-mean 2015-2024 warming 1.196 K, 0.037 K below HadCRUT5's mean 95% interval); see the report.
+
 ---
 
 ## D-022 — Sector interface and time convention (plan item N3)

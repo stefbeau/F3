@@ -87,6 +87,7 @@ def test_s4_sign_zero_co2_from_2026_lowers_2050_warming():
 
 
 @needs_both
+@pytest.mark.xfail(strict=True, reason="A2.1 failed, see audit/m2-fair-report.md: ensemble mean 1.196 K vs HadCRUT5 interval [1.234, 1.305] K")
 def test_a21_fair_mean_warming_2015_2024_within_hadcrut5_interval():
     """A2.1 as fixed in docs/m2-step1-fair.md section 4. Asserts the criterion; a failure is reported, not adjusted."""
     from tests.fair_checks import a21

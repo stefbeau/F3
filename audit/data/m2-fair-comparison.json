@@ -1,0 +1,218 @@
+{
+ "note": "comparison figures only; HadCRUT5 (OGL v3.0) and FaIR calibration data are not stored",
+ "a21": {
+  "fair_mean_2015_2024": 1.1961701043455413,
+  "obs_lower": 1.233505165,
+  "obs_upper": 1.30535492,
+  "obs_best": 1.269430034,
+  "passes": false
+ },
+ "windows": {
+  "2015-2024 (A2.1)": {
+   "fair_mean": 1.1961701043455413,
+   "obs_lower": 1.233505165,
+   "obs_upper": 1.30535492,
+   "obs_best": 1.269430034,
+   "inside": false,
+   "fair_minus_best": -0.07325992965445871,
+   "fair_minus_lower": -0.037335060654458685
+  },
+  "2015-2022 (inside the calibration window)": {
+   "fair_mean": 1.1670210239851346,
+   "obs_lower": 1.173812942,
+   "obs_upper": 1.24331334825,
+   "obs_best": 1.20856314075,
+   "inside": false,
+   "fair_minus_best": -0.0415421167648653,
+   "fair_minus_lower": -0.00679191801486545
+  },
+  "2023-2024 (outside it)": {
+   "fair_mean": 1.312766425787168,
+   "obs_lower": 1.472274057,
+   "obs_upper": 1.5535212070000002,
+   "obs_best": 1.5128976070000002,
+   "inside": false,
+   "fair_minus_best": -0.20013118121283213,
+   "fair_minus_lower": -0.15950763121283185
+  }
+ },
+ "sensitivity": {
+  "CO2 from GCB 2025 for 2015-2024": {
+   "fair_mean_2015_2024": 1.1970204273061804,
+   "obs_lower": 1.233505165,
+   "obs_upper": 1.30535492,
+   "obs_best": 1.269430034,
+   "passes": false
+  },
+  "CO2 from the file only (no GCB)": {
+   "fair_mean_2015_2024": 1.1961145493155192,
+   "obs_lower": 1.233505165,
+   "obs_upper": 1.30535492,
+   "obs_best": 1.269430034,
+   "passes": false
+  },
+  "non-CO2 scenario high-extension": {
+   "fair_mean_2015_2024": 1.1959884366784048,
+   "obs_lower": 1.233505165,
+   "obs_upper": 1.30535492,
+   "obs_best": 1.269430034,
+   "passes": false
+  },
+  "non-CO2 scenario high-overshoot": {
+   "fair_mean_2015_2024": 1.1959884366784048,
+   "obs_lower": 1.233505165,
+   "obs_upper": 1.30535492,
+   "obs_best": 1.269430034,
+   "passes": false
+  },
+  "non-CO2 scenario medium-overshoot": {
+   "fair_mean_2015_2024": 1.1961701043455413,
+   "obs_lower": 1.233505165,
+   "obs_upper": 1.30535492,
+   "obs_best": 1.269430034,
+   "passes": false
+  },
+  "non-CO2 scenario medium-extension": {
+   "fair_mean_2015_2024": 1.1961701043455413,
+   "obs_lower": 1.233505165,
+   "obs_upper": 1.30535492,
+   "obs_best": 1.269430034,
+   "passes": false
+  },
+  "non-CO2 scenario low": {
+   "fair_mean_2015_2024": 1.1969342726607453,
+   "obs_lower": 1.233505165,
+   "obs_upper": 1.30535492,
+   "obs_best": 1.269430034,
+   "passes": false
+  },
+  "non-CO2 scenario verylow": {
+   "fair_mean_2015_2024": 1.1972087289664262,
+   "obs_lower": 1.233505165,
+   "obs_upper": 1.30535492,
+   "obs_best": 1.269430034,
+   "passes": false
+  },
+  "non-CO2 scenario verylow-overshoot": {
+   "fair_mean_2015_2024": 1.1972087289664262,
+   "obs_lower": 1.233505165,
+   "obs_upper": 1.30535492,
+   "obs_best": 1.269430034,
+   "passes": false
+  }
+ },
+ "cost": {
+  "20 members": {
+   "seconds_per_annual_rerun_2025_to_2030": 1.064148227373759
+  },
+  "841 members": {
+   "seconds_per_annual_rerun_2025_to_2030": 19.37751503785451
+  },
+  "projection_841_members_1980_to_2100_loop": {
+   "annual_reruns": 120,
+   "seconds": 2325.3018045425415
+  }
+ },
+ "per_year": {
+  "2015": {
+   "fair_mean": 1.0786779996612834,
+   "fair_p05": 0.8751980226425489,
+   "fair_p95": 1.2562095469687766,
+   "obs_best": 1.188198157,
+   "obs_lower": 1.152949097,
+   "obs_upper": 1.2234472570000001
+  },
+  "2016": {
+   "fair_mean": 1.1047796592743064,
+   "fair_p05": 0.8965725978546996,
+   "fair_p95": 1.2833457310578957,
+   "obs_best": 1.295227827,
+   "obs_lower": 1.262678507,
+   "obs_upper": 1.327777157
+  },
+  "2017": {
+   "fair_mean": 1.1323720043549061,
+   "fair_p05": 0.9154306753224959,
+   "fair_p95": 1.3083117337224093,
+   "obs_best": 1.207474107,
+   "obs_lower": 1.175149757,
+   "obs_upper": 1.239798457
+  },
+  "2018": {
+   "fair_mean": 1.1588448036605423,
+   "fair_p05": 0.9525296714861188,
+   "fair_p95": 1.3511661313375387,
+   "obs_best": 1.123854997,
+   "obs_lower": 1.090934697,
+   "obs_upper": 1.1567753570000001
+  },
+  "2019": {
+   "fair_mean": 1.1757297707402716,
+   "fair_p05": 0.9707196066172255,
+   "fair_p95": 1.36801160871692,
+   "obs_best": 1.258333557,
+   "obs_lower": 1.2237126170000001,
+   "obs_upper": 1.292954507
+  },
+  "2020": {
+   "fair_mean": 1.1969585064541954,
+   "fair_p05": 0.9768068091756927,
+   "fair_p95": 1.3970062526612792,
+   "obs_best": 1.286656857,
+   "obs_lower": 1.250313097,
+   "obs_upper": 1.323000607
+  },
+  "2021": {
+   "fair_mean": 1.2279160740917892,
+   "fair_p05": 0.9974954371073923,
+   "fair_p95": 1.4346155573475519,
+   "obs_best": 1.137277597,
+   "obs_lower": 1.102026157,
+   "obs_upper": 1.172529057
+  },
+  "2022": {
+   "fair_mean": 1.2608893736437825,
+   "fair_p05": 1.0194859343063367,
+   "fair_p95": 1.4656730234716515,
+   "obs_best": 1.171482027,
+   "obs_lower": 1.132739607,
+   "obs_upper": 1.210224387
+  },
+  "2023": {
+   "fair_mean": 1.2960162307063672,
+   "fair_p05": 1.0586502526299606,
+   "fair_p95": 1.5113642377195746,
+   "obs_best": 1.4789106570000001,
+   "obs_lower": 1.439936157,
+   "obs_upper": 1.517885157
+  },
+  "2024": {
+   "fair_mean": 1.3295166208679687,
+   "fair_p05": 1.0788999136316,
+   "fair_p95": 1.5547672164725146,
+   "obs_best": 1.546884557,
+   "obs_lower": 1.504611957,
+   "obs_upper": 1.589157257
+  }
+ },
+ "first_year_ensemble_mean_outside_annual_interval": 2015,
+ "years_outside_annual_interval": [
+  2015,
+  2016,
+  2017,
+  2018,
+  2019,
+  2020,
+  2021,
+  2022,
+  2023,
+  2024
+ ],
+ "members": {
+  "decadal_mean_p05": 1.0109122065943428,
+  "decadal_mean_p50": 1.2046944366654198,
+  "decadal_mean_p95": 1.358203085726645,
+  "share_of_members_inside_obs_interval": 0.25921521997621877,
+  "n": 841
+ }
+}

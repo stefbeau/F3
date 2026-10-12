@@ -28,3 +28,17 @@ jobs:
         run: uv sync --group dev --locked
       - name: Run tests
         run: uv run pytest -q
+
+  # M2 step 1 (docs/m2-step1-fair.md section 5): fetches the pinned FaIR calibration files and HadCRUT5, checks their hashes, runs the
+  # climate tests. A failed download or a changed hash fails this job visibly (it is not skipped). The job above stays green without data.
+  fair-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Install (locked)
+        run: uv sync --group dev --locked
+      - name: Fetch pinned data (hash-checked)
+        run: uv run python -m f3.data.fair_inputs
+      - name: Run climate tests
+        run: uv run pytest -q tests/test_s6_climate.py
