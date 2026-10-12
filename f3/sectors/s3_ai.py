@@ -1,5 +1,10 @@
 """S3 AI sector: GATE's laws of motion, automation and production as a Sector of the coupling loop (Phase 2, M1 step 2).
 
+**S3 VALIDATION STATUS (D-029, 2026-10-12): S3 FAILED test A1.3 against the GATE playground's three shipped runs (fails from 2026-2027
+under every production-composite variant tried). With Epoch's own composite supplied everything matches, so the gap is the task-allocation
+step, cause unresolved. S3's absolute output (gwp, capital, effective compute) is UNVALIDATED against GATE after about 2027. S3 does NOT
+reproduce GATE; any document, report or dashboard output that uses S3 must say so. See audit/s3-gate-comparison.md.**
+
 Source: Erdil et al., arXiv:2503.04941 v2 (CC BY 4.0). Every choice the paper leaves open is written in
 ``research/gate-equations.md`` section 9 (committed before this file existed); this file implements that section.
 No code from Epoch's playground is used. There is **no investment rule**: the investment path is an input (D-005; the
@@ -271,8 +276,15 @@ def composite_for(L: float, f: float, C_I: float, C_T: float, p: GateParams) -> 
     raise ValueError(f"unknown composite variant {p.composite!r}")
 
 
+VALIDATION_STATUS = (
+    "S3 failed test A1.3 against the GATE playground's shipped runs (D-029; audit/s3-gate-comparison.md). Its absolute output "
+    "(gwp, capital, effective compute) is unvalidated against GATE after about 2027. It does not reproduce GATE."
+)
+
+
 class S3AI(Sector):
     name = "s3_ai"
+    validation_status = VALIDATION_STATUS
     period = 1.0
     inputs = {n: "1" for n in SHARE_NAMES}
     outputs = {

@@ -17,6 +17,8 @@ These two families rarely meet. Yet the AI race already depends on electricity, 
 - What happens to inequality and social stability if automation gains are not shared?
 - Which combinations of policies lead to a stable, prosperous transition, and which lead to overshoot?
 
+> **S3 (AI sector) validation status.** S3 failed test A1.3 against the GATE playground's shipped runs (D-029; audit/s3-gate-comparison.md). Its absolute output (gwp, capital, effective compute) is unvalidated against GATE after about 2027. It does not reproduce GATE. Details: [D-029](DECISIONS.md), [audit/s3-gate-comparison.md](audit/s3-gate-comparison.md).
+
 ## What F3 is not
 
 **F3 does not predict the future.** It produces **conditional scenarios**: *if* these assumptions hold, *then* these trajectories follow, within these uncertainty ranges. Its purpose is to show which levers matter most, not to forecast a date.

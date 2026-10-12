@@ -62,7 +62,7 @@ F3 does not predict the future. Every output is a **conditional scenario**: *if*
 |---|---|---|---|
 | S1 | Population | World3 population sector (ported from WorldDynamics.jl with attribution) | Adapted |
 | S2 | Economy & capital | Earth4All output, inventory and finance (reused), demand and public (reused with changes), labour market (reused, provisionally), per the audit verdict (D-016); GATE task-based production | Adapted |
-| S3 | AI development & automation | GATE | Adapted, newly coupled |
+| S3 | AI development & automation | GATE | Adapted, newly coupled. **Validation status: failed A1.3 against GATE's shipped runs; absolute output unvalidated against GATE after about 2027; does not reproduce GATE (D-029, `audit/s3-gate-comparison.md`)** |
 | S4 | Energy | Earth4All energy sector (reused with changes, D-016) + new data-center module, coupled to material limits | Extended |
 | S5 | Materials & water | World3 resources + new critical-minerals and water modules; WORLD7 as reference | Extended |
 | S6 | Climate | FaIR emulator | Adopted |
@@ -113,6 +113,8 @@ Notation is indicative. Final equations are fixed in v0.2 after the reproduction
 - **Calibration data:** World Bank WDI, Penn World Table, Maddison Project (pre-1990 history).
 
 ### S3 — AI development & automation (core novelty)
+
+- **Validation status (D-029):** S3 as built (`f3/sectors/s3_ai.py`) failed test A1.3 against the GATE playground's shipped runs; its absolute output (gwp, capital, effective compute) is unvalidated against GATE after about 2027, and nothing may say it reproduces GATE. Its investment rule R3 (D-028) is a scenario-lever rule, not a GATE replica.
 
 - **Origin:** GATE (Epoch AI, 2025): compute-based AI development, automation framework, semi-endogenous growth.
 - **Key stocks:** Installed hardware compute (`C_hw`), algorithmic efficiency (`A_alg`), fraction of tasks automated (`f`).
