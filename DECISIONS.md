@@ -46,7 +46,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-027 | S3 production composite: footnote-38 task grids as a labelled variant | Approved 2026-10-12 | 1 |
 | D-028 | S3 investment rule: R3 (AI-race budget) calibrated with R1 curves | Approved 2026-10-12 | 1 |
 | D-029 | M1 closed with A1.3 failed; S3's composite is a known open difference | Approved 2026-10-12 | 1 |
-| D-030 | M2 step 1 closes with A2.1 failed; climate output labelled | Proposed 2026-10-12 | 2 |
+| D-030 | M2 step 1 closes with A2.1 failed; climate output labelled | Approved 2026-10-12 | 2 |
 
 ---
 
@@ -890,7 +890,7 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 
 ## D-030 — M2 step 1 closes with A2.1 failed; climate output labelled
 
-- **Status:** Proposed (2026-10-12). Nothing here is approved.
+- **Status:** Approved (2026-10-12)
 - **Context:** M2 step 1 (FaIR alone and `s6_climate`, `docs/m2-step1-fair.md`) ran A2.1 as fixed before any comparison. The report is `audit/m2-fair-report.md`.
 - **Facts (measured):**
   1. **A2.1 failed.** FaIR's ensemble-mean warming for 2015 to 2024 is 1.196 K above 1850-1900; the mean HadCRUT5 95% interval is [1.234, 1.305] K. FaIR is **0.037 K below the lower edge** and **0.073 K below the best estimate** (1.269 K).
@@ -906,8 +906,8 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Alternatives considered:** adopt the distributional criterion (rejected above); a second reading against the calibration's four-dataset mean (needs three more datasets with terms checked, asks a different question); re-base FaIR to HadCRUT5 by an offset (would hide the finding).
 - **Sources:** `audit/m2-fair-report.md`; `docs/m2-step1-fair.md`; D-021; D-029 for the parallel S3 case.
 - **Proposed by:** Claude (Validator role)
-- **Decision:** —
-- **Date:** —
+- **Decision:** Approved by Stéphane Beau, as drafted.
+- **Date:** 2026-10-12
 
 ---
 
