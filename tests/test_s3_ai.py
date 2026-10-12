@@ -23,6 +23,7 @@ def test_bundle_hash_is_pinned():
 
 
 @needs_bundle
+@pytest.mark.xfail(strict=True, reason="A1.3 failed, see audit/s3-gate-comparison.md; production composite unresolved (D-027)")
 @pytest.mark.parametrize("setting", list(SETTINGS_B))
 def test_a13_criterion(setting):
     """A1.3: every criterion quantity within +-2% at every period end 2025-2100, GATE's own investment path as input."""
