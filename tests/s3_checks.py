@@ -120,3 +120,36 @@ def a15_properties(params: GateParams, shares: Mapping[str, np.ndarray]) -> Dict
                                  f"finite {finite}; stocks >= 0 {nonneg}; max g(Q)/C_L = {base['usable_compute'].max() / params.C_L:.6f}; "
                                  f"max Q/C_L = {base['compute_stock'].max() / params.C_L:.3g}; max effective compute/C_L = {base['effective_compute'].max() / params.C_L:.3g}")
     return res
+
+
+# -- R3 (D-028) ---------------------------------------------------------------------------------------------------------
+def run_s3_rule(params: GateParams, rule, n: int = N_PERIODS) -> Dict[str, np.ndarray]:
+    """S3 driven by an investment rule instead of a supplied path (no inputs, no replay sector)."""
+    s3 = S3AI(params, rule=rule)
+    Model([s3], [], 2025.0, 2025.0 + n, 0.25).run()
+    return s3.series()
+
+
+def a15_properties_rule(params: GateParams, rule_factory) -> Dict[str, object]:
+    """The four A1.5 properties with S3 driven by R3. (b) switches AI and capital investment off through the levers."""
+    from f3.sectors.s3_rule_r3 import R3Levers
+    res = {}
+    base = run_s3_rule(params, rule_factory())
+    off = run_s3_rule(GateParams(**{**params.__dict__, "theta_scale": 0.0}), rule_factory())
+    hs_const = bool(np.all(off["hardware"] == params.H0) and np.all(off["software"] == params.S0))
+    ratio_ok = bool(np.all(off["effective_compute"] / off["usable_compute"] == params.S0))
+    res["a_no_RD_growth"] = (hs_const and ratio_ok and bool(np.all(np.diff(off["frac_automated"]) >= -1e-15)), f"H, S constant: {hs_const}; effective/usable == S(0): {ratio_ok}")
+    zr = run_s3_rule(params, rule_factory(R3Levers(initial_ai_share=0.0, capital_scale=0.0)))
+    Q = zr["compute_stock"]
+    C0 = params.C_T0 + params.runtime_compute_init
+    expect = C0 / (1 - C0 / params.C_L) * np.exp(-params.delta_Q * (np.arange(len(Q)) + 1))
+    err = float(np.max(np.abs(Q / expect - 1)))
+    res["b_zero_investment"] = (err < 1e-12 and bool(Q.min() >= 0), f"Q equals Q(0) exp(-delta t) to {err:.1e}; min Q {Q.min():.3e}")
+    fo = base["frac_automated"]
+    res["c_monotone"] = (bool(np.all(np.diff(fo) >= -1e-15)), f"f over time non-decreasing: {bool(np.all(np.diff(fo) >= -1e-15))}")
+    stocks = ("capital", "hardware", "software", "compute_stock", "usable_compute", "effective_compute", "best_training_run", "labor")
+    finite = all(bool(np.all(np.isfinite(base[k]))) for k in base if k not in ("training_compute", "labor_share"))
+    nonneg = all(bool(base[k].min() >= 0) for k in stocks)
+    gq = bool(base["usable_compute"].max() <= params.C_L)
+    res["d_finite_nonneg_gQ"] = (finite and nonneg and gq, f"finite {finite}; stocks >= 0 {nonneg}; max g(Q)/C_L = {base['usable_compute'].max() / params.C_L:.6f}; max Q/C_L = {base['compute_stock'].max() / params.C_L:.3g}")
+    return res

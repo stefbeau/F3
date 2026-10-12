@@ -294,8 +294,15 @@ class S3AI(Sector):
         "runtime_compute_share": "1",
     }
 
-    def __init__(self, params: Optional[GateParams] = None, name: Optional[str] = None):
+    def __init__(self, params: Optional[GateParams] = None, name: Optional[str] = None, rule=None, stored_T=None):
+        """``rule``: an object with ``shares(f, u) -> dict`` (D-028); when given, S3 has no inputs and generates its own shares.
+        ``stored_T``: DIAGNOSTIC ONLY, a sequence of composite task inputs supplied period by period in place of the production
+        block (used to separate the open composite difference from everything else); never a model option."""
         self.p = params or GateParams()
+        self.rule = rule
+        self.stored_T = stored_T
+        if rule is not None:
+            self.inputs = {}
         if self.p.mu != 0.0:
             raise NotImplementedError("S3 implements mu = 0 only (gate-equations 9.3, item 7)")
         if name is not None:
@@ -331,18 +338,24 @@ class S3AI(Sector):
         p = self.p
         if abs(h - 1.0) > 1e-9:
             raise ValueError("S3 advances one whole period (1 year) at a time")
-        q = {n: ctx.input(n, t) for n in SHARE_NAMES}
-        if abs(sum(q[n] for n in SHARE_NAMES[:5]) - 1.0) > 1e-9 or min(q.values()) < -1e-12:
-            raise ValueError(f"investment shares at t={t} must be >= 0 and the first five must sum to 1: {q}")
         k = self._k
         # (a) automation, with the one-period lag
         f = automated_fraction(self.C_T * p.inference_multiplier, p)
+        gQ = usable_compute(self.Q, p.C_L)
+        if self.rule is not None:
+            q = self.rule.shares(f, gQ / p.C_L)
+        else:
+            q = {n: ctx.input(n, t) for n in SHARE_NAMES}
+        if abs(sum(q[n] for n in SHARE_NAMES[:5]) - 1.0) > 1e-9 or min(q.values()) < -1e-12:
+            raise ValueError(f"investment shares at t={t} must be >= 0 and the first five must sum to 1: {q}")
         # (b) output
         L_k = p.L0 * math.exp(p.g_L * (k + 1))
-        gQ = usable_compute(self.Q, p.C_L)
         training = q["q_training_compute"] * gQ
         runtime = gQ - training
-        T, p_over_w = composite_for(L_k, f, runtime, self.C_T, p)
+        if self.stored_T is not None:
+            T, p_over_w = float(self.stored_T[k]), 0.0
+        else:
+            T, p_over_w = composite_for(L_k, f, runtime, self.C_T, p)
         gwp = p.A * T ** (1.0 - p.alpha) * self.K ** p.alpha
         rt_share = (1.0 - p.alpha) * p_over_w * runtime / (L_k + p_over_w * runtime) if runtime > 0 else 0.0
         # (c) investments in dollars
@@ -371,6 +384,8 @@ class S3AI(Sector):
         }
         for n in self.outputs:
             self.history[n].append(self._out[n])
+        for n in SHARE_NAMES:
+            self.history.setdefault("share_" + n, []).append(q[n])
         self.history["q_consumption_in"].append(q["q_consumption"])
         self.history["Q_over_CL"].append(Q1 / p.C_L)
         self.history["I_compute_usd"].append(I_Q)

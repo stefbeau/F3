@@ -1,0 +1,456 @@
+{
+ "bundle_sha256": "3afe8e4df5260ee062d987ce38a984fc37b488b6dcb5596a317b1fde106c55bf",
+ "note": "comparison figures only (D-026); report-only, no pass/fail (D-005 A1.4)",
+ "settings": {
+  "B0_default": {
+   "a_full_chain": {
+    "share q_consumption (percentage points)": {
+     "max": 18.25843059750929,
+     "mean": 5.587044654112544,
+     "first_year_over_5": 2037,
+     "first_year_over_10": 2048
+    },
+    "share q_compute (percentage points)": {
+     "max": 11.811782062252394,
+     "mean": 1.7034564090352389,
+     "first_year_over_5": 2031,
+     "first_year_over_10": 2033
+    },
+    "share q_capital (percentage points)": {
+     "max": 21.77766503379526,
+     "mean": 5.060308527055352,
+     "first_year_over_5": 2031,
+     "first_year_over_10": 2033
+    },
+    "share q_hardware_rnd (percentage points)": {
+     "max": 20.58250062996016,
+     "mean": 0.8213422203098153,
+     "first_year_over_5": 2064,
+     "first_year_over_10": 2065
+    },
+    "share q_software_rnd (percentage points)": {
+     "max": 3.844898371935865,
+     "mean": 1.0090264479135764,
+     "first_year_over_5": null,
+     "first_year_over_10": null
+    },
+    "share q_training_compute (percentage points)": {
+     "max": 53.25380588130565,
+     "mean": 6.063910499008735,
+     "first_year_over_5": 2025,
+     "first_year_over_10": 2025
+    },
+    "raw stock Q vs stored compute": {
+     "max": 0.9999990212887307,
+     "mean": 0.8862374093357155,
+     "first_year_over_5": 2028,
+     "first_year_over_10": 2030
+    },
+    "effective compute g(Q)S vs g(stored compute) x stored software (derived)": {
+     "max": 0.9997039152048255,
+     "mean": 0.49504030266753507,
+     "first_year_over_5": 2029,
+     "first_year_over_10": 2030
+    },
+    "hardware": {
+     "max": 0.9691679207021516,
+     "mean": 0.4654724651346416,
+     "first_year_over_5": 2029,
+     "first_year_over_10": 2031
+    },
+    "software": {
+     "max": 0.781865809031561,
+     "mean": 0.3274144054035336,
+     "first_year_over_5": 2025,
+     "first_year_over_10": 2035
+    },
+    "frac_automated": {
+     "max": 0.08717475118984108,
+     "mean": 0.003458187417550284,
+     "first_year_over_5": 2033,
+     "first_year_over_10": null
+    },
+    "gwp": {
+     "max": 0.9999989954266683,
+     "mean": 0.8856112961477576,
+     "first_year_over_5": 2027,
+     "first_year_over_10": 2028
+    }
+   },
+   "b_stored_T": {
+    "share q_consumption (percentage points)": {
+     "max": 17.027450098090757,
+     "mean": 4.097133043938255,
+     "first_year_over_5": 2037,
+     "first_year_over_10": 2065
+    },
+    "share q_compute (percentage points)": {
+     "max": 12.170144939535867,
+     "mean": 0.8788533978909594,
+     "first_year_over_5": 2031,
+     "first_year_over_10": 2033
+    },
+    "share q_capital (percentage points)": {
+     "max": 11.417819946528047,
+     "mean": 3.4841187862848044,
+     "first_year_over_5": 2031,
+     "first_year_over_10": 2033
+    },
+    "share q_hardware_rnd (percentage points)": {
+     "max": 20.58250062996016,
+     "mean": 0.84418879717403,
+     "first_year_over_5": 2064,
+     "first_year_over_10": 2065
+    },
+    "share q_software_rnd (percentage points)": {
+     "max": 3.844898371935865,
+     "mean": 0.983244108149688,
+     "first_year_over_5": null,
+     "first_year_over_10": null
+    },
+    "share q_training_compute (percentage points)": {
+     "max": 54.98331718325994,
+     "mean": 4.076471318021376,
+     "first_year_over_5": 2025,
+     "first_year_over_10": 2025
+    },
+    "raw stock Q vs stored compute": {
+     "max": 1.021354789191761,
+     "mean": 0.48576272826599864,
+     "first_year_over_5": 2030,
+     "first_year_over_10": 2031
+    },
+    "effective compute g(Q)S vs g(stored compute) x stored software (derived)": {
+     "max": 0.5578887134170623,
+     "mean": 0.054296313941619795,
+     "first_year_over_5": 2031,
+     "first_year_over_10": 2031
+    },
+    "hardware": {
+     "max": 0.30127757491861806,
+     "mean": 0.04691925226343442,
+     "first_year_over_5": 2030,
+     "first_year_over_10": 2033
+    },
+    "software": {
+     "max": 0.05663457780898762,
+     "mean": 0.009425032581979992,
+     "first_year_over_5": 2025,
+     "first_year_over_10": null
+    },
+    "frac_automated": {
+     "max": 0.08181212075773714,
+     "mean": 0.0028767927781548673,
+     "first_year_over_5": 2033,
+     "first_year_over_10": null
+    },
+    "gwp": {
+     "max": 0.20304477618926375,
+     "mean": 0.05759912789229312,
+     "first_year_over_5": 2033,
+     "first_year_over_10": 2034
+    }
+   }
+  },
+  "B1_conservative": {
+   "a_full_chain": {
+    "share q_consumption (percentage points)": {
+     "max": 19.936236971762668,
+     "mean": 7.563051400075407,
+     "first_year_over_5": 2031,
+     "first_year_over_10": 2056
+    },
+    "share q_compute (percentage points)": {
+     "max": 15.557167137641805,
+     "mean": 3.4971373793994673,
+     "first_year_over_5": 2035,
+     "first_year_over_10": 2036
+    },
+    "share q_capital (percentage points)": {
+     "max": 20.4802449125067,
+     "mean": 8.072309250055753,
+     "first_year_over_5": 2031,
+     "first_year_over_10": 2055
+    },
+    "share q_hardware_rnd (percentage points)": {
+     "max": 0.7944396232822494,
+     "mean": 0.08347237138577847,
+     "first_year_over_5": null,
+     "first_year_over_10": null
+    },
+    "share q_software_rnd (percentage points)": {
+     "max": 25.98841460296549,
+     "mean": 1.98308090825519,
+     "first_year_over_5": 2093,
+     "first_year_over_10": 2096
+    },
+    "share q_training_compute (percentage points)": {
+     "max": 52.793521280842405,
+     "mean": 10.032347640821452,
+     "first_year_over_5": 2025,
+     "first_year_over_10": 2025
+    },
+    "raw stock Q vs stored compute": {
+     "max": 0.9999998318045682,
+     "mean": 0.8566921256517542,
+     "first_year_over_5": 2028,
+     "first_year_over_10": 2029
+    },
+    "effective compute g(Q)S vs g(stored compute) x stored software (derived)": {
+     "max": 0.9999603319202972,
+     "mean": 0.771519450145683,
+     "first_year_over_5": 2025,
+     "first_year_over_10": 2030
+    },
+    "hardware": {
+     "max": 0.9522144474234939,
+     "mean": 0.6559967883386469,
+     "first_year_over_5": 2036,
+     "first_year_over_10": 2040
+    },
+    "software": {
+     "max": 0.8305057445653856,
+     "mean": 0.47220300674211313,
+     "first_year_over_5": 2025,
+     "first_year_over_10": 2041
+    },
+    "frac_automated": {
+     "max": 0.10707795895866246,
+     "mean": 0.010908264125701266,
+     "first_year_over_5": 2037,
+     "first_year_over_10": 2040
+    },
+    "gwp": {
+     "max": 0.9999999549450556,
+     "mean": 0.8497324960624253,
+     "first_year_over_5": 2028,
+     "first_year_over_10": 2029
+    }
+   },
+   "b_stored_T": {
+    "share q_consumption (percentage points)": {
+     "max": 19.159947500676978,
+     "mean": 3.8664520174163797,
+     "first_year_over_5": 2031,
+     "first_year_over_10": 2097
+    },
+    "share q_compute (percentage points)": {
+     "max": 15.5280066008012,
+     "mean": 1.7567991825891498,
+     "first_year_over_5": 2034,
+     "first_year_over_10": 2036
+    },
+    "share q_capital (percentage points)": {
+     "max": 8.824363930704964,
+     "mean": 2.982190728541716,
+     "first_year_over_5": 2031,
+     "first_year_over_10": null
+    },
+    "share q_hardware_rnd (percentage points)": {
+     "max": 0.7944396232822494,
+     "mean": 0.12521205210835187,
+     "first_year_over_5": null,
+     "first_year_over_10": null
+    },
+    "share q_software_rnd (percentage points)": {
+     "max": 26.030268227747698,
+     "mean": 1.8976942805858854,
+     "first_year_over_5": 2093,
+     "first_year_over_10": 2096
+    },
+    "share q_training_compute (percentage points)": {
+     "max": 53.716704768761815,
+     "mean": 7.3775671390465405,
+     "first_year_over_5": 2025,
+     "first_year_over_10": 2025
+    },
+    "raw stock Q vs stored compute": {
+     "max": 0.7247540652344968,
+     "mean": 0.37383500361008315,
+     "first_year_over_5": 2029,
+     "first_year_over_10": 2032
+    },
+    "effective compute g(Q)S vs g(stored compute) x stored software (derived)": {
+     "max": 0.7235008965892471,
+     "mean": 0.12216545393997617,
+     "first_year_over_5": 2025,
+     "first_year_over_10": 2034
+    },
+    "hardware": {
+     "max": 0.06125741959812003,
+     "mean": 0.035254987317555504,
+     "first_year_over_5": 2051,
+     "first_year_over_10": null
+    },
+    "software": {
+     "max": 0.08029049252929576,
+     "mean": 0.02262546648122774,
+     "first_year_over_5": 2025,
+     "first_year_over_10": null
+    },
+    "frac_automated": {
+     "max": 0.09522882235881103,
+     "mean": 0.007090668459734888,
+     "first_year_over_5": 2038,
+     "first_year_over_10": null
+    },
+    "gwp": {
+     "max": 0.15349271959770983,
+     "mean": 0.04805325964381733,
+     "first_year_over_5": 2034,
+     "first_year_over_10": 2042
+    }
+   }
+  },
+  "B2_aggressive": {
+   "a_full_chain": {
+    "share q_consumption (percentage points)": {
+     "max": 20.33380883156166,
+     "mean": 6.075226666000019,
+     "first_year_over_5": 2027,
+     "first_year_over_10": 2045
+    },
+    "share q_compute (percentage points)": {
+     "max": 7.287602999804321,
+     "mean": 1.606831642537466,
+     "first_year_over_5": 2034,
+     "first_year_over_10": null
+    },
+    "share q_capital (percentage points)": {
+     "max": 24.05520581195234,
+     "mean": 5.592568056639693,
+     "first_year_over_5": 2027,
+     "first_year_over_10": 2027
+    },
+    "share q_hardware_rnd (percentage points)": {
+     "max": 3.7979250276299568,
+     "mean": 0.4067958057513827,
+     "first_year_over_5": null,
+     "first_year_over_10": null
+    },
+    "share q_software_rnd (percentage points)": {
+     "max": 2.6650700598981576,
+     "mean": 1.1429405794238836,
+     "first_year_over_5": null,
+     "first_year_over_10": null
+    },
+    "share q_training_compute (percentage points)": {
+     "max": 41.7042376192376,
+     "mean": 7.376274507841347,
+     "first_year_over_5": 2025,
+     "first_year_over_10": 2027
+    },
+    "raw stock Q vs stored compute": {
+     "max": 0.9999994921180366,
+     "mean": 0.9067152625946315,
+     "first_year_over_5": 2026,
+     "first_year_over_10": 2029
+    },
+    "effective compute g(Q)S vs g(stored compute) x stored software (derived)": {
+     "max": 0.9999234663217202,
+     "mean": 0.3606025441878165,
+     "first_year_over_5": 2027,
+     "first_year_over_10": 2027
+    },
+    "hardware": {
+     "max": 0.9858916349866045,
+     "mean": 0.446524487244144,
+     "first_year_over_5": 2026,
+     "first_year_over_10": 2030
+    },
+    "software": {
+     "max": 0.7252693683890815,
+     "mean": 0.19558029995613058,
+     "first_year_over_5": 2026,
+     "first_year_over_10": 2027
+    },
+    "frac_automated": {
+     "max": 0.02948340102656477,
+     "mean": 0.0006976860607310692,
+     "first_year_over_5": null,
+     "first_year_over_10": null
+    },
+    "gwp": {
+     "max": 0.9999998462562981,
+     "mean": 0.9313858793209849,
+     "first_year_over_5": 2027,
+     "first_year_over_10": 2028
+    }
+   },
+   "b_stored_T": {
+    "share q_consumption (percentage points)": {
+     "max": 10.273161468391113,
+     "mean": 4.325785773756007,
+     "first_year_over_5": 2027,
+     "first_year_over_10": 2042
+    },
+    "share q_compute (percentage points)": {
+     "max": 5.633283186240315,
+     "mean": 0.571778525645706,
+     "first_year_over_5": 2034,
+     "first_year_over_10": null
+    },
+    "share q_capital (percentage points)": {
+     "max": 11.734566604061628,
+     "mean": 3.676873830535688,
+     "first_year_over_5": 2027,
+     "first_year_over_10": 2027
+    },
+    "share q_hardware_rnd (percentage points)": {
+     "max": 3.7979250276299568,
+     "mean": 0.4255545563216543,
+     "first_year_over_5": null,
+     "first_year_over_10": null
+    },
+    "share q_software_rnd (percentage points)": {
+     "max": 2.6593647766990056,
+     "mean": 1.0733409443998416,
+     "first_year_over_5": null,
+     "first_year_over_10": null
+    },
+    "share q_training_compute (percentage points)": {
+     "max": 41.7042376192376,
+     "mean": 4.650411165340185,
+     "first_year_over_5": 2025,
+     "first_year_over_10": 2027
+    },
+    "raw stock Q vs stored compute": {
+     "max": 1.397261213151256,
+     "mean": 0.7375573435478534,
+     "first_year_over_5": 2026,
+     "first_year_over_10": 2031
+    },
+    "effective compute g(Q)S vs g(stored compute) x stored software (derived)": {
+     "max": 0.4271220097499644,
+     "mean": 0.0445488190339526,
+     "first_year_over_5": 2027,
+     "first_year_over_10": 2028
+    },
+    "hardware": {
+     "max": 0.3454710437635433,
+     "mean": 0.03672468163265084,
+     "first_year_over_5": 2026,
+     "first_year_over_10": 2040
+    },
+    "software": {
+     "max": 0.1431290494016021,
+     "mean": 0.018722930988438254,
+     "first_year_over_5": 2026,
+     "first_year_over_10": 2027
+    },
+    "frac_automated": {
+     "max": 0.02948340102656477,
+     "mean": 0.0006910229181327411,
+     "first_year_over_5": null,
+     "first_year_over_10": null
+    },
+    "gwp": {
+     "max": 0.13029933859958898,
+     "mean": 0.053108207981866565,
+     "first_year_over_5": 2029,
+     "first_year_over_10": 2030
+    }
+   }
+  }
+ }
+}
