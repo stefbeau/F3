@@ -1,13 +1,13 @@
 # F3 — Status
 
-**As of 2026-10-08.** `DECISIONS.md` is authoritative for decisions; this page summarises. Keep it current: update it in the same commit as any change of status.
+**As of 2026-10-12.** `DECISIONS.md` is authoritative for decisions; this page summarises. Keep it current: update it in the same commit as any change of status.
 
 ## Phases
 | Phase | Goal | Status |
 |---|---|---|
 | 0 Setup | repo, specification, decision log | Done |
 | 1 Reproduce and audit | trust the reference models; World3 population sector in Python | **Done 2026-10-08** (`docs/phase-1-review.md`) |
-| 2 Couple | AI sector, energy, materials, water, social stability, climate, linked by feedback loops | **In progress** (plan approved 2026-10-08, order B; M0 starting) |
+| 2 Couple | AI sector, energy, materials, water, social stability, climate, linked by feedback loops | **In progress** (plan approved 2026-10-08, order B; M0 closed, M1 step 2 built and compared: A1.3 failed, see below) |
 | 3 Calibrate | backtest 1970–2025, Monte Carlo, sensitivity, validation report | Not started |
 | 4 Publish | public scenario dashboard, methodology | Not started |
 
@@ -15,7 +15,7 @@
 | Milestone | Sessions (estimate) | Status |
 |---|---|---|
 | M0 Carry-over, interfaces, first decisions (N1-N6 drafted) | 1-2 | **Closed 2026-10-08**: A0.1 (S1 in the loop bit-identical to stand-alone), A0.2 (equations untouched), A0.3 (time convention in `MODEL_SPEC.md`, D-022), A0.4 (D-020 to D-025 drafted, then approved by the editor), A0.5 (repository map matches) all met |
-| M1 S3 AI sector, GATE-like, standalone | 4-6 | **Step 1 (A1.1) done 2026-10-08, waiting for the editor**: equations and defaults extracted (`research/gate-equations.md`); the playground ships three precomputed runs (default, conservative, aggressive) but **cannot export series for other settings**, so the approved Settings 1 and 2 have no series to compare with at 3 significant figures. No code written, no comparison run. D-005 approved with its amendment |
+| M1 S3 AI sector, GATE-like, standalone | 4-6 | **Step 2 done 2026-10-12, A1.3 FAILED, waiting for the editor.** `f3/sectors/s3_ai.py` implements GATE's laws of motion, automation and production as a Sector (investment path supplied, no rule). Choices fixed and committed before any comparison (`research/gate-equations.md` section 9). Against the three shipped runs (D-005 amendment B, D-026) at ±2%: labour passes; output fails from 2026-2027, capital, hardware, software and compute stock from 2027-2033; automation fails only in the conservative run (from 2039). Failure starts long before `Q > 0.1 C_L` (2062, 2094, 2063), so the eq.-10 classification clause does not apply. Diagnostic: with the stored composite task input fed in, everything passes, so the whole gap is S3's production composite (cause unresolved). A1.5 and finiteness pass on all five settings. Report: `audit/s3-gate-comparison.md`. Next: `docs/s3-investment-rule.md` (candidate rules, no rule implemented) |
 | M2 Slice: AI, electricity, climate; Demo 0 | 3-5 (+1-2 demo) | Not started |
 | M3 Complete World3 in Python (agriculture, capital, resources, pollution) | 5-8 | Not started |
 | M4 Port the reused Earth4All sectors | 6-10 | Not started |
@@ -35,7 +35,7 @@ The external review of Demo 0 is deferred until Demo 0 is ready (editor's decisi
 | 1.5 phase review | Done 2026-10-08: `docs/phase-1-review.md`; the UN age-cohort check of D-015 is done (outcome note in D-015) |
 
 ## Decisions
-- **Approved:** D-001 licensing · D-003 time step 0.25 y · D-004 ±2% tolerance (for ports against their reference) · D-010 Earth4All is a reference and component library, audited · D-011 Earth4All.jl is the reference, audit before porting · D-012 WorldDynamics.jl is the World3 reference, PyWorld3 the second check · D-014 Vensim output read at run time only · D-015 World3 variant for S1: both parameter sets carried, 2004 provisional default, confirmed at the Phase 3 backtest · D-019 1970 initialisation: Option C (World3-based sectors start from the model's own state until the Phase 3 calibration) · D-016 Earth4All audit verdict (replace population, climate, foodland, wellbeing; reuse the rest, with changes for demand, public, energy) · D-017 World3 environment: registry snapshot 2024-04-25, default solver options · D-018 Earth4All.jl is the reference; deviations from Vensim reported. · D-020 start years (S3 and data centres from 2025, Earth4All sectors from 1980) · D-021 FaIR re-run each year, non-CO2 emissions prescribed · D-022 explicit coupling at 0.25 y, t = Y is 1 January · D-023 replay then adapters for the replaced sectors' signals · D-024 backtest criteria as a framework, thresholds set by the editor before the M5 hindcast · D-025 Phase 3 entry conditions
+- **Approved:** D-001 licensing · D-003 time step 0.25 y · D-004 ±2% tolerance (for ports against their reference) · D-010 Earth4All is a reference and component library, audited · D-011 Earth4All.jl is the reference, audit before porting · D-012 WorldDynamics.jl is the World3 reference, PyWorld3 the second check · D-014 Vensim output read at run time only · D-015 World3 variant for S1: both parameter sets carried, 2004 provisional default, confirmed at the Phase 3 backtest · D-019 1970 initialisation: Option C (World3-based sectors start from the model's own state until the Phase 3 calibration) · D-016 Earth4All audit verdict (replace population, climate, foodland, wellbeing; reuse the rest, with changes for demand, public, energy) · D-017 World3 environment: registry snapshot 2024-04-25, default solver options · D-018 Earth4All.jl is the reference; deviations from Vensim reported. · D-005 amendments A (2026-10-08) and B (2026-10-09, shipped runs as the A1.3 settings, plus the eq.-10 clause) · D-026 handling of the Epoch playground data (2026-10-09) · D-020 start years (S3 and data centres from 2025, Earth4All sectors from 1980) · D-021 FaIR re-run each year, non-CO2 emissions prescribed · D-022 explicit coupling at 0.25 y, t = Y is 1 January · D-023 replay then adapters for the replaced sectors' signals · D-024 backtest criteria as a framework, thresholds set by the editor before the M5 hindcast · D-025 Phase 3 entry conditions
 - **Superseded:** D-002 (by D-011), D-013 (by D-017).
 - **Open (Proposed, to be taken when needed):** D-005 AI-sector integration (an amendment with numeric criteria is drafted, Proposed) · D-006 critical-minerals granularity · D-007 climate damage function (sources note: `research/damage-functions.md`) · D-008 social-tension proxy · D-009 dashboard stack.
 
@@ -45,7 +45,7 @@ The external review of Demo 0 is deferred until Demo 0 is ready (editor's decisi
 - **Dependency search.** First attempt pinned ModelingToolkit only: flawed and inconclusive. Registry-snapshot search: works with defaults for the 2024-04-25 and 2024-07-01 snapshots, fails from 2024-10-01. Full record in `audit/T0-FINDINGS.md`.
 
 ## Open questions for the editor
-1. **D-005 amendment** (drafted, Proposed): confirm or change the two GATE parameter settings proposed for test A1.3 before any run, and the numeric criteria of A1.2 to A1.6.
+1. **A1.3 failed (2026-10-12; `audit/s3-gate-comparison.md`).** The whole gap sits in S3's production composite of tasks. Decide: (a) a labelled post-hoc proposal to try the solver's task grids (footnote 38), (b) accept S3 with the composite as a known open difference, or (c) ask Epoch for the allocation convention. Also: which `compute` pairing counts (stored `compute` is the raw stock `Q`, not effective compute), and whether to append a dated note to D-005 saying the premise of the eq.-10 clause is not supported by the data.
 2. **D-024:** you set the backtest thresholds before the M5 hindcast; the age-structure numbers were already seen when the framework was approved, and each criterion must say what a failure triggers.
 3. **Plan amendment, section 14.2** (consequences of D-020 that touch approved tests and documents; not applied): A2.2's reading, the GATE-versus-Earth4All economy from 2025, the `MODEL_SPEC.md` time horizon wording, the hindcast window for variables from the Earth4All sectors.
 4. Whether to report the WorldDynamics.jl break (ModelingToolkit 9.22 to 9.41) upstream.
@@ -53,4 +53,4 @@ The external review of Demo 0 is deferred until Demo 0 is ready (editor's decisi
 6. Optional, pending: email to Epoch AI (docs/drafts/epoch-gate-email.md) asking permission to use the shipped playground runs as test references and for result series for the two stress settings. Not sent. The plan does not depend on a reply; D-026 treats permission as not yet requested.
 
 ## Next tasks
-M1 (the S3 AI sector) is next and does not start until you confirm the D-005 amendment. After it: M2 (the slice and Demo 0), which needs D-007 (damage function) decided. `docs/HANDOVER.md` has the Phase 2 prompts; Prompt 5 (automation of reports and CI) is open. The open issues carried into Phase 2 are in `docs/phase-1-review.md`, section 4.
+M1 step 3: `docs/s3-investment-rule.md` (candidate behavioural rules from the shipped investment shares, with a recommendation; **no rule implemented**), then the editor chooses, and decides what to do about the failed A1.3 (open question 1). After M1: M2 (the slice and Demo 0), which needs D-007 (damage function) decided. `docs/HANDOVER.md` has the Phase 2 prompts; Prompt 5 (automation of reports and CI) is open. The open issues carried into Phase 2 are in `docs/phase-1-review.md`, section 4.
