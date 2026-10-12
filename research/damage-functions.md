@@ -40,3 +40,5 @@ A search summary (a secondary source, not read at the primary documents) attribu
 1. The full text, or at least the damage-function section, of Nordhaus (2017) or Barrage and Nordhaus (2024), Howard and Sterner (2017), and Burke et al. (2015), read from the publisher or an author's copy (the automated route is blocked). The editor-in-chief may be able to open these.
 2. A decision on whether the damage function replaces or adds to Earth4All's warming channels (above).
 3. A decision whether a growth-effect option is acceptable in a model whose economy sector (Earth4All's) has its own growth structure.
+
+*Dated note (2026-10-12): the primary sources named above have since been read, as far as open access allows; see `research/damage-functions-verified.md`. This note is otherwise unchanged.*

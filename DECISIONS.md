@@ -224,6 +224,30 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 - **Decision:** —
 - **Date:** —
 
+- **Draft for decision (2026-10-12, Proposed; appended; the lines above are unchanged and the status stays Proposed).** Evidence: `research/damage-functions-verified.md` (every number marked read, derived or unverified; copies held outside the repository). Nothing here is approved.
+
+  **Context.** F3 needs one lever for how warming reduces output. Three functional forms exist in the sources read: level-effect quadratics (DICE) and a meta-regression (Howard and Sterner), and a growth-effect function (Burke et al.). The sources disagree by a factor of three to four at 3 degrees C among level forms, and by orders of magnitude between level and growth forms (Newell, Prest and Sexton: 2100 GDP impact 95% interval -84% to +359% for growth models, -8.5% to +1.8% for levels models). **Kotz et al. (2024) is retracted and not used.**
+
+  **Options, each traced to a document read** (% of output, level effect, temperature above pre-industrial; **[read]** printed, **[derived]** computed from printed numbers):
+
+  | Option | Source | 1.5 C | 2 C | 3 C | 4 C | Status of the numbers |
+  |---|---|---|---|---|---|---|
+  | **Low** | Nordhaus (2017), DICE-2016R, `0.236 T^2` | 0.53 | 0.94 | 2.1 [read] | 3.8 | coefficient and 3 C and 6 C anchors read; others derived |
+  | **Central** | Barrage and Nordhaus (2024), DICE-2023 | 0.77 | 1.38 | 3.1 [read] | 5.5 | 3 C and 4.5 C anchors read (7.0%); coefficient not obtained, derived as 0.344 from the anchors; stated valid to 4 C |
+  | **High** | Howard and Sterner (2017), preferred regression (4), non-catastrophic x 1.25 (and with the catastrophic term) | 1.67 (2.26) | 2.97 (4.01) | 6.69 (9.03) | 11.90 (16.06) | coefficients 0.595, 0.260 and the 1.25 factor read; damages derived; Barrage and Nordhaus read "9% at 3 C" for their preferred version |
+
+  **Not offered as an option:** Burke, Hsiang and Miguel (2015) as a level function. It is a **growth-rate** function of each country's local temperature, its damages compound over time and have no horizon-free value at 3 C; its temperature-specific numbers and coefficient table were not readable from the copy obtained (marked unverified). Its headline (-23% of global income by 2100, RCP8.5, read) is a different kind of quantity. Hsiang et al. (2017) could not be read (blocked).
+
+  **Questions for the editor (choices, not recommendations):**
+  1. **Replace or add.** After D-016 F3 keeps three warming channels in the reused sectors: cost of capacity (+20% per unit of OW/OW2022 - 1), loss of capital (-10%), and TFP (-10%) (`research/damage-functions-verified.md` section 8, read from Earth4All.jl at `16f37d0`). Should the damage function **replace** them (switch their coefficients to zero) or **add** to them? Adding counts part of the damage twice; its size is unknown until M4 runs the reused sectors. Until M4 the slice's economy (S3) has no warming channel, so the question bites from M4.
+  2. **Level or growth.** Level effects (the three options above) are the well-documented, comparable ones; a growth effect (Burke) may have far larger long-run impact and the sources disagree about whether the data can identify it at all. Should F3 offer a growth-effect option in a later release as a labelled stress case, or not?
+  3. **Which temperature.** The options use warming above pre-industrial (DICE-2023 states 1765; Howard and Sterner convert to pre-industrial; DICE-2016R does not state its baseline in the text read). FaIR's anomaly here is above 1850-1900 and starts 0.04 to 0.07 K below observed (D-030, Proposed). Whether to add an offset is open.
+  4. **Validity range.** The DICE-2023 function is stated valid to 4 C; the table's 4 C values and above are extrapolation for the other two.
+
+  **Recommendation (the Validator's, separate from the above; the decision is the editor's):** offer **Nordhaus 2017 / Barrage and Nordhaus 2024 / Howard and Sterner (non-catastrophic x 1.25)** as low / central / high **level-effect** quadratics, labelled with their sources and their validity range, with the damage function **replacing** the three Earth4All warming channels once M4 brings them in (so damages are counted once), and with Burke-type growth effects **not offered in v0.1**. Reason: these are the ones I could read and recompute; the high option is about three times the central at 3 C, which spans most of the level-effect literature read; replacing avoids double counting without needing a measurement first. Weaker points: the DICE-2023 coefficient and the DICE-2016R baseline are not verified; the high option rests on a meta-regression whose appendix was not read.
+
+  **What cannot be verified:** DICE-2023's `psi1`, `psi2` (SI not obtained); DICE-2016R's temperature baseline year; Howard and Sterner's online appendix; Burke et al.'s Extended Data Table 1 and 3 values and Fig. 5d; Hsiang et al. (2017); the size of the double counting.
+
 ## D-008 — Social tension historical proxy
 
 - **Status:** Proposed (research needed)
