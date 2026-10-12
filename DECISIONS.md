@@ -199,6 +199,12 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 
   So, as approved: the three A1.3 settings are the playground's shipped runs (default; conservative, `T` = 38 with `r_H`, `r_S` = 1, 1; aggressive, `T` = 33 with `r_H`, `r_S` = 7.1, 2); the criterion is ±2% at every annual period end 2025 to 2100 with the one-period automation lag; a failure is reported and not relaxed; the years where `Q` exceeds 10% of `C_L` are reported separately and not excluded; the approved slow and fast settings are report-only stress runs; and the addition above governs how a failure that coincides with the stored-compute-above-`C_L` years is classified (the classification does not turn a recorded failure into a pass). Amendment B depends on D-026, which was approved the same day. The wording of this entry's earlier Status, Decision and Date lines is unchanged; they were approved on 2026-10-08 and this record is appended to them.
 
+- **Outcome note (2026-10-12, appended; no earlier line of D-005 is changed).** From the M1 step 2 work (`research/gate-equations.md` section 9, `audit/s3-gate-comparison.md`):
+  (a) The stored `compute` field of the shipped runs is the **raw compute stock Q**, not effective compute (section 9.1, identity 1: `Q[k] = Q[k-1] exp(-delta_Q) + I_q[k] H[k-1]`, deviation 2e-16).
+  (b) The premise of the equation-10 clause added in amendment B (stored compute divided by software exceeds C_L) is therefore **not supported**: that ratio is Q/S, and Q is not capped by C_L (eq. 10 caps g(Q), which the playground applies when it splits usable compute between training and runtime). The "playground differs from the paper" classification is **not applied to anything**.
+  (c) The observation behind the clause came from an earlier misreading by the strategist (`research/gate-equations.md` section 6, item 4, which read the stored field as possibly g(Q) S); this work corrected it.
+  (d) Which of the two compute rows counts for the A1.3 criterion (S3's raw stock Q, or effective compute g(Q) S, each against the stored `compute`) is left to the editor. It has no effect on the current result, because every compared row fails from the production composite onward (first failures 2026 to 2027). A1.3 is recorded as failed on all three shipped runs.
+
 ## D-006 — Critical minerals granularity in v0.1
 
 - **Status:** Proposed
