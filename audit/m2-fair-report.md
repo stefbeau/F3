@@ -71,6 +71,8 @@ These are proposals made after seeing the A2.1 result. None changes the criterio
 
 A full coupled loop 1980 to 2100 with all 841 members is **120 annual re-runs, about 39 minutes per scenario run** (single core), far beyond a practical budget for a 1,000-run Monte Carlo; D-021 options (b) and (c) with a real configuration are the next question this raises (D-021 says the editor decides once a real configuration exists). For scenario work a reduced ensemble (20 members: about 1 s per re-run, about 2 minutes per loop run) is workable; whether a 20-member subset represents the 841 was **not tested**.
 
+**Dated clarification (2026-10-12).** Checked against the table above: 1.06 s per annual re-run with 20 members gives about 2 minutes for one 1980-2100 loop (120 re-runs), and 19.4 s with 841 members gives about 39 minutes. The wording above is consistent with the table; no number was changed. The projection is slightly low: the timings were taken for re-runs ending in 2025 to 2030 (276 to 281 years of simulation), while re-runs for 1980 to 2100 average about 291 years, so roughly 4% more. `docs/m2-d021-measurement.md` measures a full loop directly.
+
 ## 7. Sector tests
 
 | test | result |

@@ -46,6 +46,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-027 | S3 production composite: footnote-38 task grids as a labelled variant | Approved 2026-10-12 | 1 |
 | D-028 | S3 investment rule: R3 (AI-race budget) calibrated with R1 curves | Approved 2026-10-12 | 1 |
 | D-029 | M1 closed with A1.3 failed; S3's composite is a known open difference | Approved 2026-10-12 | 1 |
+| D-030 | M2 step 1 closes with A2.1 failed; climate output labelled | Proposed 2026-10-12 | 2 |
 
 ---
 
@@ -862,6 +863,27 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Proposed by:** Claude (Validator role)
 - **Decision:** Approved by Stéphane Beau in session, as drafted.
 - **Date:** 2026-10-12
+
+## D-030 — M2 step 1 closes with A2.1 failed; climate output labelled
+
+- **Status:** Proposed (2026-10-12). Nothing here is approved.
+- **Context:** M2 step 1 (FaIR alone and `s6_climate`, `docs/m2-step1-fair.md`) ran A2.1 as fixed before any comparison. The report is `audit/m2-fair-report.md`.
+- **Facts (measured):**
+  1. **A2.1 failed.** FaIR's ensemble-mean warming for 2015 to 2024 is 1.196 K above 1850-1900; the mean HadCRUT5 95% interval is [1.234, 1.305] K. FaIR is **0.037 K below the lower edge** and **0.073 K below the best estimate** (1.269 K).
+  2. 2023 and 2024 are the only out-of-sample years (the ensemble was constrained to data through 2022) and run **0.16 to 0.20 K low**; the cause is untested.
+  3. Neither the CO2 source (GCB 2025 against the file's history) nor the non-CO2 scenario moves the result by more than 0.001 K.
+  4. The sector tests (equality with a single FaIR run to 1e-9 K, time convention, properties, sign, data integrity) pass.
+- **Proposal:**
+  1. **Leave A2.1 recorded as failed.** The criterion and its record stay as they are; nothing is relaxed.
+  2. **The distributional criterion (post-hoc option 2 of the report) is NOT adopted**: it is a looser test chosen after the result.
+  3. `s6_climate` is carried forward with its validation status stated (in its docstring, as `S6Climate.validation_status`, in `README.md` and `MODEL_SPEC.md`).
+  4. **Labelling rule:** every output that uses FaIR warming says that scenario warming starts about 0.04 to 0.07 K below observed for the current decade (HadCRUT5), and that non-CO2 emissions are prescribed, not modelled (D-021).
+  5. Whether the offset matters for the coupled slice is decided at the first coupled test, not now.
+- **Alternatives considered:** adopt the distributional criterion (rejected above); a second reading against the calibration's four-dataset mean (needs three more datasets with terms checked, asks a different question); re-base FaIR to HadCRUT5 by an offset (would hide the finding).
+- **Sources:** `audit/m2-fair-report.md`; `docs/m2-step1-fair.md`; D-021; D-029 for the parallel S3 case.
+- **Proposed by:** Claude (Validator role)
+- **Decision:** —
+- **Date:** —
 
 ---
 

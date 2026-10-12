@@ -19,6 +19,8 @@ These two families rarely meet. Yet the AI race already depends on electricity, 
 
 > **S3 (AI sector) validation status.** S3 failed test A1.3 against the GATE playground's shipped runs (D-029; audit/s3-gate-comparison.md). Its absolute output (gwp, capital, effective compute) is unvalidated against GATE after about 2027. It does not reproduce GATE. Details: [D-029](DECISIONS.md), [audit/s3-gate-comparison.md](audit/s3-gate-comparison.md).
 
+> **S6 (climate) validation status.** FaIR 2.2.4 with the published calibrated ensemble failed test A2.1: ensemble-mean warming for 2015-2024 is 1.196 K above 1850-1900, 0.037 K below HadCRUT5's mean 95% interval (0.073 K below its best estimate). Scenario warming starts about 0.04 to 0.07 K below observed for the current decade, and non-CO2 emissions are prescribed, not modelled. Details: [D-030](DECISIONS.md) (Proposed), [audit/m2-fair-report.md](audit/m2-fair-report.md).
+
 ## What F3 is not
 
 **F3 does not predict the future.** It produces **conditional scenarios**: *if* these assumptions hold, *then* these trajectories follow, within these uncertainty ranges. Its purpose is to show which levers matter most, not to forecast a date.

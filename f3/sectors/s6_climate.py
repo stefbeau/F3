@@ -15,7 +15,8 @@ Inputs in this step: none (all emissions prescribed). Outputs, published on 1 Ja
 ``warming_p05`` / ``warming_p95`` (5th and 95th percentile across members), ``co2_concentration`` (ppm, ensemble mean).
 
 **VALIDATION STATUS: A2.1 FAILED** (ensemble-mean 2015-2024 warming 0.037 K below HadCRUT5's interval; see ``VALIDATION_STATUS`` below and
-``audit/m2-fair-report.md``). Non-CO2 emissions are prescribed, not modelled.
+``audit/m2-fair-report.md``). Non-CO2 emissions are prescribed, not modelled. Scenario warming starts about 0.04 to 0.07 K below observed for the
+current decade (D-030, Proposed).
 """
 
 from __future__ import annotations
@@ -134,7 +135,8 @@ def anomaly_on_bounds(f) -> np.ndarray:
 VALIDATION_STATUS = (
     "A2.1 FAILED (audit/m2-fair-report.md): the ensemble-mean warming for 2015-2024 is 1.196 K above 1850-1900, 0.037 K below the lower "
     "edge of HadCRUT5's mean 95% interval (1.234 to 1.305 K); FaIR runs as published (fair-calibrate v1.4.1). Non-CO2 emissions are "
-    "prescribed, not modelled (D-021). Cost of the D-021 re-run rule with all 841 members: about 19 s per annual re-run."
+    "prescribed, not modelled (D-021). Scenario warming starts about 0.04 to 0.07 K below observed for the current decade (D-030, Proposed). "
+    "Cost of the D-021 re-run rule with all 841 members: about 19 s per annual re-run."
 )
 
 

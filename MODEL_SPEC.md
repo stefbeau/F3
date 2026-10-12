@@ -149,6 +149,8 @@ Notation is indicative. Final equations are fixed in v0.2 after the reproduction
 
 ### S6 — Climate
 
+- **Validation status (D-030, Proposed):** `s6_climate` (FaIR 2.2.4, published calibrated ensemble) failed test A2.1: ensemble-mean 2015-2024 warming is 0.037 K below HadCRUT5's mean 95% interval (0.073 K below the best estimate). Scenario warming starts about 0.04 to 0.07 K below observed for the current decade; non-CO2 emissions are prescribed, not modelled (D-021).
+
 - **Origin:** FaIR (Finite-amplitude Impulse Response) open-source climate emulator. It replaces Earth4All's climate sector (D-016), which contains exogenous 1%-per-year declines in the N2O and CH4 emission intensities of agriculture.
 - **Inputs:** CO₂ and other emissions from S4 and S2 (land use, industry).
 - **Outputs:** Global mean temperature anomaly (to S1, S2, S7), optional food-yield stress (to S1). The reused Earth4All sectors read observed warming through seven feedback switches (see the note under the sector map); the damage function that sets how warming affects the economy is D-007.
