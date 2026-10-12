@@ -52,14 +52,14 @@ The external review of Demo 0 is deferred until Demo 0 is ready (editor's decisi
 5. Reading tasks the editor may do faster than automated access (publisher sites refused): the damage-function sections of Nordhaus, Howard and Sterner and Burke et al.; Herrington's Supporting Information; the LBNL and TSMC reports; the WID and ILOSTAT licences.
 6. Optional, pending, **still unsent** (question 4 on task grids and stored `compute` added 2026-10-12): email to Epoch AI (docs/drafts/epoch-gate-email.md) asking permission to use the shipped playground runs as test references and for result series for the two stress settings. Not sent. The plan does not depend on a reply; D-026 treats permission as not yet requested.
 
-## Parallel tracks (launched 2026-10-12, standing delegation in CLAUDE.md)
+## Parallel tracks (launched 2026-10-12, then stopped by the editor the same day; standing delegation in CLAUDE.md)
 Each track works in its own git worktree and branch and writes `docs/tracks/<track>.md`; the orchestrator merges. Routine decisions are recorded as Provisional (delegated) and reviewed by the editor in one batch per milestone.
 | Track | Scope | Branch | Status |
 |---|---|---|---|
-| A | M2 remainder: data-centre electricity, damage function (D-007), coupled slice, tests A2.2-A2.6, Demo 0 page generator (local only; **not published**, editor approves per A2.7) | `track-a` | running |
-| B | M3: agriculture, capital, resources, pollution ports of World3 (A3.1-A3.5) | `track-b` | running |
-| C | M4: reused Earth4All sectors (A4.1-A4.6); N4 delegated per D-023 | `track-c` | running |
-The D-021 measurement (b)/(c) against (a), real configuration, is still running in the background (4 of 8 blocks at 15:33); its report and a D-021 outcome note follow when it ends. Not started: M5 (water, minerals), Phase 3.
+| A | M2 remainder: data-centre electricity, damage function (D-007), coupled slice, tests A2.2-A2.6, Demo 0 page generator (local only; **not published**, editor approves per A2.7) | `track-a` | **stopped by the editor 2026-10-12, no work produced** (branch at main, nothing to merge) |
+| B | M3: agriculture, capital, resources, pollution ports of World3 (A3.1-A3.5) | `track-b` | **stopped by the editor 2026-10-12, no work produced** (branch at main, nothing to merge) |
+| C | M4: reused Earth4All sectors (A4.1-A4.6); N4 delegated per D-023 | `track-c` | **stopped by the editor 2026-10-12, no work produced** (branch at main, nothing to merge) |
+The D-021 measurement (b)/(c) against (a), real configuration, is still running in the background (5 of 8 blocks at 15:57); its report and a D-021 outcome note follow when it ends. Not started: M5 (water, minerals), Phase 3.
 
 ## Next tasks
 Waiting for the editor only on the STOP list in `CLAUDE.md` (criteria, labels, licences, publishing, email, deletions, spending). Open for the editor: choose among the D-021 options (a), (b), (c) when the numbers are in; send the Epoch email (S3). `docs/HANDOVER.md` has the Phase 2 prompts; Prompt 5 is open. Open issues carried into Phase 2: `docs/phase-1-review.md`, section 4.
