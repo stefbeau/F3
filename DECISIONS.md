@@ -835,6 +835,8 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Decision:** Approved by Stéphane Beau: R3 with R1's fitted curves as its default calibration.
 - **Date:** 2026-10-12
 
+- **Outcome note (2026-10-12, appended; no earlier line changed).** R3 was built (`f3/sectors/s3_rule_r3.py`; method in `docs/s3-investment-rule-r3.md`, written before the fit) and A1.4 was run, report only (`audit/s3-r3-a1.4.md`). With default levers and the curves fitted once to the three shipped runs: automation fraction within 9.5% at worst once Epoch's stored composite is supplied, but effective compute 43% to 72% off at worst, output 13% to 20% off, hardware up to 35% off; share errors up to 24 percentage points (capital) and 55 (training share). Most of the full-chain output error is the open composite (D-027), the rest is the rule. R3 was not tuned after seeing the numbers; any better fit would be a new labelled post-hoc proposal. A1.5 passes with S3 driven by R3 on the three shipped settings and the two stress settings.
+
 ---
 
 ## Template for new entries
