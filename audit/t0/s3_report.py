@@ -22,6 +22,8 @@ import numpy as np
 REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO))
 
+from dataclasses import replace  # noqa: E402
+
 from f3.sectors import s3_ai  # noqa: E402
 from tests import gate_reference as gr  # noqa: E402
 from tests.s3_checks import (COMPARED, SETTINGS_B, STRESS, TOL, a15_properties, compare, constant_shares,  # noqa: E402
@@ -68,6 +70,15 @@ def main():
         d = compare(diagnostic_with_stored_T(params, runs[idx], shares), gr.field, runs[idx])
         report["diagnostic_stored_T"][name] = {q: {"max": r["max"], "first_index_over_tol": r["first_index_over_tol"]} for q, r in d.items()}
         report["a15"][name] = {k: {"passed": ok, "detail": det} for k, (ok, det) in a15_properties(params, shares).items()}
+    # second, labelled rows (D-027): variant B (paper's footnote-38 grids) and the single named 101-point case; variant A above is the default
+    report["variants"] = {}
+    for var, label in (("B", "variant B: footnote-38 grids (20 digital-worker cells, 100 fine tasks)"), ("C101", "outcome (iii) case: one 101-point grid")):
+        report["variants"][var] = {"label": label, "settings": {}}
+        for name, (idx, params) in SETTINGS_B.items():
+            s3v = run_s3(replace(params, composite=var), gr.investment_shares(runs[idx], 80))
+            res = compare(s3v, gr.field, runs[idx])
+            report["variants"][var]["settings"][name] = {"quantities": {q: {k: v[k] for k in ("in_criterion", "max", "max_index", "mean", "first_index_over_tol", "passes", "Q<=0.1CL", "Q>0.1CL")} for q, v in res.items()}}
+            print(f"{label} / {name}: " + "; ".join(f"{q}: max {v['max']:.3g}, first>2% {year(v['first_index_over_tol'])}" for q, v in res.items() if v["in_criterion"]))
     first = {k: float(v[0]) for k, v in gr.investment_shares(runs[0], 80).items()}
     for name, params in STRESS.items():
         report["stress"][name] = {k: {"passed": ok, "detail": det} for k, (ok, det) in a15_properties(params, constant_shares(first)).items()}

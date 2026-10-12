@@ -74,6 +74,7 @@ class GateParams:
     K0: float = 450e12
     a_K: float = 1.0
     delta_K: float = 0.065
+    composite: str = "A"                 # production block: "A" 20,000 midpoints (default); "B" footnote-38 grids; "C101" 101-point case (D-027)
     theta_scale: float = 1.0              # multiplies theta_H and theta_S; 0 switches R&D productivity off (test A1.5a)
 
     # derived ---------------------------------------------------------------------------------------------------------
@@ -184,6 +185,92 @@ def task_composite(L: float, f: float, C_I: float, C_T: float, p: GateParams) ->
     return val ** (1.0 / rho), math.exp(-logRs)
 
 
+def _grouped_composite(L: float, f: float, C_I: float, C_T: float, p: GateParams, x: np.ndarray, w: np.ndarray,
+                       cell: np.ndarray, cell_x: np.ndarray) -> tuple:
+    """Discrete version of the efficient allocation (gate-equations section 10, with its correction).
+
+    ``x``, ``w``: fine task points and weights (sum to 1); ``cell``: cell index of every fine point; ``cell_x``: task index at which
+    each cell's runtime requirement R_c is evaluated. Compute allocated to a cell is shared equally by the cell's automated fine
+    tasks, so the cell weight cancels and R_eff = R_c. Exact for the discrete problem (no iteration).
+    """
+    rho = p.rho
+    if C_I <= 0.0 or f <= 0.0:
+        return L, 0.0
+    e = 1.0 / (rho - 1.0)
+    auto = x <= f
+    A = np.bincount(cell[auto], weights=w[auto], minlength=len(cell_x))
+    keep = A > 0
+    if not keep.any():
+        return L, 0.0
+    A = A[keep]
+    logR = _log_R(cell_x[keep], C_T, p)
+    order = np.argsort(logR, kind="stable")
+    A, logR = A[order], logR[order]
+    n = len(A)
+    A = A / max(1.0, float(A.sum()))             # clip the automated weight at 1
+    no_human_only = 1.0 - A.sum() <= 1e-12       # f = 1: only the mixed case applies (gate-equations section 10, third correction)
+    # compute abundant: every automated group compute-only
+    kappa = C_I / np.sum(A * np.exp((1.0 + e) * logR))
+    Th = L / (1.0 - A.sum()) if not no_human_only else float("inf")
+    Tc = kappa * np.exp(e * logR)
+    if not no_human_only and Tc.min() >= Th:
+        val = np.sum(A * Tc ** rho) + (1.0 - A.sum()) * Th ** rho
+        return val ** (1.0 / rho), (kappa / Th) ** (1.0 / e) if kappa > 0 else 0.0
+    cumA = np.cumsum(A)
+    cumP = np.cumsum(A * np.exp((1.0 + e) * logR))
+    for k in range(1, n):                       # corner: k cheapest groups compute-only, humans only elsewhere
+        kappa = C_I / cumP[k - 1]
+        Th = L / (1.0 - cumA[k - 1])
+        if kappa * math.exp(e * logR[k - 1]) >= Th >= kappa * math.exp(e * logR[k]):
+            val = np.sum(A[:k] * (kappa * np.exp(e * logR[:k])) ** rho) + (1.0 - cumA[k - 1]) * Th ** rho
+            return val ** (1.0 / rho), (kappa / Th) ** (1.0 / e)
+    for m in range(n):
+        ratio = np.exp(e * (logR[:m] - logR[m]))
+        s = A[:m].sum()
+        B = np.sum(A[:m] * np.exp(logR[:m]) * ratio)
+        Rm = math.exp(logR[m])
+        Th = (C_I + Rm * L) / (B + Rm * (1.0 - s))
+        Nm = (Th * (1.0 - s) - L) / A[m]
+        if -1e-12 * Th <= Nm <= Th * (1.0 + 1e-12):
+            val = np.sum(A[:m] * (Th * ratio) ** rho) + (1.0 - s) * Th ** rho
+            return val ** (1.0 / rho), 1.0 / Rm
+    raise RuntimeError("no marginal group found in the discrete composite")
+
+
+_GRID_B = None
+_GRID_C = None
+
+
+def task_composite_B(L: float, f: float, C_I: float, C_T: float, p: GateParams) -> tuple:
+    """Variant B: footnote-38 grids. 100 fine midpoints (humans, CES integral), 20 coarse cells of 5 fine tasks (digital workers)."""
+    global _GRID_B
+    if _GRID_B is None:
+        x = (np.arange(100) + 0.5) / 100.0
+        _GRID_B = (x, np.full(100, 0.01), np.arange(100) // 5, (np.arange(20) + 0.5) / 20.0)
+    return _grouped_composite(L, f, C_I, C_T, p, *_GRID_B)
+
+
+def task_composite_C101(L: float, f: float, C_I: float, C_T: float, p: GateParams) -> tuple:
+    """The single named case of D-027 outcome (iii): one 101-point grid, trapezoid weights, each point its own cell."""
+    global _GRID_C
+    if _GRID_C is None:
+        x = np.arange(101) / 100.0
+        w = np.full(101, 0.01)
+        w[[0, -1]] = 0.005
+        _GRID_C = (x, w, np.arange(101), x)
+    return _grouped_composite(L, f, C_I, C_T, p, *_GRID_C)
+
+
+def composite_for(L: float, f: float, C_I: float, C_T: float, p: GateParams) -> tuple:
+    if p.composite == "A":
+        return task_composite(L, f, C_I, C_T, p)
+    if p.composite == "B":
+        return task_composite_B(L, f, C_I, C_T, p)
+    if p.composite == "C101":
+        return task_composite_C101(L, f, C_I, C_T, p)
+    raise ValueError(f"unknown composite variant {p.composite!r}")
+
+
 class S3AI(Sector):
     name = "s3_ai"
     period = 1.0
@@ -255,7 +342,7 @@ class S3AI(Sector):
         gQ = usable_compute(self.Q, p.C_L)
         training = q["q_training_compute"] * gQ
         runtime = gQ - training
-        T, p_over_w = task_composite(L_k, f, runtime, self.C_T, p)
+        T, p_over_w = composite_for(L_k, f, runtime, self.C_T, p)
         gwp = p.A * T ** (1.0 - p.alpha) * self.K ** p.alpha
         rt_share = (1.0 - p.alpha) * p_over_w * runtime / (L_k + p_over_w * runtime) if runtime > 0 else 0.0
         # (c) investments in dollars

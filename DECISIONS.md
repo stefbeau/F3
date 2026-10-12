@@ -817,6 +817,8 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Decision:** Approved by Stéphane Beau, as written.
 - **Date:** 2026-10-12
 
+- **Outcome note (2026-10-12, appended; no earlier line changed).** Variant B (the paper's footnote-38 grids; implementation in `research/gate-equations.md` section 10) was run on the three shipped runs with the same criterion, indices and quantities. **Outcome (ii): B fails A1.3** on all three runs, with the same first failure years as variant A (output 2027, 2027, 2026; capital 2031, 2032, 2030; hardware 2030, 2033, 2029; software 2030, 2032, 2028; compute stock 2028, 2028, 2027; automation only in the conservative run, 2039). As pre-registered, the single named 101-point case was then tried once and **also fails**, in the same years; so "matches the playground, not the paper" does not apply. No other grid size was tried. A1.3 stays recorded as failed under variants A, B and the 101-point case; the default stays A. Measured: three discretisations give the same output to within a fraction of a percent, so the task grid is not the cause. The cause remains unresolved; composite work stops here until a new decision or a reply from Epoch. Figures: `audit/s3-gate-comparison.md` section 7. Both variants were run only after their implementation was written down; four dated corrections to the written implementation (a wrong formula, a corner case, two `f = 1` handlings) were made before any variant B comparison existed.
+
 ## D-028 — S3 investment rule: R3 (AI-race budget) calibrated with R1 curves
 
 - **Status:** Approved (2026-10-12)

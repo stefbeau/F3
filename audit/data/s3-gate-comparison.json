@@ -921,5 +921,1361 @@
    },
    "_note": "report-only; PLACEHOLDER constant shares (period-0 shares of the shipped default run, training share 0.5); not a rule"
   }
+ },
+ "variants": {
+  "B": {
+   "label": "variant B: footnote-38 grids (20 digital-worker cells, 100 fine tasks)",
+   "settings": {
+    "B0_default": {
+     "quantities": {
+      "gwp": {
+       "in_criterion": true,
+       "max": 0.9999998708778279,
+       "max_index": 26,
+       "mean": 0.8840500173410331,
+       "first_index_over_tol": 2,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 37,
+        "max": 0.9999998708778279,
+        "mean": 0.7619007138955808,
+        "first_index_over_tol": 2
+       },
+       "Q>0.1CL": {
+        "years": 39,
+        "max": 0.999996368831303,
+        "mean": 0.9999352539431289,
+        "first_index_over_tol": 37
+       }
+      },
+      "capital": {
+       "in_criterion": true,
+       "max": 0.9999998268344138,
+       "max_index": 29,
+       "mean": 0.8498024971037635,
+       "first_index_over_tol": 6,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 37,
+        "max": 0.9999998268344138,
+        "mean": 0.6915301718389958,
+        "first_index_over_tol": 6
+       },
+       "Q>0.1CL": {
+        "years": 39,
+        "max": 0.9999988817687616,
+        "mean": 0.9999582928677739,
+        "first_index_over_tol": 37
+       }
+      },
+      "labor": {
+       "in_criterion": true,
+       "max": 8.104628079763643e-15,
+       "max_index": 75,
+       "mean": 3.770375824417801e-15,
+       "first_index_over_tol": null,
+       "passes": true,
+       "Q<=0.1CL": {
+        "years": 37,
+        "max": 3.774758283725532e-15,
+        "mean": 1.8243664837083652e-15,
+        "first_index_over_tol": null
+       },
+       "Q>0.1CL": {
+        "years": 39,
+        "max": 8.104628079763643e-15,
+        "mean": 5.6165898143216254e-15,
+        "first_index_over_tol": null
+       }
+      },
+      "hardware": {
+       "in_criterion": true,
+       "max": 0.9782743347642543,
+       "max_index": 26,
+       "mean": 0.6467399655381406,
+       "first_index_over_tol": 5,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 37,
+        "max": 0.9782743347642543,
+        "mean": 0.5728517163069416,
+        "first_index_over_tol": 5
+       },
+       "Q>0.1CL": {
+        "years": 39,
+        "max": 0.8970914173627278,
+        "mean": 0.7168390737831236,
+        "first_index_over_tol": 37
+       }
+      },
+      "software": {
+       "in_criterion": true,
+       "max": 0.7906399581372894,
+       "max_index": 25,
+       "mean": 0.4346903056342917,
+       "first_index_over_tol": 5,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 37,
+        "max": 0.7906399581372894,
+        "mean": 0.4308087434539091,
+        "first_index_over_tol": 5
+       },
+       "Q>0.1CL": {
+        "years": 39,
+        "max": 0.6419919901402185,
+        "mean": 0.4383728133438856,
+        "first_index_over_tol": 37
+       }
+      },
+      "frac_automated": {
+       "in_criterion": true,
+       "max": 0.010951042041807968,
+       "max_index": 8,
+       "mean": 0.0004101420483327815,
+       "first_index_over_tol": null,
+       "passes": true,
+       "Q<=0.1CL": {
+        "years": 37,
+        "max": 0.010951042041807968,
+        "mean": 0.0008424539371159837,
+        "first_index_over_tol": null
+       },
+       "Q>0.1CL": {
+        "years": 39,
+        "max": 0.0,
+        "mean": 0.0,
+        "first_index_over_tol": null
+       }
+      },
+      "compute_stock vs compute": {
+       "in_criterion": true,
+       "max": 0.9999999887566178,
+       "max_index": 31,
+       "mean": 0.859946549220664,
+       "first_index_over_tol": 3,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 37,
+        "max": 0.9999999887566178,
+        "mean": 0.7123372570766048,
+        "first_index_over_tol": 3
+       },
+       "Q>0.1CL": {
+        "years": 39,
+        "max": 0.9999999459571453,
+        "mean": 0.9999861340752844,
+        "first_index_over_tol": 37
+       }
+      },
+      "effective_compute vs compute": {
+       "in_criterion": true,
+       "max": 138.61148155328095,
+       "max_index": 10,
+       "mean": 17.111405821305194,
+       "first_index_over_tol": 0,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 37,
+        "max": 138.61148155328095,
+        "mean": 34.094395076394584,
+        "first_index_over_tol": 0
+       },
+       "Q>0.1CL": {
+        "years": 39,
+        "max": 0.9998363831589218,
+        "mean": 0.9993390921178354,
+        "first_index_over_tol": 37
+       }
+      },
+      "labor_share": {
+       "in_criterion": false,
+       "max": Infinity,
+       "max_index": 13,
+       "mean": Infinity,
+       "first_index_over_tol": 3,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 37,
+        "max": Infinity,
+        "mean": Infinity,
+        "first_index_over_tol": 3
+       },
+       "Q>0.1CL": {
+        "years": 39,
+        "max": Infinity,
+        "mean": Infinity,
+        "first_index_over_tol": 37
+       }
+      },
+      "runtime_compute_share": {
+       "in_criterion": false,
+       "max": 5.480570186698255,
+       "max_index": 1,
+       "mean": 0.2318877821912002,
+       "first_index_over_tol": 0,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 37,
+        "max": 5.480570186698255,
+        "mean": 0.47628919288586696,
+        "first_index_over_tol": 0
+       },
+       "Q>0.1CL": {
+        "years": 39,
+        "max": 0.00014570042944461736,
+        "mean": 1.977717318299361e-05,
+        "first_index_over_tol": null
+       }
+      },
+      "composite_tasks": {
+       "in_criterion": false,
+       "max": 0.9999999277480626,
+       "max_index": 24,
+       "mean": 0.8982138284482961,
+       "first_index_over_tol": 2,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 37,
+        "max": 0.9999999277480626,
+        "mean": 0.7910196303674969,
+        "first_index_over_tol": 2
+       },
+       "Q>0.1CL": {
+        "years": 39,
+        "max": 0.9999916254881209,
+        "mean": 0.9999108881659774,
+        "first_index_over_tol": 37
+       }
+      }
+     }
+    },
+    "B1_conservative": {
+     "quantities": {
+      "gwp": {
+       "in_criterion": true,
+       "max": 0.9999999902760034,
+       "max_index": 41,
+       "mean": 0.839097149779529,
+       "first_index_over_tol": 2,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 69,
+        "max": 0.9999999902760034,
+        "mean": 0.8227744719071414,
+        "first_index_over_tol": 2
+       },
+       "Q>0.1CL": {
+        "years": 7,
+        "max": 0.9999969445116723,
+        "mean": 0.9999921173787804,
+        "first_index_over_tol": 69
+       }
+      },
+      "capital": {
+       "in_criterion": true,
+       "max": 0.9999999881616306,
+       "max_index": 46,
+       "mean": 0.7970568408020147,
+       "first_index_over_tol": 7,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 69,
+        "max": 0.9999999881616306,
+        "mean": 0.7764685713251762,
+        "first_index_over_tol": 7
+       },
+       "Q>0.1CL": {
+        "years": 7,
+        "max": 0.9999993512246576,
+        "mean": 0.9999983542165652,
+        "first_index_over_tol": 69
+       }
+      },
+      "labor": {
+       "in_criterion": true,
+       "max": 8.104628079763643e-15,
+       "max_index": 75,
+       "mean": 3.770375824417801e-15,
+       "first_index_over_tol": null,
+       "passes": true,
+       "Q<=0.1CL": {
+        "years": 69,
+        "max": 6.772360450213455e-15,
+        "mean": 3.3902027722973985e-15,
+        "first_index_over_tol": null
+       },
+       "Q>0.1CL": {
+        "years": 7,
+        "max": 8.104628079763643e-15,
+        "mean": 7.51779590960463e-15,
+        "first_index_over_tol": null
+       }
+      },
+      "hardware": {
+       "in_criterion": true,
+       "max": 0.9678166383428108,
+       "max_index": 55,
+       "mean": 0.6556236666260871,
+       "first_index_over_tol": 8,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 69,
+        "max": 0.9678166383428108,
+        "mean": 0.6250599799484226,
+        "first_index_over_tol": 8
+       },
+       "Q>0.1CL": {
+        "years": 7,
+        "max": 0.9605260858672732,
+        "mean": 0.9568942924487773,
+        "first_index_over_tol": 69
+       }
+      },
+      "software": {
+       "in_criterion": true,
+       "max": 0.8259737930909773,
+       "max_index": 37,
+       "mean": 0.5186839568974823,
+       "first_index_over_tol": 7,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 69,
+        "max": 0.8259737930909773,
+        "mean": 0.5140884634789522,
+        "first_index_over_tol": 7
+       },
+       "Q>0.1CL": {
+        "years": 7,
+        "max": 0.614626594378936,
+        "mean": 0.5639823920229936,
+        "first_index_over_tol": 69
+       }
+      },
+      "frac_automated": {
+       "in_criterion": true,
+       "max": 0.022872677860568236,
+       "max_index": 14,
+       "mean": 0.001787537476901508,
+       "first_index_over_tol": 14,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 69,
+        "max": 0.022872677860568236,
+        "mean": 0.0019688818586161535,
+        "first_index_over_tol": 14
+       },
+       "Q>0.1CL": {
+        "years": 7,
+        "max": 0.0,
+        "mean": 0.0,
+        "first_index_over_tol": null
+       }
+      },
+      "compute_stock vs compute": {
+       "in_criterion": true,
+       "max": 0.9999999993998399,
+       "max_index": 49,
+       "mean": 0.8094731332107358,
+       "first_index_over_tol": 3,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 69,
+        "max": 0.9999999993998399,
+        "mean": 0.7901443296780489,
+        "first_index_over_tol": 3
+       },
+       "Q>0.1CL": {
+        "years": 7,
+        "max": 0.9999999691529312,
+        "mean": 0.999999910890078,
+        "first_index_over_tol": 69
+       }
+      },
+      "effective_compute vs compute": {
+       "in_criterion": true,
+       "max": 126.21401434007322,
+       "max_index": 14,
+       "mean": 22.964709250546875,
+       "first_index_over_tol": 0,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 69,
+        "max": 126.21401434007322,
+        "mean": 25.193040761985998,
+        "first_index_over_tol": 0
+       },
+       "Q>0.1CL": {
+        "years": 7,
+        "max": 0.9998945334137067,
+        "mean": 0.9997272092184292,
+        "first_index_over_tol": 69
+       }
+      },
+      "labor_share": {
+       "in_criterion": false,
+       "max": Infinity,
+       "max_index": 20,
+       "mean": Infinity,
+       "first_index_over_tol": 2,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 69,
+        "max": Infinity,
+        "mean": Infinity,
+        "first_index_over_tol": 2
+       },
+       "Q>0.1CL": {
+        "years": 7,
+        "max": Infinity,
+        "mean": Infinity,
+        "first_index_over_tol": 69
+       }
+      },
+      "runtime_compute_share": {
+       "in_criterion": false,
+       "max": 9.339160557453367,
+       "max_index": 2,
+       "mean": 0.5530272188270778,
+       "first_index_over_tol": 0,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 69,
+        "max": 9.339160557453367,
+        "mean": 0.6091231349936159,
+        "first_index_over_tol": 0
+       },
+       "Q>0.1CL": {
+        "years": 7,
+        "max": 0.0001637593056422748,
+        "mean": 8.175947120175093e-05,
+        "first_index_over_tol": null
+       }
+      },
+      "composite_tasks": {
+       "in_criterion": false,
+       "max": 0.9999999930342589,
+       "max_index": 37,
+       "mean": 0.8578660659025561,
+       "first_index_over_tol": 2,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 69,
+        "max": 0.9999999930342589,
+        "mean": 0.8434488258876116,
+        "first_index_over_tol": 2
+       },
+       "Q>0.1CL": {
+        "years": 7,
+        "max": 0.9999918634435263,
+        "mean": 0.9999788603355783,
+        "first_index_over_tol": 69
+       }
+      }
+     }
+    },
+    "B2_aggressive": {
+     "quantities": {
+      "gwp": {
+       "in_criterion": true,
+       "max": 0.9999999835785722,
+       "max_index": 23,
+       "mean": 0.9319925786106393,
+       "first_index_over_tol": 1,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 38,
+        "max": 0.9999999835785722,
+        "mean": 0.8640400660504156,
+        "first_index_over_tol": 1
+       },
+       "Q>0.1CL": {
+        "years": 38,
+        "max": 0.9999980491198219,
+        "mean": 0.999945091170863,
+        "first_index_over_tol": 38
+       }
+      },
+      "capital": {
+       "in_criterion": true,
+       "max": 0.9999999773629952,
+       "max_index": 26,
+       "mean": 0.9048904873428683,
+       "first_index_over_tol": 5,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 38,
+        "max": 0.9999999773629952,
+        "mean": 0.809812197282956,
+        "first_index_over_tol": 5
+       },
+       "Q>0.1CL": {
+        "years": 38,
+        "max": 0.9999995956657814,
+        "mean": 0.999968777402781,
+        "first_index_over_tol": 38
+       }
+      },
+      "labor": {
+       "in_criterion": true,
+       "max": 8.104628079763643e-15,
+       "max_index": 75,
+       "mean": 3.770375824417801e-15,
+       "first_index_over_tol": null,
+       "passes": true,
+       "Q<=0.1CL": {
+        "years": 38,
+        "max": 3.885780586188048e-15,
+        "mean": 1.8786142232473045e-15,
+        "first_index_over_tol": null
+       },
+       "Q>0.1CL": {
+        "years": 38,
+        "max": 8.104628079763643e-15,
+        "mean": 5.662137425588298e-15,
+        "first_index_over_tol": null
+       }
+      },
+      "hardware": {
+       "in_criterion": true,
+       "max": 0.9907605953779941,
+       "max_index": 21,
+       "mean": 0.8184744161727835,
+       "first_index_over_tol": 4,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 38,
+        "max": 0.9907605953779941,
+        "mean": 0.7118462444786166,
+        "first_index_over_tol": 4
+       },
+       "Q>0.1CL": {
+        "years": 38,
+        "max": 0.9251025878669509,
+        "mean": 0.925102587866951,
+        "first_index_over_tol": 38
+       }
+      },
+      "software": {
+       "in_criterion": true,
+       "max": 0.728093114214176,
+       "max_index": 18,
+       "mean": 0.5290878517496408,
+       "first_index_over_tol": 3,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 38,
+        "max": 0.728093114214176,
+        "mean": 0.4798327755449116,
+        "first_index_over_tol": 3
+       },
+       "Q>0.1CL": {
+        "years": 38,
+        "max": 0.5783429279543704,
+        "mean": 0.5783429279543704,
+        "first_index_over_tol": 38
+       }
+      },
+      "frac_automated": {
+       "in_criterion": true,
+       "max": 8.627658058357746e-05,
+       "max_index": 2,
+       "mean": 1.1352181656128297e-06,
+       "first_index_over_tol": null,
+       "passes": true,
+       "Q<=0.1CL": {
+        "years": 38,
+        "max": 8.627658058357746e-05,
+        "mean": 2.2704363312256594e-06,
+        "first_index_over_tol": null
+       },
+       "Q>0.1CL": {
+        "years": 38,
+        "max": 0.0,
+        "mean": 0.0,
+        "first_index_over_tol": null
+       }
+      },
+      "compute_stock vs compute": {
+       "in_criterion": true,
+       "max": 0.9999999993150976,
+       "max_index": 28,
+       "mean": 0.9103049586156389,
+       "first_index_over_tol": 2,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 38,
+        "max": 0.9999999993150976,
+        "mean": 0.8206128588317687,
+        "first_index_over_tol": 2
+       },
+       "Q>0.1CL": {
+        "years": 38,
+        "max": 0.9999999787159922,
+        "mean": 0.9999970583995088,
+        "first_index_over_tol": 38
+       }
+      },
+      "effective_compute vs compute": {
+       "in_criterion": true,
+       "max": 154.36912173948758,
+       "max_index": 6,
+       "mean": 13.558072753423696,
+       "first_index_over_tol": 0,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 38,
+        "max": 154.36912173948758,
+        "mean": 26.116599912156897,
+        "first_index_over_tol": 0
+       },
+       "Q>0.1CL": {
+        "years": 38,
+        "max": 0.999918894033088,
+        "mean": 0.9995455946905044,
+        "first_index_over_tol": 38
+       }
+      },
+      "labor_share": {
+       "in_criterion": false,
+       "max": Infinity,
+       "max_index": 9,
+       "mean": Infinity,
+       "first_index_over_tol": 1,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 38,
+        "max": Infinity,
+        "mean": Infinity,
+        "first_index_over_tol": 1
+       },
+       "Q>0.1CL": {
+        "years": 38,
+        "max": Infinity,
+        "mean": Infinity,
+        "first_index_over_tol": 38
+       }
+      },
+      "runtime_compute_share": {
+       "in_criterion": false,
+       "max": 2.9496452609369674,
+       "max_index": 0,
+       "mean": 0.15601115903882573,
+       "first_index_over_tol": 0,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 38,
+        "max": 2.9496452609369674,
+        "mean": 0.31199697196172016,
+        "first_index_over_tol": 0
+       },
+       "Q>0.1CL": {
+        "years": 38,
+        "max": 0.0002098574130903197,
+        "mean": 2.5346115931208268e-05,
+        "first_index_over_tol": null
+       }
+      },
+      "composite_tasks": {
+       "in_criterion": false,
+       "max": 0.9999999917744535,
+       "max_index": 20,
+       "mean": 0.9411241665323795,
+       "first_index_over_tol": 1,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 38,
+        "max": 0.9999999917744535,
+        "mean": 0.8823304659147276,
+        "first_index_over_tol": 1
+       },
+       "Q>0.1CL": {
+        "years": 38,
+        "max": 0.999994263653239,
+        "mean": 0.999917867150031,
+        "first_index_over_tol": 38
+       }
+      }
+     }
+    }
+   }
+  },
+  "C101": {
+   "label": "outcome (iii) case: one 101-point grid",
+   "settings": {
+    "B0_default": {
+     "quantities": {
+      "gwp": {
+       "in_criterion": true,
+       "max": 0.9999998620629644,
+       "max_index": 26,
+       "mean": 0.8834994172202548,
+       "first_index_over_tol": 2,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 37,
+        "max": 0.9999998620629644,
+        "mean": 0.7607688673513705,
+        "first_index_over_tol": 2
+       },
+       "Q>0.1CL": {
+        "years": 39,
+        "max": 0.9999961440539628,
+        "mean": 0.9999360927368883,
+        "first_index_over_tol": 37
+       }
+      },
+      "capital": {
+       "in_criterion": true,
+       "max": 0.9999998151020291,
+       "max_index": 29,
+       "mean": 0.8494171928088273,
+       "first_index_over_tol": 6,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 37,
+        "max": 0.9999998151020291,
+        "mean": 0.6907383216516627,
+        "first_index_over_tol": 6
+       },
+       "Q>0.1CL": {
+        "years": 39,
+        "max": 0.9999988097569913,
+        "mean": 0.9999586859579321,
+        "first_index_over_tol": 37
+       }
+      },
+      "labor": {
+       "in_criterion": true,
+       "max": 8.104628079763643e-15,
+       "max_index": 75,
+       "mean": 3.770375824417801e-15,
+       "first_index_over_tol": null,
+       "passes": true,
+       "Q<=0.1CL": {
+        "years": 37,
+        "max": 3.774758283725532e-15,
+        "mean": 1.8243664837083652e-15,
+        "first_index_over_tol": null
+       },
+       "Q>0.1CL": {
+        "years": 39,
+        "max": 8.104628079763643e-15,
+        "mean": 5.6165898143216254e-15,
+        "first_index_over_tol": null
+       }
+      },
+      "hardware": {
+       "in_criterion": true,
+       "max": 0.9778568876217557,
+       "max_index": 26,
+       "mean": 0.643845894951673,
+       "first_index_over_tol": 5,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 37,
+        "max": 0.9778568876217557,
+        "mean": 0.5713939245854048,
+        "first_index_over_tol": 5
+       },
+       "Q>0.1CL": {
+        "years": 39,
+        "max": 0.8949056957441271,
+        "mean": 0.7125823796581324,
+        "first_index_over_tol": 37
+       }
+      },
+      "software": {
+       "in_criterion": true,
+       "max": 0.7888315082872366,
+       "max_index": 25,
+       "mean": 0.432389594554334,
+       "first_index_over_tol": 5,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 37,
+        "max": 0.7888315082872366,
+        "mean": 0.4288963239764288,
+        "first_index_over_tol": 5
+       },
+       "Q>0.1CL": {
+        "years": 39,
+        "max": 0.6389081270657802,
+        "mean": 0.4357037230513211,
+        "first_index_over_tol": 37
+       }
+      },
+      "frac_automated": {
+       "in_criterion": true,
+       "max": 0.010596016956799681,
+       "max_index": 8,
+       "mean": 0.0003982072924012595,
+       "first_index_over_tol": null,
+       "passes": true,
+       "Q<=0.1CL": {
+        "years": 37,
+        "max": 0.010596016956799681,
+        "mean": 0.0008179393033106951,
+        "first_index_over_tol": null
+       },
+       "Q>0.1CL": {
+        "years": 39,
+        "max": 0.0,
+        "mean": 0.0,
+        "first_index_over_tol": null
+       }
+      },
+      "compute_stock vs compute": {
+       "in_criterion": true,
+       "max": 0.9999999877913649,
+       "max_index": 31,
+       "mean": 0.8590839452215655,
+       "first_index_over_tol": 3,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 37,
+        "max": 0.9999999877913649,
+        "mean": 0.7105654674929508,
+        "first_index_over_tol": 3
+       },
+       "Q>0.1CL": {
+        "years": 39,
+        "max": 0.9999999412411593,
+        "mean": 0.9999860907589692,
+        "first_index_over_tol": 37
+       }
+      },
+      "effective_compute vs compute": {
+       "in_criterion": true,
+       "max": 141.35614703467238,
+       "max_index": 10,
+       "mean": 17.348386264498657,
+       "first_index_over_tol": 0,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 37,
+        "max": 141.35614703467238,
+        "mean": 34.58117147453844,
+        "first_index_over_tol": 0
+       },
+       "Q>0.1CL": {
+        "years": 39,
+        "max": 0.9998228135764452,
+        "mean": 0.9993336293326857,
+        "first_index_over_tol": 37
+       }
+      },
+      "labor_share": {
+       "in_criterion": false,
+       "max": Infinity,
+       "max_index": 13,
+       "mean": Infinity,
+       "first_index_over_tol": 2,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 37,
+        "max": Infinity,
+        "mean": Infinity,
+        "first_index_over_tol": 2
+       },
+       "Q>0.1CL": {
+        "years": 39,
+        "max": Infinity,
+        "mean": Infinity,
+        "first_index_over_tol": 37
+       }
+      },
+      "runtime_compute_share": {
+       "in_criterion": false,
+       "max": 6.42878610297909,
+       "max_index": 1,
+       "mean": 0.2635968723282099,
+       "first_index_over_tol": 0,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 37,
+        "max": 6.42878610297909,
+        "mean": 0.5414082305659346,
+        "first_index_over_tol": 0
+       },
+       "Q>0.1CL": {
+        "years": 39,
+        "max": 0.00022643757535967257,
+        "mean": 3.225041036861236e-05,
+        "first_index_over_tol": null
+       }
+      },
+      "composite_tasks": {
+       "in_criterion": false,
+       "max": 0.9999999228022016,
+       "max_index": 24,
+       "mean": 0.8977024026445658,
+       "first_index_over_tol": 2,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 37,
+        "max": 0.9999999228022016,
+        "mean": 0.7899676477767678,
+        "first_index_over_tol": 2
+       },
+       "Q>0.1CL": {
+        "years": 39,
+        "max": 0.9999911240076723,
+        "mean": 0.9999122982883739,
+        "first_index_over_tol": 37
+       }
+      }
+     }
+    },
+    "B1_conservative": {
+     "quantities": {
+      "gwp": {
+       "in_criterion": true,
+       "max": 0.9999999904047712,
+       "max_index": 40,
+       "mean": 0.8391770186506036,
+       "first_index_over_tol": 2,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 69,
+        "max": 0.9999999904047712,
+        "mean": 0.82286248871843,
+        "first_index_over_tol": 2
+       },
+       "Q>0.1CL": {
+        "years": 7,
+        "max": 0.9999967059592025,
+        "mean": 0.9999916708391721,
+        "first_index_over_tol": 69
+       }
+      },
+      "capital": {
+       "in_criterion": true,
+       "max": 0.9999999878496345,
+       "max_index": 45,
+       "mean": 0.7969517031643886,
+       "first_index_over_tol": 7,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 69,
+        "max": 0.9999999878496345,
+        "mean": 0.7763527792030651,
+        "first_index_over_tol": 7
+       },
+       "Q>0.1CL": {
+        "years": 7,
+        "max": 0.9999992962265641,
+        "mean": 0.9999982393545779,
+        "first_index_over_tol": 69
+       }
+      },
+      "labor": {
+       "in_criterion": true,
+       "max": 8.104628079763643e-15,
+       "max_index": 75,
+       "mean": 3.770375824417801e-15,
+       "first_index_over_tol": null,
+       "passes": true,
+       "Q<=0.1CL": {
+        "years": 69,
+        "max": 6.772360450213455e-15,
+        "mean": 3.3902027722973985e-15,
+        "first_index_over_tol": null
+       },
+       "Q>0.1CL": {
+        "years": 7,
+        "max": 8.104628079763643e-15,
+        "mean": 7.51779590960463e-15,
+        "first_index_over_tol": null
+       }
+      },
+      "hardware": {
+       "in_criterion": true,
+       "max": 0.9674722272393007,
+       "max_index": 55,
+       "mean": 0.6551466291253384,
+       "first_index_over_tol": 8,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 69,
+        "max": 0.9674722272393007,
+        "mean": 0.6245973636713248,
+        "first_index_over_tol": 8
+       },
+       "Q>0.1CL": {
+        "years": 7,
+        "max": 0.9599595629083599,
+        "mean": 0.9562751028863296,
+        "first_index_over_tol": 69
+       }
+      },
+      "software": {
+       "in_criterion": true,
+       "max": 0.8253143855196652,
+       "max_index": 37,
+       "mean": 0.5173888971430209,
+       "first_index_over_tol": 7,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 69,
+        "max": 0.8253143855196652,
+        "mean": 0.5130009131060388,
+        "first_index_over_tol": 7
+       },
+       "Q>0.1CL": {
+        "years": 7,
+        "max": 0.6115323304950393,
+        "mean": 0.5606418826504169,
+        "first_index_over_tol": 69
+       }
+      },
+      "frac_automated": {
+       "in_criterion": true,
+       "max": 0.022782383761511538,
+       "max_index": 14,
+       "mean": 0.0017795788938420336,
+       "first_index_over_tol": 14,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 69,
+        "max": 0.022782383761511538,
+        "mean": 0.001960115883072385,
+        "first_index_over_tol": 14
+       },
+       "Q>0.1CL": {
+        "years": 7,
+        "max": 0.0,
+        "mean": 0.0,
+        "first_index_over_tol": null
+       }
+      },
+      "compute_stock vs compute": {
+       "in_criterion": true,
+       "max": 0.9999999993491776,
+       "max_index": 49,
+       "mean": 0.8091682274417692,
+       "first_index_over_tol": 3,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 69,
+        "max": 0.9999999993491776,
+        "mean": 0.7898084922291783,
+        "first_index_over_tol": 3
+       },
+       "Q>0.1CL": {
+        "years": 7,
+        "max": 0.999999966039105,
+        "mean": 0.9999999031087361,
+        "first_index_over_tol": 69
+       }
+      },
+      "effective_compute vs compute": {
+       "in_criterion": true,
+       "max": 126.45218805296057,
+       "max_index": 14,
+       "mean": 23.054022487293558,
+       "first_index_over_tol": 0,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 69,
+        "max": 126.45218805296057,
+        "mean": 25.29141664673801,
+        "first_index_over_tol": 0
+       },
+       "Q>0.1CL": {
+        "years": 7,
+        "max": 0.9998842364650439,
+        "mean": 0.9997086299124727,
+        "first_index_over_tol": 69
+       }
+      },
+      "labor_share": {
+       "in_criterion": false,
+       "max": Infinity,
+       "max_index": 20,
+       "mean": Infinity,
+       "first_index_over_tol": 2,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 69,
+        "max": Infinity,
+        "mean": Infinity,
+        "first_index_over_tol": 2
+       },
+       "Q>0.1CL": {
+        "years": 7,
+        "max": Infinity,
+        "mean": Infinity,
+        "first_index_over_tol": 69
+       }
+      },
+      "runtime_compute_share": {
+       "in_criterion": false,
+       "max": 12.235044432262516,
+       "max_index": 2,
+       "mean": 0.6158830445233853,
+       "first_index_over_tol": 0,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 69,
+        "max": 12.235044432262516,
+        "mean": 0.6783510531924216,
+        "first_index_over_tol": 0
+       },
+       "Q>0.1CL": {
+        "years": 7,
+        "max": 0.00025132340989664215,
+        "mean": 0.00012695907145613257,
+        "first_index_over_tol": null
+       }
+      },
+      "composite_tasks": {
+       "in_criterion": false,
+       "max": 0.9999999931616782,
+       "max_index": 38,
+       "mean": 0.8580801006504626,
+       "first_index_over_tol": 2,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 69,
+        "max": 0.9999999931616782,
+        "mean": 0.8436846759808235,
+        "first_index_over_tol": 2
+       },
+       "Q>0.1CL": {
+        "years": 7,
+        "max": 0.9999912670943694,
+        "mean": 0.9999778581083323,
+        "first_index_over_tol": 69
+       }
+      }
+     }
+    },
+    "B2_aggressive": {
+     "quantities": {
+      "gwp": {
+       "in_criterion": true,
+       "max": 0.9999999828010545,
+       "max_index": 23,
+       "mean": 0.9321169465549428,
+       "first_index_over_tol": 1,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 38,
+        "max": 0.9999999828010545,
+        "mean": 0.8642879823202803,
+        "first_index_over_tol": 1
+       },
+       "Q>0.1CL": {
+        "years": 38,
+        "max": 0.9999979902260644,
+        "mean": 0.9999459107896049,
+        "first_index_over_tol": 38
+       }
+      },
+      "capital": {
+       "in_criterion": true,
+       "max": 0.9999999763595752,
+       "max_index": 26,
+       "mean": 0.9048453574599996,
+       "first_index_over_tol": 5,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 38,
+        "max": 0.9999999763595752,
+        "mean": 0.8097215387541584,
+        "first_index_over_tol": 5
+       },
+       "Q>0.1CL": {
+        "years": 38,
+        "max": 0.9999995820458458,
+        "mean": 0.9999691761658402,
+        "first_index_over_tol": 38
+       }
+      },
+      "labor": {
+       "in_criterion": true,
+       "max": 8.104628079763643e-15,
+       "max_index": 75,
+       "mean": 3.770375824417801e-15,
+       "first_index_over_tol": null,
+       "passes": true,
+       "Q<=0.1CL": {
+        "years": 38,
+        "max": 3.885780586188048e-15,
+        "mean": 1.8786142232473045e-15,
+        "first_index_over_tol": null
+       },
+       "Q>0.1CL": {
+        "years": 38,
+        "max": 8.104628079763643e-15,
+        "mean": 5.662137425588298e-15,
+        "first_index_over_tol": null
+       }
+      },
+      "hardware": {
+       "in_criterion": true,
+       "max": 0.9906974939900881,
+       "max_index": 21,
+       "mean": 0.8177902563725036,
+       "first_index_over_tol": 4,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 38,
+        "max": 0.9906974939900881,
+        "mean": 0.711476015879984,
+        "first_index_over_tol": 4
+       },
+       "Q>0.1CL": {
+        "years": 38,
+        "max": 0.9241044968650232,
+        "mean": 0.9241044968650228,
+        "first_index_over_tol": 38
+       }
+      },
+      "software": {
+       "in_criterion": true,
+       "max": 0.7275322846544647,
+       "max_index": 18,
+       "mean": 0.5278655186699607,
+       "first_index_over_tol": 3,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 38,
+        "max": 0.7275322846544647,
+        "mean": 0.4789251206934205,
+        "first_index_over_tol": 3
+       },
+       "Q>0.1CL": {
+        "years": 38,
+        "max": 0.5768059166465008,
+        "mean": 0.5768059166465006,
+        "first_index_over_tol": 38
+       }
+      },
+      "frac_automated": {
+       "in_criterion": true,
+       "max": 0.0006876609069161876,
+       "max_index": 2,
+       "mean": 9.048169827884017e-06,
+       "first_index_over_tol": null,
+       "passes": true,
+       "Q<=0.1CL": {
+        "years": 38,
+        "max": 0.0006876609069161876,
+        "mean": 1.8096339655768034e-05,
+        "first_index_over_tol": null
+       },
+       "Q>0.1CL": {
+        "years": 38,
+        "max": 0.0,
+        "mean": 0.0,
+        "first_index_over_tol": null
+       }
+      },
+      "compute_stock vs compute": {
+       "in_criterion": true,
+       "max": 0.9999999992799583,
+       "max_index": 28,
+       "mean": 0.9102322045613455,
+       "first_index_over_tol": 2,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 38,
+        "max": 0.9999999992799583,
+        "mean": 0.8204673498216003,
+        "first_index_over_tol": 2
+       },
+       "Q>0.1CL": {
+        "years": 38,
+        "max": 0.9999999776807807,
+        "mean": 0.9999970593010913,
+        "first_index_over_tol": 38
+       }
+      },
+      "effective_compute vs compute": {
+       "in_criterion": true,
+       "max": 154.9999793774245,
+       "max_index": 6,
+       "mean": 13.59724732557016,
+       "first_index_over_tol": 0,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 38,
+        "max": 154.9999793774245,
+        "mean": 26.194951903313598,
+        "first_index_over_tol": 0
+       },
+       "Q>0.1CL": {
+        "years": 38,
+        "max": 0.9999150369949404,
+        "mean": 0.9995427478267235,
+        "first_index_over_tol": 38
+       }
+      },
+      "labor_share": {
+       "in_criterion": false,
+       "max": Infinity,
+       "max_index": 9,
+       "mean": Infinity,
+       "first_index_over_tol": 1,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 38,
+        "max": Infinity,
+        "mean": Infinity,
+        "first_index_over_tol": 1
+       },
+       "Q>0.1CL": {
+        "years": 38,
+        "max": Infinity,
+        "mean": Infinity,
+        "first_index_over_tol": 38
+       }
+      },
+      "runtime_compute_share": {
+       "in_criterion": false,
+       "max": 3.5335851840763244,
+       "max_index": 0,
+       "mean": 0.1592901307299951,
+       "first_index_over_tol": 0,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 38,
+        "max": 3.5335851840763244,
+        "mean": 0.31853865763292843,
+        "first_index_over_tol": 0
+       },
+       "Q>0.1CL": {
+        "years": 38,
+        "max": 0.00033646892217276125,
+        "mean": 4.1603827061759425e-05,
+        "first_index_over_tol": null
+       }
+      },
+      "composite_tasks": {
+       "in_criterion": false,
+       "max": 0.9999999913946165,
+       "max_index": 20,
+       "mean": 0.9413539471364794,
+       "first_index_over_tol": 1,
+       "passes": false,
+       "Q<=0.1CL": {
+        "years": 38,
+        "max": 0.9999999913946165,
+        "mean": 0.8827886670043188,
+        "first_index_over_tol": 1
+       },
+       "Q>0.1CL": {
+        "years": 38,
+        "max": 0.9999941066825724,
+        "mean": 0.9999192272686407,
+        "first_index_over_tol": 38
+       }
+      }
+     }
+    }
+   }
+  }
  }
 }

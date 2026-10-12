@@ -36,6 +36,21 @@ def test_a13_criterion(setting):
 
 
 @needs_bundle
+@pytest.mark.xfail(strict=True, reason="A1.3 variant B (footnote-38 grids) failed, see audit/s3-gate-comparison.md section 7 and the D-027 outcome note")
+@pytest.mark.parametrize("variant", ["B", "C101"])
+@pytest.mark.parametrize("setting", list(SETTINGS_B))
+def test_a13_criterion_variants(setting, variant):
+    """D-027: same criterion for variant B and for the single named 101-point case. Both failed (outcome ii)."""
+    from dataclasses import replace
+    idx, params = SETTINGS_B[setting]
+    runs = gr.load_runs()
+    s3 = run_s3(replace(params, composite=variant), gr.investment_shares(runs[idx], 80))
+    res = compare(s3, gr.field, runs[idx])
+    failing = {k: v["first_index_over_tol"] for k, v in res.items() if v["in_criterion"] and not v["passes"]}
+    assert not failing, f"{variant}/{setting}: {failing}"
+
+
+@needs_bundle
 @pytest.mark.parametrize("setting", list(SETTINGS_B))
 def test_a15_properties_on_shipped_runs(setting):
     idx, params = SETTINGS_B[setting]
@@ -68,3 +83,13 @@ def test_s3_in_loop_runs_without_bundle():
     from f3.sectors.s3_ai import playground_setting
     s3 = run_s3(playground_setting(), constant_shares(shares))
     assert all(np.all(np.isfinite(v)) for k, v in s3.items() if k not in ("training_compute", "labor_share"))
+
+
+@pytest.mark.parametrize("variant", ["A", "B", "C101"])
+def test_composite_variants_agree_when_no_automation(variant):
+    """With f = f_init and tiny compute the composite is close to L for every variant (needs no reference data)."""
+    from f3.sectors.s3_ai import composite_for, playground_setting
+    from dataclasses import replace
+    p = replace(playground_setting(), composite=variant)
+    T, _ = composite_for(3.6e9, 0.1, 1e20, 5e25, p)
+    assert T == pytest.approx(3.6e9, rel=1e-3)

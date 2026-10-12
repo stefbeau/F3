@@ -55,3 +55,21 @@ The two stress settings are report-only and use a **placeholder** investment pat
 1. **A1.3 is recorded as failed**, with the unresolved cause in section 3. Options, none applied: (a) try the solver's grids (20/100 points, footnote 38) in the composite — an equation change made after seeing data, to be approved as a labelled post-hoc proposal; (b) accept S3 as implemented, with the composite as a known open difference, and carry the investment-rule step forward; (c) ask Epoch (D-026 draft email) for the allocation convention.
 2. **Amendment B's pairing "effective compute against stored `compute`"** is not like for like; both rows are shown. Which one counts is the editor's call.
 3. **The premise of the editor's eq.-10 clause** is not supported by the data (section 3); suggested handling: an appended dated note on D-005 (not an edit).
+
+## 7. Second row (D-027, approved 2026-10-12): variant B of the production block, and the single named 101-point case
+
+Added 2026-10-12. Nothing above is changed; variant A (20,000 midpoints) stays the default and stays recorded as failed. How B is implemented: `research/gate-equations.md` section 10 (written before the run; four dated corrections, all made before any variant B comparison existed, after the first runs raised errors in the solver for the discrete problem: a wrong formula, a missing corner case, and two `f = 1` handlings). Same criterion, indices and quantities as section 2.
+
+| quantity | A: default / conservative / aggressive (first year > 2%) | **B** (footnote-38 grids): default / conservative / aggressive | 101-point case: default / conservative / aggressive |
+|---|---|---|---|
+| gross output | 2027 / 2027 / 2026 | 2027 / 2027 / 2026 | 2027 / 2027 / 2026 |
+| capital | 2031 / 2032 / 2030 | 2031 / 2032 / 2030 | 2031 / 2032 / 2030 |
+| hardware efficiency | 2030 / 2033 / 2029 | 2030 / 2033 / 2029 | 2030 / 2033 / 2029 |
+| software efficiency | 2030 / 2032 / 2028 | 2030 / 2032 / 2028 | 2030 / 2032 / 2028 |
+| compute stock `Q` vs stored `compute` | 2028 / 2028 / 2027 | 2028 / 2028 / 2027 | 2028 / 2028 / 2027 |
+| automation fraction | pass / 2039 / pass | pass / 2039 / pass | pass / 2039 / pass |
+| labour | pass | pass | pass |
+
+Largest differences (default): output 100%, hardware 97.8%, software 79.1% (B); the same to within 0.3 percentage points as A. Full figures per quantity and year group: `audit/data/s3-gate-comparison.json`, key `variants`.
+
+**Outcome under D-027 (pre-registered): (ii).** Variant B **fails A1.3** on all three runs, with the same first failure years as A. Per the pre-registered rule the single named case of outcome (iii) was then tried once, and it **also fails** in the same years, so the "matches the playground, not the paper" label does not apply. **No other grid size was tried and the composite work stops here.** Measured: three discretisations (20,000 midpoints; 20 and 100 points; 101 points) give the same output to within a fraction of a percent, so **the task grid is not the cause of the gap**. What remains (not established): the stored allocation being a different iterate from the one behind the stored `T`, my reading of eqs. 14 to 16 and footnote 39, or something in the playground the paper does not state. The Epoch email draft (unsent) asks the grid question and others.
