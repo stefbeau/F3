@@ -203,8 +203,8 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
   (a) The stored `compute` field of the shipped runs is the **raw compute stock Q**, not effective compute (section 9.1, identity 1: `Q[k] = Q[k-1] exp(-delta_Q) + I_q[k] H[k-1]`, deviation 2e-16).
   (b) The premise of the equation-10 clause added in amendment B (stored compute divided by software exceeds C_L) is therefore **not supported**: that ratio is Q/S, and Q is not capped by C_L (eq. 10 caps g(Q), which the playground applies when it splits usable compute between training and runtime). The "playground differs from the paper" classification is **not applied to anything**.
   (c) The observation behind the clause came from an earlier misreading by the strategist (`research/gate-equations.md` section 6, item 4, which read the stored field as possibly g(Q) S); this work corrected it.
-  (d) Which of the two compute rows counts for the A1.3 criterion (S3's raw stock Q, or effective compute g(Q) S, each against the stored `compute`) is left to the editor. It has no effect on the current result, because every compared row fails from the production composite onward (first failures 2026 to 2027). A1.3 is recorded as failed on all three shipped runs.
-
+  (d) Which of the two compute rows counts for the A1.3 criterion (S3's raw stock Q, or effective compute g(Q) S, each against the stored `compute`) is left to the editor. It has no effect on the current result, because every compared row fails from the production composite onward (first failures 2026 to 2027). A1.3 is recorded as failed on all three shipped runs.
+
 ## D-006 — Critical minerals granularity in v0.1
 
 - **Status:** Proposed
