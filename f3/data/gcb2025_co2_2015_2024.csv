@@ -1,0 +1,16 @@
+# Global Carbon Budget 2025 v1.0, sheet 'Historical Budget', GtC/yr (billion tonnes of carbon per year); extract of years 2015 to 2024.
+# Source: Global Carbon Project (2026). Supplemental data of Global Carbon Budget 2025 (Version 1.0). https://doi.org/10.18160/gcp-2025
+#   ICOS Carbon Portal; Friedlingstein et al. (2026), Earth System Science Data 18, 3211-3288, https://doi.org/10.5194/essd-18-3211-2026
+# Licence: CC BY 4.0 (ICOS data licence: derived products and redistribution allowed, attribution required).
+# Source file sha256: a928cf06c57576b66761d1fec8224c9a41a781eb63442afc03ba902858dd64a9
+year,fossil_GtC,land_use_change_GtC
+2015,9.6625348,1.77746333
+2016,9.65961527,1.4674
+2017,9.8183979,1.44862667
+2018,10.0256558,1.33243
+2019,10.1218796,1.33383667
+2020,9.59558674,1.23268
+2021,10.061917,1.27104333
+2022,10.2422958,1.30605667
+2023,10.3968461,1.29518333
+2024,10.5345464,1.25150333

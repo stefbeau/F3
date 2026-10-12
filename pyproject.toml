@@ -7,6 +7,9 @@ requires-python = ">=3.11"
 license = { text = "Apache-2.0" }
 dependencies = [
     "numpy>=1.26",
+    # climate sector (M2 step 1): used unmodified from PyPI, Apache 2.0; pinned exactly
+    "fair==2.2.4",
+    "pandas>=2",
 ]
 
 [dependency-groups]
@@ -14,8 +17,9 @@ dev = [
     "pytest>=8",
     # second check for the World3 ports; used unmodified, never copied (CeCILL 2.1, D-001, D-012)
     "pyworld3==1.1",
-    "pandas>=2",
     "scipy>=1.11",
+    # reads the Global Carbon Budget xlsx when the committed extract is regenerated
+    "openpyxl>=3.1",
 ]
 
 [tool.pytest.ini_options]
