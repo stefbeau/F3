@@ -69,7 +69,7 @@ class SliceConfig:
 
 
 def build(cfg: SliceConfig, climate: Optional[ReplaySector] = None, climate_setup: ClimateSetup = ClimateSetup(n_members=20),
-          dt: float = 0.25):
+          dt: float = 0.25, t1: float = T1):
     """Return the Model. ``climate`` is a recorded run (``climate_replay``) or None for a live S6Climate with ``climate_setup``."""
     damage_on = cfg.damage != "off"
     s3 = S3AI(cfg.gate, rule=R3Rule(cfg.levers), electricity_limited=cfg.electricity, damage_option=cfg.damage if damage_on else None)
@@ -86,8 +86,9 @@ def build(cfg: SliceConfig, climate: Optional[ReplaySector] = None, climate_setu
     sectors.append(s6)
     if damage_on:
         couplings.append(Coupling("s6_climate", "warming", "s3_ai", "warming"))
-    return Model(sectors, couplings, t0=T0, t1=T1, dt=dt)
+    return Model(sectors, couplings, t0=T0, t1=t1, dt=dt)
 
 
-def run_slice(cfg: SliceConfig, climate: Optional[ReplaySector] = None, climate_setup: ClimateSetup = ClimateSetup(n_members=20), dt: float = 0.25):
-    return build(cfg, climate, climate_setup, dt).run()
+def run_slice(cfg: SliceConfig, climate: Optional[ReplaySector] = None, climate_setup: ClimateSetup = ClimateSetup(n_members=20),
+              dt: float = 0.25, t1: float = T1):
+    return build(cfg, climate, climate_setup, dt, t1).run()
