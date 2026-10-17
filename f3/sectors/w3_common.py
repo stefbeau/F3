@@ -33,10 +33,10 @@ from f3.core.sector import Context, Sector
 
 UNITS: Dict[str, str] = {
     "pop": "persons", "p2": "persons", "p3": "persons",
-    "io": "dollars/year", "iopc": "dollars/person-year", "sopc": "dollars/person-year",
+    "io": "dollars/year", "so": "dollars/year", "j": "jobs", "lf": "jobs", "iopc": "dollars/person-year", "sopc": "dollars/person-year",
     "ppolx": "1", "fcaor": "1", "fioaa": "1", "nrfr": "1", "cuf": "1",
     "fpc": "vegetable-equivalent kilograms/person-year", "f": "vegetable-equivalent kilograms/year",
-    "al": "hectares", "aiph": "dollars/hectare-year", "pcrum": "resource units/person-year",
+    "al": "hectares", "aiph": "dollars/hectare-year", "pcrum": "resource units/person-year", "nrur": "resource units/year",
     "ly": "vegetable-equivalent kilograms/hectare-year", "ppgr": "pollution units/year",
 }
 
