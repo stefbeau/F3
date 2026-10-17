@@ -37,7 +37,7 @@ UNITS: Dict[str, str] = {
     "ppolx": "1", "fcaor": "1", "fioaa": "1", "nrfr": "1", "cuf": "1",
     "fpc": "vegetable-equivalent kilograms/person-year", "f": "vegetable-equivalent kilograms/year",
     "al": "hectares", "aiph": "dollars/hectare-year", "pcrum": "resource units/person-year", "nrur": "resource units/year",
-    "ly": "vegetable-equivalent kilograms/hectare-year", "ppgr": "pollution units/year",
+    "ly": "vegetable-equivalent kilograms/hectare-year", "ppgr": "pollution units/year", "ppapr": "pollution units/year", "ppasr": "pollution units/year", "ahl": "years",
 }
 
 TableData = Tuple[Tuple[float, ...], Tuple[float, float]]
