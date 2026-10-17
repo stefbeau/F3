@@ -82,6 +82,9 @@ def a31(make, ps: str, mapping: Dict[str, str], state_map: Dict[str, str], out_m
         i70 = int(np.where(np.isclose(ref["time"], 1970.0))[0][0])
         sector.set_initial_state(np.array([ref[state_map[n]][i70] for n in sector.STATE_NAMES]))
     res = run_alone(sector, ps, mapping, t0=t0)
+    sel = ref["time"] >= t0 - 1e-9
+    ref = {k: v[sel] for k, v in ref.items()}          # restart runs are compared from the restart time on
+    tight = {k: v[sel] for k, v in tight.items()}
     idx = grid_index(res.time, ref["time"])
     return sector, res, idx, ref, tight
 

@@ -75,10 +75,9 @@ def test_parameter_sets_differ_as_documented():
 def test_restart_in_1970_from_the_reference_state_stays_within_2_percent(ps):
     """D-019 mechanics: started in 1970 from the reference's own 1970 state."""
     s, res, idx, ref, tight = a31(Agriculture, ps, INPUTS, STATES, OUTS, t0=1970.0, use_1970_state=True)
-    sel = ref["time"] >= 1970.0
     st = s.states()
     for n, col in STATES.items():
-        e = relerr(st[n][idx[sel]], ref[col][sel])
+        e = relerr(st[n][idx], ref[col])
         assert e.max() <= TOL, f"{ps} {n}: {100*e.max():.3f}%"
 
 
