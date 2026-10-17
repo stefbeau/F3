@@ -1,6 +1,6 @@
 # F3 — Status
 
-**As of 2026-10-12 (end of day; fast-track: D-030, D-007, D-009 approved; three tracks launched).** `DECISIONS.md` is authoritative for decisions; this page summarises. Keep it current: update it in the same commit as any change of status.
+**As of 2026-10-17 (Track A built and held; Tracks B and C stopped).** `DECISIONS.md` is authoritative for decisions; this page summarises. Keep it current: update it in the same commit as any change of status.
 
 ## Phases
 | Phase | Goal | Status |
@@ -61,5 +61,20 @@ Each track works in its own git worktree and branch and writes `docs/tracks/<tra
 | C | M4: reused Earth4All sectors (A4.1-A4.6); N4 delegated per D-023 | `track-c` | **stopped by the editor 2026-10-12, no work produced** (branch at main, nothing to merge) |
 The D-021 measurement finished (see the M2 row); its report and D-021 outcome note are on main. Not started: M5 (water, minerals), Phase 3.
 
+### Track A result (2026-10-17): three slice tests FAILED, recorded, no test changed
+Tests written before results (`docs/tracks/track-a-plan.md`); 20-member development climate for tests. Six of nine pass (A2.2 consistency, A2.4 invariance to 1e-9, A2.5, B2 sign, damage anchors). **Failures:**
+- **A2.6 step halving (0.25 to 0.125 year): FAILED.** Largest difference 0.565% in data-centre electricity used (2036; first above 0.1% in 2028); output 0.197%; compute 0.108%; the bar is 0.1%.
+- **B1 sign: FAILED.** Halving electricity supply gives up to 17.8% MORE compute in 2038-2045 (first 2038), the opposite of the expected direction. The track's explanation (R3's shares depend on usable compute) is an inference, not tested.
+- **R1 sign: FAILED** on automation: both runs are at 1.0 at 2065, so no increase can be seen (compute is higher).
+- **Finding:** modelled data-centre demand is about 20,000 TWh in 2030 and 414,000 TWh in 2040, because S3's unvalidated compute path (D-029) leaves any plausible range; supply binds from 2027-28.
+- **Checked on this side:** my re-run of the slice tests gives 6 passed, 3 failed as above. The 33-line change to `f3/sectors/s3_ai.py` on the branch leaves S3 unchanged: the A1.3 and A1.5 figures (all settings, the stored-T diagnostic, the stress settings, the variants) and the R3 A1.4 figures regenerate bit-identical to `audit/data/s3-gate-comparison.json` and `s3-r3-a1.4.json`; the S3 and R3 tests give 28 passed, 9 strict xfail.
+- **Not verified here:** the five Provisional decisions and the review checklist (`docs/tracks/track-a.md`, `track-a-review.md`); the 841-member climate run; the page has not been viewed in a browser (phone width, dark mode).
+
+### To revisit after the Epoch reply
+1. **R3 design:** the counter-loop under supply limits (B1 sign failure).
+2. **A better R1 test** (automation saturates at 1.0 by 2065), only as a labelled post-hoc addition; the failed test stays recorded.
+3. **A2.6 step convergence** (0.565% against 0.1%).
+4. **The implausible 2030+ electricity demand** (about 20,000 TWh in 2030) caused by S3's unvalidated compute path.
+
 ## Next tasks
-Waiting for the editor only on the STOP list in `CLAUDE.md` (criteria, labels, licences, publishing, email, deletions, spending). Open for the editor: send the Epoch email (S3); say whether tracks A, B, C are relaunched. D-021 is settled: option (a). `docs/HANDOVER.md` has the Phase 2 prompts; Prompt 5 is open. Open issues carried into Phase 2: `docs/phase-1-review.md`, section 4.
+Waiting for the editor. Demo 0 is held (A2.7 not approved); Track A's branch is kept, not merged; Tracks B and C are stopped. Open for the editor: send the Epoch email (S3). D-021 is settled: option (a). Only the editor's STOP list in `CLAUDE.md` applies to anything further. `docs/HANDOVER.md` has the Phase 2 prompts; Prompt 5 is open. Open issues carried into Phase 2: `docs/phase-1-review.md`, section 4.
