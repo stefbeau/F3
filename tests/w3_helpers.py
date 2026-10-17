@@ -60,3 +60,39 @@ def worst(states: Dict[str, np.ndarray], ref: Dict[str, np.ndarray], names: Dict
         e = relerr(states[n][idx], ref[col])
         out[n] = (float(e.max()), float(t[int(e.argmax())]))
     return out
+
+
+# ----------------------------------------------------------------------------------------------------------
+# A3.1 (a sector alone, recorded inputs) shared by the four sector test files
+# ----------------------------------------------------------------------------------------------------------
+def recorded_initial_inputs(ps: str, mapping: Dict[str, str], t: float = 1900.0) -> Dict[str, float]:
+    s = signals(ps)
+    return {k: float(np.interp(t, s["time"], s[v])) for k, v in mapping.items()}
+
+
+def a31(make, ps: str, mapping: Dict[str, str], state_map: Dict[str, str], out_map: Dict[str, str], t0: float = 1900.0,
+        use_1970_state: bool = False):
+    """Run ``make(ps)`` alone against the recorded inputs; return (sector, results, idx, ref, tight).
+
+    ``state_map`` and ``out_map`` map port names to fixture column names (WorldDynamics.jl names)."""
+    ref, tight = reference(ps), reference(ps, "tight")
+    sector = make(ps)
+    sector.set_initial_inputs(recorded_initial_inputs(ps, mapping, t0))
+    if use_1970_state:
+        i70 = int(np.where(np.isclose(ref["time"], 1970.0))[0][0])
+        sector.set_initial_state(np.array([ref[state_map[n]][i70] for n in sector.STATE_NAMES]))
+    res = run_alone(sector, ps, mapping, t0=t0)
+    idx = grid_index(res.time, ref["time"])
+    return sector, res, idx, ref, tight
+
+
+def state_table(sector, idx, ref, tight, state_map):
+    """name -> (max err vs default, year, max err vs tight, default-vs-tight of the reference)."""
+    st = sector.states()
+    out = {}
+    for n, col in state_map.items():
+        e = relerr(st[n][idx], ref[col])
+        et = relerr(st[n][idx], tight[col])
+        er = relerr(ref[col], tight[col])
+        out[n] = (float(e.max()), float(ref["time"][int(e.argmax())]), float(et.max()), float(er.max()), float(e.mean()))
+    return out
