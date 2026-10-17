@@ -306,7 +306,8 @@ class S3AI(Sector):
         "runtime_compute_share": "1",
     }
 
-    def __init__(self, params: Optional[GateParams] = None, name: Optional[str] = None, rule=None, stored_T=None):
+    def __init__(self, params: Optional[GateParams] = None, name: Optional[str] = None, rule=None, stored_T=None,
+                 electricity_limited: bool = False, damage_option: Optional[str] = None):
         """``rule``: an object with ``shares(f, u) -> dict`` (D-028); when given, S3 has no inputs and generates its own shares.
         ``stored_T``: DIAGNOSTIC ONLY, a sequence of composite task inputs supplied period by period in place of the production
         block (used to separate the open composite difference from everything else); never a model option."""
@@ -315,6 +316,16 @@ class S3AI(Sector):
         self.stored_T = stored_T
         if rule is not None:
             self.inputs = {}
+        # M2 slice options (Track A). Both default off, in which case every number is bit-identical to the M1 sector.
+        self.electricity_limited = electricity_limited      # usable compute scaled by the input ``supply_ratio`` (loop B1)
+        self.damage_option = damage_option                  # None or "low"/"central"/"high": output scaled by 1 - Omega(warming) (loop B2)
+        if electricity_limited:
+            self.inputs = {**self.inputs, "supply_ratio": "1"}
+        if damage_option is not None:
+            from f3.sectors.damages import check_option
+            check_option(damage_option)
+            self.inputs = {**self.inputs, "warming": "K"}
+            self.outputs = {**self.outputs, "gwp_gross": "USD/year", "damage_fraction": "1"}
         if self.p.mu != 0.0:
             raise NotImplementedError("S3 implements mu = 0 only (gate-equations 9.3, item 7)")
         if name is not None:
@@ -341,6 +352,9 @@ class S3AI(Sector):
             "runtime_compute": p.runtime_compute_init, "composite_tasks": p.L0, "labor_share": float("nan"),
             "runtime_compute_share": float("nan"),
         }
+        if self.damage_option is not None:
+            self._out["gwp_gross"] = p.Y0
+            self._out["damage_fraction"] = 0.0
         self.history = {n: [] for n in list(self.outputs) + ["q_consumption_in", "Q_over_CL", "I_compute_usd", "I_compute_units"]}
 
     def current_outputs(self) -> Dict[str, float]:
@@ -353,9 +367,11 @@ class S3AI(Sector):
         k = self._k
         # (a) automation, with the one-period lag
         f = automated_fraction(self.C_T * p.inference_multiplier, p)
-        gQ = usable_compute(self.Q, p.C_L)
+        gQ_cap = usable_compute(self.Q, p.C_L)
+        ratio = ctx.input("supply_ratio", t) if self.electricity_limited else 1.0
+        gQ = gQ_cap * ratio                                  # electricity-limited usable compute (ratio = 1: unchanged)
         if self.rule is not None:
-            q = self.rule.shares(f, gQ / p.C_L)
+            q = self.rule.shares(f, gQ_cap / p.C_L)
         else:
             q = {n: ctx.input(n, t) for n in SHARE_NAMES}
         if abs(sum(q[n] for n in SHARE_NAMES[:5]) - 1.0) > 1e-9 or min(q.values()) < -1e-12:
@@ -368,7 +384,13 @@ class S3AI(Sector):
             T, p_over_w = float(self.stored_T[k]), 0.0
         else:
             T, p_over_w = composite_for(L_k, f, runtime, self.C_T, p)
-        gwp = p.A * T ** (1.0 - p.alpha) * self.K ** p.alpha
+        gwp_gross = p.A * T ** (1.0 - p.alpha) * self.K ** p.alpha
+        if self.damage_option is not None:
+            from f3.sectors.damages import damage_fraction
+            dmg = damage_fraction(ctx.input("warming", t), self.damage_option)
+            gwp = gwp_gross * (1.0 - dmg)
+        else:
+            gwp = gwp_gross
         rt_share = (1.0 - p.alpha) * p_over_w * runtime / (L_k + p_over_w * runtime) if runtime > 0 else 0.0
         # (c) investments in dollars
         I_Q, I_K = q["q_compute"] * gwp, q["q_capital"] * gwp
@@ -394,6 +416,9 @@ class S3AI(Sector):
             "runtime_compute": runtime, "composite_tasks": T, "labor_share": 1.0 - p.alpha - rt_share,
             "runtime_compute_share": rt_share,
         }
+        if self.damage_option is not None:
+            self._out["gwp_gross"] = gwp_gross
+            self._out["damage_fraction"] = dmg
         for n in self.outputs:
             self.history[n].append(self._out[n])
         for n in SHARE_NAMES:
