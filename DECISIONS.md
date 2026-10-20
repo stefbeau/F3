@@ -939,6 +939,8 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Decision:** Approved by the editor, 2026-10-20.
 - **Date:** 2026-10-20
 
+- **Outcome note (2026-10-20, appended; no earlier line changed).** Re-run with the criteria unchanged (`audit/m3-world3-port-report.md` section 7). **A3.2 met**, both sets: worst state `fcfpc1` 1.621% (1974) and `lufd` 1.906% (2004), 0 of 29 above 2% (predicted). **A3.3 (1974, pollution start-up matched, labelled diagnostic) met:** worst `ppol` 0.91%. **A3.4(b) failed:** S1 inside the full run against S1 alone with recorded inputs, worst 1.019% (1974, `aiopc`) and 0.931% (2004, `fcfpc1`) against 0.25%; the prediction written here that it would be "borderline" **was wrong** (measured 4 to 5 times the criterion). The track's reading, inferred and not tested, is that this gap is S1's response to small differences in the other four sectors' outputs and not an error of S1's equations. The criterion is not relaxed. The Sector interface was not changed (the group is a Sector), so the global-step fallback was not used. One full run takes 2.3 s (2004 set) to 3.2 s (1974 set).
+
 ---
 
 ## Template for new entries
