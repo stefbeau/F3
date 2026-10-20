@@ -33,7 +33,7 @@ PATCHES = {
     "public": {"OWTFP": ("1 + OWETFP * (OW / OW2022 - 1)", "1 + SW_OWTFP * OWETFP * (OW / OW2022 - 1)")},
 }
 EXTRA_PARAMS = {"output": {"SW_OWECC": 1.0, "SW_OWELC": 1.0}, "public": {"SW_OWTFP": 1.0}}
-FUNCS = {"ramp", "step", "pulse", "withlookup", "max", "min", "exp", "log", "ifelse", "True", "False"}
+FUNCS = {"if", "else", "ramp", "step", "pulse", "withlookup", "max", "min", "exp", "log", "ifelse", "True", "False"}
 
 
 def split_top(s: str, sep: str = ","):
@@ -121,6 +121,8 @@ def units_from_desc(d: str) -> str:
         return "1"
     toks = d.split()
     last = toks[-1] if toks else ""
+    if ")" in last or "(" in last:
+        return "1"
     if len(toks) > 1 and re.search(r"[/0-9]|dollar|^M[pu]|^G[a-z]|^k[a-z]|GW|TWh|Mtoe|toe|deg|^y$|ftj", last, re.I):
         return last.lower().replace("dollar", "usd")
     return "1"
@@ -138,7 +140,7 @@ def translate(key: str, clone: Path):
     for i in range(a, b):
         ln = sub[i].strip()
         ln1 = i + 1
-        if not ln or ln.startswith("#"):
+        if not ln or ln.startswith("#") or ln == "eqs = []" or ln.startswith("return ODESystem"):
             continue
         m = re.match(r"@parameters (\w+) = (.+?)(?: \[description = \"(.*)\"\])?$", ln)
         if m:
@@ -174,8 +176,8 @@ def translate(key: str, clone: Path):
             else:
                 p = PATCHES.get(key, {}).get(lhs)
                 if p:
-                    assert rhs == p[0], (lhs, rhs)
-                    rhs = p[1]
+                    assert p[0] in rhs, (lhs, rhs)
+                    rhs = rhs.replace(p[0], p[1])
                 eqs[lhs] = to_py(rhs)
                 lineno_eq[lhs] = ln1
             continue

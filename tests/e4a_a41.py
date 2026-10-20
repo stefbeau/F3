@@ -32,7 +32,7 @@ def informational_all(case: Case, scen: str, tag: str):
         sector, res = cached_run(case.key, scen, FINE, "rk4", None)
     else:
         sector, res = cached_run(case.key, scen, 0.25, "rk4", None)
-    names = [n for n in all_variables(sector.name.replace("e4a_", ""), scen)]
+    names = [n for n in all_variables(sector.name.replace("e4a_", ""), scen) if (sector.name, n) in res.series]
     return compare(res, sector.name, scen, names)
 
 

@@ -116,7 +116,7 @@ def compare(res, sector_name: str, scen: str, names: Sequence[str]) -> Dict[str,
     out = {}
     for n in names:
         a = res.series[(sector_name, n)][idx]
-        e = rel_err(a, ref[f"{sector_name}.{n}"])
+        e = rel_err(a, ref[f"{sector_name.replace('e4a_', '')}.{n}"])
         if e is None:
             out[n] = Row(n, 0.0, float("nan"), None, excluded=True)
             continue
