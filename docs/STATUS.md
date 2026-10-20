@@ -1,6 +1,6 @@
 # F3 — Status
 
-**As of 2026-10-17 (Track A built and held; Tracks B and C stopped).** `DECISIONS.md` is authoritative for decisions; this page summarises. Keep it current: update it in the same commit as any change of status.
+**As of 2026-10-20 (Track A held; Track B stopped by an API budget error part-way; Track C stopped).** `DECISIONS.md` is authoritative for decisions; this page summarises. Keep it current: update it in the same commit as any change of status.
 
 ## Phases
 | Phase | Goal | Status |
@@ -57,7 +57,7 @@ Each track works in its own git worktree and branch and writes `docs/tracks/<tra
 | Track | Scope | Branch | Status |
 |---|---|---|---|
 | A | M2 remainder: data-centre electricity, damage function (D-007), coupled slice, tests A2.2-A2.6, Demo 0 page generator (local only; **not published**, editor approves per A2.7) | `track-a` | **stopped by the editor 2026-10-12, no work produced** (branch at main, nothing to merge) |
-| B | M3: agriculture, capital, resources, pollution ports of World3 (A3.1-A3.5) | `track-b` | **stopped by the editor 2026-10-12, no work produced** (branch at main, nothing to merge) |
+| B | M3: agriculture, capital, resources, pollution ports of World3 (A3.1-A3.5) | `track-b` (wip commit 612d16f, pushed) | **relaunched 2026-10-17, then stopped 2026-10-20 by an API budget error (key limit 150.0 reached), not a code failure.** Per the track's log: agriculture, capital, resources and pollution ported, A3.1 within 0.13%, 0.11% and 0.04% (both sets); the coupling module, report script and test edits are written but **never run**, so A3.2 to A3.5 have no results. Not merged into main |
 | C | M4: reused Earth4All sectors (A4.1-A4.6); N4 delegated per D-023 | `track-c` | **stopped by the editor 2026-10-12, no work produced** (branch at main, nothing to merge) |
 The D-021 measurement finished (see the M2 row); its report and D-021 outcome note are on main. Not started: M5 (water, minerals), Phase 3.
 
