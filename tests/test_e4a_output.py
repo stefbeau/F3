@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import pytest
 
-from tests.e4a_a41 import (check_initial_state, check_states_are_reference_states, check_within_tolerance, informational_all, measure)
+from tests.e4a_a41 import (check_initial_state, check_rule, check_states_are_reference_states, check_within_tolerance, informational_all, recorded)
 from tests.e4a_helpers import Case, SCENARIOS, sector_class
 
 CASE = Case("output", ("CPIS", "CPUS", "CUCPIS", "CUCPUS", "ETFP", "FACNC", "OGR", "OLY", "PEDE"),
@@ -32,34 +32,28 @@ def test_initial_state_matches_reference(scen):
     check_initial_state(CASE, scen)
 
 
-def _x(scen, tag, why):
-    return pytest.param(scen, marks=pytest.mark.xfail(strict=True, reason=why))
-
-
-# RECORD of the first result (run once after the port; nothing adjusted). Only `OGR` (output growth rate, a state that crosses zero:
-# range -0.0022 .. 0.06 TLTL) exceeds 2%; all other 8 states and 9 headline variables pass. Sizes are the true relative error.
-S0_X = {"tltl": "S0 TLTL: OGR 2.56% in 2090.0 (reference value -4.39e-5, port -4.28e-5; absolute gap 2.0e-6 = 0.003% of max|OGR|)"}
-S1_X = {"tltl": "S1 TLTL: OGR 71.55% in 2090.0 (first above 2%: 2088.5)", "gl": "S1 GL: OGR 14.93% in 2071.0 (first above 2%: 2069.5)"}
-S2_X = {"tltl": "S2 TLTL: OGR 70.12% in 2090.0 (first above 2%: 2089.0)", "gl": "S2 GL: OGR 14.75% in 2071.0 (first above 2%: 2069.5)"}
-
-
-def _params(X):
-    return [_x(s, "", X[s]) if s in X else s for s in SCENARIOS]
-
-
-@pytest.mark.parametrize("scen", [_x(s, "S0", S0_X[s]) if s in S0_X else s for s in SCENARIOS])
+@pytest.mark.parametrize("scen", SCENARIOS)
 def test_a41_s0_equations_euler_1_64(scen):
+    """The port with the reference's own scheme (Euler, 1/64 year) and the recorded inputs on the reference's own 1/64 grid."""
     check_within_tolerance(CASE, scen, "S0")
 
 
-@pytest.mark.parametrize("scen", [_x(s, "S1", S1_X[s]) if s in S1_X else s for s in SCENARIOS])
+@pytest.mark.parametrize("scen", [recorded(CASE, s, "S1") for s in SCENARIOS])
 def test_a41_s1_rk4_1_64(scen):
+    """Step-free limit: RK4 at 1/64. Its difference from S0 is the REFERENCE's own Euler error (strict xfail where recorded)."""
     check_within_tolerance(CASE, scen, "S1")
 
 
-@pytest.mark.parametrize("scen", [_x(s, "S2", S2_X[s]) if s in S2_X else s for s in SCENARIOS])
+@pytest.mark.parametrize("scen", [recorded(CASE, s, "S2") for s in SCENARIOS])
 def test_a41_s2_loop_step_0_25(scen):
+    """RK4 at the loop step 0.25 year, one step per loop step (the F3 default of S1 and World3): strict xfail where recorded."""
     check_within_tolerance(CASE, scen, "S2")
+
+
+@pytest.mark.parametrize("scen", SCENARIOS)
+def test_a41_s3_rule_euler_substep_1_64_in_loop_step_0_25(scen):
+    """The recorded rule (docs/tracks/track-c.md): Euler with internal sub-step 1/64 inside the 0.25-year loop step."""
+    check_rule(CASE, scen)
 
 
 @pytest.mark.parametrize("scen", SCENARIOS)
@@ -68,4 +62,4 @@ def test_informational_all_variables(scen):
         rows = informational_all(CASE, scen, tag)
         live = [r for r in rows.values() if not r.excluded]
         w = max(live, key=lambda r: r.max_err)
-        print(f"output {scen} {tag} all {len(live)} variables: worst {w.name} {100 * w.max_err:.4f}% (year {w.year_of_max})")
+        print(f"{CASE.key} {scen} {tag} all {len(live)} variables: worst {w.name} {100 * w.max_err:.4f}% (year {w.year_of_max})")

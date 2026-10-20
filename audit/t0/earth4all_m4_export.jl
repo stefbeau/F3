@@ -8,7 +8,7 @@
 #                                          public, demand, energy, other) at the 0.5-year points 1980.0 ... 2100.0; columns "sector.VAR"
 #   <fixtures>/e4a_signals_<scen>.csv     every variable that crosses a sector boundary in the composed model (source sector variables
 #                                          listed in audit/data/earth4all_cross_sector_links.csv, including the replaced sectors'
-#                                          POP, GDPP, EGDPP, A20PA, OW, CAC, COFO, IPP) on the 1/16-year grid
+#                                          POP, GDPP, EGDPP, A20PA, OW, CAC, COFO, IPP) on the 1/64-year grid (amended from 1/16 after the first S0 run, see docs/tracks/track-c.md)
 #   <audit>/e4a_vs_vensim_<scen>.csv      Earth4All.jl's OWN error against Vensim, per variable of the eight sectors: TRUE relative error
 #                                          |julia - vensim| / |vensim| (median, 95th percentile, maximum, year of maximum, points
 #                                          excluded). Names and error figures only; no Vensim value is stored (D-014). The Vensim files are
@@ -78,11 +78,11 @@ for (scen, fname) in [("tltl", :run_tltl_solution), ("gl", :run_gl_solution)]
         df[!, c] = v
     end
     CSV.write(joinpath(FIX, "e4a_reference_$(scen).csv"), df)
-    sixteenth = 1:4:nt
+    sixteenth = 1:1:nt            # AMENDED after the first S0 run (track-c.md): full 1/64-year grid, was 1/16
     sigdf = DataFrame(:time => sol.t[sixteenth])
     for p in signal_pairs
         haskey(idx, p) || (println("missing signal ", p); continue)
-        sigdf[!, "$(p[1]).$(p[2])"] = Float64.(Base.invokelatest(getindex, sol, idx[p])[sixteenth])
+        sigdf[!, "$(p[1]).$(p[2])"] = round.(Float64.(Base.invokelatest(getindex, sol, idx[p])[sixteenth]); sigdigits = 12)
     end
     CSV.write(joinpath(FIX, "e4a_signals_$(scen).csv"), sigdf)
     println("reference columns ", ncol(df) - 1, ", signals ", ncol(sigdf) - 1); flush(stdout)

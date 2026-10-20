@@ -28,8 +28,8 @@ are evaluated with ``ts`` = the boundary time, as the package evaluates them at 
 
 INTEGRATION
 -----------
-``method='euler'`` is the package's scheme; ``method='rk4'`` is the F3 default. ``substep`` (years) is the internal step inside a
-loop step (D-031 pattern: the loop step stays 0.25 year, D-003 and D-022 unchanged); ``None`` means one step of the loop step.
+``method='euler'`` is the package's scheme and, by the rule recorded in docs/tracks/track-c.md, the default of every M4 sector with an internal sub-step of 1/64 year (the only rung of the ladder at which every state and headline variable is within 2% of Earth4All.jl); ``method='rk4'`` is available (S1, S2 of the step-effect measurement). ``substep`` (years) is the internal step inside a
+loop step (D-031 pattern: the loop step stays 0.25 year, D-003 and D-022 unchanged); ``None`` means the class default ``SUBSTEP`` (1/64 year), ``0`` means one step of the loop step.
 Inputs are read through the loop context at the stage times; with a recorded series (ReplaySector) they are exact at any time,
 with a coupled sector they are the start-of-step values (explicit coupling, D-022).
 """
@@ -75,6 +75,9 @@ def withlookup(x, pairs):
     ys = [p[1] for p in pairs]
     return float(np.interp(x, xs, ys))
 
+
+exp = np.exp
+log = np.log
 
 _NS = {"ramp": ramp, "ifelse": ifelse, "step": step, "pulse": pulse, "withlookup": withlookup, "max": max, "min": min,
        "exp": np.exp, "log": np.log}
@@ -122,9 +125,9 @@ class E4ASector(Sector):
     INPUT_NAMES: Sequence[str] = ()
     SWITCH_TIMES = (1984.0, 2020.0, 2022.0, 2023.0, 2025.0)
     #: loop-step rule (track-c-plan.md): None = one step of the loop step; otherwise the internal sub-step in years
-    SUBSTEP: Optional[float] = None
+    SUBSTEP: Optional[float] = 1.0 / 64.0
 
-    def __init__(self, scenario: str = "tltl", method: str = "rk4", substep: Optional[float] = None,
+    def __init__(self, scenario: str = "tltl", method: str = "euler", substep: Optional[float] = None,
                  switches: Optional[Mapping[str, float]] = None, params: Optional[Mapping[str, float]] = None):
         if scenario not in ("tltl", "gl"):
             raise ValueError("scenario must be 'tltl' or 'gl'")
@@ -190,7 +193,7 @@ class E4ASector(Sector):
 
     def reset(self, t0: float, t1: float, dt: float) -> None:
         sub = self._substep_arg if self._substep_arg is not None else self.SUBSTEP
-        sub = dt if sub is None else float(sub)
+        sub = dt if (sub is None or float(sub) == 0.0) else float(sub)
         k = dt / sub
         if abs(k - round(k)) > 1e-9 or round(k) < 1:
             raise ValueError(f"loop step {dt} is not a whole number of sub-steps of {sub}")

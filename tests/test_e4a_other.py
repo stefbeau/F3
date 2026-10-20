@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import pytest
 
-from tests.e4a_a41 import (check_initial_state, check_states_are_reference_states, check_within_tolerance, informational_all)
+from tests.e4a_a41 import (check_initial_state, check_rule, check_states_are_reference_states, check_within_tolerance, informational_all, recorded)
 from tests.e4a_helpers import Case, SCENARIOS, sector_class
 
 CASE = Case("other", ('PGDPP',), ('CTA', 'FB15', 'PB15', 'LK'))
@@ -33,17 +33,26 @@ def test_initial_state_matches_reference(scen):
 
 @pytest.mark.parametrize("scen", SCENARIOS)
 def test_a41_s0_equations_euler_1_64(scen):
+    """The port with the reference's own scheme (Euler, 1/64 year) and the recorded inputs on the reference's own 1/64 grid."""
     check_within_tolerance(CASE, scen, "S0")
 
 
-@pytest.mark.parametrize("scen", SCENARIOS)
+@pytest.mark.parametrize("scen", [recorded(CASE, s, "S1") for s in SCENARIOS])
 def test_a41_s1_rk4_1_64(scen):
+    """Step-free limit: RK4 at 1/64. Its difference from S0 is the REFERENCE's own Euler error (strict xfail where recorded)."""
     check_within_tolerance(CASE, scen, "S1")
 
 
-@pytest.mark.parametrize("scen", SCENARIOS)
+@pytest.mark.parametrize("scen", [recorded(CASE, s, "S2") for s in SCENARIOS])
 def test_a41_s2_loop_step_0_25(scen):
+    """RK4 at the loop step 0.25 year, one step per loop step (the F3 default of S1 and World3): strict xfail where recorded."""
     check_within_tolerance(CASE, scen, "S2")
+
+
+@pytest.mark.parametrize("scen", SCENARIOS)
+def test_a41_s3_rule_euler_substep_1_64_in_loop_step_0_25(scen):
+    """The recorded rule (docs/tracks/track-c.md): Euler with internal sub-step 1/64 inside the 0.25-year loop step."""
+    check_rule(CASE, scen)
 
 
 @pytest.mark.parametrize("scen", SCENARIOS)
@@ -52,4 +61,4 @@ def test_informational_all_variables(scen):
         rows = informational_all(CASE, scen, tag)
         live = [r for r in rows.values() if not r.excluded]
         w = max(live, key=lambda r: r.max_err)
-        print(f"other {scen} {tag} all {len(live)} variables: worst {w.name} {100 * w.max_err:.4f}% (year {w.year_of_max})")
+        print(f"{CASE.key} {scen} {tag} all {len(live)} variables: worst {w.name} {100 * w.max_err:.4f}% (year {w.year_of_max})")

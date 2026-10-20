@@ -18,10 +18,38 @@ def measure(case: Case, scen: str, tag: str, substep_override: Optional[float] =
     elif tag == "S1":
         sector, res = cached_run(case.key, scen, FINE, "rk4", None)
     elif tag == "S2":
-        sector, res = cached_run(case.key, scen, 0.25, "rk4", substep_override)
+        sector, res = cached_run(case.key, scen, 0.25, "rk4", 0.0 if substep_override is None else substep_override)
     else:
         raise ValueError(tag)
     return compare(res, sector.name, scen, case.criterion)
+
+
+def measure_rule(case: Case, scen: str) -> Dict[str, Row]:
+    """S3: the sector as it runs in the loop under the recorded rule (default: Euler, internal sub-step 1/64, loop step 0.25)."""
+    from tests.e4a_helpers import run_alone
+    sector, res = run_alone(case.key, scen, 0.25, "euler", None)
+    return compare(res, sector.name, scen, case.criterion)
+
+
+def check_rule(case: Case, scen: str):
+    rows = measure_rule(case, scen)
+    print(report_line(case, "S3 (rule: Euler, sub-step 1/64, loop step 0.25)", scen, rows))
+    bad = {n: (r.max_err, r.first_year_above) for n, r in rows.items() if not r.excluded and r.max_err > TOL}
+    assert not bad, f"{case.key} {scen} S3: above 2%: {bad}"
+    return rows
+
+
+def recorded(case: Case, scen: str, tag: str):
+    """pytest parameter for ``scen`` carrying a strict xfail if the first result (tests/fixtures/e4a_step_effect.json, exported by
+    audit/t0/e4a_step_effect.py) recorded a failure for this sector, run and scenario. The record is never edited to pass."""
+    import json
+    import pytest
+    from tests.e4a_helpers import FIX
+    rec = json.load(open(FIX / "e4a_step_effect.json", encoding="utf-8")).get(f"{case.key}|{tag}|{scen}")
+    if rec and rec["above_2pct"]:
+        why = f"RECORD {case.key} {tag} {scen}: " + "; ".join(f"{n} {'inf' if a[0] is None else a[0]}% (first above 2%: {a[1]})" for n, a in rec["above_2pct"].items())
+        return pytest.param(scen, marks=pytest.mark.xfail(strict=True, reason=why))
+    return scen
 
 
 def informational_all(case: Case, scen: str, tag: str):
@@ -31,7 +59,7 @@ def informational_all(case: Case, scen: str, tag: str):
     elif tag == "S1":
         sector, res = cached_run(case.key, scen, FINE, "rk4", None)
     else:
-        sector, res = cached_run(case.key, scen, 0.25, "rk4", None)
+        sector, res = cached_run(case.key, scen, 0.25, "rk4", 0.0)
     names = [n for n in all_variables(sector.name.replace("e4a_", ""), scen) if (sector.name, n) in res.series]
     return compare(res, sector.name, scen, names)
 

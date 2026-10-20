@@ -231,7 +231,7 @@ from __future__ import annotations
 
 import numpy as np
 
-from f3.sectors.e4a_common import E4ASector, ifelse, pulse, ramp, step, withlookup  # noqa: F401
+from f3.sectors.e4a_common import E4ASector, exp, ifelse, log, pulse, ramp, step, withlookup  # noqa: F401
 '''
     extra = ""
     if key == "output":
