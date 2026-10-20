@@ -70,11 +70,7 @@ def _compare(ps: str, w, states, res, label: str):
     return out
 
 
-XF = pytest.mark.xfail(strict=True, reason="A3.3 FAILED for the 1974 set at the loop step 0.25 year: ic 3.39% against PyWorld3 (dt=0.05) with the "
-                       "pollution start-up matched; same cause as A3.2 (coupling error). Criterion not relaxed. docs/tracks/track-b.md.")
-
-
-@pytest.fixture(scope="module", params=[pytest.param("1974", marks=XF), "2004"])
+@pytest.fixture(scope="module", params=["1974", "2004"])
 def runs(request):
     ps = request.param
     states, res = run_world3(ps)

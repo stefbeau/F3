@@ -60,3 +60,10 @@ Sectors built; each passes A3.1. The full run fails A3.2, A3.3 (1974) and A3.4(b
 - **Recommendation followed:** the start-time inputs of the four sectors are computed from their initial states by iterating the wiring, which is acyclic at t0 (`f3/sectors/world3.py`), not seeded from recorded data. Initial state is the reference's own (D-019 Option C; pollution delay stages start at `pptd*ppgr0/3` from the sector's own 1900 tables, as the reference does).
 - **Alternatives considered:** seeding from recorded values (rejected: the full run would depend on fixtures).
 - **Cost of reversing:** small, one function.
+
+
+## Re-run under D-031 (2026-10-20)
+- Rule and predictions committed first (D-031, `b953b31` on main). Implementation `f3/sectors/world3_group.py`; `run_world3` now returns the sub-stepped group by default, `substep=None` keeps the first version. No Sector interface change.
+- **A3.2 MET** both sets: worst 1.621% (1974, `fcfpc1`) and 1.906% (2004, `lufd`). **A3.3 (1974, matched start-up) MET**, worst 0.91% (`ppol`). **A3.4(b) FAILED**: worst 1.019% (1974 `aiopc`), 0.931% (2004 `fcfpc1`) against 0.25%; D-031's 'borderline' prediction was wrong. Suite: 115 passed, 21 skipped, 4 strict xfail (A3.4(b) both sets; the recorded un-sub-stepped A3.2 failure both sets).
+- Test edits (the criteria and thresholds are unchanged; only the xfail markers changed with the results): the A3.2 and A3.3 strict xfails were removed because they now pass; the A3.4(b) reason was updated to the new sizes; a test recording the old failure (`substep=None`) was added as a strict xfail.
+- **Provisional (delegated) P4:** the World3 group is one Sector wrapping the five sectors (alternative: a global 0.0625 step for World3-only runs, rejected because it was not needed; reversal cost: low). **P5:** A3.4(b) is recorded as failed and not repaired (alternatives: restate to a looser number, a labelled post-hoc proposal, not applied; reversal cost: none).

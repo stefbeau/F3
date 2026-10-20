@@ -171,3 +171,20 @@ Reading: with the pollution start-up matched and the loop step of the plan, the 
 
 Measured on this machine (Windows 11, Python 3.12, one core, pure Python loops, no vectorisation). At 0.5 s a run, a thousand-run Monte Carlo is about 8 minutes on one core; at the step 0.0625 that the diagnostic suggests (about 2 s) about 35 minutes. The plan's guess of 5-10 s per run was too high by an order of magnitude at the plan's step. This figure does not include FaIR, S3 or the Earth4All sectors.
 
+
+
+## 7. Re-run under D-031 (World3 group advanced with 0.0625-year sub-steps inside the 0.25-year loop), 2026-10-20
+
+Rule and predictions written before the re-run: `DECISIONS.md` D-031 (commit `b953b31`). Criteria unchanged. Implementation: `f3/sectors/world3_group.py` (a `Sector` wrapping the five World3 sectors; the Sector interface is unchanged, so the fallback of a global 0.0625 step was **not** used). The un-sub-stepped version is kept as `run_world3(..., substep=None)`.
+
+| criterion | 1974 set | 2004 set | prediction in D-031 |
+|---|---|---|---|
+| A3.2 all 29 states within 2% | **MET**: worst `fcfpc1` 1.621% (1941.5); `lufd` 1.453%; 0 of 29 above 2% | **MET**: worst `lufd` 1.906% (2100); `fcfpc1` 0.930%; 0 of 29 above 2% | pass: as predicted |
+| A3.3 twelve stocks within 2% of PyWorld3 (dt 0.05, pollution start-up matched, labelled diagnostic) | **MET**: all twelve within 0.91% (`ppol`); `ic` 0.21%, `sc` 0.25% | diagnostic: `p1` 2.52% and `ppol` 3.11% above 2%, the other ten within 1.9%; **nothing asserted for 2004** | improve, not certain: improved and met |
+| A3.4(b) S1 inside the full run within 0.25% of S1 alone with recorded inputs | **FAILED**: worst `aiopc` 1.019% (2100); 15 of 15 S1 states above 0.25%; smallest `ple` 0.224% | **FAILED**: worst `fcfpc1` 0.931% (2072.5); `p4` 0.654%; smallest `ple` 0.329% | **borderline: the prediction was wrong** (measured 4 to 5 times the criterion) |
+| A3.4(a) existing tests pass | pass | pass | |
+| A3.5 run time (median, 1900-2100) | 3.20 s | 2.29 s | D-031 estimated about 2.3 s |
+
+Reading of A3.4(b): the comparison is between S1 driven by the full model's partners and S1 driven by the reference's recorded inputs; the 0.25% figure was the S1-alone gap with the 2004 set (D-004 reasoning in the plan). A larger gap here is the response of S1 to the small differences of the other four sectors' outputs (up to 1.9% at their worst), not an error of S1's equations (S1 alone with recorded inputs is unchanged, `audit/s1-port-report.md`). That reading is **inferred, not tested separately**. The criterion is not relaxed and not restated.
+
+**Provisional (delegated) blocks P4 (the group wrapper) and P5 (A3.4(b) recorded as failed, not repaired) are in `docs/tracks/track-b.md`.**

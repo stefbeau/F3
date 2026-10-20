@@ -37,9 +37,8 @@ def test_there_are_29_states_by_name():
     assert len(STATE_COLUMNS) == 29 and len(set(STATE_COLUMNS.values())) == 29
 
 
-@pytest.mark.xfail(strict=True, reason="A3.2 FAILED at the plan's step 0.25 year, both sets (docs/tracks/track-b.md, audit/m3-world3-port-report.md): "
-                   "explicit start-of-step coupling (D-022) is first order; worst state lufd 6.9% (1974), 8.0% (2004). Criterion not relaxed.")
 def test_a32_all_29_states_within_2_percent(full):
+    """Criterion unchanged. Runs with the D-031 sub-stepped World3 group (0.0625 year inside the 0.25-year loop)."""
     ps, states, res = full
     ref, tight = reference(ps), reference(ps, "tight")
     idx = grid_index(res.time, ref["time"])
@@ -56,8 +55,9 @@ def test_a32_all_29_states_within_2_percent(full):
     assert not bad, f"{ps}: states above 2%: {bad}"
 
 
-@pytest.mark.xfail(strict=True, reason="A3.4(b) FAILED, as predicted before the run: start-of-step coupling error of S1 inside the full "
-                   "run exceeds 0.25% (docs/tracks/track-b.md). Criterion not relaxed.")
+@pytest.mark.xfail(strict=True, reason="A3.4(b) still FAILS under D-031 (sub-stepped group): S1 inside the full run differs from S1 alone with the "
+                   "reference's recorded inputs by up to 1.02% (1974, aiopc) and 0.93% (2004, fcfpc1) against 0.25%. D-031 predicted 'borderline'; that "
+                   "prediction was wrong (see docs/tracks/track-b.md). Criterion not relaxed.")
 def test_a34b_s1_inside_the_full_run_equals_s1_alone_within_0_25_percent(full):
     ps, states, res = full
     s = s1_inputs(ps)
@@ -131,3 +131,14 @@ def test_diagnostic_run_time_at_dt_0_0625():
     a = time.perf_counter()
     run_world3("2004", dt=0.0625)
     print(f"DIAGNOSTIC A3.5 at dt=0.0625, 2004, 1900-2100: {time.perf_counter() - a:.2f} s")
+
+
+@pytest.mark.xfail(strict=True, reason="RECORD of the M3 first result: with plain start-of-step coupling at loop step 0.25 (substep=None) A3.2 fails, "
+                  "worst state lufd 6.90% (1974) and 7.96% (2004); D-031 replaced this by the sub-stepped group. Kept so the failure stays on record.")
+@pytest.mark.parametrize("ps", ["1974", "2004"])
+def test_a32_record_unsubstepped_step_0_25_fails(ps):
+    states, res = run_world3(ps, substep=None)
+    ref = reference(ps)
+    idx = grid_index(res.time, ref["time"])
+    worst = max(float(relerr(states[n][idx], ref[col]).max()) for n, col in STATE_COLUMNS.items())
+    assert worst <= TOL, f"{ps}: worst {100*worst:.2f}%"
