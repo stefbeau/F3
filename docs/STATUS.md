@@ -1,6 +1,6 @@
 # F3 — Status
 
-**As of 2026-10-17 (Track A built and held; Tracks B and C stopped).** `DECISIONS.md` is authoritative for decisions; this page summarises. Keep it current: update it in the same commit as any change of status.
+**As of 2026-10-20 (Track A held; Track B finished with A3.2 failed; Track C stopped).** `DECISIONS.md` is authoritative for decisions; this page summarises. Keep it current: update it in the same commit as any change of status.
 
 ## Phases
 | Phase | Goal | Status |
@@ -57,7 +57,7 @@ Each track works in its own git worktree and branch and writes `docs/tracks/<tra
 | Track | Scope | Branch | Status |
 |---|---|---|---|
 | A | M2 remainder: data-centre electricity, damage function (D-007), coupled slice, tests A2.2-A2.6, Demo 0 page generator (local only; **not published**, editor approves per A2.7) | `track-a` | **stopped by the editor 2026-10-12, no work produced** (branch at main, nothing to merge) |
-| B | M3: agriculture, capital, resources, pollution ports of World3 (A3.1-A3.5) | `track-b` | **stopped by the editor 2026-10-12, no work produced** (branch at main, nothing to merge) |
+| B | M3: agriculture, capital, resources, pollution ports of World3 (A3.1-A3.5) | `track-b` (407e5c7, pushed) | **finished 2026-10-20; A3.2 FAILED, branch NOT merged, waiting for the editor** (see below) |
 | C | M4: reused Earth4All sectors (A4.1-A4.6); N4 delegated per D-023 | `track-c` | **stopped by the editor 2026-10-12, no work produced** (branch at main, nothing to merge) |
 The D-021 measurement finished (see the M2 row); its report and D-021 outcome note are on main. Not started: M5 (water, minerals), Phase 3.
 
@@ -69,6 +69,16 @@ Tests written before results (`docs/tracks/track-a-plan.md`); 20-member developm
 - **Finding:** modelled data-centre demand is about 20,000 TWh in 2030 and 414,000 TWh in 2040, because S3's unvalidated compute path (D-029) leaves any plausible range; supply binds from 2027-28.
 - **Checked on this side:** my re-run of the slice tests gives 6 passed, 3 failed as above. The 33-line change to `f3/sectors/s3_ai.py` on the branch leaves S3 unchanged: the A1.3 and A1.5 figures (all settings, the stored-T diagnostic, the stress settings, the variants) and the R3 A1.4 figures regenerate bit-identical to `audit/data/s3-gate-comparison.json` and `s3-r3-a1.4.json`; the S3 and R3 tests give 28 passed, 9 strict xfail.
 - **Not verified here:** the five Provisional decisions and the review checklist (`docs/tracks/track-a.md`, `track-a-review.md`); the 841-member climate run; the page has not been viewed in a browser (phone width, dark mode).
+
+### Track B result (2026-10-20): M3 built; A3.2, A3.3 (1974) and A3.4(b) FAILED, recorded, nothing adjusted
+Suite on the branch (re-run here): 112 passed, 21 skipped, 5 strict xfail. Tests and test lists were written before results. The branch edited no shared file.
+- **A3.1 MET:** all 14 states of the four sectors (agriculture, capital, resources, pollution) within 0.124% of WorldDynamics.jl (1974 set 0.091%; 2004 set 0.124%), both sets, with the reference's default-versus-tight figure beside each.
+- **A3.2 FAILED at loop step 0.25:** 1974 set worst `lufd` 6.90%, 15 of 29 states above 2%, first failure 2023.5 (`fcfpc1`); 2004 set worst `lufd` 7.96%, 16 of 29 above 2%, first failure 2023.0 (`fcfpc1`). The reference's own solver error is not the cause (default-vs-tight at most 1.61% and 0.26%).
+- **Cause (the track's post-hoc scan, not a criterion):** first-order start-of-step coupling (D-022). Worst state at loop steps 0.25 / 0.125 / 0.0625: 6.9 / 3.2 / 1.6% (1974) and 8.0 / 3.9 / 1.9% (2004); at 0.0625 no state exceeds 2%.
+- **A3.3 (1974, pollution start-up matched, labelled diagnostic) FAILED:** `ic` 3.39%, `sc` 2.42%, the other ten within 1.6%; as shipped PyWorld3 `ppol` is 373.49% off. The 2004 comparison is diagnostic: all twelve within 2.4%.
+- **A3.4(a) pass; A3.4(b) FAILED** (predicted before the run): S1 inside the full run against S1 alone differs by 4.36% (1974, `aiopc`) and 3.69% (2004, `fcfpc1`).
+- **A3.5:** one full run takes about 0.6 s at step 0.25 (median; 0.59 s for 2004, 0.68 s for 1974), 2.3 s at step 0.0625.
+- **Open for the editor (not applied):** how to meet A3.2: (a) loop step 0.0625 for World3 (inside the 0.25 loop), (b) predictor-corrector coupling, or (c) a labelled post-hoc restatement of the criterion. The track recommends (a) or (b) before M4. Provisional blocks P1-P3 are in `docs/tracks/track-b.md`; review in `docs/tracks/track-b-review.md`; report `audit/m3-world3-port-report.md`.
 
 ### To revisit after the Epoch reply
 1. **R3 design:** the counter-loop under supply limits (B1 sign failure).
