@@ -23,7 +23,7 @@ from f3.sectors.w3_pollution import Pollution  # noqa: E402
 from f3.sectors.w3_resources import Resources  # noqa: E402
 from f3.sectors.world3 import STATE_COLUMNS, run_world3  # noqa: E402
 from tests.test_w3_pyworld3 import STOCKS, _compare, _pyworld3  # noqa: E402
-from tests.w3_helpers import a31, grid_index, reference, relerr, signals, state_table  # noqa: E402
+from tests.w3_helpers import a31, grid_index, reference, relerr, s1_inputs, state_table  # noqa: E402
 
 SECTORS = {
     "agriculture": (Agriculture, {"pop": "ld₊pop", "io": "ld₊io", "iopc": "ld₊iopc", "ppolx": "lfd₊ppolx"},
@@ -105,24 +105,24 @@ for dt in (0.25, 0.125, 0.0625, 0.03125):
         k = max(w, key=w.get)
         cells += [f"{100*w[k]:.3f}% (`{k}`)", str(sum(v > 0.02 for v in w.values()))]
     L.append(f"| {dt} | " + " | ".join(cells) + f" | {t2004:.2f} |")
-L += ["", "The gap halves when the step halves (first order, as D-022 measured for S1 alone): it is the start-of-step coupling of D-022, not an "
+L += ["", "The gap roughly halves when the step halves down to 0.0625 (first order, as D-022 measured for S1 alone; below that the 1974 gap stops falling because the reference's own solver error, 1.61% on `fcfpc1`, takes over): it is the start-of-step coupling of D-022, not an "
       "equation difference (every sector alone is within 0.13%). At step 0.0625 and below the criterion would be met for 1974 and for 2004. "
       "A finer loop step, or a predictor-corrector, is a design change for the editor; it is listed in the review, not applied.", ""]
 
 # ---------------------------------------------------------------- A3.4
 L += ["## A3.4 (b) S1 inside the full run against S1 alone with recorded inputs", "",
       "Criterion from the plan: within 0.25%. Prediction recorded before the run: fails, because D-022 measured the start-of-step coupling "
-      "error of S1 at 0.25 year as 1.04% (1974) and 0.93% (2004).", "", "| set | worst of S1's 15 states | state | year |", "|---|---|---|---|"]
+      "error of S1 at 0.25 year as 1.04% (1974) and 0.93% (2004).", "", "| set | worst of S1's 15 states | state | year of max | first year above 0.25% |", "|---|---|---|---|---|"]
 for ps in ("1974", "2004"):
     states, res = runs[ps]
-    s = signals(ps)
+    s = s1_inputs(ps)
     alone = PopulationSector(ps).run(Inputs(s["time"], s["dr₊fpc"], s["br₊sopc"], s["dr₊iopc"], s["dr₊ppolx"]), dt=0.25)
     w = {n: relerr(states[n], alone[n]) for n in S1_STATES}
     k = max(w, key=lambda n: w[n].max())
-    L.append(f"| {ps} | {100*w[k].max():.3f}% | `{k}` | {res.time[int(w[k].argmax())]:.2f} |")
+    row = f"| {ps} | {100*w[k].max():.3f}% | `{k}` | {res.time[int(w[k].argmax())]:.2f} |"
     over = [n for n in S1_STATES if w[n].max() > 0.0025]
     first = min(res.time[int(np.argmax(w[n] > 0.0025))] for n in over) if over else None
-    L[-1] += f" first year above 0.25%: {first} |" if first else ""
+    L.append(row + (f" {first:.2f} |" if first is not None else " - |"))
 L += ["", "A3.4 (b) FAILED for both sets (see the table); A3.4 (a), the existing tests, pass (see `docs/tracks/track-b.md` for the counts).", ""]
 
 # ---------------------------------------------------------------- A3.3
@@ -150,7 +150,7 @@ for ps in ("1974", "2004"):
         out = _compare(ps, w1, st2, res2, "x")
     L.append(f"| {ps}{' (diagnostic)' if ps == '2004' else ''} | matched, port at loop step 0.0625 (post-hoc diagnostic) | " + " | ".join(f"{100*out[k][0]:.2f}% ({out[k][1]:.0f})" for k in STOCKS) + " |")
 L += ["", "Reading: with the pollution start-up matched and the loop step of the plan, the 1974 set is within 2% on ten of the twelve stocks and "
-      "above it on `ic` (and `sc` is at the limit), both late in the run; this is the same coupling error as in A3.2, and the post-hoc row at "
+      "above it on `ic` (3.39%) and `sc` (2.42%), both late in the run; this is the same coupling error as in A3.2, and the post-hoc row at "
       "step 0.0625 shows it shrinks with the step. As shipped, `ppol` differs by 373% in 1906, the start-up difference of CLAUDE.md. "
       "**A3.3 FAILED for the 1974 set at the plan's step.**", ""]
 

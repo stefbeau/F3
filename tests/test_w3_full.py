@@ -23,7 +23,7 @@ import pytest
 
 from f3.sectors.world3 import STATE_COLUMNS, build_world3, run_world3
 from f3.sectors.s1_population import STATE_NAMES as S1_STATES, Inputs, PopulationSector
-from tests.w3_helpers import TOL, grid_index, reference, relerr, signals
+from tests.w3_helpers import TOL, grid_index, reference, relerr, s1_inputs
 
 
 @pytest.fixture(scope="module", params=["1974", "2004"])
@@ -60,7 +60,7 @@ def test_a32_all_29_states_within_2_percent(full):
                    "run exceeds 0.25% (docs/tracks/track-b.md). Criterion not relaxed.")
 def test_a34b_s1_inside_the_full_run_equals_s1_alone_within_0_25_percent(full):
     ps, states, res = full
-    s = signals(ps)
+    s = s1_inputs(ps)
     alone = PopulationSector(ps).run(Inputs(s["time"], s["dr₊fpc"], s["br₊sopc"], s["dr₊iopc"], s["dr₊ppolx"]), dt=0.25)
     worst = {}
     for n in S1_STATES:

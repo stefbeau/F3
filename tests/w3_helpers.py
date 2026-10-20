@@ -26,6 +26,11 @@ def signals(ps: str) -> Dict[str, np.ndarray]:
     return load(f"w3_signals_{TAGS[ps]}.csv")
 
 
+def s1_inputs(ps: str) -> Dict[str, np.ndarray]:
+    """S1's four recorded inputs (fixtures of step 1.4, ``s1_inputs_*.csv``; the M3 signals file does not carry them)."""
+    return load(f"s1_inputs_{TAGS[ps]}.csv")
+
+
 def reference(ps: str, kind: str = "default") -> Dict[str, np.ndarray]:
     return load(f"w3_reference_{TAGS[ps]}_{kind}.csv")
 
