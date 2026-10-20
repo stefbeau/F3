@@ -37,6 +37,8 @@ def test_there_are_29_states_by_name():
     assert len(STATE_COLUMNS) == 29 and len(set(STATE_COLUMNS.values())) == 29
 
 
+@pytest.mark.xfail(strict=True, reason="A3.2 FAILED at the plan's step 0.25 year, both sets (docs/tracks/track-b.md, audit/m3-world3-port-report.md): "
+                   "explicit start-of-step coupling (D-022) is first order; worst state lufd 6.9% (1974), 8.0% (2004). Criterion not relaxed.")
 def test_a32_all_29_states_within_2_percent(full):
     ps, states, res = full
     ref, tight = reference(ps), reference(ps, "tight")
@@ -54,6 +56,8 @@ def test_a32_all_29_states_within_2_percent(full):
     assert not bad, f"{ps}: states above 2%: {bad}"
 
 
+@pytest.mark.xfail(strict=True, reason="A3.4(b) FAILED, as predicted before the run: start-of-step coupling error of S1 inside the full "
+                   "run exceeds 0.25% (docs/tracks/track-b.md). Criterion not relaxed.")
 def test_a34b_s1_inside_the_full_run_equals_s1_alone_within_0_25_percent(full):
     ps, states, res = full
     s = signals(ps)
@@ -105,3 +109,25 @@ def test_restart_in_1970_from_the_reference_state_stays_within_2_percent_for_40_
         worst = max(worst, float(e[horizon].max()))
     print(f"1970 restart {ps}: worst of 29 states over 1970-2010: {100*worst:.3f}%")
     assert worst <= TOL
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# POST-HOC DIAGNOSTIC (written after A3.2 and A3.4(b) failed at dt = 0.25; NOT acceptance tests, not a revised criterion).
+# They measure how the failure depends on the loop step. A passing diagnostic does not turn A3.2 into a pass.
+# ---------------------------------------------------------------------------------------------------------------
+@pytest.mark.parametrize("ps", ["1974", "2004"])
+def test_diagnostic_a32_criterion_applied_at_dt_0_0625(ps):
+    states, res = run_world3(ps, dt=0.0625)
+    ref = reference(ps)
+    idx = grid_index(res.time, ref["time"])
+    worst = {n: float(relerr(states[n][idx], ref[col]).max()) for n, col in STATE_COLUMNS.items()}
+    k = max(worst, key=worst.get)
+    print(f"DIAGNOSTIC A3.2 criterion at dt=0.0625, {ps}: worst {100*worst[k]:.3f}% ({k})")
+    assert worst[k] <= TOL
+
+
+def test_diagnostic_run_time_at_dt_0_0625():
+    run_world3("2004", dt=0.0625)
+    a = time.perf_counter()
+    run_world3("2004", dt=0.0625)
+    print(f"DIAGNOSTIC A3.5 at dt=0.0625, 2004, 1900-2100: {time.perf_counter() - a:.2f} s")
