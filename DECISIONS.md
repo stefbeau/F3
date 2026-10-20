@@ -47,6 +47,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-028 | S3 investment rule: R3 (AI-race budget) calibrated with R1 curves | Approved 2026-10-12 | 1 |
 | D-029 | M1 closed with A1.3 failed; S3's composite is a known open difference | Approved 2026-10-12 | 1 |
 | D-030 | M2 step 1 closes with A2.1 failed; climate output labelled | Approved 2026-10-12 | 2 |
+| D-031 | World3 sector group advanced with internal sub-steps of 0.0625 year inside the 0.25-year loop | Approved 2026-10-20 | 2 |
 
 ---
 
@@ -918,6 +919,25 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Proposed by:** Claude (Validator role)
 - **Decision:** Approved by Stéphane Beau, as drafted.
 - **Date:** 2026-10-12
+
+## D-031 — World3 sector group advanced with internal sub-steps of 0.0625 year inside the 0.25-year loop
+
+- **Status:** Approved (2026-10-20)
+- **Context:** M3 (Track B) ported the four remaining World3 sectors. A3.1 was met (all 14 states within 0.124%). **A3.2 failed at the loop step 0.25 year**, both parameter sets: worst state `lufd` 6.90% (1974 set) and 7.96% (2004 set), 15 and 16 of 29 states above 2%, first failure in 2023. The reference's own solver error is not the cause (default against tight at most 1.61% and 0.26%). A post-hoc scan by the track found the cause to be the first-order error of start-of-step coupling (D-022): the worst state is **6.9% / 3.2% / 1.6%** (1974 set) and **8.0% / 3.9% / 1.9%** (2004 set) at loop steps **0.25 / 0.125 / 0.0625 year**, and at 0.0625 no state exceeds 2%. The editor decided on 2026-10-20 how to meet A3.2 (below). D-003 and D-022 are **not edited**.
+- **Decision:** Approved by the editor, 2026-10-20: **the World3 sector group (S1 population, agriculture, capital, resources, pollution) is advanced with internal sub-steps of 0.0625 year while the model loop stays at 0.25 year** (D-003 and D-022 unchanged for coupling with all other sectors).
+- **The rule, written before any re-run:**
+  1. The five World3 sectors are wrapped in one `Sector` of the coupling loop (`f3/sectors/world3_group.py`). Inside each 0.25-year loop step it takes **four sub-steps of 0.0625 year** with the **same explicit start-of-sub-step coupling** among the five sectors (each reads the others' values at the start of the sub-step, held across it). Every sector's own integration (RK4) and equations are unchanged.
+  2. What the group publishes to the loop, at each 0.25-year boundary, are the values at that boundary; any other sector sees them at the loop's start-of-step convention (D-022). The group has no inputs from other sectors in M3; coupling of the World3 group to other sectors is later work and uses the loop's 0.25-year convention.
+  3. The Sector interface is not changed. (If it could not be done without changing it, the fallback was a global step of 0.0625 for World3-only runs; **this was not needed**: the group is a Sector.)
+  4. **Pre-registered criteria, unchanged:** A3.2 (all 29 states within 2% of the default WorldDynamics.jl reference at every 0.5-year point of 1900-2100, both sets), A3.3 (twelve main stocks within 2% of unmodified PyWorld3 at dt = 0.05 with the pollution start-up matched, labelled diagnostic; the 2004 set diagnostic), A3.4(b) (S1's 15 states inside the full run within 0.25% of S1 alone with recorded inputs, both sets). **Written predictions before the run:** A3.2 is expected to pass (the track's scan: worst 1.6% and 1.9% at 0.0625); A3.4(b) is expected to be **borderline**: D-022's measurement of S1 with recorded partners gives about 0.25% (1974) and 0.23% (2004) at 0.0625, against a 0.25% criterion; A3.3 for the 1974 set is expected to improve but not certainly to pass (`ic` 3.39% and `sc` 2.42% at 0.25 are the largest).
+  5. **Any criterion that still fails is recorded with its size and first year; nothing is adjusted.**
+- **Cost, measured by the track:** one full World3 run takes about 0.6 s at step 0.25 and 2.3 s at 0.0625 (median), so the sub-stepped group costs roughly 2.3 s per run.
+- **Reversal cost:** low: removing the group wrapper restores the 0.25-year behaviour and A3.2 fails again as recorded (strict xfails remain in the history).
+- **Alternatives considered (editor chose the one above):** predictor-corrector coupling (more code, changes the interface, not needed to meet 2%); a labelled post-hoc restatement of the criterion (would relax a pre-registered criterion).
+- **Sources:** `audit/m3-world3-port-report.md`, `docs/tracks/track-b.md`, D-003, D-004, D-022.
+- **Proposed by:** Claude (Modeler role), on the track's recommendation.
+- **Decision:** Approved by the editor, 2026-10-20.
+- **Date:** 2026-10-20
 
 ---
 
