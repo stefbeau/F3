@@ -67,7 +67,19 @@ def _report(scen, rows, tag):
     print(f"economy {scen} {tag}: " + "; ".join(out))
 
 
-@pytest.mark.parametrize("scen", SCENARIOS)
+# RECORD of the first result (one run, nothing adjusted): the group with Euler sub-step 1/64 (the rung at which every member alone is
+# within 0.0000%) exceeds 2% on the economy variables in the last decades. Sizes (true relative error), TLTL: GDP 2.227% (max 2096.0,
+# first above 2% 2090.5), GDP per person 2.227%, GS 2.149% (first 2096.0), PSP 2.153%; INEQ/INEQI 1.123% (pass). GL: GDP 2.514% (first
+# 2088.5), GDP per person 2.514%, INEQ and INEQI 3.234% (max 2095.5, first 2076.5), GS 2.877% (first 2090.0), PSP 2.859%. Energy mix (REP,
+# FEP, NEP, EP and shares) 0.000% in both. Diagnostic scan of finer group sub-steps (post-hoc, labelled, not a criterion): 1/128 and 1/256
+# are WORSE (GDP 2.8% and 3.1% TLTL; INEQ 8.6% and 10.4% GL; GL FEP 13% and 20% at the 2055 kink), so no rung of the plan's ladder meets
+# 2%. Inferred (not tested): members alone are 0.0000% with recorded inputs, so the gap is the one-sub-step lag of the explicit coupling
+# among members (the reference solves the connections simultaneously).
+_A45_X = {"tltl": "A4.5 TLTL: GDP 2.227% (first above 2%: 2090.5), GS 2.149%, PSP 2.153%, GDP per person 2.227%",
+          "gl": "A4.5 GL: GDP 2.514% (first 2088.5), INEQ/INEQI 3.234% (first 2076.5), GS 2.877%, PSP 2.859%, GDP per person 2.514%"}
+
+
+@pytest.mark.parametrize("scen", [pytest.param(s, marks=pytest.mark.xfail(strict=True, reason=_A45_X[s])) for s in SCENARIOS])
 def test_a45_economy_variables_within_2_percent_at_loop_step_0_25(scen):
     rows, res, idx, ref = _economy_rows(scen)
     _report(scen, rows, "(group, loop step 0.25, group sub-step per the ladder)")

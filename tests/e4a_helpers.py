@@ -162,3 +162,30 @@ def report_line(case: Case, tag: str, scen: str, rows: Dict[str, Row]) -> str:
     vs = f"; Earth4All.jl vs Vensim for this variable: p95 {100 * float(v['p95']):.2f}%, max {100 * float(v['maximum']):.2f}%" if v and v["all_zero"] != "true" else ""
     return (f"{case.key} {scen} {tag}: worst {w.name} {100 * w.max_err:.4f}% (year {w.year_of_max}), first above 2%: "
             f"{[(r.name, r.first_year_above) for r in live if r.first_year_above is not None][:4]}, excluded (identically zero): {ex}{vs}")
+
+
+def economy_run(scen: str, substep: Optional[float] = None, switches: Optional[Dict[str, float]] = None, overrides: Optional[Dict[str, np.ndarray]] = None,
+                params: Optional[Dict[str, float]] = None, dt: float = 0.25, t1: float = T1):
+    """A4.5: the eight reused sectors as one group (f3.sectors.e4a_economy) with the replaced sectors' signals recorded."""
+    from f3.sectors.e4a_economy import E4AEconomy
+    sg = signals(scen)
+    sc = lambda c: sg[c]
+    start = {}
+    probe = E4AEconomy(scenario=scen, substep=substep, switches=switches, params=params)
+    # start-up values: the recorded 1980 values of every cross-sector signal the members read from each other
+    for key, m in probe.members.items():
+        for n in m.inputs:
+            src = probe._wiring[key][n][0]
+            if src != "external":
+                start[n] = float(sc(f"{src}.{n}")[0])
+    group = E4AEconomy(scenario=scen, substep=substep, switches=switches, params=params, start_values=start)
+    rep_cols = {}
+    for n in group.inputs:
+        cols = [c for c in sg if c.endswith("." + n) and c.split(".")[0] in REPLACED]
+        if len(cols) != 1:
+            raise KeyError(f"group input {n!r}: replaced-sector columns {cols}")
+        rep_cols[n] = overrides[n] if overrides and n in overrides else sg[cols[0]]
+    group.set_initial_inputs({n: float(v[0]) for n, v in rep_cols.items()})
+    rp = ReplaySector("recorded_inputs", sg["time"], rep_cols, dict(group.inputs))
+    res = Model([rp, group], [Coupling("recorded_inputs", n, group.name, n) for n in group.inputs], t0=T0, t1=t1, dt=dt).run()
+    return res
