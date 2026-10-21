@@ -67,6 +67,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-049 | M5 plan: warming channels omitted and labelled, illustrative parameters allowed, hindcast deferred, M6 before S5, S3 as built in M6 | Approved 2026-10-21 | 2 |
 | D-050 | S7 social module: trust dropped, inequality index (illustrative), changes relative to start only, S3 labour share relative fall as driver | Approved 2026-10-21 | 2 |
 | D-051 | M6 minimal integration: S7 output-only, one real coupling (climate damage to World3 industrial output), D-021 flagged for Phase 3 | Approved 2026-10-21 | 2 |
+| D-052 | F3 Explorer v0.1: stale-text fix, climate-damage control on the World3 panel, takeaway cards, presets, chart hover and download, infographics (branch `site-ux`) | Provisional (delegated) 2026-10-21 | 4 |
 
 ---
 
@@ -1211,6 +1212,29 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Reversal cost:** low (the multiplier is off by default; removing it leaves the sectors unchanged).
 - **Proposed by:** Claude (plan); decided by the editor.
 - **Decision:** Approved by the editor, 2026-10-21.
+- **Date:** 2026-10-21
+
+---
+
+## D-052 — F3 Explorer v0.1: text fix, climate-damage control, takeaway cards, presets, chart reading and download, infographics
+
+- **Status:** Provisional (delegated)
+- **Context:** Editor decision 2026-10-21 ("Explorer v0.1", branch `site-ux` from main; not merged, the Pages workflow unchanged). The pages still said "local draft, not published"; the merged M6 coupling (D-051) can now be shown; the pages were hard to read at a glance.
+- **Decision (what is built, on `site-ux` only):**
+  1. **Stale text replaced** on every page: "Public draft, published 2026-10-21. Conditional scenarios, not forecasts." All other caveats are kept. The About page names the commit that contains the built pages.
+  2. **New coupled view:** the World3 panel gets a climate-damage control (off, low, central, high; default off) using the merged M6 coupling, `io = io_gross x (1 - Omega(T))`, D-007, warming from the recorded FaIR ensemble mean. The grid is precomputed: 27 lever runs x 4 damage states (108 runs). Whenever damage is on the panel shows, without a click: level-of-output effect, not the upper end of the literature; damage-on runs are NOT compared with WorldDynamics.jl (it has no climate damage); S3's economy and World3's are not reconciled; no health or yield effect of warming. **The social module is not shown on the site.**
+  3. **Takeaway cards** (one sentence and three stat tiles per panel) built by page JavaScript from the data; tests fail on hard-coded values.
+  4. **Presets** (each a grid point), Reset, dropdowns under "Custom", change-versus-standard chips, scenario state in the URL hash restored on load.
+  5. **Charts:** hover, touch and keyboard crosshair with values; PNG and CSV download (the downloads carry the caveat when damage is on).
+  6. **Infographics** as inline SVG with text alternatives: feedback-loop diagram (links that exist today solid, links not built dashed), a roadmap of what is connected, warming stripes of the FaIR mean labelled with the A2.1 failure, a traffic-light status badge per panel linking to Limitations.
+  7. **Layout:** sticky tab bar, "Read this first" box, tooltip definitions (S3, R3, FaIR, GATE, World3).
+  8. Methods, Limitations and Sources updated for the new coupling. Nothing is claimed beyond the tests.
+- **Choices made (delegated, reversible):** the roadmap draws the warming-to-S3 damage link solid as well as the new warming-to-World3 link, because it is built (M2 slice, B2); only links not built are dashed. The status badges use three levels with text labels (amber: a test failed by a small recorded margin or a variant is not compared; red: the main reference test failed and levels are unvalidated; green: reference tests met; no panel is green). The grid keeps four World3 series (population, industrial output, resources, pollution) to keep the page small.
+- **What this does not change:** no test, tolerance or earlier decision; D-007, D-029, D-030, D-046, D-047, D-049 and D-051 stand; S3 compute and data-centre electricity stay withheld; Pages is not enabled or run by this branch.
+- **Alternatives considered:** a live (in-browser) model (rejected, D-009: static site); showing the social module (excluded by the editor).
+- **Reversal cost:** low (site files only).
+- **Proposed by:** Claude (implementing the editor's brief).
+- **Decision:** Provisional (delegated), awaiting the editor's review.
 - **Date:** 2026-10-21
 
 ---

@@ -1,13 +1,13 @@
-"""F3 Explorer v0 generator: writes site/index.html, methods.html, limitations.html, sources.html, about.html and site/data/explorer.json.
+"""F3 Explorer v0.1 generator: writes site/index.html, methods.html, limitations.html, sources.html, about.html and site/data/explorer.json.
 
-Static site (D-009): precomputed scenario grids, no backend. NOT published: publishing is the editor's decision.
+Static site (D-009): precomputed scenario grids, no backend. Published as a public draft on 2026-10-21 (editor).
 
     PYTHONPATH=. python site_src/generate.py <climate841.npz>      # full build: runs the grids (about 2 minutes)
     PYTHONPATH=. python site_src/generate.py --reuse               # restamp pages from site/data/explorer.json (date, commit hash)
 
 The generator and templates live in site_src/ (not in site/) so that what is deployed is only pages and data.
-Three panels, NOT coupled to each other:
-  1. World3 (2004 parameter set, D-015), D-031 group: 27 runs from 3 levers x 3 values (D-046, Provisional).
+Three panels; ONE coupling is shown (D-052, D-051): climate damage to World3 industrial output (default off):
+  1. World3 (2004 parameter set, D-015), D-031 group: 27 runs from 3 levers x 3 values (D-046, Provisional) x 4 damage states (off, low, central, high).
   2. Climate: the 841-member FaIR recording (D-021 option a, exact), emissions prescribed.
   3. AI race: the Demo 0 slice grid (S3 under R3 + data-centre module + damage option), reused from dashboard/demo0/generate.py.
      The S3 compute and data-centre electricity series stay in the data but are NOT rendered (withheld until the S3 compute path is validated).
@@ -45,7 +45,12 @@ def load_demo0():
     return mod
 
 
-def run_world3(over: dict, parameter_set: str = "2004"):
+DAMAGE_STATES = ["off", "low", "central", "high"]
+
+
+def run_world3(over: dict, parameter_set: str = "2004", damage: str = "off", warming=None):
+    """One World3 group run. ``damage`` is "off" (the default, bit-identical to stand-alone World3) or a D-007 option; with damage on, the merged M6
+    coupling is used (io = io_gross x (1 - Omega(T)) from 2025) with ``warming`` = the recorded FaIR ensemble mean (a callable year -> K)."""
     from f3.core import Model
     from f3.sectors.world3 import STATE_COLUMNS, _initial_inputs, build_world3
     from f3.sectors.world3_group import World3Group
@@ -57,29 +62,40 @@ def run_world3(over: dict, parameter_set: str = "2004"):
                 if k in s.params:
                     s.params[k] = v
     init = _initial_inputs(sectors, 1900.0)
-    g = World3Group(sectors, couplings, init, STATE_COLUMNS)
+    g = World3Group(sectors, couplings, init, STATE_COLUMNS, damage_option=None if damage == "off" else damage, warming=warming)
     res = Model([g], [], t0=1900.0, t1=2100.0, dt=0.25).run()
     st = {n: res.series[(g.name, n)] for n in STATE_COLUMNS}
+    st["io"] = res.series[(g.name, "io")]
     idx = [i for i, t in enumerate(res.time) if abs(t - round(t)) < 1e-9]            # yearly
     nri = over.get("nri", 1.0e12)
-    out = {"pop": st["p1"] + st["p2"] + st["p3"] + st["p4"], "ic": st["ic"], "al": st["al"], "nrfr": st["nr"] / nri, "ppolx": st["ppol"] / PPOL70}
+    out = {"pop": st["p1"] + st["p2"] + st["p3"] + st["p4"], "io": st["io"], "ic": st["ic"], "al": st["al"], "nrfr": st["nr"] / nri, "ppolx": st["ppol"] / PPOL70}
     return [int(round(res.time[i])) for i in idx], {k: [float(f"{v[i]:.6g}") for i in idx] for k, v in out.items()}
 
 
-def world3_grid() -> dict:
+def world3_grid(rec) -> dict:
+    """27 lever runs x 4 damage states (D-052). Key: "i|j|k|damage". Warming for the damage runs is the recorded FaIR ensemble mean (no new FaIR run)."""
+    import numpy as np
+    wy, ww = np.asarray(rec["years"], dtype=float), np.asarray(rec["warming"], dtype=float)
+    warming = lambda t: float(np.interp(t, wy, ww))          # noqa: E731
     years, runs = None, {}
     for combo in itertools.product(*[range(3) for _ in LEVERS]):
         over = {p: vals[i] for (p, _, vals, _, _), i in zip(LEVERS, combo)}
-        years, series = run_world3(over)
-        runs["|".join(map(str, combo))] = series
+        for dmg in DAMAGE_STATES:
+            years, series = run_world3(over, damage=dmg, warming=warming)
+            runs["|".join(map(str, combo)) + "|" + dmg] = series
     std = "|".join(str(l[4]) for l in LEVERS)
-    return {"years": years, "runs": runs, "standard": std,
+    from f3.sectors import damages
+    from f3.sectors.world3_group import DAMAGE_COUPLING_LABEL, DAMAGE_START_YEAR
+    return {"years": years, "runs": runs, "standard": std, "damage_states": DAMAGE_STATES,
             "levers": [{"param": p, "label": lab, "values": vals, "value_labels": vl, "standard_index": si} for p, lab, vals, vl, si in LEVERS],
+            "damage": {"default": "off", "start_year": DAMAGE_START_YEAR, "label": DAMAGE_COUPLING_LABEL,
+                       "coeff_pct_per_K2": {k: v * 100 for k, v in damages.OPTIONS.items() if k != "off"}},
             "parameter_set": "2004 (World3_03 scenario 1; the provisional default of D-015)",
             "status": {"A3.1": "met: all 14 states of the four sectors within 0.124% of WorldDynamics.jl, both parameter sets",
                        "A3.2": "met after D-031 (0.0625-year sub-steps inside the 0.25-year loop): all 29 states within 2%, worst 1.906% (2004 set)",
                        "A3.4b": "FAILED: S1 inside the full run differs from S1 alone with recorded inputs by up to 0.931% (2004 set) against 0.25%",
-                       "scope": "These tests used the STANDARD parameters only. Runs with changed parameters have NOT been compared with WorldDynamics.jl."}}
+                       "scope": "These tests used the STANDARD parameters only. Runs with changed parameters have NOT been compared with WorldDynamics.jl.",
+                       "M6": "the damage coupling is tested (tests/test_m6_damage_coupling.py: switch off equals stand-alone World3 to 1e-9; zero warming equals baseline; more warming lowers industrial output; bounds over the full grid). Damage-on runs are NOT compared with WorldDynamics.jl, which has no climate damage."}}
 
 
 def git(*args) -> str:
@@ -103,7 +119,7 @@ def build_data(rec_path: Path) -> dict:
         "s3_status": d0.S3AI.validation_status, "s6_status": d0.S6Climate.validation_status, "dc_status": d0.DataCentre.validation_status,
         "provenance": d0.provenance(rec_path),
     }
-    data["world3"] = world3_grid()
+    data["world3"] = world3_grid(rec)
     return data
 
 
