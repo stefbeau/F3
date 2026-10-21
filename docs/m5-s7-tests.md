@@ -1,6 +1,6 @@
 # S7 tests (A5.2, A5.3, A5.5 for R2 and B5): fixed before any S7 code and before any result
 
-**Status:** written 2026-10-21 on branch `m5-s7`, with `docs/m5-s7-parameters.md`. Tests are in `tests/test_s7_social.py`. The module `f3/sectors/s7_social.py` **does not exist yet**, so every test below is expected to fail at collection or at import until the code is written; that is the point of writing them first. No result has been produced.
+**Status:** written 2026-10-21 on branch `m5-s7`, with `docs/m5-s7-parameters.md`; **revised after the editor's review (D-050) before any S7 code: no trust stock, output renamed, display rule added.** Tests are in `tests/test_s7_social.py`. The module `f3/sectors/s7_social.py` **does not exist yet**, so every test below is expected to fail at collection or at import until the code is written; that is the point of writing them first. No result has been produced.
 
 ## Rules
 - **Inputs are given paths, not S3 output.** S3's level is unvalidated (D-029), so every test drives S7 with **explicit input series** (labour share, unemployment, warming, growth, redistribution), by name, through the coupling loop's `ReplaySector`. No test uses S3, S1 or S6 output.
@@ -9,7 +9,7 @@
 - **No threshold is tuned after seeing results.** Tolerances are the ones written here.
 
 ## A5.2 balance and bounds
-- **B-1** for every scenario in a fixed grid (labour-share fall 0, 0.3, 0.8; unemployment 0, 0.15, 0.6; warming 0, 2, 6 K; redistribution 0, 0.5, 1; growth -0.05, 0, 0.05; 81 combinations of three of the five axes chosen in the file) over 200 years: **every stock stays within its declared bounds** (inequality 0.10 to 0.90; trust, tension, well-being, policy response 0 to 1) at every step, and **no value is NaN or infinite**.
+- **B-1** for every scenario in a fixed grid (labour-share fall 0, 0.3, 0.8; unemployment 0, 0.15, 0.6; warming 0, 2, 6 K; redistribution 0, 0.5, 1; growth -0.05, 0, 0.05; 81 combinations of three of the five axes chosen in the file) over 200 years: **every stock stays within its declared bounds** (inequality index 0.10 to 0.90; tension, well-being, policy response 0 to 1) at every step, and **no value is NaN or infinite**.
 - **B-2** extreme inputs (labour share 0 and 1, unemployment 1, warming 20 K, growth +-1) do not break the bounds.
 
 ## A5.3 extreme conditions (spec 7.5, the S7 part)
@@ -41,6 +41,10 @@
 - **I-2** `S7Social.validation_status` exists and contains the words "illustrative" and "not validated against history" and the D-029 sentence about S3's unvalidated output.
 - **I-3** the parameter table in `docs/m5-s7-parameters.md` and the module's `PARAMETERS` dict **agree**: same names, same values, and every parameter is marked illustrative unless the document names a source (the test parses the document).
 - **I-4** the module imports nothing from S3, S1 or S6 (it reads them only through the loop's named inputs).
+- **I-5 (D-050)** the module has **no trust output or parameter**; its `inequality` output is documented as the **inequality index (illustrative)**; a helper `changes_relative_to_start(result)` returns each output minus its first value (the display rule), and the validation status says so.
+
+## Run on the real module (D-050 item 4)
+After the module is written, the whole file is run once and the result recorded in `docs/tracks/m5-s7.md`; **`test_mutations_are_caught` is the check that the R2 and B5 sign tests can fail on the real module** (it passes only if the assertions did fail under the mutation). Any test failure is recorded with its size; no test, parameter or threshold is adjusted afterwards.
 
 ## What is not tested here (stated so it is not read as covered)
 No comparison with any observed series (deferred, D-049); no calibration; no coupling to S2; no test of magnitudes. The sign tests show only that the loops point the intended way under illustrative gains.

@@ -5,7 +5,7 @@ ReplaySector; none uses S3, S1 or S6 output (S3's level is unvalidated, D-029). 
 fixed identity; none compares anything with the world. Sign tests have a control run, and test_mutations_are_caught shows that they can fail.
 
 Interface fixed by docs/m5-s7-parameters.md: f3.sectors.s7_social.S7Social(overrides=None), class attribute PARAMETERS (dict), validation_status,
-inputs {labor_share, unemployment, warming, gdp_per_capita_growth, redistribution}, outputs {inequality, trust, tension, wellbeing, policy_response}.
+inputs {labor_share, unemployment, warming, gdp_per_capita_growth, redistribution}, outputs {inequality, tension, wellbeing, policy_response} (no trust: D-050; `inequality` is the inequality index (illustrative)), plus the static method S7Social.changes_relative_to_start(result).
 Until that module is written this file fails at import: that is intended.
 """
 from __future__ import annotations
@@ -23,8 +23,8 @@ from f3.sectors.s7_social import S7Social
 
 REPO = Path(__file__).resolve().parents[1]
 INPUTS = {"labor_share": "1", "unemployment": "1", "warming": "K", "gdp_per_capita_growth": "1/year", "redistribution": "1"}
-OUTPUTS = ("inequality", "trust", "tension", "wellbeing", "policy_response")
-BOUNDS = {"inequality": (0.10, 0.90), "trust": (0.0, 1.0), "tension": (0.0, 1.0), "wellbeing": (0.0, 1.0), "policy_response": (0.0, 1.0)}
+OUTPUTS = ("inequality", "tension", "wellbeing", "policy_response")
+BOUNDS = {"inequality": (0.10, 0.90), "tension": (0.0, 1.0), "wellbeing": (0.0, 1.0), "policy_response": (0.0, 1.0)}
 DT = 0.25
 
 
@@ -82,7 +82,7 @@ def test_b2_extreme_inputs_keep_the_bounds():
 def test_e1_no_automation_the_start_is_a_fixed_point():
     r = run(100)
     p = S7Social.PARAMETERS
-    start = {"inequality": p["I0"], "trust": p["Tr0"], "tension": p["Te0"], "wellbeing": p["W0"], "policy_response": p["P0"]}
+    start = {"inequality": p["I0"], "tension": p["Te0"], "wellbeing": p["W0"], "policy_response": p["P0"]}
     for n, v0 in start.items():
         assert np.allclose(r[n], v0, atol=1e-12), (n, r[n].min(), r[n].max(), v0)
 
@@ -216,6 +216,18 @@ def test_i3_parameter_document_and_module_agree_and_every_parameter_is_marked():
         assert "illustrative" in source.lower() or "read" in source.lower(), (n, source)      # every parameter is marked
     extra = [n for n in documented if n not in params and n not in skip and not n.startswith("start")]
     assert not extra, f"documented but not in the module: {extra}"
+
+
+def test_i5_no_trust_inequality_is_an_illustrative_index_and_results_are_shown_as_changes():
+    assert "trust" not in S7Social.outputs
+    assert not [n for n in S7Social.PARAMETERS if n.startswith(("Tr", "tau_Tr", "gTr")) or n == "gTe_Tr"]
+    doc = (S7Social.__doc__ or "") + " " + S7Social.validation_status
+    assert "inequality index (illustrative)" in doc
+    r = run(60, labor_share=ramp(1.0, 0.7, 40, 60))
+    ch = S7Social.changes_relative_to_start(r)
+    for n in OUTPUTS:
+        assert abs(ch[n][0]) < 1e-12 and np.allclose(ch[n], r[n] - r[n][0])
+    assert "relative to the start" in S7Social.validation_status.lower()
 
 
 def test_i4_the_module_imports_nothing_from_s3_s1_or_s6():
