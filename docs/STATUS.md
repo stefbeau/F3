@@ -1,6 +1,6 @@
 # F3 — Status
 
-**As of 2026-10-21 (Track A held; Tracks B and C merged; D-006, D-008 and the Provisional decisions of Tracks B and C approved; M5 unblocked but not started).** `DECISIONS.md` is authoritative for decisions; this page summarises. Keep it current: update it in the same commit as any change of status.
+**As of 2026-10-21 (F3 Explorer v0 merged into main, approved by the editor for publication, awaiting his Pages enablement; Tracks A, B and C merged; M5 unblocked but not started).** `DECISIONS.md` is authoritative for decisions; this page summarises. Keep it current: update it in the same commit as any change of status.
 
 ## Phases
 | Phase | Goal | Status |
@@ -59,6 +59,13 @@ The external review of Demo 0 is deferred until Demo 0 is ready (editor's decisi
 - **Still Provisional (delegated), belonging to the held Demo 0 code:** D-032 to D-036, with review notes appended to D-033 (5% supply cap and the tie to S3's hardware curve are assumptions to be stated on the page), D-034 (central and high coefficients are derived: mark them "derived"), D-035 (add a test that fails if any sector feeds S6).
 - **M5 (water, minerals, social module) is unblocked on D-006 and D-008 but has not been started.**
 - **On hold: S3, R3 and Demo 0, pending Epoch's reply** (Track A's branch is kept, not merged).
+
+## F3 Explorer v0 (2026-10-21): merged, approved for publication, NOT yet published
+- **Merged into main** (merge commit `2a382d4`, branch `site`) at the editor's instruction; the editor approved v0 for publication on 2026-10-21 and is **not waiting for Epoch AI**. D-046 (World3 levers) and D-047 (page set, withheld outputs, chart conventions) are **Approved 2026-10-21**.
+- **Static site in `site/`** (Explorer, Methods, Limitations, Sources, About); generator and templates in `site_src/`; docs `docs/site-explorer.md`. S3 compute and data-centre electricity outputs are withheld (not drawn); the three panels are not coupled; every recorded test failure is stated on the Limitations page.
+- **Suite before the merge:** 237 passed, 45 strict xfail (234 plus the 3 new site tests, nothing else failing).
+- **Awaiting the editor:** enabling GitHub Pages. **Pages is not enabled and `.github/workflows/pages.yml` (manual-only) has not been run.**
+- **Still open, and not waited for:** S3's composite (A1.3) and the Epoch AI email (unsent); R3's fit; the S3/R3 items on the revisit list below; withheld compute and electricity outputs stay withheld until S3's compute path is validated.
 
 ## Fixture regrid (2026-10-21): no change
 The S1 and World3 recorded-input fixtures were re-exported on the 1/64-year grid like D-044 (reading written first, `docs/m3-fixture-regrid-reading.md`). **A3.1, A3.2, A3.3, A3.4(a) and A3.4(b) are textually identical before and after** (A3.4(b) still fails at 1.019% and 0.931% against 0.25%); suite 228 passed, 42 strict xfail. The effect was nil by construction (those tests query inputs only at points already on the old grid); the proposal's premise was wrong and is corrected in the reading. Recorded as Provisional D-045. **The four re-exported fixture files were then reverted (2026-10-21, editor): no result changed and they added about 7 MB; the reading, D-045 and the export script stay as the record.**
