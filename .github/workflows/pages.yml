@@ -1,0 +1,31 @@
+name: pages
+
+# Deploys site/ to GitHub Pages. NOT enabled and NEVER run automatically: it can only be started by hand (workflow_dispatch) and only
+# after the editor approves publishing and enables Pages in the repository settings (D-009: static site, precomputed grids). Publishing
+# anything public is the editor's decision (CLAUDE.md, standing delegation).
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v4

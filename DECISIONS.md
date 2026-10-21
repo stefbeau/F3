@@ -62,6 +62,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-043 | Euler with a 1/64-year internal sub-step for the reused Earth4All sectors | Approved 2026-10-21 | 2 |
 | D-044 | Correction of the M4 recorded-input fixture grid (1/16 to 1/64 year), made after a result was seen | Approved 2026-10-21 | 2 |
 | D-045 | Fixture correction: S1 and World3 recorded inputs re-exported on the 1/64-year grid (no change) | Provisional (delegated) | 2 |
+| D-046 | F3 Explorer v0: World3 levers and runs for the static page (branch `site`) | Provisional (delegated) | 4 |
 
 ---
 
@@ -1134,6 +1135,17 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
 - **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
 - **Revert note (2026-10-21, appended; status unchanged).** At the editor's instruction the four re-exported fixture files were reverted to their previous versions (a new commit, history not rewritten) because the re-export changed no result and added about 7 MB. This entry, `docs/m3-fixture-regrid-reading.md` and the export script `audit/t0/world3_regrid_export.jl` are kept as the record of the negative result.
+
+## D-046 — F3 Explorer v0: World3 levers and runs for the static page (branch `site`)
+
+- **Status:** Provisional (delegated)
+- **Date:** 2026-10-21
+- **Decision:** The World3 panel of the Explorer page is a precomputed grid of 3 levers x 3 values = 27 runs, 1900-2100, 2004 parameter set (D-015), run with the D-031 group: initial non-renewable resources `nri` (0.5e12, 1e12 standard, 2e12), land yield factor after 1975 `lyf2` (1.0 standard, 1.5, 2.0), persistent-pollution generation factor after 1975 `ppgf21` (1.0 standard, 0.5, 0.25). Only the standard parameters have been compared with WorldDynamics.jl (A3.1, A3.2); the page states that runs with changed parameters have not been compared with anything.
+- **Recommendation followed:** the classic scenario levers (resources, agricultural technology, pollution control), one per sector, each with a measurable effect in a trial run before the choice was frozen; `ppgf22` has no effect here (technology switch off), so `ppgf21` is used. Details: `docs/site-explorer.md`.
+- **Alternatives considered:** other levers (`icor`, `alic`, policy-year timing, `dcfsn`); the 1974 set; more values per lever.
+- **Cost of reversing it:** low: edit `LEVERS` in `site/generate.py` and regenerate (about 70 seconds plus the recorded 841-member climate).
+- **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
+- **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
 
 ---
 
