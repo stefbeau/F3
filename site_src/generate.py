@@ -1,37 +1,36 @@
-"""F3 Explorer v0 generator: writes site/index.html (one self-contained static page, inline CSS/JS/data) and site/data/explorer.json.
+"""F3 Explorer v0 generator: writes site/index.html, methods.html, limitations.html, sources.html, about.html and site/data/explorer.json.
 
 Static site (D-009): precomputed scenario grids, no backend. NOT published: publishing is the editor's decision.
 
-    PYTHONPATH=. python site/generate.py <climate841.npz>
+    PYTHONPATH=. python site_src/generate.py <climate841.npz>      # full build: runs the grids (about 2 minutes)
+    PYTHONPATH=. python site_src/generate.py --reuse               # restamp pages from site/data/explorer.json (date, commit hash)
 
+The generator and templates live in site_src/ (not in site/) so that what is deployed is only pages and data.
 Three panels, NOT coupled to each other:
-  1. World3 (2004 parameter set, D-015 provisional default), advanced with the D-031 group (0.0625-year sub-steps in the 0.25-year loop):
-     a precomputed grid of 3 levers x 3 values = 27 runs, 1900-2100. Levers are World3 parameters chosen as a Provisional decision
-     (docs/site-explorer.md): initial non-renewable resources (nri), land yield factor after the 1975 policy year (lyf2) and the
-     persistent-pollution generation factor after 1975 (ppgf21). Only the standard run is compared with WorldDynamics.jl (A3.1, A3.2).
+  1. World3 (2004 parameter set, D-015), D-031 group: 27 runs from 3 levers x 3 values (D-046, Provisional).
   2. Climate: the 841-member FaIR recording (D-021 option a, exact), emissions prescribed.
   3. AI race: the Demo 0 slice grid (S3 under R3 + data-centre module + damage option), reused from dashboard/demo0/generate.py.
+     The S3 compute and data-centre electricity series stay in the data but are NOT rendered (withheld until the S3 compute path is validated).
 """
 from __future__ import annotations
 
+import datetime
 import importlib.util
 import itertools
 import json
+import subprocess
 import sys
 from pathlib import Path
 
-import numpy as np
-
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
+sys.path.insert(0, str(Path(__file__).parent))
 
-from f3.core import Model  # noqa: E402
-from f3.sectors.world3 import STATE_COLUMNS, _initial_inputs, build_world3  # noqa: E402
-from f3.sectors.world3_group import World3Group  # noqa: E402
+import pages  # noqa: E402
 
 PPOL70 = 1.36e8                      # World3 ppol70 (persistent pollution in 1970), ppolx = ppol / ppol70
 
-# Provisional (delegated) choice of levers: docs/site-explorer.md. (parameter, label, values, value labels, index of the standard value)
+# Provisional (delegated) choice of levers (D-046): (parameter, label, values, value labels, index of the standard value)
 LEVERS = [
     ("nri", "Non-renewable resources at the start (1900)", [0.5e12, 1.0e12, 2.0e12], ["half (0.5e12)", "standard (1e12)", "double (2e12)"], 1),
     ("lyf2", "Land yield factor after 1975", [1.0, 1.5, 2.0], ["standard (1.0)", "1.5", "2.0"], 0),
@@ -47,6 +46,10 @@ def load_demo0():
 
 
 def run_world3(over: dict, parameter_set: str = "2004"):
+    from f3.core import Model
+    from f3.sectors.world3 import STATE_COLUMNS, _initial_inputs, build_world3
+    from f3.sectors.world3_group import World3Group
+
     sectors, couplings = build_world3(parameter_set)
     for s in sectors:
         if hasattr(s, "params"):
@@ -59,16 +62,12 @@ def run_world3(over: dict, parameter_set: str = "2004"):
     st = {n: res.series[(g.name, n)] for n in STATE_COLUMNS}
     idx = [i for i, t in enumerate(res.time) if abs(t - round(t)) < 1e-9]            # yearly
     nri = over.get("nri", 1.0e12)
-    out = {
-        "pop": st["p1"] + st["p2"] + st["p3"] + st["p4"], "ic": st["ic"], "al": st["al"],
-        "nrfr": st["nr"] / nri, "ppolx": st["ppol"] / PPOL70,
-    }
+    out = {"pop": st["p1"] + st["p2"] + st["p3"] + st["p4"], "ic": st["ic"], "al": st["al"], "nrfr": st["nr"] / nri, "ppolx": st["ppol"] / PPOL70}
     return [int(round(res.time[i])) for i in idx], {k: [float(f"{v[i]:.6g}") for i in idx] for k, v in out.items()}
 
 
 def world3_grid() -> dict:
-    years = None
-    runs = {}
+    years, runs = None, {}
     for combo in itertools.product(*[range(3) for _ in LEVERS]):
         over = {p: vals[i] for (p, _, vals, _, _), i in zip(LEVERS, combo)}
         years, series = run_world3(over)
@@ -83,9 +82,16 @@ def world3_grid() -> dict:
                        "scope": "These tests used the STANDARD parameters only. Runs with changed parameters have NOT been compared with WorldDynamics.jl."}}
 
 
-def main() -> None:
+def git(*args) -> str:
+    try:
+        return subprocess.run(["git", "-C", str(REPO), *args], capture_output=True, text=True).stdout.strip()
+    except Exception:
+        return "unknown"
+
+
+def build_data(rec_path: Path) -> dict:
+    import numpy as np
     d0 = load_demo0()
-    rec_path = Path(sys.argv[1])
     z = np.load(rec_path)
     rec = {k: z[k] for k in z.files}
     if len(rec["years"]) != 76 or int(rec["years"][0]) != 2025:
@@ -98,13 +104,24 @@ def main() -> None:
         "provenance": d0.provenance(rec_path),
     }
     data["world3"] = world3_grid()
-    here = Path(__file__).parent
-    (here / "data").mkdir(exist_ok=True)
-    (here / "data" / "explorer.json").write_text(json.dumps(data, separators=(",", ":")), encoding="utf-8", newline="\n")
-    tpl = (here / "template.html").read_text(encoding="utf-8")
-    html = tpl.replace("/*DATA*/null", json.dumps(data, separators=(",", ":")))
-    (here / "index.html").write_text(html, encoding="utf-8", newline="\n")
-    print("wrote site/index.html", len(html), "bytes; site/data/explorer.json", (here / "data" / "explorer.json").stat().st_size, "bytes")
+    return data
+
+
+def main() -> None:
+    here = REPO / "site"
+    (here / "data").mkdir(parents=True, exist_ok=True)
+    jpath = here / "data" / "explorer.json"
+    if len(sys.argv) > 1 and sys.argv[1] == "--reuse":
+        data = json.loads(jpath.read_text(encoding="utf-8"))
+    else:
+        data = build_data(Path(sys.argv[1]))
+        jpath.write_text(json.dumps(data, separators=(",", ":")), encoding="utf-8", newline="\n")
+    stamp = {"date": datetime.date.today().isoformat(), "commit": git("rev-parse", "--short", "HEAD") or "unknown"}
+    stamp["dirty"] = "yes" if git("status", "--porcelain", "--", "site_src", "docs", "f3") else "no"
+    for name, html in pages.render_all(data, stamp, Path(__file__).parent).items():
+        (here / name).write_text(html, encoding="utf-8", newline="\n")
+        print("wrote site/" + name, len(html), "bytes")
+    print("stamp:", stamp)
 
 
 if __name__ == "__main__":

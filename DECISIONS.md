@@ -63,6 +63,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-044 | Correction of the M4 recorded-input fixture grid (1/16 to 1/64 year), made after a result was seen | Approved 2026-10-21 | 2 |
 | D-045 | Fixture correction: S1 and World3 recorded inputs re-exported on the 1/64-year grid (no change) | Provisional (delegated) | 2 |
 | D-046 | F3 Explorer v0: World3 levers and runs for the static page (branch `site`) | Provisional (delegated) | 4 |
+| D-047 | F3 Explorer v0: page set, withheld S3 outputs and chart conventions (branch `site`) | Provisional (delegated) | 4 |
 
 ---
 
@@ -1144,6 +1145,17 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Recommendation followed:** the classic scenario levers (resources, agricultural technology, pollution control), one per sector, each with a measurable effect in a trial run before the choice was frozen; `ppgf22` has no effect here (technology switch off), so `ppgf21` is used. Details: `docs/site-explorer.md`.
 - **Alternatives considered:** other levers (`icor`, `alic`, policy-year timing, `dcfsn`); the 1974 set; more values per lever.
 - **Cost of reversing it:** low: edit `LEVERS` in `site/generate.py` and regenerate (about 70 seconds plus the recorded 841-member climate).
+- **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
+- **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
+
+## D-047 — F3 Explorer v0: page set, withheld S3 outputs and chart conventions (branch `site`)
+
+- **Status:** Provisional (delegated)
+- **Date:** 2026-10-21
+- **Decision:** At the editor's instruction ("fix all", 2026-10-21): (1) the Explorer's AI-race panel **does not render** the S3 compute charts or the data-centre electricity chart and table (values reach about 1.4e40 FLOP/year and 7.4e9 TWh/year), with a visible note that they are withheld until the S3 compute path is validated (awaiting Epoch AI); the series stay in `site/data/explorer.json` and the generator; the damage table drops its "output in USD per year" column and shows shares of S3's own unvalidated output only; (2) the site has five self-contained pages (Explorer, Methods, Limitations, Sources, About) with a shared header and footer navigation, English only; (3) charts use readable tick formats, real-size text (minimum 13 px rendered), a colour-blind-safe palette with dash patterns and direct end labels, and a text summary on each chart; (4) generator and templates live in `site_src/`, so only pages and data are deployable.
+- **Recommendation followed:** the editor's list A to F of 2026-10-21. Details and checks: `docs/site-explorer.md`.
+- **Alternatives considered:** keeping the compute and electricity charts with a warning (rejected by the editor: the values are not plausible); a single long page (the editor asked for separate pages); a language switch (deferred, English only for v0).
+- **Cost of reversing it:** low: the withheld series are in the data, and re-enabling a chart is one function call in `site_src/explorer.js`.
 - **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
 - **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
 

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Methods - F3 Explorer v0</title>
+<style>
+:root{--bg:#fafaf7;--fg:#1c1c1a;--mut:#5d5d58;--card:#fff;--line:#d9d8d0;--warn:#fff3d6;--warnl:#b7791f;--link:#0b5394;--focus:#0b5394;
+--c1:#0072b2;--c2:#d55e00;--c3:#009e73;--c4:#cc79a7;--c5:#7a6a00;--ref:#111}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#15161a;--fg:#e8e8e3;--mut:#a3a39b;--card:#1d1f24;--line:#3a3c43;--warn:#3a2f12;--warnl:#e0a030;--link:#7fb8f0;--focus:#7fb8f0;
+--c1:#56b4e9;--c2:#e69f00;--c3:#4fd0a5;--c4:#f0a0cc;--c5:#f0e442;--ref:#f2f2f2}}
+:root[data-theme=dark]{--bg:#15161a;--fg:#e8e8e3;--mut:#a3a39b;--card:#1d1f24;--line:#3a3c43;--warn:#3a2f12;--warnl:#e0a030;--link:#7fb8f0;--focus:#7fb8f0;
+--c1:#56b4e9;--c2:#e69f00;--c3:#4fd0a5;--c4:#f0a0cc;--c5:#f0e442;--ref:#f2f2f2}
+*{box-sizing:border-box}
+html,body{max-width:100%;overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;overflow-wrap:anywhere}
+main{max-width:980px;margin:0 auto;padding:16px}
+a{color:var(--link)}
+a:focus-visible,select:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+nav.site{display:flex;flex-wrap:wrap;gap:6px 16px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--card);font-size:.95rem}
+nav.site a{text-decoration:none;padding:2px 0}nav.site a[aria-current=page]{font-weight:700;border-bottom:2px solid var(--fg);color:var(--fg)}
+nav.site .brand{font-weight:700;margin-right:8px;color:var(--fg)}
+footer.site{border-top:1px solid var(--line);padding:14px 16px;font-size:.85rem;color:var(--mut);max-width:980px;margin:0 auto}
+footer.site nav{display:flex;flex-wrap:wrap;gap:6px 14px;margin-bottom:6px}
+h1{font-size:1.5rem;margin:.2em 0}h2{font-size:1.2rem;margin:0 0 .3em}h3{font-size:1rem;margin:1em 0 .2em}
+.lead{font-size:1.05rem;margin:.2em 0 .6em}
+.banner{background:var(--warn);border:2px solid var(--warnl);border-radius:8px;padding:12px 14px;margin:12px 0}
+.banner strong.big{display:block;font-size:1.25rem;margin-bottom:4px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:12px 0;min-width:0}
+.notice{background:var(--warn);border-left:5px solid var(--warnl);border-radius:4px;padding:8px 10px;margin:6px 0 8px;font-size:.92rem}
+.note{color:var(--mut);font-size:.9rem}
+.withheld{border:2px dashed var(--warnl);border-radius:8px;padding:10px 12px;margin:10px 0;font-weight:600}
+ul,ol{padding-left:1.2em;margin:.3em 0}li{margin:.25em 0}
+.ctl{display:flex;flex-wrap:wrap;gap:10px 18px;margin:8px 0}.ctl label{font-size:.92rem;display:block;min-width:0}
+select{font:inherit;background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:6px 8px;max-width:100%;min-height:36px}
+.grp{margin:10px 0 2px;font-weight:600;font-size:.95rem}
+figure{margin:8px 0}figcaption{font-size:.85rem;color:var(--mut)}
+svg{width:100%;height:auto;display:block}
+.leg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.88rem;margin:4px 0}
+.leg span{display:inline-flex;align-items:center;gap:6px}
+.leg svg{width:34px;height:10px;flex:none}
+table{border-collapse:collapse;width:100%;font-size:.88rem;table-layout:auto}td,th{border-bottom:1px solid var(--line);padding:4px 6px;text-align:left;vertical-align:top;overflow-wrap:anywhere}
+code,pre{font-size:.85em;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;max-width:100%}
+pre{margin:6px 0;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px}
+details{margin:8px 0}summary{cursor:pointer;font-weight:600;font-size:.92rem;padding:2px 0}
+details>*:not(summary){margin-top:6px}
+.small{font-size:.82rem}
+.sr{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.fail{font-weight:700}
+.failblock{border-top:1px solid var(--line);padding-top:6px;margin-top:10px}.failblock h3{margin:.2em 0}.failblock p{margin:.25em 0}
+
+</style>
+</head>
+<body>
+<nav class="site" aria-label="Site"><span class="brand">F3 Explorer v0</span><a href="index.html">Explorer</a><a href="methods.html" aria-current="page">Methods</a><a href="limitations.html">Limitations</a><a href="sources.html">Sources</a><a href="about.html">About</a></nav>
+<main>
+
+<h1>Methods</h1>
+<p class="lead">What is run, how it is stepped, and how to read what you see. For what is wrong or unvalidated, read <a href="limitations.html">Limitations</a>.</p>
+<div class="banner" role="note"><strong class="big">Conditional scenarios, not forecasts.</strong>Every curve in the Explorer is the output of a model run under stated assumptions. None is a prediction, none has a likelihood, and this page is a local draft that has not been approved for publication (plan test A2.7).</div>
+<section class="card"><h2>The three model pieces</h2>
+<ul>
+<li><strong>World3</strong> (<em>The Limits to Growth</em>, 1974 version and its 2004 update). F3 contains a Python port of five World3 sectors (population, agriculture, capital, non-renewable resources, persistent pollution), ported from WorldDynamics.jl v1.0.0 (MIT). The Explorer shows the <strong>2004 parameter set</strong>, the provisional default (D-015). The reference environment is a pinned registry snapshot of 2024-04-25 with default solver options (D-017). The standard run was compared with WorldDynamics.jl: every state of the four ported sectors within 0.124% (A3.1) and all 29 states within 2% (A3.2, worst 1.906%).</li>
+<li><strong>Climate</strong>: FaIR 2.2.4 (Apache 2.0), unmodified, with the published fair-calibrate v1.4.1 constrained ensemble of <strong>841 members</strong> (Smith et al., 2024). Emissions are prescribed: CO2 from the Global Carbon Budget 2025 for 2023-2024, and all other gases and later years from a scenario file of the ensemble's own; no F3 sector produces them (D-021).</li>
+<li><strong>AI race</strong>: S3, a re-implementation of the laws of motion, automation and production of GATE (Erdil et al., arXiv:2503.04941) written from the paper, not from Epoch's code, driven by an investment rule R3 (D-028), plus a data-centre electricity module and a damage function (D-007). Withheld outputs are described on the page.</li>
+</ul></section>
+
+<section class="card"><h2>Time and coupling</h2>
+<ul>
+<li>The model loop steps by <strong>0.25 year</strong> (D-003). Sectors exchange values at step boundaries; each sector reads the other sectors' values at the <em>start</em> of the step and holds them across it (explicit coupling, D-022). <code>t = Y</code> is 1 January of year Y; stocks are values on that date.</li>
+<li><strong>World3 sub-steps (D-031).</strong> The five World3 sectors are advanced together as one group in <strong>0.0625-year sub-steps</strong> inside each 0.25-year loop step, with the same start-of-sub-step coupling among them. With plain 0.25-year coupling the full-run test A3.2 failed (worst state 6.90% for the 1974 set and 7.96% for the 2004 set, against 2%); at 0.0625 year no state exceeded 2%. The Sector interface and D-003 and D-022 are unchanged.</li>
+<li>The AI sector advances in whole-year periods (GATE's own convention); the climate sector is re-run <strong>from 1750 every year with all 841 members</strong> and nothing carried between years (D-021 option a, chosen by the editor after measuring the alternatives).</li>
+<li><strong>The three panels are not coupled.</strong> In this version World3 runs alone, the climate path is a single recorded run replayed (exact, because emissions are prescribed and no lever changes them), and the AI-race run takes the warming from that recording.</li>
+</ul></section>
+
+<section class="card"><h2>Scenario grids</h2>
+<ul>
+<li>The Explorer is a <strong>static page of precomputed runs</strong> (D-009): no model runs in your browser and nothing is sent anywhere.</li>
+<li>World3: 3 levers x 3 values = 27 runs (D-046, Provisional): initial non-renewable resources (0.5e12, <strong>1e12 standard</strong>, 2e12), land yield factor after 1975 (<strong>1.0 standard</strong>, 1.5, 2.0), persistent-pollution generation factor after 1975 (<strong>1.0 standard</strong>, 0.5, 0.25).</li>
+<li>AI race: 3 investment settings (low, central, race; levers of the R3 rule) x 3 damage options = 9 runs, plus two electricity-supply cases kept in the data for the sign test.</li>
+</ul></section>
+
+<section class="card"><h2>How to read a band</h2>
+<ul>
+<li>The <strong>shaded band on the climate chart</strong> is the 5th to 95th percentile across the 841 members of the published constrained ensemble; the line is their mean. Each member has its own climate parameters and its own seeded internal variability. It describes the spread of that ensemble under the prescribed emissions. It is <strong>not</strong> a probability statement about the real climate and not an uncertainty analysis of the whole model.</li>
+<li><strong>World3 and S3 are single runs with no band</strong>: each curve is one run under the stated settings. A different parameter, or a different version of the model, gives a different curve, and the Explorer does not say how likely any curve is.</li>
+<li>Where a curve is dashed grey (World3 panel) it is the standard run, shown for comparison when you change a lever.</li>
+</ul></section>
+
+<section class="card"><h2>Pins and versions</h2>
+<ul>
+<li>FaIR 2.2.4; fair-calibrate v1.4.1 ensemble files at FaIR repository commit <code>28572bb00e40d73f83f3365395fe8bc3a1b60bb9</code>.</li>
+<li>WorldDynamics.jl v1.0.0 (pinned environment); Earth4All.jl commit <code>16f37d013a2f68135f03e7815bf861dbf47311f2</code> (electricity supply series only).</li>
+<li>HadCRUT.5.2.0.0 (used for the FaIR warming check, not drawn); Global Carbon Budget 2025 v1.0.</li>
+<li>All hashes are on the <a href="index.html">Explorer</a> page under "Data provenance".</li>
+</ul></section>
+
+</main>
+<footer class="site"><nav aria-label="Footer"><a href="index.html">Explorer</a><a href="methods.html">Methods</a><a href="limitations.html">Limitations</a><a href="sources.html">Sources</a><a href="about.html">About</a><a href="https://github.com/stefbeau/F3">Source code on GitHub</a></nav><div>Conditional scenarios, not forecasts. Local draft, not published. Built 2026-10-21 from source commit <code>331cf4c</code>.</div></footer>
+</body>
+</html>

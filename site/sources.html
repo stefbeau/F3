@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sources - F3 Explorer v0</title>
+<style>
+:root{--bg:#fafaf7;--fg:#1c1c1a;--mut:#5d5d58;--card:#fff;--line:#d9d8d0;--warn:#fff3d6;--warnl:#b7791f;--link:#0b5394;--focus:#0b5394;
+--c1:#0072b2;--c2:#d55e00;--c3:#009e73;--c4:#cc79a7;--c5:#7a6a00;--ref:#111}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#15161a;--fg:#e8e8e3;--mut:#a3a39b;--card:#1d1f24;--line:#3a3c43;--warn:#3a2f12;--warnl:#e0a030;--link:#7fb8f0;--focus:#7fb8f0;
+--c1:#56b4e9;--c2:#e69f00;--c3:#4fd0a5;--c4:#f0a0cc;--c5:#f0e442;--ref:#f2f2f2}}
+:root[data-theme=dark]{--bg:#15161a;--fg:#e8e8e3;--mut:#a3a39b;--card:#1d1f24;--line:#3a3c43;--warn:#3a2f12;--warnl:#e0a030;--link:#7fb8f0;--focus:#7fb8f0;
+--c1:#56b4e9;--c2:#e69f00;--c3:#4fd0a5;--c4:#f0a0cc;--c5:#f0e442;--ref:#f2f2f2}
+*{box-sizing:border-box}
+html,body{max-width:100%;overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;overflow-wrap:anywhere}
+main{max-width:980px;margin:0 auto;padding:16px}
+a{color:var(--link)}
+a:focus-visible,select:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+nav.site{display:flex;flex-wrap:wrap;gap:6px 16px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--card);font-size:.95rem}
+nav.site a{text-decoration:none;padding:2px 0}nav.site a[aria-current=page]{font-weight:700;border-bottom:2px solid var(--fg);color:var(--fg)}
+nav.site .brand{font-weight:700;margin-right:8px;color:var(--fg)}
+footer.site{border-top:1px solid var(--line);padding:14px 16px;font-size:.85rem;color:var(--mut);max-width:980px;margin:0 auto}
+footer.site nav{display:flex;flex-wrap:wrap;gap:6px 14px;margin-bottom:6px}
+h1{font-size:1.5rem;margin:.2em 0}h2{font-size:1.2rem;margin:0 0 .3em}h3{font-size:1rem;margin:1em 0 .2em}
+.lead{font-size:1.05rem;margin:.2em 0 .6em}
+.banner{background:var(--warn);border:2px solid var(--warnl);border-radius:8px;padding:12px 14px;margin:12px 0}
+.banner strong.big{display:block;font-size:1.25rem;margin-bottom:4px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:12px 0;min-width:0}
+.notice{background:var(--warn);border-left:5px solid var(--warnl);border-radius:4px;padding:8px 10px;margin:6px 0 8px;font-size:.92rem}
+.note{color:var(--mut);font-size:.9rem}
+.withheld{border:2px dashed var(--warnl);border-radius:8px;padding:10px 12px;margin:10px 0;font-weight:600}
+ul,ol{padding-left:1.2em;margin:.3em 0}li{margin:.25em 0}
+.ctl{display:flex;flex-wrap:wrap;gap:10px 18px;margin:8px 0}.ctl label{font-size:.92rem;display:block;min-width:0}
+select{font:inherit;background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:6px 8px;max-width:100%;min-height:36px}
+.grp{margin:10px 0 2px;font-weight:600;font-size:.95rem}
+figure{margin:8px 0}figcaption{font-size:.85rem;color:var(--mut)}
+svg{width:100%;height:auto;display:block}
+.leg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.88rem;margin:4px 0}
+.leg span{display:inline-flex;align-items:center;gap:6px}
+.leg svg{width:34px;height:10px;flex:none}
+table{border-collapse:collapse;width:100%;font-size:.88rem;table-layout:auto}td,th{border-bottom:1px solid var(--line);padding:4px 6px;text-align:left;vertical-align:top;overflow-wrap:anywhere}
+code,pre{font-size:.85em;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;max-width:100%}
+pre{margin:6px 0;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px}
+details{margin:8px 0}summary{cursor:pointer;font-weight:600;font-size:.92rem;padding:2px 0}
+details>*:not(summary){margin-top:6px}
+.small{font-size:.82rem}
+.sr{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.fail{font-weight:700}
+.failblock{border-top:1px solid var(--line);padding-top:6px;margin-top:10px}.failblock h3{margin:.2em 0}.failblock p{margin:.25em 0}
+
+</style>
+</head>
+<body>
+<nav class="site" aria-label="Site"><span class="brand">F3 Explorer v0</span><a href="index.html">Explorer</a><a href="methods.html">Methods</a><a href="limitations.html">Limitations</a><a href="sources.html" aria-current="page">Sources</a><a href="about.html">About</a></nav>
+<main>
+
+<h1>Sources and licences</h1>
+<p class="lead">References, what each is used for, and its licence. Licences are stated as read from the providers' own pages unless marked otherwise; this is a practical reading, not legal advice.</p>
+<div class="banner" role="note"><strong class="big">Conditional scenarios, not forecasts.</strong>Every curve in the Explorer is the output of a model run under stated assumptions. None is a prediction, none has a likelihood, and this page is a local draft that has not been approved for publication (plan test A2.7).</div>
+
+<section class="card"><h2>F3's own licences</h2>
+<ul>
+<li><strong>Code: Apache License 2.0.</strong> <strong>Documentation and processed data: CC BY 4.0.</strong> Third-party data keeps its original licence (D-001).</li>
+<li>Source code and records: <a href="https://github.com/stefbeau/F3">https://github.com/stefbeau/F3</a>.</li>
+</ul></section>
+
+<section class="card"><h2>Models whose equations or code F3 uses</h2>
+<table>
+<tr><th>Source</th><th>Use in F3</th><th>Licence and attribution</th></tr>
+<tr><td><strong>WorldDynamics.jl</strong> v1.0.0 (the WorldDynamics.jl contributors: Pierluigi Crescenzi, Emanuele Natale, Aurora Rossi, Paulo Bruno Serafim and others), github.com/worlddynamics/WorldDynamics.jl</td><td>World3 sectors ported to Python (population, agriculture, capital, non-renewable resources, persistent pollution); also the reference the port is compared with</td><td>MIT. The licence text is kept in the repository (<code>licenses/WorldDynamics.jl-MIT.txt</code>) with an attribution entry in <code>NOTICE</code>.</td></tr>
+<tr><td><strong>Earth4All.jl</strong> (Copyright (c) 2023 World Dynamics), commit 16f37d013a2f68135f03e7815bf861dbf47311f2, github.com/worlddynamics/Earth4All.jl</td><td>Reused economy and energy sectors ported (not shown in the Explorer); one recorded electricity-production series (<code>ene.EP</code>, scenario Too Little Too Late) used as the electricity supply of the AI-race run</td><td>MIT; licence text in <code>licenses/Earth4All.jl-MIT.txt</code>, entry in <code>NOTICE</code>. Nothing from the package's Vensim sources or Vensim output is copied (D-014).</td></tr>
+<tr><td><strong>PyWorld3</strong> 1.1</td><td>Used <em>unmodified</em> from PyPI as a second check in tests only</td><td>CeCILL 2.1 (copyleft). None of its code is copied into F3 (D-001, D-012).</td></tr>
+<tr><td><strong>FaIR</strong> 2.2.4 and the fair-calibrate v1.4.1 constrained ensemble (Smith et al., Geoscientific Model Development 17, 8569, 2024)</td><td>Climate panel; used as published</td><td>Apache 2.0 (the repository and the package). The licences of the data underneath the ensemble's emissions file (CEDS, PRIMAP-hist, GFED, Global Carbon Project) were <strong>not verified</strong>; the calibration files are fetched by script and not redistributed here.</td></tr>
+<tr><td><strong>GATE</strong>: Erdil et al., arXiv:2503.04941 v2</td><td>S3 re-implemented from the paper's equations (no code used)</td><td>CC BY 4.0 (the paper).</td></tr>
+</table></section>
+
+<section class="card"><h2>Data</h2>
+<table>
+<tr><th>Source</th><th>Use</th><th>Licence and required acknowledgement</th></tr>
+<tr><td><strong>HadCRUT5</strong>, HadCRUT.5.2.0.0 analysis (Morice et al., 2021, doi 10.1029/2019JD032361)</td><td>The FaIR warming test (not drawn on the Explorer)</td><td>Open Government Licence v3.0. <em>HadCRUT.5.2.0.0 data were obtained from http://www.metoffice.gov.uk/hadobs/hadcrut5 on 2026-10-12 and are (c) British Crown Copyright, Met Office, provided under an Open Government License, http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/</em> The year of first publication was not stated on the pages read. Not redistributed here.</td></tr>
+<tr><td><strong>Global Carbon Budget 2025</strong> v1.0 (Global Carbon Project, ICOS Carbon Portal, doi 10.18160/GCP-2025; Friedlingstein et al., 2026)</td><td>CO2 emissions for 2023-2024</td><td>CC BY 4.0 (ICOS data licence). A small extract is committed with attribution.</td></tr>
+<tr><td><strong>IEA</strong>, Energy and AI (2025) and Key Questions on Energy and AI (2026)</td><td>Reference figures for data-centre electricity: 415 TWh (2024), 485 TWh (2025, used as a calibration point), 950 TWh (2030, the IEA's projection)</td><td>CC BY 4.0, as printed in the citation lines of the two documents.</td></tr>
+<tr><td><strong>Epoch AI GATE playground</strong> (epoch.ai/gate), three precomputed runs</td><td>Test references for S3 and the data to which the investment rule R3 was fitted</td><td>Epoch states that its work is free to use with credit under a Creative Commons Attribution licence. <strong>No licence is stated for the playground's script bundle or the data inside it</strong>, so under D-026 the series are read at test time from a hash-pinned local copy and <strong>never committed or redistributed</strong>; only comparison figures and fitted curve parameters are stored. Permission has not been granted in writing.</td></tr>
+<tr><td><strong>Damage-function sources</strong>: Nordhaus (2017); Barrage and Nordhaus (2024); Howard and Sterner (2017); context: Burke, Hsiang and Miguel (2015)</td><td>The three damage options; which numbers are printed and which derived is in the repository (<code>research/damage-functions-verified.md</code>)</td><td>Open-access texts read from PMC, Europe PMC and the publishers' open-access copies; the Burke copy was an author copy. Not redistributed. Hsiang et al. (2017) could not be read.</td></tr>
+</table></section>
+
+
+</main>
+<footer class="site"><nav aria-label="Footer"><a href="index.html">Explorer</a><a href="methods.html">Methods</a><a href="limitations.html">Limitations</a><a href="sources.html">Sources</a><a href="about.html">About</a><a href="https://github.com/stefbeau/F3">Source code on GitHub</a></nav><div>Conditional scenarios, not forecasts. Local draft, not published. Built 2026-10-21 from source commit <code>331cf4c</code>.</div></footer>
+</body>
+</html>
