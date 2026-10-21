@@ -61,6 +61,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-042 | N4: inputs to the reused Earth4All sectors in M4 (D-023 option C) | Approved for M4 2026-10-21 (revisit at M6) | 2 |
 | D-043 | Euler with a 1/64-year internal sub-step for the reused Earth4All sectors | Approved 2026-10-21 | 2 |
 | D-044 | Correction of the M4 recorded-input fixture grid (1/16 to 1/64 year), made after a result was seen | Approved 2026-10-21 | 2 |
+| D-045 | Fixture correction: S1 and World3 recorded inputs re-exported on the 1/64-year grid (no change) | Provisional (delegated) | 2 |
 
 ---
 
@@ -1119,6 +1120,20 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Cost of reversing it:** none for the equations; re-exporting at a coarser grid reproduces the failures. Bears on how the earlier S1 and World3 fixtures (1/16 grid) should be read: not examined here.
 - **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
 - **Decision:** Approved by the editor ("approve all", 2026-10-21).
+- **Follow-up note (2026-10-21, appended).** The same correction was applied to the S1 and World3 recorded-input fixtures (D-045); it changed nothing, because those tests query their inputs only at points that were already on the old grid.
+
+## D-045 — Fixture correction: S1 and World3 recorded inputs re-exported on the 1/64-year grid
+
+- **Status:** Provisional (delegated)
+- **Date:** 2026-10-21
+- **Decision:** At the editor's instruction (2026-10-21, "fixture correction, no criterion change"), `tests/fixtures/s1_inputs_world3_{1974,2004}.csv` and `w3_signals_world3_{1974,2004}.csv` were re-exported from the same pinned solve (`audit/env`, D-017, default options) with `saveat = 1/64` and 12 significant digits (`audit/t0/world3_regrid_export.jl`); the reference files were not touched. Reading, outcome categories and prediction were written first (`docs/m3-fixture-regrid-reading.md`, commit `50b5bda`).
+- **Outcome:** **no change.** A3.1, A3.2, A3.3, A3.4(a), A3.4(b) and the S1 step-1.4 comparisons give textually identical results before and after (96 passed, 17 strict xfail); A3.4(b) still fails (1.019% and 0.931% against 0.25%). **No criterion, tolerance or rule was changed.**
+- **Why nothing changed (and a correction of the proposal's premise):** sector-alone runs at the 0.25-year loop step query inputs at multiples of 0.125 year, which are grid points of the old 1/16-year files, so no interpolation took place. Unlike the Earth4All case (D-044), where the reference reads its inputs every 1/64 year, this correction could not have had an effect.
+- **Alternatives considered:** leaving the fixtures as they were (they were already exact at every point the tests use).
+- **Cost of reversing it:** none for results; the four files grew from about 1.4 MB to about 8.5 MB, and reverting the commit restores the old files.
+- **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
+- **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
+
 
 ---
 

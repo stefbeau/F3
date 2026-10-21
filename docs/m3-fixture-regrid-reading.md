@@ -37,3 +37,10 @@ from the same pinned Julia environment (`audit/env`, D-017), the same default-op
 ## 4. Record
 
 Dated note appended to D-044 and a new Provisional (delegated) decision (D-045) with the outcome; the figures go into `audit/m3-world3-port-report.md` as a new section and into `docs/tracks/track-b.md`.
+
+## 5. Result and a correction of section 1 (added 2026-10-21 after the run)
+
+**Result: category (i), no change.** Before and after the re-export, every result line of the 96 affected tests is textually identical (98 compared lines, timings excluded): A3.1, A3.2, A3.3, A3.4(a), A3.4(b), the S1 step-1.4 comparisons and the diagnostics. Statuses unchanged: 96 passed, 17 strict xfail before and after. A3.4(b) still fails with the same sizes. The prediction in section 3 held.
+
+**Correction of section 1.** Section 1 said the finer grid "removes the extra error of linearly interpolating a 1/16-year sample inside F3". **That was wrong for these tests.** S1 alone and each sector alone run at the 0.25-year loop step with RK4, which asks for its inputs at `t`, `t + 0.125` and `t + 0.25`: all multiples of 0.125, which are **grid points of the 1/16-year file itself**, so **no interpolation happened and the result could not change** (apart from the 10-versus-12 significant digits, about 5e-10 relative). The re-export of the Earth4All fixtures in D-044 mattered because that reference is stepped at 1/64 year and its sectors read their inputs at every 1/64-year step; the World3 and S1 tests never do. Only the diagnostics at a 0.0625-year step query off the 1/16 grid, and their printed figures did not change either. I should have seen this before proposing the follow-up; the follow-up was harmless but its expected effect was nil by construction. **Cost:** the four fixtures grew from about 1.4 MB to about 8.5 MB in the repository (the old files stay in git history; reverting this commit restores them).
+

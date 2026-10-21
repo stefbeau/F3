@@ -60,6 +60,9 @@ The external review of Demo 0 is deferred until Demo 0 is ready (editor's decisi
 - **M5 (water, minerals, social module) is unblocked on D-006 and D-008 but has not been started.**
 - **On hold: S3, R3 and Demo 0, pending Epoch's reply** (Track A's branch is kept, not merged).
 
+## Fixture regrid (2026-10-21): no change
+The S1 and World3 recorded-input fixtures were re-exported on the 1/64-year grid like D-044 (reading written first, `docs/m3-fixture-regrid-reading.md`). **A3.1, A3.2, A3.3, A3.4(a) and A3.4(b) are textually identical before and after** (A3.4(b) still fails at 1.019% and 0.931% against 0.25%); suite 228 passed, 42 strict xfail. The effect was nil by construction (those tests query inputs only at points already on the old grid); the proposal's premise was wrong and is corrected in the reading. Recorded as Provisional D-045; the fixtures grew from about 1.4 MB to about 8.5 MB.
+
 ## Parallel tracks (launched 2026-10-12, then stopped by the editor the same day; standing delegation in CLAUDE.md)
 Each track works in its own git worktree and branch and writes `docs/tracks/<track>.md`; the orchestrator merges. Routine decisions are recorded as Provisional (delegated) and reviewed by the editor in one batch per milestone.
 | Track | Scope | Branch | Status |

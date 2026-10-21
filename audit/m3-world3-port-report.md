@@ -188,3 +188,8 @@ Rule and predictions written before the re-run: `DECISIONS.md` D-031 (commit `b9
 Reading of A3.4(b): the comparison is between S1 driven by the full model's partners and S1 driven by the reference's recorded inputs; the 0.25% figure was the S1-alone gap with the 2004 set (D-004 reasoning in the plan). A larger gap here is the response of S1 to the small differences of the other four sectors' outputs (up to 1.9% at their worst), not an error of S1's equations (S1 alone with recorded inputs is unchanged, `audit/s1-port-report.md`). That reading is **inferred, not tested separately**. The criterion is not relaxed and not restated.
 
 **Provisional (delegated) blocks P4 (the group wrapper) and P5 (A3.4(b) recorded as failed, not repaired) are in `docs/tracks/track-b.md`.**
+
+
+## 8. Fixture regrid (2026-10-21): S1 and World3 recorded inputs re-exported on the 1/64-year grid
+
+Reading written first: `docs/m3-fixture-regrid-reading.md` (commit `50b5bda`). Result: **no change**. The four fixtures (`s1_inputs_*`, `w3_signals_*`) were re-exported from the same pinned solve with `saveat = 1/64` (the new values equal the old at the shared 1/16-year points to 5e-10, the 10-versus-12 digits difference). A3.1, A3.2, A3.3, A3.4(a), A3.4(b) and the S1 step-1.4 comparisons are textually identical before and after (96 passed, 17 strict xfail both times; A3.4(b) still fails at 1.019% and 0.931% against 0.25%). Reason, by construction: the sector-alone runs at the 0.25-year loop step query their inputs only at multiples of 0.125 year, which are grid points of the old file, so no interpolation ever took place. No criterion, tolerance or rule was changed.
