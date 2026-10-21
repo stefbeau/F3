@@ -68,6 +68,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-050 | S7 social module: trust dropped, inequality index (illustrative), changes relative to start only, S3 labour share relative fall as driver | Approved 2026-10-21 | 2 |
 | D-051 | M6 minimal integration: S7 output-only, one real coupling (climate damage to World3 industrial output), D-021 flagged for Phase 3 | Approved 2026-10-21 | 2 |
 | D-052 | F3 Explorer v0.1: stale-text fix, climate-damage control on the World3 panel, takeaway cards, presets, chart hover and download, infographics (branch `site-ux`) | Approved 2026-10-21 | 4 |
+| D-053 | S3 diagnostic and S3/World3 reconciliation study: documents and scripts only, nothing built | Provisional (delegated) 2026-10-21 | 2 |
 
 ---
 
@@ -1235,6 +1236,20 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Reversal cost:** low (site files only).
 - **Proposed by:** Claude (implementing the editor's brief).
 - **Decision:** Approved by the editor, 2026-10-21, after review of `site-ux` (32481b4), with two changes: the page order is title, public-draft banner, "Read this first", tab bar, then the World3, Climate and AI race panels, then "What is connected" and "Not shown"; and World3 industrial output is labelled "model dollars per year" (World3's own constant dollars), stated in Methods. The editor runs the Pages workflow; this branch does not.
+- **Date:** 2026-10-21
+
+---
+
+## D-053 — S3 validation and S3/World3 reconciliation: diagnostic jobs (documents and scripts only)
+
+- **Status:** Provisional (delegated)
+- **Context:** Editor decision 2026-10-21: work on (1) S3 validation and (2) S3/World3 reconciliation, in that order. The first job is a diagnostic only.
+- **Decision (what is done, on branch `s3-diagnostic`):** (A) `docs/s3-diagnostic.md` and `audit/t0/s3_diagnostic.py` decompose where the implausible S3 and data-centre outputs come from (S3 on GATE's own investment path, S3 under R3, either through the data-centre module, and Epoch's stored runs through the same module), against **plausibility criteria written before the run**; the hypothesis that the cause is the data-centre module or R3 and not S3's core is tested, not assumed. (B) `docs/s3-composite-blind.md` is a **brief** for a blind re-derivation of the task-allocation composite (A1.3 gap); **it is not run.** (C) `docs/s3-world3-reconciliation.md` measures the shared quantities of S3 and World3 from 2025 to 2100 and lists options with tests, risks and cost, with one recommendation; **nothing is built.**
+- **What this does not change:** no sector, no validated test, no label, no tolerance; S3 stays recorded as failed A1.3 and unvalidated after about 2027 (D-029); the Explorer and the withheld outputs are unchanged; D-005, D-027, D-028 and D-051 stand. The suite is unchanged.
+- **Alternatives considered:** changing S3 or R3 first (rejected by the editor's instruction: diagnose before changing).
+- **Reversal cost:** none (documents and scripts).
+- **Proposed by:** the editor (job); Claude (execution).
+- **Decision:** Provisional (delegated).
 - **Date:** 2026-10-21
 
 ---
