@@ -3,7 +3,7 @@
 Static site (D-009): precomputed scenario grids, no backend. Published as a public draft on 2026-10-21 (editor).
 
     PYTHONPATH=. python site_src/generate.py <climate841.npz>      # full build: runs the grids (about 2 minutes)
-    PYTHONPATH=. python site_src/generate.py --reuse               # restamp pages from site/data/explorer.json (date, commit hash)
+    PYTHONPATH=. python site_src/generate.py --reuse               # restamp pages from site/data/explorer.json (date, commit hash); add --built-commit <hash> after committing the pages, so About names the commit that contains them
 
 The generator and templates live in site_src/ (not in site/) so that what is deployed is only pages and data.
 Three panels; ONE coupling is shown (D-052, D-051): climate damage to World3 industrial output (default off):
@@ -127,12 +127,15 @@ def main() -> None:
     here = REPO / "site"
     (here / "data").mkdir(parents=True, exist_ok=True)
     jpath = here / "data" / "explorer.json"
+    built = sys.argv[sys.argv.index("--built-commit") + 1] if "--built-commit" in sys.argv else None
     if len(sys.argv) > 1 and sys.argv[1] == "--reuse":
         data = json.loads(jpath.read_text(encoding="utf-8"))
     else:
         data = build_data(Path(sys.argv[1]))
         jpath.write_text(json.dumps(data, separators=(",", ":")), encoding="utf-8", newline="\n")
     stamp = {"date": datetime.date.today().isoformat(), "commit": git("rev-parse", "--short", "HEAD") or "unknown"}
+    if built:
+        stamp["built_commit"] = built
     stamp["dirty"] = "yes" if git("status", "--porcelain", "--", "site_src", "docs", "f3") else "no"
     for name, html in pages.render_all(data, stamp, Path(__file__).parent).items():
         (here / name).write_text(html, encoding="utf-8", newline="\n")

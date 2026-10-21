@@ -264,12 +264,11 @@ def test_loop_diagram_marks_only_links_that_exist_as_built():
     svg = svg_of(index_html(), "ig_loops")
     links = re.findall(r'<(?:path|line)[^>]*data-link="([^"]+)"[^>]*data-built="(yes|no)"', svg)
     built = {l for l, b in links if b == "yes"}
-    assert built == {"fair-warming>world3-output", "fair-warming>s3-damage"}, built
+    assert built == {"fair-warming-to-world3-output", "fair-warming-to-s3-damage"}, built
     unbuilt = {l for l, b in links if b == "no"}
     assert unbuilt, "the diagram must show links that are not built, dashed"
-    for l, b in links:
-        assert re.search(rf'data-link="{re.escape(l)}"[^>]*stroke-dasharray', svg) == (None if b == "yes" else re.search(r".", "x")) or True
-    # every unbuilt link is drawn dashed, every built link solid
+    # every unbuilt link is drawn dashed, every built link solid (link ids contain no ">" so a tag can be matched up to its closing bracket)
+    assert all(">" not in l for l, _ in links)
     for m in re.finditer(r'<(?:path|line)[^>]*>', svg):
         tag = m.group(0)
         if 'data-built="no"' in tag:
@@ -281,17 +280,19 @@ def test_loop_diagram_marks_only_links_that_exist_as_built():
 def test_roadmap_first_coupling_solid_others_dashed():
     svg = svg_of(index_html(), "ig_roadmap")
     tags = re.findall(r'<(?:path|line)[^>]*data-link="([^"]+)"[^>]*>', svg)
-    assert "fair-warming>world3-output" in tags
+    assert "fair-warming-to-world3-output" in tags
     for m in re.finditer(r'<(?:path|line)[^>]*data-link="([^"]+)"[^>]*>', svg):
         solid = "stroke-dasharray" not in m.group(0)
-        assert solid == (m.group(1) in ("fair-warming>world3-output", "fair-warming>s3-damage")), m.group(0)
+        assert solid == (m.group(1) in ("fair-warming-to-world3-output", "fair-warming-to-s3-damage")), m.group(0)
 
 
 def test_every_infographic_has_a_text_alternative_and_readable_text():
     html = index_html()
     for ident in ("ig_loops", "ig_roadmap", "ig_stripes"):
         svg = svg_of(html, ident)
-        assert 'role="img"' in svg and "<title>" in svg and "<desc>" in svg, ident
+        assert 'role="img"' in svg and re.search(r"<title[ >]", svg) and re.search(r"<desc[ >]", svg), ident
+        for ref in re.search(r'aria-labelledby="([^"]+)"', svg).group(1).split():                 # the label must point at ids that exist in the drawing
+            assert f'id="{ref}"' in svg, (ident, ref)
         sizes = [float(x) for x in re.findall(r'font-size="([0-9.]+)"', svg)]
         assert sizes and min(sizes) >= 13, (ident, min(sizes) if sizes else None)
 
