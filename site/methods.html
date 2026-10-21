@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Methods - F3 Explorer v0</title>
+<title>Methods - F3 Explorer v0.1</title>
 <style>
 :root{--bg:#fafaf7;--fg:#1c1c1a;--mut:#5d5d58;--card:#fff;--line:#d9d8d0;--warn:#fff3d6;--warnl:#b7791f;--link:#0b5394;--focus:#0b5394;
 --c1:#0072b2;--c2:#d55e00;--c3:#009e73;--c4:#cc79a7;--c5:#7a6a00;--ref:#111}
@@ -40,7 +40,7 @@ svg{width:100%;height:auto;display:block}
 .leg span{display:inline-flex;align-items:center;gap:6px}
 .leg svg{width:34px;height:10px;flex:none}
 table{border-collapse:collapse;width:100%;font-size:.88rem;table-layout:auto}td,th{border-bottom:1px solid var(--line);padding:4px 6px;text-align:left;vertical-align:top;overflow-wrap:anywhere}
-code,pre{font-size:.85em;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;max-width:100%}
+code,pre{font-size:max(1em,13px);white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;max-width:100%}
 pre{margin:6px 0;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px}
 details{margin:8px 0}summary{cursor:pointer;font-weight:600;font-size:.92rem;padding:2px 0}
 details>*:not(summary){margin-top:6px}
@@ -48,16 +48,66 @@ details>*:not(summary){margin-top:6px}
 .sr{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .fail{font-weight:700}
 .failblock{border-top:1px solid var(--line);padding-top:6px;margin-top:10px}.failblock h3{margin:.2em 0}.failblock p{margin:.25em 0}
+/* ---- Explorer v0.1 (D-052) ---- */
+html{scroll-behavior:smooth;scroll-padding-top:56px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+nav.tabs{position:sticky;top:0;z-index:5;display:flex;gap:4px 6px;overflow-x:auto;padding:6px 0;margin:8px 0;background:var(--bg);border-bottom:1px solid var(--line)}
+nav.tabs a{flex:none;text-decoration:none;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.92rem;min-height:36px;display:inline-flex;align-items:center}
+nav.tabs a:hover{border-color:var(--fg)}
+.rfl{list-style:none;padding:0;margin:.3em 0}.rfl li{margin:.5em 0;padding-left:.2em}
+#readfirst{border-left:5px solid var(--link)}
+.take{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:8px 0}
+.take p.tk{margin:0 0 8px;font-size:1rem}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.tk_k{font-size:.85rem;color:var(--mut)}.tk_v{font-size:1.15rem;line-height:1.25}
+.badge{display:inline-block;font-size:.85rem;font-weight:600;text-decoration:none;border-radius:6px;padding:3px 8px;margin-left:6px;vertical-align:middle;color:var(--fg);border:2px solid var(--warnl);background:var(--warn);line-height:1.35}
+.badge.red{border-color:#b3261e;background:#fbe3e1;color:#3d0b07}
+.badge.amber{border-color:var(--warnl);background:var(--warn)}
+.badge:hover{text-decoration:underline}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .badge.red{background:#4a1a17;color:#ffd9d5;border-color:#ff8a80}}
+:root[data-theme=dark] .badge.red{background:#4a1a17;color:#ffd9d5;border-color:#ff8a80}
+.presets{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+button{font:inherit;font-size:.92rem;background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:6px 12px;min-height:40px;cursor:pointer}
+button:hover{border-color:var(--fg)}
+button.pre[aria-pressed=true]{background:var(--fg);color:var(--bg);border-color:var(--fg);font-weight:600}
+button.reset{border-style:dashed}
+.ctl.one{margin:10px 0 4px}
+.notice.damage{border-left-color:#b3261e;font-weight:600}
+.notice.damage:empty{display:none}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.chip{display:inline-block;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:.85rem}
+.chip.std{color:var(--mut)}
+div[id^=ch_]{position:relative;touch-action:pan-y;outline-offset:2px}
+div[id^=ch_]:focus-visible{outline:3px solid var(--focus)}
+div[id^=ch_] svg{cursor:crosshair}
+.rd{min-height:2.6em;font-size:.88rem;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:4px 8px;margin:4px 0}
+.dl{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px}.dl button{min-height:36px;font-size:.85rem;padding:4px 10px}
+abbr[title]{text-decoration:underline dotted;cursor:help;text-underline-offset:3px}
+abbr[title]:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.defpop{display:block;background:var(--card);color:var(--fg);border:2px solid var(--fg);border-radius:8px;padding:8px 10px;margin:6px 0;font-size:.9rem;font-weight:400;line-height:1.45}
+svg.ig{max-width:520px;margin:6px auto;overflow:visible}
+svg.ig .nodebox{fill:var(--card);stroke:var(--fg);stroke-width:1.6}
+svg.ig .withheldbox{stroke-dasharray:3 3;stroke:var(--warnl)}
+svg.ig .notbuilt{stroke-dasharray:6 4;fill:var(--bg);stroke:var(--mut)}
+svg.ig .svgt{fill:var(--fg)}svg.ig .svgt.b{font-weight:700}
+svg.ig .ln{fill:none;stroke-width:2.6}
+svg.ig .ln.yes{stroke:var(--c1);stroke-width:3.4}
+svg.ig .ln.no{stroke:var(--mut)}
+svg.ig .ln.wh{stroke:var(--warnl)}
+svg.ig .arrowhead{fill:context-stroke}
+svg.ig .numdot{fill:var(--fg)}svg.ig .numtxt{fill:var(--bg)}
+.igkey{font-size:.9rem}
 
 </style>
 </head>
 <body>
-<nav class="site" aria-label="Site"><span class="brand">F3 Explorer v0</span><a href="index.html">Explorer</a><a href="methods.html" aria-current="page">Methods</a><a href="limitations.html">Limitations</a><a href="sources.html">Sources</a><a href="about.html">About</a></nav>
+<nav class="site" aria-label="Site"><span class="brand">F3 Explorer v0.1</span><a href="index.html">Explorer</a><a href="methods.html" aria-current="page">Methods</a><a href="limitations.html">Limitations</a><a href="sources.html">Sources</a><a href="about.html">About</a></nav>
 <main>
 
 <h1>Methods</h1>
 <p class="lead">What is run, how it is stepped, and how to read what you see. For what is wrong or unvalidated, read <a href="limitations.html">Limitations</a>.</p>
-<div class="banner" role="note"><strong class="big">Conditional scenarios, not forecasts.</strong>Every curve in the Explorer is the output of a model run under stated assumptions. None is a prediction, none has a likelihood, and this page is a local draft that has not been approved for publication (plan test A2.7).</div>
+<div class="banner" role="note"><strong class="big">Public draft, published 2026-10-21. Conditional scenarios, not forecasts.</strong>Every curve in the Explorer is the output of a model run under stated assumptions. None is a prediction, none has a likelihood, and recorded test failures are listed on the Limitations page (plan test A2.7).</div>
 <section class="card"><h2>The three model pieces</h2>
 <ul>
 <li><strong>World3</strong> (<em>The Limits to Growth</em>, 1974 version and its 2004 update). F3 contains a Python port of five World3 sectors (population, agriculture, capital, non-renewable resources, persistent pollution), ported from WorldDynamics.jl v1.0.0 (MIT). The Explorer shows the <strong>2004 parameter set</strong>, the provisional default (D-015). The reference environment is a pinned registry snapshot of 2024-04-25 with default solver options (D-017). The standard run was compared with WorldDynamics.jl: every state of the four ported sectors within 0.124% (A3.1) and all 29 states within 2% (A3.2, worst 1.906%).</li>
@@ -70,13 +120,14 @@ details>*:not(summary){margin-top:6px}
 <li>The model loop steps by <strong>0.25 year</strong> (D-003). Sectors exchange values at step boundaries; each sector reads the other sectors' values at the <em>start</em> of the step and holds them across it (explicit coupling, D-022). <code>t = Y</code> is 1 January of year Y; stocks are values on that date.</li>
 <li><strong>World3 sub-steps (D-031).</strong> The five World3 sectors are advanced together as one group in <strong>0.0625-year sub-steps</strong> inside each 0.25-year loop step, with the same start-of-sub-step coupling among them. With plain 0.25-year coupling the full-run test A3.2 failed (worst state 6.90% for the 1974 set and 7.96% for the 2004 set, against 2%); at 0.0625 year no state exceeded 2%. The Sector interface and D-003 and D-022 are unchanged.</li>
 <li>The AI sector advances in whole-year periods (GATE's own convention); the climate sector is re-run <strong>from 1750 every year with all 841 members</strong> and nothing carried between years (D-021 option a, chosen by the editor after measuring the alternatives).</li>
-<li><strong>The three panels are not coupled.</strong> In this version World3 runs alone, the climate path is a single recorded run replayed (exact, because emissions are prescribed and no lever changes them), and the AI-race run takes the warming from that recording.</li>
+<li><strong>One coupling between the pieces (D-051, D-052): climate damage to World3 industrial output, off by default.</strong> The climate path is a single recorded run replayed (exact, because emissions are prescribed and no lever changes them). When climate damage is switched on in the World3 panel, World3's industrial output is multiplied by (1 minus c x T^2) from 2025, with T the recorded FaIR ensemble-mean warming above 1850-1900 and c one of the three D-007 coefficients; the multiplier is held across the 0.0625-year sub-steps of each loop step (explicit coupling, D-022). The AI-race run takes the same recorded warming for its own damage option. <strong>World3 and the AI-race run are not connected to each other:</strong> S3's economy and World3's are two models of the same world and are not reconciled. Tests of the coupling: switching it off returns the stand-alone World3 to 1e-9; zero warming equals the baseline; more warming lowers industrial output (named output and window, with a control that fails); nothing is NaN or negative over the whole grid.</li>
 </ul></section>
 
 <section class="card"><h2>Scenario grids</h2>
 <ul>
+<li><strong>Units of World3 industrial output.</strong> The industrial-output chart is in <strong>model dollars per year</strong>: World3's own constant dollars, as the model defines them. They are not market prices, not tied to a year's price level, and not comparable with S3's output, which is a separate economy in separate units.</li>
 <li>The Explorer is a <strong>static page of precomputed runs</strong> (D-009): no model runs in your browser and nothing is sent anywhere.</li>
-<li>World3: 3 levers x 3 values = 27 runs (D-046, Provisional): initial non-renewable resources (0.5e12, <strong>1e12 standard</strong>, 2e12), land yield factor after 1975 (<strong>1.0 standard</strong>, 1.5, 2.0), persistent-pollution generation factor after 1975 (<strong>1.0 standard</strong>, 0.5, 0.25).</li>
+<li>World3: 3 levers x 3 values = 27 runs (D-046, Provisional) x 4 climate-damage states (off, low, central, high) = 108 runs: initial non-renewable resources (0.5e12, <strong>1e12 standard</strong>, 2e12), land yield factor after 1975 (<strong>1.0 standard</strong>, 1.5, 2.0), persistent-pollution generation factor after 1975 (<strong>1.0 standard</strong>, 0.5, 0.25).</li>
 <li>AI race: 3 investment settings (low, central, race; levers of the R3 rule) x 3 damage options = 9 runs, plus two electricity-supply cases kept in the data for the sign test.</li>
 </ul></section>
 
@@ -84,7 +135,14 @@ details>*:not(summary){margin-top:6px}
 <ul>
 <li>The <strong>shaded band on the climate chart</strong> is the 5th to 95th percentile across the 841 members of the published constrained ensemble; the line is their mean. Each member has its own climate parameters and its own seeded internal variability. It describes the spread of that ensemble under the prescribed emissions. It is <strong>not</strong> a probability statement about the real climate and not an uncertainty analysis of the whole model.</li>
 <li><strong>World3 and S3 are single runs with no band</strong>: each curve is one run under the stated settings. A different parameter, or a different version of the model, gives a different curve, and the Explorer does not say how likely any curve is.</li>
-<li>Where a curve is dashed grey (World3 panel) it is the standard run, shown for comparison when you change a lever.</li>
+<li>Where a curve is dashed grey (World3 panel) it is the standard run with damage off, shown for comparison when you change a lever or switch damage on; a dotted curve is the same lever settings with damage off.</li>
+<li><strong>Takeaway cards</strong> are sentences and numbers computed by the page from the same data as the charts (peaks, end values, first years), so they cannot disagree with the charts. They describe a run; they are not findings about the world.</li>
+</ul></section>
+
+<section class="card"><h2>Reading and downloading a chart</h2>
+<ul>
+<li>Hover, touch or press the left and right arrow keys on a focused chart to read the values for a year (shift with the arrows steps ten years). Each chart can be downloaded as a PNG or as a CSV of its curves; the downloads carry the caveats, including the climate-damage caveat when damage is on.</li>
+<li>The chosen scenario is kept in the address (the part after #), so a link restores it. Nothing is stored or sent anywhere.</li>
 </ul></section>
 
 <section class="card"><h2>Pins and versions</h2>
@@ -96,6 +154,6 @@ details>*:not(summary){margin-top:6px}
 </ul></section>
 
 </main>
-<footer class="site"><nav aria-label="Footer"><a href="index.html">Explorer</a><a href="methods.html">Methods</a><a href="limitations.html">Limitations</a><a href="sources.html">Sources</a><a href="about.html">About</a><a href="https://github.com/stefbeau/F3">Source code on GitHub</a></nav><div>Conditional scenarios, not forecasts. Local draft, not published. Built 2026-10-21 from source commit <code>3039411</code>.</div></footer>
+<footer class="site"><nav aria-label="Footer"><a href="index.html">Explorer</a><a href="methods.html">Methods</a><a href="limitations.html">Limitations</a><a href="sources.html">Sources</a><a href="about.html">About</a><a href="https://github.com/stefbeau/F3">Source code on GitHub</a></nav><div>Public draft, published 2026-10-21. Conditional scenarios, not forecasts. Built 2026-10-21 from source commit <code>99d817a</code>.</div></footer>
 </body>
 </html>
