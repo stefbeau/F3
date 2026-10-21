@@ -67,7 +67,7 @@ INDEX_BODY = """
 <!-- ========================= PANEL 1: WORLD3 ========================= -->
 <section class="card" id="p_w3">
 <h2>1. World3 scenarios</h2>
-<div class="notice" role="note"><strong>Status:</strong> the standard run matches WorldDynamics.jl (tests A3.1 and A3.2 met); test A3.4(b) failed; runs with changed parameters are not compared with anything. Population, capital, land, resources and pollution, 1900-2100; precomputed grid, 3 levers x 3 values.</div>
+<div class="notice" role="note"><strong>Status:</strong> the standard run matches WorldDynamics.jl (tests A3.1 and A3.2 met); test A3.4(b) failed; runs with changed parameters are not compared with anything. Population, capital, land, resources and pollution, 1900-2100; precomputed grid, 3 levers x 3 values. <strong>No health or yield effect of warming</strong> is modelled.</div>
 <figure><div id="ch_w3pop"></div><div class="leg" id="lg_w3pop"></div></figure>
 <figure><div id="ch_w3nr"></div><div class="leg" id="lg_w3nr"></div></figure>
 <figure><div id="ch_w3pol"></div><div class="leg" id="lg_w3pol"></div></figure>
@@ -79,6 +79,7 @@ INDEX_BODY = """
 <li>The 2004 parameter set is the provisional default (D-015); the 1974 set exists in the code and is not shown.</li>
 <li>Resources are shown as the fraction of the starting stock that remains (the starting stock is the chosen lever value); pollution as the persistent-pollution index (1 = the 1970 level).</li>
 <li>World3 is a single run per setting: there is no band and no uncertainty analysis.</li>
+<li><strong>No health or yield effect of warming.</strong> World3's population and food sectors have no warming term, and the four warming effects of Earth4All that would act on them (life expectancy, land yield, CO2 fertilisation and the CO2 lifetime) are deliberately omitted (D-049). The panel therefore shows no feedback from warming to population or food.</li>
 </ul></details>
 </section>
 
@@ -243,6 +244,7 @@ def limitations_page(data: dict, stamp: dict, css: str) -> str:
 <li><strong>Climate:</strong> FaIR is used as published. Non-CO2 emissions and land-use CO2 are prescribed, not modelled. The ensemble was constrained to data through 2022. The band is the ensemble band only.</li>
 <li><strong>Damages:</strong> the three options are level-of-output effects (Nordhaus 2017, Barrage and Nordhaus 2024, Howard and Sterner 2017). <strong>"High" is not the upper end of the literature:</strong> growth-effect estimates (for example Burke, Hsiang and Miguel 2015, whose abstract reports about 23% lower average global incomes by 2100) are larger and are not represented; their coefficients were not readable in the copy obtained and are <strong>[unverified]</strong>. The central and high coefficients are <strong>derived</strong> from printed anchors, not read as printed coefficients. The temperature baseline of Nordhaus (2017) is not stated in the text read <strong>[unverified]</strong>; FaIR's baseline is 1850-1900 and no offset is applied. Shares are of S3's own output, whose level is unvalidated.</li>
 <li><strong>The panels are not coupled</strong> to each other.</li>
+<li><strong>No health or yield effect of warming:</strong> the warming effects on life expectancy and on land yield (and the CO2 effect on yield and on the CO2 lifetime) that Earth4All has are omitted by decision (D-049); World3's population and food have no warming term, so warming does not reach them. To be revisited.</li>
 <li><strong>Not shown at all:</strong> population (beyond World3's own), inequality, social stability, minerals, water, the full economy, uncertainty bands beyond the FaIR ensemble band, any likelihood.</li>
 </ul></section>
 

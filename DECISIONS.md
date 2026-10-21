@@ -64,6 +64,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-045 | Fixture correction: S1 and World3 recorded inputs re-exported on the 1/64-year grid (no change) | Provisional (delegated) | 2 |
 | D-046 | F3 Explorer v0: World3 levers and runs for the static page (branch `site`) | Approved 2026-10-21 | 4 |
 | D-047 | F3 Explorer v0: page set, withheld S3 outputs and chart conventions (branch `site`) | Approved 2026-10-21 | 4 |
+| D-049 | M5 plan: warming channels omitted and labelled, illustrative parameters allowed, hindcast deferred, M6 before S5, S3 as built in M6 | Approved 2026-10-21 | 2 |
 
 ---
 
@@ -1158,6 +1159,23 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Cost of reversing it:** low: the withheld series are in the data, and re-enabling a chart is one function call in `site_src/explorer.js`.
 - **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
 - **Decision:** Approved by the editor (v0 approved for publication, 2026-10-21).
+
+## D-049 — M5 plan: warming channels omitted and labelled, illustrative parameters allowed, hindcast deferred, M6 before S5, S3 as built in M6
+
+- **Status:** Approved (2026-10-21)
+- **Context:** `docs/m5-plan.md` (written 2026-10-21) inventoried every input of M5 (S7 social, S5 minerals and water, warming channels in replaced sectors) and collected twelve STOP items. This entry records the editor's decisions on it. (The number D-048 is not used by any entry; the editor asked for D-049.)
+- **Decision:** Approved by the editor, 2026-10-21:
+  1. **Warming channels `OWLCO2`, `WELE`, `WELY`, `CO2ELY` are omitted and labelled** ("no health or yield effect of warming"). The label is shown on the Explorer and on the Limitations page whenever S1 (World3 population and food) results are shown. To be revisited later.
+  2. **Unsourced S7 and S5 parameters are allowed as "illustrative"**, with that label on every output that uses them. Sourced values replace them when the editor supplies documents.
+  3. **Hindcast A5.4 is deferred until after M6.**
+  4. **The M6 text of `docs/m5-plan.md` section 5 is applied as a dated amendment to `docs/phase-2-plan.md`** (S3 as built, structural tests only, shapes not levels).
+  5. **Order:** M5 steps 1 and 2, then M6 minimal integration (World3 + FaIR + S3), then S5 (steps 3 and 4), then S7 refinement.
+- **What this does not change:** no acceptance criterion, tolerance or validation label is relaxed; D-029 and D-030 labels stay; the withheld-output rule (D-047) stands; the STOP items of `docs/m5-plan.md` section 6 that concern licences and unread documents (WID, ILOSTAT, USGS report content, LBNL, TSMC, AQUASTAT, a long labour-share series) **remain STOP items** before any use of those sources: illustrative parameters do not authorise reading or using them.
+- **Alternatives considered:** building the warming channels (rejected for now: large coefficients, no F3 reference to test against); waiting for the unread documents before any S7 or S5 work (rejected: the skeleton needs none of them).
+- **Reversal cost:** low for 1 to 3 and 5 (labels, order); the amendment in 4 is a dated section and can be superseded by a later one.
+- **Proposed by:** Claude (plan); decided by the editor.
+- **Decision:** Approved by the editor, 2026-10-21.
+- **Date:** 2026-10-21
 
 ---
 
