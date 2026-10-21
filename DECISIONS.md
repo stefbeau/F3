@@ -1133,7 +1133,7 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Cost of reversing it:** none for results; the four files grew from about 1.4 MB to about 8.5 MB, and reverting the commit restores the old files.
 - **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
 - **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
-
+- **Revert note (2026-10-21, appended; status unchanged).** At the editor's instruction the four re-exported fixture files were reverted to their previous versions (a new commit, history not rewritten) because the re-export changed no result and added about 7 MB. This entry, `docs/m3-fixture-regrid-reading.md` and the export script `audit/t0/world3_regrid_export.jl` are kept as the record of the negative result.
 
 ---
 
