@@ -65,6 +65,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-046 | F3 Explorer v0: World3 levers and runs for the static page (branch `site`) | Approved 2026-10-21 | 4 |
 | D-047 | F3 Explorer v0: page set, withheld S3 outputs and chart conventions (branch `site`) | Approved 2026-10-21 | 4 |
 | D-049 | M5 plan: warming channels omitted and labelled, illustrative parameters allowed, hindcast deferred, M6 before S5, S3 as built in M6 | Approved 2026-10-21 | 2 |
+| D-050 | S7 social module: trust dropped, inequality index (illustrative), changes relative to start only, S3 labour share relative fall as driver | Approved 2026-10-21 | 2 |
 
 ---
 
@@ -1174,6 +1175,24 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Alternatives considered:** building the warming channels (rejected for now: large coefficients, no F3 reference to test against); waiting for the unread documents before any S7 or S5 work (rejected: the skeleton needs none of them).
 - **Reversal cost:** low for 1 to 3 and 5 (labels, order); the amendment in 4 is a dated section and can be superseded by a later one.
 - **Proposed by:** Claude (plan); decided by the editor.
+- **Decision:** Approved by the editor, 2026-10-21.
+- **Date:** 2026-10-21
+
+## D-050 — S7 social module: scope after the editor's review of the parameter document
+
+- **Status:** Approved (2026-10-21)
+- **Context:** `docs/m5-s7-parameters.md` (A5.1) and `docs/m5-s7-tests.md` were written before any S7 code (branch `m5-s7`) and reviewed by the editor on 2026-10-21. The document said "33 parameters"; counting them gives **29** (an arithmetic error in the document, corrected on the branch).
+- **Decision:** Approved by the editor, 2026-10-21:
+  1. **The trust stock is dropped, with all its parameters** (`Tr0`, `tau_Tr`, `gTr_I`, `gTr_T`, `gTe_Tr`): 29 parameters become 24. The document, the test plan and the tests are updated **first**, then the module is written.
+  2. **The inequality output is renamed "inequality index (illustrative)" everywhere.** **S7 results are displayed only as changes relative to the start, never as absolute levels.** Every S7 output carries the labels of D-008 ("not validated against history"), D-029 (S3's output is unvalidated against GATE) and D-049 ("illustrative parameters").
+  3. **S3's labour share is accepted as the main driver, using only its relative fall from the start**; the S7 tests use given input paths.
+  4. **Each sign test must be shown to be able to fail on the real module** (the mutation check is run); any test failure is recorded with its size and nothing is adjusted.
+  5. **If the full suite is green apart from the existing strict xfails, `m5-s7` is merged into main and pushed; otherwise stop and report.**
+  6. **Next, a plan only:** `docs/m6-minimal-plan.md` (minimal integration of World3 + FaIR + S3, with S7 as output-only); no code.
+- **What this does not change:** no acceptance criterion or tolerance is relaxed; D-008, D-029, D-030, D-047 and D-049 stand; the STOP items about unread sources stay.
+- **Alternatives considered:** keeping trust (rejected: more invented parameters for a skeleton); showing absolute levels (rejected: they are illustrative).
+- **Reversal cost:** low (parameters and labels).
+- **Proposed by:** Claude; decided by the editor.
 - **Decision:** Approved by the editor, 2026-10-21.
 - **Date:** 2026-10-21
 
