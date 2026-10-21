@@ -1,0 +1,346 @@
+column,description
+output.AVCA,AVailable CApital Gdollar/y
+output.CAP,CAPacity Gcu
+output.CAPIS,Capacity Addition PIS Gcu/y
+output.CAPUS,Capacity Addition PUS Gcu/y
+output.CBC,
+output.CBC1980,
+output.CBCEFCA,CBC Effect on Flow to Capacity Addion (1)
+output.CDPIS,Capacity Discard PIS Gcu/y
+output.CDPUS,Capacity Discard PUS Gcu/y
+output.CIPIS,Capacity Initiation PIS Gcu/y
+output.CIPUS,Capacity Initiation PUS Gcu/y
+output.COCA,COst of CApacity dollar/cu
+output.CPIS,Capacity PIS Gcu
+output.CPUS,Capacity PUS Gcu
+output.CRR,Capacity Renewal Rate 1/y
+output.CUCPIS,Capacity Under Construction PIS Gcu
+output.CUCPIS1980,CUC PIS in 1980 Gcu
+output.CUCPUS,Capacity Under Construction PUS Gcu
+output.CUCPUS1980,CUC PUS in 1980 Gcu
+output.ECR,Effect of Capacity Renewal 1/y
+output.EDE,Excess DEmand (1)
+output.EDEFCA,ED Effect on Flow to Capacity Addition (1)
+output.EDELC,Excess Demand Effect on Life of Capacity (1)
+output.ETFP,Embedded TFP (1)
+output.FACNC,Fraction of Available Capital to New Capacity (1)
+output.FRACAMGDPPL,FRACA Mult from GDPpP - Line (1)
+output.FRACAMGDPPT,FRACA Mult from GDPpP - Table (1)
+output.GDP,
+output.GDPP,
+output.GIPC,
+output.INCPIS,Investment in New Capacity PIS Gdollar/y
+output.ISGDP,Investment Share of GDP (1)
+output.ITFP,
+output.LAUS,
+output.LCPIS,Life of Capacity PIS y
+output.LCPUS,Life of Capacity PUS y
+output.LCPUS1980,Life of Capacity PUS in 1980 y
+output.OBSGIPIS,Off-Balance Sheet Govmnt Inv in PIS (share of GDP)
+output.OBSGIPUS,Off-Balance-Sheet Govmnt Inv in PUS (share of GDP)
+output.OGR,Output Growth Rate 1/y
+output.OLY,Output Last Year Gdollar/y
+output.OOV,Optimal Ouput - Value Gdollar/y
+output.ORO,Optimal Real Output Gu/y
+output.OW,
+output.OWECC,OWeoCOC (1)
+output.OWELC,OWeoLOC (1)
+output.PEDE,Perceived Excess DEmand (1)
+output.TPP,
+output.TS,
+output.WASH,
+output.WSOEFCA,WSO Effect on Flow to Capacity Addition (1)
+inventory.CDDI,Change in DDI 1/y
+inventory.CPI,Change in Price Index 1/y
+inventory.DEL,DELiveries Gu/y
+inventory.DELDI,DELivery Delay - Index (1)
+inventory.DEPU,DEmand PUlse 2020-25 (1)
+inventory.DSWI,Desired Shifts Worked - Index (1)
+inventory.EPP,Effective Purchasing Power Gdollar/y
+inventory.GDP,GDP Gdollar/y
+inventory.IC,Inventory Coverage y
+inventory.INV,INVentory Gu
+inventory.IR,Inflation Rate 1/y
+inventory.NI,National Income Gdollar/y
+inventory.ORO,
+inventory.OUTP,OUTPut Gu/y
+inventory.PNIS,Pink Noise In Sales (1)
+inventory.PRI,Perceived Relative Inventory (1)
+inventory.PRIN,PRice INdex (1980=1)
+inventory.ROCDDI,ROC in DDI 1/y
+inventory.RS,Recent Sales Gu/y
+inventory.SA,SAles Gdollar/y
+inventory.SSWI,ShiftS Worked - Index (1)
+inventory.TPP,
+finance.CBC,Corporate Borrowing Cost 1/y
+finance.CBC1980,Corporate Borrowing Cost in 1980 1/y
+finance.CBSR,Central Bank Signal Rate 1/y
+finance.CCSD,Cost of Capital for Secured Debt 1/y
+finance.CSR,Change in Signal Rate 1/yy
+finance.ELTI,Expected Long Term Inflation 1/y
+finance.GBC,Govmnt Borrowing Cost 1/y
+finance.IR,
+finance.ISR,Indicated Signal Rate 1/y
+finance.NCCR,Normal Corporate Credit Risk 1/y
+finance.OGR,
+finance.PI,Perceived Inflation CB 1/y
+finance.PU,Perceived Unemployment CB (1)
+finance.TGIR,10-yr Govmnt Interest Rate 1/y
+finance.TIR,3m Interest Rate 1/y
+finance.UR,
+finance.WBC,Worker Borrowing Cost 1/y
+labourmarket.A20PA,
+labourmarket.AGIW,Average Gross Income per Worker kdollar/p/y
+labourmarket.AHW,Average Hours Worked kh/y
+labourmarket.AHW1980,Average Hours Worked in 1980 kh/y
+labourmarket.AVWO,AVailable WOrkforce Mp
+labourmarket.CAP,
+labourmarket.CECLR,Change in Embedded CLR kcu/ftj/y
+labourmarket.CHWO,CHange in WOrkforce Mp/y
+labourmarket.CWRA,Change in Wage RAte dollar/ph/y
+labourmarket.CWSO,Change in WSO 1/y
+labourmarket.ECLR,Embedded CLR kcu/ftj
+labourmarket.ENLPR2022,Extra Normal LPR from 2022 (1)
+labourmarket.GDPP,
+labourmarket.GDPPEROCCLR,GDPppeoROCCLR
+labourmarket.HFD,Hiring/Firing Delay y
+labourmarket.HWMGDPP,Hours Worked Mult from GDPpP (1)
+labourmarket.ILPR,Indicated Labour Participation Rate (1)
+labourmarket.IPP,
+labourmarket.IR,
+labourmarket.IWEOCLR,Indicated Wage Effect on Optimal CLR (1)
+labourmarket.LAPR,LAbour PRoductivity dollar/ph
+labourmarket.LAUS,LAbour USe Gph/y
+labourmarket.LAUS80,LAbour USe in 1980 Gph/y
+labourmarket.LPR,Labour Participation Rate (1)
+labourmarket.LTEWSO,Long-Term Erosion of WSO 1/y
+labourmarket.NHW,Normal Hours Worked kh/ftj/y
+labourmarket.NLPR,Normal LPR (1)
+labourmarket.OCLR,Optimal Capital Labour Ratio kcu/ftj
+labourmarket.OPWO,OPtimal WOrkforce Mp
+labourmarket.OUTP,
+labourmarket.PART,Participation (1)
+labourmarket.PSW,Perceived Surplus Workforce (1)
+labourmarket.PURA,Perceived Unemployment RAte (1)
+labourmarket.ROCECLR,ROC in ECLR 1/y
+labourmarket.ROCWSO,ROC in WSO - Table 1/y
+labourmarket.TCT,Time to Change Tooling y
+labourmarket.UNEM,UNEMployed Mp
+labourmarket.UPT,Unemployment perception time y
+labourmarket.UR,UNemployment RAte (1)
+labourmarket.WAP,Working Age Population Mp
+labourmarket.WARA,WAge RAte dollar/ph
+labourmarket.WASH,WAge Share (1)
+labourmarket.WEOCLR,Wage Effect on Optimal CLR (1)
+labourmarket.WF,WorkForce Mp
+labourmarket.WRE,Wage Rate Erosion dollar/ph/y
+labourmarket.WRER,Wage Rate Erosion Rate 1/y
+labourmarket.WSO,Worker Share of Output (1)
+public.CPUS,
+public.CTA,
+public.CTFP,Change in TFP 1/y
+public.DRTA,Domestic Rate of Technological Advance 1/y
+public.ECTAF2022,Extra Cost of TAs From 2022 GDollar/y
+public.ECTAGDP,Extra Cost of TAs as share of GDP (1)
+public.GDP,
+public.GDPP,
+public.GPU,
+public.GS,
+public.GSSGDP,Govmnt Spending as Share of GDP
+public.INEQI,
+public.IPR,Infrastructure Purchases Ratio y
+public.IROTA,Imported ROTA 1/y
+public.ITFP,Indicated TFP (1)
+public.OW,
+public.OWTFP,OWeoTFP
+public.PLUA,Productivity Loss from Unprofitable Activity (1)
+public.POP,
+public.PPP,Productivity of Public Purchases (1)
+public.PSEP,Public SErvices per Person kdollar/p/y
+public.PSP,Public Spending per Person kDollar/p/y
+public.RROTAI,Reduction in ROTA from Inequality 1/y
+public.RTA,Rate of Technological Advance 1/y
+public.RTFPUA,Reduction in TFP from Unprofitable Activity (1)
+public.SC,State Capacity (fraction of GDP)
+public.TFPEE5TA,TFP Excluding Effect of 5TAs (1)
+public.TFPIE5TA,TFP Including Effect of 5TAs (1)
+public.VPSS,Value of Public Services Supplied GDollar/y
+public.XECTAGDP,XExtra Cost of TAs as share of GDP (1)
+demand.BCIL,Bank Cash Inflow from Lending GDollar/y
+demand.BCISNI,Bank Cash Inflow as Share of NI (1)
+demand.BITRO,Basic Income Tax Rate Owners (1)
+demand.CANCD,CANCellation of Debt GDollar/y
+demand.CD,Consumption Demand GDollar/y
+demand.CFGB,Cash Flow from Govmnt to Banks GDollar/y
+demand.CFWB,Cash Flow from Workers to Banks GDollar/y
+demand.CONTR,CONTRol: (C+G+S)/NI = 1
+demand.CPP,Consumption Per Person GDollar/y
+demand.CSGDP,Consumption Share of GDP (1)
+demand.ECTAF2022,
+demand.EGDPP,
+demand.EGTF2022,Extra General Tax From 2022 Gdollar/y
+demand.ETF2022,Extra Taxes From 2022 GDollar/y
+demand.ETTAF2022,Extra Taxes for TAs From 2022 GDollar/y
+demand.FGBW,Fraction of Govmnt Budget to Workers (1)
+demand.GBC,
+demand.GCIN,Govmnt Cash INflow GDollar/y
+demand.GD,Govmnt Debt Gdollar
+demand.GDB,Govmnt Debt Burden y
+demand.GETF2022,Goal for Extra Taxes From 2022 GDollar/y
+demand.GFGBW,Goal for Fraction of Govmnt Budget to Workers (1)
+demand.GFSNI,Govmnt Finance as Share of NI (1)
+demand.GGI,Govmnt Gross Income GDollar/y
+demand.GGIS,Govmnt Gross Income (as Share of NI)
+demand.GIC,Govmnt Interest Cost GDollar/y
+demand.GIPC,Govmnt Investment in Public Capacity GDollar/y
+demand.GND,Govmnt New Debt GDollar/y
+demand.GNI,Govmnt Net Income GDollar/y
+demand.GNISNI,Govmnt Net Income as Share of NI (1)
+demand.GP,Govmnt Payback GDollar/y
+demand.GPU,Govmnt PUrchases GDollar/y
+demand.GS,Govmnt Spending GDollar/y
+demand.GSGDP,Govmnt Share of GDP (1)
+demand.IC2022,Income from Commons from 2022 GDollar/y
+demand.INEQ,INEQuality (1)
+demand.INEQI,INEQuality Index (1980=1)
+demand.IPP,
+demand.ITO,Income Tax Owners (1)
+demand.ITW,Income Tax Workers (1)
+demand.MGD,Max Govmnt Debt GDollar
+demand.MWD,Max Workers Debt GDollar
+demand.NI,
+demand.OC,Owner Consumption GDollar/y
+demand.OCF,Owner Consumptin Fraction (1)
+demand.OCIN,Owner Cash INflow GDollar/y
+demand.OI,Owner Income GDollar/y
+demand.OOIAT,Owner Operating Income After Tax GDollar/y
+demand.OS,Owner Savings GDollar/y
+demand.OSF,Owner Savings Fraction (1)
+demand.OT,Owner Taxes GDollar/y
+demand.OTR,Owner Tax Rate (1)
+demand.PGCIN,Permanent Govmnt Cash INflow GDollar/y
+demand.POCI,Permanent Owner Cash Inflow GDollar/y
+demand.POP,
+demand.PWCIN,Permanent Worker Cash INflow GDollar/y
+demand.SSGDP,Savings Share of GDP (1)
+demand.ST,Sales Tax GDollar/y
+demand.STO,Sales Tax Owners GDollar/y
+demand.STW,Sales Tax Workers GDollar/y
+demand.TP,Transfer Payments GDollar/y
+demand.TPP,Total Purchasing Power GDollar/y
+demand.TS,Total Savings GDollar/y
+demand.WBC,
+demand.WCD,Worker consumption demand GDollar/y
+demand.WCIN,Worker Cash INflow GDollar/y
+demand.WD,Workers Debt GDollar
+demand.WDB,Worker Debt Burden y
+demand.WDI,Worker Disposable Income kDollar/p/y
+demand.WF,
+demand.WFCSI,Worker Finance Cost as Share of Income (1)
+demand.WI,Worker Income GDollar/y
+demand.WIAT,Worker Income After Tax GDollar/y
+demand.WIC,Worker Interest Cost GDollar/y
+demand.WND,Workers New Debt GDollar/y
+demand.WP,Workers Payback GDollar/y
+demand.WS,Worker Savings GDollar/y
+demand.WSO,
+demand.WT,Worker Taxes GDollar/y
+demand.WTR,Worker Tax Rate (1)
+energy.ACSWCF1980,ACcumulated sun and wind capacity from 1980 GW
+energy.AFEC,Addition of fossil el capacity GW/y
+energy.AREC,Addition of renewable el capacity GW/y
+energy.ASWC,Addition of sun and wind capacity GW/y
+energy.CAC,
+energy.CAPEXFEG,CAPEX fossil el GDollar/y
+energy.CAPEXRED,CAPEX renewable el dollar/W
+energy.CAPEXREG,CAPEX renewable el Gdollar/y
+energy.CCCSG,Cost of CCS GDollar/y
+energy.CE,Cost of energy GDollar/y
+energy.CEL,Cost of electricity GDollar/y
+energy.CESGDP,Cost of energy as share of GDP (1)
+energy.CFE,Cost of fossil electricity GDollar/y
+energy.CFFFNEU,Cost of Fossil Fuel For Non-El Use Gdollar/y
+energy.CG,Cost of grid GDollar/y
+energy.CISWC,Cost index for sun and wind capacity (1)
+energy.CNE,Cost of new electrification GDollar/y
+energy.CNEL,Cost of Nuclear ELectricity Gdollar/y
+energy.CO2EI,CO2 from energy and industry GtCO2/y
+energy.CO2EMPP,CO2 EMissions per person tCO2/y
+energy.CO2EP,CO2 from energy production GtCO2/y
+energy.CO2NFIP,CO2 from non-fossil industrial processes GtCO2/y
+energy.CRE,Cost of renewable electricity GDollar/y
+energy.DE,Demand for electricity TWh/y
+energy.DEBNE,Demand for electricity before NE TWh/y
+energy.DFE,Demand for fossil electricity TWh/y
+energy.DFEC,Desired fossil el capacity GW
+energy.DFECC,Desired fossil el capacity change GW/y
+energy.DFFFNEU,Demand for fossil fuel for non-el use Mtoe/y
+energy.DFFNEUBNE,Demand for fossil fuel for non-el use before NE Mtoe/y
+energy.DIFEC,DIscard of Fossil El Capacity GW/y
+energy.DIREC,Discard of renewable el capacity GW/y
+energy.DREC,Desired renewable el capacity GW
+energy.DRECC,Desired renewable el capacity change GW
+energy.DRES,Desired renewable electricity share (1)
+energy.DSRE,Desired supply of renewable electricity TWh/y
+energy.ECETSGDP,Extra cost of Energy Turnaround as share of GDP (1)
+energy.EEPI2022,Extra energy productivity index 2022=1
+energy.EIDEFNE,Extra increase in demand for electricity from NE TWh/y
+energy.ELB,ELectricity balance (1)
+energy.EP,Electricity production TWh/y
+energy.ERDNEFFFNE,Extra reduction in demand for non-el fossil fuel from NE Mtoe/y
+energy.EU,Energy use Mtoe/y
+energy.EUPP,Energy use per person toe/p/y
+energy.FCO2SCCS,Fraction of CO2-sources with CCS (1)
+energy.FCUT,Fossil capacity up-time kh/y
+energy.FCUTLOFC,FCUTeoLOFC (1)
+energy.FEC,Fossil electricity capacity GW
+energy.FEP,Fossil Electricity Production TWh/y
+energy.FFE,Fossil fuels for electricity Mtoe/y
+energy.FFPNE,Fraction fossil plus nuclear electricity (1)
+energy.FNE,Fraction new electrification (1)
+energy.FTWEPMt,4 TWh-el per Mtoe
+energy.GDP,
+energy.GDPP,
+energy.GHMH2,Green hydrogen MtH2/y
+energy.GHMt,Green hydrogen Mtoe/y
+energy.ICCSC,Installed CCS capacity GtCO2/y
+energy.IEEPI,Increase in extra energy productivity index 1/y
+energy.IIASAFEP,IIASA Fossil energy production EJ/yr
+energy.IIASAREP,IIASA Renewable energy production EJ/yr
+energy.IPP,
+energy.LCEP,Low-carbon el production TWh/y
+energy.LFEC,Life of fossil el capacity y
+energy.NC,Nuclear capacity GW
+energy.NDSWC,Number of doublings in sun and wind capacity (1)
+energy.NEP,Nuclear electricity production TWh/y
+energy.NFCO2PP,Non-fossil CO2 per person tCO2/p/y
+energy.OPEXFEG,OPEX fossil el GDollar/y
+energy.OPEXREG,OPEX renewable el Gdollar/y
+energy.POP,
+energy.REC,Renewable electricity capacity GW
+energy.RECTEC,Ratio of Energy cost to Trad Energy cost (1)
+energy.REP,Renewable electricity production TWh/y
+energy.RHP,Renewable heat production Mtoe/y
+energy.TCEG,Traditional cost of electricity GDollar/y
+energy.TCEN,Traditional Cost of ENergy Gdollar/y
+energy.TCENSGDP,Traditional cost of energy as share of GDP (1)
+energy.TCFFFNEUG,Traditional cost of fossil fuel for non-el use Gdollar/y
+energy.TCO2PT,tCO2 per toe
+energy.TGC,Traditional grid cost GDollar/y
+energy.TPPUEBEE,Traditional per person use of electricity before EE MWh/p/y
+energy.TPPUFFNEUBEE,Traditional per person use of fossil fuels for non-el-use before EE toe/p/y
+energy.TWEPEJEE,TWh-el per EJ - engineering equivalent
+energy.UFF,Use of fossil fuels Mtoe/y
+other.CE,
+other.CFETA,Cost of Food and Energy TAs GDollar/y
+other.COFO,
+other.CTA,Cost of TAs GDollar/y
+other.FB15,Fraction Below 15 kDollar/p/y (1)
+other.GDPP,
+other.IEL,Inequity Effect on Logistic k (1)
+other.INEQ,
+other.LK,Logistic K (1)
+other.PB15,Population Below 15 kDollar/p/y Mp
+other.PGDPP,Past GDP per Person kDollar/y
+other.POP,
+other.RGGDPP,Rate of Growth in GDP per Person 1/y

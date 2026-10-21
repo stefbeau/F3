@@ -1,0 +1,476 @@
+{
+ "output|S1|tltl": {
+  "worst": "OGR",
+  "worst_pct": 69.051,
+  "year": 2090.0,
+  "above_2pct": {
+   "OGR": [
+    69.051,
+    2088.5
+   ]
+  }
+ },
+ "output|S1|gl": {
+  "worst": "OGR",
+  "worst_pct": 14.4434,
+  "year": 2071.0,
+  "above_2pct": {
+   "OGR": [
+    14.443,
+    2069.5
+   ]
+  }
+ },
+ "output|S2|tltl": {
+  "worst": "OGR",
+  "worst_pct": 70.1176,
+  "year": 2090.0,
+  "above_2pct": {
+   "OGR": [
+    70.118,
+    2089.0
+   ]
+  }
+ },
+ "output|S2|gl": {
+  "worst": "OGR",
+  "worst_pct": 14.7544,
+  "year": 2071.0,
+  "above_2pct": {
+   "OGR": [
+    14.754,
+    2069.5
+   ]
+  }
+ },
+ "inventory|S1|tltl": {
+  "worst": "IR",
+  "worst_pct": 7.308,
+  "year": 2094.0,
+  "above_2pct": {
+   "IR": [
+    7.308,
+    1982.5
+   ]
+  }
+ },
+ "inventory|S1|gl": {
+  "worst": "IR",
+  "worst_pct": 11.3285,
+  "year": 2094.0,
+  "above_2pct": {
+   "IR": [
+    11.329,
+    1982.5
+   ]
+  }
+ },
+ "inventory|S2|tltl": {
+  "worst": "IR",
+  "worst_pct": 7.3217,
+  "year": 2094.0,
+  "above_2pct": {
+   "IR": [
+    7.322,
+    1982.5
+   ]
+  }
+ },
+ "inventory|S2|gl": {
+  "worst": "IR",
+  "worst_pct": 11.3254,
+  "year": 2094.0,
+  "above_2pct": {
+   "IR": [
+    11.325,
+    1982.5
+   ]
+  }
+ },
+ "finance|S1|tltl": {
+  "worst": "ISR",
+  "worst_pct": 37.8191,
+  "year": 2020.5,
+  "above_2pct": {
+   "CBSR": [
+    2.388,
+    2021.5
+   ],
+   "PU": [
+    2.168,
+    1985.0
+   ],
+   "ISR": [
+    37.819,
+    2009.5
+   ]
+  }
+ },
+ "finance|S1|gl": {
+  "worst": "ISR",
+  "worst_pct": 37.8191,
+  "year": 2020.5,
+  "above_2pct": {
+   "CBSR": [
+    18.226,
+    2021.5
+   ],
+   "PU": [
+    2.168,
+    1985.0
+   ],
+   "ISR": [
+    37.819,
+    2009.5
+   ]
+  }
+ },
+ "finance|S2|tltl": {
+  "worst": "ISR",
+  "worst_pct": 37.8716,
+  "year": 2020.5,
+  "above_2pct": {
+   "CBSR": [
+    2.378,
+    2021.5
+   ],
+   "PU": [
+    2.437,
+    1985.0
+   ],
+   "ISR": [
+    37.872,
+    2009.5
+   ]
+  }
+ },
+ "finance|S2|gl": {
+  "worst": "ISR",
+  "worst_pct": 37.8716,
+  "year": 2020.5,
+  "above_2pct": {
+   "CBSR": [
+    18.213,
+    2021.5
+   ],
+   "PU": [
+    2.437,
+    1985.0
+   ],
+   "ISR": [
+    37.872,
+    2009.5
+   ]
+  }
+ },
+ "labourmarket|S1|tltl": {
+  "worst": "UR",
+  "worst_pct": null,
+  "year": 1994.0,
+  "above_2pct": {
+   "PURA": [
+    30.142,
+    1984.0
+   ],
+   "UR": [
+    null,
+    1985.0
+   ],
+   "UNEM": [
+    null,
+    1985.0
+   ]
+  }
+ },
+ "labourmarket|S1|gl": {
+  "worst": "UR",
+  "worst_pct": null,
+  "year": 1994.0,
+  "above_2pct": {
+   "PURA": [
+    437.64,
+    1984.0
+   ],
+   "WARA": [
+    2.209,
+    2094.0
+   ],
+   "WEOCLR": [
+    2.118,
+    2098.5
+   ],
+   "WSO": [
+    2.234,
+    2094.5
+   ],
+   "UR": [
+    null,
+    1985.0
+   ],
+   "UNEM": [
+    null,
+    1985.0
+   ],
+   "WASH": [
+    2.225,
+    2096.5
+   ],
+   "OPWO": [
+    2.155,
+    2098.5
+   ],
+   "AGIW": [
+    2.207,
+    2094.0
+   ]
+  }
+ },
+ "labourmarket|S2|tltl": {
+  "worst": "UR",
+  "worst_pct": null,
+  "year": 1994.0,
+  "above_2pct": {
+   "PURA": [
+    29.481,
+    1984.0
+   ],
+   "UR": [
+    null,
+    1985.0
+   ],
+   "UNEM": [
+    null,
+    1985.0
+   ]
+  }
+ },
+ "labourmarket|S2|gl": {
+  "worst": "UR",
+  "worst_pct": null,
+  "year": 1994.0,
+  "above_2pct": {
+   "PURA": [
+    437.594,
+    1984.0
+   ],
+   "WARA": [
+    2.21,
+    2094.0
+   ],
+   "WEOCLR": [
+    2.119,
+    2098.5
+   ],
+   "WSO": [
+    2.235,
+    2094.5
+   ],
+   "UR": [
+    null,
+    1985.0
+   ],
+   "UNEM": [
+    null,
+    1985.0
+   ],
+   "WASH": [
+    2.225,
+    2096.5
+   ],
+   "OPWO": [
+    2.155,
+    2098.5
+   ],
+   "AGIW": [
+    2.207,
+    2094.0
+   ]
+  }
+ },
+ "public|S1|tltl": {
+  "worst": "RTFPUA",
+  "worst_pct": 3.6507,
+  "year": 2021.0,
+  "above_2pct": {
+   "RTFPUA": [
+    3.651,
+    2021.0
+   ]
+  }
+ },
+ "public|S1|gl": {
+  "worst": "RTFPUA",
+  "worst_pct": 3.6507,
+  "year": 2021.0,
+  "above_2pct": {
+   "RTFPUA": [
+    3.651,
+    2021.0
+   ]
+  }
+ },
+ "public|S2|tltl": {
+  "worst": "RTFPUA",
+  "worst_pct": 2.499,
+  "year": 2021.0,
+  "above_2pct": {
+   "RTFPUA": [
+    2.499,
+    2021.0
+   ]
+  }
+ },
+ "public|S2|gl": {
+  "worst": "RTFPUA",
+  "worst_pct": 2.499,
+  "year": 2021.0,
+  "above_2pct": {
+   "RTFPUA": [
+    2.499,
+    2021.0
+   ]
+  }
+ },
+ "demand|S1|tltl": {
+  "worst": "CFWB",
+  "worst_pct": 11.7777,
+  "year": 1995.0,
+  "above_2pct": {
+   "ETF2022": [
+    2.885,
+    2022.5
+   ],
+   "CFWB": [
+    11.778,
+    1983.5
+   ],
+   "CFGB": [
+    2.162,
+    2036.0
+   ]
+  }
+ },
+ "demand|S1|gl": {
+  "worst": "CFWB",
+  "worst_pct": 11.7777,
+  "year": 1995.0,
+  "above_2pct": {
+   "ETF2022": [
+    2.915,
+    2022.5
+   ],
+   "CFWB": [
+    11.778,
+    1983.5
+   ],
+   "CFGB": [
+    2.156,
+    2046.0
+   ]
+  }
+ },
+ "demand|S2|tltl": {
+  "worst": "CFWB",
+  "worst_pct": 11.778,
+  "year": 1995.0,
+  "above_2pct": {
+   "ETF2022": [
+    2.887,
+    2022.5
+   ],
+   "CFWB": [
+    11.778,
+    1983.5
+   ],
+   "CFGB": [
+    2.163,
+    2036.0
+   ]
+  }
+ },
+ "demand|S2|gl": {
+  "worst": "CFWB",
+  "worst_pct": 11.778,
+  "year": 1995.0,
+  "above_2pct": {
+   "ETF2022": [
+    2.915,
+    2022.5
+   ],
+   "CFWB": [
+    11.778,
+    1983.5
+   ],
+   "CFGB": [
+    2.149,
+    2046.0
+   ]
+  }
+ },
+ "energy|S1|tltl": {
+  "worst": "ACSWCF1980",
+  "worst_pct": 0.4001,
+  "year": 1982.5,
+  "above_2pct": {}
+ },
+ "energy|S1|gl": {
+  "worst": "FEP",
+  "worst_pct": 26.4032,
+  "year": 2055.0,
+  "above_2pct": {
+   "FEP": [
+    26.403,
+    2054.5
+   ],
+   "UFF": [
+    26.403,
+    2054.5
+   ]
+  }
+ },
+ "energy|S2|tltl": {
+  "worst": "ACSWCF1980",
+  "worst_pct": 0.345,
+  "year": 1982.5,
+  "above_2pct": {}
+ },
+ "energy|S2|gl": {
+  "worst": "FEP",
+  "worst_pct": 23.0804,
+  "year": 2055.0,
+  "above_2pct": {
+   "FEP": [
+    23.08,
+    2055.0
+   ],
+   "UFF": [
+    23.08,
+    2055.0
+   ]
+  }
+ },
+ "other|S1|tltl": {
+  "worst": "PGDPP",
+  "worst_pct": 0.0106,
+  "year": 1984.5,
+  "above_2pct": {}
+ },
+ "other|S1|gl": {
+  "worst": "PGDPP",
+  "worst_pct": 0.0106,
+  "year": 1984.5,
+  "above_2pct": {}
+ },
+ "other|S2|tltl": {
+  "worst": "PGDPP",
+  "worst_pct": 0.0106,
+  "year": 1984.5,
+  "above_2pct": {}
+ },
+ "other|S2|gl": {
+  "worst": "PGDPP",
+  "worst_pct": 0.0106,
+  "year": 1984.5,
+  "above_2pct": {}
+ }
+}

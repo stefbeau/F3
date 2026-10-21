@@ -16,3 +16,14 @@ WorldDynamics.jl
 
 PyWorld3 (CeCILL 2.1) is used unmodified from PyPI as a second check in tests;
 none of its code is copied into F3 (see D-001, D-012).
+
+Earth4All.jl
+  Copyright (c) 2023 World Dynamics
+  https://github.com/worlddynamics/Earth4All.jl (commit 16f37d013a2f68135f03e7815bf861dbf47311f2)
+  Licensed under the MIT License.
+  Portions of F3's economy and energy sectors are ported from this project (D-011, D-016, D-018):
+  f3/sectors/e4a_output.py, e4a_inventory.py, e4a_finance.py, e4a_labourmarket.py, e4a_public.py,
+  e4a_demand.py, e4a_energy.py, e4a_other.py (equations from src/<sector>/subsystems.jl, parameters from
+  parameters.jl and initialisations.jl) and f3/sectors/e4a_common.py (semantics of src/functions.jl). The fixtures
+  tests/fixtures/e4a_*.csv are numbers produced by running the package. The full MIT License text is in
+  licenses/Earth4All.jl-MIT.txt. Nothing from the package's vensim_source/ or VensimOutput/ is copied (D-014).
