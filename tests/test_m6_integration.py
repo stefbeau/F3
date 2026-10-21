@@ -131,7 +131,7 @@ def test_a64a_zero_investment_the_compute_stock_decays_by_depreciation():
     qs = q[k::4]                                                       # 1 January values
     assert np.all(np.isfinite(q)) and np.all(q >= 0)
     for a, b in zip(qs[1:], qs[:-1]):
-        assert abs(a / b - math.exp(-0.3)) <= 1e-8 or a < b                            # the AI investment share is 0, other investment may differ
+        assert abs(a / b - math.exp(-0.3)) <= 1e-9, (a / b, math.exp(-0.3))                 # strict, as docs/m6-tests.md fixed it
     e = S(res, "s4_datacentre", "e_dc_demand")[k:]
     assert np.all(np.isfinite(e)) and np.all(np.diff(e) <= 1e-9)
 
@@ -157,9 +157,9 @@ def test_a64d_every_output_of_every_sector_is_finite_on_the_grid(w3, s3):
     res = run("2004", w3=w3, s3=s3, elec=True)
     k0 = int(np.where(np.isclose(res.time, 2025.0))[0][0])
     for (sec, n), v in res.series.items():
-        if sec in ("s3_ai", "s4_datacentre", "s7_social", "s6_climate", "earth4all_supply") or n in STATE_COLUMNS:
-            x = v[k0:] if sec != "world3" else v
-            assert np.all(np.isfinite(x[1:])) or n in ("labor_share", "training_compute", "dc_available", "damage_fraction", "gwp_gross"), (w3, s3, sec, n)
+        if sec in ("s3_ai", "s4_datacentre", "s7_social", "s6_climate", "earth4all_supply", "s7_feed", "world3"):
+            x = v if sec == "world3" else v[k0 + 4:]                       # S3 publishes its first annual period at 2026; its initial NaNs are by design
+            assert np.all(np.isfinite(x)), (w3, s3, sec, n)
 
 
 # ------------------------------------------------------------------------------------------------------------------- A6.2 sign tests
@@ -210,12 +210,12 @@ def test_r2_via_s3_inequality_index_rises_with_s3_labour_share_fall_and_is_zero_
     I = S(res, "s7_social", "inequality")
     assert I[k60] - I[k0] > 0.0
     t = res.time[k0:]
-    rep = ReplaySector("given", t, {"labor_share": np.full(len(t), 0.65), "unemployment": np.zeros(len(t)), "warming": res.inputs[("s7_social", "warming")][k0:],
+    # CORRECTED CONTROL (2026-10-21, see docs/m6-tests.md): the first version kept the warming input; warming raises tension, tension triggers the delayed
+    # policy response and that lowers inequality, so the control moved by 5.8e-4 (first failure recorded). The control isolates the labour-share driver: warming 0, as in S7's own R2 test.
+    rep = ReplaySector("given", t, {"labor_share": np.full(len(t), 0.65), "unemployment": np.zeros(len(t)), "warming": np.zeros(len(t)),
                                     "gdp_per_capita_growth": np.zeros(len(t)), "redistribution": np.zeros(len(t))}, S7Social.inputs)
     s7 = S7Social()
     flat = Model([rep, s7], [Coupling("given", n, s7.name, n) for n in S7Social.inputs], t0=2025.0, t1=2100.0, dt=0.25).run()
-    # with the warming input kept but a constant labour share, the inequality index may still move through unemployment/growth/warming: here all zero except warming,
-    # which does not enter the inequality target; so the inequality change is zero to 1e-12
     assert abs(S(flat, "s7_social", "inequality")[k60 - k0] - S(flat, "s7_social", "inequality")[0]) <= 1e-12
 
 

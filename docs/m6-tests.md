@@ -34,3 +34,6 @@
 
 ## Rules
 Failures are recorded with size and first year; nothing is adjusted after a result; the pre-registered sign tests have controls that must fail and mutations that must be caught.
+
+## Dated note, 2026-10-21 (after the first run of the integration tests)
+The R2-via-S3 control, as first coded, kept the real warming input while replacing the labour share by a constant. It failed: the inequality change in 2060 was 5.8e-4, not 0. Cause: a mistake in the test's construction, not in the model. Warming raises tension, tension above its threshold triggers the delayed policy response, and the response lowers inequality. The reading ("zero when S7 is driven by a constant labour share instead") meant to isolate the labour-share driver, so the control now holds warming at 0 as well, as S7's own R2 test does. The failing version is in commit a39237d. No threshold changed; the positive assertion (cause run, 2060) is unchanged and passed before the correction.
