@@ -67,6 +67,9 @@ The external review of Demo 0 is deferred until Demo 0 is ready (editor's decisi
 - **Awaiting the editor:** enabling GitHub Pages. **Pages is not enabled and `.github/workflows/pages.yml` (manual-only) has not been run.**
 - **Still open, and not waited for:** S3's composite (A1.3) and the Epoch AI email (unsent); R3's fit; the S3/R3 items on the revisit list below; withheld compute and electricity outputs stay withheld until S3's compute path is validated.
 
+## M5 plan written (2026-10-21), no implementation
+`docs/m5-plan.md`: inventory of every input for S7, S5 (minerals, water) and the warming channels in replaced sectors, with source, read-or-not, licence and what is unverified; proposed order; tests to write first; token estimates (about 0.7 to 1.5 million, an estimate); and proposed M6 text that integrates **S3 as it is, flagged unvalidated**, so integration is not blocked. Twelve **STOP** items are collected in section 6 (WID and ILOSTAT terms, a long labour-share series, the USGS report content, mineral demand per unit, the LBNL and TSMC water documents, AQUASTAT, WUE, unsourced parameters, the three replaced-sector warming channels, the `OW` baseline). **M5 has not been started.**
+
 ## Fixture regrid (2026-10-21): no change
 The S1 and World3 recorded-input fixtures were re-exported on the 1/64-year grid like D-044 (reading written first, `docs/m3-fixture-regrid-reading.md`). **A3.1, A3.2, A3.3, A3.4(a) and A3.4(b) are textually identical before and after** (A3.4(b) still fails at 1.019% and 0.931% against 0.25%); suite 228 passed, 42 strict xfail. The effect was nil by construction (those tests query inputs only at points already on the old grid); the proposal's premise was wrong and is corrected in the reading. Recorded as Provisional D-045. **The four re-exported fixture files were then reverted (2026-10-21, editor): no result changed and they added about 7 MB; the reading, D-045 and the export script stay as the record.**
 
