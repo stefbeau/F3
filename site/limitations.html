@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Limitations - F3 Explorer v0</title>
+<style>
+:root{--bg:#fafaf7;--fg:#1c1c1a;--mut:#5d5d58;--card:#fff;--line:#d9d8d0;--warn:#fff3d6;--warnl:#b7791f;--link:#0b5394;--focus:#0b5394;
+--c1:#0072b2;--c2:#d55e00;--c3:#009e73;--c4:#cc79a7;--c5:#7a6a00;--ref:#111}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#15161a;--fg:#e8e8e3;--mut:#a3a39b;--card:#1d1f24;--line:#3a3c43;--warn:#3a2f12;--warnl:#e0a030;--link:#7fb8f0;--focus:#7fb8f0;
+--c1:#56b4e9;--c2:#e69f00;--c3:#4fd0a5;--c4:#f0a0cc;--c5:#f0e442;--ref:#f2f2f2}}
+:root[data-theme=dark]{--bg:#15161a;--fg:#e8e8e3;--mut:#a3a39b;--card:#1d1f24;--line:#3a3c43;--warn:#3a2f12;--warnl:#e0a030;--link:#7fb8f0;--focus:#7fb8f0;
+--c1:#56b4e9;--c2:#e69f00;--c3:#4fd0a5;--c4:#f0a0cc;--c5:#f0e442;--ref:#f2f2f2}
+*{box-sizing:border-box}
+html,body{max-width:100%;overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;overflow-wrap:anywhere}
+main{max-width:980px;margin:0 auto;padding:16px}
+a{color:var(--link)}
+a:focus-visible,select:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+nav.site{display:flex;flex-wrap:wrap;gap:6px 16px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--card);font-size:.95rem}
+nav.site a{text-decoration:none;padding:2px 0}nav.site a[aria-current=page]{font-weight:700;border-bottom:2px solid var(--fg);color:var(--fg)}
+nav.site .brand{font-weight:700;margin-right:8px;color:var(--fg)}
+footer.site{border-top:1px solid var(--line);padding:14px 16px;font-size:.85rem;color:var(--mut);max-width:980px;margin:0 auto}
+footer.site nav{display:flex;flex-wrap:wrap;gap:6px 14px;margin-bottom:6px}
+h1{font-size:1.5rem;margin:.2em 0}h2{font-size:1.2rem;margin:0 0 .3em}h3{font-size:1rem;margin:1em 0 .2em}
+.lead{font-size:1.05rem;margin:.2em 0 .6em}
+.banner{background:var(--warn);border:2px solid var(--warnl);border-radius:8px;padding:12px 14px;margin:12px 0}
+.banner strong.big{display:block;font-size:1.25rem;margin-bottom:4px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:12px 0;min-width:0}
+.notice{background:var(--warn);border-left:5px solid var(--warnl);border-radius:4px;padding:8px 10px;margin:6px 0 8px;font-size:.92rem}
+.note{color:var(--mut);font-size:.9rem}
+.withheld{border:2px dashed var(--warnl);border-radius:8px;padding:10px 12px;margin:10px 0;font-weight:600}
+ul,ol{padding-left:1.2em;margin:.3em 0}li{margin:.25em 0}
+.ctl{display:flex;flex-wrap:wrap;gap:10px 18px;margin:8px 0}.ctl label{font-size:.92rem;display:block;min-width:0}
+select{font:inherit;background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:6px 8px;max-width:100%;min-height:36px}
+.grp{margin:10px 0 2px;font-weight:600;font-size:.95rem}
+figure{margin:8px 0}figcaption{font-size:.85rem;color:var(--mut)}
+svg{width:100%;height:auto;display:block}
+.leg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.88rem;margin:4px 0}
+.leg span{display:inline-flex;align-items:center;gap:6px}
+.leg svg{width:34px;height:10px;flex:none}
+table{border-collapse:collapse;width:100%;font-size:.88rem;table-layout:auto}td,th{border-bottom:1px solid var(--line);padding:4px 6px;text-align:left;vertical-align:top;overflow-wrap:anywhere}
+code,pre{font-size:.85em;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;max-width:100%}
+pre{margin:6px 0;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px}
+details{margin:8px 0}summary{cursor:pointer;font-weight:600;font-size:.92rem;padding:2px 0}
+details>*:not(summary){margin-top:6px}
+.small{font-size:.82rem}
+.sr{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.fail{font-weight:700}
+.failblock{border-top:1px solid var(--line);padding-top:6px;margin-top:10px}.failblock h3{margin:.2em 0}.failblock p{margin:.25em 0}
+
+</style>
+</head>
+<body>
+<nav class="site" aria-label="Site"><span class="brand">F3 Explorer v0</span><a href="index.html">Explorer</a><a href="methods.html">Methods</a><a href="limitations.html" aria-current="page">Limitations</a><a href="sources.html">Sources</a><a href="about.html">About</a></nav>
+<main>
+
+<h1>Limitations</h1>
+<p class="lead">Every caveat in one place, with the failed tests stated plainly. Nothing on this page has been softened; sizes are the recorded ones.</p>
+<div class="banner" role="note"><strong class="big">Conditional scenarios, not forecasts.</strong>Every curve in the Explorer is the output of a model run under stated assumptions. None is a prediction, none has a likelihood, and this page is a local draft that has not been approved for publication (plan test A2.7).</div>
+
+<section class="card"><h2>Tests that failed (recorded, not relaxed)</h2>
+<div class="failblock"><h3 class="fail">A1.3</h3><p class="note"><strong>What it checked:</strong> The AI sector (S3) against the three runs shipped by Epoch AI's GATE playground, within 2% at every year, with GATE's own investment path supplied</p><p><strong>Result:</strong> <strong>Failed</strong> for all three runs. Output first exceeds 2% in 2026-27; capital, hardware, software and compute from 2027-33. With Epoch's own task-composite supplied, every quantity matches, so the gap is S3's task-allocation step; its cause is unresolved. Three different discretisations of that step gave the same failure. S3's absolute output (output, capital, effective compute) is <strong>unvalidated after about 2027</strong>. S3 does <strong>not</strong> reproduce GATE.</p></div>
+<div class="failblock"><h3 class="fail">A1.4</h3><p class="note"><strong>What it checked:</strong> The investment rule R3 against GATE's own investment path (report only, no pass or fail)</p><p><strong>Result:</strong> <strong>Poor agreement.</strong> With Epoch's stored composite supplied, effective compute is 43% to 72% off at worst and output 13% to 20% off; hardware up to 35% off; investment shares up to 24 percentage points off (capital) and 55 (training share). R3 is a scenario-lever rule, not a GATE replica; it was fitted to the same three runs.</p></div>
+<div class="failblock"><h3 class="fail">A2.1</h3><p class="note"><strong>What it checked:</strong> FaIR's ensemble-mean warming for 2015-2024 against HadCRUT5's mean 95% interval</p><p><strong>Result:</strong> <strong>Failed.</strong> FaIR gives 1.196 K above 1850-1900; the HadCRUT5 interval is 1.234 to 1.305 K. FaIR is 0.037 K below the lower edge and 0.073 K below the best estimate. 2023 and 2024 (outside the ensemble's calibration window) run 0.16 to 0.20 K low; the cause is untested. Scenario warming therefore starts about 0.04 to 0.07 K below observed for the current decade.</p></div>
+<div class="failblock"><h3 class="fail">A2.6</h3><p class="note"><strong>What it checked:</strong> Halving the loop step (0.25 to 0.125 year) changes the slice's outputs by at most 0.1%</p><p><strong>Result:</strong> <strong>Failed.</strong> Largest difference 0.565% in data-centre electricity (first above 0.1% in 2028); output 0.197%; compute 0.108%.</p></div>
+<div class="failblock"><h3 class="fail">B1 sign</h3><p class="note"><strong>What it checked:</strong> Lowering electricity supply lowers compute growth afterwards</p><p><strong>Result:</strong> <strong>Failed as written.</strong> Halving supply gave up to 17.8% <em>more</em> compute in 2038-2045. The suspected cause (the investment rule depends on usable compute) is inferred, not tested.</p></div>
+<div class="failblock"><h3 class="fail">R1 sign</h3><p class="note"><strong>What it checked:</strong> Raising the AI investment share raises compute and automation</p><p><strong>Result:</strong> <strong>Failed on automation:</strong> both runs are at 1.0 by 2065, so no increase can be seen (compute is higher).</p></div>
+<div class="failblock"><h3 class="fail">A3.4(b)</h3><p class="note"><strong>What it checked:</strong> World3's population sector inside the full model equals the same sector run alone with recorded inputs, within 0.25%</p><p><strong>Result:</strong> <strong>Failed.</strong> Up to 1.019% (1974 parameter set) and 0.931% (2004 set). The reading that it reflects small differences in the other four sectors, not an error in the population equations, is inferred, not tested.</p></div>
+<div class="failblock"><h3 class="fail">A4.5</h3><p class="note"><strong>What it checked:</strong> (Not shown in the Explorer.) The ported Earth4All economy sectors together reproduce the Earth4All.jl economy within 2%</p><p><strong>Result:</strong> <strong>Failed</strong> in both scenarios from about 2076 (GDP up to 2.5%, inequality up to 3.2%); accepted as recorded by the editor.</p></div>
+</section>
+
+<section class="card"><h2>What is, and is not, compared with anything</h2>
+<ul>
+<li><strong>World3:</strong> only the <em>standard</em> parameters were compared with WorldDynamics.jl. The Explorer's runs with changed parameters have not been compared with any reference. Extreme settings (for example a land yield factor of 2.0, which ends with a population of about 0.4 billion) show what the ported equations do under that input; nothing says it is right.</li>
+<li><strong>AI race:</strong> unvalidated against GATE after about 2027 (above). Compute and data-centre electricity outputs are withheld because they leave any plausible range (in the recorded runs modelled data-centre demand reaches about 7 billion TWh a year by 2100, against about 485 TWh in 2025; the earlier recorded figures were about 20,000 TWh in 2030 and 414,000 TWh in 2040); that is a property of S3's compute path, not a finding about the world.</li>
+<li><strong>Data-centre module:</strong> 485 TWh (2025) is a <em>calibration point</em>, 415 TWh (2024) a reference value; neither validates the module, and no independent test of modelled data-centre electricity against estimates exists before 2025. The IEA's 950 TWh for 2030 is the IEA's projection under its own assumptions. The IEA's formal definition of a data centre could not be verified: whether crypto-mining load is excluded from its totals is <strong>[unverified]</strong>. The 5% cap on the share of electricity supply available to data centres and the tie of energy efficiency to S3's hardware curve are assumptions.</li>
+<li><strong>Climate:</strong> FaIR is used as published. Non-CO2 emissions and land-use CO2 are prescribed, not modelled. The ensemble was constrained to data through 2022. The band is the ensemble band only.</li>
+<li><strong>Damages:</strong> the three options are level-of-output effects (Nordhaus 2017, Barrage and Nordhaus 2024, Howard and Sterner 2017). <strong>"High" is not the upper end of the literature:</strong> growth-effect estimates (for example Burke, Hsiang and Miguel 2015, whose abstract reports about 23% lower average global incomes by 2100) are larger and are not represented; their coefficients were not readable in the copy obtained and are <strong>[unverified]</strong>. The central and high coefficients are <strong>derived</strong> from printed anchors, not read as printed coefficients. The temperature baseline of Nordhaus (2017) is not stated in the text read <strong>[unverified]</strong>; FaIR's baseline is 1850-1900 and no offset is applied. Shares are of S3's own output, whose level is unvalidated.</li>
+<li><strong>The panels are not coupled</strong> to each other.</li>
+<li><strong>Not shown at all:</strong> population (beyond World3's own), inequality, social stability, minerals, water, the full economy, uncertainty bands beyond the FaIR ensemble band, any likelihood.</li>
+</ul></section>
+
+<section class="card"><h2>Provenance of choices</h2>
+<ul>
+<li>GATE was re-implemented from the paper (arXiv:2503.04941 v2), not from Epoch's code. Epoch states that GATE behaves poorly near full automation.</li>
+<li>Some design choices are <strong>Provisional (delegated)</strong>, not approved by the editor (for example the World3 levers, D-046, and the data-centre module, D-032 to D-036). They are listed in the project's decision register.</li>
+<li>The Explorer is a local draft; it has not been approved for publication.</li>
+</ul></section>
+
+</main>
+<footer class="site"><nav aria-label="Footer"><a href="index.html">Explorer</a><a href="methods.html">Methods</a><a href="limitations.html">Limitations</a><a href="sources.html">Sources</a><a href="about.html">About</a><a href="https://github.com/stefbeau/F3">Source code on GitHub</a></nav><div>Conditional scenarios, not forecasts. Local draft, not published. Built 2026-10-21 from source commit <code>93c894f</code>.</div></footer>
+</body>
+</html>
