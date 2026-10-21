@@ -106,3 +106,33 @@ Basis: Tracks A, B and C of this project (about 216, 268 and 308 thousand subage
 
 ## 8. What this plan does not do
 It writes no code, runs nothing, changes no criterion or label, does not write `docs/phase-2-review.md`, and does not decide the feedback question. It does not touch `docs/phase-2-plan.md` (section 15 already carries the S3-as-built rules).
+
+## 9. Amendment of 2026-10-21, after D-051
+
+Nothing above is edited. Where this section and D-051 differ, D-051 governs.
+
+### 9.1 What changes
+- **S7 stays output-only** (D-051 item 1); section 5's recommendation is adopted.
+- **One real coupling is added: climate damage to World3 industrial output** (D-051 item 2). It replaces the statement in section 2.1 that FaIR `warming` has "no consumer in World3": from now on it has exactly one, **switchable, default OFF**.
+
+### 9.2 The coupling (proposed implementation; the choices are Provisional under the standing delegation and are recorded when built)
+- **Form:** `io = io_gross x (1 - Omega(T))` with `Omega(T) = c x T^2` from `f3/sectors/damages.py` (D-007: low 0.236%, **central 0.344% (default)**, high 1.00375% per K^2; level-of-output effects; growth-effect case not represented; "high" is not the upper end of the literature). `T` is the FaIR ensemble-mean warming above 1850-1900 (no offset). **No new coefficient.**
+- **Where:** inside the World3 capital sector, on industrial output `io` (Line 50 of the port). Because `io` feeds service investment, industrial investment, the agriculture and resources sectors and population (through `iopc`), the multiplier is a damage to the **whole industrial output flow** and acts through those links. This is a consequence of "damage to industrial output" in a model where `io` is a shared variable, not a separate choice; it is stated here so it is visible.
+- **When:** from **2025** (the start of the recorded FaIR replay, D-020); before 2025 the multiplier is 1. The warming value is **held across the sub-steps of a loop step** (explicit coupling, D-022).
+- **Switch:** `damage_option` = `None` (off, **default**) or one of `low`, `central`, `high`; the **named scenario** with it ON is `world3_climate_damage` (central).
+- **Warming source:** the **recorded replay** of the 841-member run (`ReplaySector`); no FaIR run per scenario (D-021 option A: emissions prescribed).
+
+### 9.3 Tests for this coupling, written before any code
+1. **A6.3 invariance:** switch off equals stand-alone World3 (the D-031 group with nothing attached) to **1e-9**, for both parameter sets.
+2. **Zero warming equals baseline:** with the switch ON and the warming input held at 0, every World3 state equals the OFF run to 1e-9.
+3. **Sign test:** with the switch ON, **industrial output `io` in 2050 and in 2100 is lower than the OFF run's, and lower under higher warming** (a second input path with warming doubled gives a lower `io` than the first); output and window named here before the test. **Control run that can fail:** the same assertions on the OFF run must fail (nothing differs), and a mutation of the multiplier (to 1) must make the sign assertions fail.
+4. **Bounds and NaN over the full grid:** damage option (off, low, central, high) x parameter set (1974, 2004) x warming path (zero, recorded, doubled, 6 K constant): every World3 state finite and non-negative where the model has non-negative stocks.
+5. **Anchors:** `Omega(3 K)` equals 0.236% x 9 = 2.12% (low), 3.10% (central), 9.03% (high) to 1e-9 (the damage module's own test).
+**Failures are recorded with size; nothing is adjusted.**
+
+### 9.4 Consequences for A6.1
+A6.1 is run with the switch OFF (the baseline): World3 within 2% of WorldDynamics.jl in the integrated loop, as the plan says. **With the switch ON the World3 states are expected to differ from WorldDynamics.jl, by design**; that run is reported as a scenario, never against the reference.
+
+### 9.5 Added to the Explorer discussion (no site change in this step)
+See the M6 report: a World3 panel with a climate-damage toggle becomes possible from this coupling.
+

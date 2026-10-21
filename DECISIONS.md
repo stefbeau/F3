@@ -66,6 +66,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-047 | F3 Explorer v0: page set, withheld S3 outputs and chart conventions (branch `site`) | Approved 2026-10-21 | 4 |
 | D-049 | M5 plan: warming channels omitted and labelled, illustrative parameters allowed, hindcast deferred, M6 before S5, S3 as built in M6 | Approved 2026-10-21 | 2 |
 | D-050 | S7 social module: trust dropped, inequality index (illustrative), changes relative to start only, S3 labour share relative fall as driver | Approved 2026-10-21 | 2 |
+| D-051 | M6 minimal integration: S7 output-only, one real coupling (climate damage to World3 industrial output), D-021 flagged for Phase 3 | Approved 2026-10-21 | 2 |
 
 ---
 
@@ -1193,6 +1194,22 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Alternatives considered:** keeping trust (rejected: more invented parameters for a skeleton); showing absolute levels (rejected: they are illustrative).
 - **Reversal cost:** low (parameters and labels).
 - **Proposed by:** Claude; decided by the editor.
+- **Decision:** Approved by the editor, 2026-10-21.
+- **Date:** 2026-10-21
+
+## D-051 — M6 minimal integration: S7 output-only, one real coupling (climate damage to World3 industrial output), D-021 flagged for Phase 3
+
+- **Status:** Approved (2026-10-21)
+- **Context:** `docs/m6-minimal-plan.md` (2026-10-21) proposed integrating World3 + FaIR + S3 with S7 as output-only. This entry records the editor's decisions on it.
+- **Decision:** Approved by the editor, 2026-10-21:
+  1. **S7 stays output-only in M6** (option a of the plan): nothing reads it.
+  2. **Add ONE real coupling: climate damage to World3 industrial output.** A **switchable multiplier**, **default OFF** (so A6.1 stays clean), **ON in a named scenario**, applying the **D-007 damage function (default central)** to World3's industrial output, driven by FaIR warming. **No new coefficients**: only the sourced D-007 options, labelled as **level-of-output effects**. Tests are written first: A6.3 invariance (switch off equals stand-alone World3 to 1e-9); zero warming equals the baseline; a sign test (more warming lowers industrial output) with **output and window named in advance** and a **control run that can fail**; bounds and NaN over the full grid. **Failures are recorded with size; nothing is adjusted.** FaIR warming for this coupling comes from the **recorded replay** (emissions still prescribed, D-021 option A), so no new FaIR run per scenario.
+  3. **M6-minimal then proceeds per the plan:** tests first, wiring, A6.1 and A6.3 first, then A6.4, A6.2, A6.5 (the 841-member run once, in the background), reported in `audit/m6-integration-report.md`. **`docs/phase-2-review.md` is NOT written** as part of this.
+  4. **D-021 must be revisited before any Phase 3 Monte Carlo** (about 500 to 570 hours for a thousand runs with exact 841-member re-runs, one run being about 30 to 34 minutes). **Not decided now.**
+- **What this does not change:** no acceptance criterion or tolerance is relaxed; D-007, D-029, D-030, D-047, D-049 and D-050 stand; the damage function still acts on S3's output as before (the new coupling is additional).
+- **Alternatives considered:** S7 feedback into S3's investment, S1 or S2 (rejected by the editor for M6: every S7 parameter is illustrative); no real coupling at all (rejected: M6 would test only wiring).
+- **Reversal cost:** low (the multiplier is off by default; removing it leaves the sectors unchanged).
+- **Proposed by:** Claude (plan); decided by the editor.
 - **Decision:** Approved by the editor, 2026-10-21.
 - **Date:** 2026-10-21
 
