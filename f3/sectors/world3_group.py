@@ -16,6 +16,14 @@ from typing import Dict, List, Mapping, Optional, Sequence
 from f3.core.sector import Context, Sector
 
 SUBSTEP = 0.0625
+DAMAGE_START_YEAR = 2025.0            # the recorded climate replay and the coupling start in 2025 (D-020)
+DAMAGE_COUPLING_LABEL = (
+    "Climate damage to World3 industrial output (D-051): a level-of-output effect, the D-007 damage function (default central; low, central and "
+    "high are Nordhaus 2017, Barrage and Nordhaus 2024 and Howard and Sterner 2017). The default is off. The 'high' option is not the upper end "
+    "of the literature: growth-effect estimates are larger and are not represented. No new coefficient. The damage multiplies World3's whole industrial "
+    "output flow, which feeds investment, agriculture, resources and population; when it is on, World3 is no longer compared with WorldDynamics.jl. "
+    "Warming comes from the recorded FaIR replay (D-021 option A: emissions prescribed); FaIR starts about 0.04 to 0.07 K below observed (D-030)."
+)
 
 
 class World3Group(Sector):
@@ -23,7 +31,7 @@ class World3Group(Sector):
     inputs: Mapping[str, str] = {}
 
     def __init__(self, sectors: Sequence[Sector], couplings, init_inputs: Mapping[str, Mapping[str, float]], state_names: Mapping[str, str],
-                 substep: float = SUBSTEP):
+                 substep: float = SUBSTEP, damage_option: Optional[str] = None, warming=None, _mutate_zero_damage: bool = False):
         self._sectors: Dict[str, Sector] = {s.name: s for s in sectors}
         self._order: List[str] = [s.name for s in sectors]
         self._substep = float(substep)
@@ -34,6 +42,16 @@ class World3Group(Sector):
             for n in self._state_names_of(s):
                 self._state_owner[n] = s.name
         self.outputs = {n: "state" for n in self._state_owner}
+        self.outputs["io"] = "dollars/year"                       # World3 industrial output, published for the M6 tests
+        # M6 climate-damage coupling (D-051): OFF unless damage_option is given; warming is a callable year -> K (recorded FaIR replay)
+        if damage_option is not None:
+            from f3.sectors.damages import check_option
+            check_option(damage_option)
+            if warming is None:
+                raise ValueError("damage_option needs a warming source (a callable year -> K from the recorded replay)")
+        self._damage_option = damage_option
+        self._warming = warming
+        self._mutate_zero_damage = _mutate_zero_damage            # test hook: the sign test must fail when the multiplier is forced to 1
         self._wiring: Dict[str, Dict[str, tuple]] = {n: {} for n in self._sectors}
         for c in couplings:
             src, tgt = self._sectors[c.source], self._sectors[c.target]
@@ -72,11 +90,21 @@ class World3Group(Sector):
             s.reset(t0, t1, h)
         self._h = h
         self._published = {n: dict(s.current_outputs()) for n, s in self._sectors.items()}
+        self._sectors["w3_capital"].damage_mult = 1.0
 
     def current_outputs(self) -> Dict[str, float]:
-        return self._states_now()
+        out = self._states_now()
+        out["io"] = float(self._published["w3_capital"]["io"])
+        return out
 
     def advance(self, t: float, h: float, ctx: Optional[Context]) -> None:
+        if self._damage_option is not None:
+            # warming at the START of the loop step, held across its sub-steps (explicit coupling, D-022); multiplier 1 before 2025
+            from f3.sectors.damages import damage_fraction
+            mult = 1.0
+            if t >= DAMAGE_START_YEAR - 1e-9 and not self._mutate_zero_damage:
+                mult = 1.0 - damage_fraction(float(self._warming(t)), self._damage_option)
+            self._sectors["w3_capital"].damage_mult = mult
         for j in range(self._n_sub):
             tt = t + j * self._h
             snapshot = {n: dict(v) for n, v in self._published.items()}
