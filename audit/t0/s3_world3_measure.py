@@ -65,7 +65,7 @@ def world3_run() -> dict:
 
 
 def earth4all() -> dict:
-    rows = list(csv.DictReader(open(REPO / "tests" / "fixtures" / "e4a_reference_tltl.csv", encoding="utf-8-sig")))
+    rows = list(csv.DictReader(open(REPO / "tests" / "fixtures" / "e4a_signals_tltl.csv", encoding="utf-8-sig")))
     t = np.array([float(r["time"]) for r in rows])
     f = lambda c, y: float(rows[int(np.argmin(np.abs(t - y)))][c])          # noqa: E731
     return {"gdp_gdollar": {y: f("inventory.GDP", y) for y in range(2025, 2101)}, "pop_Mp": {y: f("population.POP", y) for y in range(2025, 2101)},
