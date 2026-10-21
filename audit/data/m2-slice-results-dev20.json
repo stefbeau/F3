@@ -1,0 +1,101 @@
+{
+ "a26_gwp": {
+  "max_rel": 0.001973374941057427,
+  "year_of_max": 2099.0,
+  "first_year_over_0.1%": 2080.0
+ },
+ "a26_compute_stock": {
+  "max_rel": 0.001083041904397567,
+  "year_of_max": 2049.0,
+  "first_year_over_0.1%": 2049.0
+ },
+ "a26_frac_automated": {
+  "max_rel": 0.0002489788933221036,
+  "year_of_max": 2035.0,
+  "first_year_over_0.1%": null
+ },
+ "a26_e_dc": {
+  "max_rel": 0.005649793449630475,
+  "year_of_max": 2036.0,
+  "first_year_over_0.1%": 2028.0
+ },
+ "a26_warming": {
+  "max_rel": 0.0,
+  "year_of_max": 2025.0,
+  "first_year_over_0.1%": null
+ },
+ "r1_compute_stock": {
+  "hi_minus_lo_at_2065": 5.247033733031745e+34,
+  "years_hi_not_above_lo": [
+   2025.0
+  ],
+  "first_year_equal_or_below": 2025.0,
+  "hi_greater_at_2035": true,
+  "hi_greater_at_2045": true
+ },
+ "r1_frac_automated": {
+  "hi_minus_lo_at_2065": 0.0,
+  "years_hi_not_above_lo": [
+   2025.0,
+   2026.0,
+   2027.0,
+   2050.0,
+   2051.0
+  ],
+  "first_year_equal_or_below": 2025.0,
+  "hi_greater_at_2035": true,
+  "hi_greater_at_2045": true
+ },
+ "b1_lower_supply_has_more_compute": {
+  "years": [
+   2038.0,
+   2039.0,
+   2040.0,
+   2041.0,
+   2042.0,
+   2043.0,
+   2044.0,
+   2045.0
+  ],
+  "max_ratio": 1.1776376958640205,
+  "year_max": 2044.0
+ },
+ "b1_growth_2026_2040_mean_base_low": [
+  0.7548349327758975,
+  0.7582210828589392
+ ],
+ "b1_first_year_ratio_below_1": {
+  "base": 2028.0,
+  "low": 2027.0
+ },
+ "b1_growth_next_5y_after_low_binds": null,
+ "b1_growth_5y_after_low_binds_base_low": [
+  0.9714187092522337,
+  0.9562343464586718
+ ],
+ "b2_gwp2100_low_high": [
+  6032872751905583.0,
+  5516156165081683.0
+ ],
+ "e_dc_2025_demand": 485.0,
+ "e_dc_2030": {
+  "demand": 20009.806366861463,
+  "used": 1748.1797105326068,
+  "ratio": 0.08736614830155444
+ },
+ "e_dc_2040": {
+  "demand": 413838.86655624816,
+  "used": 2092.4876769890134,
+  "ratio": 0.005056286023595627
+ },
+ "e_dc_2050": {
+  "demand": 980778.077955964,
+  "used": 2231.1984124817714,
+  "ratio": 0.0022749268796176643
+ },
+ "e_dc_2100": {
+  "demand": 13769716.995101476,
+  "used": 1762.9770903030494,
+  "ratio": 0.00012803292115082842
+ }
+}
