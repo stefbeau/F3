@@ -1,6 +1,6 @@
 # F3 — Status
 
-**As of 2026-10-21 (Track A held; Track B merged, A3.4(b) failed; Track C merged, A4.5 failed).** `DECISIONS.md` is authoritative for decisions; this page summarises. Keep it current: update it in the same commit as any change of status.
+**As of 2026-10-21 (Track A held; Tracks B and C merged; D-006, D-008 and the Provisional decisions of Tracks B and C approved; M5 unblocked but not started).** `DECISIONS.md` is authoritative for decisions; this page summarises. Keep it current: update it in the same commit as any change of status.
 
 ## Phases
 | Phase | Goal | Status |
@@ -37,7 +37,7 @@ The external review of Demo 0 is deferred until Demo 0 is ready (editor's decisi
 ## Decisions
 - **Approved:** D-001 licensing · D-003 time step 0.25 y · D-004 ±2% tolerance (for ports against their reference) · D-010 Earth4All is a reference and component library, audited · D-011 Earth4All.jl is the reference, audit before porting · D-012 WorldDynamics.jl is the World3 reference, PyWorld3 the second check · D-014 Vensim output read at run time only · D-015 World3 variant for S1: both parameter sets carried, 2004 provisional default, confirmed at the Phase 3 backtest · D-019 1970 initialisation: Option C (World3-based sectors start from the model's own state until the Phase 3 calibration) · D-016 Earth4All audit verdict (replace population, climate, foodland, wellbeing; reuse the rest, with changes for demand, public, energy) · D-017 World3 environment: registry snapshot 2024-04-25, default solver options · D-018 Earth4All.jl is the reference; deviations from Vensim reported. · D-005 amendments A (2026-10-08) and B (2026-10-09, shipped runs as the A1.3 settings, plus the eq.-10 clause) · D-026 handling of the Epoch playground data (2026-10-09) · D-027 footnote-38 task grids as a labelled variant (approved 2026-10-12; outcome ii: fails) · D-028 S3 investment rule R3 with R1 curves (approved 2026-10-12; built, A1.4 poor) · D-029 M1 closed with A1.3 failed; composite a known open difference (approved 2026-10-12) · D-030 M2 step 1 closes with A2.1 failed, climate output labelled (approved 2026-10-12) · D-031 World3 group sub-stepped at 0.0625 year inside the 0.25-year loop (approved 2026-10-20) · D-007 climate damage function: three level-effect options, default central, growth case not represented (approved 2026-10-12) · D-009 dashboard: static site, precomputed scenario grids (approved 2026-10-12) · D-020 start years (S3 and data centres from 2025, Earth4All sectors from 1980) · D-021 FaIR re-run each year, non-CO2 emissions prescribed · D-022 explicit coupling at 0.25 y, t = Y is 1 January · D-023 replay then adapters for the replaced sectors' signals · D-024 backtest criteria as a framework, thresholds set by the editor before the M5 hindcast · D-025 Phase 3 entry conditions
 - **Superseded:** D-002 (by D-011), D-013 (by D-017).
-- **Open (Proposed, to be taken when needed):** D-006 critical-minerals granularity · D-008 social-tension proxy.
+- **Open (Proposed, to be taken when needed):** none besides new drafts.
 
 ## Evidence in one page
 - **World3.** WorldDynamics.jl v1.0.0 solves World3 (1974 model) with default options in the pinned environment (ModelingToolkit 9.12.1, SciMLBase 2.35.0, OrdinaryDiffEq 6.74.1). Against fine-step PyWorld3 with the diagnostic start-up, all twelve main stocks are within 1.7% (worst: persistent pollution in 2100). As shipped, PyWorld3 differs by 373.7% in pollution in 1906, explained by its delay start-up. Default and `NoInit()` solutions are identical in that environment; they agree with the newest-stack `NoInit()` solution to 0.014%.
@@ -51,6 +51,14 @@ The external review of Demo 0 is deferred until Demo 0 is ready (editor's decisi
 4. Whether to report the WorldDynamics.jl break (ModelingToolkit 9.22 to 9.41) upstream.
 5. Reading tasks the editor may do faster than automated access (publisher sites refused): the damage-function sections of Nordhaus, Howard and Sterner and Burke et al.; Herrington's Supporting Information; the LBNL and TSMC reports; the WID and ILOSTAT licences.
 6. Optional, pending, **still unsent** (question 4 on task grids and stored `compute` added 2026-10-12): email to Epoch AI (docs/drafts/epoch-gate-email.md) asking permission to use the shipped playground runs as test references and for result series for the two stress settings. Not sent. The plan does not depend on a reply; D-026 treats permission as not yet requested.
+
+## Decisions approved 2026-10-21 ("approve all")
+- **D-006 approved:** one aggregate critical-minerals index in v0.1 (USGS data; the report PDF has not been read, so its figures stay [unverified]); named minerals (copper, lithium, gallium, rare earths) in v0.2.
+- **D-008 approved, option 3:** no backtest of the social-tension index against event data; S7 is calibrated on its drivers (inequality, labour share); tension is reported as a model-internal index labelled **"not validated against history"**; UCDP armed conflict only as a labelled plausibility overlay, never a calibration target; tension is excluded from the D-024 framework; **reading the WID and ILOSTAT terms is a STOP-and-ask item before any use** (still unverified); the long labour-share series starts only in 2004.
+- **Provisional decisions of Tracks B and C approved:** D-037, D-039, D-040, D-041, D-043, D-044; **D-042 approved for M4** (revisit at M6 for population and climate adapters); **D-038 closed as superseded in effect by D-031**.
+- **Still Provisional (delegated), belonging to the held Demo 0 code:** D-032 to D-036, with review notes appended to D-033 (5% supply cap and the tie to S3's hardware curve are assumptions to be stated on the page), D-034 (central and high coefficients are derived: mark them "derived"), D-035 (add a test that fails if any sector feeds S6).
+- **M5 (water, minerals, social module) is unblocked on D-006 and D-008 but has not been started.**
+- **On hold: S3, R3 and Demo 0, pending Epoch's reply** (Track A's branch is kept, not merged).
 
 ## Parallel tracks (launched 2026-10-12, then stopped by the editor the same day; standing delegation in CLAUDE.md)
 Each track works in its own git worktree and branch and writes `docs/tracks/<track>.md`; the orchestrator merges. Routine decisions are recorded as Provisional (delegated) and reviewed by the editor in one batch per milestone.
