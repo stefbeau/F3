@@ -77,7 +77,7 @@ After D-031 (World3 group advanced with 0.0625-year sub-steps inside the 0.25-ye
 - **A3.3 MET (1974, pollution start-up matched, labelled diagnostic):** worst `ppol` 0.91%. The 2004 comparison is diagnostic only (`p1` 2.52% and `ppol` 3.11% above 2%); nothing is asserted for it.
 - **A3.4(b) FAILED:** S1 inside the full run against S1 alone with recorded inputs: worst 1.019% (1974 `aiopc`) and 0.931% (2004 `fcfpc1`) against 0.25%. D-031's "borderline" prediction was wrong. Inferred, not tested: it is S1's response to small differences in the other sectors, not an S1 error.
 - **A3.5:** one full run 2.3 s (2004) to 3.2 s (1974).
-- **Provisional (delegated) decisions P1-P5** are drafted in `docs/tracks/track-b.md` for the editor's milestone batch review; they are **not yet in DECISIONS.md**.
+- **Provisional (delegated) decisions P1-P5** were entered into `DECISIONS.md` on 2026-10-21 (D-037 to D-041), for the editor's batch review.
 
 ### Track C result (2026-10-21): M4 done and merged; A4.5 FAILED, recorded, nothing adjusted
 Eight Earth4All sectors ported (output, inventory, finance, labour market, public, demand, energy, other) as `f3/sectors/e4a_*.py`, generated from the Earth4All.jl sources (MIT, commit `16f37d0`) with the source line beside each equation; NOTICE entry and `licenses/Earth4All.jl-MIT.txt` added; economy group in the D-031 pattern. No Vensim file is tracked; Earth4All.jl's own error against Vensim is stored as names and figures only (D-014). Suite on main after the merge: 228 passed, 42 strict xfail. Report `audit/m4-earth4all-port-report.md`; log `docs/tracks/track-c.md`; review `docs/tracks/track-c-review.md`.
@@ -85,15 +85,16 @@ Eight Earth4All sectors ported (output, inventory, finance, labour market, publi
 - **A4.2 (switches):** with the warming channels on and warming held at 1.35, results equal the off case exactly. Earth4All.jl has no off-run, so "off still passes A4.1" holds only up to 2022; the effect after 2022 is reported, not judged. `EDROTA2022` is documented and exposed as a parameter.
 - **A4.3 (demand against Vensim, through the package's own comparison):** 16 (TLTL) and 13 (GL) demand variables deviate above 2% in Earth4All.jl itself; D-004 not relaxed. **A4.4:** employed never exceeds working-age population in 241 of 241 points, both scenarios (max WF/WAP 0.8144 TLTL, 0.8251 GL); the re-test with World3 cohorts and S3 automation belongs to M6. **A4.6:** known deviations reported with Earth4All.jl's own error beside each figure; nothing claims the port reproduces Vensim.
 - **A4.5 (coupled economy) FAILED, both scenarios:** TLTL GDP 2.227% (first above 2% in 2090.5), `GS` 2.149%, `PSP` 2.153%; GL GDP 2.514% (first 2088.5), inequality `INEQ`/`INEQI` 3.234% (first 2076.5), `GS` 2.877%, `PSP` 2.859%. The energy mix is exact; before 2076 every economy variable is within 2%. Each member is exact alone; the cause is probably coupling lag among members (inferred, not tested); finer sub-steps of 1/128 and 1/256 are worse (labelled post-hoc scan).
-- **Open for the editor (not applied):** (a) ordered or iterated coupling in the group (the track's recommendation; needs a new decision), (b) restating the criterion (a relaxation, so a labelled post-hoc proposal), or (c) accept as recorded.
+- **Disposition (editor, 2026-10-21): option (c), the failure is accepted as recorded; no criterion changed.**
 - **Correction logged by the track:** the first signals fixture was on a 1/16-year grid and four sectors failed because of it; the export was amended to 1/64 after the result was seen; criteria, tolerance and rule did not change. `IC2022` in demand has the ramp end `2020 + IPP` copied as in Earth4All.jl; whether Vensim has it was not checked. "Other": only `CTA` is read by another sector; it is ported and exact.
-- **Provisional (delegated) decisions** (N4 following D-023 option C, and Euler with a 1/64-year internal sub-step) are drafted as text in `docs/tracks/track-c.md` for the editor's milestone batch review; they are **not yet in DECISIONS.md**.
+- **Provisional (delegated) decisions** of Tracks A, B and C (13 in all) were entered into `DECISIONS.md` on 2026-10-21 as D-032 to D-044 with status "Provisional (delegated)", for the editor's batch review.
 
 ### To revisit after the Epoch reply
 1. **R3 design:** the counter-loop under supply limits (B1 sign failure).
 2. **A better R1 test** (automation saturates at 1.0 by 2065), only as a labelled post-hoc addition; the failed test stays recorded.
 3. **A2.6 step convergence** (0.565% against 0.1%).
 4. **The implausible 2030+ electricity demand** (about 20,000 TWh in 2030) caused by S3's unvalidated compute path.
+5. **A4.5 (Earth4All coupled economy):** ordered or iterated coupling within the group (option a). Note: finer sub-steps (1/128 and 1/256) made it worse, so the fix is in the coupling scheme, not the step. The failure is accepted as recorded (editor, 2026-10-21).
 
 ## Next tasks
 Waiting for the editor. Demo 0 is held (A2.7 not approved); Track A's branch is kept, not merged; Tracks B and C are stopped. Open for the editor: send the Epoch email (S3). D-021 is settled: option (a). Only the editor's STOP list in `CLAUDE.md` applies to anything further. `docs/HANDOVER.md` has the Phase 2 prompts; Prompt 5 is open. Open issues carried into Phase 2: `docs/phase-1-review.md`, section 4.

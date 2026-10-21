@@ -103,6 +103,8 @@ Notation is indicative. Final equations are fixed in v0.2 after the reproduction
 
 ### S2 — Economy & capital
 
+- **Label (editor, 2026-10-21):** the reused Earth4All sectors in F3 (`f3/sectors/e4a_*.py`) reproduce the reference's **own Euler discretisation** (a 1/64-year internal sub-step), not a more accurate integration of the same equations; they match Earth4All.jl, which is itself only an approximation of Vensim (D-018). The three warming channels (cost of capacity, loss of capital, TFP) are **wired but untested at high warming**: with warming held at the 2022 value results equal the no-warming case, and nothing has been tested beyond that. A4.5 (coupled economy) failed (GDP up to 2.5%, inequality up to 3.2%, from about 2076) and is recorded as failed.
+
 - **Origin:** Earth4All output, inventory and finance sectors (reused), demand and public sectors (reused with changes, D-016), and the labour market (reused, provisionally: it passed test T2 under the definition accepted in D-016, and is reconsidered when S3 is specified). Conditions in D-016: demand needs a component-level comparison with Vensim before it is relied on; public exposes `EDROTA2022` (non-zero in both Earth4All scenarios) as a documented parameter.
 - **Key stocks:** Physical capital (K), public capital, debt.
 - **Production (indicative):** task-based production in which output Y combines human labor on non-automated tasks and AI/capital on automated tasks:

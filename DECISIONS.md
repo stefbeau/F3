@@ -48,6 +48,19 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-029 | M1 closed with A1.3 failed; S3's composite is a known open difference | Approved 2026-10-12 | 1 |
 | D-030 | M2 step 1 closes with A2.1 failed; climate output labelled | Approved 2026-10-12 | 2 |
 | D-031 | World3 sector group advanced with internal sub-steps of 0.0625 year inside the 0.25-year loop | Approved 2026-10-20 | 2 |
+| D-032 | Data-centre boundary for the F3 data-centre module (IEA Energy and AI, descriptive) | Provisional (delegated) | 2 |
+| D-033 | Data-centre module form, calibration, supply and coupling (Track A) | Provisional (delegated) | 2 |
+| D-034 | Damage function action on S3 (Track A) | Provisional (delegated) | 2 |
+| D-035 | Reuse of one exact climate recording (Track A) | Provisional (delegated) | 2 |
+| D-036 | Demo 0 grid and levers (Track A) | Provisional (delegated) | 2 |
+| D-037 | Module names and structure of the four World3 sectors | Provisional (delegated) | 2 |
+| D-038 | The A3.2 failure at loop step 0.25 is recorded, not repaired (superseded in effect by D-031) | Provisional (delegated) | 2 |
+| D-039 | Initial outputs of the coupled World3 sectors | Provisional (delegated) | 2 |
+| D-040 | The World3 group is one Sector wrapping the five sectors (the form D-031 takes) | Provisional (delegated) | 2 |
+| D-041 | A3.4(b) is recorded as failed and not repaired | Provisional (delegated) | 2 |
+| D-042 | N4: inputs to the reused Earth4All sectors in M4 (D-023 option C) | Provisional (delegated) | 2 |
+| D-043 | Euler with a 1/64-year internal sub-step for the reused Earth4All sectors | Provisional (delegated) | 2 |
+| D-044 | Correction of the M4 recorded-input fixture grid (1/16 to 1/64 year), made after a result was seen | Provisional (delegated) | 2 |
 
 ---
 
@@ -940,6 +953,165 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Date:** 2026-10-20
 
 - **Outcome note (2026-10-20, appended; no earlier line changed).** Re-run with the criteria unchanged (`audit/m3-world3-port-report.md` section 7). **A3.2 met**, both sets: worst state `fcfpc1` 1.621% (1974) and `lufd` 1.906% (2004), 0 of 29 above 2% (predicted). **A3.3 (1974, pollution start-up matched, labelled diagnostic) met:** worst `ppol` 0.91%. **A3.4(b) failed:** S1 inside the full run against S1 alone with recorded inputs, worst 1.019% (1974, `aiopc`) and 0.931% (2004, `fcfpc1`) against 0.25%; the prediction written here that it would be "borderline" **was wrong** (measured 4 to 5 times the criterion). The track's reading, inferred and not tested, is that this gap is S1's response to small differences in the other four sectors' outputs and not an error of S1's equations. The criterion is not relaxed. The Sector interface was not changed (the group is a Sector), so the global-step fallback was not used. One full run takes 2.3 s (2004 set) to 3.2 s (1974 set).
+
+---
+
+# Provisional (delegated) decisions
+
+Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **Provisional is not Approved.** D-032 to D-036 describe Track A's work, which is on branch `track-a` and **not merged into main** (Demo 0 is held); they stay Provisional and unused until the editor decides on that track. The editor reviews them in one batch at each milestone and may reverse any; the reversal cost is stated in each.
+
+## D-032 — Data-centre boundary for the F3 data-centre module (IEA Energy and AI, descriptive)
+
+- **Source:** Track A, `docs/tracks/track-a.md` on branch `track-a` (not merged into main; Demo 0 held), block P-A1. Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
+- **Status:** Provisional (delegated)
+- **Date:** 2026-10-17
+- **Decision:** "Data centre" means a facility housing servers, storage systems, networking equipment and associated components (cooling, power distribution, UPS, lighting), as the IEA's Energy and AI describes it. The module's `E_dc` is compared with the IEA's totals on that descriptive boundary only. Whether crypto-mining load is excluded from the IEA totals is [unverified] (no IEA text read states it; a secondary source says it is). 485 TWh (2025) is a calibration point, 415 TWh (2024) a reference value, 950 TWh (2030) a report-only comparison; none is called validation.
+- **Recommendation followed:** the editor's option (a), 2026-10-17, after the track reported that the formal boundary could not be verified.
+- **Alternatives considered:** (b) wait for the IEA methodology or the full Energy and AI PDF before any module code.
+- **Cost of reversing it:** low. The boundary only fixes the calibration constant `eta_0` and the labels; a different boundary re-calibrates one constant, re-runs the grid (about 30 to 34 minutes per loop run with 841 members) and changes label text.
+- **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
+- **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
+
+## D-033 — Data-centre module form, calibration, supply and coupling (Track A)
+
+- **Source:** Track A, `docs/tracks/track-a.md` on branch `track-a` (not merged into main; Demo 0 held), block P-A2. Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
+- **Status:** Provisional (delegated)
+- **Date:** 2026-10-17
+- **Decision:** `E_dc = compute_stock / eta_hw * PUE` (spec S4), with `compute_stock` = S3's raw compute stock Q, `eta_hw = eta_0 * H(t)/H(2025)` (S3's hardware price-performance drives energy efficiency; an assumption), PUE = 1.4 (between the IEA's ranges 1.1-1.2 and 1.5-1.7, Key Questions), `eta_0` calibrated once so E_dc(2025) = 485 TWh (calibration point, not validation). Supply = recorded Earth4All.jl electricity production `ene.EP` (pinned 16f37d0, scenario TLTL, exported by `audit/t0/earth4all_supply_export.jl` to `f3/data/earth4all_electricity_supply.csv`; no Vensim file). Data centres may use 5% of that supply (`dc_share_cap`, an assumption; 485 TWh is about 1.5% of the series' 2025 value of about 32,600 TWh). `supply_ratio = min(1, available/demand)` multiplies S3's usable compute (not the stocks), lagging by one year under explicit coupling. Emissions: prescribed (D-021); no electricity-to-emissions coupling is implemented (the plan names none beyond D-021).
+- **Recommendation followed:** the plan's M2 deliverable form; simplest reading of spec S4.
+- **Alternatives considered:** a larger or smaller share cap; GL scenario supply; scaling investment instead of usable compute; coupling emissions to electricity at a fixed carbon intensity.
+- **Cost of reversing it:** low to medium; constants and one wiring line, then re-run the grid (about 30 to 34 minutes for the 841-member climate recording only if the climate changes; the nine slice runs take seconds because climate is recorded once and replayed exactly).
+- **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
+- **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
+
+## D-034 — Damage function action on S3 (Track A)
+
+- **Source:** Track A, `docs/tracks/track-a.md` on branch `track-a` (not merged into main; Demo 0 held), block P-A3. Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
+- **Status:** Provisional (delegated)
+- **Date:** 2026-10-17
+- **Decision:** D-007 options as level-of-output multipliers on S3 gross output: `gwp = gwp_gross * (1 - c T^2)`, c = 0.236% (low), 0.344% (central, derived from printed anchors), 1.00375% (high, (0.595 x 1.25 + 0.260)%); T = FaIR ensemble-mean warming above 1850-1900 on 1 January, no offset; damage cap 0.99; default central. The damaged output is what feeds investment (damages lower investment in dollars). Growth-effect case not represented; "high" is not the upper end of the literature.
+- **Recommendation followed:** D-007 as approved and its appended text.
+- **Alternatives considered:** damage applied to output after investment is computed; a damage on TFP or capital; an offset for FaIR's low start (D-030 leaves it open).
+- **Cost of reversing it:** low (one function and one line in S3), plus a re-run of the grid.
+- **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
+- **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
+
+## D-035 — Reuse of one exact climate recording (Track A)
+
+- **Source:** Track A, `docs/tracks/track-a.md` on branch `track-a` (not merged into main; Demo 0 held), block P-A4. Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
+- **Status:** Provisional (delegated)
+- **Date:** 2026-10-17
+- **Decision:** Because emissions are prescribed, S6 has no inputs in this slice and its output is identical for every lever. The Demo 0 grid records `S6Climate` once with all 841 members (D-021 option a: exact re-run each year) and replays it in each run; S3 reads warming only at the start of each year, where the replayed value equals the sector's published value. Tests and development use the first 20 members and say so. Not valid once any sector feeds S6.
+- **Recommendation followed:** the editor's instruction to reuse climate where exact.
+- **Alternatives considered:** a live S6 in each of the 11 runs (about 6 hours with 841 members).
+- **Cost of reversing it:** none for results; the replay stops being exact the moment an emissions coupling is added.
+- **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
+- **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
+
+## D-036 — Demo 0 grid and levers (Track A)
+
+- **Source:** Track A, `docs/tracks/track-a.md` on branch `track-a` (not merged into main; Demo 0 held), block P-A5. Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
+- **Status:** Provisional (delegated)
+- **Date:** 2026-10-17
+- **Decision:** AI settings: low = initial_ai_share 0.5 x fitted, central = R3 defaults, race = 1.5 x fitted with decay_speed 0.5; damage low/central/high; plus supply 0.5 x and unlimited for central/central. 11 runs, 2025-2100. Chosen before any result was seen.
+- **Recommendation followed:** the briefing (small documented set).
+- **Alternatives considered:** varying split, capital_scale, training_scale as well.
+- **Cost of reversing it:** low; edit `SETTINGS` in `dashboard/demo0/generate.py` and regenerate.
+- **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
+- **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
+
+## D-037 — Module names and structure of the four World3 sectors
+
+- **Source:** Track B, `docs/tracks/track-b.md`, P1. Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
+- **Status:** Provisional (delegated)
+- **Date:** 2026-10-20
+- **Recommendation followed:** `f3/sectors/w3_agriculture.py`, `w3_capital.py`, `w3_resources.py`, `w3_pollution.py`, common code in `w3_common.py`, wiring in `world3.py`; each sector is a `Sector` with RK4 inside `advance`, algebraic outputs published at the end of `advance`.
+- **Alternatives considered:** `s2_`/`s5_` names from the spec's sector map (rejected: World3 capital and resources are not the spec's S2/S5, which M4 and M5 rebuild); one monolithic World3 module (rejected: A3.1 needs per-sector tests).
+- **Cost of reversing it:** renaming files and imports; no equation changes.
+- **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
+- **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
+
+## D-038 — The A3.2 failure at loop step 0.25 is recorded, not repaired (superseded in effect by D-031)
+
+- **Source:** Track B, `docs/tracks/track-b.md`, P2. Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
+- **Status:** Provisional (delegated)
+- **Date:** 2026-10-20
+- **Note (orchestrator, 2026-10-21):** at the time of the first result nothing was applied; the editor then approved D-031 (World3 group with 0.0625-year sub-steps), under which A3.2 is met. This block records the first disposition and is superseded in effect by D-031; it is kept for the record.
+- **Recommendation followed:** no change to the loop step, coupling scheme or criterion; strict xfails documented A3.2 (both sets), A3.3 (1974) and A3.4(b) (both sets).
+- **Alternatives considered:** (a) loop step 0.0625 (A3.2 would pass both sets; 2.3 s per run); (b) predictor-corrector coupling (D-022 alternative, needs state save and restore); (c) sub-stepping inside the World3 sectors. Each changes D-003 or D-022 and needs the editor.
+- **Cost of reversing it:** none (nothing was applied).
+- **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
+- **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
+
+## D-039 — Initial outputs of the coupled World3 sectors
+
+- **Source:** Track B, `docs/tracks/track-b.md`, P3. Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
+- **Status:** Provisional (delegated)
+- **Date:** 2026-10-20
+- **Recommendation followed:** the start-time inputs of the four sectors are computed from their initial states by iterating the wiring, which is acyclic at t0 (`f3/sectors/world3.py`), not seeded from recorded data. Initial state is the reference's own (D-019 Option C; pollution delay stages start at `pptd*ppgr0/3` from the sector's own 1900 tables, as the reference does).
+- **Alternatives considered:** seeding from recorded values (rejected: the full run would depend on fixtures).
+- **Cost of reversing it:** small, one function.
+- **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
+- **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
+
+## D-040 — The World3 group is one Sector wrapping the five sectors (the form D-031 takes)
+
+- **Source:** Track B, `docs/tracks/track-b.md`, P4. Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
+- **Status:** Provisional (delegated)
+- **Date:** 2026-10-20
+- **Recommendation followed:** `f3/sectors/world3_group.py`: one `Sector` wraps S1 and the four World3 sectors and advances them with 0.0625-year sub-steps inside each 0.25-year loop step (the rule itself is D-031, approved by the editor); the Sector interface is unchanged.
+- **Alternatives considered:** a global 0.0625 step for World3-only runs (rejected: not needed).
+- **Cost of reversing it:** low; `run_world3(..., substep=None)` runs the sectors directly at the loop step (A3.2 then fails as recorded).
+- **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
+- **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
+
+## D-041 — A3.4(b) is recorded as failed and not repaired
+
+- **Source:** Track B, `docs/tracks/track-b.md`, P5. Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
+- **Status:** Provisional (delegated)
+- **Date:** 2026-10-20
+- **Recommendation followed:** S1 inside the full run differs from S1 alone with recorded inputs by up to 1.019% (1974, `aiopc`) and 0.931% (2004, `fcfpc1`) against 0.25%; the criterion is not changed and the test stays a strict xfail. The track's reading (S1 responding to small differences in the other four sectors) is inferred, not tested.
+- **Alternatives considered:** restating the criterion to a looser number (a labelled post-hoc proposal; not applied).
+- **Cost of reversing it:** none (nothing applied).
+- **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
+- **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
+
+## D-042 — N4: inputs to the reused Earth4All sectors in M4 (D-023 option C)
+
+- **Source:** Track C, `docs/tracks/track-c.md`, N4 (plan decision N4, delegated). Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
+- **Status:** Provisional (delegated)
+- **Date:** 2026-10-20
+- **Recommendation followed:** D-023 option C. Sector tests and the A4.5 group use the recorded Earth4All.jl series of the eight signals (`POP`, `GDPP`, `EGDPP`, `A20PA`, `OW`, `CAC`, `COFO`, `IPP`) through `ReplaySector`; no adapter was built (A4.5 needs none).
+- **Alternatives considered:** (A) recorded series only (no F3 population or climate in the economy); (B) adapters from the start (rejected: the working-age mapping and warming baseline of D-023 are open, and sector tests need exact inputs).
+- **Cost of reversing it:** low. Sectors read inputs by name through the loop context; switching means wiring other sectors' outputs to the same names and writing unit adapters (persons to Mp, S1 age bands to `A20PA`, FaIR temperature to `OW`); no sector code changes.
+- **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
+- **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
+
+## D-043 — Euler with a 1/64-year internal sub-step for the reused Earth4All sectors
+
+- **Source:** Track C, `docs/tracks/track-c.md` and `docs/tracks/track-c-plan.md`. Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
+- **Status:** Provisional (delegated)
+- **Date:** 2026-10-20
+- **Rule (written in `docs/tracks/track-c-plan.md` before any run):** if a sector alone exceeds 2% at the loop step, use the largest rung of {RK4 0.125, 0.0625, 0.03125; Euler 1/64} at which every state and headline variable is within 2% in both scenarios.
+- **Measured:** RK4 exceeds 2% in seven of eight sectors (report section 1); no RK4 rung meets 2%; Euler 1/64 does (0.0000% with recorded inputs). D-003 and D-022 are not edited; loop step and interface unchanged. **Meaning:** the reused sectors reproduce the reference's own Euler discretisation (1/64-year sub-step), not a better integration of the same equations.
+- **Why:** the reference is Euler at 1/64 year and its own Euler error exceeds 2% near zero crossings and kinks, so only its own scheme reproduces it.
+- **Alternatives considered:** a labelled post-hoc restatement of A4.1 (relaxes a criterion); a global 1/64 loop step (changes D-003).
+- **Cost of reversing it:** low (class default `SUBSTEP`). Cost of keeping: 7681 sub-steps per run in pure Python.
+- **Not decided here:** A4.5 failed under this rule (group coupling lag); the editor accepted that failure as recorded on 2026-10-21 (no criterion changed).
+- **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
+- **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
+
+## D-044 — Correction of the M4 recorded-input fixture grid (1/16 to 1/64 year), made after a result was seen
+
+- **Source:** Track C, `docs/tracks/track-c.md`, log (correction of the first reading). Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
+- **Status:** Provisional (delegated)
+- **Date:** 2026-10-20
+- **What happened (the track's own account):** the first S0 run (sector alone, recorded inputs) used inputs exported on a 1/16-year grid and linearly interpolated, as the S1 and World3 fixtures are. It failed in output (TLTL), finance (both scenarios) and labour market (both) with errors that vanish when the inputs are the reference's own: `OGR` 2.56%, `UR`/`UNEM` 11.5%, `CFWB` 0.34% and others. Measured cause: the Euler reference reads its inputs at every 1/64-year step; a 1/16 grid carries them only every fourth step, so quantities that are differences of near-equal numbers (`OGR`, `ISR`, `UNEM`) move by the interpolation error.
+- **Recommendation followed:** the export (`audit/t0/earth4all_m4_export.jl`) was amended after the result was seen so that signals are on the full 1/64-year grid at 12 significant digits. **This is an amendment of a fixture after seeing a result, labelled as such.** The 2% tolerance, the criterion sets and the rule were not changed. With 1/64 signals the sector-alone run is 0.0000% for every state and headline variable of all eight sectors, both scenarios (the port reproduces the package's equations to rounding when fed its inputs).
+- **Alternatives considered:** keeping the 1/16 grid and reporting the failures (would have measured the interpolation, not the equations); relaxing the S0 tolerance (not allowed).
+- **Cost of reversing it:** none for the equations; re-exporting at a coarser grid reproduces the failures. Bears on how the earlier S1 and World3 fixtures (1/16 grid) should be read: not examined here.
+- **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
+- **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
 
 ---
 

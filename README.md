@@ -21,6 +21,8 @@ These two families rarely meet. Yet the AI race already depends on electricity, 
 
 > **S6 (climate) validation status.** FaIR 2.2.4 with the published calibrated ensemble failed test A2.1: ensemble-mean warming for 2015-2024 is 1.196 K above 1850-1900, 0.037 K below HadCRUT5's mean 95% interval (0.073 K below its best estimate). Scenario warming starts about 0.04 to 0.07 K below observed for the current decade, and non-CO2 emissions are prescribed, not modelled. Details: [D-030](DECISIONS.md) (Proposed), [audit/m2-fair-report.md](audit/m2-fair-report.md).
 
+> **Reused Earth4All sectors (labels).** F3's ports of the reused Earth4All sectors reproduce the reference's own Euler discretisation (a 1/64-year sub-step), not a more accurate integration; the reference is itself only an approximation of Vensim (D-018). The warming channels are wired but untested at high warming, and the coupled-economy test (A4.5) failed and is recorded as failed (`audit/m4-earth4all-port-report.md`).
+
 ## What F3 is not
 
 **F3 does not predict the future.** It produces **conditional scenarios**: *if* these assumptions hold, *then* these trajectories follow, within these uncertainty ranges. Its purpose is to show which levers matter most, not to forecast a date.
