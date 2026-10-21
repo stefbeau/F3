@@ -237,7 +237,7 @@ function drawW3(){
   const pop=ser("Population","pop","--c1");
   chart("ch_w3pop",pop,o("People","World3 population, 1900-2100","people",`Chosen run: ${human(r.pop[0])} in 1900, peak ${human(pk[1])} around ${pk[0]}, ${human(r.pop[e])} in 2100.`,null,"world3-population"));legend("lg_w3pop",pop);
   const io=ser("Industrial output","io","--c3");
-  chart("ch_w3io",io,o("Dollars per year","World3 industrial output, 1900-2100","usd",`Chosen run: ${human(r.io[W3Y.indexOf(2025)])} dollars a year in 2025, ${human(r.io[e])} in 2100.${st.damage==="off"?"":" Climate damage lowers it from 2025 (level-of-output effect)."}`,{ymin:0},"world3-industrial-output"));legend("lg_w3io",io);
+  chart("ch_w3io",io,o("Model dollars per year","World3 industrial output, 1900-2100","usd",`Chosen run: ${human(r.io[W3Y.indexOf(2025)])} model dollars a year in 2025, ${human(r.io[e])} in 2100.${st.damage==="off"?"":" Climate damage lowers it from 2025 (level-of-output effect)."}`,{ymin:0},"world3-industrial-output"));legend("lg_w3io",io);
   const nr=ser("Resources remaining (fraction of start)","nrfr","--c2");
   chart("ch_w3nr",nr,o("Fraction of starting stock","World3 non-renewable resources remaining, 1900-2100","fraction",`Chosen run: falls from 1 to ${r.nrfr[e].toFixed(2)} by 2100.`,{ymin:0,ymax:1.02},"world3-resources"));legend("lg_w3nr",nr);
   const pp=peakOf(W3Y,r.ppolx);

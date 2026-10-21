@@ -67,7 +67,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-049 | M5 plan: warming channels omitted and labelled, illustrative parameters allowed, hindcast deferred, M6 before S5, S3 as built in M6 | Approved 2026-10-21 | 2 |
 | D-050 | S7 social module: trust dropped, inequality index (illustrative), changes relative to start only, S3 labour share relative fall as driver | Approved 2026-10-21 | 2 |
 | D-051 | M6 minimal integration: S7 output-only, one real coupling (climate damage to World3 industrial output), D-021 flagged for Phase 3 | Approved 2026-10-21 | 2 |
-| D-052 | F3 Explorer v0.1: stale-text fix, climate-damage control on the World3 panel, takeaway cards, presets, chart hover and download, infographics (branch `site-ux`) | Provisional (delegated) 2026-10-21 | 4 |
+| D-052 | F3 Explorer v0.1: stale-text fix, climate-damage control on the World3 panel, takeaway cards, presets, chart hover and download, infographics (branch `site-ux`) | Approved 2026-10-21 | 4 |
 
 ---
 
@@ -1218,7 +1218,7 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 
 ## D-052 — F3 Explorer v0.1: text fix, climate-damage control, takeaway cards, presets, chart reading and download, infographics
 
-- **Status:** Provisional (delegated)
+- **Status:** Approved (2026-10-21)
 - **Context:** Editor decision 2026-10-21 ("Explorer v0.1", branch `site-ux` from main; not merged, the Pages workflow unchanged). The pages still said "local draft, not published"; the merged M6 coupling (D-051) can now be shown; the pages were hard to read at a glance.
 - **Decision (what is built, on `site-ux` only):**
   1. **Stale text replaced** on every page: "Public draft, published 2026-10-21. Conditional scenarios, not forecasts." All other caveats are kept. The About page names the commit that contains the built pages.
@@ -1234,7 +1234,7 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Alternatives considered:** a live (in-browser) model (rejected, D-009: static site); showing the social module (excluded by the editor).
 - **Reversal cost:** low (site files only).
 - **Proposed by:** Claude (implementing the editor's brief).
-- **Decision:** Provisional (delegated), awaiting the editor's review.
+- **Decision:** Approved by the editor, 2026-10-21, after review of `site-ux` (32481b4), with two changes: the page order is title, public-draft banner, "Read this first", tab bar, then the World3, Climate and AI race panels, then "What is connected" and "Not shown"; and World3 industrial output is labelled "model dollars per year" (World3's own constant dollars), stated in Methods. The editor runs the Pages workflow; this branch does not.
 - **Date:** 2026-10-21
 
 ---

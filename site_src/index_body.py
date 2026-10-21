@@ -30,17 +30,6 @@ BODY = f"""
 
 <nav class="tabs" aria-label="Panels"><a href="#p_w3">World3</a><a href="#p_climate">Climate</a><a href="#p_ai">AI race</a><a href="#connected">What is connected</a><a href="#notshown">Not shown</a></nav>
 
-<section class="card" id="connected">
-<h2>What is connected</h2>
-<p class="note">Solid arrows are links that are built and tested today. Dashed arrows are links that are not built. Nothing in the Explorer depends on a dashed arrow.</p>
-<h3>Feedback loops</h3>
-{ig.LOOPS}
-{ig.LOOPS_KEY}
-<h3>Roadmap</h3>
-{ig.ROADMAP}
-{ig.ROADMAP_KEY}
-</section>
-
 <!-- ========================= PANEL 1: WORLD3 ========================= -->
 <section class="card" id="p_w3">
 <h2>1. {W3} scenarios <a class="badge amber" href="limitations.html#status-world3"><span aria-hidden="true">&#9650;</span> Amber: standard run matches its reference; A3.4(b) failed; changed runs not compared</a></h2>
@@ -64,7 +53,7 @@ BODY = f"""
 <li><strong>Climate damage (D-051, D-052).</strong> When switched on, World3's industrial output is multiplied by (1 minus the damage fraction) from 2025. The damage fraction is c x T^2 with T the {FAIR} ensemble-mean warming above 1850-1900 from the recorded run (no new climate run per scenario) and c from the chosen D-007 option. It is a <strong>level-of-output effect, not the upper end of the literature</strong>: growth-effect estimates are larger and are not represented. No new coefficient was introduced. The change flows through every link industrial output has in World3 (investment, agriculture, resources, population), so it is not a health or yield effect of warming. With damage on, the run is not compared with WorldDynamics.jl; the M6 tests check that switching damage off returns the stand-alone World3 to 1e-9, that zero warming changes nothing, that more warming lowers industrial output, and that nothing is NaN or negative over the whole grid.</li>
 <li>World3 is run as the D-031 group: its five sectors take 0.0625-year sub-steps inside the model's 0.25-year loop.</li>
 <li>The 2004 parameter set is the provisional default (D-015); the 1974 set exists in the code and is not shown.</li>
-<li>Resources are shown as the fraction of the starting stock that remains (the starting stock is the chosen lever value); pollution as the persistent-pollution index (1 = the 1970 level); industrial output in dollars a year as World3 defines it.</li>
+<li>Resources are shown as the fraction of the starting stock that remains (the starting stock is the chosen lever value); pollution as the persistent-pollution index (1 = the 1970 level); industrial output in model dollars per year (World3's own constant dollars, not a market or price-indexed figure).</li>
 <li>World3 is a single run per setting: there is no band and no uncertainty analysis.</li>
 <li><strong>No health or yield effect of warming.</strong> World3's population and food sectors have no warming term, and the four warming effects of Earth4All that would act on them (life expectancy, land yield, CO2 fertilisation and the CO2 lifetime) are deliberately omitted (D-049).</li>
 <li>S3's economy and World3's are not reconciled: they are two models of the same world, and the AI-race panel does not change anything in this panel.</li>
@@ -135,6 +124,17 @@ BODY = f"""
 <div class="note">Details and exact sizes: docs/tracks/track-a.md and audit/data/m2-slice-results-dev20.json. This page uses all 841 FaIR members for the climate.</div>
 <table id="tb_coef"></table>
 </details>
+</section>
+
+<section class="card" id="connected">
+<h2>What is connected</h2>
+<p class="note">Solid arrows are links that are built and tested today. Dashed arrows are links that are not built. Nothing in the Explorer depends on a dashed arrow.</p>
+<h3>Feedback loops</h3>
+{ig.LOOPS}
+{ig.LOOPS_KEY}
+<h3>Roadmap</h3>
+{ig.ROADMAP}
+{ig.ROADMAP_KEY}
 </section>
 
 <section class="card" id="notshown">

@@ -342,3 +342,22 @@ def test_methods_limitations_sources_describe_the_new_coupling_and_drop_the_old_
         assert phrase in lim, phrase
     assert "withheld" in index_html().lower()                                           # S3 compute and electricity stay withheld
     assert 'id="ch_compute"' not in index_html() and 'id="ch_edc"' not in index_html()
+
+
+# ------------------------------------------------------------------------------------------------------ editor review 2026-10-21 (added after the change)
+def test_page_order_and_tab_bar_order():
+    html = index_html()
+    pos = [html.index(m) for m in ('class="banner"', 'id="readfirst"', 'class="tabs"', 'id="p_w3"', 'id="p_climate"', 'id="p_ai"', 'id="connected"', 'id="notshown"')]
+    assert pos == sorted(pos), pos
+    assert html.index("<h1>") < pos[0]
+    tabs = re.search(r'<nav class="tabs".*?</nav>', html, re.S).group(0)
+    assert re.findall(r'href="#([a-z0-9_]+)"', tabs) == ["p_w3", "p_climate", "p_ai", "connected", "notshown"]
+    for ident in ("ig_loops", "ig_roadmap", "ig_stripes"):                         # every diagram is still there
+        assert f'id="{ident}"' in html
+
+
+def test_industrial_output_unit_label_and_methods():
+    assert 'o("Model dollars per year"' in JS.read_text(encoding="utf-8")
+    assert "Dollars per year" not in JS.read_text(encoding="utf-8")
+    m = (SITE / "methods.html").read_text(encoding="utf-8")
+    assert "model dollars per year" in m.lower() and "constant dollars" in m

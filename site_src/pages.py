@@ -77,6 +77,7 @@ def methods_page(data: dict, stamp: dict, css: str) -> str:
 
 <section class="card"><h2>Scenario grids</h2>
 <ul>
+<li><strong>Units of World3 industrial output.</strong> The industrial-output chart is in <strong>model dollars per year</strong>: World3's own constant dollars, as the model defines them. They are not market prices, not tied to a year's price level, and not comparable with S3's output, which is a separate economy in separate units.</li>
 <li>The Explorer is a <strong>static page of precomputed runs</strong> (D-009): no model runs in your browser and nothing is sent anywhere.</li>
 <li>World3: 3 levers x 3 values = 27 runs (D-046, Provisional) x 4 climate-damage states (off, low, central, high) = 108 runs: initial non-renewable resources (0.5e12, <strong>1e12 standard</strong>, 2e12), land yield factor after 1975 (<strong>1.0 standard</strong>, 1.5, 2.0), persistent-pollution generation factor after 1975 (<strong>1.0 standard</strong>, 0.5, 0.25).</li>
 <li>AI race: 3 investment settings (low, central, race; levers of the R3 rule) x 3 damage options = 9 runs, plus two electricity-supply cases kept in the data for the sign test.</li>
