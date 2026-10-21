@@ -32,3 +32,16 @@ Sentence by sentence, the Demo 0 template's caveat text was compared with the fi
 - The Limitations table of failed tests is stacked blocks, not a table, on purpose (a table was unreadable at 390 px).
 - The generated Explorer page and data are about 0.5 MB each and are committed on this branch.
 - "Last updated" and the commit hash on the pages are those of the source commit at build time, so they name the commit before the one that contains the built pages; the About page says so.
+
+## Explorer v0.1 (branch `site-ux`, D-052 Provisional, 2026-10-21): what changed
+Not merged; the Pages workflow is unchanged. The generator (`site_src/generate.py`) now builds 27 lever runs x 4 climate-damage states (108 World3 runs) with the merged M6 coupling and the recorded FaIR ensemble mean (no new FaIR run); `--reuse --built-commit <hash>` restamps the pages and names the commit that contains them on About.
+- **A. Text:** every page says "Public draft, published 2026-10-21. Conditional scenarios, not forecasts."; the old "local draft" wording is gone (tested).
+- **B. World3 panel:** climate-damage control (off default, low, central, high); with damage on, the notice (level-of-output effect, not the upper end of the literature; not compared with WorldDynamics.jl; S3's and World3's economies not reconciled; no health or yield effect of warming) is visible without clicking. Industrial output is a new chart. S7 is not on the site (tested).
+- **C. Takeaway cards:** sentence and tiles computed by `w3Takeaway`, `climateTakeaway`, `aiTakeaway` from the data (`tests/test_site_ux.py` runs them in Node on the committed data and on synthetic data; hard-coded values would fail).
+- **D. Presets, Reset, Custom, chips, URL hash:** each preset is a grid point; a bad hash falls back to defaults (damage off).
+- **E. Charts:** hover, touch and keyboard crosshair with a readout; PNG and CSV download (with the caveats).
+- **F. Infographics** (inline SVG, text alternatives): feedback loops (solid = built: warming to World3 output and warming to S3 output; dotted = built in the AI-race run, outputs withheld; dashed = not built), roadmap, warming stripes labelled with the A2.1 failure, status badges linking to Limitations. The tests check that exactly the built links are solid.
+- **G. Layout:** sticky tab bar, "Read this first", definitions for S3, R3, FaIR, GATE and World3 (tap, click or keyboard, not only the title attribute).
+- **Checked in Edge (390 and 1200 px, light and dark, 20 measurements):** no horizontal overflow, no console or script errors, no text below 13 px (two fixes made on the way: code and badge sizes). Interaction checks: damage on and off, presets and Reset, hash restore and bad hash, keyboard and touch readout, CSV and PNG download.
+- **Known issues:** the status badges use three levels (amber, red; none green) chosen by me, listed in D-052; the CSV and PNG download were checked through the page's own download function, not through a browser save dialog.
+

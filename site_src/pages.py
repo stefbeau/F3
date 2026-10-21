@@ -188,7 +188,7 @@ def sources_page(data: dict, stamp: dict, css: str) -> str:
 def about_page(data: dict, stamp: dict, css: str) -> str:
     dirty = "the working tree had uncommitted changes when this was built" if stamp.get("dirty") == "yes" else "the working tree was clean when this was built"
     built = stamp.get("built_commit")
-    contains = (f'The commit that contains the built pages is <code>{built}</code> (these pages are in that commit).' if built else
+    contains = (f'The commit that contains the built pages is <code>{built}</code>; this About page was then edited only to name that commit.' if built else
                 "The commit that contains the built pages is the one after the source commit named here; see the repository history.")
     body = f"""
 <h1>About F3</h1>
