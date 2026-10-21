@@ -26,7 +26,8 @@ function niceTicks(lo,hi,n){
 function chart(el,series,o){
   const wrap=$(el);const W=Math.max(300,Math.floor(wrap.clientWidth||340));
   const narrow=W<520;const H=narrow?320:300;
-  const FS=13,R=26,T=28,B=34;
+  const FS=13,R=26,B=34;
+  const nl=series.filter(s=>s.label).length;const T=28+Math.max(0,nl-1)*15;   /* headroom so stacked end labels sit above the lines */
   const XS=o.years||Y;let xmin=XS[0],xmax=XS[XS.length-1];
   let ymin=Infinity,ymax=-Infinity;
   series.forEach(s=>{(s.band?[s.band[0],s.band[1]]:[]).concat([s.y]).forEach(a=>a.forEach(v=>{if(isFinite(v)){ymin=Math.min(ymin,v);ymax=Math.max(ymax,v)}}))});
@@ -53,9 +54,9 @@ function chart(el,series,o){
     if(s.label)ends.push({label:s.label,color:s.color,y:Yp(s.y[XS.length-1])-6});
   });
   /* direct labels at the right end, spaced apart so they never overlap (the legend with dash patterns is the fallback) */
-  ends.sort((a,b)=>a.y-b.y);
-  for(let i=1;i<ends.length;i++){if(ends[i].y-ends[i-1].y<15)ends[i].y=ends[i-1].y+15}
-  ends.forEach(e=>{g+=`<text x="${W-R-6}" y="${Math.max(e.y,T+2)}" text-anchor="end" font-size="${FS}" font-weight="600" fill="${e.color}" stroke="${CSSV("--card")}" stroke-width="3" paint-order="stroke">${e.label}</text>`});
+  ends.sort((a,b)=>b.y-a.y);                               /* lowest on screen first; each next label goes up by at least 15 px */
+  for(let i=1;i<ends.length;i++){if(ends[i-1].y-ends[i].y<15)ends[i].y=ends[i-1].y-15}
+  ends.forEach(e=>{g+=`<text x="${W-R-6}" y="${Math.max(e.y,12)}" text-anchor="end" font-size="${FS}" font-weight="600" fill="${e.color}" stroke="${CSSV("--card")}" stroke-width="3" paint-order="stroke">${e.label}</text>`});
   wrap.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${o.label}. ${o.summary||""}"><title>${o.label}</title><desc>${o.summary||""}</desc>${g}</svg>`;
 }
 function legend(el,items){$(el).innerHTML=items.map(i=>`<span><svg viewBox="0 0 34 10" aria-hidden="true"><line x1="0" y1="5" x2="34" y2="5" stroke="${i.color}" stroke-width="3" ${i.dash?`stroke-dasharray="${i.dash}"`:""}/></svg>${i.name}</span>`).join("")}
@@ -95,8 +96,12 @@ function draw(){
   const names=["low","central","race"];
   const au=names.map((n,i)=>({name:n+(n===s?" (selected)":""),color:cl(C[i]),dash:DASH[i],y:D.runs[key(n,d)].frac_automated,label:n}));
   const k50=n=>{const y=D.runs[key(n,d)].frac_automated;const i=y.findIndex(v=>v>=0.5);return i<0?"never":Y[i]};
-  chart("ch_auto",au,{unit:"Fraction of tasks automated",fmt:"fraction",ymin:0,ymax:1.02,label:"Automation fraction, three AI settings",
-     summary:`Shape only. Year the fraction first reaches 0.5: low ${k50("low")}, central ${k50("central")}, race ${k50("race")}. All three reach 1.0 within the period.`});legend("lg_auto",au);
+  const cut=Y.indexOf(2050)+1;                                  /* 2025-2050 only; all settings reach 1.0 after about 2045 */
+  const aus=au.map(s=>Object.assign({},s,{y:s.y.slice(0,cut)}));
+  chart("ch_auto",aus,{years:Y.slice(0,cut),xstep:5,unit:"Fraction of tasks automated",fmt:"fraction",ymin:0,ymax:1.02,label:"Automation fraction, three AI settings, 2025-2050",
+     summary:`Shape only, 2025 to 2050. Year the fraction first reaches 0.5: low ${k50("low")}, central ${k50("central")}, race ${k50("race")} (the same year; the race setting is higher before and after). All settings reach 1.0 after about 2045.`});legend("lg_auto",aus);
+  const full=n=>{const y=D.runs[key(n,d)].frac_automated;const j=y.findIndex(v=>v>=0.999);return j<0?"not within 2100":Y[j]};
+  $("auto_note").textContent=`Axis shows 2025-2050. All settings reach 1.0 after about 2045 (first year at 1.0: low ${full("low")}, central ${full("central")}, race ${full("race")}; a year after 2050 is beyond the axis).`;
   const T=D.climate;
   chart("ch_temp",[{name:"FaIR ensemble mean, 5-95% band",color:cl("--c2"),y:T.warming,band:[T.warming_p05,T.warming_p95]}],{unit:"Warming above 1850-1900",fmt:"kelvin",label:"FaIR warming, 841 members",
      summary:`Ensemble mean ${T.warming[0].toFixed(2)} K in 2025 and ${last(T.warming).toFixed(2)} K in 2100; 5-95% band ${T.warming_p05[N-1].toFixed(2)} to ${T.warming_p95[N-1].toFixed(2)} K in 2100. Starts about 0.04 to 0.07 K below observed.`});
@@ -108,11 +113,20 @@ function draw(){
   $("tb_dmg").innerHTML="<tr><th>Option</th><th>c (% per K^2)</th><th>Share of S3 output lost in 2100</th></tr>"+["low","central","high"].map(o=>`<tr><td>${o}</td><td>${D.meta.damage_coeff_pct_per_K2[o].toFixed(4)}${o==="low"?"":" (derived)"}</td><td>${(D.runs[key(s,o)].damage_fraction[i2100]*100).toFixed(2)}%</td></tr>`).join("");
   $("tb_coef").innerHTML="<tr><th>Option</th><th>Source</th></tr>"+["low","central","high"].map(o=>`<tr><td>${o}</td><td>${D.meta.damage_sources[o]}</td></tr>`).join("");
 }
+/* The first year the automated fraction is at least 0.5, and the fraction the year before and in that year (all read from the data). */
+function cross(y,th){const j=y.findIndex(v=>v>=th);return j<0?null:{year:Y[j],at:y[j],before:j>0?y[j-1]:null}}
+function r1Sentence(){
+  const parts=["low","central","race"].map(n=>{const c=cross(D.runs[key(n,"central")].frac_automated,0.5);
+    return c?`${n}: ${c.year} (fraction ${c.before===null?"n/a":c.before.toFixed(2)} the year before, ${c.at.toFixed(2)} that year)`:`${n}: never`});
+  const all=["low","central","race"].map(n=>cross(D.runs[key(n,"central")].frac_automated,0.5));
+  const same=all.every(c=>c&&c.year===all[0].year);
+  return `<strong>R1</strong> (more AI investment, more automation): the first year the automated fraction reaches 0.5 is ${parts.join("; ")}. `+
+    (same?`The year is the same in all three settings because the crossing happens within one year-step; the race setting is already higher before and after it. `:"")+
+    `Every setting reaches 1.0 after about 2045. (The recorded R1 sign test failed on exactly this kind of saturation.)`;
+}
 function signs(){
-  const lo=D.runs[key("low","central")],hi=D.runs[key("race","central")];
-  const i=40,k=y=>{const j=y.findIndex(v=>v>=0.5);return j<0?"never":Y[j]};
   $("signs").innerHTML="<ul>"+
-  `<li><strong>R1</strong> (more AI investment, more automation): the first year automation reaches 0.5 is ${k(hi.frac_automated)} in the race setting and ${k(lo.frac_automated)} in the low setting; by 2065 both are at ${hi.frac_automated[i].toFixed(1)} (the recorded R1 sign test failed on exactly this: both runs saturate).</li>`+
+  `<li id="r1text">${r1Sentence()}</li>`+
   `<li><strong>B1</strong> (less electricity, slower compute growth): the recorded test failed as written (a lower-supply run had more compute in some years). Compute values are withheld above.</li>`+
   `<li><strong>B2</strong> (more damage, lower output): the share of output lost in 2100 is ${(D.runs[key("central","high")].damage_fraction[N-1]*100).toFixed(1)}% (high) against ${(D.runs[key("central","low")].damage_fraction[N-1]*100).toFixed(1)}% (low); the sign test passed.</li></ul>`;
 }

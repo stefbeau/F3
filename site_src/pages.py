@@ -101,6 +101,7 @@ INDEX_BODY = """
 <div class="withheld" role="note">Compute and electricity outputs are withheld until the S3 compute path is validated (awaiting Epoch AI); they currently leave any plausible range.</div>
 <h3>Automation (S3)</h3>
 <figure><div id="ch_auto"></div><div class="leg" id="lg_auto"></div></figure>
+<div class="note" id="auto_note"></div>
 <h3>Damage to output, three level-effect options</h3>
 <div class="notice" role="note"><strong>The "high" damage option is NOT the upper end of the literature.</strong> All three options are level-of-output effects; growth-effect estimates are larger and are not represented (D-007). Shares are of S3's own output, whose level is unvalidated.</div>
 <figure><div id="ch_dmg"></div><div class="leg" id="lg_dmg"></div></figure>
