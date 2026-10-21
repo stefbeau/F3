@@ -100,6 +100,8 @@ Eight Earth4All sectors ported (output, inventory, finance, labour market, publi
 - **Correction logged by the track:** the first signals fixture was on a 1/16-year grid and four sectors failed because of it; the export was amended to 1/64 after the result was seen; criteria, tolerance and rule did not change. `IC2022` in demand has the ramp end `2020 + IPP` copied as in Earth4All.jl; whether Vensim has it was not checked. "Other": only `CTA` is read by another sector; it is ported and exact.
 - **Provisional (delegated) decisions** of Tracks A, B and C (13 in all) were entered into `DECISIONS.md` on 2026-10-21 as D-032 to D-044 with status "Provisional (delegated)", for the editor's batch review.
 
+**Note (2026-10-21):** Track A is merged into main; the Provisional decisions D-032 to D-036 describe code that is now on main and stay Provisional. Suite on main: 234 passed, 45 strict xfail.
+
 ### To revisit after the Epoch reply
 1. **R3 design:** the counter-loop under supply limits (B1 sign failure).
 2. **A better R1 test** (automation saturates at 1.0 by 2065), only as a labelled post-hoc addition; the failed test stays recorded.

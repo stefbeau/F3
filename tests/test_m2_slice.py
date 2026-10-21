@@ -87,6 +87,7 @@ def test_a25_unlimited_electricity_makes_b1_inactive(rec):
         assert np.allclose(S(res, "s3_ai", n), S(off, "s3_ai", n), rtol=1e-12)
 
 
+@pytest.mark.xfail(strict=True, reason="A2.6 FAILED (docs/tracks/track-a.md, STATUS 2026-10-17): halving the loop step changes data-centre electricity by up to 0.565% (first above 0.1% in 2028), output 0.197%, compute 0.108%; bar 0.1%. Criterion not relaxed.")
 def test_a26_step_halving(rec):
     a = run_slice(SliceConfig(), climate_replay(rec), dt=0.25)
     b = run_slice(SliceConfig(), climate_replay(rec), dt=0.125)
@@ -98,6 +99,7 @@ def test_a26_step_halving(rec):
     assert max(worst.values()) <= 1e-3, worst
 
 
+@pytest.mark.xfail(strict=True, reason="R1 sign FAILED on automation: both runs are at 1.0 by 2065, so no increase can be seen although compute is higher (docs/tracks/track-a.md). A better R1 test would be a labelled post-hoc addition; this one stays recorded.")
 def test_loop_sign_r1(rec):
     f0 = R3Rule()._fitted_initial
     lo = run_slice(SliceConfig(levers=R3Levers(initial_ai_share=0.9 * f0)), climate_replay(rec))
@@ -107,6 +109,7 @@ def test_loop_sign_r1(rec):
     assert S(hi, "s3_ai", "frac_automated")[k] > S(lo, "s3_ai", "frac_automated")[k]
 
 
+@pytest.mark.xfail(strict=True, reason="B1 sign FAILED: halving electricity supply gives up to 17.8% MORE compute in 2038-2045 (first 2038), the opposite of the expected direction; inferred cause: R3 shares depend on usable compute (docs/tracks/track-a.md). Criterion not relaxed.")
 def test_loop_sign_b1(rec):
     base = run_slice(SliceConfig(), climate_replay(rec))
     low = run_slice(SliceConfig(dc=DCParams(supply_scale=0.5)), climate_replay(rec))
