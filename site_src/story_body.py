@@ -32,6 +32,7 @@ def body() -> str:
 <p class="why">{W3} is the model behind <em>The Limits to Growth</em>. This is its standard run, 1900 to 2100, with the 2004 parameter set. Change one thing and see what moves.</p>
 <div class="ctlrow"><span class="ctllab" id="c1_lab">Starting non-renewable resources</span><div class="seg" id="c1_seg" role="group" aria-labelledby="c1_lab"></div></div>
 <div id="ch_s1"></div>
+<p class="note histline"><span id="ch1_hist"></span> <a href="explorer.html#tab=history">Compare with history: Model versus reality</a></p>
 <p class="status"><a class="badge amber" href="limitations.html#status-world3"><span aria-hidden="true">&#9650;</span> Amber: the standard run matches its reference; test A3.4(b) failed; changed runs are not compared</a></p>
 <p class="next"><a href="#ch2">Next: add the heat</a></p>
 </section>

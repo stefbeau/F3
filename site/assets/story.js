@@ -28,6 +28,7 @@
       annotations: pk[0] === null ? [] : [{ x: pk[0], y: pk[1], text: "Peak " + F3.human(pk[1]) + ", " + pk[0], color: sc.a, tcolor: sc.aT }], label: "World3 population, 1900-2100", assume: F3.ASSUME.world3,
       summary: title + ". Model run, not a forecast.", caveat: "World3 2004 parameter set; changed runs are not compared with WorldDynamics.jl." });
     $("ch_s1").querySelector(".plot").setAttribute("aria-label", title);
+    if (D.history) $("ch1_hist").textContent = F3.historyPopGap(Y, run.pop, D.history).sentence + " This is a comparison with history, not a validation.";
   }
 
   /* ---- chapter 2: stripes and damage bars; control = damage option ---- */

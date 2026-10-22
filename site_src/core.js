@@ -35,7 +35,8 @@
     fraction: function (v) { return isNum(v) ? (+v.toFixed(2)).toString() : NA; },
     index: function (v) { return isNum(v) ? (+v.toPrecision(3)).toString() : NA; },
     pct: function (v) { return isNum(v) ? (+v.toFixed(2)) + "%" : NA; },
-    kelvin: function (v) { return isNum(v) ? (+v.toFixed(2)) + " K" : NA; }
+    kelvin: function (v) { return isNum(v) ? (+v.toFixed(2)) + " K" : NA; },
+    bn: function (v) { return isNum(v) ? (+v.toFixed(2)) + " billion" : NA; }
   };
   /* A change as a plain-language phrase: "12.3% lower", "4.0% higher", "unchanged". */
   function rel(x) {
@@ -162,7 +163,9 @@
     w3damage: { href: "methods.html#coupling", text: "Assumptions: the climate-damage coupling" },
     climate: { href: "limitations.html#status-climate", text: "Assumptions and limits: FaIR, prescribed emissions, test A2.1" },
     ai: { href: "limitations.html#status-ai", text: "Assumptions and limits: S3 is unvalidated (test A1.3)" },
-    aidamage: { href: "limitations.html#compared", text: "Assumptions and limits: the damage options and what was not compared" }
+    aidamage: { href: "limitations.html#compared", text: "Assumptions and limits: the damage options and what was not compared" },
+    history: { href: "methods.html#history-overlay", text: "Assumptions and limits: a comparison with history, not a validation" },
+    map: { href: "methods.html#warming-map", text: "Assumptions and limits: illustrative downscaling, how the map is made" }
   };
   function assumeFor(kind, damage) { var k = kind === "world3" && damage && damage !== "off" ? "w3damage" : kind; return ASSUME[k]; }
   /* Warming stripes: the finding title and the whole chart spec (title, text alternative, caveat, file name) come from the data. */
@@ -250,6 +253,71 @@
     if (best === null) return "Both scenarios match the standard run in " + end + " on every measure shown";
     return "Against the standard run, the largest " + end + " change is " + best.label.toLowerCase() + " in " + best.who + " (" + signedPct(best.d) + ")";
   }
+  /* ---------- observed history and the warming map (D-057); readings in docs/history-comparison.md and docs/warming-map.md; tests/test_site_history.py ---------- */
+  /* World3 values sit at 1 January: the calendar-year value is the mean of the value at the start and at the end of the year. */
+  function calYear(a, years, y) {
+    var i = years.indexOf(y);
+    if (i < 0 || i + 1 >= a.length || !isNum(a[i]) || !isNum(a[i + 1])) return null;
+    return (a[i] + a[i + 1]) / 2;
+  }
+  function gapPct(v) { return (v >= 0 ? "+" : "-") + Math.abs(v).toFixed(1) + "%"; }
+  function noGap(what) { return { year: null, model: null, obs: null, gapPct: null, within: null, sentence: what + " has " + NA + " in the years compared, so no gap is computed.", title: what + " has " + NA + " in the years compared" }; }
+  function historyPopGap(years, pop, Hd) {
+    var P = Hd.population, k = -1, i;
+    for (i = P.years.length - 1; i >= 0; i--) { if (P.is_estimate[i] && isNum(P.billions[i]) && calYear(pop, years, P.years[i]) !== null) { k = i; break; } }
+    if (k < 0) return noGap("World3 population");
+    var y = P.years[k], model = calYear(pop, years, y) / 1e9, obs = P.billions[k], g = (model - obs) / obs * 100, within = Math.abs(g) <= 5;
+    return { year: y, model: model, obs: obs, gapPct: g, within: within,
+      sentence: "In " + y + ", the last year the UN gives as an estimate, the selected World3 run has " + model.toFixed(2) + " billion people against " + obs.toFixed(2) + " billion: " + gapPct(g) + ", " + (within ? "within" : "outside") + " the 5% band set beforehand.",
+      title: "World3 population is " + gapPct(g) + " against the UN estimate in " + y + " (" + model.toFixed(2) + " against " + obs.toFixed(2) + " billion), " + (within ? "within" : "outside") + " the 5% band set beforehand" };
+  }
+  function historyIoGap(years, io, Hd) {
+    var G = Hd.gdp, b = G.years.indexOf(1990), base = calYear(io, years, 1990), k = -1, i;
+    if (base === null || b < 0 || !isNum(G.trillion_usd_2015[b])) return noGap("World3 industrial output or world GDP");
+    for (i = G.years.length - 1; i >= 0; i--) { if (isNum(G.trillion_usd_2015[i]) && calYear(io, years, G.years[i]) !== null) { k = i; break; } }
+    if (k < 0) return noGap("World3 industrial output or world GDP");
+    var y = G.years[k], model = calYear(io, years, y) / base, obs = G.trillion_usd_2015[k] / G.trillion_usd_2015[b], g = (model - obs) / obs * 100, within = Math.abs(g) <= 25;
+    return { year: y, model: model, obs: obs, gapPct: g, within: within,
+      sentence: "Indexed to 1990 = 1, in " + y + " World3 industrial output is " + model.toFixed(2) + " and world GDP is " + obs.toFixed(2) + ": " + gapPct(g) + ", " + (within ? "within" : "outside") + " the 25% band set beforehand. These are not the same quantity (industry in model dollars against all output in 2015 US dollars), so the gap is not an error rate.",
+      title: "Indexed to 1990 = 1, World3 industrial output is " + gapPct(g) + " against world GDP in " + y + " (" + model.toFixed(2) + " against " + obs.toFixed(2) + "): not the same quantity, so read it as a distance" };
+  }
+  function historyTempGap(Hd) {
+    var T = Hd.temperature, i = T.years.length - 1, y = T.years[i];
+    var fair = T.fair_mean[i], obs = T.hadcrut5[i], lo = T.hadcrut5_lower[i], hi = T.hadcrut5_upper[i], p05 = T.fair_p05[i], p95 = T.fair_p95[i];
+    if (![fair, obs, lo, hi, p05, p95].every(isNum)) return { year: y, fair: null, obs: null, diff: null, inside: null, obsInBand: null, sentence: "In " + y + " the FaIR or HadCRUT5 temperature has " + NA + ", so no gap is computed.", title: "The FaIR or HadCRUT5 temperature has " + NA + " in " + y };
+    var diff = fair - obs, inside = lo <= fair && fair <= hi, obsInBand = p05 <= obs && obs <= p95, sg = (diff >= 0 ? "+" : "-") + Math.abs(diff).toFixed(2) + " K";
+    return { year: y, fair: fair, obs: obs, diff: diff, inside: inside, obsInBand: obsInBand,
+      sentence: "In " + y + " the FaIR ensemble mean is " + fair.toFixed(2) + " K above 1850-1900 against HadCRUT5's " + obs.toFixed(2) + " K: " + sg + ", " + (inside ? "inside" : "outside") + " HadCRUT5's 95% interval (" + lo.toFixed(2) + " to " + hi.toFixed(2) + " K), the form of test A2.1. HadCRUT5's best estimate is " + (obsInBand ? "inside" : "outside") + " the FaIR 5th to 95th percentile band (" + p05.toFixed(2) + " to " + p95.toFixed(2) + " K).",
+      title: "In " + y + " the FaIR mean is " + sg + " against HadCRUT5, " + (inside ? "inside" : "outside") + " HadCRUT5's 95% interval (the form of test A2.1)" };
+  }
+  var SEQ = [[255, 247, 236], [254, 232, 200], [253, 212, 158], [253, 187, 132], [252, 141, 89], [239, 101, 72], [215, 48, 31], [179, 0, 0], [127, 0, 0]];   /* ColorBrewer OrRd, 9 classes: sequential, colour-blind safe */
+  function seqColor(t) {
+    t = Math.max(0, Math.min(1, t));
+    var x = t * (SEQ.length - 1), i = Math.min(SEQ.length - 2, Math.floor(x)), f = x - i;
+    return "rgb(" + SEQ[i].map(function (v, j) { return Math.round(v + (SEQ[i + 1][j] - v) * f); }).join(",") + ")";
+  }
+  function mapTakeaway(Mp, C, year) {
+    var i = C.years.indexOf(year), g = C.warming[i], lo = C.warming_p05[i], hi = C.warming_p95[i];
+    if (!isNum(g) || !isNum(lo) || !isNum(hi)) return { global: { mean: null, lo: null, hi: null }, hottest: null, coolest: null, sentence: "The global FaIR warming has " + NA + " in " + year + ", so no regional value is computed.", title: "The global FaIR warming has " + NA + " in " + year };
+    var hot = Mp.regions[0], cool = Mp.regions[0];
+    Mp.regions.forEach(function (r) { if (r.c > hot.c) hot = r; if (r.c < cool.c) cool = r; });
+    var h = { id: hot.id, name: hot.name, value: hot.c * g }, c = { id: cool.id, name: cool.name, value: cool.c * g };
+    return { global: { mean: g, lo: lo, hi: hi }, hottest: h, coolest: c,
+      sentence: "In " + year + " the global FaIR ensemble mean is " + g.toFixed(2) + " K above 1850-1900 (5th to 95th percentile " + lo.toFixed(2) + " to " + hi.toFixed(2) + " K). Scaled by the pattern, the warmest region is " + h.name + " at " + h.value.toFixed(1) + " K and the coolest is " + c.name + " at " + c.value.toFixed(1) + " K. Only the global uncertainty is shown; pattern uncertainty is not.",
+      title: "Pattern-scaled warming in " + year + ": warmest region " + h.name + " at " + h.value.toFixed(1) + " K, coolest " + c.name + " at " + c.value.toFixed(1) + " K, global mean " + g.toFixed(2) + " K" };
+  }
+  function regionReadout(r, year, g) { return r.name + " (" + r.id + "), " + year + ": " + fx(scale(g, r.c), 2) + " K above 1850-1900 = global " + fx(g, 2) + " K x " + r.c.toFixed(2) + ". Illustrative."; }
+  /* The table, and the CSV, of every region for the chosen year: raw numbers (the page formats them). */
+  function mapTable(Mp, g, year) {
+    return { head: ["Region", "Type", "K per K of global (c)", "Warming in " + year + " (K)"],
+      rows: Mp.regions.slice().sort(function (a, b) { return b.c - a.c; }).map(function (r) { return { id: r.id, name: r.name, type: r.type, c: r.c, k: scale(g, r.c) }; }) };
+  }
+  function mapSpec(Mp, C, years, year) {
+    var t = mapTakeaway(Mp, { years: years, warming: C.warming, warming_p05: C.warming_p05, warming_p95: C.warming_p95 }, year);
+    var mx = Math.max.apply(null, C.warming.filter(isNum)) * Math.max.apply(null, Mp.regions.map(function (r) { return r.c; }));
+    var cav = Mp.meta.label + " Colour scale: 0 K to " + mx.toFixed(1) + " K of regional warming above 1850-1900, the same in every year. Only the global FaIR uncertainty is shown; pattern uncertainty is not. FaIR starts about 0.04 to 0.07 K below observed (test A2.1 failed); emissions are prescribed.";
+    return { kind: "map", map: Mp, year: year, global: t.global.mean, max: mx, title: t.title, summary: t.sentence + " " + cav, caveat: cav, file: "f3-warming-map-" + year, assume: ASSUME.map };
+  }
   /* ---------- connections map: effect numbers for a link, from the data ---------- */
   function effectTable(kind, D) {
     var W = D.world3, WY = W.years, n = WY.length - 1, AY = D.years, T = D.climate.warming, tEnd = T[T.length - 1] , opts = ["low", "central", "high"];
@@ -294,6 +362,7 @@
     human: human, FMT: FMT, rel: rel, signedPct: signedPct, peakOf: peakOf, firstReach: firstReach, indexOfYear: indexOfYear, sameSeries: sameSeries, sameRun: sameRun, maxSpread: maxSpread,
     DEF_LEVERS: DEF_LEVERS, DMG_STATES: DMG_STATES, AI_S: AI_S, AI_D: AI_D, PRESETS: PRESETS, runKey: runKey, aiKey: aiKey, encodeState: encodeState, decodeState: decodeState,
     csvOf: csvOf, damageNotice: damageNotice, popFinding: popFinding, industryFinding: industryFinding, resourcesFinding: resourcesFinding, pollutionFinding: pollutionFinding,
+    calYear: calYear, historyPopGap: historyPopGap, historyIoGap: historyIoGap, historyTempGap: historyTempGap, SEQ: SEQ, seqColor: seqColor, mapTakeaway: mapTakeaway, regionReadout: regionReadout, mapTable: mapTable, mapSpec: mapSpec,
     ASSUME: ASSUME, assumeFor: assumeFor, temperatureFinding: temperatureFinding, stripesFinding: stripesFinding, stripesSpec: stripesSpec, automationFinding: automationFinding, aiDamageFinding: aiDamageFinding, damageEffect: damageEffect, damageBarsFinding: damageBarsFinding,
     w3Kpis: w3Kpis, COMPARE_METRICS: COMPARE_METRICS, compareRows: compareRows, compareHeadline: compareHeadline, compareState: compareState, effectTable: effectTable, linksFinding: linksFinding, signedFmt: signedFmt, overlayFinding: overlayFinding, barsFinding: barsFinding, encodeCompare: encodeCompare, scenarioName: scenarioName
   };

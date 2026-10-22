@@ -2,7 +2,7 @@
    computed from window.F3DATA by core.js: this file holds no model numbers. */
 (function () {
   "use strict";
-  var D = window.F3DATA, F3 = window.F3, C = window.F3C, W = D.world3, WY = W.years, N = WY.length - 1, NL = W.levers.length, AY = D.years;
+  var D = window.F3DATA, F3 = window.F3, C = window.F3C, HST = window.F3DATA.history, MP = window.F3DATA.warming_map, W = D.world3, WY = W.years, N = WY.length - 1, NL = W.levers.length, AY = D.years;
   var $ = function (id) { return document.getElementById(id); };
   var DASH = [null, "7 4", "2 3"];
   var STD = W.levers.map(function (l) { return l.standard_index; });
@@ -14,7 +14,7 @@
   /* ---------- state: the controls are the single source; the URL hash mirrors them ---------- */
   function readState() { return { levers: W.levers.map(function (l, i) { return +$("w3_" + i).value; }), damage: $("dmg_seg").dataset.v || "off", ai: $("sel_s").value, aidmg: $("sel_d").value }; }
   function writeState(s) { s.levers.forEach(function (v, i) { $("w3_" + i).value = String(v); }); $("dmg_seg").dataset.v = s.damage; $("sel_s").value = s.ai; $("sel_d").value = s.aidmg; }
-  function pushHash() { try { history.replaceState(null, "", F3.encodeState(readState())); } catch (e) { /* hash is a convenience */ } }
+  function pushHash() { try { history.replaceState(null, "", F3.encodeState(readState()) + (curTab() !== "scenario" ? "&tab=" + curTab() : "")); } catch (e) { /* hash is a convenience */ } }
   function buildControls() {
     $("presets").innerHTML = F3.PRESETS.map(function (p, i) { return '<button type="button" class="presetbtn" data-i="' + i + '" aria-pressed="false"><strong>' + C.esc(p.name) + "</strong><span>" + C.esc(p.text) + "</span></button>"; }).join("");
     $("presets").querySelectorAll("button").forEach(function (b) { b.onclick = function () { var s = readState(); s.levers = F3.PRESETS[+b.dataset.i].levers.slice(); writeState(s); refresh(); }; });
@@ -116,6 +116,69 @@
     $("tb_coef").innerHTML = "<tr><th>Option</th><th>Source</th></tr>" + F3.AI_D.map(function (o) { return "<tr><td>" + o + "</td><td>" + C.esc(D.meta.damage_sources[o]) + "</td></tr>"; }).join("");
   }
 
+
+  /* ---------- Model versus reality (D-057): World3 and FaIR against observed history; World3 follows the rail's settings with damage off (damage starts in 2025) ---------- */
+  function drawHistory() {
+    if (!HST) return;
+    var st = readState(), sc = C.scen(), r = W.runs[F3.runKey(st.levers, "off")], P = HST.population, G = HST.gdp, T = HST.temperature, fg = C.tok("--fg");
+    var narrow = ($("ch_hpop").clientWidth || 340) < 520;
+    var mp = P.years.map(function (y) { var v = F3.calYear(r.pop, WY, y); return v === null ? null : v / 1e9; });
+    var pg = F3.historyPopGap(WY, r.pop, HST);
+    C.lineChart($("ch_hpop"), { title: pg.title, years: P.years, xstep: narrow ? 25 : 10, tableStep: 5, unit: "Billions of people", fmt: "bn", file: "f3-history-population", label: "World population: World3 and observed, 1950-2025",
+      caveat: "A comparison with history is not a validation. Observed: UN World Population Prospects 2024 (CC BY 3.0 IGO).", summary: pg.sentence, assume: F3.ASSUME.history,
+      series: [{ name: "World3 (chosen settings, calendar-year mean)", label: "World3", color: sc.a, tcolor: sc.aT, y: mp },
+        { name: "Observed (UN WPP 2024; hollow = UN projection)", label: "Observed (UN WPP)", color: fg, tcolor: fg, dots: true, proj: P.is_estimate.map(function (e) { return !e; }), y: P.billions }] });
+    $("gap_pop").textContent = pg.sentence;
+    var base = F3.calYear(r.io, WY, 1990), gb = G.trillion_usd_2015[G.years.indexOf(1990)];
+    var mi = G.years.map(function (y) { var v = F3.calYear(r.io, WY, y); return v === null || base === null ? null : v / base; });
+    var ig = F3.historyIoGap(WY, r.io, HST);
+    C.lineChart($("ch_hio"), { title: ig.title, years: G.years, xstep: narrow ? 20 : 10, tableStep: 5, unit: "Index, 1990 = 1", fmt: "index", ymin: 0, file: "f3-history-output-index", label: "World3 industrial output and world GDP, both indexed to 1990 = 1",
+      caveat: "Two different quantities, indexed to one year, nothing else. A comparison with history is not a validation. Observed: World Bank WDI NY.GDP.MKTP.KD (CC BY 4.0).", summary: ig.sentence, assume: F3.ASSUME.history,
+      series: [{ name: "World3 industrial output, index 1990 = 1", label: "World3 industry", color: sc.a, tcolor: sc.aT, y: mi },
+        { name: "Observed world GDP, index 1990 = 1 (World Bank WDI)", label: "Observed GDP", color: fg, tcolor: fg, width: 1.6, y: G.trillion_usd_2015.map(function (v) { return F3.isNum(v) ? v / gb : null; }) }] });
+    $("gap_io").textContent = ig.sentence;
+    var tg = F3.historyTempGap(HST);
+    C.lineChart($("ch_htemp"), { title: tg.title, years: T.years, xstep: narrow ? 50 : 25, tableStep: 25, unit: "Warming above 1850-1900 (K)", fmt: "kelvin", file: "f3-history-temperature", label: "Global temperature: FaIR hindcast and HadCRUT5, 1850-2025",
+      caveat: "Test A2.1 failed. A comparison with history is not a validation. Observed: HadCRUT.5.2.0.0, Met Office, Open Government Licence v3.0.", summary: tg.sentence, assume: F3.ASSUME.history,
+      series: [{ name: "FaIR hindcast, mean (line) and 5-95% of 841 members (band)", label: "FaIR", color: sc.heat, tcolor: sc.heat, y: T.fair_mean, band: [T.fair_p05, T.fair_p95] },
+        { name: "Observed (HadCRUT5)", label: "HadCRUT5", color: fg, tcolor: fg, width: 1.4, y: T.hadcrut5 }] });
+    $("gap_temp").textContent = tg.sentence;
+    var gx = HST.meta.gistemp_crosscheck;
+    $("gis_x").textContent = "after re-basing both to 1880-1900, GISTEMP minus HadCRUT5 has a mean absolute difference of " + F3.fx(gx.mean_abs_diff_K, 2) + " K over " + gx.years[0] + "-" + gx.years[1] + " and " + F3.fx(gx.diff_2015_2025_mean_K, 2) + " K on average over 2015-2025";
+  }
+
+  /* ---------- Warming map (D-057): pattern-scaled regional warming for the chosen year ---------- */
+  function initMap() {
+    if (!MP) return;
+    $("map_year").min = AY[0]; $("map_year").max = AY[AY.length - 1]; $("map_year").value = AY[AY.length - 1];
+    $("map_year").oninput = drawMap;
+  }
+  function drawMap() {
+    if (!MP) return;
+    var yr = +$("map_year").value, i = AY.indexOf(yr), T = D.climate;
+    C.regionMap($("ch_map"), F3.mapSpec(MP, T, AY, yr));
+    $("map_year_out").textContent = yr;
+    $("map_g_mean").textContent = F3.FMT.kelvin(T.warming[i]); $("map_g_lo").textContent = F3.FMT.kelvin(T.warming_p05[i]); $("map_g_hi").textContent = F3.FMT.kelvin(T.warming_p95[i]);
+  }
+
+  /* ---------- tabs: Scenario | Model versus reality | Warming map (the hash keeps the tab as &tab=history or &tab=map) ---------- */
+  var TABS = ["scenario", "history", "map"];
+  function tabFromHash() { var m = /[#&]tab=(history|map)/.exec(location.hash); return m ? m[1] : "scenario"; }
+  function curTab() { return $("dash").dataset.tab; }
+  function showTab(t, focus) {
+    $("dash").dataset.tab = t;
+    $("dtabs").querySelectorAll("[role=tab]").forEach(function (b) { var on = b.dataset.tab === t; b.setAttribute("aria-selected", String(on)); b.tabIndex = on ? 0 : -1; if (on && focus) b.focus(); });
+  }
+  function setTab(t, focus) { showTab(t, focus); pushHash(); all(); }
+  $("dtabs").querySelectorAll("[role=tab]").forEach(function (b) {
+    b.onclick = function () { setTab(b.dataset.tab, false); };
+    b.addEventListener("keydown", function (e) {
+      var i = TABS.indexOf(b.dataset.tab), n = null;
+      if (e.key === "ArrowRight") n = (i + 1) % TABS.length; else if (e.key === "ArrowLeft") n = (i + TABS.length - 1) % TABS.length; else if (e.key === "Home") n = 0; else if (e.key === "End") n = TABS.length - 1;
+      if (n !== null) { e.preventDefault(); setTab(TABS[n], true); }
+    });
+  });
+
   /* ---------- phone step flow: Choose story, Result, Reliability ---------- */
   function setStep(step) {
     $("dash").dataset.step = step;
@@ -126,15 +189,18 @@
   }
   $("actionbar").querySelectorAll("button").forEach(function (b) { b.onclick = function () { setStep(b.dataset.step); }; });
 
-  function refresh() { pushHash(); drawW3(); drawAI(); }
-  function all() { drawW3(); drawClimate(); drawAI(); signs(); stripes(); }
+  function refresh() { pushHash(); drawW3(); drawHistory(); drawAI(); }
+  function all() { drawW3(); drawHistory(); drawMap(); drawClimate(); drawAI(); signs(); stripes(); }
   buildControls();
+  initMap();
   writeState(F3.decodeState(location.hash, NL));
+  showTab(tabFromHash(), false);
   all();
-  window.addEventListener("hashchange", function () { writeState(F3.decodeState(location.hash, NL)); drawW3(); drawAI(); });
+  window.addEventListener("hashchange", function () { writeState(F3.decodeState(location.hash, NL)); showTab(tabFromHash(), false); all(); });
   window.addEventListener("f3theme", all);
   var lastW = document.documentElement.clientWidth;
   window.addEventListener("resize", function () { var w = document.documentElement.clientWidth; if (Math.abs(w - lastW) > 40) { lastW = w; all(); } });
   /* charts inside a closed <details> measure zero width: redraw when it opens */
   $("details").addEventListener("toggle", function () { if ($("details").open) all(); });
+  $("hist_sec").addEventListener("toggle", function () { if ($("hist_sec").open) drawHistory(); });
 })();

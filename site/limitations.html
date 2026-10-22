@@ -39,6 +39,22 @@
 <li><strong>Not shown at all:</strong> population (beyond World3's own), any other social measure, social stability, minerals, water, the full economy, uncertainty bands beyond the FaIR ensemble band, any likelihood.</li>
 </ul></section>
 
+<section class="card" id="status-history"><h2>Model versus reality: a comparison, not a validation</h2>
+<ul>
+<li><strong>Not a validation.</strong> The Model versus reality charts set World3 and FaIR against observed series. They were not fitted to them, nothing was tuned to improve the match, and the bands used in the sentences (5% for population, 25% for the output index) are plain-language aids written before the numbers were seen, not acceptance criteria of the plan.</li>
+<li><strong>Population.</strong> World3 is the 2004 parameter set. Test A3.4(b) FAILED (S1 inside the full run differs from S1 alone by up to 0.93% against 0.25%). Runs with changed parameters are not compared with WorldDynamics.jl. The UN gives estimates to 2023; later years are its projection and are not used in the gap.</li>
+<li><strong>Industrial output against GDP.</strong> Not the same quantity: World3 industrial output is industry only, in World3's own model dollars; world GDP covers all sectors in constant 2015 US dollars. They are indexed to the same year and nothing else, so the gap is not an error rate, and a close match would not mean the model is right.</li>
+<li><strong>Temperature.</strong> Test A2.1 FAILED. The FaIR ensemble was constrained to temperatures up to 2022, so 1850-2022 is in sample and the comparison there is not independent; only 2023-2025 is out of sample. Emissions from 2025 are prescribed and non-CO2 emissions are not modelled. HadCRUT5 is one observational estimate; GISTEMP was used only as a cross-check and is not shown.</li>
+</ul></section>
+
+<section class="card" id="status-map"><h2>Warming map: illustrative downscaling</h2>
+<ul>
+<li><strong>Illustrative downscaling of the global FaIR result. Not a regional climate projection.</strong> Pattern-scaling multiplies the global warming by a fixed coefficient per region: it ignores regional feedbacks, aerosols and ocean dynamics, and assumes that the pattern of warming does not change with the amount or the speed of global warming. Real regional warming also depends on the emissions path (for example aerosols), which is prescribed here.</li>
+<li><strong>Uncertainty.</strong> Only the global FaIR uncertainty is shown. The spread of the coefficients across 32 CMIP6 models (pattern uncertainty), internal variability and the difference between the models' temperature and FaIR's are not shown.</li>
+<li><strong>Coefficients are derived by F3</strong> from the regional aggregates of the IPCC AR6 Atlas; they are not an IPCC product. Resolution is the 58 AR6 reference regions, not a grid. The area-weighted consistency check is met with a small margin (see Methods) and no coefficient was rescaled.</li>
+<li><strong>Not produced:</strong> country-level results, damage or population maps. World3, FaIR and S3 are global models; a map of their output at country level would be invented.</li>
+</ul></section>
+
 <section class="card"><h2>Provenance of choices</h2>
 <ul>
 <li>GATE was re-implemented from the paper (arXiv:2503.04941 v2), not from Epoch's code. Epoch states that GATE behaves poorly near full automation.</li>
@@ -47,7 +63,7 @@
 </ul></section>
 
 </main>
-<footer class="site"><nav aria-label="Footer"><a href="index.html">Story</a><a href="explorer.html">Explorer</a><a href="compare.html">Compare</a><a href="connections.html">Connections</a><a href="methods.html">Methods</a><a href="limitations.html">Limitations</a><a href="sources.html">Sources</a><a href="about.html">About</a><a href="https://github.com/stefbeau/F3">Source code on GitHub</a></nav><div>Public draft, published 2026-10-21. Conditional scenarios, not forecasts. Built 2026-10-22 from source commit <code>e2c86dc</code>.</div></footer>
+<footer class="site"><nav aria-label="Footer"><a href="index.html">Story</a><a href="explorer.html">Explorer</a><a href="compare.html">Compare</a><a href="connections.html">Connections</a><a href="methods.html">Methods</a><a href="limitations.html">Limitations</a><a href="sources.html">Sources</a><a href="about.html">About</a><a href="https://github.com/stefbeau/F3">Source code on GitHub</a></nav><div>Public draft, published 2026-10-21. Conditional scenarios, not forecasts. Built 2026-10-22 from source commit <code>1a5f183</code>.</div></footer>
 <script src="assets/shell.js"></script>
 </body>
 </html>

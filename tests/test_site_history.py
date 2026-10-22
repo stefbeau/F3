@@ -1,6 +1,6 @@
 """Explorer observed-history overlay and warming map (D-057). WRITTEN BEFORE the front end; the readings are in docs/history-comparison.md and docs/warming-map.md.
 
-Interface (site_src/explorer.js, between /*PURE-START*/ and /*PURE-END*/; plain functions, no DOM):
+Interface (site_src/core.js since the v0.2 port, stage 6; before it the same functions sat between /*PURE-START*/ and /*PURE-END*/ in site_src/explorer.js; plain functions, no DOM):
   calYear(arr, years, y) -> mean of arr at y and y+1 (the calendar-year value of a 1-January model series), null if y+1 is missing
   historyPopGap(years, pop, H)  -> {year, model, obs, gapPct, within, sentence}   model and obs in billions; within: |gap| <= 5%; last common ESTIMATE year
   historyIoGap(years, io, H)    -> {year, model, obs, gapPct, within, sentence}   both indexed 1990 = 1; within: |gap| <= 25%; last common year
@@ -25,7 +25,7 @@ import pytest
 
 REPO = Path(__file__).resolve().parents[1]
 SITE = REPO / "site"
-JS = REPO / "site_src" / "explorer.js"
+JS = REPO / "site_src" / "core.js"
 HIST = SITE / "data" / "history.json"
 MAP = SITE / "data" / "warming-map.json"
 EXPL = SITE / "data" / "explorer.json"
@@ -42,10 +42,8 @@ def load(p):
 
 
 def node(expr: str, tmp_path: Path, payload: dict) -> object:
-    src = JS.read_text(encoding="utf-8")
-    pure = src[src.index("/*PURE-START*/"):src.index("/*PURE-END*/")]
     f = tmp_path / "t.js"
-    f.write_text(pure + ";const IN=" + json.dumps(payload) + ";\nprocess.stdout.write(JSON.stringify((function(){" + expr + "})()));", encoding="utf-8")
+    f.write_text("const {calYear,historyPopGap,historyIoGap,historyTempGap,seqColor,mapTakeaway}=require(" + json.dumps(str(JS)) + ");const IN=" + json.dumps(payload) + ";\nprocess.stdout.write(JSON.stringify((function(){" + expr + "})()));", encoding="utf-8")
     return json.loads(subprocess.run([NODE, str(f)], capture_output=True, text=True, check=True, encoding="utf-8").stdout)
 
 
@@ -229,9 +227,9 @@ def test_sources_file_is_complete():
 # ----------------------------------------------------------------------------------------------------------- (5) pages
 @need_data
 def test_pages_carry_label_tab_licences_and_the_validation_statement():
-    idx = (SITE / "index.html").read_text(encoding="utf-8")
+    idx = (SITE / "explorer.html").read_text(encoding="utf-8")                                   # the v0.2 dashboard (the panels were on index.html in the v0.1 layout)
     assert LABEL in idx and "Model versus reality" in idx and 'href="methods.html#warming-map"' in idx
-    assert 'id="p_history"' in idx and 'id="p_map"' in idx and 'href="#p_history"' in idx and 'href="#p_map"' in idx
+    assert 'id="p_history"' in idx and 'id="p_map"' in idx and 'aria-controls="p_history"' in idx and 'aria-controls="p_map"' in idx       # tabs replace the old in-page links
     assert "not a validation" in idx.lower() and "A3.4(b)" in idx and "A2.1" in idx
     assert "pattern uncertainty is not shown" in idx.lower()
     lim = (SITE / "limitations.html").read_text(encoding="utf-8").lower()

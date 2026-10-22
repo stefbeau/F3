@@ -22,6 +22,7 @@ SCROLL_FIX = ""
 
 THEME_BOOT = ("(function(){var d=document.documentElement,k=d.getAttribute('data-kind'),t=d.getAttribute('data-theme');try{var s=localStorage.getItem('f3-theme');"
               "if(s==='dark'||s==='light')t=s;else if(k==='reading'&&matchMedia('(prefers-color-scheme: dark)').matches)t='dark'}catch(e){}d.setAttribute('data-theme',t)})();")
+EXTRA = {}          # audit/data/sources-history.json, loaded by render_all (D-057)
 READING = {"index.html", "methods.html", "limitations.html", "sources.html", "about.html"}
 
 
@@ -94,6 +95,9 @@ def explorer_page(data: dict, stamp: dict, css: str) -> str:
 # --------------------------------------------------------------------------------------------------------------------
 def methods_page(data: dict, stamp: dict, css: str) -> str:
     prov = data["meta"]["provenance"]
+    gis = data["history"]["meta"]["gistemp_crosscheck"]
+    wm = data["warming_map"]["meta"]
+    ck = wm["check"]
     body = f"""
 <h1>Methods</h1>
 <p class="lead">What is run, how it is stepped, and how to read what you see. For what is wrong or unvalidated, read <a href="limitations.html">Limitations</a>.</p>
@@ -143,11 +147,32 @@ def methods_page(data: dict, stamp: dict, css: str) -> str:
 <li><strong>The data.</strong> Everything the charts draw is in <a href="data/explorer.json">data/explorer.json</a>, strict JSON in which <code>null</code> means no value (never zero). The pages load the identical text as a script, <code>data/explorer.js</code>, because a browser blocks a page opened from disk from reading a local JSON file; the generator writes both from the same string and a test checks they match. The file also holds the series that are withheld from the charts (S3 compute, data-centre electricity).</li>
 </ul></section>
 
+<section class="card" id="history-overlay"><h2>Observed history overlay (Model versus reality)</h2>
+<ul>
+<li><strong>What it is.</strong> Three charts set model output against observed history: World3 population against the UN's world population (1950-2025); World3 industrial output against world GDP, both indexed to 1990 = 1; the FaIR hindcast against HadCRUT5 (1850-2025). <strong>It is a comparison, not a validation.</strong> Nothing in any model was tuned to the observed series, and no parameter, equation or run was changed to produce these charts.</li>
+<li><strong>Series.</strong> UN World Population Prospects 2024, world total, medium variant, 1 July (estimates to 2023, UN projection after); World Bank WDI NY.GDP.MKTP.KD, world, constant 2015 US dollars; HadCRUT.5.2.0.0 annual global mean, re-based to the mean of its annual best estimates for 1850-1900, so that observed and FaIR anomalies share a baseline (the FaIR anomalies use the notebook's weighted 1850-1900 mean). Versions, retrieval dates, licences, URLs and checksums: <a href="sources.html">Sources</a> and <code>audit/data/sources-history.json</code>.</li>
+<li><strong>Cross-check.</strong> NASA GISTEMP v4, re-based to 1880-1900 like HadCRUT5, differs from it by a mean absolute {gis["mean_abs_diff_K"]:.2f} K over {gis["years"][0]}-{gis["years"][1]} (largest {gis["max_abs_diff_K"]:.2f} K, in {gis["max_abs_diff_year"]}). Its licence terms for the data table were not found, so no GISTEMP value is shown.</li>
+<li><strong>FaIR hindcast.</strong> The same published 841-member configuration as the climate chart under Details on the Explorer, started in 1750 and run to 2026 so that calendar year 2025 exists; calendar-year value = mean of the time bounds at the start and end of the year (the method of test A2.1). From 2025 the prescribed medium-extension emissions apply.</li>
+<li><strong>Conventions.</strong> World3 values sit at 1 January; a calendar-year value is the mean of the values at the start and end of the year. The history charts use the damage-off run of the chosen World3 settings.</li>
+<li><strong>Sentences.</strong> The sentence under each chart is computed from the data shown. The year compared, the 5% (population) and 25% (output index) bands and the temperature test (FaIR mean inside HadCRUT5's 95% interval, the form of A2.1) were fixed before the numbers were seen (<code>docs/history-comparison.md</code>); the bands are plain-language aids set by the project, Provisional (D-057), not acceptance criteria of the plan.</li>
+</ul></section>
+
+<section class="card" id="warming-map"><h2>Warming map (pattern scaling, illustrative)</h2>
+<div class="notice" role="note"><strong>Illustrative downscaling of the global FaIR result. Not a regional climate projection. Pattern-scaling ignores regional feedbacks, aerosols, ocean dynamics.</strong></div>
+<ul>
+<li><strong>Method.</strong> Regional warming in a year = the global FaIR warming of that year (above 1850-1900; ensemble mean, 5th and 95th percentile of the recorded 841-member run) x a fixed coefficient for the region, in kelvin of local warming per kelvin of global warming. The same recorded climate run feeds the map in every scenario: climate damage does not change warming.</li>
+<li><strong>Coefficients.</strong> For each of the 58 IPCC AR6 reference regions (46 land, 12 ocean), the multi-model mean of the least-squares slope of the region's annual mean near-surface air temperature on the global annual mean, for {wm["n_models"]} CMIP6 models (historical followed by SSP1-2.6, SSP2-4.5 and SSP5-8.5 pooled; one run per model). Land regions use land values, ocean regions sea values, the three land-ocean regions both. Input: the regionally aggregated CMIP6 monthly data of the IPCC AR6 WGI Atlas repository (CC BY 4.0). No redistributable gridded pattern file was found, so the AR6 regions are the resolution of the map. The Atlas does not publish the slopes: they are computed by F3 (<code>site_src/map_build.py</code>, fixed in <code>docs/warming-map.md</code> before it ran). The intercept is ignored, so the regional value is also taken to be "above 1850-1900".</li>
+<li><strong>Consistency check.</strong> The area-weighted mean of the coefficients over all regions (weights: spherical area of the region polygons) must be 1 within 2%. Result: <strong>{ck["area_weighted_mean_c"]:.4f}</strong> (deviation {ck["deviation_from_1_pct"]:+.2f}%), {"met" if ck["passes_2pct"] else "NOT met"}. It is close to the limit: land-only and sea-only values are applied to polygons that contain both, and the same check with the land-and-sea file for every region gives {ck["diagnostic_landsea_file_for_every_region"]["area_weighted_mean_c"]:.4f}. No coefficient was rescaled. Per model the same quantity lies between {ck["per_model_area_weighted_mean_c"]["min"]:.3f} and {ck["per_model_area_weighted_mean_c"]["max"]:.3f}. Sign checks: Arctic Ocean coefficient {ck["sign_tests"]["ARO_c"]:.2f} (above 1), land mean {ck["sign_tests"]["land_mean_c"]:.2f} against ocean mean {ck["sign_tests"]["ocean_mean_c"]:.2f}.</li>
+<li><strong>What is shown, what is not.</strong> The 5th to 95th percentile beside the map is the global FaIR uncertainty. Pattern uncertainty (the spread of each coefficient across models) is stored in <code>site/data/warming-map.json</code> and is not drawn. Surface air temperature in the CMIP6 data is treated as the same quantity as FaIR's surface temperature; this is an assumption. No country-level or population or damage map is produced.</li>
+<li><strong>Display.</strong> Colour scale ColorBrewer OrRd (sequential, colour-blind safe), the same scale in every year, running from 0 K to the largest regional value of the ensemble mean in 2100. Region outlines are simplified; coastlines are Natural Earth 1:110m (public domain), simplified.</li>
+</ul></section>
+
 <section class="card"><h2>Pins and versions</h2>
 <ul>
 <li>FaIR 2.2.4; fair-calibrate v1.4.1 ensemble files at FaIR repository commit <code>{prov["fair_commit"]}</code>.</li>
 <li>WorldDynamics.jl v1.0.0 (pinned environment); Earth4All.jl commit <code>16f37d013a2f68135f03e7815bf861dbf47311f2</code> (electricity supply series only).</li>
-<li>HadCRUT.5.2.0.0 (used for the FaIR warming check, not drawn); Global Carbon Budget 2025 v1.0.</li>
+<li>HadCRUT.5.2.0.0 (the FaIR warming check, and drawn in Model versus reality); Global Carbon Budget 2025 v1.0.</li>
+<li>UN WPP 2024; World Bank WDI (retrieved 2026-10-22); IPCC AR6 Atlas repository commit <code>{wm["pattern_source"].split("commit ")[1].split(";")[0]}</code>; Natural Earth 110m. Checksums: <code>audit/data/sources-history.json</code>.</li>
 <li>All hashes are on the <a href="index.html">Explorer</a> page under "Data provenance".</li>
 </ul></section>
 """
@@ -184,6 +209,22 @@ def limitations_page(data: dict, stamp: dict, css: str) -> str:
 <li><strong>Not shown at all:</strong> population (beyond World3's own), any other social measure, social stability, minerals, water, the full economy, uncertainty bands beyond the FaIR ensemble band, any likelihood.</li>
 </ul></section>
 
+<section class="card" id="status-history"><h2>Model versus reality: a comparison, not a validation</h2>
+<ul>
+<li><strong>Not a validation.</strong> The Model versus reality charts set World3 and FaIR against observed series. They were not fitted to them, nothing was tuned to improve the match, and the bands used in the sentences (5% for population, 25% for the output index) are plain-language aids written before the numbers were seen, not acceptance criteria of the plan.</li>
+<li><strong>Population.</strong> World3 is the 2004 parameter set. Test A3.4(b) FAILED (S1 inside the full run differs from S1 alone by up to 0.93% against 0.25%). Runs with changed parameters are not compared with WorldDynamics.jl. The UN gives estimates to 2023; later years are its projection and are not used in the gap.</li>
+<li><strong>Industrial output against GDP.</strong> Not the same quantity: World3 industrial output is industry only, in World3's own model dollars; world GDP covers all sectors in constant 2015 US dollars. They are indexed to the same year and nothing else, so the gap is not an error rate, and a close match would not mean the model is right.</li>
+<li><strong>Temperature.</strong> Test A2.1 FAILED. The FaIR ensemble was constrained to temperatures up to 2022, so 1850-2022 is in sample and the comparison there is not independent; only 2023-2025 is out of sample. Emissions from 2025 are prescribed and non-CO2 emissions are not modelled. HadCRUT5 is one observational estimate; GISTEMP was used only as a cross-check and is not shown.</li>
+</ul></section>
+
+<section class="card" id="status-map"><h2>Warming map: illustrative downscaling</h2>
+<ul>
+<li><strong>Illustrative downscaling of the global FaIR result. Not a regional climate projection.</strong> Pattern-scaling multiplies the global warming by a fixed coefficient per region: it ignores regional feedbacks, aerosols and ocean dynamics, and assumes that the pattern of warming does not change with the amount or the speed of global warming. Real regional warming also depends on the emissions path (for example aerosols), which is prescribed here.</li>
+<li><strong>Uncertainty.</strong> Only the global FaIR uncertainty is shown. The spread of the coefficients across 32 CMIP6 models (pattern uncertainty), internal variability and the difference between the models' temperature and FaIR's are not shown.</li>
+<li><strong>Coefficients are derived by F3</strong> from the regional aggregates of the IPCC AR6 Atlas; they are not an IPCC product. Resolution is the 58 AR6 reference regions, not a grid. The area-weighted consistency check is met with a small margin (see Methods) and no coefficient was rescaled.</li>
+<li><strong>Not produced:</strong> country-level results, damage or population maps. World3, FaIR and S3 are global models; a map of their output at country level would be invented.</li>
+</ul></section>
+
 <section class="card"><h2>Provenance of choices</h2>
 <ul>
 <li>GATE was re-implemented from the paper (arXiv:2503.04941 v2), not from Epoch's code. Epoch states that GATE behaves poorly near full automation.</li>
@@ -195,6 +236,24 @@ def limitations_page(data: dict, stamp: dict, css: str) -> str:
 
 
 # --------------------------------------------------------------------------------------------------------------------
+def history_sources_html() -> str:
+    import html as _h
+    S = EXTRA["sources"]["sources"]
+    use = {"wpp2024_totpop": "Model versus reality: world population", "wb_wdi_gdp": "Model versus reality: world GDP index", "hadcrut5": "Model versus reality: temperature (also the A2.1 test)",
+           "gistemp_v4": "Cross-check only; no value shown", "fair_hindcast": "Model versus reality: temperature hindcast (F3 run)",
+           "ipcc_ar6_atlas_cmip6": "Warming map: regional pattern coefficients and region outlines", "natural_earth_110m_land": "Warming map: coastlines"}
+    rows = []
+    for k in ("wpp2024_totpop", "wb_wdi_gdp", "hadcrut5", "gistemp_v4", "fair_hindcast", "ipcc_ar6_atlas_cmip6", "natural_earth_110m_land"):
+        v = S[k]
+        lic = _h.escape(v["licence"])
+        if v.get("licence_caveat"):
+            lic += " <em>" + _h.escape(v["licence_caveat"]) + "</em>"
+        ack = _h.escape(v.get("attribution") or v.get("citation") or "")
+        sh = v.get("sha256") or v.get("manifest_sha256") or ""
+        rows.append(f'<tr><td><strong>{_h.escape(v["name"])}</strong><br>{_h.escape(v["version"])}; retrieved {v["retrieved"]}</td><td>{use[k]}. {_h.escape(v["redistribution"])}</td>'
+                    f'<td>{lic}<br><em>{ack}</em><br><span class="note">Licence text read at <a href="{_h.escape(v["licence_url"])}">{_h.escape(v["licence_url"])}</a>' + (f'; sha256 <code>{sh[:16]}</code>' if sh else "") + "</span></td></tr>")
+    return "<tr><th>Source and version</th><th>Use</th><th>Licence and required acknowledgement</th></tr>\n" + "\n".join(rows)
+
 def sources_page(data: dict, stamp: dict, css: str) -> str:
     body = f"""
 <h1>Sources and licences</h1>
@@ -225,6 +284,12 @@ def sources_page(data: dict, stamp: dict, css: str) -> str:
 <tr><td><strong>IEA</strong>, Energy and AI (2025) and Key Questions on Energy and AI (2026)</td><td>Reference figures for data-centre electricity: 415 TWh (2024), 485 TWh (2025, used as a calibration point), 950 TWh (2030, the IEA's projection)</td><td>CC BY 4.0, as printed in the citation lines of the two documents.</td></tr>
 <tr><td><strong>Epoch AI GATE playground</strong> (epoch.ai/gate), three precomputed runs</td><td>Test references for S3 and the data to which the investment rule R3 was fitted</td><td>Epoch states that its work is free to use with credit under a Creative Commons Attribution licence. <strong>No licence is stated for the playground's script bundle or the data inside it</strong>, so under D-026 the series are read at test time from a hash-pinned local copy and <strong>never committed or redistributed</strong>; only comparison figures and fitted curve parameters are stored. Permission has not been granted in writing.</td></tr>
 <tr><td><strong>Damage-function sources</strong>: Nordhaus (2017); Barrage and Nordhaus (2024); Howard and Sterner (2017); context: Burke, Hsiang and Miguel (2015)</td><td>The three damage options; which numbers are printed and which derived is in the repository (<code>research/damage-functions-verified.md</code>)</td><td>Open-access texts read from PMC, Europe PMC and the publishers' open-access copies; the Burke copy was an author copy. Not redistributed. Hsiang et al. (2017) could not be read. The same three options now also drive the climate damage control on the World3 panel (a level-of-output effect on World3 industrial output; no new coefficient).</td></tr>
+</table></section>
+
+<section class="card"><h2>Observed history and the warming map (D-057)</h2>
+<p class="note">Raw files are not committed; the checksums in <code>audit/data/sources-history.json</code> identify exactly what was read. Licences are quoted there from the page named; where a statement was not found it says so. The CMIP6 data underneath the Atlas aggregates are used under the CMIP6 terms of use, as the Atlas repository states.</p>
+<table>
+{history_sources_html()}
 </table></section>
 
 """
@@ -277,6 +342,7 @@ def render_assets(here: Path) -> dict:
 
 
 def render_all(data: dict, stamp: dict, here: Path) -> dict:
+    EXTRA["sources"] = json.loads((here.parent / "audit" / "data" / "sources-history.json").read_text(encoding="utf-8"))
     css = ""
     return {
         "index.html": index_page(data, stamp, css),

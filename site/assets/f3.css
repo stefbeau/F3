@@ -229,3 +229,27 @@ table.efx th,table.efx td{overflow-wrap:normal;word-break:normal;hyphens:none}ta
 .leg i.sw{display:inline-block;width:14px;height:14px;border:1px solid var(--fg);border-radius:2px;flex:none}
 .dtbox.long .tblwrap{max-height:20em;overflow-y:auto}
 .dtbox td,.dtbox th{overflow-wrap:normal;word-break:normal}.dtbox td:first-child,.dtbox th:first-child{white-space:nowrap}
+/* ---- Model versus reality and warming map in the dashboard (D-057, ported to the v0.2 layout) ---- */
+.stage{display:flex;flex-direction:column}
+.dtabs{order:0;display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}
+.dtabs [role=tab]{min-height:44px;padding:6px 14px;border-radius:8px;font-weight:600}
+.dtabs [role=tab][aria-selected=true]{background:var(--btn-on-bg);color:var(--btn-on-fg);border-color:var(--btn-on-bg)}
+#result,.panel{order:1}#reliability{order:2}
+.dash[data-tab=scenario] .panel,.dash[data-tab=history] #result,.dash[data-tab=map] #result,.dash[data-tab=history] #p_map,.dash[data-tab=map] #p_history{display:none}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:0 0 12px;min-width:0}
+.panel h2{font-size:1.1rem;margin:1em 0 .2em}
+.gap{font-weight:600;margin:6px 0}
+.mapctl{display:flex;align-items:center;gap:12px;margin:8px 0;flex-wrap:wrap}
+.mapctl input[type=range]{flex:1;min-width:160px;min-height:36px}
+.mapbox{display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:1500px){.mapbox{grid-template-columns:minmax(0,3fr) minmax(180px,1fr)}.mapglobal{grid-template-columns:1fr}}
+#ch_map svg{cursor:default}#ch_map .plot svg{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:6px}
+#ch_map path.reg{cursor:pointer;outline:none}#ch_map path.reg:focus{stroke:var(--fg)}
+.cscale{margin:4px 0}.leg svg.cscale{width:100%;height:auto;flex:1 1 100%}
+.secondary{border:1px dashed var(--line);border-radius:8px;padding:6px 10px;margin:14px 0;opacity:.92}
+.secondary>summary{font-size:.92rem;color:var(--mut)}
+.secgap{font-weight:400;font-size:.92rem;color:var(--mut)}
+.histline{margin:6px 0}
+@media (max-width:899px){
+  .dash[data-step=reliability] #p_history,.dash[data-step=reliability] #p_map,.dash[data-step=reliability] .dtabs{display:none}
+}

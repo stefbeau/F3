@@ -73,6 +73,7 @@ SOURCES = f"""<section class="card small"><h2>Sources, licences, data versions</
 <ul>
 <li>HadCRUT.5.2.0.0 data were obtained from http://www.metoffice.gov.uk/hadobs/hadcrut5 on 2026-10-12 and are (c) British Crown Copyright, Met Office, provided under an Open Government License, http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/ (used for the FaIR warming check, not drawn here).</li>
 <li>Global Carbon Budget 2025 (ICOS, doi 10.18160/GCP-2025), CC BY 4.0: CO2 emissions for 2023-2024.</li>
+<li>Observed history: UN World Population Prospects 2024 (CC BY 3.0 IGO); World Bank WDI NY.GDP.MKTP.KD (CC BY 4.0); HadCRUT.5.2.0.0 (Open Government Licence v3.0, retrieved 2026-10-22). Warming map: IPCC AR6 WGI Atlas regional CMIP6 aggregates (CC BY 4.0); Natural Earth (public domain). Details on the Sources page.</li>
 <li>IEA (2025), Energy and AI; IEA (2026), Key Questions on Energy and AI, Licence CC BY 4.0: 415, 485 and 950 TWh.</li>
 <li>FaIR 2.2.4 and the fair-calibrate v1.4.1 ensemble (Smith et al., GMD 17, 8569, 2024), Apache 2.0.</li>
 <li>World3: ported from WorldDynamics.jl v1.0.0 (MIT), Python port in this project; the standard run is compared with WorldDynamics.jl (tests A3.1, A3.2).</li>

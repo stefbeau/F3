@@ -83,6 +83,12 @@ def body() -> str:
 {ig.LOOPS}
 {ig.LOOPS_KEY}
 </section>
+<section class="card" id="outside"><h2>Two views that are not links between the models</h2>
+<p>Two views in the Explorer look at the models from outside; neither is a link and neither changes any run.</p>
+<ul>
+<li><a href="explorer.html#tab=history">Model versus reality</a> sets World3 and the FaIR hindcast against observed population, world output and temperature. A comparison with history, not a validation.</li>
+<li><a href="explorer.html#tab=map">Warming map</a> scales the global FaIR warming (the source of links 1 and 2) to 58 regions with fixed coefficients. Illustrative, not a regional projection; the same for every scenario.</li>
+</ul></section>
 <section class="card" id="notbuilt"><h2>Why most links are not built</h2>
 <ul>
 <li><strong>Emissions are prescribed.</strong> The FaIR run replays one recorded emissions path (D-021); neither World3 nor the AI model changes it. The climate is the same in every scenario.</li>

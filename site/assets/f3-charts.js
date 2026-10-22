@@ -100,7 +100,13 @@
           g += '<polygon points="' + up.concat(dn).join(" ") + '" fill="' + s.color + '" opacity=".2"/>';
         });
       }
-      F3.runs(s.y).forEach(function (r) {
+      if (s.dots) {
+        years.forEach(function (x, i) {
+          if (!F3.isNum(s.y[i])) return;
+          var hollow = s.proj && s.proj[i];
+          g += '<circle cx="' + X(x) + '" cy="' + Yp(s.y[i]) + '" r="2.8" fill="' + (hollow ? card : s.color) + '" stroke="' + s.color + '" stroke-width="1.4"/>';
+        });
+      } else F3.runs(s.y).forEach(function (r) {
         var pts = years.slice(r[0], r[1] + 1).map(function (x, k) { return X(x) + "," + Yp(s.y[r[0] + k]); }).join(" ");
         g += '<polyline points="' + pts + '" fill="none" stroke="' + s.color + '" stroke-width="' + (s.width || 2.6) + '"' + (s.dash ? ' stroke-dasharray="' + s.dash + '"' : "") + ' stroke-linejoin="round"/>';
       });
@@ -205,10 +211,61 @@
     tableHtml(c, ["Year", spec.valueName], years.map(function (y, i) { return [y, F3.FMT[spec.fmt](vals[i])]; }));
     c.dt.classList.add("long");
   }
+  /* ---------- warming map: 58 AR6 regions coloured by pattern-scaled warming for the chosen year (D-057); same card tools as the other charts ---------- */
+  function ringPath(r) { return "M" + r.map(function (p) { return (p[0] + 180).toFixed(1) + "," + (90 - p[1]).toFixed(1); }).join("L") + "Z"; }
+  function mapScale(c, W, mx) {
+    var n = 9, bw = W - 24, every = W < 460 ? 2 : 1, st = "", ticks = "", k, v;
+    for (k = 0; k <= n; k++) st += '<stop offset="' + k / n + '" stop-color="' + F3.seqColor(k / n) + '"/>';
+    for (v = 0; v <= mx; v += every) { var x = 12 + v / mx * bw; ticks += '<line x1="' + x + '" x2="' + x + '" y1="14" y2="20" stroke="' + tok("--mut") + '"/><text x="' + x + '" y="36" font-size="13" text-anchor="middle" fill="' + tok("--mut") + '">' + v + " K</text>"; }
+    c.legend.innerHTML = '<svg class="cscale" viewBox="0 0 ' + W + ' 42" width="' + W + '" height="42" role="img" aria-label="Colour scale from 0 K to ' + mx.toFixed(0) + ' K of regional warming above 1850-1900"><defs><linearGradient id="mapgrad">' + st +
+      '</linearGradient></defs><rect x="12" y="2" width="' + bw + '" height="12" fill="url(#mapgrad)" stroke="' + tok("--line") + '"/>' + ticks + "</svg>";
+  }
+  function regionMap(el, spec) {
+    var c = mount(el, spec), M = spec.map, g = spec.global, mx = spec.max, key = tok("--card") + tok("--mut") + tok("--line");
+    spec.kind = "map"; c.spec = spec;
+    if (c.mapKey !== key) {                                                       /* build the regions once per theme; later calls only recolour */
+      var order = { "Ocean": 0, "Land-Ocean": 1, "Land": 2 }, regs = M.regions.slice().sort(function (a, b) { return order[a.type] - order[b.type]; }), bg = tok("--card"), s = "";
+      s += '<rect x="0" y="0" width="360" height="180" fill="' + tok("--line") + '" opacity=".25"/>';
+      regs.forEach(function (r) { s += '<path class="reg" data-id="' + r.id + '" tabindex="0" role="img" aria-label="' + esc(r.name) + '" d="' + r.polys.map(function (poly) { return poly.map(ringPath).join(""); }).join("") + '" fill-rule="evenodd" stroke="' + bg + '" stroke-width=".35"/>'; });
+      s += '<path d="' + M.coast.map(ringPath).join("") + '" fill="none" stroke="' + tok("--mut") + '" stroke-width=".25" pointer-events="none"/>';
+      c.plot.innerHTML = '<svg viewBox="0 0 360 180" width="100%" role="img" aria-label="' + esc(spec.title) + '"><title>' + esc(spec.title) + "</title><desc>" + esc(spec.summary) + "</desc>" + s + "</svg>";
+      c.plot.removeAttribute("tabindex"); c.sel = null;
+      c.plot.querySelectorAll("path.reg").forEach(function (p) {
+        var pick = function () { c.sel = p.dataset.id; mapRead(c); };
+        p.addEventListener("mouseenter", pick); p.addEventListener("focus", pick); p.addEventListener("click", pick);
+        p.addEventListener("mouseleave", function () { c.sel = null; mapRead(c); }); p.addEventListener("blur", function () { c.sel = null; mapRead(c); });
+      });
+      c.mapKey = key;
+    }
+    c.plot.querySelectorAll("path.reg").forEach(function (p) {
+      var r = M.regions.filter(function (x) { return x.id === p.dataset.id; })[0], v = F3.scale(g, r.c);
+      p.setAttribute("fill", F3.isNum(v) ? F3.seqColor(v / mx) : tok("--line"));
+      p.setAttribute("aria-label", r.name + ": " + F3.fx(v, 2) + " K above 1850-1900 in " + spec.year);
+    });
+    var svg = c.plot.querySelector("svg"); svg.setAttribute("aria-label", spec.title); svg.querySelector("title").textContent = spec.title; svg.querySelector("desc").textContent = spec.summary;
+    setText(c, spec); c.plot.setAttribute("aria-label", spec.title);
+    mapScale(c, Math.max(280, Math.floor(c.legend.clientWidth || 320)), mx);
+    var tb = F3.mapTable(M, g, spec.year);
+    tableHtml(c, tb.head, tb.rows.map(function (r) { return [r.name + " (" + r.id + ")", r.type, r.c.toFixed(2), F3.fx(r.k, 2)]; }));
+    c.dt.classList.add("long"); mapRead(c);
+  }
+  function mapRead(c) {
+    var s = c.spec, r = c.sel ? s.map.regions.filter(function (x) { return x.id === c.sel; })[0] : null;
+    c.rd.textContent = r ? F3.regionReadout(r, s.year, s.global) : "Hover, tap or tab to a region to read its value.";
+    c.plot.querySelectorAll("path.reg").forEach(function (p) { p.setAttribute("stroke-width", p.dataset.id === c.sel ? "1" : ".35"); });
+  }
   /* ---------- downloads ---------- */
   function download(blob, name) { var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000); }
   function csvFor(c) {
     var s = c.spec, notes = ["F3 Explorer v0.2: a conditional scenario, not a forecast."]; if (s.caveat) notes.push(s.caveat);
+    if (s.kind === "map") {
+      var tb = F3.mapTable(s.map, s.global, s.year), q2 = function (x) { return /[",\n]/.test(x) ? '"' + x.replace(/"/g, '""') + '"' : x; };
+      var out = ["region_id,region,type,coefficient_K_per_K," + "warming_K_" + s.year];
+      tb.rows.forEach(function (r) { out.push([r.id, q2(r.name), r.type, r.c, F3.isNum(r.k) ? r.k : ""].join(",")); });
+      notes.forEach(function (x) { out.push("# " + x); });
+      if (tb.rows.some(function (r) { return !F3.isNum(r.k); })) out.push("# An empty cell means no value, not zero.");
+      return out.join("\n") + "\n";
+    }
     if (s.kind === "stripes") return F3.csvOf(s.years, [{ name: s.valueName, y: s.values }], notes);
     if (s.kind === "line") {
       var cols = []; s.series.forEach(function (se) { cols.push({ name: se.name || "value", y: se.y }); if (se.band) { cols.push({ name: (se.name || "value") + " 5th percentile", y: se.band[0] }); cols.push({ name: (se.name || "value") + " 95th percentile", y: se.band[1] }); } });
@@ -237,5 +294,5 @@
     };
     img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(new XMLSerializer().serializeToString(svg));
   }
-  window.F3C = { tok: tok, scen: scen, mount: mount, lineChart: lineChart, barChart: barChart, stripes: stripes, esc: esc, csvFor: csvFor };
+  window.F3C = { tok: tok, scen: scen, mount: mount, lineChart: lineChart, barChart: barChart, stripes: stripes, regionMap: regionMap, esc: esc, csvFor: csvFor };
 })();

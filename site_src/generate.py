@@ -153,6 +153,8 @@ def main() -> None:
         data = json.loads(jpath.read_text(encoding="utf-8"))               # Python reads the older NaN/Infinity spellings too; strict() turns them into null
     else:
         data = build_data(Path(sys.argv[1]))
+    data["history"] = json.loads((here / "data" / "history.json").read_text(encoding="utf-8"))          # D-057: built by history_build.py and map_build.py; embedded so that pages load ONE data file
+    data["warming_map"] = json.loads((here / "data" / "warming-map.json").read_text(encoding="utf-8"))
     data = strict(data)
     data["meta"]["null_means"] = NULL_NOTE
     text = dumps(data)
@@ -162,10 +164,7 @@ def main() -> None:
     if built:
         stamp["built_commit"] = built
     stamp["dirty"] = "yes" if git("status", "--porcelain", "--", "site_src", "docs", "f3") else "no"
-    extra = {"history": json.loads((here / "data" / "history.json").read_text(encoding="utf-8")),
-             "map": json.loads((here / "data" / "warming-map.json").read_text(encoding="utf-8")),
-             "sources": json.loads((REPO / "audit" / "data" / "sources-history.json").read_text(encoding="utf-8"))}      # D-057: built by history_build.py and map_build.py
-    for name, html in pages.render_all(data, stamp, Path(__file__).parent, extra).items():
+    for name, html in pages.render_all(data, stamp, Path(__file__).parent).items():
         (here / name).write_text(html, encoding="utf-8", newline="\n")
         print("wrote site/" + name, len(html), "bytes")
     for rel, text in pages.render_assets(Path(__file__).parent).items():
