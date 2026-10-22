@@ -46,7 +46,25 @@ Avoid: pie and donut charts, 3D effects, dual y-axes, truncated bar axes, spaghe
 - Never rely on color alone: add direct labels, line styles or markers.
 - Grey is for context and non-highlighted series. Accent color is reserved for the message.
 
-Action item: record the final palette hex codes in this file once chosen.
+### 4.1 Palette as built in Explorer v0.2 (D-056, Provisional until the editor approves)
+
+Source of truth: the two theme blocks at the top of `site_src/style.css`; `tests/test_site_tokens.py` reads them, checks the hex codes below and verifies WCAG AA programmatically (text 4.5:1 on page, card and raised surfaces; lines and bars 3:1 on the card).
+
+Scenario colours (ColorBrewer Paired blue and Dark2 orange, plus a neutral grey). Same line colours in both themes; text variants differ where needed for contrast.
+
+| Role | Line / fill | Text on light | Text on dark |
+|---|---|---|---|
+| Baseline (standard run, damage off), dashed | #6B7280 | #5B6270 | #9AA3B2 |
+| Scenario A, or the single chosen scenario in the Explorer | #1F78B4 | #1A6CA1 | #6DB3E6 |
+| Scenario B | #D95F02 | #B34E00 | #F08A3C |
+
+Accents (not scenarios; used for other variables, never for A or B): light theme teal #0F766E, violet #5B4FB8, magenta #B0206A, heat red #B2182B; dark theme teal #35C2A1, violet #A9A3F0, magenta #F07FB6, heat red #FF7F73.
+
+Surfaces: light (reading) theme page #FAFAF7, card #FFFFFF, text #1C1C1A; dark (dashboard) theme page #0E1420, card #151D2C, text #E6EAF2. Status badges: amber and red, each with a text label and an icon; no panel is green.
+
+Themes: the dashboard pages (Explorer, Compare, Connections) open in the dark theme; story and text pages open in the light "reading" theme and follow `prefers-color-scheme` (dark if the system asks for it). Every page has a toggle; the choice is kept in the browser only.
+
+Type: Work Sans (SIL OFL 1.1) is embedded in the stylesheet as a base64 woff2, so the static site makes no font request and works offline; headings on reading pages use a serif system stack (Iowan Old Style, Palatino, Georgia). Minimum text size 13 px (tested on the stylesheet and on chart text).
 
 ## 5. Titles and annotations
 

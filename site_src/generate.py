@@ -140,6 +140,10 @@ def main() -> None:
     for name, html in pages.render_all(data, stamp, Path(__file__).parent).items():
         (here / name).write_text(html, encoding="utf-8", newline="\n")
         print("wrote site/" + name, len(html), "bytes")
+    for rel, text in pages.render_assets(Path(__file__).parent).items():
+        (here / rel).parent.mkdir(parents=True, exist_ok=True)
+        (here / rel).write_text(text, encoding="utf-8", newline="\n")
+        print("wrote site/" + rel, len(text), "bytes")
     print("stamp:", stamp)
 
 

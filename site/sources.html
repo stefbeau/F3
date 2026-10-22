@@ -1,108 +1,14 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-kind="reading" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sources - F3 Explorer v0.1</title>
-<style>
-:root{--bg:#fafaf7;--fg:#1c1c1a;--mut:#5d5d58;--card:#fff;--line:#d9d8d0;--warn:#fff3d6;--warnl:#b7791f;--link:#0b5394;--focus:#0b5394;
---c1:#0072b2;--c2:#d55e00;--c3:#009e73;--c4:#cc79a7;--c5:#7a6a00;--ref:#111}
-@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#15161a;--fg:#e8e8e3;--mut:#a3a39b;--card:#1d1f24;--line:#3a3c43;--warn:#3a2f12;--warnl:#e0a030;--link:#7fb8f0;--focus:#7fb8f0;
---c1:#56b4e9;--c2:#e69f00;--c3:#4fd0a5;--c4:#f0a0cc;--c5:#f0e442;--ref:#f2f2f2}}
-:root[data-theme=dark]{--bg:#15161a;--fg:#e8e8e3;--mut:#a3a39b;--card:#1d1f24;--line:#3a3c43;--warn:#3a2f12;--warnl:#e0a030;--link:#7fb8f0;--focus:#7fb8f0;
---c1:#56b4e9;--c2:#e69f00;--c3:#4fd0a5;--c4:#f0a0cc;--c5:#f0e442;--ref:#f2f2f2}
-*{box-sizing:border-box}
-html,body{max-width:100%;overflow-x:hidden}
-body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;overflow-wrap:anywhere}
-main{max-width:980px;margin:0 auto;padding:16px}
-a{color:var(--link)}
-a:focus-visible,select:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
-nav.site{display:flex;flex-wrap:wrap;gap:6px 16px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--card);font-size:.95rem}
-nav.site a{text-decoration:none;padding:2px 0}nav.site a[aria-current=page]{font-weight:700;border-bottom:2px solid var(--fg);color:var(--fg)}
-nav.site .brand{font-weight:700;margin-right:8px;color:var(--fg)}
-footer.site{border-top:1px solid var(--line);padding:14px 16px;font-size:.85rem;color:var(--mut);max-width:980px;margin:0 auto}
-footer.site nav{display:flex;flex-wrap:wrap;gap:6px 14px;margin-bottom:6px}
-h1{font-size:1.5rem;margin:.2em 0}h2{font-size:1.2rem;margin:0 0 .3em}h3{font-size:1rem;margin:1em 0 .2em}
-.lead{font-size:1.05rem;margin:.2em 0 .6em}
-.banner{background:var(--warn);border:2px solid var(--warnl);border-radius:8px;padding:12px 14px;margin:12px 0}
-.banner strong.big{display:block;font-size:1.25rem;margin-bottom:4px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:12px 0;min-width:0}
-.notice{background:var(--warn);border-left:5px solid var(--warnl);border-radius:4px;padding:8px 10px;margin:6px 0 8px;font-size:.92rem}
-.note{color:var(--mut);font-size:.9rem}
-.withheld{border:2px dashed var(--warnl);border-radius:8px;padding:10px 12px;margin:10px 0;font-weight:600}
-ul,ol{padding-left:1.2em;margin:.3em 0}li{margin:.25em 0}
-.ctl{display:flex;flex-wrap:wrap;gap:10px 18px;margin:8px 0}.ctl label{font-size:.92rem;display:block;min-width:0}
-select{font:inherit;background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:6px 8px;max-width:100%;min-height:36px}
-.grp{margin:10px 0 2px;font-weight:600;font-size:.95rem}
-figure{margin:8px 0}figcaption{font-size:.85rem;color:var(--mut)}
-svg{width:100%;height:auto;display:block}
-.leg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.88rem;margin:4px 0}
-.leg span{display:inline-flex;align-items:center;gap:6px}
-.leg svg{width:34px;height:10px;flex:none}
-table{border-collapse:collapse;width:100%;font-size:.88rem;table-layout:auto}td,th{border-bottom:1px solid var(--line);padding:4px 6px;text-align:left;vertical-align:top;overflow-wrap:anywhere}
-code,pre{font-size:max(1em,13px);white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;max-width:100%}
-pre{margin:6px 0;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px}
-details{margin:8px 0}summary{cursor:pointer;font-weight:600;font-size:.92rem;padding:2px 0}
-details>*:not(summary){margin-top:6px}
-.small{font-size:.82rem}
-.sr{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.fail{font-weight:700}
-.failblock{border-top:1px solid var(--line);padding-top:6px;margin-top:10px}.failblock h3{margin:.2em 0}.failblock p{margin:.25em 0}
-/* ---- Explorer v0.1 (D-052) ---- */
-html{scroll-behavior:smooth;scroll-padding-top:56px}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-nav.tabs{position:sticky;top:0;z-index:5;display:flex;gap:4px 6px;overflow-x:auto;padding:6px 0;margin:8px 0;background:var(--bg);border-bottom:1px solid var(--line)}
-nav.tabs a{flex:none;text-decoration:none;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.92rem;min-height:36px;display:inline-flex;align-items:center}
-nav.tabs a:hover{border-color:var(--fg)}
-.rfl{list-style:none;padding:0;margin:.3em 0}.rfl li{margin:.5em 0;padding-left:.2em}
-#readfirst{border-left:5px solid var(--link)}
-.take{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:8px 0}
-.take p.tk{margin:0 0 8px;font-size:1rem}
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
-.tile{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px;display:flex;flex-direction:column;gap:2px;min-width:0}
-.tk_k{font-size:.85rem;color:var(--mut)}.tk_v{font-size:1.15rem;line-height:1.25}
-.badge{display:inline-block;font-size:.85rem;font-weight:600;text-decoration:none;border-radius:6px;padding:3px 8px;margin-left:6px;vertical-align:middle;color:var(--fg);border:2px solid var(--warnl);background:var(--warn);line-height:1.35}
-.badge.red{border-color:#b3261e;background:#fbe3e1;color:#3d0b07}
-.badge.amber{border-color:var(--warnl);background:var(--warn)}
-.badge:hover{text-decoration:underline}
-@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .badge.red{background:#4a1a17;color:#ffd9d5;border-color:#ff8a80}}
-:root[data-theme=dark] .badge.red{background:#4a1a17;color:#ffd9d5;border-color:#ff8a80}
-.presets{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
-button{font:inherit;font-size:.92rem;background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:6px 12px;min-height:40px;cursor:pointer}
-button:hover{border-color:var(--fg)}
-button.pre[aria-pressed=true]{background:var(--fg);color:var(--bg);border-color:var(--fg);font-weight:600}
-button.reset{border-style:dashed}
-.ctl.one{margin:10px 0 4px}
-.notice.damage{border-left-color:#b3261e;font-weight:600}
-.notice.damage:empty{display:none}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
-.chip{display:inline-block;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:.85rem}
-.chip.std{color:var(--mut)}
-div[id^=ch_]{position:relative;touch-action:pan-y;outline-offset:2px}
-div[id^=ch_]:focus-visible{outline:3px solid var(--focus)}
-div[id^=ch_] svg{cursor:crosshair}
-.rd{min-height:2.6em;font-size:.88rem;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:4px 8px;margin:4px 0}
-.dl{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px}.dl button{min-height:36px;font-size:.85rem;padding:4px 10px}
-abbr[title]{text-decoration:underline dotted;cursor:help;text-underline-offset:3px}
-abbr[title]:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
-.defpop{display:block;background:var(--card);color:var(--fg);border:2px solid var(--fg);border-radius:8px;padding:8px 10px;margin:6px 0;font-size:.9rem;font-weight:400;line-height:1.45}
-svg.ig{max-width:520px;margin:6px auto;overflow:visible}
-svg.ig .nodebox{fill:var(--card);stroke:var(--fg);stroke-width:1.6}
-svg.ig .withheldbox{stroke-dasharray:3 3;stroke:var(--warnl)}
-svg.ig .notbuilt{stroke-dasharray:6 4;fill:var(--bg);stroke:var(--mut)}
-svg.ig .svgt{fill:var(--fg)}svg.ig .svgt.b{font-weight:700}
-svg.ig .ln{fill:none;stroke-width:2.6}
-svg.ig .ln.yes{stroke:var(--c1);stroke-width:3.4}
-svg.ig .ln.no{stroke:var(--mut)}
-svg.ig .ln.wh{stroke:var(--warnl)}
-svg.ig .arrowhead{fill:context-stroke}
-svg.ig .numdot{fill:var(--fg)}svg.ig .numtxt{fill:var(--bg)}
-.igkey{font-size:.9rem}
-
-</style>
+<title>Sources - F3 Explorer v0.2</title>
+<script>(function(){var d=document.documentElement,k=d.getAttribute('data-kind'),t=d.getAttribute('data-theme');try{var s=localStorage.getItem('f3-theme');if(s==='dark'||s==='light')t=s;else if(k==='reading'&&matchMedia('(prefers-color-scheme: dark)').matches)t='dark'}catch(e){}d.setAttribute('data-theme',t)})();</script>
+<link rel="stylesheet" href="assets/f3.css">
 </head>
 <body>
-<nav class="site" aria-label="Site"><span class="brand">F3 Explorer v0.1</span><a href="index.html">Explorer</a><a href="methods.html">Methods</a><a href="limitations.html">Limitations</a><a href="sources.html" aria-current="page">Sources</a><a href="about.html">About</a></nav>
+<nav class="site" aria-label="Site"><span class="brand">F3 Explorer v0.2</span><a href="index.html">Explorer</a><a href="methods.html">Methods</a><a href="limitations.html">Limitations</a><a href="sources.html" aria-current="page">Sources</a><a href="about.html">About</a><button type="button" class="themebtn" id="themeToggle" aria-pressed="false">Theme</button></nav>
 <main>
 
 <h1>Sources and licences</h1>
@@ -137,6 +43,7 @@ svg.ig .numdot{fill:var(--fg)}svg.ig .numtxt{fill:var(--bg)}
 
 
 </main>
-<footer class="site"><nav aria-label="Footer"><a href="index.html">Explorer</a><a href="methods.html">Methods</a><a href="limitations.html">Limitations</a><a href="sources.html">Sources</a><a href="about.html">About</a><a href="https://github.com/stefbeau/F3">Source code on GitHub</a></nav><div>Public draft, published 2026-10-21. Conditional scenarios, not forecasts. Built 2026-10-21 from source commit <code>99d817a</code>.</div></footer>
+<footer class="site"><nav aria-label="Footer"><a href="index.html">Explorer</a><a href="methods.html">Methods</a><a href="limitations.html">Limitations</a><a href="sources.html">Sources</a><a href="about.html">About</a><a href="https://github.com/stefbeau/F3">Source code on GitHub</a></nav><div>Public draft, published 2026-10-21. Conditional scenarios, not forecasts. Built 2026-10-22 from source commit <code>653c25d</code>.</div></footer>
+<script src="assets/shell.js"></script>
 </body>
 </html>

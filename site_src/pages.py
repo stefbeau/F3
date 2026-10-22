@@ -1,4 +1,4 @@
-"""Renders the five static pages of the F3 Explorer v0.1 (English only). Shared CSS tokens, nav and footer on every page.
+"""Renders the five static pages of the F3 Explorer v0.2 (English only). Shared CSS tokens, nav and footer on every page.
 
 Every statement about a test or a decision is taken from the repository records (DECISIONS.md, audit/*.md, docs/tracks/*.md, STATUS);
 nothing here is stronger than what those records show.
@@ -16,9 +16,15 @@ REPO_URL = "https://github.com/stefbeau/F3"
 SCROLL_FIX = ""
 
 
-def head(title: str, css: str) -> str:
-    return (f'<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n'
-            f'<title>{title}</title>\n<style>\n{css}\n</style>\n</head>\n<body>\n')
+THEME_BOOT = ("(function(){var d=document.documentElement,k=d.getAttribute('data-kind'),t=d.getAttribute('data-theme');try{var s=localStorage.getItem('f3-theme');"
+              "if(s==='dark'||s==='light')t=s;else if(k==='reading'&&matchMedia('(prefers-color-scheme: dark)').matches)t='dark'}catch(e){}d.setAttribute('data-theme',t)})();")
+READING = {"methods.html", "limitations.html", "sources.html", "about.html"}
+
+
+def head(title: str, css: str, kind: str = "reading") -> str:
+    theme = "dark" if kind == "dash" else "light"
+    return (f'<!doctype html>\n<html lang="en" data-kind="{kind}" data-theme="{theme}">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n'
+            f'<title>{title}</title>\n<script>{THEME_BOOT}</script>\n<link rel="stylesheet" href="assets/f3.css">\n</head>\n<body>\n')
 
 
 def nav(current: str, cls: str = "site") -> str:
@@ -26,7 +32,8 @@ def nav(current: str, cls: str = "site") -> str:
     for h, label in NAV:
         cur = ' aria-current="page"' if h == current else ""
         parts.append('<a href="' + h + '"' + cur + ">" + label + "</a>")
-    return '<nav class="' + cls + '" aria-label="Site"><span class="brand">F3 Explorer v0.1</span>' + "".join(parts) + "</nav>\n"
+    return ('<nav class="' + cls + '" aria-label="Site"><span class="brand">F3 Explorer v0.2</span>' + "".join(parts)
+            + '<button type="button" class="themebtn" id="themeToggle" aria-pressed="false">Theme</button></nav>\n')
 
 
 def footer(current: str, stamp: dict) -> str:
@@ -35,8 +42,10 @@ def footer(current: str, stamp: dict) -> str:
             f'<div>Public draft, published 2026-10-21. Conditional scenarios, not forecasts. Built {stamp["date"]} from source commit <code>{stamp["commit"]}</code>.</div></footer>\n')
 
 
-def page(title: str, current: str, body: str, css: str, stamp: dict, script: str = "") -> str:
-    return (head(title, css) + nav(current) + "<main>\n" + body + "\n</main>\n" + footer(current, stamp) + script + "</body>\n</html>\n")
+def page(title: str, current: str, body: str, css: str, stamp: dict, script: str = "", kind: str = None) -> str:
+    kind = kind or ("reading" if current in READING else "dash")
+    return (head(title, css, kind) + nav(current) + "<main>\n" + body + "\n</main>\n" + footer(current, stamp)
+            + '<script src="assets/shell.js"></script>\n' + script + "</body>\n</html>\n")
 
 
 BANNER = ('<div class="banner" role="note"><strong class="big">Public draft, published 2026-10-21. Conditional scenarios, not forecasts.</strong>'
@@ -50,7 +59,7 @@ INDEX_BODY = index_body.BODY
 
 def index_page(data: dict, stamp: dict, css: str, js: str) -> str:
     script = "<script>\n" + js.replace("/*DATA*/null", json.dumps(data, separators=(",", ":"))) + "\n</script>\n"
-    return page("F3 Explorer v0.1", "index.html", INDEX_BODY, css, stamp, script)
+    return page("F3 Explorer v0.2", "index.html", INDEX_BODY, css, stamp, script)
 
 
 # --------------------------------------------------------------------------------------------------------------------
@@ -105,7 +114,7 @@ def methods_page(data: dict, stamp: dict, css: str) -> str:
 <li>All hashes are on the <a href="index.html">Explorer</a> page under "Data provenance".</li>
 </ul></section>
 """
-    return page("Methods - F3 Explorer v0.1", "methods.html", body, css, stamp)
+    return page("Methods - F3 Explorer v0.2", "methods.html", body, css, stamp)
 
 
 # --------------------------------------------------------------------------------------------------------------------
@@ -145,7 +154,7 @@ def limitations_page(data: dict, stamp: dict, css: str) -> str:
 <li>The Explorer is a public draft, published 2026-10-21; it carries Provisional (delegated) choices that the editor may still change.</li>
 </ul></section>
 """
-    return page("Limitations - F3 Explorer v0.1", "limitations.html", body, css, stamp)
+    return page("Limitations - F3 Explorer v0.2", "limitations.html", body, css, stamp)
 
 
 # --------------------------------------------------------------------------------------------------------------------
@@ -182,7 +191,7 @@ def sources_page(data: dict, stamp: dict, css: str) -> str:
 </table></section>
 
 """
-    return page("Sources - F3 Explorer v0.1", "sources.html", body, css, stamp)
+    return page("Sources - F3 Explorer v0.2", "sources.html", body, css, stamp)
 
 
 # --------------------------------------------------------------------------------------------------------------------
@@ -204,7 +213,7 @@ def about_page(data: dict, stamp: dict, css: str) -> str:
 <li><strong>To report an error</strong> (a wrong number, a missing caveat, a broken page, a licence concern): open an issue at <a href="{REPO_URL}/issues">{REPO_URL}/issues</a>. Please say which page and which chart or sentence.</li>
 </ul></section>
 <section class="card"><h2>How to cite</h2>
-<p>Beau, S. (2026). <em>F3 (Foundation for Earth): an open global simulation model. Explorer v0.1 (public draft).</em> {REPO_URL}, source commit {stamp["commit"]}, accessed {stamp["date"]}.</p>
+<p>Beau, S. (2026). <em>F3 (Foundation for Earth): an open global simulation model. Explorer v0.2 (public draft).</em> {REPO_URL}, source commit {stamp["commit"]}, accessed {stamp["date"]}.</p>
 <p class="note">There is no DOI and no published paper yet. If you cite a figure, please cite the date and commit, and state that it is a conditional scenario from a draft with recorded test failures.</p>
 </section>
 <section class="card"><h2>This version</h2>
@@ -214,11 +223,21 @@ def about_page(data: dict, stamp: dict, css: str) -> str:
 <li>Language: English only in this version.</li>
 </ul></section>
 """
-    return page("About - F3 Explorer v0.1", "about.html", body, css, stamp)
+    return page("About - F3 Explorer v0.2", "about.html", body, css, stamp)
+
+
+def render_assets(here: Path) -> dict:
+    """Static assets: the stylesheet with Work Sans embedded as base64 (no network request for fonts), and the shell script."""
+    import base64
+    css = (here / "style.css").read_text(encoding="utf-8")
+    font = base64.b64encode((here / "fonts" / "WorkSans-latin-wght.woff2").read_bytes()).decode("ascii")
+    face = ('@font-face{font-family:"Work Sans";font-style:normal;font-weight:100 900;font-display:swap;'
+            'src:url(data:font/woff2;base64,' + font + ') format("woff2")}')
+    return {"assets/f3.css": css.replace("/*FONT*/", face), "assets/shell.js": (here / "shell.js").read_text(encoding="utf-8")}
 
 
 def render_all(data: dict, stamp: dict, here: Path) -> dict:
-    css = (here / "style.css").read_text(encoding="utf-8")
+    css = ""
     js = (here / "explorer.js").read_text(encoding="utf-8")
     return {
         "index.html": index_page(data, stamp, css, js),
