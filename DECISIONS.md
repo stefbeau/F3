@@ -72,6 +72,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-054 | S3 diagnostic follow-up: blind brief not run, Epoch email sent 2026-10-17, supply-limited diagnostic first, then the efficiency cap and Option B | Approved 2026-10-22 | 2 |
 | D-055 | Data-centre module: optional efficiency cap at the paper's 4e15 FLOP/J, default OFF | Provisional (delegated) 2026-10-22 | 2 |
 | D-056 | F3 Explorer v0.2 redesign: dark dashboard with story front door, dashboard, compare mode, connections map (branch `site-ux`) | Provisional (delegated) 2026-10-22 | 4 |
+| D-057 | Explorer: observed-history overlay (model versus reality) and pattern-scaled warming map (branch `site-history`, from `site-ux`) | Provisional (delegated) 2026-10-22 | 2 |
 
 ---
 
@@ -1315,6 +1316,24 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Decision:** Provisional (delegated); the editor reviews it in the milestone batch.
 - **Date:** 2026-10-22
 - **Note (2026-10-22, appended; nothing above changed).** Built on `site-ux` as described, with these specifics: the story is `index.html` and the dashboard `explorer.html`; Compare and Connections are their own pages; four KPI tiles; Work Sans is embedded from the `@fontsource-variable/work-sans` package (OFL 1.1, entry in `NOTICE`, text in `licenses/WorkSans-OFL.txt`); the page data is also written as `site/data/explorer.js` so pages open from disk. The static loop and roadmap diagrams of D-052 are replaced by the connections map (the solid/dashed/dotted vocabulary and the built-links test are unchanged). Guidelines not met are listed in `docs/design-guidelines.md` section 11.
+
+## D-057 — Explorer: observed-history overlay and pattern-scaled warming map
+
+- **Status:** Provisional (delegated)
+- **Context:** Editor brief 2026-10-22 (called "D-056" in the brief; D-056 is already Explorer v0.2 on `site-ux`, so this is recorded as D-057, content as briefed; renumber freely). The Explorer shows model output only. Visitors cannot see how the models sit against observed history, and the warming result is a single global number with no geographic context.
+- **Decision (data and display layer only; no model code, no parameter, no new model run):**
+  1. **Observed history overlay** (Part A): world population (UN WPP), world GDP in constant prices (World Bank WDI NY.GDP.MKTP.KD) and global mean temperature anomaly (HadCRUT5, with GISTEMP as a cross-check) drawn next to the model series: World3 population against observed; World3 industrial output and observed GDP as indices on one common year (1990 = 1), no fitting, no rescaling beyond the index; FaIR ensemble hindcast band against HadCRUT5. Under each chart one sentence generated from the data gives the gap in the last common year and a test. Nothing is tuned to improve a match. A "Model versus reality" panel is added to the tab bar. Every series has a recorded source, version or retrieval date, licence, URL and checksum in `audit/data/sources-history.json`; a series whose licence forbids redistribution is linked, not shown; a failed download stops that series.
+  2. **Warming map** (Part B): regional warming = global warming (FaIR, per year, recorded ensemble mean, 5th and 95th percentile) x a local pattern coefficient (K per K of global warming) from a documented CMIP6 multi-model pattern. A coarse static file `site/data/warming-map.json` (coefficients plus metadata), coastlines from Natural Earth (public domain), simplified. Fallback if no redistributable licensed gridded pattern is found: AR6 reference regions. The map carries the mandatory label: "Illustrative downscaling of the global FaIR result. Not a regional climate projection. Pattern-scaling ignores regional feedbacks, aerosols, ocean dynamics." Only the global uncertainty is shown; pattern uncertainty is not, and the page says so. The map depends on the selected story only through the climate run; damage does not change warming, and the page says so.
+- **Reason:** credibility (the reader sees how far the models are from observed history) and geographic context, without claiming country-level model output.
+- **Alternatives considered and rejected:** country and industry results from the models (not possible: World3, FaIR and S3 are global); fitting or rescaling the model to observed series (would hide the gap; excluded); country-level damage or population maps (excluded by the brief).
+- **Consequences:** three external datasets and one pattern dataset enter the repository as derived annual or coarse values with licences recorded; the history comparison is not a validation and the Limitations page says so; A3.4(b) status (failed) and A2.1 status (failed) are quoted where they apply; the page and data grow slightly (static, D-009).
+- **What this does not change:** no test, tolerance, label or earlier decision; D-007, D-029, D-030, D-052 and D-056 stand; Pages is not enabled or run by this branch.
+- **Reversal cost:** low (site files and data only).
+- **Proposed by:** Claude (implementing the editor's brief).
+- **Decision:** Provisional (delegated); the editor reviews it in the milestone batch.
+- **Date:** 2026-10-22
+
+---
 
 ---
 
