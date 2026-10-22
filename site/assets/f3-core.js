@@ -344,9 +344,9 @@
     });
     return best;
   }
-  /* The "View as table" rows: every region, highest warming first, regions with no value last (never as zero). */
+  /* The "View as table" rows: every region, highest warming first, regions with no value last (never as zero). Carries id, type and the coefficient c too (they were in the separate "View data table" this one replaced on the map card, 2026-10-22). */
   function mapValueTable(Mp, g, year) {
-    var unit = "K above 1850-1900", rows = Mp.regions.map(function (r) { return { id: r.id, name: r.name, type: r.type, value: isNum(r.c) ? scale(g, r.c) : null }; });
+    var unit = "K above 1850-1900", rows = Mp.regions.map(function (r) { return { id: r.id, name: r.name, type: r.type, c: isNum(r.c) ? r.c : null, value: isNum(r.c) ? scale(g, r.c) : null }; });
     rows.sort(function (a, b) {
       var an = isNum(a.value), bn = isNum(b.value);
       if (an !== bn) return an ? -1 : 1;
@@ -354,7 +354,7 @@
       return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
     });
     var missing = rows.filter(function (r) { return !isNum(r.value); }).length;
-    return { unit: unit, head: ["Region", "Value", "Unit"], rows: rows, missing: missing,
+    return { unit: unit, head: ["Region", "ID", "Type", "K per K of global (c)", "Value", "Unit"], rows: rows, missing: missing,
       caption: "Pattern-scaled warming in " + year + ", all " + rows.length + " regions, highest first (" + unit + "). Illustrative." + (missing ? " " + missing + " with " + NA + " are listed last." : "") };
   }
   function mapSpec(Mp, C, years, year) {

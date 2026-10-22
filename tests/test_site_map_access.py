@@ -92,6 +92,20 @@ def test_table_on_the_real_data_has_every_region_highest_first_and_a_caption_fro
     assert "K above 1850-1900" in t["unit"]
 
 
+@need_data
+@need_node
+def test_sorted_table_keeps_everything_the_removed_data_table_had(tmp_path):
+    # 2026-10-22: the card's second control ("View data table": region and id, type, coefficient c, warming in the year) was removed; its columns live here now.
+    d = json.loads(DATA.read_text(encoding="utf-8"))
+    M, y, g = d["warming_map"], d["years"][-1], d["climate"]["warming"][-1]
+    t = node("return F3.mapValueTable(IN.M, IN.g, IN.y)", tmp_path, {"M": M, "g": g, "y": y})
+    assert t["head"] == ["Region", "ID", "Type", "K per K of global (c)", "Value", "Unit"]
+    by_id = {r["id"]: r for r in M["regions"]}
+    for r in t["rows"]:
+        src = by_id[r["id"]]
+        assert r["name"] == src["name"] and r["type"] == src["type"] and r["c"] == src["c"] and r["value"] == pytest.approx(src["c"] * g)
+
+
 # ------------------------------------------------------------------------------------------------------ markup the script builds
 def charts() -> str:
     s = (SRC / "charts.js").read_text(encoding="utf-8")
@@ -115,6 +129,8 @@ def test_view_as_table_is_a_real_button_with_aria_expanded_controlling_a_table()
     assert 'setAttribute("aria-expanded", String(open))' in seg
     assert "<table" in seg and "<caption>" in seg and 'scope="col"' in seg and "F3.mapValueTable(" in seg and "F3.NA" in seg
     assert 'tabindex="0" hidden' in seg                                                      # the table box scrolls and is reachable from the keyboard when open
+    assert 'data-dl="table"' in seg and ".remove()" in seg  # the generic "View data table" is removed on this card (2026-10-22): one table control
+    assert "r.c.toFixed(2)" in seg and "esc(r.type)" in seg and "esc(r.id)" in seg           # type, id and coefficient are columns of the sorted table
 
 
 def test_the_map_container_ships_once_and_the_new_styles_keep_13px_text():

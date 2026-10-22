@@ -262,11 +262,13 @@
       c.rd.insertAdjacentHTML("afterend", '<div class="mapview"><button type="button" class="mapbtn" id="' + base + '_btn" aria-expanded="false" aria-controls="' + base + '">View as table</button>' +
         '<div class="maptblbox" id="' + base + '" role="region" aria-label="Warming by region as a table" tabindex="0" hidden><table class="maptable" data-role="vt"></table></div></div>');
       c.vt = el.querySelector('[data-role="vt"]'); c.vtBox = el.querySelector(".maptblbox"); c.vtBtn = el.querySelector(".mapbtn");
+      el.querySelector('[data-dl="table"]').remove();                          /* one table control on this card: the generic "View data table" is dropped; its text alternative moves into this table box, its columns are in this table */
+      c.vtBox.insertBefore(c.alt, c.vtBox.firstChild); c.dt.remove();
       c.vtBtn.onclick = function () { var open = c.vtBox.hidden; c.vtBox.hidden = !open; c.vtBtn.setAttribute("aria-expanded", String(open)); c.vtBtn.textContent = open ? "Hide table" : "View as table"; };
     }
     var vt = F3.mapValueTable(M, g, spec.year);
     c.vt.innerHTML = "<caption>" + esc(vt.caption) + "</caption><thead><tr>" + vt.head.map(function (h) { return '<th scope="col">' + esc(h) + "</th>"; }).join("") + "</tr></thead><tbody>" +
-      vt.rows.map(function (r) { return '<tr><th scope="row">' + esc(r.name) + "</th><td>" + (F3.isNum(r.value) ? r.value.toFixed(2) : F3.NA) + "</td><td>" + esc(vt.unit) + "</td></tr>"; }).join("") + "</tbody>";
+      vt.rows.map(function (r) { return '<tr><th scope="row">' + esc(r.name) + "</th><td>" + esc(r.id) + "</td><td>" + esc(r.type) + "</td><td>" + (F3.isNum(r.c) ? r.c.toFixed(2) : F3.NA) + "</td><td>" + (F3.isNum(r.value) ? r.value.toFixed(2) : F3.NA) + "</td><td>" + esc(vt.unit) + "</td></tr>"; }).join("") + "</tbody>";
     c.plot.querySelectorAll("path.reg").forEach(function (p) {
       var r = M.regions.filter(function (x) { return x.id === p.dataset.id; })[0], v = F3.scale(g, r.c);
       p.setAttribute("fill", F3.isNum(v) ? F3.seqColor(v / mx) : tok("--line"));
@@ -275,9 +277,7 @@
     var svg = c.plot.querySelector("svg"); svg.setAttribute("aria-label", spec.title); svg.querySelector("title").textContent = spec.title; svg.querySelector("desc").textContent = spec.summary;
     setText(c, spec); c.plot.setAttribute("aria-label", spec.title);
     mapScale(c, Math.max(280, Math.floor(c.legend.clientWidth || 320)), mx);
-    var tb = F3.mapTable(M, g, spec.year);
-    tableHtml(c, tb.head, tb.rows.map(function (r) { return [r.name + " (" + r.id + ")", r.type, r.c.toFixed(2), F3.fx(r.k, 2)]; }));
-    c.dt.classList.add("long"); mapRead(c);
+    mapRead(c);
   }
   function mapRead(c) {
     var s = c.spec, r = c.sel ? s.map.regions.filter(function (x) { return x.id === c.sel; })[0] : null;

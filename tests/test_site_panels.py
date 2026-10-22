@@ -156,8 +156,12 @@ def test_map_spec_csv_table_and_assumptions(tmp_path):
     assert any(ln.startswith("# ") and LABEL in ln for ln in csv) and any("not a forecast" in ln for ln in csv)
     charts = (SRC / "charts.js").read_text(encoding="utf-8")
     seg = charts[charts.index("function regionMap("):charts.index("function mapRead(")]
-    for needle in ("mount(el, spec)", "tableHtml(c,", "setText(c, spec)", "F3.mapTable"):
+    # 2026-10-22: the map card has ONE table control ("View as table", the sorted regions); the generic "View data table" is removed on this card only
+    # (its type and coefficient columns moved into the sorted table, its text alternative into the table box). The CSV still comes from F3.mapTable.
+    for needle in ("mount(el, spec)", "setText(c, spec)", "F3.mapValueTable"):
         assert needle in seg, needle
+    assert "tableHtml(c," not in seg and 'data-dl="table"' in seg and ".remove()" in seg
+    assert "F3.mapTable" in charts[charts.index("function csvFor("):]
 
 
 def test_history_charts_draw_observed_series_as_points_with_hollow_projection_years():
