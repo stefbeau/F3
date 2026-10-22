@@ -1274,6 +1274,7 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Proposed by:** the editor.
 - **Decision:** Approved by the editor, 2026-10-22.
 - **Date:** 2026-10-22
+- **Note (2026-10-22, appended; nothing above changed).** Item 5 asked that the label state that the effect of the labour index "fades as automation saturates". The pre-registered test of that reading **failed** (S3 output with the index at half of its 2025 value is 0.61 of baseline in 2031 and 0.50 in 2099), so the effect persists; it is recorded as a strict xfail (a 46th) and the label says "persists". The editor's merge condition ("green apart from the 45 strict xfails") is therefore not met as written, and the branch was **not merged**; see `docs/s3-world3-reconciliation.md` section 4 and STATUS.
 
 ---
 

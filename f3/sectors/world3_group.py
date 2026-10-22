@@ -43,6 +43,7 @@ class World3Group(Sector):
                 self._state_owner[n] = s.name
         self.outputs = {n: "state" for n in self._state_owner}
         self.outputs["io"] = "dollars/year"                       # World3 industrial output, published for the M6 tests
+        self.outputs["lf"] = "jobs"                               # labour force (p2 + p3) x lfpf, derived from the published states (D-054 item 5)
         # M6 climate-damage coupling (D-051): OFF unless damage_option is given; warming is a callable year -> K (recorded FaIR replay)
         if damage_option is not None:
             from f3.sectors.damages import check_option
@@ -95,6 +96,7 @@ class World3Group(Sector):
     def current_outputs(self) -> Dict[str, float]:
         out = self._states_now()
         out["io"] = float(self._published["w3_capital"]["io"])
+        out["lf"] = (out["p2"] + out["p3"]) * self._sectors["w3_capital"].params["lfpf"]      # same fraction as the capital sector's Line 80
         return out
 
     def advance(self, t: float, h: float, ctx: Optional[Context]) -> None:

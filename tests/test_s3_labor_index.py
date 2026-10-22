@@ -9,6 +9,14 @@ Interface fixed in advance:
   * ``M6Config.labor_from_world3`` (default False) wires ``world3.lf -> s3_ai.labor_force`` in the integrated loop.
   * ``S3AI.LABOR_INDEX_LABEL`` carries the label.
 
+CORRECTION 2026-10-22 (test construction, made after the first run and before any model result was read; the first version is in commit 399ceb1): a run from 2025 to 2100
+has 75 periods (stored index k = end of 2025 + k, k = 0..74), so index 75 ("2100") does not exist and the expected exogenous labour path in reading 1 was written one entry
+too long. Reading 4 now names the years 2031, 2070 and 2099 (the last period); reading 1 compares the 75 periods. No assertion was loosened.
+
+RESULT 2026-10-22 (recorded, nothing adjusted): reading 4 FAILED. It is kept as a strict xfail with the measured sizes; the label and docs say the effect persists. The editor's instruction
+to state that the effect fades was a premise the data do not support (docs/s3-world3-reconciliation.md section 4). The label test below was changed from 'fades' to 'persists' for
+that reason, after the result, and this is stated here.
+
 Readings, written before any run:
  1. OFF (the default, no input) equals the recorded S3: standalone R3 run against the snapshot tests/fixtures/s4_baseline_before_eta_cap.csv (gwp, compute stock) to 1e-9.
  2. Constant labour force: ON with a constant source equals S3 stand-alone with ``g_L = 0`` to 1e-9 on every S3 output (L = L0 every period).
@@ -76,7 +84,7 @@ def test_off_equals_the_recorded_s3_to_1e_9():
     for n in ("gwp", "compute_stock", "labor", "frac_automated"):
         assert np.array_equal(ser[n], again.series()[n]), n
     assert rows, "snapshot present"
-    assert np.allclose(ser["labor"], 3.6e9 * np.exp(0.0025 * (np.arange(76) + 1)), rtol=1e-12)          # the exogenous path, unchanged
+    assert np.allclose(ser["labor"], 3.6e9 * np.exp(0.0025 * (np.arange(len(ser["labor"])) + 1)), rtol=1e-12)          # the exogenous path, unchanged (75 periods)
 
 
 # ------------------------------------------------------------------------------------------------------ 2. constant source = g_L 0
@@ -116,16 +124,27 @@ def test_the_sign_test_can_fail_control_and_mutation():
 
 
 # ------------------------------------------------------------------------------------------------------ 4. the effect fades
+@pytest.mark.xfail(strict=True, reason="Reading 4 FAILED (2026-10-22): the effect does NOT fade. A labour index held at 0.5 of its 2025 value from 2026 gives S3 gwp / baseline of 0.637 (2026), 0.609 (2031), 0.389 (2040), 0.321 (2050), 0.475 (2070), 0.496 (2099), i.e. a relative difference of 0.39 in 2031, 0.53 in 2070 and 0.50 in 2099 against the pre-registered 'smaller later'. The direct labour channel does weaken (labour share 0.58 in 2031, 0.001 in 2050), but lower early output lowers investment and the accumulated capital and compute stay about half (capital 0.49, compute stock 0.46 of baseline in 2099). Recorded, not adjusted; the editor's premise that it fades is wrong in this model.")
 def test_the_effect_fades_as_automation_saturates():
     low, base = run_on("step", 0.5), run_on("const")
-    d = {y: abs(low["gwp"][idx(y)] / base["gwp"][idx(y)] - 1.0) for y in (2031, 2070, 2100)}
-    assert d[2070] < d[2031] and d[2100] < d[2031], d
+    d = {y: abs(low["gwp"][idx(y)] / base["gwp"][idx(y)] - 1.0) for y in (2031, 2070, 2099)}
+    assert d[2070] < d[2031] and d[2099] < d[2031], d
     assert low["frac_automated"][idx(2070)] >= 0.999                                                   # the later years are in the saturated regime
+
+
+def test_recorded_behaviour_after_the_failed_fade_reading():
+    """POST-HOC description, written after the result and labelled so: what the data show instead of fading (a permanent halving of the index from 2026, R3 central).
+    The direct labour channel weakens (labour share falls to about zero) while the LEVEL effect persists through accumulated capital and compute."""
+    low, base = run_on("step", 0.5), run_on("const")
+    assert base["labor_share"][idx(2031)] > 0.5 and base["labor_share"][idx(2050)] < 0.01
+    for y in (2031, 2050, 2070, 2099):
+        r = low["gwp"][idx(y)] / base["gwp"][idx(y)]
+        assert 0.25 < r < 0.7, (y, r)
+    assert low["capital"][idx(2099)] / base["capital"][idx(2099)] < 0.6 and low["compute_stock"][idx(2099)] / base["compute_stock"][idx(2099)] < 0.6
 
 
 # ------------------------------------------------------------------------------------------------------ 5. A6.1 untouched, one-way
 def test_world3_states_do_not_depend_on_the_link():
-    a = run_m6(M6Config(), None, None) if False else None
     from tests.test_m6_integration import stand_in_climate
     off = run_m6(M6Config(s3_damage="off", electricity=False, labor_from_world3=False), stand_in_climate())
     on = run_m6(M6Config(s3_damage="off", electricity=False, labor_from_world3=True), stand_in_climate())
@@ -148,7 +167,7 @@ def test_published_labour_force_is_p2_plus_p3_times_participation(ps):
     lf = res.series[("world3", "lf")]
     ref = (res.series[("world3", "p2")] + res.series[("world3", "p3")]) * 0.75
     ok = [i for i, t in enumerate(res.time) if abs(t - round(t)) < 1e-9]
-    assert np.max(np.abs(lf[ok] - ref[ok]) / ref[ok]) <= 1e-9 or np.max(np.abs(lf[ok][1:] / ref[ok][1:] - 1)) <= 1e-2       # see note: published lf is the end-of-step value of the capital sector
+    assert np.max(np.abs(lf[ok] - ref[ok]) / ref[ok]) <= 1e-9
     assert np.all(np.isfinite(lf)) and np.all(lf > 0)
 
 
@@ -183,5 +202,5 @@ def test_integrated_labour_follows_the_world3_index_and_the_label_says_not_recon
     assert math.isclose(L_on[k60], 3.6e9 * lf[kp] / lf[k25], rel_tol=1e-9)
     assert L_on[k60] != L_off[k60]
     lab = S3AI.LABOR_INDEX_LABEL.lower()
-    for phrase in ("not reconciled", "relative", "fades", "default off"):
+    for phrase in ("not reconciled", "relative", "persists", "default off"):
         assert phrase in lab, phrase
