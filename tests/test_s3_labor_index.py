@@ -202,5 +202,5 @@ def test_integrated_labour_follows_the_world3_index_and_the_label_says_not_recon
     assert math.isclose(L_on[k60], 3.6e9 * lf[kp] / lf[k25], rel_tol=1e-9)
     assert L_on[k60] != L_off[k60]
     lab = S3AI.LABOR_INDEX_LABEL.lower()
-    for phrase in ("not reconciled", "relative", "persists", "default off"):
+    for phrase in ("not reconciled", "relative", "persists", "default off", "post-result relabel", "fades"):
         assert phrase in lab, phrase

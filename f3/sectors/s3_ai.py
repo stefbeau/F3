@@ -311,7 +311,8 @@ class S3AI(Sector):
         "S3's labour follows World3's labour force as an index relative to 2025 (one-way; default off; no new coefficient). Only the RELATIVE change is used: "
         "S3's economy and World3's are NOT reconciled in level. The direct labour channel weakens as automation saturates (S3's labour share falls to about zero by 2050 in the central run), but a lower labour index lowers early output "
         "and with it investment, so the effect on S3's output level persists for the whole run and does not fade (measured: an index held at half of its 2025 value gives 0.61 of the "
-        "output in 2031 and 0.50 in 2099). S3's level stays unvalidated against GATE after about 2027 (D-029)."
+        "output in 2031 and 0.50 in 2099). S3's level stays unvalidated against GATE after about 2027 (D-029). "
+        "POST-RESULT RELABEL: this wording replaces the pre-registered statement that the effect fades as automation saturates; that reading failed and is kept as a strict xfail (D-054, 2026-10-22)."
     )
 
     def __init__(self, params: Optional[GateParams] = None, name: Optional[str] = None, rule=None, stored_T=None,
