@@ -87,6 +87,12 @@ Electricity **used** is the same in all 12 runs (1,748 TWh in 2030, 2,231 in 205
 
 One electricity supply scenario (Earth4All TLTL); one cap share (5%, an assumption, D-033); the damage options barely differ because the climate is replayed and the damage fraction is small until late; S3's output verdict rests on another model's recording as reference; the bounds are mine (fixed before the run), not the paper's, except `C_L` and the 5e20 J figures. Nothing was adjusted after seeing a result.
 
-## 6. Results with the efficiency cap (D-055)
+## 6. Results with the efficiency cap (D-055; run 2026-10-22; figures in `audit/data/s3-supply-limited-cap.json`)
 
-(to be added after the cap is implemented and tested, in a dated section)
+The same 12 runs (three settings, four damage options) with `DCParams(eta_cap = 4e15 FLOP/J)`, the paper's value. **The result is identical to section 5**: the maximum relative difference over 12 runs x 9 decades x every reported quantity is exactly 0, and every check of the table in section 3 has the same verdict. **The paper's cap never binds in this configuration.**
+
+Why (hand check, written in D-055 before the run, and confirmed by it): `eta_0` is 8.06e9 FLOP/J (485 TWh in 2025 at 1e28 FLOP/year, PUE 1.4). `eta` scales with S3's hardware efficiency, which S3 caps at `H_max = 1e23`, 1e5 times its starting value, so `eta` cannot exceed 8.06e14 FLOP/J, a factor 5 below the cap. The tests (`tests/test_dc_eta_cap.py`) confirm the cap is respected when it is set low enough to bind, and that it then **raises** demand (demand is compute divided by `eta`); a cap at the paper's value would bind only if hardware efficiency were allowed to pass about 5e5 times its 2025 value.
+
+**What this means.** The cap is a correct, switchable physical bound and it is in place, but **it removes none of the implausibility**: the implausible electricity demand does not come from the module's `eta` running above the physical limit. It comes from the compute stock `Q` (up to 5e36 FLOP/year in 2100 for B0, a factor of 3e5 above its 2025 value) divided by an `eta` that has already risen 1e5-fold with S3's hardware efficiency: demand of 1.4e7 TWh a year in 2100 is the product of those two S3 outputs. The cap would matter only if S3's hardware efficiency were allowed beyond `H_max`. So the earlier arithmetic note of `docs/s3-diagnostic.md` 3.4 (capping the input does not bound electricity) has a companion: **capping `eta` at the paper's value does not bound it either**; electricity demand stays outside the bounds of section 3 in the same years, and only the supply limit (5% of supply, an assumption) holds the electricity **used**.
+
+Nothing was tuned. A tighter cap (a value below the paper's) would be a new coefficient and an editor decision.
