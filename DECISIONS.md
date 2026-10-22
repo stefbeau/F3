@@ -71,6 +71,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-053 | S3 diagnostic and S3/World3 reconciliation study: documents and scripts only, nothing built | Provisional (delegated) 2026-10-21 | 2 |
 | D-054 | S3 diagnostic follow-up: blind brief not run, Epoch email sent 2026-10-17, supply-limited diagnostic first, then the efficiency cap and Option B | Approved 2026-10-22 | 2 |
 | D-055 | Data-centre module: optional efficiency cap at the paper's 4e15 FLOP/J, default OFF | Provisional (delegated) 2026-10-22 | 2 |
+| D-056 | F3 Explorer v0.2 redesign: dark dashboard with story front door, dashboard, compare mode, connections map (branch `site-ux`) | Provisional (delegated) 2026-10-22 | 4 |
 
 ---
 
@@ -1291,6 +1292,28 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Decision:** Provisional (delegated).
 - **Date:** 2026-10-22
 - **Note (2026-10-22, appended; nothing above changed).** Two statements in this entry were wrong and are corrected here, found when the tests were run: (1) "It changes demand only, not S3": the cap changes demand, and with the supply limit on the changed `supply_ratio` also changes S3 (loop B1); (2) the pre-written test reading said a binding cap lowers demand. The cap bounds the efficiency from above and demand is compute / eta, so a binding cap **raises** demand; the test reading was corrected (dated in the test file) and no code changed. The hand check (the paper's cap cannot bind inside S3's own hardware range) stands and is tested.
+
+---
+
+## D-056 — F3 Explorer v0.2: story front door, dashboard, compare mode, connections map
+
+- **Status:** Provisional (delegated)
+- **Context:** Editor feedback on v0.1 (D-052), 2026-10-22: the site is not user friendly and offers too few visualization tools. Five mock-ups were compared on a design canvas; the editor chose the direction in the Explorer v0.2 brief.
+- **Decision (what is built, on `site-ux` only):**
+  1. **Shell and tokens:** dark dashboard theme and a light reading theme for story pages (toggle; follows `prefers-color-scheme`); baseline grey #6B7280, scenario A blue #1F78B4, scenario B orange #D95F02; Work Sans for the UI; minimum text 13 px; WCAG AA. Hex codes recorded in `docs/design-guidelines.md` (Proposed until the editor approves).
+  2. **Story front door:** four chapters (standard world turns down; add the heat; the AI race, automation timing only; what is connected), each with a finding title, one annotated chart and one control.
+  3. **Dashboard:** left rail with 5 presets, damage control, collapsed custom parameters and reset; at most 5 KPI tiles; one main chart with the standard run as dashed grey baseline; secondary charts and tests under Details; every chart has a finding title generated from data, a data table, PNG, CSV and a text alternative.
+  4. **Compare mode:** baseline vs scenario A vs scenario B, state in the URL hash, generated headline, overlay chart, diverging bar chart of the 2100 change, delta table (B minus A).
+  5. **Connections map as interface:** nodes and 7 numbered links with the solid, dashed and dotted vocabulary of D-052; an inspector per link; list form below 900 px.
+- **Rules kept:** every number comes from `site/data/explorer.json` (no new model numbers, no new runs); withheld outputs stay withheld; status badges, "Conditional scenarios, not forecasts", the damage notice (including "high is not the upper end of the literature"), A1.3 and A2.1 labels stay visible; no pie, donut, dual axis or 3D; at most 5 lines per chart; the social module stays off the site.
+- **Alternatives considered:** five mock-ups on a design canvas (the chosen one combines story front door and dashboard); polishing v0.1 only (rejected by the editor: too few visualization tools).
+- **Consequences:** a larger page and script (still static, D-009); tests for generated headlines and delta maths run in Node; v0.1 caveats are carried over and checked.
+- **What this does not change:** no test, tolerance, label or earlier decision; D-007, D-029, D-030, D-046, D-051 and D-052 stand; Pages is not enabled or run by this branch.
+- **Reversal cost:** low (site files only).
+- **Numbering:** may be renumbered on merge with `s3-supply`, where D-055 is the data-centre efficiency cap; the content stays identical.
+- **Proposed by:** Claude (implementing the editor's brief).
+- **Decision:** Provisional (delegated); the editor reviews it in the milestone batch.
+- **Date:** 2026-10-22
 
 ---
 
