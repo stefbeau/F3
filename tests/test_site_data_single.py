@@ -39,3 +39,19 @@ def test_each_data_page_loads_exactly_one_data_file_and_no_page_fetches_the_json
 def test_the_data_download_is_named_on_the_methods_page():
     html = (SITE / "methods.html").read_text(encoding="utf-8")
     assert 'href="data/explorer.json"' in html and "strict JSON" in html and "no value" in html
+
+
+def _strict(text):
+    def refuse(token):
+        raise ValueError("non-strict JSON constant: " + token)
+    return json.loads(text, parse_constant=refuse)
+
+
+@pytest.mark.skipif(not JSON_F.exists(), reason="site/data/explorer.json not present (build the site first)")
+def test_script_and_json_copies_hold_identical_data_under_a_strict_parser():
+    js = JS_F.read_text(encoding="utf-8")
+    assert js.startswith("window.F3DATA=") and js.rstrip().endswith(";")
+    body = js[len("window.F3DATA="):].rstrip()[:-1]
+    from_js = _strict(body)                                                                     # NaN / Infinity / -Infinity raise
+    from_json = _strict(JSON_F.read_text(encoding="utf-8"))
+    assert from_js == from_json
