@@ -245,6 +245,9 @@ table.efx th,table.efx td{overflow-wrap:normal;word-break:normal;hyphens:none}ta
 @media (min-width:1500px){.mapbox{grid-template-columns:minmax(0,3fr) minmax(180px,1fr)}.mapglobal{grid-template-columns:1fr}}
 #ch_map svg{cursor:default}#ch_map .plot svg{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:6px}
 #ch_map path.reg{cursor:pointer;outline:none}#ch_map path.reg:focus{stroke:var(--fg)}
+.mapview{margin:4px 0 8px}.mapbtn{min-height:36px;font-size:.85rem;padding:4px 10px}.mapbtn[aria-expanded=true]{border-color:var(--fg)}
+.maptblbox{border:1px solid var(--line);border-radius:8px;background:var(--card2);margin-top:6px;max-width:100%;max-height:22em;overflow:auto}.maptblbox:focus-visible{outline:3px solid var(--focus)}
+.maptable{width:100%;font-size:.88rem}.maptable caption{caption-side:top;text-align:left;font-size:.88rem;padding:6px 8px;color:var(--fg)}.maptable th[scope=row]{font-weight:500}.maptable td{font-variant-numeric:tabular-nums}.maptable thead th{position:sticky;top:0;background:var(--card2)}
 .cscale{margin:4px 0}.leg svg.cscale{width:100%;height:auto;flex:1 1 100%}
 .secondary{border:1px dashed var(--line);border-radius:8px;padding:6px 10px;margin:14px 0;opacity:.92}
 .secondary>summary{font-size:.92rem;color:var(--mut)}

@@ -223,20 +223,50 @@
   function regionMap(el, spec) {
     var c = mount(el, spec), M = spec.map, g = spec.global, mx = spec.max, key = tok("--card") + tok("--mut") + tok("--line");
     spec.kind = "map"; c.spec = spec;
+    if (!c.order) { c.order = F3.mapOrder(M.regions); c.tab = c.order[0]; }                   /* roving tabindex: exactly one region is a tab stop; arrows, Home and End move it */
     if (c.mapKey !== key) {                                                       /* build the regions once per theme; later calls only recolour */
       var order = { "Ocean": 0, "Land-Ocean": 1, "Land": 2 }, regs = M.regions.slice().sort(function (a, b) { return order[a.type] - order[b.type]; }), bg = tok("--card"), s = "";
-      s += '<rect x="0" y="0" width="360" height="180" fill="' + tok("--line") + '" opacity=".25"/>';
-      regs.forEach(function (r) { s += '<path class="reg" data-id="' + r.id + '" tabindex="0" role="img" aria-label="' + esc(r.name) + '" d="' + r.polys.map(function (poly) { return poly.map(ringPath).join(""); }).join("") + '" fill-rule="evenodd" stroke="' + bg + '" stroke-width=".35"/>'; });
-      s += '<path d="' + M.coast.map(ringPath).join("") + '" fill="none" stroke="' + tok("--mut") + '" stroke-width=".25" pointer-events="none"/>';
+      s += '<rect x="0" y="0" width="360" height="180" fill="' + tok("--line") + '" opacity=".25"/><g role="group" aria-label="Regions. One tab stop: use the arrow keys to move between regions, Home and End for the first and last, Escape to leave.">';
+      regs.forEach(function (r) { s += '<path class="reg" data-id="' + r.id + '" tabindex="' + (r.id === c.tab ? "0" : "-1") + '" role="img" aria-label="' + esc(r.name) + '" d="' + r.polys.map(function (poly) { return poly.map(ringPath).join(""); }).join("") + '" fill-rule="evenodd" stroke="' + bg + '" stroke-width=".35"/>'; });
+      s += '</g><path d="' + M.coast.map(ringPath).join("") + '" fill="none" stroke="' + tok("--mut") + '" stroke-width=".25" pointer-events="none"/>';
+      s += '<path class="ringhalo" d="" fill="none" stroke="' + bg + '" stroke-width="5" vector-effect="non-scaling-stroke" pointer-events="none"/><path class="ring" d="" fill="none" stroke="' + tok("--focus") + '" stroke-width="2.5" vector-effect="non-scaling-stroke" pointer-events="none"/>';
       c.plot.innerHTML = '<svg viewBox="0 0 360 180" width="100%" role="img" aria-label="' + esc(spec.title) + '"><title>' + esc(spec.title) + "</title><desc>" + esc(spec.summary) + "</desc>" + s + "</svg>";
       c.plot.removeAttribute("tabindex"); c.sel = null;
-      c.plot.querySelectorAll("path.reg").forEach(function (p) {
+      var regEls = function () { return c.plot.querySelectorAll("path.reg"); };
+      var rove = function (id) {                                                  /* make id the one tab stop and move focus to it */
+        regEls().forEach(function (q) { q.setAttribute("tabindex", q.dataset.id === id ? "0" : "-1"); });
+        c.tab = id; var el2 = c.plot.querySelector('path.reg[data-id="' + id + '"]'); if (el2) el2.focus();
+      };
+      regEls().forEach(function (p) {
         var pick = function () { c.sel = p.dataset.id; mapRead(c); };
-        p.addEventListener("mouseenter", pick); p.addEventListener("focus", pick); p.addEventListener("click", pick);
-        p.addEventListener("mouseleave", function () { c.sel = null; mapRead(c); }); p.addEventListener("blur", function () { c.sel = null; mapRead(c); });
+        var rest = function () { var f = document.activeElement; c.sel = f && f.classList && f.classList.contains("reg") && c.plot.contains(f) ? f.dataset.id : null; mapRead(c); };
+        p.addEventListener("mouseenter", pick); p.addEventListener("click", pick);
+        p.addEventListener("focus", function () {
+          regEls().forEach(function (q) { q.setAttribute("tabindex", q === p ? "0" : "-1"); }); c.tab = p.dataset.id; pick();
+        });
+        p.addEventListener("mouseleave", rest);
+        p.addEventListener("blur", function () { setTimeout(rest, 0); });          /* after the move: focus lands on another region or leaves the map */
+      });
+      c.plot.addEventListener("keydown", function (e) {
+        if (e.ctrlKey || e.altKey || e.metaKey || !e.target.classList || !e.target.classList.contains("reg")) return;
+        var id = e.target.dataset.id, dirs = { ArrowLeft: "left", ArrowRight: "right", ArrowUp: "up", ArrowDown: "down" }, to = null;
+        if (dirs[e.key]) to = F3.mapNeighbour(c.spec.map.regions, id, dirs[e.key]) || id;
+        else if (e.key === "Home") to = c.order[0]; else if (e.key === "End") to = c.order[c.order.length - 1];
+        else if (e.key === "Escape") { e.preventDefault(); c.sel = null; mapRead(c); e.target.blur(); return; } else return;
+        e.preventDefault(); rove(to);
       });
       c.mapKey = key;
     }
+    if (!c.vt) {                                                                   /* the "View as table" control and its table, built once */
+      var base = (el.id || "map") + "_vt";
+      c.rd.insertAdjacentHTML("afterend", '<div class="mapview"><button type="button" class="mapbtn" id="' + base + '_btn" aria-expanded="false" aria-controls="' + base + '">View as table</button>' +
+        '<div class="maptblbox" id="' + base + '" role="region" aria-label="Warming by region as a table" tabindex="0" hidden><table class="maptable" data-role="vt"></table></div></div>');
+      c.vt = el.querySelector('[data-role="vt"]'); c.vtBox = el.querySelector(".maptblbox"); c.vtBtn = el.querySelector(".mapbtn");
+      c.vtBtn.onclick = function () { var open = c.vtBox.hidden; c.vtBox.hidden = !open; c.vtBtn.setAttribute("aria-expanded", String(open)); c.vtBtn.textContent = open ? "Hide table" : "View as table"; };
+    }
+    var vt = F3.mapValueTable(M, g, spec.year);
+    c.vt.innerHTML = "<caption>" + esc(vt.caption) + "</caption><thead><tr>" + vt.head.map(function (h) { return '<th scope="col">' + esc(h) + "</th>"; }).join("") + "</tr></thead><tbody>" +
+      vt.rows.map(function (r) { return '<tr><th scope="row">' + esc(r.name) + "</th><td>" + (F3.isNum(r.value) ? r.value.toFixed(2) : F3.NA) + "</td><td>" + esc(vt.unit) + "</td></tr>"; }).join("") + "</tbody>";
     c.plot.querySelectorAll("path.reg").forEach(function (p) {
       var r = M.regions.filter(function (x) { return x.id === p.dataset.id; })[0], v = F3.scale(g, r.c);
       p.setAttribute("fill", F3.isNum(v) ? F3.seqColor(v / mx) : tok("--line"));
@@ -251,8 +281,9 @@
   }
   function mapRead(c) {
     var s = c.spec, r = c.sel ? s.map.regions.filter(function (x) { return x.id === c.sel; })[0] : null;
-    c.rd.textContent = r ? F3.regionReadout(r, s.year, s.global) : "Hover, tap or tab to a region to read its value.";
-    c.plot.querySelectorAll("path.reg").forEach(function (p) { p.setAttribute("stroke-width", p.dataset.id === c.sel ? "1" : ".35"); });
+    c.rd.textContent = r ? F3.regionReadout(r, s.year, s.global) : "Hover or tap a region, or tab to the map and use the arrow keys, to read its value.";
+    var src = c.sel ? c.plot.querySelector('path.reg[data-id="' + c.sel + '"]') : null, d = src ? src.getAttribute("d") : "";
+    c.plot.querySelectorAll("path.ring, path.ringhalo").forEach(function (q) { q.setAttribute("d", d); });
   }
   /* ---------- downloads ---------- */
   function download(blob, name) { var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000); }

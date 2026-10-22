@@ -312,6 +312,51 @@
     return { head: ["Region", "Type", "K per K of global (c)", "Warming in " + year + " (K)"],
       rows: Mp.regions.slice().sort(function (a, b) { return b.c - a.c; }).map(function (r) { return { id: r.id, name: r.name, type: r.type, c: r.c, k: scale(g, r.c) }; }) };
   }
+  /* Keyboard model of the map (one tab stop, arrows between regions): where a region is, which region is next in a direction, and reading order for Home/End. Pure: positions come from the region outlines in the data. */
+  function regionCentre(r) {
+    var best = null, bestArea = -1;
+    r.polys.forEach(function (poly) {
+      var ring = poly[0], x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+      ring.forEach(function (p) { x0 = Math.min(x0, p[0]); x1 = Math.max(x1, p[0]); y0 = Math.min(y0, p[1]); y1 = Math.max(y1, p[1]); });
+      var a = (x1 - x0) * (y1 - y0);
+      if (a > bestArea) { bestArea = a; best = { lon: (x0 + x1) / 2, lat: (y0 + y1) / 2 }; }
+    });
+    return best || { lon: 0, lat: 0 };
+  }
+  function mapOrder(regions) {                                         /* reading order: north to south in 30-degree bands, west to east inside a band; ties by id */
+    var band = 30, pos = regions.map(function (r) { var c = regionCentre(r); return { id: r.id, row: -Math.round(c.lat / band), lon: c.lon }; });
+    pos.sort(function (a, b) { return a.row - b.row || a.lon - b.lon || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0); });
+    return pos.map(function (p) { return p.id; });
+  }
+  function mapNeighbour(regions, id, dir) {                            /* nearest region centre inside the 90-degree cone of the arrow direction, or null; dir: left, right, up, down */
+    var cs = {}, me = null;
+    regions.forEach(function (r) { cs[r.id] = regionCentre(r); });
+    me = cs[id]; if (!me) return null;
+    var best = null, bestD = Infinity;
+    regions.forEach(function (r) {
+      if (r.id === id) return;
+      var dx = cs[r.id].lon - me.lon, dy = cs[r.id].lat - me.lat;
+      var along = dir === "right" ? dx : dir === "left" ? -dx : dir === "up" ? dy : dir === "down" ? -dy : NaN;
+      var across = (dir === "left" || dir === "right") ? dy : dx;
+      if (!(along > 0) || Math.abs(across) > along) return;
+      var d = along * along + 4 * across * across;                       /* off-axis distance counts double, so the arrow prefers the region straight ahead */
+      if (d < bestD || (d === bestD && r.id < best)) { bestD = d; best = r.id; }
+    });
+    return best;
+  }
+  /* The "View as table" rows: every region, highest warming first, regions with no value last (never as zero). */
+  function mapValueTable(Mp, g, year) {
+    var unit = "K above 1850-1900", rows = Mp.regions.map(function (r) { return { id: r.id, name: r.name, type: r.type, value: isNum(r.c) ? scale(g, r.c) : null }; });
+    rows.sort(function (a, b) {
+      var an = isNum(a.value), bn = isNum(b.value);
+      if (an !== bn) return an ? -1 : 1;
+      if (an && a.value !== b.value) return b.value - a.value;
+      return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+    });
+    var missing = rows.filter(function (r) { return !isNum(r.value); }).length;
+    return { unit: unit, head: ["Region", "Value", "Unit"], rows: rows, missing: missing,
+      caption: "Pattern-scaled warming in " + year + ", all " + rows.length + " regions, highest first (" + unit + "). Illustrative." + (missing ? " " + missing + " with " + NA + " are listed last." : "") };
+  }
   function mapSpec(Mp, C, years, year) {
     var t = mapTakeaway(Mp, { years: years, warming: C.warming, warming_p05: C.warming_p05, warming_p95: C.warming_p95 }, year);
     var mx = Math.max.apply(null, C.warming.filter(isNum)) * Math.max.apply(null, Mp.regions.map(function (r) { return r.c; }));
@@ -362,7 +407,7 @@
     human: human, FMT: FMT, rel: rel, signedPct: signedPct, peakOf: peakOf, firstReach: firstReach, indexOfYear: indexOfYear, sameSeries: sameSeries, sameRun: sameRun, maxSpread: maxSpread,
     DEF_LEVERS: DEF_LEVERS, DMG_STATES: DMG_STATES, AI_S: AI_S, AI_D: AI_D, PRESETS: PRESETS, runKey: runKey, aiKey: aiKey, encodeState: encodeState, decodeState: decodeState,
     csvOf: csvOf, damageNotice: damageNotice, popFinding: popFinding, industryFinding: industryFinding, resourcesFinding: resourcesFinding, pollutionFinding: pollutionFinding,
-    calYear: calYear, historyPopGap: historyPopGap, historyIoGap: historyIoGap, historyTempGap: historyTempGap, SEQ: SEQ, seqColor: seqColor, mapTakeaway: mapTakeaway, regionReadout: regionReadout, mapTable: mapTable, mapSpec: mapSpec,
+    calYear: calYear, historyPopGap: historyPopGap, historyIoGap: historyIoGap, historyTempGap: historyTempGap, SEQ: SEQ, seqColor: seqColor, mapTakeaway: mapTakeaway, regionReadout: regionReadout, mapTable: mapTable, regionCentre: regionCentre, mapOrder: mapOrder, mapNeighbour: mapNeighbour, mapValueTable: mapValueTable, mapSpec: mapSpec,
     ASSUME: ASSUME, assumeFor: assumeFor, temperatureFinding: temperatureFinding, stripesFinding: stripesFinding, stripesSpec: stripesSpec, automationFinding: automationFinding, aiDamageFinding: aiDamageFinding, damageEffect: damageEffect, damageBarsFinding: damageBarsFinding,
     w3Kpis: w3Kpis, COMPARE_METRICS: COMPARE_METRICS, compareRows: compareRows, compareHeadline: compareHeadline, compareState: compareState, effectTable: effectTable, linksFinding: linksFinding, signedFmt: signedFmt, overlayFinding: overlayFinding, barsFinding: barsFinding, encodeCompare: encodeCompare, scenarioName: scenarioName
   };
