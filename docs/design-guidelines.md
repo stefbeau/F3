@@ -121,3 +121,6 @@ Type: Work Sans (SIL OFL 1.1) is embedded in the stylesheet as a base64 woff2, s
 - 7 "pre-written chart title" and "back to preset": titles are generated from the data (as the editor's brief asked) and Reset returns to the standard run, not to the last chosen preset.
 - 8 "Checked on a phone": checked in an emulated 390 px viewport only; no physical phone, no screen reader.
 - The warming stripes are an infographic with a text alternative, without a data table, PNG or CSV.
+
+Update, v0.2b (2026-10-22): the last point above is now met: every chart card carries an assumptions link (World3, the climate-damage coupling, FaIR, the AI race, the damage options, the history comparison, the warming map), and the warming stripes are a chart card with a data table, PNG and CSV. Not changed: the fixed order of the Compare bars, the missing colour-blindness simulator run, and the annotation of secondary charts. The warming map follows the sequential-palette rule (ColorBrewer OrRd, one scale for every year); the Model-versus-reality charts use the scenario-A blue for the model, the FaIR heat colour for FaIR and the text colour for observations (points).
+
