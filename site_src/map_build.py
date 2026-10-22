@@ -76,12 +76,26 @@ def rdp(pts, eps):
     return p[keep].tolist()
 
 
+def split_long_edges(ring):
+    """No edge may span more than 180 degrees of longitude (2026-10-22 check). The only such edges in the source are full-width edges ALONG a pole
+    (lat -90 or 90 at both ends, -180 to 180: the Antarctic and Arctic caps); they are not antimeridian wraps and are kept, but split at longitude 0
+    so a renderer that interpolates the short way round cannot smear them. Any other long edge is a real antimeridian crossing: fail the build."""
+    out = [ring[0]]
+    for prev, cur in zip(ring, ring[1:]):
+        if abs(cur[0] - prev[0]) > 180:
+            if not (abs(prev[1]) == 90 and prev[1] == cur[1]):
+                raise ValueError("polygon edge crosses the antimeridian away from a pole: %r -> %r (split the polygon at 180 degrees)" % (prev, cur))
+            out.append([0.0, prev[1]])
+        out.append(cur)
+    return out
+
+
 def simp_rings(rings, eps):
     out = []
     for r in rings:
         s = rdp(r, eps)
         if len(s) >= 4 and abs(ring_area_km2(s)) > 5e4:
-            out.append([[round(x, 1), round(y, 1)] for x, y in s])
+            out.append(split_long_edges([[round(x, 1), round(y, 1)] for x, y in s]))
     return out
 
 

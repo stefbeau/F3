@@ -142,3 +142,46 @@ def test_the_map_container_ships_once_and_the_new_styles_keep_13px_text():
     sizes = re.findall(r"font-size:([\d.]+)rem", block)
     assert sizes and all(float(x) * 16 >= 13 for x in sizes), sizes
     assert "overflow:auto" in block and "max-width:100%" in block                           # scrolls inside its own box; the page itself never scrolls sideways
+
+
+# ------------------------------------------------------------------------------------------------------ antimeridian (2026-10-22)
+def _long_edges(rings_by_owner):
+    bad = []
+    for owner, ring in rings_by_owner:
+        pts = ring if ring[0] == ring[-1] else ring + [ring[0]]
+        for i in range(1, len(pts)):
+            if abs(pts[i][0] - pts[i - 1][0]) > 180:
+                bad.append((owner, i, pts[i - 1], pts[i]))
+    return bad
+
+
+def _all_rings(m):
+    for r in m["regions"]:
+        for poly in r["polys"]:
+            for ring in poly:
+                yield r["id"], ring
+    for ring in m["coast"]:
+        yield "coast", ring
+
+
+def test_no_polygon_edge_spans_more_than_180_degrees_of_longitude():
+    # A longer edge is either an antimeridian wrap (it would be drawn as a horizontal smear across the whole map) or a full-width pole edge
+    # that a renderer could interpolate the wrong way; map_build.split_long_edges splits the pole edges and refuses the build for wraps.
+    for path in (REPO / "site" / "data" / "warming-map.json", DATA):
+        if not path.exists():
+            continue
+        d = json.loads(path.read_text(encoding="utf-8"))
+        m = d["warming_map"] if "warming_map" in d else d
+        assert len(m["regions"]) == 58
+        assert _long_edges(_all_rings(m)) == [], path.name
+
+
+def test_map_build_splits_pole_edges_and_refuses_real_antimeridian_wraps():
+    import sys
+    sys.path.insert(0, str(SRC))
+    import map_build
+    ring = [[-180.0, 90.0], [180.0, 90.0], [180.0, 73.8], [0.0, 73.8], [-180.0, 73.8], [-180.0, 90.0]]
+    out = map_build.split_long_edges(ring)
+    assert [0.0, 90.0] in out and not _long_edges([("t", out)])
+    with pytest.raises(ValueError):
+        map_build.split_long_edges([[170.0, 10.0], [-170.0, 10.0], [-170.0, 20.0], [170.0, 10.0]])
