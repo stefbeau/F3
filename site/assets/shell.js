@@ -15,3 +15,14 @@
     window.dispatchEvent(new Event("f3theme"));
   });
 })();
+/* Definitions on touch and keyboard (the title attribute alone does not work on a phone). */
+(function () {
+  function close() { document.querySelectorAll(".defpop").forEach(function (x) { x.remove(); }); }
+  document.querySelectorAll("abbr[title]").forEach(function (a) {
+    a.tabIndex = 0;
+    function toggle() { var open = a._pop && a._pop.isConnected; close(); if (open) return; var p = document.createElement("span"); p.className = "defpop"; p.setAttribute("role", "status"); p.textContent = a.getAttribute("title"); a.after(p); a._pop = p; }
+    a.addEventListener("click", function (e) { e.stopPropagation(); toggle(); });
+    a.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } else if (e.key === "Escape") close(); });
+  });
+  document.addEventListener("click", function (e) { if (!e.target.closest("abbr")) close(); });
+})();

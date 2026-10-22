@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Methods - F3 Explorer v0.2</title>
 <script>(function(){var d=document.documentElement,k=d.getAttribute('data-kind'),t=d.getAttribute('data-theme');try{var s=localStorage.getItem('f3-theme');if(s==='dark'||s==='light')t=s;else if(k==='reading'&&matchMedia('(prefers-color-scheme: dark)').matches)t='dark'}catch(e){}d.setAttribute('data-theme',t)})();</script>
+<link rel="icon" href="data:,">
 <link rel="stylesheet" href="assets/f3.css">
 </head>
 <body>
-<nav class="site" aria-label="Site"><span class="brand">F3 Explorer v0.2</span><a href="index.html">Explorer</a><a href="methods.html" aria-current="page">Methods</a><a href="limitations.html">Limitations</a><a href="sources.html">Sources</a><a href="about.html">About</a><button type="button" class="themebtn" id="themeToggle" aria-pressed="false">Theme</button></nav>
+<nav class="site" aria-label="Site"><span class="brand">F3 Explorer v0.2</span><a href="index.html">Story</a><a href="explorer.html">Explorer</a><a href="methods.html" aria-current="page">Methods</a><a href="limitations.html">Limitations</a><a href="sources.html">Sources</a><a href="about.html">About</a><button type="button" class="themebtn" id="themeToggle" aria-pressed="false">Theme</button></nav>
 <main>
 
 <h1>Methods</h1>
@@ -21,7 +22,7 @@
 <li><strong>AI race</strong>: S3, a re-implementation of the laws of motion, automation and production of GATE (Erdil et al., arXiv:2503.04941) written from the paper, not from Epoch's code, driven by an investment rule R3 (D-028), plus a data-centre electricity module and a damage function (D-007). Withheld outputs are described on the page.</li>
 </ul></section>
 
-<section class="card"><h2>Time and coupling</h2>
+<section class="card" id="coupling"><h2>Time and coupling</h2>
 <ul>
 <li>The model loop steps by <strong>0.25 year</strong> (D-003). Sectors exchange values at step boundaries; each sector reads the other sectors' values at the <em>start</em> of the step and holds them across it (explicit coupling, D-022). <code>t = Y</code> is 1 January of year Y; stocks are values on that date.</li>
 <li><strong>World3 sub-steps (D-031).</strong> The five World3 sectors are advanced together as one group in <strong>0.0625-year sub-steps</strong> inside each 0.25-year loop step, with the same start-of-sub-step coupling among them. With plain 0.25-year coupling the full-run test A3.2 failed (worst state 6.90% for the 1974 set and 7.96% for the 2004 set, against 2%); at 0.0625 year no state exceeded 2%. The Sector interface and D-003 and D-022 are unchanged.</li>
@@ -60,7 +61,7 @@
 </ul></section>
 
 </main>
-<footer class="site"><nav aria-label="Footer"><a href="index.html">Explorer</a><a href="methods.html">Methods</a><a href="limitations.html">Limitations</a><a href="sources.html">Sources</a><a href="about.html">About</a><a href="https://github.com/stefbeau/F3">Source code on GitHub</a></nav><div>Public draft, published 2026-10-21. Conditional scenarios, not forecasts. Built 2026-10-22 from source commit <code>653c25d</code>.</div></footer>
+<footer class="site"><nav aria-label="Footer"><a href="index.html">Story</a><a href="explorer.html">Explorer</a><a href="methods.html">Methods</a><a href="limitations.html">Limitations</a><a href="sources.html">Sources</a><a href="about.html">About</a><a href="https://github.com/stefbeau/F3">Source code on GitHub</a></nav><div>Public draft, published 2026-10-21. Conditional scenarios, not forecasts. Built 2026-10-22 from source commit <code>85bc88e</code>.</div></footer>
 <script src="assets/shell.js"></script>
 </body>
 </html>

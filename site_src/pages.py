@@ -9,8 +9,10 @@ import json
 from pathlib import Path
 
 import index_body
+import links
+import story_body
 
-NAV = [("index.html", "Explorer"), ("methods.html", "Methods"), ("limitations.html", "Limitations"), ("sources.html", "Sources"), ("about.html", "About")]
+NAV = [("index.html", "Story"), ("explorer.html", "Explorer"), ("methods.html", "Methods"), ("limitations.html", "Limitations"), ("sources.html", "Sources"), ("about.html", "About")]
 REPO_URL = "https://github.com/stefbeau/F3"
 
 SCROLL_FIX = ""
@@ -18,13 +20,13 @@ SCROLL_FIX = ""
 
 THEME_BOOT = ("(function(){var d=document.documentElement,k=d.getAttribute('data-kind'),t=d.getAttribute('data-theme');try{var s=localStorage.getItem('f3-theme');"
               "if(s==='dark'||s==='light')t=s;else if(k==='reading'&&matchMedia('(prefers-color-scheme: dark)').matches)t='dark'}catch(e){}d.setAttribute('data-theme',t)})();")
-READING = {"methods.html", "limitations.html", "sources.html", "about.html"}
+READING = {"index.html", "methods.html", "limitations.html", "sources.html", "about.html"}
 
 
 def head(title: str, css: str, kind: str = "reading") -> str:
     theme = "dark" if kind == "dash" else "light"
     return (f'<!doctype html>\n<html lang="en" data-kind="{kind}" data-theme="{theme}">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n'
-            f'<title>{title}</title>\n<script>{THEME_BOOT}</script>\n<link rel="stylesheet" href="assets/f3.css">\n</head>\n<body>\n')
+            f'<title>{title}</title>\n<script>{THEME_BOOT}</script>\n<link rel="icon" href="data:,">\n<link rel="stylesheet" href="assets/f3.css">\n</head>\n<body>\n')
 
 
 def nav(current: str, cls: str = "site") -> str:
@@ -57,9 +59,23 @@ BANNER = ('<div class="banner" role="note"><strong class="big">Public draft, pub
 INDEX_BODY = index_body.BODY
 
 
-def index_page(data: dict, stamp: dict, css: str, js: str) -> str:
-    script = "<script>\n" + js.replace("/*DATA*/null", json.dumps(data, separators=(",", ":"))) + "\n</script>\n"
-    return page("F3 Explorer v0.2", "index.html", INDEX_BODY, css, stamp, script)
+def asset_scripts(*names: str) -> str:
+    return "".join(f'<script src="assets/{n}"></script>\n' for n in names)
+
+
+DATA_SCRIPT = '<script src="data/explorer.js"></script>\n'
+
+
+def index_page(data: dict, stamp: dict, css: str) -> str:
+    """The story front door (D-056)."""
+    script = DATA_SCRIPT + asset_scripts("f3-core.js", "f3-charts.js", "story.js")
+    return page("F3 Explorer v0.2: the story", "index.html", story_body.body(), css, stamp, script)
+
+
+def explorer_page(data: dict, stamp: dict, css: str, js: str) -> str:
+    """The v0.1 panels page, kept at explorer.html until the dashboard replaces it (stage 3)."""
+    script = DATA_SCRIPT + "<script>\n" + js.replace("/*DATA*/null", "window.F3DATA") + "\n</script>\n"
+    return page("F3 Explorer v0.2: Explorer", "explorer.html", INDEX_BODY, css, stamp, script)
 
 
 # --------------------------------------------------------------------------------------------------------------------
@@ -76,7 +92,7 @@ def methods_page(data: dict, stamp: dict, css: str) -> str:
 <li><strong>AI race</strong>: S3, a re-implementation of the laws of motion, automation and production of GATE (Erdil et al., arXiv:2503.04941) written from the paper, not from Epoch's code, driven by an investment rule R3 (D-028), plus a data-centre electricity module and a damage function (D-007). Withheld outputs are described on the page.</li>
 </ul></section>
 
-<section class="card"><h2>Time and coupling</h2>
+<section class="card" id="coupling"><h2>Time and coupling</h2>
 <ul>
 <li>The model loop steps by <strong>0.25 year</strong> (D-003). Sectors exchange values at step boundaries; each sector reads the other sectors' values at the <em>start</em> of the step and holds them across it (explicit coupling, D-022). <code>t = Y</code> is 1 January of year Y; stocks are values on that date.</li>
 <li><strong>World3 sub-steps (D-031).</strong> The five World3 sectors are advanced together as one group in <strong>0.0625-year sub-steps</strong> inside each 0.25-year loop step, with the same start-of-sub-step coupling among them. With plain 0.25-year coupling the full-run test A3.2 failed (worst state 6.90% for the 1974 set and 7.96% for the 2004 set, against 2%); at 0.0625 year no state exceeded 2%. The Sector interface and D-003 and D-022 are unchanged.</li>
@@ -233,14 +249,18 @@ def render_assets(here: Path) -> dict:
     font = base64.b64encode((here / "fonts" / "WorkSans-latin-wght.woff2").read_bytes()).decode("ascii")
     face = ('@font-face{font-family:"Work Sans";font-style:normal;font-weight:100 900;font-display:swap;'
             'src:url(data:font/woff2;base64,' + font + ') format("woff2")}')
-    return {"assets/f3.css": css.replace("/*FONT*/", face), "assets/shell.js": (here / "shell.js").read_text(encoding="utf-8")}
+    out = {"assets/f3.css": css.replace("/*FONT*/", face)}
+    for src, dst in (("shell.js", "shell.js"), ("core.js", "f3-core.js"), ("charts.js", "f3-charts.js"), ("story.js", "story.js")):
+        out["assets/" + dst] = (here / src).read_text(encoding="utf-8")
+    return out
 
 
 def render_all(data: dict, stamp: dict, here: Path) -> dict:
     css = ""
     js = (here / "explorer.js").read_text(encoding="utf-8")
     return {
-        "index.html": index_page(data, stamp, css, js),
+        "index.html": index_page(data, stamp, css),
+        "explorer.html": explorer_page(data, stamp, css, js),
         "methods.html": methods_page(data, stamp, css),
         "limitations.html": limitations_page(data, stamp, css),
         "sources.html": sources_page(data, stamp, css),

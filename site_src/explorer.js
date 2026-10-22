@@ -319,7 +319,7 @@ writeState(decodeState(location.hash,NL));
 addEventListener("hashchange",()=>{writeState(decodeState(location.hash,NL));drawW3();draw()});
 let lastW=0;
 function all(){lastW=document.documentElement.clientWidth;drawW3();draw();signs();drawStripes()}all();
-defs();
+
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change",all);
 addEventListener("f3theme",all);
 addEventListener("resize",()=>{if(Math.abs(document.documentElement.clientWidth-lastW)>40)all()});

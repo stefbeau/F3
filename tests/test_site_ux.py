@@ -31,7 +31,7 @@ SITE = REPO / "site"
 JS = REPO / "site_src" / "explorer.js"
 DATA = SITE / "data" / "explorer.json"
 NODE = shutil.which("node")
-PAGES = ["index.html", "methods.html", "limitations.html", "sources.html", "about.html"]
+PAGES = ["index.html", "explorer.html", "methods.html", "limitations.html", "sources.html", "about.html"]
 
 need_data = pytest.mark.skipif(not DATA.exists(), reason="site/data/explorer.json not present (build the site first)")
 need_node = pytest.mark.skipif(NODE is None, reason="Node.js not found on PATH")
@@ -210,7 +210,7 @@ def test_damage_notice_carries_the_required_phrases(tmp_path):
 
 
 def test_the_notice_is_a_visible_live_region_not_a_tooltip():
-    html = (SITE / "index.html").read_text(encoding="utf-8")
+    html = (SITE / "explorer.html").read_text(encoding="utf-8")
     assert 'id="w3_damage_notice"' in html and 'aria-live="polite"' in html
 
 
@@ -251,7 +251,8 @@ def test_csv_has_one_row_per_year_and_the_values(tmp_path):
 
 # ------------------------------------------------------------------------------------------------------ (6) infographics, (7) S7, structure
 def index_html() -> str:
-    return (SITE / "index.html").read_text(encoding="utf-8")
+    """The v0.1 panels page. Since D-056 stage 2 it lives at explorer.html (index.html is the story); stage 3 replaces it with the dashboard."""
+    return (SITE / "explorer.html").read_text(encoding="utf-8")
 
 
 def svg_of(html: str, ident: str) -> str:

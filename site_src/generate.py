@@ -133,6 +133,7 @@ def main() -> None:
     else:
         data = build_data(Path(sys.argv[1]))
         jpath.write_text(json.dumps(data, separators=(",", ":")), encoding="utf-8", newline="\n")
+    (here / "data" / "explorer.js").write_text("window.F3DATA=" + json.dumps(data, separators=(",", ":")) + ";\n", encoding="utf-8", newline="\n")
     stamp = {"date": datetime.date.today().isoformat(), "commit": git("rev-parse", "--short", "HEAD") or "unknown"}
     if built:
         stamp["built_commit"] = built
