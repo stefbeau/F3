@@ -193,3 +193,34 @@ table.delta{min-width:640px}table.delta th[scope=row]{font-weight:600}table.delt
 table.delta td,table.delta th{overflow-wrap:normal;word-break:normal}table.delta th[scope=row]{min-width:12em;white-space:normal}
 .rail .segb{padding:6px 2px;font-size:.875rem;overflow-wrap:normal}.pick .segb{min-height:40px}
 .tblwrap:focus-visible{outline:3px solid var(--focus)}
+/* ---- Connections map (D-056 stage 5) ---- */
+main.wide{max-width:1200px}
+.maplegend{display:flex;flex-wrap:wrap;gap:6px 18px;list-style:none;padding:0;margin:8px 0;font-size:.92rem}.maplegend li{display:flex;align-items:center;gap:8px}
+.samp{flex:none;width:44px;height:10px}.samp line{stroke:var(--mut)}.samp.built line{stroke:var(--sa)}.samp.withheld line{stroke:var(--warnl)}
+.conn{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,1fr);gap:16px;align-items:start}
+.mapwrap{min-width:0}
+.map{position:relative;width:100%;aspect-ratio:880/520;background:var(--card);border:1px solid var(--line);border-radius:10px}
+.mapsvg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.mapsvg .ln{fill:none;stroke-width:3.2}.mapsvg .ln.built{stroke:var(--sa);stroke-width:4}.mapsvg .ln.not-built{stroke:var(--mut)}.mapsvg .ln.withheld{stroke:var(--warnl);stroke-width:4}
+.mapsvg .ln.sel{stroke-width:6}
+.mapsvg .hit{fill:none;stroke:transparent;stroke-width:22;cursor:pointer;pointer-events:stroke}
+.mk{fill:context-stroke}.mk.built{fill:var(--sa)}.mk.not-built{fill:var(--mut)}.mk.withheld{fill:var(--warnl)}
+.mnode{position:absolute;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border:2px solid var(--fg);border-radius:10px;background:var(--card2);padding:4px 6px;line-height:1.25}
+.mnode span{font-size:.875rem;color:var(--mut)}
+.mnode.not-built{border-style:dashed;border-color:var(--mut)}.mnode.withheld{border-style:dotted;border-color:var(--warnl)}
+.nbtn{position:absolute;transform:translate(-50%,-50%);width:36px;height:36px;min-height:36px;padding:0;border-radius:50%;font-weight:700;font-size:.95rem;border:2px solid var(--fg);background:var(--card);color:var(--fg)}
+.nbtn.built{border-color:var(--sa)}.nbtn.withheld{border-color:var(--warnl)}.nbtn.not-built{border-style:dashed;border-color:var(--mut)}
+.nbtn[aria-pressed=true]{background:var(--btn-on-bg);color:var(--btn-on-fg);border-color:var(--btn-on-bg)}
+.nbtn:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.inspector{position:sticky;top:8px;margin:0}.inspector h2{font-size:1rem}.inspector h3{font-size:1.1rem;margin:.2em 0 .4em}.inspector h4{font-size:.95rem;margin:.9em 0 .2em}
+.lbadge{display:inline-flex;align-items:center;gap:8px;border:2px solid var(--mut);border-radius:999px;padding:2px 12px 2px 8px;font-weight:600;font-size:.875rem;background:var(--card2)}
+.lbadge.built{border-color:var(--sa)}.lbadge.withheld{border-color:var(--warnl);border-style:dotted}.lbadge.not-built{border-style:dashed}
+table.efx th,table.efx td{white-space:normal}table.efx td{font-variant-numeric:tabular-nums}
+.linklist{display:none;list-style:none;padding:0;margin:10px 0}
+.linklist .li{border-top:1px solid var(--line);padding:6px 0}
+.lbtn{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:transparent;min-height:48px;padding:6px 2px;font-size:.95rem}
+.lbtn[aria-expanded=true]{background:var(--card2)}
+.linklist .what{display:none;margin:0 0 6px;font-size:.9rem;color:var(--mut)}
+.inspl{padding:8px 10px;background:var(--card2);border-radius:8px;margin:4px 0}
+@media (max-width:899px){.conn{display:none}.linklist{display:block}.maplegend{margin-bottom:0}}
+table.efx th,table.efx td{overflow-wrap:normal;word-break:normal;hyphens:none}table.efx th[scope=col]{min-width:5.5em}

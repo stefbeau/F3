@@ -8,13 +8,25 @@ from __future__ import annotations
 
 import json
 
+# Geometry for the map: a 700 x 480 box; nodes are boxes (x, y, w, h), links are quadratic curves (start, control, end). Layout only, no model numbers.
+MAP_W, MAP_H = 700, 480
 NODES = [
-    {"id": "warming", "label": "Warming", "sub": "FaIR climate model", "status": "built"},
-    {"id": "world3", "label": "World3", "sub": "population, food, industry", "status": "built"},
-    {"id": "s3", "label": "AI economy S3", "sub": "levels unvalidated", "status": "built"},
-    {"id": "dc", "label": "Data centres", "sub": "output withheld", "status": "withheld"},
-    {"id": "emissions", "label": "Emissions", "sub": "prescribed, not built", "status": "not-built"},
+    {"id": "warming", "label": "Warming", "sub": "FaIR climate model", "status": "built", "box": [265, 10, 170, 64]},
+    {"id": "world3", "label": "World3", "sub": "population, food, industry", "status": "built", "box": [10, 190, 180, 78]},
+    {"id": "s3", "label": "AI economy S3", "sub": "levels unvalidated", "status": "built", "box": [510, 190, 180, 78]},
+    {"id": "dc", "label": "Data centres", "sub": "output withheld", "status": "withheld", "box": [510, 360, 180, 78]},
+    {"id": "emissions", "label": "Emissions", "sub": "prescribed, not built", "status": "not-built", "box": [200, 392, 220, 70]},
 ]
+CURVES = {
+    1: [[300, 76], [170, 100], [100, 188]],
+    2: [[400, 76], [530, 100], [580, 188]],
+    3: [[322, 76], [250, 140], [150, 188]],
+    4: [[508, 229], [350, 229], [194, 229]],
+    5: [[600, 270], [600, 315], [600, 358]],
+    6: [[508, 410], [470, 424], [424, 427]],
+    7: [[100, 270], [110, 400], [198, 427]],
+}
+
 
 LINKS = [
     {"n": 1, "id": "fair-warming-to-world3-output", "from": "warming", "to": "world3", "status": "built",

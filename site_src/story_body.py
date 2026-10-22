@@ -69,7 +69,7 @@ def body() -> str:
 <ol class="nodes" aria-label="The five pieces">{"".join(f'<li class="node {n["status"]}"><strong>{n["label"]}</strong><span>{n["sub"]}</span></li>' for n in links.NODES)}</ol>
 <ol class="linkstrip" id="c4_list"></ol>
 <script type="application/json" id="linksdata">{links.links_json()}</script>
-<p class="next"><a href="explorer.html#connected">Open the full map of connections</a></p>
+<p class="next"><a href="connections.html">Open the connections map</a></p>
 </section>
 
 <section class="card" id="readfirst" aria-labelledby="rf_h">

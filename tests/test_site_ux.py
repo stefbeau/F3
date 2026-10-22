@@ -181,28 +181,8 @@ def svg_has_text_alternative(html: str, ident: str) -> bool:
     return bool(ok and sizes and min(sizes) >= 13)
 
 
-def test_loop_diagram_marks_only_links_that_exist_as_built():
-    svg = svg_of(index_html(), "ig_loops")
-    links = re.findall(r'<(?:path|line)[^>]*data-link="([^"]+)"[^>]*data-built="(yes|no)"', svg)
-    assert {l for l, b in links if b == "yes"} == {"fair-warming-to-world3-output", "fair-warming-to-s3-damage"}
-    assert any(b == "no" for _, b in links)
-    for m in re.finditer(r'<(?:path|line)[^>]*>', svg):
-        tag = m.group(0)
-        if 'data-built="no"' in tag:
-            assert "stroke-dasharray" in tag, tag
-        if 'data-built="yes"' in tag:
-            assert "stroke-dasharray" not in tag, tag
-
-
-def test_roadmap_first_coupling_solid_others_dashed():
-    svg = svg_of(index_html(), "ig_roadmap")
-    for m in re.finditer(r'<(?:path|line)[^>]*data-link="([^"]+)"[^>]*>', svg):
-        solid = "stroke-dasharray" not in m.group(0)
-        assert solid == (m.group(1) in ("fair-warming-to-world3-output", "fair-warming-to-s3-damage")), m.group(0)
-
-
 def test_every_remaining_infographic_has_a_text_alternative_and_readable_text():
-    for ident in ("ig_loops", "ig_roadmap", "ig_stripes"):
+    for ident in ("ig_stripes",):
         assert svg_has_text_alternative(index_html(), ident), ident
 
 

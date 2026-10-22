@@ -198,6 +198,27 @@
     if (best === null) return "Both scenarios match the standard run in " + end + " on every measure shown";
     return "Against the standard run, the largest " + end + " change is " + best.label.toLowerCase() + " in " + best.who + " (" + signedPct(best.d) + ")";
   }
+  /* ---------- connections map: effect numbers for a link, from the data ---------- */
+  function effectTable(kind, D) {
+    var W = D.world3, WY = W.years, n = WY.length - 1, AY = D.years, T = D.climate.warming, tEnd = T[T.length - 1] , opts = ["low", "central", "high"];
+    if (kind === "w3damage") {
+      var std = W.levers.map(function (l) { return l.standard_index; }), off = W.runs[runKey(std, "off")];
+      return { head: ["Damage option", "c (% of output per K squared)", "Industrial output, " + WY[n], "Population, " + WY[n]],
+        rows: opts.map(function (o) { var e = damageEffect(W.runs[runKey(std, o)], off, n); return [o, W.damage.coeff_pct_per_K2[o].toFixed(3), signedPct(e.io), signedPct(e.pop)]; }),
+        note: "Standard lever settings, against the same run with damage off. Driven by FaIR ensemble-mean warming of " + tEnd.toFixed(2) + " K in " + AY[AY.length - 1] + "." };
+    }
+    if (kind === "s3damage") {
+      var m = AY.length - 1;
+      return { head: ["Damage option", "c (% of output per K squared)", "Share of S3's own output lost, " + AY[m]],
+        rows: opts.map(function (o) { return [o, D.meta.damage_coeff_pct_per_K2[o].toFixed(3), (D.runs[aiKey("central", o)].damage_fraction[m] * 100).toFixed(1) + "%"]; }),
+        note: "Central AI investment setting. Shares of S3's own output, whose level is unvalidated. Driven by FaIR ensemble-mean warming of " + tEnd.toFixed(2) + " K in " + AY[m] + "." };
+    }
+    return null;
+  }
+  function linksFinding(links) {
+    var c = function (s) { return links.filter(function (l) { return l.status === s; }).length; };
+    return c("built") + " of " + links.length + " links between the models are built and tested; " + c("withheld") + " more is built with outputs withheld, and " + c("not-built") + " are not built";
+  }
   function compareState(hash) {
     var def = { a: { levers: [1, 0, 0], damage: "central" }, b: { levers: [2, 1, 1], damage: "central" }, metric: "pop" };
     var out = { a: { levers: def.a.levers.slice(), damage: def.a.damage }, b: { levers: def.b.levers.slice(), damage: def.b.damage }, metric: def.metric };
@@ -221,6 +242,6 @@
     DEF_LEVERS: DEF_LEVERS, DMG_STATES: DMG_STATES, AI_S: AI_S, AI_D: AI_D, PRESETS: PRESETS, runKey: runKey, aiKey: aiKey, encodeState: encodeState, decodeState: decodeState,
     csvOf: csvOf, damageNotice: damageNotice, popFinding: popFinding, industryFinding: industryFinding, resourcesFinding: resourcesFinding, pollutionFinding: pollutionFinding,
     temperatureFinding: temperatureFinding, automationFinding: automationFinding, aiDamageFinding: aiDamageFinding, damageEffect: damageEffect, damageBarsFinding: damageBarsFinding,
-    w3Kpis: w3Kpis, COMPARE_METRICS: COMPARE_METRICS, compareRows: compareRows, compareHeadline: compareHeadline, compareState: compareState, signedFmt: signedFmt, overlayFinding: overlayFinding, barsFinding: barsFinding, encodeCompare: encodeCompare, scenarioName: scenarioName
+    w3Kpis: w3Kpis, COMPARE_METRICS: COMPARE_METRICS, compareRows: compareRows, compareHeadline: compareHeadline, compareState: compareState, effectTable: effectTable, linksFinding: linksFinding, signedFmt: signedFmt, overlayFinding: overlayFinding, barsFinding: barsFinding, encodeCompare: encodeCompare, scenarioName: scenarioName
   };
 });

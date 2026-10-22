@@ -96,12 +96,7 @@ def body() -> str:
 {tests_table()}
 </details>
 <section class="connected" id="connected"><h3>What is connected</h3>
-<p class="note">Solid arrows are links that are built and tested today. Dashed arrows are links that are not built. Nothing in the Explorer depends on a dashed arrow.</p>
-{ig.LOOPS}
-{ig.LOOPS_KEY}
-<h4>Roadmap</h4>
-{ig.ROADMAP}
-{ig.ROADMAP_KEY}
+<p>Only two links are built and tested: warming lowers World3 industrial output (off by default) and warming lowers S3's own output. One more is built with its outputs withheld; four are not built. Solid, dotted and dashed lines say which. <a href="connections.html">Open the connections map</a> to inspect each of the seven links.</p>
 </section>
 {B.NOT_SHOWN}
 {B.SOURCES}

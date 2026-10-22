@@ -62,8 +62,8 @@ def test_links_vocabulary_solid_dashed_dotted_and_seven_links():
     assert built == {"fair-warming-to-world3-output", "fair-warming-to-s3-damage"}
     assert {l["status"] for l in data["links"]} == {"built", "not-built", "withheld"}
     assert [n["id"] for n in data["nodes"]] == ["warming", "world3", "s3", "dc", "emissions"]
-    # the story strip and the v0.1 loop diagram agree on which links are built
-    ex = (SITE / "explorer.html").read_text(encoding="utf-8")
+    # the story strip and the connections map agree on which links are built
+    ex = (SITE / "connections.html").read_text(encoding="utf-8")
     loop_built = set(re.findall(r'data-link="([^"]+)" data-built="yes"', ex))
     assert loop_built == built
 

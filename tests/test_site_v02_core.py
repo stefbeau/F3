@@ -23,7 +23,7 @@ NODE = shutil.which("node")
 
 need_data = pytest.mark.skipif(not DATA.exists(), reason="site/data/explorer.json not present (build the site first)")
 need_node = pytest.mark.skipif(NODE is None, reason="Node.js not found on PATH")
-SCRIPTS = ["story.js", "dashboard.js", "charts.js", "shell.js"]       # page scripts that must hold no model numbers (dashboard.js, compare.js, connections.js are added by later stages)
+SCRIPTS = ["story.js", "dashboard.js", "compare.js", "connections.js", "charts.js", "shell.js"]       # page scripts that must hold no model numbers (dashboard.js, compare.js, connections.js are added by later stages)
 
 
 def data() -> dict:
