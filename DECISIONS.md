@@ -1289,6 +1289,7 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Proposed by:** the editor (instruction); Claude (implementation).
 - **Decision:** Provisional (delegated).
 - **Date:** 2026-10-22
+- **Note (2026-10-22, appended; nothing above changed).** Two statements in this entry were wrong and are corrected here, found when the tests were run: (1) "It changes demand only, not S3": the cap changes demand, and with the supply limit on the changed `supply_ratio` also changes S3 (loop B1); (2) the pre-written test reading said a binding cap lowers demand. The cap bounds the efficiency from above and demand is compute / eta, so a binding cap **raises** demand; the test reading was corrected (dated in the test file) and no code changed. The hand check (the paper's cap cannot bind inside S3's own hardware range) stands and is tested.
 
 ---
 

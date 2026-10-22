@@ -15,6 +15,14 @@ Boundary: a data centre is a facility housing servers, storage, networking equip
 crypto-mining load is excluded from the IEA totals is [unverified]. PUE = 1.4, between the IEA's ranges (1.1 to 1.2 best-in-class
 hyperscale, 1.5 to 1.7 older or enterprise sites; Key Questions); an input, labelled.
 
+Optional efficiency cap (D-055, Provisional; default OFF)
+-----------------------------------------------------------
+``DCParams.eta_cap`` (FLOP/J; ``None`` = OFF, every recorded result unchanged) bounds ``eta`` by the physical efficiency behind the paper's compute limit
+``C_L``: ``PAPER_ETA_CAP = 4e15`` FLOP/J (GATE paper, arXiv:2503.04941, appendix D.3.2: the theoretical maximum CMOS efficiency). With the cap set,
+``eta = min(eta_0 x hardware / H0, eta_cap)``. A binding cap RAISES demand (demand is compute / eta); with the supply limit on, the changed ``supply_ratio`` also changes S3.
+Hand check: ``eta_0`` is about 8.06e9 FLOP/J, so at S3's hardware ceiling
+``H_max`` (1e5 times ``H0``) ``eta`` is 8.06e14, below the cap: with S3's own hardware limit the paper's cap cannot bind.
+
 Loop B1 (electricity limit)
 ---------------------------
 Electricity available to data centres = ``dc_share_cap`` x total supply, where total supply is a recorded series (Earth4All.jl electricity
@@ -41,6 +49,7 @@ J_PER_TWH = 3.6e15
 IEA_2024_TWH = 415.0          # reference value (Energy and AI, 2025), an input, not a validation
 IEA_2025_TWH = 485.0          # calibration point (Key Questions on Energy and AI, 2026)
 IEA_2030_TWH = 950.0          # IEA projection, report-only comparison (Key Questions); 945 in Energy and AI
+PAPER_ETA_CAP = 4.0e15        # FLOP/J, theoretical maximum CMOS efficiency behind C_L (GATE paper, appendix D.3.2); D-055 option, default off
 SUPPLY_CSV = Path(__file__).resolve().parents[1] / "data" / "earth4all_electricity_supply.csv"
 BOUNDARY = ("data centre = a facility housing servers, storage, networking equipment and associated components (IEA, Energy and AI); "
             "whether crypto-mining load is excluded from the IEA totals is [unverified]")
@@ -52,6 +61,7 @@ class DCParams:
     calibration_twh_2025: float = IEA_2025_TWH
     dc_share_cap: float = 0.05        # share of total electricity supply available to data centres (Provisional P-A2)
     supply_scale: float = 1.0         # scenario lever on the supply series; math.inf = unlimited
+    eta_cap: float = None             # FLOP/J upper bound on the energy efficiency (D-055); None = OFF (the committed behaviour); PAPER_ETA_CAP is the paper's value
 
 
 def initial_compute_stock(p: GateParams) -> float:
@@ -66,6 +76,10 @@ def eta_0(gp: GateParams, dp: DCParams) -> float:
 
 def e_dc_twh(compute_stock: float, hardware: float, gp: GateParams, dp: DCParams) -> float:
     eta = eta_0(gp, dp) * hardware / gp.H0
+    if dp.eta_cap is not None:
+        if not (dp.eta_cap > 0.0):                                        # also catches NaN
+            raise ValueError(f"eta_cap must be positive, got {dp.eta_cap}")
+        eta = min(eta, dp.eta_cap)
     return compute_stock / eta * dp.pue / J_PER_TWH
 
 

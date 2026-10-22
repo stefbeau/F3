@@ -9,8 +9,9 @@ Readings (written before any run):
  2. The cap is respected: with the cap set, eta never exceeds it for any hardware value (direct, on a grid from 1x to 1e8x H0), and demand at hardware beyond
     the cap point equals compute / eta_cap x PUE / J_PER_TWH exactly. A control that can fail: with the cap OFF the same grid gives eta above the cap.
  3. A cap that does not bind changes nothing: with the paper's cap and hardware inside S3's range the demand equals the OFF value to 1e-12 (the hand check of D-055:
-    eta_0 x H_max / H0 = 8.06e14 < 4e15, so the paper's cap cannot bind inside S3's hardware range). A cap that DOES bind (set low) lowers demand strictly, from the year
-    hardware passes the cap point, and never raises it (named output: e_dc_demand, window 2025-2100).
+    eta_0 x H_max / H0 = 8.06e14 < 4e15, so the paper's cap cannot bind inside S3's hardware range). A cap that DOES bind (set low) RAISES demand strictly, from the year
+    hardware passes the cap point, and never lowers it (named output: e_dc_demand, window 2025-2100, open loop). [CORRECTED 2026-10-22: the first version of this
+    reading said "lowers ... never raises", the wrong direction; see the test and D-055 note.]
  4. A2.5 unchanged with the cap set: zero compute growth keeps demand at 485 TWh; unlimited electricity makes B1 inactive. B1 unchanged: the cap changes demand only,
     so S3's inputs from the module (supply_ratio) are equal to OFF to 1e-12 when the cap does not bind.
  5. Bounds: demand finite and non-negative over the cap grid; the cap must be positive (a non-positive cap raises).
@@ -119,16 +120,24 @@ def test_the_paper_cap_does_not_bind_inside_s3s_hardware_range(setting):
         assert np.allclose(off.series[key], on.series[key], rtol=1e-12, atol=0.0), (setting, key)
 
 
-def test_a_cap_that_binds_lowers_demand_and_never_raises_it():
-    """Named output e_dc_demand, window 2025-2100, standard settings: a low cap (2x eta_0) binds once hardware doubles."""
+def test_a_cap_that_binds_raises_demand_and_never_lowers_it():
+    """CORRECTED READING (2026-10-22, made after the first run of this test and before any other result; the first failure is in the git history, commit 0cff9d2).
+    The first version of reading 3 said a binding cap LOWERS demand and never raises it. That had the direction backwards: the cap bounds the efficiency eta from
+    ABOVE and demand is Q / eta x PUE, so a binding cap RAISES demand (the physical efficiency limit forbids the cheaper-than-physical electricity use).
+    Named output e_dc_demand, window 2025-2100, standard setting B0. The guaranteed property is OPEN LOOP (the same compute and hardware series through both
+    parameter sets): capped demand >= uncapped demand in every year, strictly higher once hardware passes the cap point. In the closed loop (supply limit on) a
+    binding cap also changes supply_ratio and therefore S3 itself; that is reported in docs/s3-supply-limited.md, not asserted here."""
     low_cap = 2.0 * eta_0(GP, DCParams())
     off = slice_run("B0_default", None)
-    p = SETTINGS_B["B0_default"][1]
-    on = run_slice(SliceConfig(damage="central", gate=p, dc=DCParams(eta_cap=low_cap)), stand_in(), t1=2100.0)
-    d_off, d_on = off.series[("s4_datacentre", "e_dc_demand")], on.series[("s4_datacentre", "e_dc_demand")]
-    assert np.all(d_on <= d_off * (1 + 1e-9))
-    assert np.any(d_on < d_off * (1 - 1e-6))                                        # strictly lower at least once
-    assert not np.any(d_off < d_off * (1 - 1e-6))                                   # control: OFF against OFF is never strictly lower
+    Q, H = off.series[("s3_ai", "compute_stock")], off.series[("s3_ai", "hardware")]
+    e_off = np.array([e_dc_twh(q, h, GP, DCParams()) for q, h in zip(Q, H)])
+    e_on = np.array([e_dc_twh(q, h, GP, DCParams(eta_cap=low_cap)) for q, h in zip(Q, H)])
+    assert np.all(e_on >= e_off * (1 - 1e-12))
+    assert np.any(e_on > e_off * (1 + 1e-6))                                        # strictly higher at least once
+    first = int(np.argmax(e_on > e_off * (1 + 1e-6)))
+    assert H[first] * eta_0(GP, DCParams()) / GP.H0 > low_cap                       # and only from the year hardware passes the cap point
+    assert np.all(np.abs(e_on[:first] / e_off[:first] - 1) <= 1e-12)
+    assert not np.any(e_off > e_off * (1 + 1e-6))                                   # control: OFF against OFF is never strictly higher
 
 
 # ------------------------------------------------------------------------------------------------------ (4) A2.5 and B1 unchanged
