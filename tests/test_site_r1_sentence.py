@@ -15,7 +15,8 @@ from pathlib import Path
 import pytest
 
 REPO = Path(__file__).resolve().parents[1]
-JS = REPO / "site_src" / "explorer.js"
+JS = REPO / "site_src" / "dashboard.js"
+CORE = REPO / "site_src" / "core.js"
 DATA = REPO / "site" / "data" / "explorer.json"
 NODE = shutil.which("node")
 
@@ -32,7 +33,7 @@ def _functions() -> str:
 
 def _run(data: dict, tmp_path: Path) -> str:
     """Run the page's own functions in Node. The program goes through a file (the data are too long for a Windows command line)."""
-    prog = ("const D=" + json.dumps(data) + ";const Y=D.years;function key(s,d,sup){return s+'|'+d+'|'+(sup||'1')}\n" + _functions() +
+    prog = ("const F3=require(" + json.dumps(str(CORE)) + ");const D=" + json.dumps(data) + ";const AY=D.years;\n" + _functions() +
             "\nprocess.stdout.write(r1Sentence());")
     f = tmp_path / "r1.js"
     f.write_text(prog, encoding="utf-8")

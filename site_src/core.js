@@ -198,7 +198,7 @@
   function encodeCompare(s) { return "#a=" + s.a.levers.join(".") + "-" + s.a.damage + "&b=" + s.b.levers.join(".") + "-" + s.b.damage + "&m=" + s.metric; }
   function scenarioName(levers, damage) {
     var p = PRESETS.filter(function (x) { return x.levers.join(".") === levers.join("."); })[0];
-    return (p ? p.name : "Custom " + levers.join(".")) + (damage === "off" ? ", damage off" : ", " + damage + " damage");
+    return (p ? p.name : "Custom " + levers.join(".")) + (damage === "off" ? " (damage off)" : " (" + damage + " damage)");
   }
   return {
     human: human, FMT: FMT, rel: rel, signedPct: signedPct, peakOf: peakOf, firstReach: firstReach, indexOfYear: indexOfYear, sameSeries: sameSeries, sameRun: sameRun, maxSpread: maxSpread,

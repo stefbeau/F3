@@ -23,7 +23,7 @@ NODE = shutil.which("node")
 
 need_data = pytest.mark.skipif(not DATA.exists(), reason="site/data/explorer.json not present (build the site first)")
 need_node = pytest.mark.skipif(NODE is None, reason="Node.js not found on PATH")
-SCRIPTS = ["story.js", "charts.js", "shell.js"]       # page scripts that must hold no model numbers (dashboard.js, compare.js, connections.js are added by later stages)
+SCRIPTS = ["story.js", "dashboard.js", "charts.js", "shell.js"]       # page scripts that must hold no model numbers (dashboard.js, compare.js, connections.js are added by later stages)
 
 
 def data() -> dict:
@@ -228,8 +228,8 @@ def test_compare_hash_round_trip_and_fallback(tmp_path):
         out = node(f"return F3.compareState({json.dumps(bad)})", tmp_path)
         assert len(out["a"]["levers"]) == 3 and len(out["b"]["levers"]) == 3 and out["a"]["damage"] in ("off", "low", "central", "high") and out["metric"] == "pop", bad
     assert node("return F3.compareState('#a=9.9.9-off')", tmp_path) == default
-    assert node("return F3.scenarioName([2,0,0],'off')", tmp_path) == "More resources, damage off"
-    assert node("return F3.scenarioName([0,0,0],'low')", tmp_path) == "Custom 0.0.0, low damage"
+    assert node("return F3.scenarioName([2,0,0],'off')", tmp_path) == "More resources (damage off)"
+    assert node("return F3.scenarioName([0,0,0],'low')", tmp_path) == "Custom 0.0.0 (low damage)"
 
 
 @need_node

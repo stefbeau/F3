@@ -146,3 +146,37 @@ nav.steps a[aria-current=step]{background:var(--btn-on-bg);color:var(--btn-on-fg
 .lk svg{flex:none;width:44px;height:10px}.lk line{stroke:var(--mut)}.lk.built line{stroke:var(--sa)}.lk.withheld line{stroke:var(--warnl)}
 .lk.dim{opacity:.4}
 svg#ig_stripes{max-width:520px;margin:8px 0}
+/* ---- Explorer dashboard (D-056 stage 3) ---- */
+.banner.compact{padding:8px 12px;margin:8px 0}.banner.compact strong.big{font-size:1.05rem;display:inline;margin-right:8px}
+.dash{display:grid;grid-template-columns:300px minmax(0,1fr);gap:16px;align-items:start}
+.rail{position:sticky;top:8px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;max-height:calc(100vh - 16px);overflow-y:auto}
+.rail h2{font-size:1rem;margin:0 0 6px}
+.presetlist{display:flex;flex-direction:column;gap:6px}
+.presetbtn{text-align:left;display:flex;flex-direction:column;gap:2px;min-height:44px;padding:8px 10px;background:var(--card2);width:100%}
+.presetbtn span{font-size:.875rem;color:var(--mut);font-weight:400}
+.presetbtn[aria-pressed=true]{background:var(--btn-on-bg);color:var(--btn-on-fg);border-color:var(--btn-on-bg)}
+.presetbtn[aria-pressed=true] span{color:var(--btn-on-fg)}
+.ctlrow.col{flex-direction:column;align-items:flex-start}
+.ctl.col{flex-direction:column}.ctl.col label{width:100%}.ctl.col select{width:100%}
+.rail .seg{width:100%}.rail .segb{flex:1 1 0;padding:6px 4px}
+.rail .reset{width:100%;margin-top:10px}
+.stage{min-width:0}
+.headline{font-size:clamp(1.15rem,2vw,1.5rem);line-height:1.25;margin:.1em 0 .4em;max-width:34em}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.kpis .tile{padding:8px 12px}.kpis .tk_v{font-size:1.5rem;line-height:1.15}.tk_s{font-size:.875rem;color:var(--mut)}
+#ch_main{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin:8px 0}
+#reliability{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:12px 0}
+#reliability .badges .badge{margin:0 6px 6px 0}
+#details>summary{font-size:1rem;padding:8px 0}
+#details .chartcard{border-top:1px solid var(--line);padding-top:6px;margin-top:10px}
+table.tests th[scope=row]{white-space:nowrap}.res{font-weight:700}.res.met{color:var(--ok-t)}.res.failed{color:var(--heat)}
+.actionbar{display:none}
+@media (max-width:899px){
+  .dash{grid-template-columns:1fr}
+  .rail{position:static;max-height:none}
+  .dash[data-step=choose] .stage,.dash[data-step=result] .rail,.dash[data-step=reliability] .rail,.dash[data-step=reliability] #result,.dash[data-step=choose] #reliability,.dash[data-step=result] #reliability{display:none}
+  .dash[data-step=choose] #result{display:none}
+  .actionbar{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;position:fixed;left:0;right:0;bottom:0;z-index:20;padding:8px 10px;background:var(--card);border-top:1px solid var(--line)}
+  .actionbar button{min-height:48px;font-weight:600}.actionbar button[aria-current=step]{background:var(--btn-on-bg);color:var(--btn-on-fg);border-color:var(--btn-on-bg)}
+  main{padding-bottom:80px}
+}

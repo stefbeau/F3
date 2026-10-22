@@ -8,8 +8,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-import index_body
-import links
+import dashboard_body
 import story_body
 
 NAV = [("index.html", "Story"), ("explorer.html", "Explorer"), ("methods.html", "Methods"), ("limitations.html", "Limitations"), ("sources.html", "Sources"), ("about.html", "About")]
@@ -56,7 +55,6 @@ BANNER = ('<div class="banner" role="note"><strong class="big">Public draft, pub
 
 
 # --------------------------------------------------------------------------------------------------------------------
-INDEX_BODY = index_body.BODY
 
 
 def asset_scripts(*names: str) -> str:
@@ -72,10 +70,10 @@ def index_page(data: dict, stamp: dict, css: str) -> str:
     return page("F3 Explorer v0.2: the story", "index.html", story_body.body(), css, stamp, script)
 
 
-def explorer_page(data: dict, stamp: dict, css: str, js: str) -> str:
-    """The v0.1 panels page, kept at explorer.html until the dashboard replaces it (stage 3)."""
-    script = DATA_SCRIPT + "<script>\n" + js.replace("/*DATA*/null", "window.F3DATA") + "\n</script>\n"
-    return page("F3 Explorer v0.2: Explorer", "explorer.html", INDEX_BODY, css, stamp, script)
+def explorer_page(data: dict, stamp: dict, css: str) -> str:
+    """The dashboard (D-056 stage 3)."""
+    script = DATA_SCRIPT + asset_scripts("f3-core.js", "f3-charts.js", "dashboard.js")
+    return page("F3 Explorer v0.2: Explorer", "explorer.html", dashboard_body.body(), css, stamp, script)
 
 
 # --------------------------------------------------------------------------------------------------------------------
@@ -250,17 +248,16 @@ def render_assets(here: Path) -> dict:
     face = ('@font-face{font-family:"Work Sans";font-style:normal;font-weight:100 900;font-display:swap;'
             'src:url(data:font/woff2;base64,' + font + ') format("woff2")}')
     out = {"assets/f3.css": css.replace("/*FONT*/", face)}
-    for src, dst in (("shell.js", "shell.js"), ("core.js", "f3-core.js"), ("charts.js", "f3-charts.js"), ("story.js", "story.js")):
+    for src, dst in (("shell.js", "shell.js"), ("core.js", "f3-core.js"), ("charts.js", "f3-charts.js"), ("story.js", "story.js"), ("dashboard.js", "dashboard.js")):
         out["assets/" + dst] = (here / src).read_text(encoding="utf-8")
     return out
 
 
 def render_all(data: dict, stamp: dict, here: Path) -> dict:
     css = ""
-    js = (here / "explorer.js").read_text(encoding="utf-8")
     return {
         "index.html": index_page(data, stamp, css),
-        "explorer.html": explorer_page(data, stamp, css, js),
+        "explorer.html": explorer_page(data, stamp, css),
         "methods.html": methods_page(data, stamp, css),
         "limitations.html": limitations_page(data, stamp, css),
         "sources.html": sources_page(data, stamp, css),

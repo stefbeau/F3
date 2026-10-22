@@ -28,7 +28,7 @@ import pytest
 
 REPO = Path(__file__).resolve().parents[1]
 SITE = REPO / "site"
-JS = REPO / "site_src" / "explorer.js"
+JS = REPO / "site_src" / "dashboard.js"
 DATA = SITE / "data" / "explorer.json"
 NODE = shutil.which("node")
 PAGES = ["index.html", "explorer.html", "methods.html", "limitations.html", "sources.html", "about.html"]
@@ -39,18 +39,6 @@ need_node = pytest.mark.skipif(NODE is None, reason="Node.js not found on PATH")
 
 def data() -> dict:
     return json.loads(DATA.read_text(encoding="utf-8"))
-
-
-def pure_js() -> str:
-    src = JS.read_text(encoding="utf-8")
-    return src[src.index("/*PURE-START*/"):src.index("/*PURE-END*/")]
-
-
-def node(expr: str, tmp_path: Path, payload: dict = None) -> str:
-    prog = (pure_js() + ";const IN=" + json.dumps(payload or {}) + ";\n" + "process.stdout.write(JSON.stringify((function(){" + expr + "})()));")
-    f = tmp_path / "t.js"
-    f.write_text(prog, encoding="utf-8")
-    return subprocess.run([NODE, str(f)], capture_output=True, text=True, check=True, encoding="utf-8").stdout
 
 
 def w3(d, key):
@@ -130,123 +118,9 @@ def test_all_grid_series_finite_and_nonnegative():
             assert all(math.isfinite(v) and v >= 0 for v in ys), (key, n)
 
 
-# ------------------------------------------------------------------------------------------------------ (1) takeaways from the data
-@need_data
-@need_node
-def test_w3_takeaway_numbers_come_from_the_data(tmp_path):
-    d = data()
-    std = d["world3"]["standard"]
-    run, off = w3(d, std + "|central"), w3(d, std + "|off")
-    out = json.loads(node("return w3Takeaway(IN.years, IN.run, IN.off, 'central')", tmp_path, {"years": d["world3"]["years"], "run": run, "off": off}))
-    yrs = d["world3"]["years"]
-    pk = max(range(len(run["pop"])), key=lambda i: run["pop"][i])
-    text = out["sentence"] + " " + " ".join(t["k"] + " " + t["v"] for t in out["tiles"])
-    assert str(yrs[pk]) in text
-    assert len(out["tiles"]) == 4                                                       # damage on: peak population, resources 2100, pollution peak, damage effect
-    effect = (run["pop"][-1] / off["pop"][-1] - 1) * 100
-    assert f"{effect:.1f}" in text or f"{abs(effect):.1f}" in text
-    out_off = json.loads(node("return w3Takeaway(IN.years, IN.run, IN.off, 'off')", tmp_path, {"years": yrs, "run": off, "off": off}))
-    assert len(out_off["tiles"]) == 3
-
-
-@need_node
-def test_takeaways_change_when_the_data_change_and_hold_no_typed_numbers(tmp_path):
-    years = list(range(1900, 2101))
-    n = len(years)
-
-    def run(peak_year, peak, end, nr_end, pp_peak):
-        pop = [peak * (1 - abs(y - peak_year) / 400.0) if y != 2100 else end for y in years]
-        return {"pop": pop, "io": [1.0] * n, "ic": [1.0] * n, "al": [1.0] * n, "nrfr": [1 - (1 - nr_end) * (y - 1900) / 200 for y in years],
-                "ppolx": [pp_peak * (1 - abs(y - 2013) / 300.0) for y in years]}
-
-    a = run(1981, 9.1e9, 3.3e9, 0.31, 7.7)
-    b = run(2047, 4.4e9, 1.1e9, 0.62, 2.2)
-    sa = json.loads(node("return w3Takeaway(IN.years, IN.a, IN.a, 'off')", tmp_path, {"years": years, "a": a}))
-    sb = json.loads(node("return w3Takeaway(IN.years, IN.b, IN.b, 'off')", tmp_path, {"years": years, "b": b}))
-    ta = sa["sentence"] + " ".join(t["v"] for t in sa["tiles"])
-    tb = sb["sentence"] + " ".join(t["v"] for t in sb["tiles"])
-    assert "1981" in ta and "2047" in tb and ta != tb
-    assert "9.1" in ta and "4.4" in tb and "0.31" in ta and "0.62" in tb and "7.7" in ta and "2.2" in tb
-    assert "2047" not in ta and "1981" not in tb
-    # no typed data: the committed run's peak year and value are not constants of the page script
-    if DATA.exists():
-        d = data()
-        r = w3(d, d["world3"]["standard"] + "|off")
-        pk = max(range(len(r["pop"])), key=lambda i: r["pop"][i])
-        src = JS.read_text(encoding="utf-8")
-        assert not re.search(rf"\b{d['world3']['years'][pk]}\b[^\n]*peak", pure_js())
-        assert f"{r['pop'][pk]:.6g}" not in src
-
-
-@need_data
-@need_node
-def test_climate_and_ai_takeaways(tmp_path):
-    d = data()
-    c = d["climate"]
-    out = json.loads(node("return climateTakeaway(IN.years, IN.m, IN.lo, IN.hi)", tmp_path, {"years": d["years"], "m": c["warming"], "lo": c["warming_p05"], "hi": c["warming_p95"]}))
-    text = out["sentence"] + " ".join(t["v"] for t in out["tiles"])
-    assert f"{c['warming'][-1]:.2f}" in text and f"{c['warming_p05'][-1]:.2f}" in text and f"{c['warming_p95'][-1]:.2f}" in text
-    r = d["runs"]["central|central|1"]
-    out = json.loads(node("return aiTakeaway(IN.years, IN.f, IN.dm)", tmp_path, {"years": d["years"], "f": r["frac_automated"], "dm": r["damage_fraction"]}))
-    y05 = next(d["years"][i] for i, v in enumerate(r["frac_automated"]) if v >= 0.5)
-    y10 = next(d["years"][i] for i, v in enumerate(r["frac_automated"]) if v >= 0.999)
-    text = out["sentence"] + " ".join(t["v"] for t in out["tiles"])
-    assert str(y05) in text and str(y10) in text and f"{r['damage_fraction'][-1] * 100:.1f}" in text
-    assert len(out["tiles"]) == 3
-    # not reached inside the horizon is said, not invented
-    never = json.loads(node("return aiTakeaway(IN.years, IN.f, IN.dm)", tmp_path, {"years": d["years"], "f": [0.1] * len(d["years"]), "dm": [0.0] * len(d["years"])}))
-    assert "not" in (never["sentence"] + " ".join(t["v"] for t in never["tiles"])).lower()
-
-
-# ------------------------------------------------------------------------------------------------------ (2) labels when damage is on
-@need_node
-def test_damage_notice_carries_the_required_phrases(tmp_path):
-    assert json.loads(node("return damageNotice('off')", tmp_path)) == ""
-    for dm in ("low", "central", "high"):
-        s = json.loads(node(f"return damageNotice('{dm}')", tmp_path)).lower()
-        for phrase in ("level-of-output effect, not the upper end of the literature", "not compared with worlddynamics.jl", "it has no climate damage",
-                       "s3's economy and world3's are not reconciled", "no health or yield effect of warming"):
-            assert phrase in s, (dm, phrase)
-
-
 def test_the_notice_is_a_visible_live_region_not_a_tooltip():
     html = (SITE / "explorer.html").read_text(encoding="utf-8")
     assert 'id="w3_damage_notice"' in html and 'aria-live="polite"' in html
-
-
-# ------------------------------------------------------------------------------------------------------ (3) presets and hash
-@need_data
-@need_node
-def test_presets_are_grid_points_and_hash_round_trips(tmp_path):
-    d = data()
-    presets = json.loads(node("return PRESETS", tmp_path))
-    assert [p["name"] for p in presets] == ["Standard", "More resources", "Farming tech", "Pollution cut", "Combined"]
-    for p in presets:
-        assert "|".join(map(str, p["levers"])) + "|off" in d["world3"]["runs"], p
-    assert "|".join(map(str, presets[0]["levers"])) == d["world3"]["standard"]
-    cases = [{"levers": [i, j, k], "damage": dm, "ai": "race", "aidmg": "high"} for i in range(3) for j in range(3) for k in range(3) for dm in ("off", "low", "central", "high")]
-    out = json.loads(node("return IN.c.map(s=>decodeState(encodeState(s),3))", tmp_path, {"c": cases}))
-    assert out == cases
-
-
-@need_node
-def test_bad_hash_falls_back_to_defaults(tmp_path):
-    for bad in ("", "#", "#w3=9.9.9&d=huge", "#w3=a.b.c", "garbage", "#w3=1.0&d=off", "#d=central&w3=1.0.0&ai=nope"):
-        out = json.loads(node(f"return decodeState({json.dumps(bad)},3)", tmp_path))
-        assert len(out["levers"]) == 3 and all(isinstance(v, int) and 0 <= v <= 2 for v in out["levers"]), bad
-        assert out["damage"] in ("off", "low", "central", "high") and out["ai"] in ("low", "central", "race") and out["aidmg"] in ("low", "central", "high"), bad
-    ok = json.loads(node("return decodeState('#w3=2.1.0&d=central',3)", tmp_path))
-    assert ok["levers"] == [2, 1, 0] and ok["damage"] == "central"
-    assert json.loads(node("return decodeState('#w3=9.9.9&d=huge',3)", tmp_path))["damage"] == "off"          # the default damage is OFF
-
-
-# ------------------------------------------------------------------------------------------------------ chart download
-@need_node
-def test_csv_has_one_row_per_year_and_the_values(tmp_path):
-    years = [2020, 2021, 2022]
-    out = json.loads(node("return csvOf(IN.y, [{name:'a, b',y:[1,2.5,3]},{name:'c',y:[4,5,6]}])", tmp_path, {"y": years}))
-    lines = out.strip().split("\n")
-    assert lines[0] == 'year,"a, b",c' and lines[1] == "2020,1,4" and lines[3] == "2022,3,6" and len(lines) == 4
 
 
 # ------------------------------------------------------------------------------------------------------ (6) infographics, (7) S7, structure
@@ -259,43 +133,6 @@ def svg_of(html: str, ident: str) -> str:
     m = re.search(rf'<svg[^>]*id="{ident}".*?</svg>', html, re.S)
     assert m, ident
     return m.group(0)
-
-
-def test_loop_diagram_marks_only_links_that_exist_as_built():
-    svg = svg_of(index_html(), "ig_loops")
-    links = re.findall(r'<(?:path|line)[^>]*data-link="([^"]+)"[^>]*data-built="(yes|no)"', svg)
-    built = {l for l, b in links if b == "yes"}
-    assert built == {"fair-warming-to-world3-output", "fair-warming-to-s3-damage"}, built
-    unbuilt = {l for l, b in links if b == "no"}
-    assert unbuilt, "the diagram must show links that are not built, dashed"
-    # every unbuilt link is drawn dashed, every built link solid (link ids contain no ">" so a tag can be matched up to its closing bracket)
-    assert all(">" not in l for l, _ in links)
-    for m in re.finditer(r'<(?:path|line)[^>]*>', svg):
-        tag = m.group(0)
-        if 'data-built="no"' in tag:
-            assert "stroke-dasharray" in tag, tag
-        if 'data-built="yes"' in tag:
-            assert "stroke-dasharray" not in tag, tag
-
-
-def test_roadmap_first_coupling_solid_others_dashed():
-    svg = svg_of(index_html(), "ig_roadmap")
-    tags = re.findall(r'<(?:path|line)[^>]*data-link="([^"]+)"[^>]*>', svg)
-    assert "fair-warming-to-world3-output" in tags
-    for m in re.finditer(r'<(?:path|line)[^>]*data-link="([^"]+)"[^>]*>', svg):
-        solid = "stroke-dasharray" not in m.group(0)
-        assert solid == (m.group(1) in ("fair-warming-to-world3-output", "fair-warming-to-s3-damage")), m.group(0)
-
-
-def test_every_infographic_has_a_text_alternative_and_readable_text():
-    html = index_html()
-    for ident in ("ig_loops", "ig_roadmap", "ig_stripes"):
-        svg = svg_of(html, ident)
-        assert 'role="img"' in svg and re.search(r"<title[ >]", svg) and re.search(r"<desc[ >]", svg), ident
-        for ref in re.search(r'aria-labelledby="([^"]+)"', svg).group(1).split():                 # the label must point at ids that exist in the drawing
-            assert f'id="{ref}"' in svg, (ident, ref)
-        sizes = [float(x) for x in re.findall(r'font-size="([0-9.]+)"', svg)]
-        assert sizes and min(sizes) >= 13, (ident, min(sizes) if sizes else None)
 
 
 def test_stripes_are_labelled_with_the_a21_failure():
@@ -313,17 +150,6 @@ def test_status_badges_link_to_limitations_and_have_text():
     lim = (SITE / "limitations.html").read_text(encoding="utf-8")
     for anchor, _ in badges:
         assert f'id="{anchor}"' in lim, anchor
-
-
-def test_layout_elements_present():
-    html = index_html()
-    assert 'class="tabs"' in html and all(f'href="#{a}"' in html for a in ("p_w3", "p_climate", "p_ai"))
-    assert 'id="readfirst"' in html and html.count('class="rf"') == 3
-    for term in ("S3", "R3", "FaIR", "GATE", "World3"):
-        assert re.search(rf'<abbr[^>]*title="[^"]{{20,}}"[^>]*>{term}</abbr>', html), term
-    assert "Reset" in html and "Custom" in html
-    for name in ("Standard", "More resources", "Farming tech", "Pollution cut", "Combined"):
-        assert name in html or name in JS.read_text(encoding="utf-8")
 
 
 def test_s7_is_not_shown_on_the_site():
@@ -345,20 +171,88 @@ def test_methods_limitations_sources_describe_the_new_coupling_and_drop_the_old_
     assert 'id="ch_compute"' not in index_html() and 'id="ch_edc"' not in index_html()
 
 
-# ------------------------------------------------------------------------------------------------------ editor review 2026-10-21 (added after the change)
-def test_page_order_and_tab_bar_order():
+# ------------------------------------------------------------------------------------------------------ the dashboard page (D-056 stage 3); headlines, tiles, hash and CSV are tested in tests/test_site_v02_core.py
+def svg_has_text_alternative(html: str, ident: str) -> bool:
+    svg = svg_of(html, ident)
+    ok = 'role="img"' in svg and re.search(r"<title[ >]", svg) and re.search(r"<desc[ >]", svg)
+    for ref in re.search(r'aria-labelledby="([^"]+)"', svg).group(1).split():
+        ok = ok and f'id="{ref}"' in svg
+    sizes = [float(x) for x in re.findall(r'font-size="([0-9.]+)"', svg)]
+    return bool(ok and sizes and min(sizes) >= 13)
+
+
+def test_loop_diagram_marks_only_links_that_exist_as_built():
+    svg = svg_of(index_html(), "ig_loops")
+    links = re.findall(r'<(?:path|line)[^>]*data-link="([^"]+)"[^>]*data-built="(yes|no)"', svg)
+    assert {l for l, b in links if b == "yes"} == {"fair-warming-to-world3-output", "fair-warming-to-s3-damage"}
+    assert any(b == "no" for _, b in links)
+    for m in re.finditer(r'<(?:path|line)[^>]*>', svg):
+        tag = m.group(0)
+        if 'data-built="no"' in tag:
+            assert "stroke-dasharray" in tag, tag
+        if 'data-built="yes"' in tag:
+            assert "stroke-dasharray" not in tag, tag
+
+
+def test_roadmap_first_coupling_solid_others_dashed():
+    svg = svg_of(index_html(), "ig_roadmap")
+    for m in re.finditer(r'<(?:path|line)[^>]*data-link="([^"]+)"[^>]*>', svg):
+        solid = "stroke-dasharray" not in m.group(0)
+        assert solid == (m.group(1) in ("fair-warming-to-world3-output", "fair-warming-to-s3-damage")), m.group(0)
+
+
+def test_every_remaining_infographic_has_a_text_alternative_and_readable_text():
+    for ident in ("ig_loops", "ig_roadmap", "ig_stripes"):
+        assert svg_has_text_alternative(index_html(), ident), ident
+
+
+def test_dashboard_structure_rail_one_main_chart_details_and_step_bar():
     html = index_html()
-    pos = [html.index(m) for m in ('class="banner"', 'id="readfirst"', 'class="tabs"', 'id="p_w3"', 'id="p_climate"', 'id="p_ai"', 'id="connected"', 'id="notshown"')]
+    pos = [html.index(m) for m in ('class="banner compact"', 'id="choose"', 'id="result"', 'id="ch_main"', 'id="reliability"', 'id="details"', 'id="connected"', 'id="notshown"')]
     assert pos == sorted(pos), pos
-    assert html.index("<h1>") < pos[0]
-    tabs = re.search(r'<nav class="tabs".*?</nav>', html, re.S).group(0)
-    assert re.findall(r'href="#([a-z0-9_]+)"', tabs) == ["p_w3", "p_climate", "p_ai", "connected", "notshown"]
-    for ident in ("ig_loops", "ig_roadmap", "ig_stripes"):                         # every diagram is still there
-        assert f'id="{ident}"' in html
+    assert html.count('id="ch_main"') == 1                                                  # exactly one main chart outside Details
+    main_zone = html[html.index('id="result"'):html.index('id="reliability"')]
+    assert len(re.findall(r'id="ch_[a-z0-9]+"', main_zone)) == 1
+    details = html[html.index('<details id="details">'):]
+    for ident in ("ch_io", "ch_nr", "ch_pol", "ch_temp", "ch_auto", "ch_dmg", "tb_tests"):
+        assert f'id="{ident}"' in details, ident                                          # secondary charts and the tests table are collapsed under Details
+    for sel in ('id="presets"', 'id="dmg_seg"', 'id="custom"', 'id="reset"'):
+        assert sel in html
+    assert re.findall(r'data-step="([a-z]+)"', re.search(r'<nav class="actionbar".*?</nav>', html, re.S).group(0)) == ["choose", "result", "reliability"]
+    assert html.count('class="kpis"') == 1 and "Public draft, published 2026-10-21. Conditional scenarios, not forecasts." in html
 
 
-def test_industrial_output_unit_label_and_methods():
-    assert 'o("Model dollars per year"' in JS.read_text(encoding="utf-8")
-    assert "Dollars per year" not in JS.read_text(encoding="utf-8")
+def test_tests_table_lists_the_recorded_failures_and_met_tests():
+    html = index_html()
+    tbl = re.search(r'<table class="tests".*?</table>', html, re.S).group(0)
+    for name in ("A3.1", "A3.2", "A3.4(b)", "M6", "A2.1", "A1.3", "A1.4", "A2.6", "B1 sign", "R1 sign", "B2 sign"):
+        assert f'<th scope="row">{name}</th>' in tbl, name
+    assert tbl.count('class="res failed"') >= 6 and tbl.count('class="res met"') >= 4
+    lim = (SITE / "limitations.html").read_text(encoding="utf-8")
+    for anchor in set(re.findall(r'href="limitations\.html#([a-z0-9-]+)"', tbl)):
+        assert f'id="{anchor}"' in lim, anchor
+
+
+def test_dashboard_keeps_the_v01_caveats_verbatim():
+    html = index_html()
+    for phrase in ("Compute and electricity outputs are withheld until the S3 compute path is validated",
+                   'The "high" damage option is NOT the upper end of the literature',
+                   "FaIR climate starts about 0.04 to 0.07 K below observed", "all runs with climate damage on", "A3.4(b)", "A1.3", "A2.1",
+                   "S3's economy and World3's are not reconciled", "No health or yield effect of warming", "[unverified]", "Not shown".replace("Not shown", "What is not shown")):
+        assert phrase.lower() in html.lower(), phrase
+
+
+def test_dashboard_script_labels_and_units():
+    src = JS.read_text(encoding="utf-8")
+    assert "Model dollars per year" in src and "Dollars per year" not in src.replace("Model dollars per year", "")
     m = (SITE / "methods.html").read_text(encoding="utf-8")
     assert "model dollars per year" in m.lower() and "constant dollars" in m
+
+
+def test_every_chart_slot_gets_the_card_tools_from_the_chart_module():
+    charts = (REPO / "site_src" / "charts.js").read_text(encoding="utf-8")
+    for needle in ("View data table", "Download PNG", "Download CSV", "Text alternative", 'role="img"'):
+        assert needle in charts, needle
+    dash = JS.read_text(encoding="utf-8")
+    assert dash.count("C.lineChart(") >= 2 and 'title: false' in dash                          # the main chart's finding title is the page headline, the others carry their own
+    assert re.search(r"sec\(\"ch_io\".*tio", dash)
