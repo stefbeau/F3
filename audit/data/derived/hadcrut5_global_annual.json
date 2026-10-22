@@ -1,0 +1,1105 @@
+{
+ "id": "hadcrut5_global_annual",
+ "title": "Global mean temperature anomaly, HadCRUT.5.2.0.0 annual, re-based to 1850-1900",
+ "description": "Annual best estimate and 95% bounds, K above the mean of the 1850-1900 annual best estimates, 1850-2025 (2026 is a partial year, dropped).",
+ "built_by": "site_src/data_campaign.py",
+ "register": "audit/data/sources-register.json",
+ "sources": [
+  {
+   "id": "hadcrut5",
+   "title": "HadCRUT5 (HadCRUT.5.2.0.0) global annual summary series",
+   "version": "HadCRUT.5.2.0.0 as served 2026-10-22",
+   "url": "https://www.metoffice.gov.uk/hadobs/hadcrut5/",
+   "licence": "Open Government Licence v3.0 (Crown copyright)",
+   "licence_quote": "HadCRUT5 is subject to Crown copyright protection and is provided under the Open Government License v3",
+   "redistribution": "yes"
+  }
+ ],
+ "source_files": [
+  {
+   "path": "hadcrut5/HadCRUT.5.2.0.0.analysis.summary_series.global.annual.csv",
+   "sha256": "7f750b673bb34aad722736ee21f122b5ea692c99877fa0b1066df65e51f32c04",
+   "bytes": 7046
+  }
+ ],
+ "retrieved": "2026-10-22",
+ "redistribution": "yes",
+ "attribution": "HadCRUT.5.2.0.0 data were obtained from http://www.metoffice.gov.uk/hadobs/hadcrut5 on 2026-10-22 and are (c) British Crown Copyright, Met Office, provided under an Open Government License, http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+ "units": "K relative to the 1850-1900 mean",
+ "geography": "global",
+ "time_span": "1850 to 2025",
+ "variables": [
+  "anomaly",
+  "lower",
+  "upper"
+ ],
+ "supports": [
+  "L6",
+  "L7"
+ ],
+ "method": "Offset = mean of the annual best estimates for 1850-1900 inclusive, subtracted from all three columns; the offset is stored.",
+ "caveats": [
+  "Same file and re-basing as D-057 (audit/data/sources-history.json)."
+ ],
+ "data": {
+  "offset_k": -0.3594,
+  "rows": [
+   {
+    "year": 1850,
+    "anomaly": -0.0673,
+    "lower": -0.2404,
+    "upper": 0.1057
+   },
+   {
+    "year": 1851,
+    "anomaly": 0.1009,
+    "lower": -0.0733,
+    "upper": 0.2752
+   },
+   {
+    "year": 1852,
+    "anomaly": 0.1351,
+    "lower": -0.0295,
+    "upper": 0.2996
+   },
+   {
+    "year": 1853,
+    "anomaly": 0.0951,
+    "lower": -0.0639,
+    "upper": 0.2541
+   },
+   {
+    "year": 1854,
+    "anomaly": 0.0637,
+    "lower": -0.0743,
+    "upper": 0.2016
+   },
+   {
+    "year": 1855,
+    "anomaly": 0.0653,
+    "lower": -0.0701,
+    "upper": 0.2007
+   },
+   {
+    "year": 1856,
+    "anomaly": 0.0274,
+    "lower": -0.1169,
+    "upper": 0.1716
+   },
+   {
+    "year": 1857,
+    "anomaly": -0.1239,
+    "lower": -0.2757,
+    "upper": 0.0279
+   },
+   {
+    "year": 1858,
+    "anomaly": -0.0491,
+    "lower": -0.198,
+    "upper": 0.0998
+   },
+   {
+    "year": 1859,
+    "anomaly": 0.0631,
+    "lower": -0.0794,
+    "upper": 0.2055
+   },
+   {
+    "year": 1860,
+    "anomaly": -0.053,
+    "lower": -0.204,
+    "upper": 0.0981
+   },
+   {
+    "year": 1861,
+    "anomaly": -0.1084,
+    "lower": -0.2789,
+    "upper": 0.0622
+   },
+   {
+    "year": 1862,
+    "anomaly": -0.1985,
+    "lower": -0.3675,
+    "upper": -0.0295
+   },
+   {
+    "year": 1863,
+    "anomaly": -0.0254,
+    "lower": -0.2205,
+    "upper": 0.1697
+   },
+   {
+    "year": 1864,
+    "anomaly": -0.1369,
+    "lower": -0.3239,
+    "upper": 0.0501
+   },
+   {
+    "year": 1865,
+    "anomaly": -0.0353,
+    "lower": -0.2347,
+    "upper": 0.1641
+   },
+   {
+    "year": 1866,
+    "anomaly": -0.0432,
+    "lower": -0.2395,
+    "upper": 0.153
+   },
+   {
+    "year": 1867,
+    "anomaly": -0.0403,
+    "lower": -0.2422,
+    "upper": 0.1617
+   },
+   {
+    "year": 1868,
+    "anomaly": -0.0034,
+    "lower": -0.1868,
+    "upper": 0.1801
+   },
+   {
+    "year": 1869,
+    "anomaly": 0.0396,
+    "lower": -0.1221,
+    "upper": 0.2013
+   },
+   {
+    "year": 1870,
+    "anomaly": 0.0293,
+    "lower": -0.118,
+    "upper": 0.1765
+   },
+   {
+    "year": 1871,
+    "anomaly": -0.017,
+    "lower": -0.1672,
+    "upper": 0.1331
+   },
+   {
+    "year": 1872,
+    "anomaly": 0.048,
+    "lower": -0.0883,
+    "upper": 0.1844
+   },
+   {
+    "year": 1873,
+    "anomaly": 0.0367,
+    "lower": -0.0935,
+    "upper": 0.167
+   },
+   {
+    "year": 1874,
+    "anomaly": -0.0078,
+    "lower": -0.1399,
+    "upper": 0.1242
+   },
+   {
+    "year": 1875,
+    "anomaly": -0.0089,
+    "lower": -0.1456,
+    "upper": 0.1278
+   },
+   {
+    "year": 1876,
+    "anomaly": -0.0532,
+    "lower": -0.1923,
+    "upper": 0.0859
+   },
+   {
+    "year": 1877,
+    "anomaly": 0.275,
+    "lower": 0.1471,
+    "upper": 0.403
+   },
+   {
+    "year": 1878,
+    "anomaly": 0.3671,
+    "lower": 0.2439,
+    "upper": 0.4903
+   },
+   {
+    "year": 1879,
+    "anomaly": 0.0675,
+    "lower": -0.0644,
+    "upper": 0.1994
+   },
+   {
+    "year": 1880,
+    "anomaly": 0.0547,
+    "lower": -0.0678,
+    "upper": 0.1773
+   },
+   {
+    "year": 1881,
+    "anomaly": 0.1462,
+    "lower": 0.0212,
+    "upper": 0.2713
+   },
+   {
+    "year": 1882,
+    "anomaly": 0.0868,
+    "lower": -0.0383,
+    "upper": 0.212
+   },
+   {
+    "year": 1883,
+    "anomaly": 0.0305,
+    "lower": -0.0811,
+    "upper": 0.1421
+   },
+   {
+    "year": 1884,
+    "anomaly": -0.1158,
+    "lower": -0.2249,
+    "upper": -0.0068
+   },
+   {
+    "year": 1885,
+    "anomaly": -0.0998,
+    "lower": -0.2093,
+    "upper": 0.0096
+   },
+   {
+    "year": 1886,
+    "anomaly": -0.0505,
+    "lower": -0.1551,
+    "upper": 0.0542
+   },
+   {
+    "year": 1887,
+    "anomaly": -0.1306,
+    "lower": -0.2454,
+    "upper": -0.0158
+   },
+   {
+    "year": 1888,
+    "anomaly": -0.016,
+    "lower": -0.1335,
+    "upper": 0.1016
+   },
+   {
+    "year": 1889,
+    "anomaly": 0.1056,
+    "lower": -0.0181,
+    "upper": 0.2294
+   },
+   {
+    "year": 1890,
+    "anomaly": -0.1434,
+    "lower": -0.2681,
+    "upper": -0.0188
+   },
+   {
+    "year": 1891,
+    "anomaly": -0.0393,
+    "lower": -0.176,
+    "upper": 0.0974
+   },
+   {
+    "year": 1892,
+    "anomaly": -0.1482,
+    "lower": -0.2863,
+    "upper": -0.01
+   },
+   {
+    "year": 1893,
+    "anomaly": -0.1361,
+    "lower": -0.2712,
+    "upper": -0.001
+   },
+   {
+    "year": 1894,
+    "anomaly": -0.1193,
+    "lower": -0.2628,
+    "upper": 0.0242
+   },
+   {
+    "year": 1895,
+    "anomaly": -0.0825,
+    "lower": -0.2216,
+    "upper": 0.0567
+   },
+   {
+    "year": 1896,
+    "anomaly": 0.0808,
+    "lower": -0.051,
+    "upper": 0.2126
+   },
+   {
+    "year": 1897,
+    "anomaly": 0.1049,
+    "lower": -0.0332,
+    "upper": 0.243
+   },
+   {
+    "year": 1898,
+    "anomaly": -0.1145,
+    "lower": -0.25,
+    "upper": 0.0209
+   },
+   {
+    "year": 1899,
+    "anomaly": 0.0152,
+    "lower": -0.1152,
+    "upper": 0.1457
+   },
+   {
+    "year": 1900,
+    "anomaly": 0.1291,
+    "lower": -0.0045,
+    "upper": 0.2627
+   },
+   {
+    "year": 1901,
+    "anomaly": 0.072,
+    "lower": -0.0604,
+    "upper": 0.2045
+   },
+   {
+    "year": 1902,
+    "anomaly": -0.078,
+    "lower": -0.2098,
+    "upper": 0.0539
+   },
+   {
+    "year": 1903,
+    "anomaly": -0.1758,
+    "lower": -0.2986,
+    "upper": -0.053
+   },
+   {
+    "year": 1904,
+    "anomaly": -0.238,
+    "lower": -0.3652,
+    "upper": -0.1107
+   },
+   {
+    "year": 1905,
+    "anomaly": -0.0468,
+    "lower": -0.1656,
+    "upper": 0.0721
+   },
+   {
+    "year": 1906,
+    "anomaly": 0.044,
+    "lower": -0.0775,
+    "upper": 0.1654
+   },
+   {
+    "year": 1907,
+    "anomaly": -0.1409,
+    "lower": -0.2596,
+    "upper": -0.0221
+   },
+   {
+    "year": 1908,
+    "anomaly": -0.1482,
+    "lower": -0.2665,
+    "upper": -0.0298
+   },
+   {
+    "year": 1909,
+    "anomaly": -0.1748,
+    "lower": -0.2863,
+    "upper": -0.0632
+   },
+   {
+    "year": 1910,
+    "anomaly": -0.1641,
+    "lower": -0.2774,
+    "upper": -0.0509
+   },
+   {
+    "year": 1911,
+    "anomaly": -0.1822,
+    "lower": -0.2918,
+    "upper": -0.0726
+   },
+   {
+    "year": 1912,
+    "anomaly": -0.1183,
+    "lower": -0.2191,
+    "upper": -0.0175
+   },
+   {
+    "year": 1913,
+    "anomaly": -0.1059,
+    "lower": -0.2144,
+    "upper": 0.0026
+   },
+   {
+    "year": 1914,
+    "anomaly": 0.098,
+    "lower": -0.0094,
+    "upper": 0.2054
+   },
+   {
+    "year": 1915,
+    "anomaly": 0.167,
+    "lower": 0.0499,
+    "upper": 0.2841
+   },
+   {
+    "year": 1916,
+    "anomaly": -0.0628,
+    "lower": -0.1829,
+    "upper": 0.0573
+   },
+   {
+    "year": 1917,
+    "anomaly": -0.1868,
+    "lower": -0.3161,
+    "upper": -0.0575
+   },
+   {
+    "year": 1918,
+    "anomaly": -0.069,
+    "lower": -0.2076,
+    "upper": 0.0696
+   },
+   {
+    "year": 1919,
+    "anomaly": 0.0247,
+    "lower": -0.1124,
+    "upper": 0.1619
+   },
+   {
+    "year": 1920,
+    "anomaly": 0.0526,
+    "lower": -0.0771,
+    "upper": 0.1823
+   },
+   {
+    "year": 1921,
+    "anomaly": 0.1157,
+    "lower": -0.0019,
+    "upper": 0.2333
+   },
+   {
+    "year": 1922,
+    "anomaly": 0.019,
+    "lower": -0.0889,
+    "upper": 0.1269
+   },
+   {
+    "year": 1923,
+    "anomaly": 0.0426,
+    "lower": -0.063,
+    "upper": 0.1483
+   },
+   {
+    "year": 1924,
+    "anomaly": 0.0486,
+    "lower": -0.0571,
+    "upper": 0.1543
+   },
+   {
+    "year": 1925,
+    "anomaly": 0.0783,
+    "lower": -0.029,
+    "upper": 0.1855
+   },
+   {
+    "year": 1926,
+    "anomaly": 0.2372,
+    "lower": 0.1281,
+    "upper": 0.3462
+   },
+   {
+    "year": 1927,
+    "anomaly": 0.1313,
+    "lower": 0.0283,
+    "upper": 0.2343
+   },
+   {
+    "year": 1928,
+    "anomaly": 0.1486,
+    "lower": 0.0392,
+    "upper": 0.2581
+   },
+   {
+    "year": 1929,
+    "anomaly": -0.0331,
+    "lower": -0.1405,
+    "upper": 0.0742
+   },
+   {
+    "year": 1930,
+    "anomaly": 0.1877,
+    "lower": 0.0811,
+    "upper": 0.2944
+   },
+   {
+    "year": 1931,
+    "anomaly": 0.2567,
+    "lower": 0.151,
+    "upper": 0.3624
+   },
+   {
+    "year": 1932,
+    "anomaly": 0.2128,
+    "lower": 0.1136,
+    "upper": 0.3121
+   },
+   {
+    "year": 1933,
+    "anomaly": 0.0849,
+    "lower": -0.0104,
+    "upper": 0.1802
+   },
+   {
+    "year": 1934,
+    "anomaly": 0.2334,
+    "lower": 0.1378,
+    "upper": 0.329
+   },
+   {
+    "year": 1935,
+    "anomaly": 0.1991,
+    "lower": 0.1072,
+    "upper": 0.291
+   },
+   {
+    "year": 1936,
+    "anomaly": 0.2355,
+    "lower": 0.1404,
+    "upper": 0.3306
+   },
+   {
+    "year": 1937,
+    "anomaly": 0.3883,
+    "lower": 0.2945,
+    "upper": 0.482
+   },
+   {
+    "year": 1938,
+    "anomaly": 0.3906,
+    "lower": 0.297,
+    "upper": 0.4843
+   },
+   {
+    "year": 1939,
+    "anomaly": 0.3806,
+    "lower": 0.2879,
+    "upper": 0.4734
+   },
+   {
+    "year": 1940,
+    "anomaly": 0.5067,
+    "lower": 0.3963,
+    "upper": 0.6171
+   },
+   {
+    "year": 1941,
+    "anomaly": 0.3918,
+    "lower": 0.2506,
+    "upper": 0.533
+   },
+   {
+    "year": 1942,
+    "anomaly": 0.3261,
+    "lower": 0.1774,
+    "upper": 0.4748
+   },
+   {
+    "year": 1943,
+    "anomaly": 0.3271,
+    "lower": 0.1769,
+    "upper": 0.4772
+   },
+   {
+    "year": 1944,
+    "anomaly": 0.4587,
+    "lower": 0.3065,
+    "upper": 0.611
+   },
+   {
+    "year": 1945,
+    "anomaly": 0.3573,
+    "lower": 0.1965,
+    "upper": 0.5181
+   },
+   {
+    "year": 1946,
+    "anomaly": 0.2233,
+    "lower": 0.0933,
+    "upper": 0.3532
+   },
+   {
+    "year": 1947,
+    "anomaly": 0.2527,
+    "lower": 0.1258,
+    "upper": 0.3796
+   },
+   {
+    "year": 1948,
+    "anomaly": 0.2174,
+    "lower": 0.0978,
+    "upper": 0.337
+   },
+   {
+    "year": 1949,
+    "anomaly": 0.1903,
+    "lower": 0.0818,
+    "upper": 0.2989
+   },
+   {
+    "year": 1950,
+    "anomaly": 0.1041,
+    "lower": 0.0041,
+    "upper": 0.204
+   },
+   {
+    "year": 1951,
+    "anomaly": 0.2726,
+    "lower": 0.1799,
+    "upper": 0.3653
+   },
+   {
+    "year": 1952,
+    "anomaly": 0.3566,
+    "lower": 0.2531,
+    "upper": 0.4602
+   },
+   {
+    "year": 1953,
+    "anomaly": 0.4231,
+    "lower": 0.3201,
+    "upper": 0.5261
+   },
+   {
+    "year": 1954,
+    "anomaly": 0.2266,
+    "lower": 0.1348,
+    "upper": 0.3184
+   },
+   {
+    "year": 1955,
+    "anomaly": 0.1435,
+    "lower": 0.0508,
+    "upper": 0.2363
+   },
+   {
+    "year": 1956,
+    "anomaly": 0.0754,
+    "lower": -0.0038,
+    "upper": 0.1546
+   },
+   {
+    "year": 1957,
+    "anomaly": 0.304,
+    "lower": 0.2337,
+    "upper": 0.3743
+   },
+   {
+    "year": 1958,
+    "anomaly": 0.3226,
+    "lower": 0.256,
+    "upper": 0.3892
+   },
+   {
+    "year": 1959,
+    "anomaly": 0.2945,
+    "lower": 0.2274,
+    "upper": 0.3615
+   },
+   {
+    "year": 1960,
+    "anomaly": 0.2283,
+    "lower": 0.1705,
+    "upper": 0.2861
+   },
+   {
+    "year": 1961,
+    "anomaly": 0.3333,
+    "lower": 0.2819,
+    "upper": 0.3847
+   },
+   {
+    "year": 1962,
+    "anomaly": 0.2898,
+    "lower": 0.2351,
+    "upper": 0.3445
+   },
+   {
+    "year": 1963,
+    "anomaly": 0.3209,
+    "lower": 0.2642,
+    "upper": 0.3775
+   },
+   {
+    "year": 1964,
+    "anomaly": 0.0504,
+    "lower": 0.0004,
+    "upper": 0.1003
+   },
+   {
+    "year": 1965,
+    "anomaly": 0.1517,
+    "lower": 0.0968,
+    "upper": 0.2067
+   },
+   {
+    "year": 1966,
+    "anomaly": 0.2094,
+    "lower": 0.1566,
+    "upper": 0.2623
+   },
+   {
+    "year": 1967,
+    "anomaly": 0.236,
+    "lower": 0.1891,
+    "upper": 0.2829
+   },
+   {
+    "year": 1968,
+    "anomaly": 0.1902,
+    "lower": 0.1434,
+    "upper": 0.237
+   },
+   {
+    "year": 1969,
+    "anomaly": 0.3274,
+    "lower": 0.2861,
+    "upper": 0.3686
+   },
+   {
+    "year": 1970,
+    "anomaly": 0.2701,
+    "lower": 0.2305,
+    "upper": 0.3097
+   },
+   {
+    "year": 1971,
+    "anomaly": 0.152,
+    "lower": 0.1124,
+    "upper": 0.1916
+   },
+   {
+    "year": 1972,
+    "anomaly": 0.267,
+    "lower": 0.2295,
+    "upper": 0.3045
+   },
+   {
+    "year": 1973,
+    "anomaly": 0.41,
+    "lower": 0.3719,
+    "upper": 0.4482
+   },
+   {
+    "year": 1974,
+    "anomaly": 0.191,
+    "lower": 0.1525,
+    "upper": 0.2295
+   },
+   {
+    "year": 1975,
+    "anomaly": 0.2546,
+    "lower": 0.2163,
+    "upper": 0.2929
+   },
+   {
+    "year": 1976,
+    "anomaly": 0.1505,
+    "lower": 0.1085,
+    "upper": 0.1925
+   },
+   {
+    "year": 1977,
+    "anomaly": 0.467,
+    "lower": 0.4249,
+    "upper": 0.5092
+   },
+   {
+    "year": 1978,
+    "anomaly": 0.3673,
+    "lower": 0.3276,
+    "upper": 0.407
+   },
+   {
+    "year": 1979,
+    "anomaly": 0.4514,
+    "lower": 0.4218,
+    "upper": 0.481
+   },
+   {
+    "year": 1980,
+    "anomaly": 0.5556,
+    "lower": 0.5218,
+    "upper": 0.5894
+   },
+   {
+    "year": 1981,
+    "anomaly": 0.6101,
+    "lower": 0.578,
+    "upper": 0.6423
+   },
+   {
+    "year": 1982,
+    "anomaly": 0.3938,
+    "lower": 0.3529,
+    "upper": 0.4347
+   },
+   {
+    "year": 1983,
+    "anomaly": 0.5835,
+    "lower": 0.546,
+    "upper": 0.621
+   },
+   {
+    "year": 1984,
+    "anomaly": 0.4091,
+    "lower": 0.3737,
+    "upper": 0.4445
+   },
+   {
+    "year": 1985,
+    "anomaly": 0.4111,
+    "lower": 0.3762,
+    "upper": 0.446
+   },
+   {
+    "year": 1986,
+    "anomaly": 0.4575,
+    "lower": 0.4246,
+    "upper": 0.4904
+   },
+   {
+    "year": 1987,
+    "anomaly": 0.6039,
+    "lower": 0.5723,
+    "upper": 0.6355
+   },
+   {
+    "year": 1988,
+    "anomaly": 0.6439,
+    "lower": 0.6083,
+    "upper": 0.6795
+   },
+   {
+    "year": 1989,
+    "anomaly": 0.5418,
+    "lower": 0.506,
+    "upper": 0.5776
+   },
+   {
+    "year": 1990,
+    "anomaly": 0.7223,
+    "lower": 0.6866,
+    "upper": 0.7579
+   },
+   {
+    "year": 1991,
+    "anomaly": 0.702,
+    "lower": 0.6635,
+    "upper": 0.7404
+   },
+   {
+    "year": 1992,
+    "anomaly": 0.4885,
+    "lower": 0.4539,
+    "upper": 0.5231
+   },
+   {
+    "year": 1993,
+    "anomaly": 0.5299,
+    "lower": 0.4894,
+    "upper": 0.5705
+   },
+   {
+    "year": 1994,
+    "anomaly": 0.5962,
+    "lower": 0.5583,
+    "upper": 0.6341
+   },
+   {
+    "year": 1995,
+    "anomaly": 0.7398,
+    "lower": 0.7055,
+    "upper": 0.7741
+   },
+   {
+    "year": 1996,
+    "anomaly": 0.6404,
+    "lower": 0.606,
+    "upper": 0.6749
+   },
+   {
+    "year": 1997,
+    "anomaly": 0.7846,
+    "lower": 0.7508,
+    "upper": 0.8185
+   },
+   {
+    "year": 1998,
+    "anomaly": 0.9417,
+    "lower": 0.9071,
+    "upper": 0.9763
+   },
+   {
+    "year": 1999,
+    "anomaly": 0.6875,
+    "lower": 0.6531,
+    "upper": 0.7219
+   },
+   {
+    "year": 2000,
+    "anomaly": 0.695,
+    "lower": 0.6598,
+    "upper": 0.7303
+   },
+   {
+    "year": 2001,
+    "anomaly": 0.8529,
+    "lower": 0.8178,
+    "upper": 0.8879
+   },
+   {
+    "year": 2002,
+    "anomaly": 0.9062,
+    "lower": 0.8734,
+    "upper": 0.9389
+   },
+   {
+    "year": 2003,
+    "anomaly": 0.9079,
+    "lower": 0.8735,
+    "upper": 0.9423
+   },
+   {
+    "year": 2004,
+    "anomaly": 0.8317,
+    "lower": 0.8006,
+    "upper": 0.8627
+   },
+   {
+    "year": 2005,
+    "anomaly": 0.9708,
+    "lower": 0.9378,
+    "upper": 1.0038
+   },
+   {
+    "year": 2006,
+    "anomaly": 0.9361,
+    "lower": 0.9035,
+    "upper": 0.9688
+   },
+   {
+    "year": 2007,
+    "anomaly": 0.9553,
+    "lower": 0.9225,
+    "upper": 0.9882
+   },
+   {
+    "year": 2008,
+    "anomaly": 0.8292,
+    "lower": 0.795,
+    "upper": 0.8634
+   },
+   {
+    "year": 2009,
+    "anomaly": 0.9596,
+    "lower": 0.9266,
+    "upper": 0.9925
+   },
+   {
+    "year": 2010,
+    "anomaly": 1.044,
+    "lower": 1.0119,
+    "upper": 1.0761
+   },
+   {
+    "year": 2011,
+    "anomaly": 0.9019,
+    "lower": 0.8698,
+    "upper": 0.9341
+   },
+   {
+    "year": 2012,
+    "anomaly": 0.9414,
+    "lower": 0.9082,
+    "upper": 0.9746
+   },
+   {
+    "year": 2013,
+    "anomaly": 0.9885,
+    "lower": 0.9522,
+    "upper": 1.0249
+   },
+   {
+    "year": 2014,
+    "anomaly": 1.0379,
+    "lower": 1.0037,
+    "upper": 1.072
+   },
+   {
+    "year": 2015,
+    "anomaly": 1.1882,
+    "lower": 1.1529,
+    "upper": 1.2234
+   },
+   {
+    "year": 2016,
+    "anomaly": 1.2952,
+    "lower": 1.2627,
+    "upper": 1.3278
+   },
+   {
+    "year": 2017,
+    "anomaly": 1.2075,
+    "lower": 1.1751,
+    "upper": 1.2398
+   },
+   {
+    "year": 2018,
+    "anomaly": 1.1239,
+    "lower": 1.0909,
+    "upper": 1.1568
+   },
+   {
+    "year": 2019,
+    "anomaly": 1.2583,
+    "lower": 1.2237,
+    "upper": 1.293
+   },
+   {
+    "year": 2020,
+    "anomaly": 1.2867,
+    "lower": 1.2503,
+    "upper": 1.323
+   },
+   {
+    "year": 2021,
+    "anomaly": 1.1373,
+    "lower": 1.102,
+    "upper": 1.1725
+   },
+   {
+    "year": 2022,
+    "anomaly": 1.1715,
+    "lower": 1.1327,
+    "upper": 1.2102
+   },
+   {
+    "year": 2023,
+    "anomaly": 1.4789,
+    "lower": 1.4399,
+    "upper": 1.5179
+   },
+   {
+    "year": 2024,
+    "anomaly": 1.5469,
+    "lower": 1.5046,
+    "upper": 1.5892
+   },
+   {
+    "year": 2025,
+    "anomaly": 1.4327,
+    "lower": 1.3917,
+    "upper": 1.4736
+   }
+  ]
+ }
+}

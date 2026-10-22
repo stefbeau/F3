@@ -1,0 +1,277 @@
+{
+ "id": "task_exposure_summary",
+ "title": "AI and robot exposure of occupations, by SOC major group: observed (Anthropic), LLM-rated potential (OpenAI) and robot exposure (Anthropic)",
+ "description": "Joins three occupation-level datasets on the 6-digit SOC code and reports unweighted means by SOC major group, plus the rank correlation between observed AI exposure and the LLM-rated exposure.",
+ "built_by": "site_src/data_campaign.py",
+ "register": "audit/data/sources-register.json",
+ "sources": [
+  {
+   "id": "anthropic_econ_index",
+   "title": "Anthropic Economic Index (labor market impacts: job exposure and task penetration; robot exposure by occupation; June 2026 release documentation)",
+   "version": "repository main as served 2026-10-22; labor_market_impacts and robot_exposure folders; release 2026-06-26 documentation (the 77 MB and 219 MB usage CSVs of that release were not downloaded)",
+   "url": "https://huggingface.co/datasets/Anthropic/EconomicIndex",
+   "licence": "CC BY (README); the dataset-card header says 'license: mit' (conflict recorded)",
+   "licence_quote": "Data released under CC-BY, code released under MIT License.",
+   "redistribution": "yes"
+  },
+  {
+   "id": "gpts_are_gpts",
+   "title": "OpenAI: GPTs are GPTs occupation-level exposure (occ_level.csv)",
+   "version": "repository main as served 2026-10-22",
+   "url": "https://github.com/openai/GPTs-are-GPTs",
+   "licence": "MIT",
+   "licence_quote": "Copyright (c) 2024 OpenAI",
+   "redistribution": "yes"
+  }
+ ],
+ "source_files": [
+  {
+   "path": "anthropic_econ_index/job_exposure.csv",
+   "sha256": "4f0a3adf5feeb2ec5f5d02ab18cc5e851a2a4b8470bde84c0c9335017be12d68",
+   "bytes": 37176
+  },
+  {
+   "path": "anthropic_econ_index/robot_exposure_occupations.csv",
+   "sha256": "bdb193200e2cf8f1cf353bbaa6e447ca97da7db2f29c830b0d05601801e7b271",
+   "bytes": 47761
+  },
+  {
+   "path": "gpts_are_gpts/occ_level.csv",
+   "sha256": "40c74f53de40aec91c0017d80690cbba915f83a8bb414bcf2f884692f1749acb",
+   "bytes": 126022
+  }
+ ],
+ "retrieved": "2026-10-22",
+ "redistribution": "yes",
+ "attribution": "Anthropic Economic Index (labor_market_impacts, robot_exposure), CC BY; Eloundou et al. (2023), GPTs are GPTs, data in github.com/openai/GPTs-are-GPTs (MIT, Copyright (c) 2024 OpenAI). Aggregation by F3.",
+ "units": "exposure indices (0 to 1 as published; beta = share of tasks directly exposed plus half of tasks exposed with extra tooling)",
+ "geography": "United States occupations (O*NET-SOC)",
+ "time_span": "2023 ratings (OpenAI); 2025-2026 usage (Anthropic)",
+ "variables": [
+  "observed_exposure_mean",
+  "gpt4_beta_mean",
+  "human_beta_mean",
+  "robot_exposure_mean",
+  "n_occupations"
+ ],
+ "supports": [
+  "L4"
+ ],
+ "method": "Anthropic job_exposure (6-digit SOC) as is; O*NET-SOC 8-digit rows of the OpenAI and robot files averaged to 6 digits; inner join on the 6-digit code; means by the first two digits (SOC major group), unweighted by employment.",
+ "caveats": [
+  "Unweighted by employment: a large group dominated by one big occupation is not represented by its mean. Employment weights (BLS OEWS) were not retrieved.",
+  "Exposure is not displacement: the OpenAI ratings are potential exposure to LLMs rated by GPT-4 and by humans; the Anthropic index is observed use in conversations. They measure different things; the correlation is reported, not assumed."
+ ],
+ "data": {
+  "n_joined_occupations": 756,
+  "overall": {
+   "observed_exposure_mean": 0.077,
+   "gpt4_beta_mean": 0.3262,
+   "human_beta_mean": 0.2864,
+   "robot_exposure_mean": 0.4317
+  },
+  "spearman_observed_vs_gpt4_beta": 0.7007,
+  "spearman_observed_vs_human_beta": 0.6696,
+  "spearman_gpt4_vs_human_beta": 0.91,
+  "by_soc_major_group": [
+   {
+    "soc_major_group": "11",
+    "name": "Management",
+    "n_occupations": 35,
+    "observed_exposure_mean": 0.0974,
+    "gpt4_beta_mean": 0.4652,
+    "human_beta_mean": 0.4524,
+    "robot_exposure_mean": 0.0496
+   },
+   {
+    "soc_major_group": "13",
+    "name": "Business and Financial Operations",
+    "n_occupations": 29,
+    "observed_exposure_mean": 0.1766,
+    "gpt4_beta_mean": 0.5242,
+    "human_beta_mean": 0.5269,
+    "robot_exposure_mean": 0.0291
+   },
+   {
+    "soc_major_group": "15",
+    "name": "Computer and Mathematical",
+    "n_occupations": 21,
+    "observed_exposure_mean": 0.3787,
+    "gpt4_beta_mean": 0.7567,
+    "human_beta_mean": 0.5964,
+    "robot_exposure_mean": 0.0188
+   },
+   {
+    "soc_major_group": "17",
+    "name": "Architecture and Engineering",
+    "n_occupations": 34,
+    "observed_exposure_mean": 0.0381,
+    "gpt4_beta_mean": 0.4945,
+    "human_beta_mean": 0.4211,
+    "robot_exposure_mean": 0.1709
+   },
+   {
+    "soc_major_group": "19",
+    "name": "Life, Physical, and Social Science",
+    "n_occupations": 46,
+    "observed_exposure_mean": 0.1219,
+    "gpt4_beta_mean": 0.4591,
+    "human_beta_mean": 0.4854,
+    "robot_exposure_mean": 0.2766
+   },
+   {
+    "soc_major_group": "21",
+    "name": "Community and Social Service",
+    "n_occupations": 12,
+    "observed_exposure_mean": 0.0516,
+    "gpt4_beta_mean": 0.3354,
+    "human_beta_mean": 0.3757,
+    "robot_exposure_mean": 0.0236
+   },
+   {
+    "soc_major_group": "23",
+    "name": "Legal",
+    "n_occupations": 7,
+    "observed_exposure_mean": 0.2158,
+    "gpt4_beta_mean": 0.4936,
+    "human_beta_mean": 0.4134,
+    "robot_exposure_mean": 0.0015
+   },
+   {
+    "soc_major_group": "25",
+    "name": "Educational Instruction and Library",
+    "n_occupations": 57,
+    "observed_exposure_mean": 0.1293,
+    "gpt4_beta_mean": 0.4453,
+    "human_beta_mean": 0.4336,
+    "robot_exposure_mean": 0.0361
+   },
+   {
+    "soc_major_group": "27",
+    "name": "Arts, Design, Entertainment, Sports, and Media",
+    "n_occupations": 34,
+    "observed_exposure_mean": 0.1424,
+    "gpt4_beta_mean": 0.4653,
+    "human_beta_mean": 0.3667,
+    "robot_exposure_mean": 0.1089
+   },
+   {
+    "soc_major_group": "29",
+    "name": "Healthcare Practitioners and Technical",
+    "n_occupations": 65,
+    "observed_exposure_mean": 0.0411,
+    "gpt4_beta_mean": 0.3333,
+    "human_beta_mean": 0.2861,
+    "robot_exposure_mean": 0.1282
+   },
+   {
+    "soc_major_group": "31",
+    "name": "Healthcare Support",
+    "n_occupations": 16,
+    "observed_exposure_mean": 0.0494,
+    "gpt4_beta_mean": 0.2442,
+    "human_beta_mean": 0.1292,
+    "robot_exposure_mean": 0.4295
+   },
+   {
+    "soc_major_group": "33",
+    "name": "Protective Service",
+    "n_occupations": 21,
+    "observed_exposure_mean": 0.0119,
+    "gpt4_beta_mean": 0.2734,
+    "human_beta_mean": 0.2801,
+    "robot_exposure_mean": 0.3334
+   },
+   {
+    "soc_major_group": "35",
+    "name": "Food Preparation and Serving Related",
+    "n_occupations": 15,
+    "observed_exposure_mean": 0.0094,
+    "gpt4_beta_mean": 0.1399,
+    "human_beta_mean": 0.1331,
+    "robot_exposure_mean": 0.8948
+   },
+   {
+    "soc_major_group": "37",
+    "name": "Building and Grounds Cleaning and Maintenance",
+    "n_occupations": 8,
+    "observed_exposure_mean": 0.0247,
+    "gpt4_beta_mean": 0.1263,
+    "human_beta_mean": 0.1197,
+    "robot_exposure_mean": 0.7788
+   },
+   {
+    "soc_major_group": "39",
+    "name": "Personal Care and Service",
+    "n_occupations": 27,
+    "observed_exposure_mean": 0.0191,
+    "gpt4_beta_mean": 0.2035,
+    "human_beta_mean": 0.2154,
+    "robot_exposure_mean": 0.4582
+   },
+   {
+    "soc_major_group": "41",
+    "name": "Sales and Related",
+    "n_occupations": 20,
+    "observed_exposure_mean": 0.2361,
+    "gpt4_beta_mean": 0.4495,
+    "human_beta_mean": 0.4847,
+    "robot_exposure_mean": 0.33
+   },
+   {
+    "soc_major_group": "43",
+    "name": "Office and Administrative Support",
+    "n_occupations": 50,
+    "observed_exposure_mean": 0.1906,
+    "gpt4_beta_mean": 0.6095,
+    "human_beta_mean": 0.4857,
+    "robot_exposure_mean": 0.3503
+   },
+   {
+    "soc_major_group": "45",
+    "name": "Farming, Fishing, and Forestry",
+    "n_occupations": 11,
+    "observed_exposure_mean": 0.0018,
+    "gpt4_beta_mean": 0.1379,
+    "human_beta_mean": 0.1032,
+    "robot_exposure_mean": 0.9966
+   },
+   {
+    "soc_major_group": "47",
+    "name": "Construction and Extraction",
+    "n_occupations": 56,
+    "observed_exposure_mean": 0.004,
+    "gpt4_beta_mean": 0.0566,
+    "human_beta_mean": 0.0419,
+    "robot_exposure_mean": 0.9333
+   },
+   {
+    "soc_major_group": "49",
+    "name": "Installation, Maintenance, and Repair",
+    "n_occupations": 50,
+    "observed_exposure_mean": 0.0071,
+    "gpt4_beta_mean": 0.1352,
+    "human_beta_mean": 0.0991,
+    "robot_exposure_mean": 0.4361
+   },
+   {
+    "soc_major_group": "51",
+    "name": "Production",
+    "n_occupations": 98,
+    "observed_exposure_mean": 0.0078,
+    "gpt4_beta_mean": 0.1309,
+    "human_beta_mean": 0.0782,
+    "robot_exposure_mean": 0.9043
+   },
+   {
+    "soc_major_group": "53",
+    "name": "Transportation and Material Moving",
+    "n_occupations": 44,
+    "observed_exposure_mean": 0.0065,
+    "gpt4_beta_mean": 0.204,
+    "human_beta_mean": 0.1422,
+    "robot_exposure_mean": 1.0634
+   }
+  ]
+ }
+}

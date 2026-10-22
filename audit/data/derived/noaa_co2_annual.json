@@ -1,0 +1,383 @@
+{
+ "id": "noaa_co2_annual",
+ "title": "Atmospheric CO2, annual mean at Mauna Loa (NOAA GML)",
+ "description": "Annual mean CO2 mole fraction in ppm with uncertainty, 1959-2025.",
+ "built_by": "site_src/data_campaign.py",
+ "register": "audit/data/sources-register.json",
+ "sources": [
+  {
+   "id": "noaa_co2",
+   "title": "NOAA GML: Mauna Loa annual mean CO2",
+   "version": "file as served 2026-10-22",
+   "url": "https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_annmean_mlo.csv",
+   "licence": "US Government work, public domain (NOAA)",
+   "licence_quote": "The information on government servers are in the public domain, unless specifically annotated otherwise, and may be used freely by the public",
+   "redistribution": "yes"
+  }
+ ],
+ "source_files": [
+  {
+   "path": "noaa_co2/co2_annmean_mlo.csv",
+   "sha256": "bdd956e8d7e05ebc3c61ac1f8f8c8cea4a505df56724fba5200b4eb1e0089b2b",
+   "bytes": 3134
+  }
+ ],
+ "retrieved": "2026-10-22",
+ "redistribution": "yes",
+ "attribution": "NOAA Global Monitoring Laboratory, Mauna Loa CO2 annual mean (public domain; cite Dr. Xin Lan, NOAA/GML and Dr. Ralph Keeling, Scripps).",
+ "units": "ppm",
+ "geography": "Mauna Loa (global proxy)",
+ "time_span": "1959 to 2025",
+ "variables": [
+  "year",
+  "mean_ppm",
+  "unc_ppm"
+ ],
+ "supports": [
+  "L6",
+  "L7"
+ ],
+ "method": "co2_annmean_mlo.csv with the comment lines removed.",
+ "caveats": [
+  "A single-site record; the global marine-surface mean is about 1 ppm lower."
+ ],
+ "data": {
+  "rows": [
+   {
+    "year": 1959,
+    "mean_ppm": 315.98,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1960,
+    "mean_ppm": 316.91,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1961,
+    "mean_ppm": 317.64,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1962,
+    "mean_ppm": 318.45,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1963,
+    "mean_ppm": 318.99,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1964,
+    "mean_ppm": 319.62,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1965,
+    "mean_ppm": 320.04,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1966,
+    "mean_ppm": 321.37,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1967,
+    "mean_ppm": 322.18,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1968,
+    "mean_ppm": 323.05,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1969,
+    "mean_ppm": 324.62,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1970,
+    "mean_ppm": 325.68,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1971,
+    "mean_ppm": 326.32,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1972,
+    "mean_ppm": 327.46,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1973,
+    "mean_ppm": 329.68,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1974,
+    "mean_ppm": 330.19,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1975,
+    "mean_ppm": 331.13,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1976,
+    "mean_ppm": 332.03,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1977,
+    "mean_ppm": 333.84,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1978,
+    "mean_ppm": 335.41,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1979,
+    "mean_ppm": 336.84,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1980,
+    "mean_ppm": 338.76,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1981,
+    "mean_ppm": 340.12,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1982,
+    "mean_ppm": 341.48,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1983,
+    "mean_ppm": 343.15,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1984,
+    "mean_ppm": 344.87,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1985,
+    "mean_ppm": 346.35,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1986,
+    "mean_ppm": 347.61,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1987,
+    "mean_ppm": 349.31,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1988,
+    "mean_ppm": 351.69,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1989,
+    "mean_ppm": 353.2,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1990,
+    "mean_ppm": 354.45,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1991,
+    "mean_ppm": 355.7,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1992,
+    "mean_ppm": 356.54,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1993,
+    "mean_ppm": 357.21,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1994,
+    "mean_ppm": 358.96,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1995,
+    "mean_ppm": 360.97,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1996,
+    "mean_ppm": 362.74,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1997,
+    "mean_ppm": 363.88,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1998,
+    "mean_ppm": 366.84,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 1999,
+    "mean_ppm": 368.54,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2000,
+    "mean_ppm": 369.71,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2001,
+    "mean_ppm": 371.32,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2002,
+    "mean_ppm": 373.45,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2003,
+    "mean_ppm": 375.98,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2004,
+    "mean_ppm": 377.7,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2005,
+    "mean_ppm": 379.98,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2006,
+    "mean_ppm": 382.09,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2007,
+    "mean_ppm": 384.02,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2008,
+    "mean_ppm": 385.83,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2009,
+    "mean_ppm": 387.64,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2010,
+    "mean_ppm": 390.1,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2011,
+    "mean_ppm": 391.85,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2012,
+    "mean_ppm": 394.06,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2013,
+    "mean_ppm": 396.74,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2014,
+    "mean_ppm": 398.81,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2015,
+    "mean_ppm": 401.01,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2016,
+    "mean_ppm": 404.41,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2017,
+    "mean_ppm": 406.76,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2018,
+    "mean_ppm": 408.72,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2019,
+    "mean_ppm": 411.65,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2020,
+    "mean_ppm": 414.21,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2021,
+    "mean_ppm": 416.41,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2022,
+    "mean_ppm": 418.53,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2023,
+    "mean_ppm": 421.08,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2024,
+    "mean_ppm": 424.61,
+    "unc_ppm": 0.12
+   },
+   {
+    "year": 2025,
+    "mean_ppm": 427.35,
+    "unc_ppm": 0.12
+   }
+  ]
+ }
+}
