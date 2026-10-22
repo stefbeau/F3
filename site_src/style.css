@@ -5,7 +5,7 @@
 :root,:root[data-theme=light]{
 --bg:#fafaf7;--fg:#1c1c1a;--mut:#55554f;--card:#ffffff;--card2:#f1f1ea;--line:#d9d8d0;
 --warn:#fff3d6;--warnl:#8a5a00;--link:#0b5394;--focus:#0b5394;
---base:#6b7280;--sa:#1f78b4;--sb:#d95f02;
+--base:#6b7280;--sa:#1f78b4;--sb:#d95f02;--on-sa:#ffffff;--on-sb:#1c1c1a;
 --base-t:#5b6270;--sa-t:#1a6ca1;--sb-t:#b34e00;
 --acc1:#0f766e;--acc2:#5b4fb8;--acc3:#b0206a;--heat:#b2182b;
 --ok-t:#14532d;--ok-bg:#dcf2e3;--amber-t:#4a3000;--amber-bg:#fff3d6;--amber-b:#8a5a00;--red-t:#3d0b07;--red-bg:#fbe3e1;--red-b:#b3261e;
@@ -14,7 +14,7 @@
 :root[data-theme=dark]{
 --bg:#0e1420;--fg:#e6eaf2;--mut:#a3aec2;--card:#151d2c;--card2:#1c2638;--line:#2a3548;
 --warn:#3a2f12;--warnl:#e0a030;--link:#7fb6f0;--focus:#7fb6f0;
---base:#6b7280;--sa:#1f78b4;--sb:#d95f02;
+--base:#6b7280;--sa:#1f78b4;--sb:#d95f02;--on-sa:#ffffff;--on-sb:#1c1c1a;
 --base-t:#9aa3b2;--sa-t:#6db3e6;--sb-t:#f08a3c;
 --acc1:#35c2a1;--acc2:#a9a3f0;--acc3:#f07fb6;--heat:#ff7f73;
 --ok-t:#b8f0cc;--ok-bg:#12351f;--amber-t:#ffe7b0;--amber-bg:#3a2f12;--amber-b:#e0a030;--red-t:#ffd9d5;--red-bg:#4a1a17;--red-b:#ff8a80;
@@ -180,3 +180,16 @@ table.tests th[scope=row]{white-space:nowrap}.res{font-weight:700}.res.met{color
   .actionbar button{min-height:48px;font-weight:600}.actionbar button[aria-current=step]{background:var(--btn-on-bg);color:var(--btn-on-fg);border-color:var(--btn-on-bg)}
   main{padding-bottom:80px}
 }
+/* ---- Compare (D-056 stage 4) ---- */
+.pick{border:1px solid var(--line);border-radius:8px;margin:10px 0;padding:8px 10px 10px;background:var(--card2)}
+.pick legend{font-weight:700;padding:0 6px}.pick label{display:block;font-size:.92rem;margin:4px 0 2px}.pick select{width:100%}.pick .ctllab{display:block;margin:8px 0 4px}
+.pick.a{border-color:var(--sa)}.pick.b{border-color:var(--sb)}
+.badgeletter{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;font-weight:700;font-size:.875rem}
+.badgeletter.a{background:var(--sa);color:var(--on-sa)}.badgeletter.b{background:var(--sb);color:var(--on-sb)}
+.rail #swap{width:100%;margin-top:4px}
+.h2s{font-size:1.05rem;margin:1em 0 .3em}
+table.delta{min-width:640px}table.delta th[scope=row]{font-weight:600}table.delta td:nth-child(n+2){font-variant-numeric:tabular-nums;white-space:nowrap}
+.dl.one{margin:6px 0}
+table.delta td,table.delta th{overflow-wrap:normal;word-break:normal}table.delta th[scope=row]{min-width:12em;white-space:normal}
+.rail .segb{padding:6px 2px;font-size:.875rem;overflow-wrap:normal}.pick .segb{min-height:40px}
+.tblwrap:focus-visible{outline:3px solid var(--focus)}

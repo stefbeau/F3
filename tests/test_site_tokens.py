@@ -32,7 +32,7 @@ def ratio(a: str, b: str) -> float:
 
 TEXT_ON_SURFACE = ["fg", "mut", "link", "base-t", "sa-t", "sb-t", "acc1", "acc2", "acc3", "heat"]
 GRAPHICS = ["base", "sa", "sb", "acc1", "acc2", "acc3", "heat"]
-PAIRS = [("amber-t", "amber-bg"), ("red-t", "red-bg"), ("ok-t", "ok-bg"), ("btn-on-fg", "btn-on-bg"), ("fg", "warn")]
+PAIRS = [("on-sa", "sa"), ("on-sb", "sb"), ("amber-t", "amber-bg"), ("red-t", "red-bg"), ("ok-t", "ok-bg"), ("btn-on-fg", "btn-on-bg"), ("fg", "warn")]
 
 
 @pytest.mark.parametrize("name", ["light", "dark"])

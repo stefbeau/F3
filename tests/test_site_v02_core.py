@@ -232,6 +232,26 @@ def test_compare_hash_round_trip_and_fallback(tmp_path):
     assert node("return F3.scenarioName([0,0,0],'low')", tmp_path) == "Custom 0.0.0 (low damage)"
 
 
+@need_data
+@need_node
+def test_overlay_and_bars_findings_and_signed_format(tmp_path):
+    d = data()
+    yrs = d["world3"]["years"]
+    base, a, b = run_of(d, STD, "off"), run_of(d, [1, 1, 0], "central"), run_of(d, [2, 1, 1], "high")
+    names = {"a": "Scenario A", "b": "Scenario B"}
+    vals = {"base": base["pop"][-1], "a": a["pop"][-1], "b": b["pop"][-1]}
+    f = node("return F3.overlayFinding(IN.y, 'Population', 'people', IN.v, IN.n)", tmp_path, {"y": yrs, "v": vals, "n": names})
+    assert "Population in 2100" in f and all(node(f"return F3.human({v})", tmp_path) in f for v in vals.values())
+    rows = node("return F3.compareRows(IN.y, IN.base, IN.a, IN.b, IN.w)", tmp_path, {"y": yrs, "base": base, "a": a, "b": b, "w": d["climate"]["warming"]})
+    bf = node("return F3.barsFinding(IN.y, IN.rows, IN.n)", tmp_path, {"y": yrs, "rows": rows, "n": names})
+    cand = [(abs(r["dA"]), "Scenario A", r) for r in rows if not r["identical"]] + [(abs(r["dB"]), "Scenario B", r) for r in rows if not r["identical"]]
+    top = max(cand, key=lambda c: c[0])
+    assert top[1] in bf and top[2]["label"].lower() in bf and f"{abs(top[0]) * 100:.1f}%" in bf and "warming" not in bf.lower()
+    same = node("return F3.compareRows(IN.y, IN.base, IN.base, IN.base, null)", tmp_path, {"y": yrs, "base": base})
+    assert "match the standard run" in node("return F3.barsFinding(IN.y, IN.rows, IN.n)", tmp_path, {"y": yrs, "rows": same, "n": names})
+    assert node("return [F3.signedFmt(-0.05,'fraction'),F3.signedFmt(1.2e9,'people'),F3.signedFmt(0,'index')]", tmp_path) == ["-0.05", "+1.2 billion", "0"]
+
+
 @need_node
 def test_max_spread_and_csv(tmp_path):
     sp = node("return F3.maxSpread([1,2,3],[[0,1,0.5],[0,0.4,0.5],[0,0.9,0.5]])", tmp_path)

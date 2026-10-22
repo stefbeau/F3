@@ -182,6 +182,22 @@
     return names.b + " ends " + end + " with " + human(Math.abs(p.bMinusA)) + (more ? " more" : " fewer") + " people than " + names.a + " (" + human(p.b) + " against " + human(p.a) +
       ") and " + rel(io.b / io.a - 1) + " industrial output; against the standard run, population is " + rel(p.dA) + " in " + names.a + " and " + rel(p.dB) + " in " + names.b + ".";
   }
+  /* A value with an explicit sign in the metric's format: "+1.2 billion", "-0.05". */
+  function signedFmt(v, fmtName) { var f = FMT[fmtName]; return (v < 0 ? "-" : v > 0 ? "+" : "") + f(Math.abs(v)); }
+  function overlayFinding(years, label, fmtName, vals, names) {
+    var f = FMT[fmtName], end = years[years.length - 1];
+    return label + " in " + end + ": " + names.a + " ends at " + f(vals.a) + ", " + names.b + " at " + f(vals.b) + ", the standard run at " + f(vals.base);
+  }
+  /* The largest 2100 change against the baseline in either scenario, among rows that differ. */
+  function barsFinding(years, rows, names) {
+    var end = years[years.length - 1], best = null;
+    rows.forEach(function (r) {
+      if (r.identical) return;
+      [["a", r.dA], ["b", r.dB]].forEach(function (p) { if (best === null || Math.abs(p[1]) > Math.abs(best.d)) best = { who: names[p[0]], d: p[1], label: r.label }; });
+    });
+    if (best === null) return "Both scenarios match the standard run in " + end + " on every measure shown";
+    return "Against the standard run, the largest " + end + " change is " + best.label.toLowerCase() + " in " + best.who + " (" + signedPct(best.d) + ")";
+  }
   function compareState(hash) {
     var def = { a: { levers: [1, 0, 0], damage: "central" }, b: { levers: [2, 1, 1], damage: "central" }, metric: "pop" };
     var out = { a: { levers: def.a.levers.slice(), damage: def.a.damage }, b: { levers: def.b.levers.slice(), damage: def.b.damage }, metric: def.metric };
@@ -205,6 +221,6 @@
     DEF_LEVERS: DEF_LEVERS, DMG_STATES: DMG_STATES, AI_S: AI_S, AI_D: AI_D, PRESETS: PRESETS, runKey: runKey, aiKey: aiKey, encodeState: encodeState, decodeState: decodeState,
     csvOf: csvOf, damageNotice: damageNotice, popFinding: popFinding, industryFinding: industryFinding, resourcesFinding: resourcesFinding, pollutionFinding: pollutionFinding,
     temperatureFinding: temperatureFinding, automationFinding: automationFinding, aiDamageFinding: aiDamageFinding, damageEffect: damageEffect, damageBarsFinding: damageBarsFinding,
-    w3Kpis: w3Kpis, COMPARE_METRICS: COMPARE_METRICS, compareRows: compareRows, compareHeadline: compareHeadline, compareState: compareState, encodeCompare: encodeCompare, scenarioName: scenarioName
+    w3Kpis: w3Kpis, COMPARE_METRICS: COMPARE_METRICS, compareRows: compareRows, compareHeadline: compareHeadline, compareState: compareState, signedFmt: signedFmt, overlayFinding: overlayFinding, barsFinding: barsFinding, encodeCompare: encodeCompare, scenarioName: scenarioName
   };
 });
