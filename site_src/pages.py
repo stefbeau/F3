@@ -140,6 +140,7 @@ def methods_page(data: dict, stamp: dict, css: str) -> str:
 <ul>
 <li>Hover, touch or press the left and right arrow keys on a focused chart to read the values for a year (shift with the arrows steps ten years). Each chart can be downloaded as a PNG or as a CSV of its curves; the downloads carry the caveats, including the climate-damage caveat when damage is on.</li>
 <li>The chosen scenario is kept in the address (the part after #), so a link restores it. Nothing is stored or sent anywhere.</li>
+<li><strong>The data.</strong> Everything the charts draw is in <a href="data/explorer.json">data/explorer.json</a>, strict JSON in which <code>null</code> means no value (never zero). The pages load the identical text as a script, <code>data/explorer.js</code>, because a browser blocks a page opened from disk from reading a local JSON file; the generator writes both from the same string and a test checks they match. The file also holds the series that are withheld from the charts (S3 compute, data-centre electricity).</li>
 </ul></section>
 
 <section class="card"><h2>Pins and versions</h2>
