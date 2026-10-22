@@ -28,7 +28,7 @@ By a **separate** step, after the agent has returned and its output is frozen (h
 1. **Input points.** The period-0 and period-1 inputs of the default run (where `T` matches S3's to 0.1% to 0.3%, and the stored allocation is known to reproduce `T` to 3e-4), and the inputs at periods 2, 5, 11 and 20 of each of the three settings, taken from the stored runs by the comparing step (the blind agent is given only the numbers `L, f, C_I, C_T` at those points, not their source or any `T`).
 2. **Criterion.** The blind `T` equals the stored `cognitive_ces_term` within **0.1%** at every point (the first two periods already agree to 0.3% for S3's own composite, so 0.1% separates a real fix from the present state), **and** S3 with the blind composite substituted for its own passes A1.3 (2% at every period, three settings). Both are required; neither tolerance is changed after the result.
 3. **Comparison with S3's own composite**: at the same points, the blind `T` against S3's `T`, to see whether they differ and where, **before** any reading of why.
-4. **Outcomes, pre-registered:** (i) the blind `T` matches the stored one: the cause is identified by diffing the blind readings against S3's (a labelled, post-hoc proposal to the editor, not applied automatically); (ii) the blind `T` matches S3's and not the stored one: two independent readings agree and differ from Epoch's, so the paper alone does not determine Epoch's composite, and the case for asking Epoch (the unsent email) is strengthened; (iii) the blind `T` matches neither: reported as such.
+4. **Outcomes, pre-registered:** (i) the blind `T` matches the stored one: the cause is identified by diffing the blind readings against S3's (a labelled, post-hoc proposal to the editor, not applied automatically); (ii) the blind `T` matches S3's and not the stored one: two independent readings agree and differ from Epoch's, so the paper alone does not determine Epoch's composite, and the case for pressing Epoch (the email was sent on 2026-10-17, no reply as of 2026-10-22) is strengthened; (iii) the blind `T` matches neither: reported as such.
 5. **What the result cannot say:** that the stored `T` is correct, or that the paper is complete. A match shows the paper is sufficient; a mismatch shows only that this reader could not reproduce Epoch's solver from it.
 
 ## 4. Cost
@@ -41,4 +41,4 @@ By a **separate** step, after the agent has returned and its output is frozen (h
 
 ## 5. What this does not do
 
-It does not change S3, the A1.3 record, or any label. It does not ask Epoch (the email stays unsent until the editor sends it). It is not run until the editor approves this brief.
+It does not change S3, the A1.3 record, or any label. It does not ask Epoch (the editor already wrote to Epoch on 2026-10-17 through epoch.ai/contact; no reply as of 2026-10-22). **Editor decision 2026-10-22 (D-054): this brief is NOT run now and is kept as a brief; A1.3 stays failed and labelled.**
