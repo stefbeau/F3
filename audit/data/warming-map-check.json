@@ -1,0 +1,64 @@
+{
+ "rule": "area-weighted mean of c_r over all regions must be 1 within 2% (docs/warming-map.md); no coefficient is rescaled",
+ "area_weighted_mean_c": 1.0177,
+ "deviation_from_1_pct": 1.77,
+ "passes_2pct": true,
+ "diagnostic_landsea_file_for_every_region": {
+  "area_weighted_mean_c": 1.0005,
+  "deviation_from_1_pct": 0.05
+ },
+ "per_model_area_weighted_mean_c": {
+  "min": 1.005,
+  "median": 1.017,
+  "max": 1.031
+ },
+ "polygon_area_covers_fraction_of_sphere": 1.0001,
+ "sign_tests": {
+  "ARO_c_gt_1": true,
+  "ARO_c": 2.995,
+  "land_mean_c": 1.272,
+  "ocean_mean_c": 0.805,
+  "land_gt_ocean": true
+ },
+ "models_used": [
+  "ACCESS-CM2",
+  "ACCESS-ESM1-5",
+  "AWI-CM-1-1-MR",
+  "BCC-CSM2-MR",
+  "CAMS-CSM1-0",
+  "CESM2",
+  "CESM2-WACCM",
+  "CMCC-CM2-SR5",
+  "CNRM-CM6-1",
+  "CNRM-CM6-1-HR",
+  "CNRM-ESM2-1",
+  "CanESM5",
+  "EC-Earth3",
+  "EC-Earth3-Veg",
+  "FGOALS-g3",
+  "GFDL-ESM4",
+  "HadGEM3-GC31-LL",
+  "IITM-ESM",
+  "INM-CM4-8",
+  "INM-CM5-0",
+  "IPSL-CM6A-LR",
+  "KACE-1-0-G",
+  "KIOST-ESM",
+  "MIROC-ES2L",
+  "MIROC6",
+  "MPI-ESM1-2-HR",
+  "MPI-ESM1-2-LR",
+  "MRI-ESM2-0",
+  "NESM3",
+  "NorESM2-LM",
+  "NorESM2-MM",
+  "UKESM1-0-LL"
+ ],
+ "n_models": 32,
+ "spread": {
+  "c_min": 0.615,
+  "c_max": 2.995,
+  "arg_min": "SPO",
+  "arg_max": "ARO"
+ }
+}
