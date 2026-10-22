@@ -144,7 +144,10 @@ def test_stripes_are_labelled_with_the_a21_failure():
 def test_status_badges_link_to_limitations_and_have_text():
     html = index_html()
     badges = re.findall(r'<a class="badge[^"]*" href="limitations\.html#([a-z0-9-]+)"[^>]*>(.*?)</a>', html, re.S)
-    assert len(badges) == 3, badges
+    # 2026-10-22: the count is 5, not 3. explorer.html carries the three scenario badges (World3, climate, AI race) AND the two panel badges (Model versus reality -> status-history,
+    # Warming map -> status-map). The old 3 only held because the panel badges were written with href before class, which this regex skipped; that markup trick is gone and every badge is counted.
+    assert len(badges) == 5, badges
+    assert [a for a, _ in badges].count("status-history") == 1 and [a for a, _ in badges].count("status-map") == 1
     for _, txt in badges:
         assert re.search(r"[A-Za-z]{4,}", re.sub(r"<[^>]+>", "", txt))
     lim = (SITE / "limitations.html").read_text(encoding="utf-8")

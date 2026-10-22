@@ -26,7 +26,7 @@ TESTS = [
 
 HISTORY_PANEL = """<section class="panel" id="p_history" role="tabpanel" aria-labelledby="tab_history" tabindex="-1">
 <h1 class="headline">Model versus reality: how far is each model from observed history?</h1>
-<p class="badges"><a href="limitations.html#status-history" class="badge amber"><span aria-hidden="true">&#9650;</span> Amber: a comparison with history, not a validation; tests A2.1 and A3.4(b) failed</a></p>
+<p class="badges"><a class="badge amber" href="limitations.html#status-history"><span aria-hidden="true">&#9650;</span> Amber: a comparison with history, not a validation; tests A2.1 and A3.4(b) failed</a></p>
 <div class="notice" role="note"><strong>This is not a validation.</strong> World3 (here the 2004 parameter set, a model of the 1970s) and FaIR were not fitted to these series, and nothing was tuned to improve the match. The charts show the distance. The World3 curves follow the settings chosen in the rail, with climate damage off, because damage starts in 2025.</div>
 <h2>Population</h2>
 <div id="ch_hpop"></div>
@@ -51,7 +51,7 @@ HISTORY_PANEL = """<section class="panel" id="p_history" role="tabpanel" aria-la
 
 MAP_PANEL = """<section class="panel" id="p_map" role="tabpanel" aria-labelledby="tab_map" tabindex="-1">
 <h1 class="headline">Warming map: where the global FaIR warming would be larger or smaller, illustratively</h1>
-<p class="badges"><a href="limitations.html#status-map" class="badge amber"><span aria-hidden="true">&#9650;</span> Amber: illustrative scaling of the global result, not a regional projection</a></p>
+<p class="badges"><a class="badge amber" href="limitations.html#status-map"><span aria-hidden="true">&#9650;</span> Amber: illustrative scaling of the global result, not a regional projection</a></p>
 <div class="notice" role="note"><strong>Illustrative downscaling of the global FaIR result. Not a regional climate projection. Pattern-scaling ignores regional feedbacks, aerosols, ocean dynamics.</strong> <a href="methods.html#warming-map">How the map is made (Methods)</a>.</div>
 <div class="mapctl"><label for="map_year">Year: <strong id="map_year_out">2100</strong></label><input type="range" id="map_year" min="2025" max="2100" step="1" value="2100" aria-describedby="map_note"></div>
 <div class="mapbox">

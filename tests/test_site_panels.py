@@ -78,7 +78,7 @@ def test_phone_rules_and_tab_visibility_in_the_stylesheet():
 
 def test_panel_status_badges_exist_link_to_limitations_and_the_anchors_exist():
     html = dash()
-    badges = re.findall(r'<a href="limitations\.html#(status-history|status-map)" class="badge amber">(.*?)</a>', html, re.S)
+    badges = re.findall(r'<a class="badge amber" href="limitations\.html#(status-history|status-map)">(.*?)</a>', html, re.S)
     assert [b[0] for b in badges] == ["status-history", "status-map"]
     lim = (SITE / "limitations.html").read_text(encoding="utf-8")
     for anchor, txt in badges:
