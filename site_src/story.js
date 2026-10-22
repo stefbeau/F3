@@ -25,7 +25,7 @@
     var pk = F3.peakOf(Y, run.pop), series = [{ name: isStd ? "Standard run" : "This run", label: isStd ? "Standard" : "This run", color: sc.a, tcolor: sc.aT, y: run.pop }];
     if (!isStd) series.unshift({ name: "Standard run", label: "Standard", color: sc.base, tcolor: sc.baseT, dash: "7 4", width: 2, y: std.pop });
     C.lineChart($("ch_s1"), { title: false, years: Y, series: series, unit: "People", fmt: "people", ymin: 0, xstep: 50, tableStep: 10, file: "f3-story-world3-population",
-      annotations: pk[0] === null ? [] : [{ x: pk[0], y: pk[1], text: "Peak " + F3.human(pk[1]) + ", " + pk[0], color: sc.a, tcolor: sc.aT }], label: "World3 population, 1900-2100",
+      annotations: pk[0] === null ? [] : [{ x: pk[0], y: pk[1], text: "Peak " + F3.human(pk[1]) + ", " + pk[0], color: sc.a, tcolor: sc.aT }], label: "World3 population, 1900-2100", assume: F3.ASSUME.world3,
       summary: title + ". Model run, not a forecast.", caveat: "World3 2004 parameter set; changed runs are not compared with WorldDynamics.jl." });
     $("ch_s1").querySelector(".plot").setAttribute("aria-label", title);
   }
@@ -43,7 +43,7 @@
     C.barChart($("ch_s2"), { title: false, categories: [{ label: "Industrial output, " + Y[N], values: opts.map(function (o) { return pc(eff[o].io); }) }, { label: "Population, " + Y[N], values: opts.map(function (o) { return pc(eff[o].pop); }) }],
       series: opts.map(function (o, i) { return { name: o + (o === "high" ? " (not the upper end of the literature)" : ""), short: o, color: cols[i], tcolor: tcols[i], dim: function () { return sel !== "off" && sel !== o; } }; }),
       fmt: function (v) { return F3.signedPct(v / 100); }, tickFmt: function (v) { return v + "%"; }, unit: "Change in " + Y[N] + " value against damage off, standard levers", catHead: "Measure",
-      zeroNote: "The vertical line is zero: no change against the same run with climate damage off.", file: "f3-story-damage-bars",
+      zeroNote: "The vertical line is zero: no change against the same run with climate damage off.", file: "f3-story-damage-bars", assume: F3.ASSUME.w3damage,
       summary: title + ". Level-of-output effect, not the upper end of the literature. Not compared with WorldDynamics.jl.", caveat: F3.damageNotice(sel === "off" ? "central" : sel) });
     $("ch_s2").querySelector(".plot").setAttribute("aria-label", title);
   }
@@ -56,7 +56,7 @@
     $("ch3_h").textContent = title;
     var y05 = F3.firstReach(AY, fr(sel), 0.5), ann = [];
     if (y05 !== null) ann.push({ x: y05, y: fr(sel)[AY.indexOf(y05)], text: "Half of tasks: " + y05, color: cols[F3.AI_S.indexOf(sel)], tcolor: cols[F3.AI_S.indexOf(sel)] });
-    C.lineChart($("ch_s3"), { title: false, years: yrs, xstep: 5, tableStep: 5, unit: "Fraction of tasks automated (S3, levels unvalidated)", fmt: "fraction", ymin: 0, ymax: 1.02, file: "f3-story-ai-automation", label: "Automation fraction, 2025-2050",
+    C.lineChart($("ch_s3"), { title: false, years: yrs, xstep: 5, tableStep: 5, unit: "Fraction of tasks automated (S3, levels unvalidated)", fmt: "fraction", ymin: 0, ymax: 1.02, file: "f3-story-ai-automation", label: "Automation fraction, 2025-2050", assume: F3.ASSUME.ai,
       series: F3.AI_S.map(function (s, i) { return { name: s + (s === sel ? " (selected)" : ""), label: s, color: cols[i], tcolor: cols[i], dash: DASH[i], width: s === sel ? 3.6 : 1.8, y: fr(s).slice(0, cut) }; }), annotations: ann,
       summary: title + ". Shape only: S3's level is unvalidated after about 2027 (test A1.3 failed).", caveat: "S3 is unvalidated against GATE after about 2027 (test A1.3 failed); shape only." });
     $("ch_s3").querySelector(".plot").setAttribute("aria-label", title);

@@ -55,7 +55,7 @@
     var title = F3.overlayFinding(WY, m.label.replace(/ \(.*\)/, ""), m.fmt, { base: row.base, a: row.a, b: row.b }, { a: NAMES.a, b: NAMES.b });
     var unit = { pop: "People", io: "Model dollars per year (World3's own constant dollars)", nrfr: "Fraction of starting stock", ppolx: "Pollution index (1 = 1970 level)" }[m.id];
     C.lineChart($("ch_over"), { title: title, years: WY, xstep: 50, tableStep: 10, unit: unit, fmt: m.fmt, ymin: 0, file: "f3-compare-" + m.id + "-" + S.a.levers.join("") + S.a.damage + "-vs-" + S.b.levers.join("") + S.b.damage,
-      caveat: cavTxt, label: m.label + ", baseline, scenario A and scenario B", summary: title + ". " + NAMES.a + " is " + nm.a + "; " + NAMES.b + " is " + nm.b + ". Model runs, not forecasts.",
+      caveat: cavTxt, label: m.label + ", baseline, scenario A and scenario B", assume: F3.assumeFor("world3", cav || "off"), summary: title + ". " + NAMES.a + " is " + nm.a + "; " + NAMES.b + " is " + nm.b + ". Model runs, not forecasts.",
       series: [{ name: "Baseline: standard run, damage off", label: "Baseline", color: sc.base, tcolor: sc.baseT, dash: "7 4", width: 2.2, y: base[m.series] },
         { name: NAMES.a + ": " + nm.a, label: "A", color: sc.a, tcolor: sc.aT, y: a[m.series] }, { name: NAMES.b + ": " + nm.b, label: "B", color: sc.b, tcolor: sc.bT, y: b[m.series], dash: "2 3", width: 3 }] });
     /* diverging bars: 2100 change against the baseline, zero line visible */
@@ -64,7 +64,7 @@
     else C.barChart($("ch_bars"), { title: tb, categories: shown.map(function (r) { return { label: r.label.replace(/ \(.*\)/, "") + ", " + WY[N], values: [F3.scale(r.dA, 100), F3.scale(r.dB, 100)] }; }),
       series: [{ name: NAMES.a, short: "A", color: sc.a, tcolor: sc.aT }, { name: NAMES.b, short: "B", color: sc.b, tcolor: sc.bT }],
       fmt: function (v) { return F3.signedPct(v / 100); }, tickFmt: function (v) { return v + "%"; }, unit: "Change in " + WY[N] + " value against the standard run (%)", catHead: "Measure",
-      zeroNote: "The vertical line is zero: no change against the standard run (damage off).", file: "f3-compare-change-vs-baseline", caveat: cavTxt,
+      zeroNote: "The vertical line is zero: no change against the standard run (damage off).", file: "f3-compare-change-vs-baseline", caveat: cavTxt, assume: F3.ASSUME.w3damage,
       summary: tb + ". " + NAMES.a + " is " + nm.a + "; " + NAMES.b + " is " + nm.b + ". Warming is identical in all three and is not drawn." });
     var ident = rows.filter(function (r) { return r.identical; }).map(function (r) { return r.label; });
     $("identical_note").textContent = ident.length ? "Identical in the baseline, A and B and therefore not drawn: " + ident.join("; ") + ". Emissions are prescribed, so every scenario has the same warming; the damage option changes output, not temperature." : "";

@@ -34,10 +34,10 @@
     el.innerHTML = (o.title === false ? "" : '<h3 class="ct" data-role="title"></h3>') +
       '<div class="plot" data-role="plot" tabindex="0" role="group"></div><div class="leg" data-role="legend"></div>' +
       '<div class="rd" data-role="rd" aria-live="polite"></div>' +
-      '<div class="dl"><button type="button" data-dl="table" aria-expanded="false">View data table</button><button type="button" data-dl="png">Download PNG</button><button type="button" data-dl="csv">Download CSV</button></div>' +
+      '<p class="assume"><a data-role="assume" href="methods.html">Assumptions and limits</a></p><div class="dl"><button type="button" data-dl="table" aria-expanded="false">View data table</button><button type="button" data-dl="png">Download PNG</button><button type="button" data-dl="csv">Download CSV</button></div>' +
       '<div class="dtbox" data-role="dt" hidden><p class="alt" data-role="alt"></p><div class="tblwrap"><table data-role="tbl"></table></div></div>';
     var c = { el: el, spec: null, cur: null };
-    ["title", "plot", "legend", "rd", "dt", "alt", "tbl"].forEach(function (r) { c[r] = el.querySelector('[data-role="' + r + '"]'); });
+    ["title", "plot", "legend", "rd", "dt", "alt", "tbl", "assume"].forEach(function (r) { c[r] = el.querySelector('[data-role="' + r + '"]'); });
     c.rd.textContent = "Hover, touch or use the left and right arrow keys to read values.";
     var bt = el.querySelector('[data-dl="table"]');
     bt.onclick = function () { var open = c.dt.hidden; c.dt.hidden = !open; bt.setAttribute("aria-expanded", String(open)); bt.textContent = open ? "Hide data table" : "View data table"; };
@@ -60,6 +60,7 @@
   function setText(c, spec) {
     if (c.title) c.title.textContent = spec.title || "";
     c.alt.textContent = "Text alternative: " + (spec.summary || spec.title || "");
+    if (spec.assume) { c.assume.href = spec.assume.href; c.assume.textContent = spec.assume.text; }
     c.plot.setAttribute("aria-label", (spec.title || spec.label || "Chart") + (spec.kind === "line" ? ". Use the left and right arrow keys to read values year by year." : ""));
   }
   function legendHtml(c, items) {

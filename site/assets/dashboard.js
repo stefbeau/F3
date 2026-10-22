@@ -62,11 +62,11 @@
     var file = function (x) { return "f3-" + x + "-damage-" + st.damage + "-" + lk.replace(/\|/g, ""); };
     var pk = F3.peakOf(WY, run.pop);
     var sum = head + ". " + (cav ? cav + " " : "") + "Model run, not a forecast.";
-    C.lineChart($("ch_main"), { title: false, years: WY, xstep: 50, tableStep: 10, unit: "People (World3 population, 1900-2100)", fmt: "people", ymin: 0, file: file("world3-population"), caveat: cav, label: "World3 population", summary: sum, series: lines("pop", "Population"),
+    C.lineChart($("ch_main"), { title: false, years: WY, xstep: 50, tableStep: 10, unit: "People (World3 population, 1900-2100)", fmt: "people", ymin: 0, file: file("world3-population"), caveat: cav, label: "World3 population", assume: F3.assumeFor("world3", st.damage), summary: sum, series: lines("pop", "Population"),
       annotations: pk[0] === null ? [] : [{ x: pk[0], y: pk[1], text: "Peak " + F3.human(pk[1]) + ", " + pk[0], color: sc.a, tcolor: sc.aT }] });
     $("ch_main").querySelector(".plot").setAttribute("aria-label", head);
     var sec = function (id, kk, nm, title, unit, fmt, extra, f, summary) {
-      C.lineChart($(id), Object.assign({ title: title, years: WY, xstep: 50, tableStep: 10, unit: unit, fmt: fmt, file: file(f), caveat: cav, label: nm, summary: summary, series: lines(kk, nm) }, extra || {}));
+      C.lineChart($(id), Object.assign({ title: title, years: WY, xstep: 50, tableStep: 10, unit: unit, fmt: fmt, file: file(f), caveat: cav, label: nm, assume: F3.assumeFor("world3", st.damage), summary: summary, series: lines(kk, nm) }, extra || {}));
     };
     var tio = F3.industryFinding(WY, run, off, st.damage), tnr = F3.resourcesFinding(WY, run), tpo = F3.pollutionFinding(WY, run);
     sec("ch_io", "io", "Industrial output", tio, "Model dollars per year (World3's own constant dollars)", "usd", { ymin: 0 }, "world3-industrial-output", tio + "." + (cav ? " " + cav : ""));
@@ -78,7 +78,7 @@
   function stripes() { C.stripes($("ch_stripes"), F3.stripesSpec(D.climate, AY)); }
   function drawClimate() {
     var sc = C.scen(), T = D.climate, t = F3.temperatureFinding(AY, T.warming, T.warming_p05, T.warming_p95);
-    C.lineChart($("ch_temp"), { title: t, years: AY, xstep: 15, tableStep: 5, unit: "Warming above 1850-1900", fmt: "kelvin", file: "f3-fair-warming", label: "FaIR warming, 841 members",
+    C.lineChart($("ch_temp"), { title: t, years: AY, xstep: 15, tableStep: 5, unit: "Warming above 1850-1900", fmt: "kelvin", file: "f3-fair-warming", label: "FaIR warming, 841 members", assume: F3.ASSUME.climate,
       caveat: "FaIR starts about 0.04 to 0.07 K below observed (test A2.1 failed); emissions are prescribed.", summary: t + ". FaIR starts about 0.04 to 0.07 K below observed (test A2.1 failed); emissions are prescribed.",
       series: [{ name: "FaIR ensemble mean (line) and 5-95% band of 841 members (shaded)", label: "FaIR mean", color: sc.heat, tcolor: sc.heat, y: T.warming, band: [T.warming_p05, T.warming_p95] }] });
   }
@@ -102,14 +102,14 @@
     var sc = C.scen(), s = $("sel_s").value, d = $("sel_d").value, cols = [sc.acc1, sc.acc2, sc.acc3], cut = AY.indexOf(2050) + 1, yrs = AY.slice(0, cut);
     $("setting_text").textContent = "AI setting: " + s + " (" + D.meta.settings[s] + "). Damage option: " + d + " (" + D.meta.damage_sources[d] + ").";
     var fr = function (n) { return D.runs[F3.aiKey(n, d)].frac_automated; }, t = F3.automationFinding(AY, fr(s), s);
-    C.lineChart($("ch_auto"), { title: t, years: yrs, xstep: 5, tableStep: 5, unit: "Fraction of tasks automated (S3, levels unvalidated)", fmt: "fraction", ymin: 0, ymax: 1.02, file: "f3-ai-automation-damage-" + d, label: "Automation fraction, three AI settings, 2025-2050",
+    C.lineChart($("ch_auto"), { title: t, years: yrs, xstep: 5, tableStep: 5, unit: "Fraction of tasks automated (S3, levels unvalidated)", fmt: "fraction", ymin: 0, ymax: 1.02, file: "f3-ai-automation-damage-" + d, label: "Automation fraction, three AI settings, 2025-2050", assume: F3.ASSUME.ai,
       caveat: "S3 is unvalidated against GATE after about 2027 (test A1.3 failed); shape only.", summary: t + ". Shape only, 2025 to 2050: S3 is unvalidated against GATE after about 2027 (test A1.3 failed).",
       series: F3.AI_S.map(function (n, i) { return { name: n + (n === s ? " (selected)" : ""), label: n, color: cols[i], tcolor: cols[i], dash: DASH[i], width: n === s ? 3.6 : 1.8, y: fr(n).slice(0, cut) }; }) });
     var full = function (n) { var j = fr(n).findIndex(function (v) { return v >= 0.999; }); return j < 0 ? "not within " + AY[AY.length - 1] : AY[j]; };
     $("auto_note").textContent = "Axis shows 2025-2050. First year at 1.0: low " + full("low") + ", central " + full("central") + ", race " + full("race") + " (a year after 2050 is beyond the axis).";
     var dm = {}; F3.AI_D.forEach(function (o) { dm[o] = D.runs[F3.aiKey(s, o)].damage_fraction; });
     var td = F3.aiDamageFinding(AY, dm), n1 = AY.length - 1;
-    C.lineChart($("ch_dmg"), { title: td, years: AY, xstep: 15, tableStep: 5, unit: "Share of S3 output lost (%)", fmt: "pct", ymin: 0, file: "f3-ai-damage-share", label: "Damage options as a share of S3 output",
+    C.lineChart($("ch_dmg"), { title: td, years: AY, xstep: 15, tableStep: 5, unit: "Share of S3 output lost (%)", fmt: "pct", ymin: 0, file: "f3-ai-damage-share", label: "Damage options as a share of S3 output", assume: F3.ASSUME.aidamage,
       caveat: "Level-of-output effect, not the upper end of the literature; shares of S3's own, unvalidated output.", summary: td + ". Level-of-output effect, not the upper end of the literature; shares of S3's own, unvalidated output.",
       series: F3.AI_D.map(function (o, i) { return { name: o + (o === "high" ? " (not the upper end of the literature)" : ""), label: o, color: cols[i], tcolor: cols[i], dash: DASH[i], y: F3.scaleArr(dm[o], 100) }; }) });
     $("tb_dmg").innerHTML = "<tr><th>Option</th><th>c (% per K^2)</th><th>Share of S3 output lost in " + AY[n1] + "</th></tr>" + F3.AI_D.map(function (o) { return "<tr><td>" + o + "</td><td>" + D.meta.damage_coeff_pct_per_K2[o].toFixed(4) + (o === "low" ? "" : " (derived)") + "</td><td>" + F3.fx(F3.scale(dm[o][n1], 100), 2) + (F3.isNum(dm[o][n1]) ? "%" : "") + "</td></tr>"; }).join("");

@@ -120,7 +120,7 @@ def methods_page(data: dict, stamp: dict, css: str) -> str:
 {ig.ROADMAP_KEY}
 </section>
 
-<section class="card"><h2>Scenario grids</h2>
+<section class="card" id="grids"><h2>Scenario grids</h2>
 <ul>
 <li><strong>Units of World3 industrial output.</strong> The industrial-output chart is in <strong>model dollars per year</strong>: World3's own constant dollars, as the model defines them. They are not market prices, not tied to a year's price level, and not comparable with S3's output, which is a separate economy in separate units.</li>
 <li>The Explorer is a <strong>static page of precomputed runs</strong> (D-009): no model runs in your browser and nothing is sent anywhere.</li>
@@ -172,7 +172,7 @@ def limitations_page(data: dict, stamp: dict, css: str) -> str:
 <div class="failblock"><h3 class="fail">A4.5</h3><p class="note"><strong>What it checked:</strong> (Not shown in the Explorer.) The ported Earth4All economy sectors together reproduce the Earth4All.jl economy within 2%</p><p><strong>Result:</strong> <strong>Failed</strong> in both scenarios from about 2076 (GDP up to 2.5%, inequality up to 3.2%); accepted as recorded by the editor.</p></div>
 </section>
 
-<section class="card"><h2>What is, and is not, compared with anything</h2>
+<section class="card" id="compared"><h2>What is, and is not, compared with anything</h2>
 <ul>
 <li><strong>World3:</strong> only the <em>standard</em> parameters, with climate damage off, were compared with WorldDynamics.jl. The Explorer's runs with changed parameters have not been compared with any reference. Extreme settings (for example a land yield factor of 2.0, which ends with a population of about 0.4 billion) show what the ported equations do under that input; nothing says it is right.</li>
 <li><strong>AI race:</strong> unvalidated against GATE after about 2027 (above). Compute and data-centre electricity outputs are withheld because they leave any plausible range (in the recorded runs modelled data-centre demand reaches about 7 billion TWh a year by 2100, against about 485 TWh in 2025; the earlier recorded figures were about 20,000 TWh in 2030 and 414,000 TWh in 2040); that is a property of S3's compute path, not a finding about the world.</li>
