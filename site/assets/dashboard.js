@@ -63,7 +63,7 @@
     var pk = F3.peakOf(WY, run.pop);
     var sum = head + ". " + (cav ? cav + " " : "") + "Model run, not a forecast.";
     C.lineChart($("ch_main"), { title: false, years: WY, xstep: 50, tableStep: 10, unit: "People (World3 population, 1900-2100)", fmt: "people", ymin: 0, file: file("world3-population"), caveat: cav, label: "World3 population", summary: sum, series: lines("pop", "Population"),
-      annotations: [{ x: pk[0], y: pk[1], text: "Peak " + F3.human(pk[1]) + ", " + pk[0], color: sc.a, tcolor: sc.aT }] });
+      annotations: pk[0] === null ? [] : [{ x: pk[0], y: pk[1], text: "Peak " + F3.human(pk[1]) + ", " + pk[0], color: sc.a, tcolor: sc.aT }] });
     $("ch_main").querySelector(".plot").setAttribute("aria-label", head);
     var sec = function (id, kk, nm, title, unit, fmt, extra, f, summary) {
       C.lineChart($(id), Object.assign({ title: title, years: WY, xstep: 50, tableStep: 10, unit: unit, fmt: fmt, file: file(f), caveat: cav, label: nm, summary: summary, series: lines(kk, nm) }, extra || {}));
@@ -76,11 +76,11 @@
 
   /* ---------- climate and AI race (in Details) ---------- */
   function stripes() {
-    var T = D.climate.warming, lo = Math.min.apply(null, T), hi = Math.max.apply(null, T), n = T.length, w = 320 / n, A = [33, 102, 172], M = [247, 247, 247], R = [178, 24, 43];
+    var T = D.climate.warming, nums = T.filter(F3.isNum), lo = Math.min.apply(null, nums), hi = Math.max.apply(null, nums), n = T.length, w = 320 / n, A = [33, 102, 172], M = [247, 247, 247], R = [178, 24, 43];
     var mix = function (p, q, t) { return p.map(function (v, i) { return Math.round(v + (q[i] - v) * t); }); };
     var col = function (v) { var t = (v - lo) / ((hi - lo) || 1), c = t < 0.5 ? mix(A, M, t * 2) : mix(M, R, (t - 0.5) * 2); return "rgb(" + c.join(",") + ")"; };
-    $("stripes_g").innerHTML = T.map(function (v, i) { return '<rect x="' + (i * w).toFixed(2) + '" y="0" width="' + (w + 0.6).toFixed(2) + '" height="84" fill="' + col(v) + '"/>'; }).join("");
-    $("stripes_l").textContent = AY[0] + ": " + lo.toFixed(2) + " K"; $("stripes_r").textContent = AY[n - 1] + ": " + hi.toFixed(2) + " K";
+    $("stripes_g").innerHTML = T.map(function (v, i) { return '<rect x="' + (i * w).toFixed(2) + '" y="0" width="' + (w + 0.6).toFixed(2) + '" height="84" ' + (F3.isNum(v) ? 'fill="' + col(v) + '"' : 'style="fill:var(--line)"') + "/>"; }).join("");
+    $("stripes_l").textContent = AY[0] + ": " + F3.fx(lo, 2) + " K"; $("stripes_r").textContent = AY[n - 1] + ": " + F3.fx(hi, 2) + " K";
   }
   function drawClimate() {
     var sc = C.scen(), T = D.climate, t = F3.temperatureFinding(AY, T.warming, T.warming_p05, T.warming_p95);
@@ -88,10 +88,10 @@
       caveat: "FaIR starts about 0.04 to 0.07 K below observed (test A2.1 failed); emissions are prescribed.", summary: t + ". FaIR starts about 0.04 to 0.07 K below observed (test A2.1 failed); emissions are prescribed.",
       series: [{ name: "FaIR ensemble mean (line) and 5-95% band of 841 members (shaded)", label: "FaIR mean", color: sc.heat, tcolor: sc.heat, y: T.warming, band: [T.warming_p05, T.warming_p95] }] });
   }
-  function cross(y, th) { var j = y.findIndex(function (v) { return v >= th; }); return j < 0 ? null : { year: AY[j], at: y[j], before: j > 0 ? y[j - 1] : null }; }
+  function cross(y, th) { var j = y.findIndex(function (v) { return F3.isNum(v) && v >= th; }); return j < 0 ? null : { year: AY[j], at: y[j], before: j > 0 ? y[j - 1] : null }; }
   function r1Sentence() {
     var fr = function (n) { return D.runs[F3.aiKey(n, "central")].frac_automated; };
-    var parts = F3.AI_S.map(function (n) { var c = cross(fr(n), 0.5); return c ? n + ": " + c.year + " (fraction " + (c.before === null ? "n/a" : c.before.toFixed(2)) + " the year before, " + c.at.toFixed(2) + " that year)" : n + ": never"; });
+    var parts = F3.AI_S.map(function (n) { var c = cross(fr(n), 0.5); return c ? n + ": " + c.year + " (fraction " + (c.before === null ? "n/a" : F3.fx(c.before, 2)) + " the year before, " + F3.fx(c.at, 2) + " that year)" : n + ": never"; });
     var all = F3.AI_S.map(function (n) { return cross(fr(n), 0.5); });
     var same = all.every(function (c) { return c && c.year === all[0].year; });
     return "<strong>R1</strong> (more AI investment, more automation): the first year the automated fraction reaches 0.5 is " + parts.join("; ") + ". " +
@@ -102,7 +102,7 @@
     var n = AY.length - 1, hi = D.runs[F3.aiKey("central", "high")].damage_fraction[n], lo = D.runs[F3.aiKey("central", "low")].damage_fraction[n];
     $("signs").innerHTML = "<ul><li id=\"r1text\">" + r1Sentence() + "</li>" +
       "<li><strong>B1</strong> (less electricity, slower compute growth): the recorded test failed as written (a lower-supply run had more compute in some years). Compute values are withheld above.</li>" +
-      "<li><strong>B2</strong> (more damage, lower output): the share of output lost in " + AY[n] + " is " + (hi * 100).toFixed(1) + "% (high) against " + (lo * 100).toFixed(1) + "% (low); the sign test passed.</li></ul>";
+      "<li><strong>B2</strong> (more damage, lower output): the share of output lost in " + AY[n] + " is " + F3.fx(F3.scale(hi, 100), 1) + "% (high) against " + F3.fx(F3.scale(lo, 100), 1) + "% (low); the sign test passed.</li></ul>";
   }
   function drawAI() {
     var sc = C.scen(), s = $("sel_s").value, d = $("sel_d").value, cols = [sc.acc1, sc.acc2, sc.acc3], cut = AY.indexOf(2050) + 1, yrs = AY.slice(0, cut);
@@ -117,8 +117,8 @@
     var td = F3.aiDamageFinding(AY, dm), n1 = AY.length - 1;
     C.lineChart($("ch_dmg"), { title: td, years: AY, xstep: 15, tableStep: 5, unit: "Share of S3 output lost (%)", fmt: "pct", ymin: 0, file: "f3-ai-damage-share", label: "Damage options as a share of S3 output",
       caveat: "Level-of-output effect, not the upper end of the literature; shares of S3's own, unvalidated output.", summary: td + ". Level-of-output effect, not the upper end of the literature; shares of S3's own, unvalidated output.",
-      series: F3.AI_D.map(function (o, i) { return { name: o + (o === "high" ? " (not the upper end of the literature)" : ""), label: o, color: cols[i], tcolor: cols[i], dash: DASH[i], y: dm[o].map(function (v) { return v * 100; }) }; }) });
-    $("tb_dmg").innerHTML = "<tr><th>Option</th><th>c (% per K^2)</th><th>Share of S3 output lost in " + AY[n1] + "</th></tr>" + F3.AI_D.map(function (o) { return "<tr><td>" + o + "</td><td>" + D.meta.damage_coeff_pct_per_K2[o].toFixed(4) + (o === "low" ? "" : " (derived)") + "</td><td>" + (dm[o][n1] * 100).toFixed(2) + "%</td></tr>"; }).join("");
+      series: F3.AI_D.map(function (o, i) { return { name: o + (o === "high" ? " (not the upper end of the literature)" : ""), label: o, color: cols[i], tcolor: cols[i], dash: DASH[i], y: F3.scaleArr(dm[o], 100) }; }) });
+    $("tb_dmg").innerHTML = "<tr><th>Option</th><th>c (% per K^2)</th><th>Share of S3 output lost in " + AY[n1] + "</th></tr>" + F3.AI_D.map(function (o) { return "<tr><td>" + o + "</td><td>" + D.meta.damage_coeff_pct_per_K2[o].toFixed(4) + (o === "low" ? "" : " (derived)") + "</td><td>" + F3.fx(F3.scale(dm[o][n1], 100), 2) + (F3.isNum(dm[o][n1]) ? "%" : "") + "</td></tr>"; }).join("");
     $("tb_coef").innerHTML = "<tr><th>Option</th><th>Source</th></tr>" + F3.AI_D.map(function (o) { return "<tr><td>" + o + "</td><td>" + C.esc(D.meta.damage_sources[o]) + "</td></tr>"; }).join("");
   }
 

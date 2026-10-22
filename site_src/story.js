@@ -25,18 +25,18 @@
     var pk = F3.peakOf(Y, run.pop), series = [{ name: isStd ? "Standard run" : "This run", label: isStd ? "Standard" : "This run", color: sc.a, tcolor: sc.aT, y: run.pop }];
     if (!isStd) series.unshift({ name: "Standard run", label: "Standard", color: sc.base, tcolor: sc.baseT, dash: "7 4", width: 2, y: std.pop });
     C.lineChart($("ch_s1"), { title: false, years: Y, series: series, unit: "People", fmt: "people", ymin: 0, xstep: 50, tableStep: 10, file: "f3-story-world3-population",
-      annotations: [{ x: pk[0], y: pk[1], text: "Peak " + F3.human(pk[1]) + ", " + pk[0], color: sc.a, tcolor: sc.aT }], label: "World3 population, 1900-2100",
+      annotations: pk[0] === null ? [] : [{ x: pk[0], y: pk[1], text: "Peak " + F3.human(pk[1]) + ", " + pk[0], color: sc.a, tcolor: sc.aT }], label: "World3 population, 1900-2100",
       summary: title + ". Model run, not a forecast.", caveat: "World3 2004 parameter set; changed runs are not compared with WorldDynamics.jl." });
     $("ch_s1").querySelector(".plot").setAttribute("aria-label", title);
   }
 
   /* ---- chapter 2: stripes and damage bars; control = damage option ---- */
   function stripes() {
-    var T = D.climate.warming, lo = Math.min.apply(null, T), hi = Math.max.apply(null, T), n = T.length, w = 320 / n, A = [33, 102, 172], M = [247, 247, 247], R = [178, 24, 43];
+    var T = D.climate.warming, nums = T.filter(F3.isNum), lo = Math.min.apply(null, nums), hi = Math.max.apply(null, nums), n = T.length, w = 320 / n, A = [33, 102, 172], M = [247, 247, 247], R = [178, 24, 43];
     var mix = function (p, q, t) { return p.map(function (v, i) { return Math.round(v + (q[i] - v) * t); }); };
     var col = function (v) { var t = (v - lo) / ((hi - lo) || 1), c = t < 0.5 ? mix(A, M, t * 2) : mix(M, R, (t - 0.5) * 2); return "rgb(" + c.join(",") + ")"; };
-    $("stripes_g").innerHTML = T.map(function (v, i) { return '<rect x="' + (i * w).toFixed(2) + '" y="0" width="' + (w + 0.6).toFixed(2) + '" height="84" fill="' + col(v) + '"/>'; }).join("");
-    $("stripes_l").textContent = AY[0] + ": " + lo.toFixed(2) + " K"; $("stripes_r").textContent = AY[n - 1] + ": " + hi.toFixed(2) + " K";
+    $("stripes_g").innerHTML = T.map(function (v, i) { return '<rect x="' + (i * w).toFixed(2) + '" y="0" width="' + (w + 0.6).toFixed(2) + '" height="84" ' + (F3.isNum(v) ? 'fill="' + col(v) + '"' : 'style="fill:var(--line)"') + "/>"; }).join("");
+    $("stripes_l").textContent = AY[0] + ": " + F3.fx(lo, 2) + " K"; $("stripes_r").textContent = AY[n - 1] + ": " + F3.fx(hi, 2) + " K";
   }
   function ch2() {
     var sc = C.scen(), std = W.levers.map(function (l) { return l.standard_index; }), off = W.runs[F3.runKey(std, "off")], opts = ["low", "central", "high"], eff = {}, cols = [sc.acc1, sc.acc2, sc.acc3], tcols = cols;
@@ -45,7 +45,7 @@
     var sel = S.c2, title = F3.damageBarsFinding(Y, eff[sel] || null, sel);
     $("ch2_h").textContent = title;
     $("c2_notice").textContent = F3.damageNotice(sel);
-    var pc = function (f) { return f * 100; };
+    var pc = function (f) { return F3.scale(f, 100); };
     C.barChart($("ch_s2"), { title: false, categories: [{ label: "Industrial output, " + Y[N], values: opts.map(function (o) { return pc(eff[o].io); }) }, { label: "Population, " + Y[N], values: opts.map(function (o) { return pc(eff[o].pop); }) }],
       series: opts.map(function (o, i) { return { name: o + (o === "high" ? " (not the upper end of the literature)" : ""), short: o, color: cols[i], tcolor: tcols[i], dim: function () { return sel !== "off" && sel !== o; } }; }),
       fmt: function (v) { return F3.signedPct(v / 100); }, tickFmt: function (v) { return v + "%"; }, unit: "Change in " + Y[N] + " value against damage off, standard levers", catHead: "Measure",

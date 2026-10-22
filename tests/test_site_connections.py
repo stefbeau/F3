@@ -98,7 +98,7 @@ def test_methods_links_resolve_to_anchors_that_exist():
 def test_effect_numbers_are_computed_from_the_data(tmp_path):
     d = json.loads(DATA.read_text(encoding="utf-8"))
     prog = ("const IN=" + json.dumps(linkdata()["links"]) + f";const F3=require({json.dumps(str(SRC / 'core.js'))});"
-            "const D=" + json.dumps(d) + ";"                         # the data file holds NaN (valid JavaScript, not JSON): load it as a literal like the page does
+            "const D=" + json.dumps(d) + ";"                         # the data file is strict JSON (null = no value), so this literal is valid JSON as well as valid JavaScript
             "process.stdout.write(JSON.stringify([F3.effectTable('w3damage',D),F3.effectTable('s3damage',D),F3.effectTable(null,D),F3.linksFinding(IN)]));")
     f = tmp_path / "e.js"
     f.write_text(prog, encoding="utf-8")

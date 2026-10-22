@@ -5,8 +5,25 @@
   if (typeof module === "object" && module.exports) module.exports = factory(); else root.F3 = factory();
 })(this, function () {
   "use strict";
+  /* ---------- no value: the data file uses null for "no value" (never zero). the global isFinite is true for null in JavaScript, so every test of a data value goes through isNum ---------- */
+  var NA = "no value";
+  function isNum(v) { return typeof v === "number" && isFinite(v); }
+  function scale(v, k) { return isNum(v) ? v * k : null; }
+  function scaleArr(a, k) { return a.map(function (v) { return scale(v, k); }); }
+  function chg(a, b) { return isNum(a) && isNum(b) && b !== 0 ? a / b - 1 : null; }       /* a change as a fraction (a / b - 1), or null when either value is missing */
+  function diff(a, b) { return isNum(a) && isNum(b) ? a - b : null; }
+  function fx(v, d) { return isNum(v) ? v.toFixed(d) : NA; }
+  /* contiguous runs of numeric values: [[first, last], ...] (a line is drawn per run, so a gap is never bridged and never read as zero) */
+  function runs(ys) {
+    var out = [], s = -1;
+    ys.forEach(function (v, i) { if (isNum(v)) { if (s < 0) s = i; } else if (s >= 0) { out.push([s, i - 1]); s = -1; } });
+    if (s >= 0) out.push([s, ys.length - 1]);
+    return out;
+  }
+  function lastNum(ys) { for (var i = ys.length - 1; i >= 0; i--) if (isNum(ys[i])) return i; return -1; }
   /* ---------- number formats ---------- */
   function human(v) {
+    if (!isNum(v)) return NA;
     var a = Math.abs(v);
     if (a >= 1e12) return (+(v / 1e12).toPrecision(3)) + " trillion";
     if (a >= 1e9) return (+(v / 1e9).toPrecision(3)) + " billion";
@@ -15,25 +32,27 @@
   }
   var FMT = {
     people: human, usd: human,
-    fraction: function (v) { return (+v.toFixed(2)).toString(); },
-    index: function (v) { return (+v.toPrecision(3)).toString(); },
-    pct: function (v) { return (+v.toFixed(2)) + "%"; },
-    kelvin: function (v) { return (+v.toFixed(2)) + " K"; }
+    fraction: function (v) { return isNum(v) ? (+v.toFixed(2)).toString() : NA; },
+    index: function (v) { return isNum(v) ? (+v.toPrecision(3)).toString() : NA; },
+    pct: function (v) { return isNum(v) ? (+v.toFixed(2)) + "%" : NA; },
+    kelvin: function (v) { return isNum(v) ? (+v.toFixed(2)) + " K" : NA; }
   };
   /* A change as a plain-language phrase: "12.3% lower", "4.0% higher", "unchanged". */
   function rel(x) {
+    if (!isNum(x)) return NA;
     var p = x * 100, a = Math.abs(p);
     if (a < 0.05) return "unchanged";
     return a.toFixed(1) + "% " + (p < 0 ? "lower" : "higher");
   }
   /* A change as a signed percentage for tiles and tables: "-12.3%", "+4.0%", "0.0%". */
   function signedPct(x) {
+    if (!isNum(x)) return NA;
     var p = x * 100;
     return (Math.abs(p) < 0.05 ? "0.0" : (p > 0 ? "+" : "") + p.toFixed(1)) + "%";
   }
   /* ---------- series helpers ---------- */
-  function peakOf(years, ys) { var k = 0; ys.forEach(function (v, i) { if (v > ys[k]) k = i; }); return [years[k], ys[k]]; }
-  function firstReach(years, ys, th) { var j = ys.findIndex(function (v) { return v >= th; }); return j < 0 ? null : years[j]; }
+  function peakOf(years, ys) { var k = -1; ys.forEach(function (v, i) { if (isNum(v) && (k < 0 || v > ys[k])) k = i; }); return k < 0 ? [null, null] : [years[k], ys[k]]; }
+  function firstReach(years, ys, th) { var j = ys.findIndex(function (v) { return isNum(v) && v >= th; }); return j < 0 ? null : years[j]; }
   function indexOfYear(years, y) { return years.indexOf(y); }
   function sameSeries(a, b) {
     if (!a || !b || a.length !== b.length) return false;
@@ -45,7 +64,9 @@
   function maxSpread(years, arrays) {
     var best = { gap: 0, year: years[0] };
     years.forEach(function (y, i) {
-      var vs = arrays.map(function (a) { return a[i]; }), g = Math.max.apply(null, vs) - Math.min.apply(null, vs);
+      var vs = arrays.map(function (a) { return a[i]; }).filter(isNum);
+      if (vs.length < 2) return;                                                     /* a missing value is skipped, never counted as zero */
+      var g = Math.max.apply(null, vs) - Math.min.apply(null, vs);
       if (g > best.gap) best = { gap: g, year: y };
     });
     return best;
@@ -85,8 +106,10 @@
   function csvOf(years, cols, notes) {
     var q = function (s) { return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
     var lines = ["year," + cols.map(function (c) { return q(c.name); }).join(",")];
-    years.forEach(function (y, i) { lines.push(y + "," + cols.map(function (c) { return String(c.y[i]); }).join(",")); });
+    var anyNull = false;
+    years.forEach(function (y, i) { lines.push(y + "," + cols.map(function (c) { if (isNum(c.y[i])) return String(c.y[i]); anyNull = true; return ""; }).join(",")); });
     (notes || []).forEach(function (t) { lines.push("# " + t); });
+    if (anyNull) lines.push("# An empty cell means no value (null in the data file), not zero.");
     return lines.join("\n") + "\n";
   }
   function damageNotice(damage) {
@@ -95,32 +118,39 @@
   }
   /* ---------- finding titles (generated from data; tests/test_site_v02_core.py) ---------- */
   function popFinding(years, run, std, who) {
-    var n = years.length - 1, end = years[n], pk = peakOf(years, run.pop), falls = run.pop[n] < pk[1] * 0.999;
+    var n = years.length - 1, end = years[n], pk = peakOf(years, run.pop);
+    if (pk[0] === null) return (who || "In this run") + ", population has " + NA + " in any year";
+    var falls = isNum(run.pop[n]) && run.pop[n] < pk[1] * 0.999;
     var s = (who || "In this run") + ", population peaks at " + human(pk[1]) + " in " + pk[0] +
-      (falls ? ", then falls to " + human(run.pop[n]) + " by " + end : " and is still " + human(run.pop[n]) + " in " + end);
+      (!isNum(run.pop[n]) ? " and has " + NA + " in " + end : falls ? ", then falls to " + human(run.pop[n]) + " by " + end : " and is still " + human(run.pop[n]) + " in " + end);
     if (std && !sameSeries(run.pop, std.pop)) {
       var sp = peakOf(years, std.pop);
-      s += "; the standard run peaks at " + human(sp[1]) + " in " + sp[0];
+      if (sp[0] !== null) s += "; the standard run peaks at " + human(sp[1]) + " in " + sp[0];
     }
     return s;
   }
   function industryFinding(years, run, off, damage) {
     var n = years.length - 1, end = years[n], pk = peakOf(years, run.io);
+    if (pk[0] === null) return "World3 industrial output has " + NA + " in any year";
     var s = "World3 industrial output peaks at " + human(pk[1]) + " model dollars a year in " + pk[0] + " and is " + human(run.io[n]) + " in " + end;
-    if (damage !== "off") s += "; climate damage (" + damage + ") makes " + end + " output " + rel(run.io[n] / off.io[n] - 1) + " than with damage off";
+    if (damage !== "off") {
+      var c = chg(run.io[n], off.io[n]);
+      s += c === null ? "; the effect of climate damage (" + damage + ") on " + end + " output cannot be computed (" + NA + ")" : "; climate damage (" + damage + ") makes " + end + " output " + rel(c) + " than with damage off";
+    }
     return s;
   }
   function resourcesFinding(years, run) {
     var n = years.length - 1;
-    return "Only " + run.nrfr[n].toFixed(2) + " of the starting non-renewable resources remain in " + years[n];
+    return "Only " + fx(run.nrfr[n], 2) + " of the starting non-renewable resources remain in " + years[n];
   }
   function pollutionFinding(years, run) {
     var n = years.length - 1, pp = peakOf(years, run.ppolx);
-    return "Persistent pollution peaks at " + pp[1].toFixed(1) + " times its 1970 level in " + pp[0] + " and is " + run.ppolx[n].toFixed(2) + " times in " + years[n];
+    if (pp[0] === null) return "Persistent pollution has " + NA + " in any year";
+    return "Persistent pollution peaks at " + fx(pp[1], 1) + " times its 1970 level in " + pp[0] + " and is " + fx(run.ppolx[n], 2) + " times in " + years[n];
   }
   function temperatureFinding(years, mean, lo, hi) {
     var n = years.length - 1;
-    return "FaIR ensemble mean warming reaches " + mean[n].toFixed(2) + " K by " + years[n] + " (5th to 95th percentile " + lo[n].toFixed(2) + " to " + hi[n].toFixed(2) + " K)";
+    return "FaIR ensemble mean warming reaches " + fx(mean[n], 2) + " K by " + years[n] + " (5th to 95th percentile " + fx(lo[n], 2) + " to " + fx(hi[n], 2) + " K)";
   }
   function automationFinding(years, frac, label) {
     var end = years[years.length - 1], y05 = firstReach(years, frac, 0.5), y10 = firstReach(years, frac, 0.999);
@@ -128,11 +158,11 @@
   }
   function aiDamageFinding(years, dmgByOption) {
     var n = years.length - 1;
-    return "Damage takes " + (dmgByOption.low[n] * 100).toFixed(1) + "% to " + (dmgByOption.high[n] * 100).toFixed(1) + "% of S3's own output in " + years[n] + " (low to high option)";
+    return "Damage takes " + fx(scale(dmgByOption.low[n], 100), 1) + "% to " + fx(scale(dmgByOption.high[n], 100), 1) + "% of S3's own output in " + years[n] + " (low to high option)";
   }
   /* Effect of a damage option on 2100 values, at the same lever settings: fractions (run / damage off - 1). */
   function damageEffect(run, off, n) {
-    return { io: run.io[n] / off.io[n] - 1, pop: run.pop[n] / off.pop[n] - 1, nrfr: run.nrfr[n] / off.nrfr[n] - 1, ppolx: run.ppolx[n] / off.ppolx[n] - 1 };
+    return { io: chg(run.io[n], off.io[n]), pop: chg(run.pop[n], off.pop[n]), nrfr: chg(run.nrfr[n], off.nrfr[n]), ppolx: chg(run.ppolx[n], off.ppolx[n]) };
   }
   function damageBarsFinding(years, eff, damage) {
     var end = years[years.length - 1];
@@ -143,12 +173,12 @@
   function w3Kpis(years, run, std, off, damage) {
     var n = years.length - 1, end = years[n], pk = peakOf(years, run.pop), same = sameSeries(run.pop, std.pop);
     var tiles = [
-      { id: "peak", k: "Peak population", v: human(pk[1]), sub: "in " + pk[0] },
-      { id: "end", k: "Population in " + end, v: human(run.pop[n]), sub: same ? "same as the standard run" : signedPct(run.pop[n] / std.pop[n] - 1) + " vs the standard run" },
-      { id: "res", k: "Resources left, " + end, v: run.nrfr[n].toFixed(2), sub: "of the starting stock" }
+      { id: "peak", k: "Peak population", v: human(pk[1]), sub: pk[0] === null ? NA : "in " + pk[0] },
+      { id: "end", k: "Population in " + end, v: human(run.pop[n]), sub: same ? "same as the standard run" : signedPct(chg(run.pop[n], std.pop[n])) + " vs the standard run" },
+      { id: "res", k: "Resources left, " + end, v: fx(run.nrfr[n], 2), sub: "of the starting stock" }
     ];
     if (damage === "off") tiles.push({ id: "dmg", k: "Damage effect on " + end + " industry", v: "n/a", sub: "climate damage is off" });
-    else tiles.push({ id: "dmg", k: "Damage effect on " + end + " industry", v: signedPct(run.io[n] / off.io[n] - 1), sub: "vs damage off, same settings" });
+    else tiles.push({ id: "dmg", k: "Damage effect on " + end + " industry", v: signedPct(chg(run.io[n], off.io[n])), sub: "vs damage off, same settings" });
     return tiles;
   }
   /* ---------- compare mode (baseline vs A vs B) ---------- */
@@ -163,7 +193,7 @@
     var n = years.length - 1;
     var rows = COMPARE_METRICS.map(function (m) {
       var v0 = base[m.series][n], va = a[m.series][n], vb = b[m.series][n];
-      return { id: m.id, label: m.label, fmt: m.fmt, base: v0, a: va, b: vb, dA: va / v0 - 1, dB: vb / v0 - 1, bMinusA: vb - va, bMinusAFrac: vb / va - 1, identical: va === vb && va === v0 };
+      return { id: m.id, label: m.label, fmt: m.fmt, base: v0, a: va, b: vb, dA: chg(va, v0), dB: chg(vb, v0), bMinusA: diff(vb, va), bMinusAFrac: chg(vb, va), identical: va === vb && va === v0 };
     });
     if (warming) {
       var w = warming[warming.length - 1];
@@ -175,6 +205,7 @@
     var end = years[years.length - 1], by = {};
     rows.forEach(function (r) { by[r.id] = r; });
     var p = by.pop, io = by.io;
+    if (!isNum(p.bMinusA) || !isNum(io.bMinusA) || !isNum(p.dA) || !isNum(p.dB)) return "The two scenarios cannot be compared in " + end + ": a population or industrial output value is missing (" + NA + ").";
     if (Math.abs(p.bMinusA) < 1e-9 * Math.abs(p.a) && Math.abs(io.bMinusA) < 1e-9 * Math.abs(io.a)) {
       return names.a + " and " + names.b + " end " + end + " with the same population and industrial output: the settings do not change this run.";
     }
@@ -183,7 +214,7 @@
       ") and " + rel(io.b / io.a - 1) + " industrial output; against the standard run, population is " + rel(p.dA) + " in " + names.a + " and " + rel(p.dB) + " in " + names.b + ".";
   }
   /* A value with an explicit sign in the metric's format: "+1.2 billion", "-0.05". */
-  function signedFmt(v, fmtName) { var f = FMT[fmtName]; return (v < 0 ? "-" : v > 0 ? "+" : "") + f(Math.abs(v)); }
+  function signedFmt(v, fmtName) { var f = FMT[fmtName]; if (!isNum(v)) return NA; return (v < 0 ? "-" : v > 0 ? "+" : "") + f(Math.abs(v)); }
   function overlayFinding(years, label, fmtName, vals, names) {
     var f = FMT[fmtName], end = years[years.length - 1];
     return label + " in " + end + ": " + names.a + " ends at " + f(vals.a) + ", " + names.b + " at " + f(vals.b) + ", the standard run at " + f(vals.base);
@@ -193,7 +224,7 @@
     var end = years[years.length - 1], best = null;
     rows.forEach(function (r) {
       if (r.identical) return;
-      [["a", r.dA], ["b", r.dB]].forEach(function (p) { if (best === null || Math.abs(p[1]) > Math.abs(best.d)) best = { who: names[p[0]], d: p[1], label: r.label }; });
+      [["a", r.dA], ["b", r.dB]].forEach(function (p) { if (!isNum(p[1])) return; if (best === null || Math.abs(p[1]) > Math.abs(best.d)) best = { who: names[p[0]], d: p[1], label: r.label }; });
     });
     if (best === null) return "Both scenarios match the standard run in " + end + " on every measure shown";
     return "Against the standard run, the largest " + end + " change is " + best.label.toLowerCase() + " in " + best.who + " (" + signedPct(best.d) + ")";
@@ -205,13 +236,13 @@
       var std = W.levers.map(function (l) { return l.standard_index; }), off = W.runs[runKey(std, "off")];
       return { head: ["Damage option", "c (% of output per K squared)", "Industrial output, " + WY[n], "Population, " + WY[n]],
         rows: opts.map(function (o) { var e = damageEffect(W.runs[runKey(std, o)], off, n); return [o, W.damage.coeff_pct_per_K2[o].toFixed(3), signedPct(e.io), signedPct(e.pop)]; }),
-        note: "Standard lever settings, against the same run with damage off. Driven by FaIR ensemble-mean warming of " + tEnd.toFixed(2) + " K in " + AY[AY.length - 1] + "." };
+        note: "Standard lever settings, against the same run with damage off. Driven by FaIR ensemble-mean warming of " + fx(tEnd, 2) + " K in " + AY[AY.length - 1] + "." };
     }
     if (kind === "s3damage") {
       var m = AY.length - 1;
       return { head: ["Damage option", "c (% of output per K squared)", "Share of S3's own output lost, " + AY[m]],
-        rows: opts.map(function (o) { return [o, D.meta.damage_coeff_pct_per_K2[o].toFixed(3), (D.runs[aiKey("central", o)].damage_fraction[m] * 100).toFixed(1) + "%"]; }),
-        note: "Central AI investment setting. Shares of S3's own output, whose level is unvalidated. Driven by FaIR ensemble-mean warming of " + tEnd.toFixed(2) + " K in " + AY[m] + "." };
+        rows: opts.map(function (o) { return [o, D.meta.damage_coeff_pct_per_K2[o].toFixed(3), fx(scale(D.runs[aiKey("central", o)].damage_fraction[m], 100), 1) + (isNum(D.runs[aiKey("central", o)].damage_fraction[m]) ? "%" : "")]; }),
+        note: "Central AI investment setting. Shares of S3's own output, whose level is unvalidated. Driven by FaIR ensemble-mean warming of " + fx(tEnd, 2) + " K in " + AY[m] + "." };
     }
     return null;
   }
@@ -238,6 +269,7 @@
     return (p ? p.name : "Custom " + levers.join(".")) + (damage === "off" ? " (damage off)" : " (" + damage + " damage)");
   }
   return {
+    NA: NA, isNum: isNum, scale: scale, scaleArr: scaleArr, chg: chg, diff: diff, fx: fx, runs: runs, lastNum: lastNum,
     human: human, FMT: FMT, rel: rel, signedPct: signedPct, peakOf: peakOf, firstReach: firstReach, indexOfYear: indexOfYear, sameSeries: sameSeries, sameRun: sameRun, maxSpread: maxSpread,
     DEF_LEVERS: DEF_LEVERS, DMG_STATES: DMG_STATES, AI_S: AI_S, AI_D: AI_D, PRESETS: PRESETS, runKey: runKey, aiKey: aiKey, encodeState: encodeState, decodeState: decodeState,
     csvOf: csvOf, damageNotice: damageNotice, popFinding: popFinding, industryFinding: industryFinding, resourcesFinding: resourcesFinding, pollutionFinding: pollutionFinding,

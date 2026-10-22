@@ -61,7 +61,7 @@
     /* diverging bars: 2100 change against the baseline, zero line visible */
     var shown = rows.filter(function (r) { return !r.identical; }), tb = F3.barsFinding(WY, rows, NAMES);
     if (!shown.length) { $("ch_bars")._c = null; $("ch_bars").innerHTML = "<h3 class=\"ct\">" + C.esc(tb) + "</h3><p class=\"note\">Nothing to draw: every measure equals the standard run.</p>"; }
-    else C.barChart($("ch_bars"), { title: tb, categories: shown.map(function (r) { return { label: r.label.replace(/ \(.*\)/, "") + ", " + WY[N], values: [r.dA * 100, r.dB * 100] }; }),
+    else C.barChart($("ch_bars"), { title: tb, categories: shown.map(function (r) { return { label: r.label.replace(/ \(.*\)/, "") + ", " + WY[N], values: [F3.scale(r.dA, 100), F3.scale(r.dB, 100)] }; }),
       series: [{ name: NAMES.a, short: "A", color: sc.a, tcolor: sc.aT }, { name: NAMES.b, short: "B", color: sc.b, tcolor: sc.bT }],
       fmt: function (v) { return F3.signedPct(v / 100); }, tickFmt: function (v) { return v + "%"; }, unit: "Change in " + WY[N] + " value against the standard run (%)", catHead: "Measure",
       zeroNote: "The vertical line is zero: no change against the standard run (damage off).", file: "f3-compare-change-vs-baseline", caveat: cavTxt,

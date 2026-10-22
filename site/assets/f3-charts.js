@@ -2,6 +2,7 @@
    The SVG viewBox is the real pixel size so text is drawn at its real size (13 px minimum). Needs window.F3 (core.js). No model numbers here. */
 (function () {
   "use strict";
+  /* The data file uses null for "no value": it is never drawn, never read as zero, and a line is broken where a value is missing (F3.runs). */
   var F3 = window.F3, NS = "http://www.w3.org/2000/svg";
   var $ = function (id) { return document.getElementById(id); };
   var tok = function (n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); };
@@ -77,7 +78,7 @@
     var W = Math.max(300, Math.floor(wrap.clientWidth || 340)), narrow = W < 520, H = narrow ? 320 : 300, FS = 13, R = 26, B = 34;
     var ul = wrapText(spec.unit, W - 24), nl = series.filter(function (s) { return s.label; }).length, T = 28 + Math.max(0, nl - 1) * 15 + (ul.length - 1) * 16;
     var xmin = years[0], xmax = years[years.length - 1], ymin = Infinity, ymax = -Infinity;
-    series.forEach(function (s) { (s.band ? [s.band[0], s.band[1]] : []).concat([s.y]).forEach(function (a) { a.forEach(function (v) { if (isFinite(v)) { ymin = Math.min(ymin, v); ymax = Math.max(ymax, v); } }); }); });
+    series.forEach(function (s) { (s.band ? [s.band[0], s.band[1]] : []).concat([s.y]).forEach(function (a) { a.forEach(function (v) { if (F3.isNum(v)) { ymin = Math.min(ymin, v); ymax = Math.max(ymax, v); } }); }); });
     if (spec.ymin !== undefined) ymin = spec.ymin; if (spec.ymax !== undefined) ymax = spec.ymax;
     var pad = (ymax - ymin) * 0.03 || 1; if (spec.ymin === undefined) ymin -= pad; if (spec.ymax === undefined) ymax += pad;
     var fm = F3.FMT[spec.fmt || "index"], ticks = niceTicks(ymin, ymax, narrow ? 4 : 5), labels = ticks.map(fm);
@@ -91,12 +92,19 @@
     var ends = [];
     series.forEach(function (s) {
       if (s.band) {
-        var up = years.map(function (x, i) { return X(x) + "," + Yp(s.band[1][i]); }), dn = years.map(function (x, i) { return X(x) + "," + Yp(s.band[0][i]); }).reverse();
-        g += '<polygon points="' + up.concat(dn).join(" ") + '" fill="' + s.color + '" opacity=".2"/>';
+        var both = years.map(function (x, i) { return F3.isNum(s.band[0][i]) && F3.isNum(s.band[1][i]) ? 1 : null; });
+        F3.runs(both).forEach(function (r) {
+          var idx = years.slice(r[0], r[1] + 1).map(function (x, k) { return r[0] + k; });
+          var up = idx.map(function (i) { return X(years[i]) + "," + Yp(s.band[1][i]); }), dn = idx.map(function (i) { return X(years[i]) + "," + Yp(s.band[0][i]); }).reverse();
+          g += '<polygon points="' + up.concat(dn).join(" ") + '" fill="' + s.color + '" opacity=".2"/>';
+        });
       }
-      var pts = years.map(function (x, i) { return isFinite(s.y[i]) ? X(x) + "," + Yp(s.y[i]) : null; }).filter(Boolean).join(" ");
-      g += '<polyline points="' + pts + '" fill="none" stroke="' + s.color + '" stroke-width="' + (s.width || 2.6) + '"' + (s.dash ? ' stroke-dasharray="' + s.dash + '"' : "") + ' stroke-linejoin="round"/>';
-      if (s.label) ends.push({ label: s.label, color: s.tcolor || s.color, y: Yp(s.y[years.length - 1]) - 6 });
+      F3.runs(s.y).forEach(function (r) {
+        var pts = years.slice(r[0], r[1] + 1).map(function (x, k) { return X(x) + "," + Yp(s.y[r[0] + k]); }).join(" ");
+        g += '<polyline points="' + pts + '" fill="none" stroke="' + s.color + '" stroke-width="' + (s.width || 2.6) + '"' + (s.dash ? ' stroke-dasharray="' + s.dash + '"' : "") + ' stroke-linejoin="round"/>';
+      });
+      var last = F3.lastNum(s.y);
+      if (s.label && last >= 0) ends.push({ label: s.label, color: s.tcolor || s.color, y: Yp(s.y[last]) - 6 });
     });
     ends.sort(function (a, b) { return b.y - a.y; });
     for (var i = 1; i < ends.length; i++) if (ends[i - 1].y - ends[i].y < 15) ends[i].y = ends[i - 1].y - 15;
@@ -125,7 +133,7 @@
     var x = m.X(s.years[i]), ln = document.createElementNS(NS, "line");
     ln.setAttribute("class", "cur"); ln.setAttribute("x1", x); ln.setAttribute("x2", x); ln.setAttribute("y1", m.T); ln.setAttribute("y2", m.H - m.B); ln.setAttribute("stroke", tok("--fg")); ln.setAttribute("stroke-width", "1.5"); svg.appendChild(ln);
     s.series.forEach(function (se) {
-      if (!isFinite(se.y[i])) return;
+      if (!F3.isNum(se.y[i])) return;
       var ci = document.createElementNS(NS, "circle"); ci.setAttribute("class", "cur"); ci.setAttribute("cx", x); ci.setAttribute("cy", m.Yp(se.y[i])); ci.setAttribute("r", "4.5"); ci.setAttribute("fill", se.color); ci.setAttribute("stroke", tok("--card")); ci.setAttribute("stroke-width", "1.5"); svg.appendChild(ci);
     });
     c.rd.textContent = s.years[i] + ": " + s.series.map(function (se) { return (se.name || "value") + " " + m.fm(se.y[i]) + (se.band ? " (5 to 95%: " + m.fm(se.band[0][i]) + " to " + m.fm(se.band[1][i]) + ")" : ""); }).join("; ");
@@ -141,7 +149,7 @@
     var c = mount(el, spec); spec.kind = "bar"; c.spec = spec;
     var wrap = c.plot, W = Math.max(300, Math.floor(wrap.clientWidth || 340)), FS = 13, ns = spec.series.length, bh = 18, gap = 5, catH = 22 + ns * (bh + gap) + 10, ul = wrapText(spec.unit, W - 24), T = 26 + (ul.length - 1) * 16, B = 34;
     var H = T + spec.categories.length * catH + B, vals = [0];
-    spec.categories.forEach(function (k) { k.values.forEach(function (v) { vals.push(v); }); });
+    spec.categories.forEach(function (k) { k.values.forEach(function (v) { if (F3.isNum(v)) vals.push(v); }); });
     var lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals), room = 74, L = 12 + (lo < 0 ? room : 0), Rr = W - 12 - (hi > 0 ? room : 0);
     if (hi === lo) { hi = lo + 1; }
     var X = function (v) { return L + (v - lo) / (hi - lo) * (Rr - L); }, zx = X(0), fm = spec.fmt, fg = tok("--fg"), mut = tok("--mut"), line = tok("--line"), card = tok("--card"), g = "";
@@ -153,7 +161,12 @@
       var y0 = T + ci * catH;
       g += '<text x="' + Math.max(8, Math.min(zx, W - 8)) + '" y="' + (y0 + 16) + '" text-anchor="' + (zx > W * 0.66 ? "end" : "start") + '" font-size="' + FS + '" font-weight="600" fill="' + fg + '">' + esc(k.label) + "</text>";
       k.values.forEach(function (v, si) {
-        var s = spec.series[si], y = y0 + 22 + si * (bh + gap), x1 = Math.min(zx, X(v)), w = Math.max(Math.abs(X(v) - zx), 1.5), dim = s.dim && s.dim(ci);
+        var s = spec.series[si], y = y0 + 22 + si * (bh + gap);
+        if (!F3.isNum(v)) {                                               /* no value: no bar, a label saying so, never a zero-length bar read as zero */
+          g += '<text x="' + (zx + 6) + '" y="' + (y + 13.5) + '" text-anchor="start" font-size="' + FS + '" font-weight="600" fill="' + (s.tcolor || s.color) + '">' + esc((s.short ? s.short + " " : "") + F3.NA) + "</text>";
+          return;
+        }
+        var x1 = Math.min(zx, X(v)), w = Math.max(Math.abs(X(v) - zx), 1.5), dim = s.dim && s.dim(ci);
         g += '<rect x="' + x1 + '" y="' + y + '" width="' + w + '" height="' + bh + '" rx="2" fill="' + s.color + '"' + (dim ? ' opacity=".45"' : "") + "/>";
         var lab = (s.short ? s.short + " " : "") + fm(v), right = v >= 0;
         g += '<text x="' + (right ? X(v) + 6 : X(v) - 6) + '" y="' + (y + 13.5) + '" text-anchor="' + (right ? "start" : "end") + '" font-size="' + FS + '" font-weight="600" fill="' + (s.tcolor || s.color) + '" stroke="' + card + '" stroke-width="3" paint-order="stroke">' + esc(lab) + "</text>";
@@ -165,7 +178,7 @@
     c.rd.textContent = spec.zeroNote || "The vertical line is zero: no change.";
     legendHtml(c, spec.series.map(function (s) { return { name: s.name, color: s.color }; }));
     var hs = [spec.catHead || "Measure"].concat(spec.series.map(function (s) { return s.name; }));
-    tableHtml(c, hs, spec.categories.map(function (k) { return [k.label].concat(k.values.map(fm)); }));
+    tableHtml(c, hs, spec.categories.map(function (k) { return [k.label].concat(k.values.map(function (v) { return F3.isNum(v) ? fm(v) : F3.NA; })); }));
   }
   /* ---------- downloads ---------- */
   function download(blob, name) { var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000); }
@@ -176,8 +189,9 @@
       return F3.csvOf(s.years, cols, notes);
     }
     var q = function (t) { return /[",\n]/.test(t) ? '"' + t.replace(/"/g, '""') + '"' : t; }, lines = [[s.catHead || "Measure"].concat(s.series.map(function (x) { return x.name; })).map(q).join(",")];
-    s.categories.forEach(function (k) { lines.push([q(k.label)].concat(k.values.map(String)).join(",")); });
+    s.categories.forEach(function (k) { lines.push([q(k.label)].concat(k.values.map(function (v) { return F3.isNum(v) ? String(v) : ""; })).join(",")); });
     notes.forEach(function (t) { lines.push("# " + t); });
+    if (s.categories.some(function (k) { return k.values.some(function (v) { return !F3.isNum(v); }); })) lines.push("# An empty cell means no value, not zero.");
     return lines.join("\n") + "\n";
   }
   function downloadCsv(c) { download(new Blob([csvFor(c)], { type: "text/csv;charset=utf-8" }), (c.spec.file || "f3-chart") + ".csv"); }

@@ -19,6 +19,7 @@ import datetime
 import importlib.util
 import itertools
 import json
+import math
 import subprocess
 import sys
 from pathlib import Path
@@ -124,17 +125,39 @@ def build_data(rec_path: Path) -> dict:
     return data
 
 
+NULL_NOTE = ("null means no value, never zero. Python's NaN and infinity are not valid JSON, so the generator writes null for both: the first year of dc_available "
+             "(no value before the first annual period) and the unlimited-electricity-supply runs (no finite cap). dc_available is a withheld series and is not drawn.")
+
+
+def strict(o):
+    """Replace every NaN and infinity by None (JSON null), so that site/data/explorer.json is valid JSON for any parser (D-056, the null rule)."""
+    if isinstance(o, float):
+        return o if math.isfinite(o) else None
+    if isinstance(o, dict):
+        return {k: strict(v) for k, v in o.items()}
+    if isinstance(o, (list, tuple)):
+        return [strict(v) for v in o]
+    return o
+
+
+def dumps(data: dict) -> str:
+    return json.dumps(data, separators=(",", ":"), allow_nan=False)              # allow_nan=False: any NaN left would raise here, not ship
+
+
 def main() -> None:
     here = REPO / "site"
     (here / "data").mkdir(parents=True, exist_ok=True)
     jpath = here / "data" / "explorer.json"
     built = sys.argv[sys.argv.index("--built-commit") + 1] if "--built-commit" in sys.argv else None
     if len(sys.argv) > 1 and sys.argv[1] == "--reuse":
-        data = json.loads(jpath.read_text(encoding="utf-8"))
+        data = json.loads(jpath.read_text(encoding="utf-8"))               # Python reads the older NaN/Infinity spellings too; strict() turns them into null
     else:
         data = build_data(Path(sys.argv[1]))
-        jpath.write_text(json.dumps(data, separators=(",", ":")), encoding="utf-8", newline="\n")
-    (here / "data" / "explorer.js").write_text("window.F3DATA=" + json.dumps(data, separators=(",", ":")) + ";\n", encoding="utf-8", newline="\n")
+    data = strict(data)
+    data["meta"]["null_means"] = NULL_NOTE
+    text = dumps(data)
+    jpath.write_text(text, encoding="utf-8", newline="\n")                   # the one data file: strict JSON
+    (here / "data" / "explorer.js").write_text("window.F3DATA=" + text + ";\n", encoding="utf-8", newline="\n")   # the same text, as a script, so pages open from file:// (D-056)
     stamp = {"date": datetime.date.today().isoformat(), "commit": git("rev-parse", "--short", "HEAD") or "unknown"}
     if built:
         stamp["built_commit"] = built
