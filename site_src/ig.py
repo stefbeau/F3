@@ -1,12 +1,23 @@
-"""Inline SVG infographics for Explorer v0.1 (D-052). Static markup; the stripes are filled in by the page script from the data.
+"""Inline SVG infographics for the Explorer (D-052, restyled to the v0.2 tokens in D-056). Static markup; the stripes are filled in by the page script from the data.
 
 Honesty rule: a link is drawn SOLID only if the coupling is built and tested today (data-built="yes"): climate warming to World3 industrial output
 (M6, default off) and climate warming to the AI model's output (the M2 slice). Everything not built is DASHED and says so (data-built="no").
-A link that is built in the AI-race slice but whose outputs are withheld is DOTTED (data-built="withheld"). The viewBox is 320 wide, narrower than the
-content column of a 390 px phone (about 328 px), so the drawing only ever scales up and text set at 13 renders at 13 px or more; diagrams are capped at 520 px.
+A link that is built in the AI-race slice but whose outputs are withheld is DOTTED (data-built="withheld"). The same vocabulary, numbers, colours and
+dash patterns as the connections map (links.py, style.css): colours come from CSS variables, so both themes work; no colour carries meaning alone.
+
+The viewBox is 310 wide, narrower than the inside of a card on a 375 px phone (about 313 px), so the drawing only ever scales up and text set at 13 renders at 13 px
+or more; diagrams are capped at 520 px. The link paths put `class` before `data-link` on purpose: the map's own markup (connections_body.py) is the one that
+tests/test_site_connections.py counts, and these two diagrams complement the map, they do not replace it.
 """
 
-ARROW = '<defs><marker id="{id}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="arrowhead"/></marker></defs>'
+# one arrowhead per status, drawn with the same classes as the map's markers (.mk.built, .mk.not-built, .mk.withheld in style.css)
+STATUS = {"built": ("yes", ""), "not-built": ("no", ' stroke-dasharray="7 5"'), "withheld": ("withheld", ' stroke-dasharray="1 6" stroke-linecap="round"')}
+
+
+def markers(prefix: str) -> str:
+    return "<defs>" + "".join(
+        f'<marker id="{prefix}_{s}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="mk {s}"/></marker>'
+        for s in STATUS) + "</defs>"
 
 
 def num(x, y, n):
@@ -22,36 +33,41 @@ def box(x, y, w, h, lines, cls="nodebox"):
     return out
 
 
+def link(prefix: str, ident: str, status: str, d: str) -> str:
+    built, dash = STATUS[status]
+    return f'<path class="ln {status}" data-link="{ident}" data-built="{built}" d="{d}"{dash} marker-end="url(#{prefix}_{status})"/>'
+
+
 LOOPS = (
-    '<svg id="ig_loops" viewBox="0 0 320 464" role="img" aria-labelledby="ig_loops_t ig_loops_d" class="ig">'
+    '<svg id="ig_loops" viewBox="0 0 310 464" role="img" aria-labelledby="ig_loops_t ig_loops_d" class="ig">'
     '<title id="ig_loops_t">Feedback loops: which links exist today and which are not built</title>'
     '<desc id="ig_loops_d">Boxes: warming from the climate model, World3, the AI model S3, data-centre electricity, and emissions. Solid arrows are links that are built and '
     'tested: warming lowers World3 industrial output (optional, off by default), and warming lowers S3 output. Dashed arrows are links that are not built: warming '
     'effects on health and yield in World3, S3 output feeding World3, data-centre electricity feeding emissions, and World3 feeding emissions. The dotted arrow, '
     'S3 compute to data-centre electricity, is built in the AI-race run but its outputs are withheld.</desc>'
-    + ARROW.format(id="ah")
-    + box(80, 8, 160, 46, ["Warming", "climate model (FaIR)"])
+    + markers("lp")
+    + box(75, 8, 160, 46, ["Warming", "climate model (FaIR)"])
     + box(0, 150, 140, 60, ["World3", "population,", "food, industry"])
-    + box(180, 150, 140, 60, ["S3 (AI race)", "economy,", "automation"])
-    + box(180, 290, 140, 60, ["Data-centre", "electricity", "(output withheld)"], "nodebox withheldbox")
-    + box(70, 410, 180, 46, ["Emissions", "prescribed, not modelled"])
+    + box(170, 150, 140, 60, ["S3 (AI race)", "economy,", "automation"])
+    + box(170, 290, 140, 60, ["Data-centre", "electricity", "(output withheld)"], "nodebox withheldbox")
+    + box(65, 410, 180, 46, ["Emissions", "prescribed, not modelled"], "nodebox notbuilt")
     # built (solid)
-    + '<path data-link="fair-warming-to-world3-output" data-built="yes" d="M 110 54 L 70 148" class="ln yes" marker-end="url(#ah)"/>' + num(70, 98, 1)
-    + '<path data-link="fair-warming-to-s3-damage" data-built="yes" d="M 210 54 L 250 148" class="ln yes" marker-end="url(#ah)"/>' + num(250, 98, 2)
+    + link("lp", "fair-warming-to-world3-output", "built", "M 105 54 L 70 148") + num(67, 98, 1)
+    + link("lp", "fair-warming-to-s3-damage", "built", "M 205 54 L 240 148") + num(242, 98, 2)
     # not built (dashed)
-    + '<path data-link="fair-warming-to-world3-health-yield" data-built="no" d="M 135 54 L 115 148" class="ln no" stroke-dasharray="6 4" marker-end="url(#ah)"/>' + num(144, 100, 3)
-    + '<path data-link="s3-output-to-world3" data-built="no" d="M 178 180 L 142 180" class="ln no" stroke-dasharray="6 4" marker-end="url(#ah)"/>' + num(160, 163, 4)
-    + '<path data-link="data-centre-electricity-to-emissions" data-built="no" d="M 240 352 L 200 408" class="ln no" stroke-dasharray="6 4" marker-end="url(#ah)"/>' + num(248, 380, 6)
-    + '<path data-link="world3-to-emissions" data-built="no" d="M 50 212 L 100 408" class="ln no" stroke-dasharray="6 4" marker-end="url(#ah)"/>' + num(50, 300, 7)
+    + link("lp", "fair-warming-to-world3-health-yield", "not-built", "M 130 54 L 110 148") + num(139, 100, 3)
+    + link("lp", "s3-output-to-world3", "not-built", "M 168 180 L 142 180") + num(155, 163, 4)
+    + link("lp", "data-centre-electricity-to-emissions", "not-built", "M 230 352 L 190 408") + num(238, 380, 6)
+    + link("lp", "world3-to-emissions", "not-built", "M 50 212 L 95 408") + num(50, 300, 7)
     # built in the AI-race run, outputs withheld (dotted)
-    + '<path data-link="s3-compute-to-data-centre-electricity" data-built="withheld" d="M 250 212 L 250 288" class="ln wh" stroke-dasharray="2 4" marker-end="url(#ah)"/>' + num(270, 250, 5)
+    + link("lp", "s3-compute-to-data-centre-electricity", "withheld", "M 240 212 L 240 288") + num(260, 250, 5)
     + '</svg>'
 )
 
 LOOPS_KEY = (
     '<ol class="igkey">'
-    '<li><strong>Built, solid:</strong> warming lowers World3 industrial output through the D-007 damage function. A level-of-output effect, <strong>off by default</strong>; set it with the climate-damage control in the World3 panel.</li>'
-    '<li><strong>Built, solid:</strong> warming lowers the AI model\'s (S3) own output through the same damage function (the AI-race panel).</li>'
+    '<li><strong>Built, solid:</strong> warming lowers World3 industrial output through the D-007 damage function. A level-of-output effect, <strong>off by default</strong>; set it with the climate-damage control on the <a href="explorer.html">Explorer</a>.</li>'
+    '<li><strong>Built, solid:</strong> warming lowers the AI model\'s (S3) own output through the same damage function (the AI-race charts under Details on the Explorer).</li>'
     '<li><strong>Not built, dashed:</strong> any effect of warming on World3 health or yield. There is no health or yield effect of warming; the Earth4All channels were left out by decision (D-049).</li>'
     '<li><strong>Not built, dashed:</strong> the AI model feeding World3. S3\'s economy and World3\'s are two models of the same world and are not reconciled.</li>'
     '<li><strong>Built in the AI-race run, outputs withheld, dotted:</strong> S3 compute sets data-centre electricity demand and supply limits compute. The values are withheld until S3\'s compute path is validated.</li>'
@@ -61,26 +77,26 @@ LOOPS_KEY = (
 )
 
 ROADMAP = (
-    '<svg id="ig_roadmap" viewBox="0 0 320 316" role="img" aria-labelledby="ig_roadmap_t ig_roadmap_d" class="ig">'
+    '<svg id="ig_roadmap" viewBox="0 0 310 316" role="img" aria-labelledby="ig_roadmap_t ig_roadmap_d" class="ig">'
     '<title id="ig_roadmap_t">What is connected: World3, climate and the AI model</title>'
     '<desc id="ig_roadmap_d">Three pieces: climate (FaIR), World3 and the AI model S3. Solid arrows: climate warming to World3 industrial output (the first coupling, off by default) '
     'and climate warming to S3 output. Dashed arrows are not built: S3 and World3 exchanging values, and an emissions feedback that would let the economy change the climate.</desc>'
-    + ARROW.format(id="ah2")
-    + box(80, 8, 160, 46, ["Climate", "FaIR, 841 members"])
+    + markers("rm")
+    + box(75, 8, 160, 46, ["Climate", "FaIR, 841 members"])
     + box(0, 150, 140, 46, ["World3", "1900 to 2100"])
-    + box(180, 150, 140, 46, ["S3 (AI race)", "levels unvalidated"])
-    + box(70, 262, 180, 46, ["Emissions feedback", "not built"], "nodebox notbuilt")
-    + '<path data-link="fair-warming-to-world3-output" d="M 110 54 L 70 148" class="ln yes" marker-end="url(#ah2)"/>'
-    + '<path data-link="fair-warming-to-s3-damage" d="M 210 54 L 250 148" class="ln yes" marker-end="url(#ah2)"/>'
-    + '<path data-link="s3-and-world3-exchange" d="M 178 173 L 142 173" class="ln no" stroke-dasharray="6 4" marker-end="url(#ah2)"/>'
-    + '<path data-link="world3-to-emissions-feedback" d="M 60 198 L 110 260" class="ln no" stroke-dasharray="6 4" marker-end="url(#ah2)"/>'
-    + '<path data-link="s3-to-emissions-feedback" d="M 260 198 L 210 260" class="ln no" stroke-dasharray="6 4" marker-end="url(#ah2)"/>'
+    + box(170, 150, 140, 46, ["S3 (AI race)", "levels unvalidated"])
+    + box(65, 262, 180, 46, ["Emissions feedback", "not built"], "nodebox notbuilt")
+    + link("rm", "fair-warming-to-world3-output", "built", "M 105 54 L 70 148")
+    + link("rm", "fair-warming-to-s3-damage", "built", "M 205 54 L 240 148")
+    + link("rm", "s3-and-world3-exchange", "not-built", "M 168 173 L 142 173")
+    + link("rm", "world3-to-emissions-feedback", "not-built", "M 60 198 L 105 260")
+    + link("rm", "s3-to-emissions-feedback", "not-built", "M 250 198 L 205 260")
     + '<text x="100" y="118" font-size="13" class="svgt b">first coupling</text>'
     + '</svg>'
 )
 
 ROADMAP_KEY = (
-    '<ul class="igkey"><li><strong>Solid:</strong> built and tested. The first coupling is climate damage to World3 industrial output (default off); the warming-to-S3 link is the AI-race panel\'s damage option.</li>'
+    '<ul class="igkey"><li><strong>Solid:</strong> built and tested. The first coupling is climate damage to World3 industrial output (default off); the warming-to-S3 link is the AI-race run\'s damage option.</li>'
     '<li><strong>Dashed:</strong> not built. Nothing here claims that the AI model changes World3 or that either changes the climate.</li></ul>'
 )
 

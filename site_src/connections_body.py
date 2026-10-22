@@ -3,6 +3,7 @@ numbered buttons; clicking a button (or a link) opens the inspector. Below 900 p
 The map, the buttons and the list are generated here from links.py, so the solid/dashed/dotted vocabulary cannot drift from the records. Effect numbers are written by connections.js from the data."""
 import html as _h
 
+import ig
 import index_body
 import links
 
@@ -76,6 +77,12 @@ def body() -> str:
 {list_html()}
 <script type="application/json" id="linksdata">{links.links_json()}</script>
 <noscript><div class="notice">The inspector needs JavaScript. Without it, the list above gives each link, its status and what it does.</div></noscript>
+<section class="card" id="loop"><h2>The same links as a feedback loop</h2>
+<p class="note">A fixed picture of the seven links, numbered as on the map above, with the same line styles. It complements the interactive map: it shows which links close a loop and which do not exist.</p>
+{LEGEND}
+{ig.LOOPS}
+{ig.LOOPS_KEY}
+</section>
 <section class="card" id="notbuilt"><h2>Why most links are not built</h2>
 <ul>
 <li><strong>Emissions are prescribed.</strong> The FaIR run replays one recorded emissions path (D-021); neither World3 nor the AI model changes it. The climate is the same in every scenario.</li>

@@ -11,6 +11,7 @@ from pathlib import Path
 import compare_body
 import connections_body
 import dashboard_body
+import ig
 import story_body
 
 NAV = [("index.html", "Story"), ("explorer.html", "Explorer"), ("compare.html", "Compare"), ("connections.html", "Connections"), ("methods.html", "Methods"), ("limitations.html", "Limitations"), ("sources.html", "Sources"), ("about.html", "About")]
@@ -111,6 +112,13 @@ def methods_page(data: dict, stamp: dict, css: str) -> str:
 <li>The AI sector advances in whole-year periods (GATE's own convention); the climate sector is re-run <strong>from 1750 every year with all 841 members</strong> and nothing carried between years (D-021 option a, chosen by the editor after measuring the alternatives).</li>
 <li><strong>One coupling between the pieces (D-051, D-052): climate damage to World3 industrial output, off by default.</strong> The climate path is a single recorded run replayed (exact, because emissions are prescribed and no lever changes them). When climate damage is switched on in the World3 panel, World3's industrial output is multiplied by (1 minus c x T^2) from 2025, with T the recorded FaIR ensemble-mean warming above 1850-1900 and c one of the three D-007 coefficients; the multiplier is held across the 0.0625-year sub-steps of each loop step (explicit coupling, D-022). The AI-race run takes the same recorded warming for its own damage option. <strong>World3 and the AI-race run are not connected to each other:</strong> S3's economy and World3's are two models of the same world and are not reconciled. Tests of the coupling: switching it off returns the stand-alone World3 to 1e-9; zero warming equals the baseline; more warming lowers industrial output (named output and window, with a control that fails); nothing is NaN or negative over the whole grid.</li>
 </ul></section>
+
+<section class="card" id="roadmap"><h2>What is connected: the roadmap</h2>
+<p class="note">Three pieces and the links between them. It complements the interactive <a href="connections.html">connections map</a>, which gives the seven links one by one with their effect numbers and tests.</p>
+{connections_body.LEGEND}
+{ig.ROADMAP}
+{ig.ROADMAP_KEY}
+</section>
 
 <section class="card"><h2>Scenario grids</h2>
 <ul>

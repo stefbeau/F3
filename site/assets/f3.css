@@ -40,7 +40,7 @@ h1{font-size:1.5rem;margin:.2em 0}h2{font-size:1.2rem;margin:0 0 .3em}h3{font-si
 .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:12px 0;min-width:0}
 .notice{background:var(--warn);border-left:5px solid var(--warnl);border-radius:4px;padding:8px 10px;margin:6px 0 8px;font-size:.92rem}
 .note{color:var(--mut);font-size:.9rem}
-.withheld{border:2px dashed var(--warnl);border-radius:8px;padding:10px 12px;margin:10px 0;font-weight:600}
+div.withheld{border:2px dashed var(--warnl);border-radius:8px;padding:10px 12px;margin:10px 0;font-weight:600}
 ul,ol{padding-left:1.2em;margin:.3em 0}li{margin:.25em 0}
 .ctl{display:flex;flex-wrap:wrap;gap:10px 18px;margin:8px 0}.ctl label{font-size:.92rem;display:block;min-width:0}
 select{font:inherit;background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:6px 8px;max-width:100%;min-height:36px}
@@ -100,11 +100,10 @@ svg.ig .nodebox{fill:var(--card);stroke:var(--fg);stroke-width:1.6}
 svg.ig .withheldbox{stroke-dasharray:3 3;stroke:var(--warnl)}
 svg.ig .notbuilt{stroke-dasharray:6 4;fill:var(--bg);stroke:var(--mut)}
 svg.ig .svgt{fill:var(--fg)}svg.ig .svgt.b{font-weight:700}
-svg.ig .ln{fill:none;stroke-width:2.6}
-svg.ig .ln.yes{stroke:var(--sa);stroke-width:3.4}
-svg.ig .ln.no{stroke:var(--mut)}
-svg.ig .ln.wh{stroke:var(--warnl)}
-svg.ig .arrowhead{fill:context-stroke}
+svg.ig .ln{fill:none;stroke-width:3}
+svg.ig .ln.built{stroke:var(--sa);stroke-width:4}
+svg.ig .ln.not-built{stroke:var(--mut)}
+svg.ig .ln.withheld{stroke:var(--warnl);stroke-width:4}
 svg.ig .numdot{fill:var(--fg)}svg.ig .numtxt{fill:var(--bg)}
 .igkey{font-size:.9rem}
 /* ---- Explorer v0.2: story, segmented controls, chart cards (D-056) ---- */
