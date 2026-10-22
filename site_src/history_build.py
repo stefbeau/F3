@@ -184,7 +184,7 @@ def main(raw: Path) -> None:
         "series": "FaIR 2.2.4 hindcast, %d members, calendar years 1850-2025, K above 1850-1900 (mean, 5th and 95th percentile of members)" % nmem,
         "name": "F3 run: FaIR 2.2.4 (Apache 2.0, unmodified), fair-calibrate v1.4.1 constrained ensemble as published, same configuration as the D-021 recording, started in 1750, run to 2026",
         "version": "see audit/data/explorer provenance (explorer.json meta.provenance): FaIR files pinned by sha256",
-        "retrieved": RETRIEVED, "url": "(computed here)", "licence": "F3 output; docs and processed data CC BY 4.0 (D-001)",
+        "retrieved": RETRIEVED, "url": "(computed here by site_src/history_build.py)", "licence": "F3 output; docs and processed data CC BY 4.0 (D-001)", "licence_url": "https://github.com/stefbeau/F3/blob/main/DECISIONS.md#d-001",
         "redistribution": "yes", "note": "Emissions from 2025 are the prescribed medium-extension scenario (CO2 from GCB 2025 to 2024); non-CO2 emissions are prescribed, not modelled (D-021). Calendar year = mean of the time bounds at the start and end of the year, as in A2.1."}}
     hist = {
         "meta": {
