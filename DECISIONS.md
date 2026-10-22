@@ -1314,6 +1314,7 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Proposed by:** Claude (implementing the editor's brief).
 - **Decision:** Provisional (delegated); the editor reviews it in the milestone batch.
 - **Date:** 2026-10-22
+- **Note (2026-10-22, appended; nothing above changed).** Built on `site-ux` as described, with these specifics: the story is `index.html` and the dashboard `explorer.html`; Compare and Connections are their own pages; four KPI tiles; Work Sans is embedded from the `@fontsource-variable/work-sans` package (OFL 1.1, entry in `NOTICE`, text in `licenses/WorkSans-OFL.txt`); the page data is also written as `site/data/explorer.js` so pages open from disk. The static loop and roadmap diagrams of D-052 are replaced by the connections map (the solid/dashed/dotted vocabulary and the built-links test are unchanged). Guidelines not met are listed in `docs/design-guidelines.md` section 11.
 
 ---
 

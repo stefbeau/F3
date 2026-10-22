@@ -67,6 +67,10 @@ The external review of Demo 0 is deferred until Demo 0 is ready (editor's decisi
 - **Awaiting the editor:** enabling GitHub Pages. **Pages is not enabled and `.github/workflows/pages.yml` (manual-only) has not been run.**
 - **Still open, and not waited for:** S3's composite (A1.3) and the Epoch AI email (sent 2026-10-17, no reply as of 2026-10-22); R3's fit; the S3/R3 items on the revisit list below; withheld compute and electricity outputs stay withheld until S3's compute path is validated.
 
+## F3 Explorer v0.2 (2026-10-22, branch `site-ux`, D-056 Provisional): built, NOT merged, NOT published
+- Story front door, dashboard, compare mode and an interactive connections map, a dark dashboard and light reading theme, Work Sans embedded; all numbers come from `site/data/explorer.json` (no new run). Details and checks: `docs/site-explorer.md`; guidelines not met: `docs/design-guidelines.md` section 11. Screenshots: `docs/img/explorer-v02-*`.
+- Tests: `tests/test_site_*.py` (Node and Python). **Pages is not enabled and the workflow has not been run.** The editor reviews D-056 in the milestone batch.
+
 ## D-051 (2026-10-21): M6 minimal integration decisions
 Approved by the editor: **S7 output-only**; **one real coupling added (climate damage to World3 industrial output)**, a switchable multiplier **default OFF**, D-007 central by default, no new coefficients, fed by the recorded FaIR replay (amendment section 9 of `docs/m6-minimal-plan.md`); M6-minimal then proceeds (tests first, A6.1 and A6.3 first, then A6.4, A6.2, A6.5, report in `audit/m6-integration-report.md`); **`docs/phase-2-review.md` is not written in this step.**
 

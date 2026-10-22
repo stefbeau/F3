@@ -111,3 +111,13 @@ Type: Work Sans (SIL OFL 1.1) is embedded in the stylesheet as a base64 woff2, s
 - ColorBrewer: https://colorbrewer2.org
 - Storytelling with Data: https://www.storytellingwithdata.com
 - Dataviz Inspiration: https://www.dataviz-inspiration.com
+
+## 11. Guidelines not met in Explorer v0.2 (D-056, reported honestly)
+
+- 3 "Scenario comparison at one date: horizontal bar, sorted by value": the Compare bars are in a fixed order of measures (the measures have different units, so there is no meaningful value order).
+- 4 "test palettes in a colorblind simulator" and 8 (same): not done. The scenario colours come from ColorBrewer sets and every series also differs by dash pattern, direct label and line weight, but no simulator was run.
+- 5 "Annotate key moments": the main chart marks the peak and the AI automation chart marks the half-way year; the secondary World3 charts carry no annotation.
+- 5 "Every chart says whether it shows a simulation output and links to the assumptions behind it": each chart's text alternative, PNG and CSV say it is a model run and carry the caveat; the chart card itself has no assumptions link (the page banner and the reliability section do).
+- 7 "pre-written chart title" and "back to preset": titles are generated from the data (as the editor's brief asked) and Reset returns to the standard run, not to the last chosen preset.
+- 8 "Checked on a phone": checked in an emulated 390 px viewport only; no physical phone, no screen reader.
+- The warming stripes are an infographic with a text alternative, without a data table, PNG or CSV.

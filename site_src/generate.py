@@ -1,4 +1,5 @@
-"""F3 Explorer v0.1 generator: writes site/index.html, methods.html, limitations.html, sources.html, about.html and site/data/explorer.json.
+"""F3 Explorer v0.2 generator (D-056): writes site/index.html (story), explorer.html (dashboard), compare.html, connections.html, methods.html, limitations.html, sources.html,
+about.html, site/assets/* (stylesheet with the embedded font, core.js, charts.js and the page scripts) and site/data/explorer.json plus its script form site/data/explorer.js.
 
 Static site (D-009): precomputed scenario grids, no backend. Published as a public draft on 2026-10-21 (editor).
 
