@@ -69,6 +69,8 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-051 | M6 minimal integration: S7 output-only, one real coupling (climate damage to World3 industrial output), D-021 flagged for Phase 3 | Approved 2026-10-21 | 2 |
 | D-052 | F3 Explorer v0.1: stale-text fix, climate-damage control on the World3 panel, takeaway cards, presets, chart hover and download, infographics (branch `site-ux`) | Approved 2026-10-21 | 4 |
 | D-053 | S3 diagnostic and S3/World3 reconciliation study: documents and scripts only, nothing built | Provisional (delegated) 2026-10-21 | 2 |
+| D-054 | S3 diagnostic follow-up: blind brief not run, Epoch email sent 2026-10-17, supply-limited diagnostic first, then the efficiency cap and Option B | Approved 2026-10-22 | 2 |
+| D-055 | Data-centre module: optional efficiency cap at the paper's 4e15 FLOP/J, default OFF | Provisional (delegated) 2026-10-22 | 2 |
 
 ---
 
@@ -859,6 +861,7 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Proposed by:** Claude (Research and Validator roles)
 - **Decision:** Approved by Stéphane Beau, as drafted.
 - **Date:** 2026-10-09
+- **Note (2026-10-22, appended; nothing above changed).** The permission request was made: the editor sent an email to Epoch on 2026-10-17 through epoch.ai/contact. No reply as of 2026-10-22; permission is **not** granted, so the series are still read at test time from the hash-pinned copy and never committed. (D-054)
 
 ## D-027 — S3 production composite: test the paper's footnote-38 task grids as a labelled variant
 
@@ -922,6 +925,7 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Proposed by:** Claude (Validator role)
 - **Decision:** Approved by Stéphane Beau in session, as drafted.
 - **Date:** 2026-10-12
+- **Note (2026-10-22, appended; nothing above changed).** The email in item 2 was sent by the editor on 2026-10-17 through epoch.ai/contact; no reply as of 2026-10-22. F3 is not waiting for it; the blind re-derivation brief (`docs/s3-composite-blind.md`) is kept as a brief and not run (D-054). A1.3 stays failed and S3 stays labelled unvalidated after about 2027.
 
 ## D-030 — M2 step 1 closes with A2.1 failed; climate output labelled
 
@@ -1251,6 +1255,42 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Proposed by:** the editor (job); Claude (execution).
 - **Decision:** Provisional (delegated).
 - **Date:** 2026-10-21
+
+---
+
+## D-054 — S3 diagnostic follow-up: what is run, what is not, and the order of work
+
+- **Status:** Approved (2026-10-22)
+- **Context:** Editor decisions of 2026-10-22 on the S3 diagnostic of D-053 (`docs/s3-diagnostic.md`, `docs/s3-world3-reconciliation.md`).
+- **Decision (approved by the editor, 2026-10-22):**
+  1. **The blind composite re-derivation (`docs/s3-composite-blind.md`) is NOT run now** and is kept as a brief. **A1.3 stays failed and labelled** (D-027, D-029).
+  2. **Correction of the record:** the editor **sent the email to Epoch on 2026-10-17 through epoch.ai/contact**; **no reply as of 2026-10-22**; **F3 is not waiting for it.** STATUS and the documents that said "unsent" are corrected by dated notes (D-026, D-027 and D-029 each carry an appended note; nothing above them is edited). The text actually sent is not in the repository; `docs/drafts/epoch-gate-email.md` is the prepared version.
+  3. **Supply-limited diagnostic FIRST** (documents, no sector change): `docs/s3-supply-limited.md`, criteria written before the run, for the coupled slice (R3 + data-centre module + supply limit + damage) in the three settings and the damage options; it concludes which quantities could be shown on the Explorer as supply-limited runs with labels, and what the withheld-note should say instead of "awaiting Epoch AI". **The site is not changed.**
+  4. **Data-centre module: the paper's efficiency bound (4e15 FLOP/J, the value behind `C_L`) as a cap on `eta`, as a switchable change, default OFF** (so every recorded result is unchanged); tests first; its effect on the item-3 diagnostic is reported with the cap ON and OFF. Recorded as **D-055 (Provisional)**.
+  5. **Reconciliation Option B:** a World3 labour-force index (relative to 2025, derived from the ported states) drives S3's labour; one-way, default OFF, no new coefficient, one optional input on S3; tests first. **S3 and World3 economies remain NOT reconciled in level**, and the effect fades as automation saturates; labelled accordingly. If the index is not derivable from the ported states, stop and report.
+  6. **Order: 3, 4, 5.** Full suite with both caches set; merge and push only if green apart from the 45 strict xfails; otherwise stop.
+- **What this does not change:** no acceptance criterion, tolerance or label; D-005, D-027, D-029, D-051 and D-053 stand; the Explorer and the withheld outputs are unchanged.
+- **Reversal cost:** low (each change is a switch, default off).
+- **Proposed by:** the editor.
+- **Decision:** Approved by the editor, 2026-10-22.
+- **Date:** 2026-10-22
+- **Note (2026-10-22, appended; nothing above changed).** Item 5 asked that the label state that the effect of the labour index "fades as automation saturates". The pre-registered test of that reading **failed** (S3 output with the index at half of its 2025 value is 0.61 of baseline in 2031 and 0.50 in 2099), so the effect persists; it is recorded as a strict xfail (a 46th) and the label says "persists". The editor's merge condition ("green apart from the 45 strict xfails") is therefore not met as written, and the branch was **not merged**; see `docs/s3-world3-reconciliation.md` section 4 and STATUS.
+
+---
+
+## D-055 — Data-centre module: optional efficiency cap at the paper's 4e15 FLOP/J
+
+- **Status:** Provisional (delegated)
+- **Context:** The S3 diagnostic (`docs/s3-diagnostic.md`, section 3) showed the module fails on GATE's own path: its efficiency `eta` scales with S3's hardware price-performance with no bound, while the paper's physical limit `C_L = 2e38` FLOP/year rests on a CMOS efficiency of 4e15 FLOP/J (arXiv:2503.04941, appendix D.3.2). Editor instruction of 2026-10-22 (D-054 item 4).
+- **Decision:** add `DCParams.eta_cap` (FLOP/J), default `None` (OFF): `eta = min(eta_0 x hardware / H0, eta_cap)` when set; the paper's value is `PAPER_ETA_CAP = 4e15`. With the cap OFF every number is unchanged (to 1e-9, tested against recorded results). The effect on the supply-limited diagnostic is reported with the cap ON and OFF (`docs/s3-supply-limited.md`). The cap changes demand only, not S3.
+- **Hand check before any run:** `eta_0` is about 8.06e9 FLOP/J; at the hardware ceiling `H_max = 1e23` (1e5 times `H0`) `eta` would be 8.06e14, below the cap, so the cap can bind only if hardware efficiency passes about 5e5 times `H0` (above `H_max`); **it may therefore never bind in S3's range.** If it never binds, the report says so and does not tune anything.
+- **What this does not change:** the module's calibration (485 TWh in 2025), PUE, the 5% supply cap (D-033), every recorded result with the cap OFF.
+- **Alternatives considered:** capping `Q` at `g(Q)` (rejected by the earlier arithmetic: it does not bound demand, `docs/s3-diagnostic.md` 3.4); cap on electricity demand directly (a new coefficient).
+- **Reversal cost:** none (default off).
+- **Proposed by:** the editor (instruction); Claude (implementation).
+- **Decision:** Provisional (delegated).
+- **Date:** 2026-10-22
+- **Note (2026-10-22, appended; nothing above changed).** Two statements in this entry were wrong and are corrected here, found when the tests were run: (1) "It changes demand only, not S3": the cap changes demand, and with the supply limit on the changed `supply_ratio` also changes S3 (loop B1); (2) the pre-written test reading said a binding cap lowers demand. The cap bounds the efficiency from above and demand is compute / eta, so a binding cap **raises** demand; the test reading was corrected (dated in the test file) and no code changed. The hand check (the paper's cap cannot bind inside S3's own hardware range) stands and is tested.
 
 ---
 

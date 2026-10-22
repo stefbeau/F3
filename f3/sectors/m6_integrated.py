@@ -94,6 +94,7 @@ class M6Config:
     parameter_set: str = "2004"
     world3_damage: Optional[str] = None          # None (off) | low | central | high
     s3_damage: str = "off"                       # off | low | central | high
+    labor_from_world3: bool = False              # D-054 item 5: World3 labour-force index drives S3 labour (one-way; default off)
     electricity: bool = False
     levers: R3Levers = field(default_factory=R3Levers)
     dc: DCParams = field(default_factory=DCParams)
@@ -113,7 +114,8 @@ def build_m6(cfg: M6Config, climate: Optional[ReplaySector] = None, climate_setu
     group = World3Group(sectors0, couplings0, init, STATE_COLUMNS, damage_option=cfg.world3_damage, warming=warming)
 
     damage_on = cfg.s3_damage != "off"
-    s3 = S3AI(cfg.gate, rule=R3Rule(cfg.levers), electricity_limited=cfg.electricity, damage_option=cfg.s3_damage if damage_on else None)
+    s3 = S3AI(cfg.gate, rule=R3Rule(cfg.levers), electricity_limited=cfg.electricity, damage_option=cfg.s3_damage if damage_on else None,
+              labor_input=cfg.labor_from_world3)
     s6 = climate if climate is not None else DelayedStart(S6Climate(climate_setup))
     feed, given = S7Feed(cfg.gate), ReplaySector("s7_given", [T0, 2100.0], {"unemployment": [0.0, 0.0], "redistribution": [0.0, 0.0]},
                                                {"unemployment": "1", "redistribution": "1"})
@@ -134,6 +136,8 @@ def build_m6(cfg: M6Config, climate: Optional[ReplaySector] = None, climate_setu
                       Coupling("s4_datacentre", "supply_ratio", "s3_ai", "supply_ratio")]
     if damage_on:
         couplings.append(Coupling("s6_climate", "warming", "s3_ai", "warming"))
+    if cfg.labor_from_world3:
+        couplings.append(Coupling("world3", "lf", "s3_ai", "labor_force"))
     return Model(sectors, couplings, t0=T0, t1=cfg.t1, dt=0.25)
 
 

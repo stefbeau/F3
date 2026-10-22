@@ -306,8 +306,18 @@ class S3AI(Sector):
         "runtime_compute_share": "1",
     }
 
+    #: label of the optional World3 labour-force link (D-054 item 5)
+    LABOR_INDEX_LABEL = (
+        "S3's labour follows World3's labour force as an index relative to 2025 (one-way; default off; no new coefficient). Only the RELATIVE change is used: "
+        "S3's economy and World3's are NOT reconciled in level. The direct labour channel weakens as automation saturates (S3's labour share falls to about zero by 2050 in the central run), but a lower labour index lowers early output "
+        "and with it investment, so the effect on S3's output level persists for the whole run and does not fade (measured: an index held at half of its 2025 value gives 0.61 of the "
+        "output in 2031 and 0.50 in 2099). S3's level stays unvalidated against GATE after about 2027 (D-029). "
+        "POST-RESULT RELABEL: this wording replaces the pre-registered statement that the effect fades as automation saturates; that reading failed and is kept as a strict xfail (D-054, 2026-10-22)."
+    )
+
     def __init__(self, params: Optional[GateParams] = None, name: Optional[str] = None, rule=None, stored_T=None,
-                 electricity_limited: bool = False, damage_option: Optional[str] = None):
+                 electricity_limited: bool = False, damage_option: Optional[str] = None, labor_input: bool = False,
+                 _mutate_ignore_labor: bool = False):
         """``rule``: an object with ``shares(f, u) -> dict`` (D-028); when given, S3 has no inputs and generates its own shares.
         ``stored_T``: DIAGNOSTIC ONLY, a sequence of composite task inputs supplied period by period in place of the production
         block (used to separate the open composite difference from everything else); never a model option."""
@@ -321,6 +331,11 @@ class S3AI(Sector):
         self.damage_option = damage_option                  # None or "low"/"central"/"high": output scaled by 1 - Omega(warming) (loop B2)
         if electricity_limited:
             self.inputs = {**self.inputs, "supply_ratio": "1"}
+        self.labor_input = labor_input                      # D-054 item 5: input ``labor_force`` (jobs) sets S3's labour as an index relative to 2025; default off
+        self._mutate_ignore_labor = _mutate_ignore_labor    # test hook: the sign test must fail when the input is read and ignored
+        self._lf0 = None
+        if labor_input:
+            self.inputs = {**self.inputs, "labor_force": "jobs"}
         if damage_option is not None:
             from f3.sectors.damages import check_option
             check_option(damage_option)
@@ -342,6 +357,7 @@ class S3AI(Sector):
             raise ValueError("initial effective compute must be below C_L")
         self._t0 = t0
         self._k = 0
+        self._lf0 = None
         self.Q = C0 / (1.0 - C0 / p.C_L)
         self.H, self.S, self.K = p.H0, p.S0, p.K0
         self.C_T, self.C_Tphys, self.L = p.C_T0, p.C_T0, p.L0
@@ -377,7 +393,15 @@ class S3AI(Sector):
         if abs(sum(q[n] for n in SHARE_NAMES[:5]) - 1.0) > 1e-9 or min(q.values()) < -1e-12:
             raise ValueError(f"investment shares at t={t} must be >= 0 and the first five must sum to 1: {q}")
         # (b) output
-        L_k = p.L0 * math.exp(p.g_L * (k + 1))
+        if self.labor_input:
+            lf = ctx.input("labor_force", t)                  # value at the START of the period (explicit coupling, D-022)
+            if not (math.isfinite(lf) and lf > 0.0):
+                raise ValueError(f"labor_force at t={t} must be finite and positive, got {lf}")
+            if self._lf0 is None:
+                self._lf0 = lf                                # the first value read (2025) is the base of the index
+            L_k = p.L0 if self._mutate_ignore_labor else p.L0 * lf / self._lf0
+        else:
+            L_k = p.L0 * math.exp(p.g_L * (k + 1))
         training = q["q_training_compute"] * gQ
         runtime = gQ - training
         if self.stored_T is not None:
