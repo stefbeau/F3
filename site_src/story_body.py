@@ -41,7 +41,7 @@ def body() -> str:
 <h2 id="ch2_h" class="finding">Adding the heat lowers industrial output</h2>
 <p class="why">The {FAIR} climate run warms the same way in every scenario here (emissions are prescribed). Switch the climate-damage option on and World3's industrial output is cut by a share that grows with warming squared.</p>
 <div class="ctlrow"><span class="ctllab" id="c2_lab">Climate damage to industrial output</span><div class="seg" id="c2_seg" role="group" aria-labelledby="c2_lab"></div></div>
-{ig.STRIPES}
+<div id="ch_stripes">{ig.STRIPES}</div>
 <div id="ch_s2"></div>
 <div class="notice damage" id="c2_notice" role="note" aria-live="polite"></div>
 <p class="note">Stripes: FaIR mean, not observed; test A2.1 failed (FaIR starts about 0.04 to 0.07 K below observed). The three damage options are level-of-output effects; <strong>high is not the upper end of the literature</strong>. See <a href="limitations.html#status-climate">Limitations</a>.</p>

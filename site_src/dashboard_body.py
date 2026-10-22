@@ -69,7 +69,7 @@ def body() -> str:
 {B.CLIMATE_STATUS}
 <div id="ch_temp"></div>
 <h4>Warming stripes</h4>
-{ig.STRIPES}
+<div id="ch_stripes">{ig.STRIPES}</div>
 {ig.STRIPES_CAP}
 {B.CLIMATE_DETAILS}
 <h3>AI race: automation and damage</h3>

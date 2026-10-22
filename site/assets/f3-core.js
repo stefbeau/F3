@@ -156,6 +156,18 @@
     var end = years[years.length - 1], y05 = firstReach(years, frac, 0.5), y10 = firstReach(years, frac, 0.999);
     return "In the " + label + " AI run, automation reaches half of tasks in " + (y05 === null ? "no year before " + end : y05) + " and all tasks in " + (y10 === null ? "no year before " + end : y10);
   }
+  /* Warming stripes: the finding title and the whole chart spec (title, text alternative, caveat, file name) come from the data. */
+  function stripesFinding(years, ws) {
+    var nums = ws.filter(isNum);
+    if (!nums.length) return "The FaIR ensemble mean warming has " + NA + " in every year";
+    var lo = Math.min.apply(null, nums), hi = Math.max.apply(null, nums);
+    return "FaIR ensemble mean warming runs from " + fx(lo, 2) + " K in " + years[ws.indexOf(lo)] + " to " + fx(hi, 2) + " K in " + years[ws.indexOf(hi)] + ", one stripe per year";
+  }
+  function stripesSpec(climate, years) {
+    var cav = "FaIR starts about 0.04 to 0.07 K below observed (test A2.1 failed); emissions are prescribed. The colour scale is relative to this run (blue lowest, red highest), not to observations. A model run, not observed data.";
+    var t = stripesFinding(years, climate.warming);
+    return { kind: "stripes", years: years, values: climate.warming, title: t, summary: t + ". " + cav, caveat: cav, file: "f3-warming-stripes", valueName: "FaIR ensemble mean warming above 1850-1900 (K)", fmt: "kelvin" };
+  }
   function aiDamageFinding(years, dmgByOption) {
     var n = years.length - 1;
     return "Damage takes " + fx(scale(dmgByOption.low[n], 100), 1) + "% to " + fx(scale(dmgByOption.high[n], 100), 1) + "% of S3's own output in " + years[n] + " (low to high option)";
@@ -273,7 +285,7 @@
     human: human, FMT: FMT, rel: rel, signedPct: signedPct, peakOf: peakOf, firstReach: firstReach, indexOfYear: indexOfYear, sameSeries: sameSeries, sameRun: sameRun, maxSpread: maxSpread,
     DEF_LEVERS: DEF_LEVERS, DMG_STATES: DMG_STATES, AI_S: AI_S, AI_D: AI_D, PRESETS: PRESETS, runKey: runKey, aiKey: aiKey, encodeState: encodeState, decodeState: decodeState,
     csvOf: csvOf, damageNotice: damageNotice, popFinding: popFinding, industryFinding: industryFinding, resourcesFinding: resourcesFinding, pollutionFinding: pollutionFinding,
-    temperatureFinding: temperatureFinding, automationFinding: automationFinding, aiDamageFinding: aiDamageFinding, damageEffect: damageEffect, damageBarsFinding: damageBarsFinding,
+    temperatureFinding: temperatureFinding, stripesFinding: stripesFinding, stripesSpec: stripesSpec, automationFinding: automationFinding, aiDamageFinding: aiDamageFinding, damageEffect: damageEffect, damageBarsFinding: damageBarsFinding,
     w3Kpis: w3Kpis, COMPARE_METRICS: COMPARE_METRICS, compareRows: compareRows, compareHeadline: compareHeadline, compareState: compareState, effectTable: effectTable, linksFinding: linksFinding, signedFmt: signedFmt, overlayFinding: overlayFinding, barsFinding: barsFinding, encodeCompare: encodeCompare, scenarioName: scenarioName
   };
 });

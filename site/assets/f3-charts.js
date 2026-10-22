@@ -180,10 +180,35 @@
     var hs = [spec.catHead || "Measure"].concat(spec.series.map(function (s) { return s.name; }));
     tableHtml(c, hs, spec.categories.map(function (k) { return [k.label].concat(k.values.map(function (v) { return F3.isNum(v) ? fm(v) : F3.NA; })); }));
   }
+  /* ---------- warming stripes: one stripe per year, same card tools as the other charts (data table, PNG, CSV, text alternative) ---------- */
+  var RAMP = { lo: [33, 102, 172], mid: [247, 247, 247], hi: [178, 24, 43] };
+  function mixc(p, q, t) { return p.map(function (v, i) { return Math.round(v + (q[i] - v) * t); }); }
+  /* The static <svg id="ig_stripes"> in the page (title, desc and 13 px labels) is adopted as the plot, so it is also the fallback before the script runs. */
+  function stripes(el, spec) {
+    if (!el._svg) el._svg = el.querySelector("svg");
+    var svg = el._svg, c = mount(el, spec), vals = spec.values, years = spec.years, n = vals.length, w = 320 / n, nums = vals.filter(F3.isNum);
+    spec.kind = "stripes"; c.spec = spec;
+    var lo = Math.min.apply(null, nums), hi = Math.max.apply(null, nums);
+    var col = function (v) { var t = (v - lo) / ((hi - lo) || 1), k = t < 0.5 ? mixc(RAMP.lo, RAMP.mid, t * 2) : mixc(RAMP.mid, RAMP.hi, (t - 0.5) * 2); return "rgb(" + k.join(",") + ")"; };
+    svg.querySelector("#stripes_g").innerHTML = vals.map(function (v, i) {
+      return '<rect x="' + (i * w).toFixed(2) + '" y="0" width="' + (w + 0.6).toFixed(2) + '" height="84" ' + (F3.isNum(v) ? 'fill="' + col(v) + '"' : 'style="fill:var(--line)"') + "/>";
+    }).join("");
+    svg.querySelector("#stripes_l").textContent = years[0] + ": " + F3.fx(lo, 2) + " K"; svg.querySelector("#stripes_r").textContent = years[n - 1] + ": " + F3.fx(hi, 2) + " K";
+    svg.querySelector("#ig_stripes_t").textContent = spec.title; svg.querySelector("#ig_stripes_d").textContent = spec.summary;
+    c.plot.innerHTML = ""; c.plot.appendChild(svg); c.plot.removeAttribute("tabindex");
+    setText(c, spec);
+    c.plot.setAttribute("aria-label", spec.title);
+    c.legend.innerHTML = '<span><i class="sw" style="background:' + col(lo) + '"></i>Blue: the lowest mean in the period (' + F3.fx(lo, 2) + ' K)</span><span><i class="sw" style="background:' + col(hi) + '"></i>Red: the highest (' + F3.fx(hi, 2) + ' K)</span>' +
+      (nums.length < n ? '<span><i class="sw" style="background:var(--line)"></i>Grey: no value</span>' : "");
+    c.rd.textContent = "Colour is relative to this run, not to observations. Read every year in the data table.";
+    tableHtml(c, ["Year", spec.valueName], years.map(function (y, i) { return [y, F3.FMT[spec.fmt](vals[i])]; }));
+    c.dt.classList.add("long");
+  }
   /* ---------- downloads ---------- */
   function download(blob, name) { var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000); }
   function csvFor(c) {
     var s = c.spec, notes = ["F3 Explorer v0.2: a conditional scenario, not a forecast."]; if (s.caveat) notes.push(s.caveat);
+    if (s.kind === "stripes") return F3.csvOf(s.years, [{ name: s.valueName, y: s.values }], notes);
     if (s.kind === "line") {
       var cols = []; s.series.forEach(function (se) { cols.push({ name: se.name || "value", y: se.y }); if (se.band) { cols.push({ name: (se.name || "value") + " 5th percentile", y: se.band[0] }); cols.push({ name: (se.name || "value") + " 95th percentile", y: se.band[1] }); } });
       return F3.csvOf(s.years, cols, notes);
@@ -211,5 +236,5 @@
     };
     img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(new XMLSerializer().serializeToString(svg));
   }
-  window.F3C = { tok: tok, scen: scen, mount: mount, lineChart: lineChart, barChart: barChart, esc: esc, csvFor: csvFor };
+  window.F3C = { tok: tok, scen: scen, mount: mount, lineChart: lineChart, barChart: barChart, stripes: stripes, esc: esc, csvFor: csvFor };
 })();

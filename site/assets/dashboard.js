@@ -75,13 +75,7 @@
   }
 
   /* ---------- climate and AI race (in Details) ---------- */
-  function stripes() {
-    var T = D.climate.warming, nums = T.filter(F3.isNum), lo = Math.min.apply(null, nums), hi = Math.max.apply(null, nums), n = T.length, w = 320 / n, A = [33, 102, 172], M = [247, 247, 247], R = [178, 24, 43];
-    var mix = function (p, q, t) { return p.map(function (v, i) { return Math.round(v + (q[i] - v) * t); }); };
-    var col = function (v) { var t = (v - lo) / ((hi - lo) || 1), c = t < 0.5 ? mix(A, M, t * 2) : mix(M, R, (t - 0.5) * 2); return "rgb(" + c.join(",") + ")"; };
-    $("stripes_g").innerHTML = T.map(function (v, i) { return '<rect x="' + (i * w).toFixed(2) + '" y="0" width="' + (w + 0.6).toFixed(2) + '" height="84" ' + (F3.isNum(v) ? 'fill="' + col(v) + '"' : 'style="fill:var(--line)"') + "/>"; }).join("");
-    $("stripes_l").textContent = AY[0] + ": " + F3.fx(lo, 2) + " K"; $("stripes_r").textContent = AY[n - 1] + ": " + F3.fx(hi, 2) + " K";
-  }
+  function stripes() { C.stripes($("ch_stripes"), F3.stripesSpec(D.climate, AY)); }
   function drawClimate() {
     var sc = C.scen(), T = D.climate, t = F3.temperatureFinding(AY, T.warming, T.warming_p05, T.warming_p95);
     C.lineChart($("ch_temp"), { title: t, years: AY, xstep: 15, tableStep: 5, unit: "Warming above 1850-1900", fmt: "kelvin", file: "f3-fair-warming", label: "FaIR warming, 841 members",

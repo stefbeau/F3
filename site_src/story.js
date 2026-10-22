@@ -31,13 +31,7 @@
   }
 
   /* ---- chapter 2: stripes and damage bars; control = damage option ---- */
-  function stripes() {
-    var T = D.climate.warming, nums = T.filter(F3.isNum), lo = Math.min.apply(null, nums), hi = Math.max.apply(null, nums), n = T.length, w = 320 / n, A = [33, 102, 172], M = [247, 247, 247], R = [178, 24, 43];
-    var mix = function (p, q, t) { return p.map(function (v, i) { return Math.round(v + (q[i] - v) * t); }); };
-    var col = function (v) { var t = (v - lo) / ((hi - lo) || 1), c = t < 0.5 ? mix(A, M, t * 2) : mix(M, R, (t - 0.5) * 2); return "rgb(" + c.join(",") + ")"; };
-    $("stripes_g").innerHTML = T.map(function (v, i) { return '<rect x="' + (i * w).toFixed(2) + '" y="0" width="' + (w + 0.6).toFixed(2) + '" height="84" ' + (F3.isNum(v) ? 'fill="' + col(v) + '"' : 'style="fill:var(--line)"') + "/>"; }).join("");
-    $("stripes_l").textContent = AY[0] + ": " + F3.fx(lo, 2) + " K"; $("stripes_r").textContent = AY[n - 1] + ": " + F3.fx(hi, 2) + " K";
-  }
+  function stripes() { C.stripes($("ch_stripes"), F3.stripesSpec(D.climate, AY)); }
   function ch2() {
     var sc = C.scen(), std = W.levers.map(function (l) { return l.standard_index; }), off = W.runs[F3.runKey(std, "off")], opts = ["low", "central", "high"], eff = {}, cols = [sc.acc1, sc.acc2, sc.acc3], tcols = cols;
     opts.forEach(function (o) { eff[o] = F3.damageEffect(W.runs[F3.runKey(std, o)], off, N); });

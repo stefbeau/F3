@@ -223,3 +223,8 @@ table.efx th,table.efx td{white-space:normal}table.efx td{font-variant-numeric:t
 .inspl{padding:8px 10px;background:var(--card2);border-radius:8px;margin:4px 0}
 @media (max-width:899px){.conn{display:none}.linklist{display:block}.maplegend{margin-bottom:0}}
 table.efx th,table.efx td{overflow-wrap:normal;word-break:normal;hyphens:none}table.efx th[scope=col]{min-width:5.5em}
+/* ---- warming stripes as a chart card (data table, PNG, CSV) ---- */
+#ch_stripes svg{cursor:default}
+.leg i.sw{display:inline-block;width:14px;height:14px;border:1px solid var(--fg);border-radius:2px;flex:none}
+.dtbox.long .tblwrap{max-height:20em;overflow-y:auto}
+.dtbox td,.dtbox th{overflow-wrap:normal;word-break:normal}.dtbox td:first-child,.dtbox th:first-child{white-space:nowrap}
