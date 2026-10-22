@@ -1,0 +1,100 @@
+{
+ "sources": {
+  "wpp2024_totpop": {
+   "series": "World total population, medium variant (estimates 1950-2023, projection 2024 onward), 1 July, 1950-2025",
+   "name": "United Nations, DESA Population Division, World Population Prospects 2024, file WPP2024_TotalPopulationBySex",
+   "version": "WPP 2024 (28th revision). A web search on the retrieval date found no newer revision (next revision reported as postponed to 2027 by a secondary site, not confirmed by the UN); an interim January 2026 update reported to correct Togo only was not checked in this file.",
+   "retrieved": "2026-10-22",
+   "url": "https://population.un.org/wpp/assets/Excel%20Files/1_Indicator%20(Standard)/CSV_FILES/WPP2024_TotalPopulationBySex.csv.gz",
+   "landing_page": "https://population.un.org/wpp/",
+   "licence": "CC BY 3.0 IGO",
+   "licence_quote": "Figures and tables in this publication can be reproduced without prior permission under a Creative Commons license (CC BY 3.0 IGO), http://creativecommons.org/licenses/by/3.0/igo/",
+   "licence_url": "https://population.un.org/wpp/assets/Files/WPP2024_Summary-of-Results.pdf",
+   "licence_caveat": "The quoted sentence is from the WPP 2024 Summary of Results publication. A licence statement attached to the CSV file itself was not found (the data portal pages are script-rendered and could not be read); the UN's R-package mirror states the same CC BY 3.0 IGO for the data. Derived annual world totals are shown with attribution.",
+   "redistribution": "derived annual world totals shown on the site, with attribution; the raw file (about 17 MB gz, all countries) is not committed",
+   "attribution": "United Nations, Department of Economic and Social Affairs, Population Division (2024). World Population Prospects 2024. Used under CC BY 3.0 IGO. Values re-expressed in billions; no other change.",
+   "file": "wpp2024_totpop.csv.gz",
+   "sha256": "66b84489fd7875b62de9b40d960b803b8c8439367c98deab89c2f770970925b9",
+   "bytes": 16980593
+  },
+  "wb_wdi_gdp": {
+   "series": "World GDP, constant 2015 US$ (NY.GDP.MKTP.KD), country code WLD, 1960-2025",
+   "name": "World Bank, World Development Indicators, indicator NY.GDP.MKTP.KD",
+   "version": "WDI as served by the World Bank API on the retrieval date; API field lastupdated = 2026-10-08",
+   "retrieved": "2026-10-22",
+   "url": "https://api.worldbank.org/v2/country/WLD/indicator/NY.GDP.MKTP.KD?format=json&per_page=200",
+   "landing_page": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD",
+   "licence": "CC BY 4.0 (the World Bank default licence for its open datasets)",
+   "licence_quote": "The World Bank Group ... licenses datasets under the Creative Commons Attribution 4.0 International license (CC-BY 4.0). ... CC-BY 4.0, with the additional terms below, is the default license for all Datasets produced by the World Bank itself and distributed as open data.",
+   "licence_url": "https://datacatalog.worldbank.org/public-licenses",
+   "licence_caveat": "This is the default licence page; a dataset-specific statement for NY.GDP.MKTP.KD was not separately read.",
+   "redistribution": "derived annual world totals shown on the site, with attribution",
+   "attribution": "World Bank, World Development Indicators, NY.GDP.MKTP.KD (GDP, constant 2015 US$), World aggregate. Used under CC BY 4.0. Values re-expressed in trillions of dollars and shown as an index (1990 = 1) on the chart.",
+   "file": "wb_gdp.json",
+   "sha256": "45f08bb276324bd0d4a1a94eafcf004ed5e90dde09df8c9aa992eed582d2fb21",
+   "bytes": 14008
+  },
+  "gistemp_v4": {
+   "series": "GISTEMP v4 Land-Ocean Temperature Index, global annual mean (J-D), relative to 1951-1980, used for a cross-check only",
+   "name": "NASA GISS Surface Temperature Analysis (GISTEMP v4), table GLB.Ts+dSST.csv",
+   "version": "GISTEMP v4, file as served on the retrieval date (file contains a partial year 2026, not used)",
+   "retrieved": "2026-10-22",
+   "url": "https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv",
+   "landing_page": "https://data.giss.nasa.gov/gistemp/",
+   "licence": "NOT STATED on the pages read. The GISTEMP page asks for citation and states that graphics created with its tools need no permission but should credit NASA GISS; it makes no statement about redistributing the data table.",
+   "licence_quote": "Graphics from these GISTEMP pages are subject to NASA Image and Media guidance. ... graphics you may create using the website tools here do not require permission for you to use elsewhere, but acknowledgment of their source should be given.",
+   "licence_url": "https://data.giss.nasa.gov/gistemp/",
+   "redistribution": "NO values published. Used only to compute the size of the difference to HadCRUT5 (recorded in this file under crosscheck).",
+   "citation": "GISTEMP Team, 2026: GISS Surface Temperature Analysis (GISTEMP), version 4. NASA Goddard Institute for Space Studies. Dataset accessed 2026-10-22 at https://data.giss.nasa.gov/gistemp/. Lenssen et al. (2024), J. Geophys. Res. Atmos. 129, e2023JD040179, doi:10.1029/2023JD040179.",
+   "file": "gistemp.csv",
+   "sha256": "4c64eda288bce32b8d76926278f346ecea1e53506df8ee72a3d5accb0657c416",
+   "bytes": 12886,
+   "crosscheck": {
+    "years": [
+     1880,
+     2025
+    ],
+    "mean_abs_diff_K": 0.084,
+    "max_abs_diff_K": 0.222,
+    "max_abs_diff_year": 1937,
+    "diff_2015_2025_mean_K": -0.086,
+    "gistemp_minus_hadcrut_by_year_K": {
+     "2015": -0.102,
+     "2020": -0.08,
+     "2023": -0.112,
+     "2024": -0.07,
+     "2025": -0.056
+    },
+    "reading": "Both series re-based to their own 1880-1900 mean; difference = GISTEMP minus HadCRUT5, annual J-D. Cross-check only; no GISTEMP value is published on the site."
+   }
+  },
+  "hadcrut5": {
+   "series": "HadCRUT5 global annual mean temperature anomaly with 95% limits, 1850-2025 (2026 is a partial year, not used), re-based to the mean of the annual best estimates 1850-1900 (offset -0.3594 K subtracted)",
+   "name": "Met Office Hadley Centre / Climatic Research Unit, HadCRUT.5.2.0.0, analysis summary series, global, annual",
+   "version": "HadCRUT.5.2.0.0 (the site states it was updated to 5.2.0.0 on 2026-09-18)",
+   "retrieved": "2026-10-22",
+   "url": "https://www.metoffice.gov.uk/hadobs/hadcrut5/data/HadCRUT.5.2.0.0/analysis/diagnostics/HadCRUT.5.2.0.0.analysis.summary_series.global.annual.csv",
+   "landing_page": "https://www.metoffice.gov.uk/hadobs/hadcrut5/",
+   "licence": "Open Government Licence v3.0 (Crown copyright)",
+   "licence_quote": "HadCRUT5 is subject to Crown copyright protection and is provided under the Open Government License v3. ... A term of the licence is that users must include the following acknowledgement when the data are used: HadCRUT.[version number] data were obtained from http://www.metoffice.gov.uk/hadobs/hadcrut5 on [date downloaded] and are (c) British Crown Copyright, Met Office [year of first publication], provided under an Open Government License, http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+   "licence_url": "https://www.metoffice.gov.uk/hadobs/hadcrut5/terms_and_conditions.html",
+   "redistribution": "permitted with the acknowledgement; derived annual values (re-based) are shown",
+   "attribution": "HadCRUT.5.2.0.0 data were obtained from http://www.metoffice.gov.uk/hadobs/hadcrut5 on 2026-10-22 and are (c) British Crown Copyright, Met Office (year of first publication not stated on the pages read), provided under an Open Government License, http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/. Morice et al. (2021), J. Geophys. Res. Atmos. 126, e2019JD032361, doi:10.1029/2019JD032361.",
+   "file": "hadcrut5_5200.csv",
+   "sha256": "7f750b673bb34aad722736ee21f122b5ea692c99877fa0b1066df65e51f32c04",
+   "bytes": 7046,
+   "note": "Identical (same sha256) to the file in the local cache used by the A2.1 report; the A2.1 pin covers rows to 2024, the 2025 row is new."
+  },
+  "fair_hindcast": {
+   "series": "FaIR 2.2.4 hindcast, 841 members, calendar years 1850-2025, K above 1850-1900 (mean, 5th and 95th percentile of members)",
+   "name": "F3 run: FaIR 2.2.4 (Apache 2.0, unmodified), fair-calibrate v1.4.1 constrained ensemble as published, same configuration as the D-021 recording, started in 1750, run to 2026",
+   "version": "see audit/data/explorer provenance (explorer.json meta.provenance): FaIR files pinned by sha256",
+   "retrieved": "2026-10-22",
+   "url": "(computed here)",
+   "licence": "F3 output; docs and processed data CC BY 4.0 (D-001)",
+   "redistribution": "yes",
+   "note": "Emissions from 2025 are the prescribed medium-extension scenario (CO2 from GCB 2025 to 2024); non-CO2 emissions are prescribed, not modelled (D-021). Calendar year = mean of the time bounds at the start and end of the year, as in A2.1."
+  }
+ },
+ "note": "Every external series or file used by the Explorer's history overlay and warming map (D-057). Raw files are NOT committed; the checksums identify exactly what was read. Licences are quoted from the page named in licence_url, not inferred."
+}
