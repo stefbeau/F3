@@ -14,7 +14,10 @@
    "url": "https://www.iea.org/data-and-statistics/data-product/energy-and-ai",
    "blocked_by": "IEA login required ('You are either not logged in ... create an IEA account to download data')",
    "licence_note": "IEA Terms of Use for Non-CC Material: probably not redistributable. Ask the IEA whether use as a private calibration reference is allowed.",
-   "priority": 1
+   "priority": 1,
+   "status": "resolved",
+   "resolved_date": "2026-10-26",
+   "resolution": "Data annex xlsx received 2026-10-26. Registered as iea_energy_ai_annex. Stored at audit/data/raw/iea/."
   },
   {
    "id": "iea_terms_non_cc",
@@ -28,7 +31,10 @@
    "url": "https://www.iea.org/terms",
    "blocked_by": "HTTP 403 to automated access",
    "licence_note": "",
-   "priority": 1
+   "priority": 1,
+   "status": "resolved",
+   "resolved_date": "2026-10-26",
+   "resolution": "Non-CC section 3(a)(ii)(B) permits non-commercial calibration use; not back-calculable to raw dataset; attribution required. Licence analysis complete."
   },
   {
    "id": "gcb2025_full",
@@ -110,7 +116,8 @@
    "url": "https://doi.org/10.5066/P1WKQ63T",
    "blocked_by": "ScienceBase returned HTTP 403 and usgs.gov returned an empty HTTP 202 challenge page",
    "licence_note": "Public domain (USA.gov label)",
-   "priority": 1
+   "priority": 1,
+   "progress_note": "2026-10-26: MCS 2022 PDF + world CSVs + salient CSVs received (public domain), registered as usgs_mcs2022_pdf, usgs_mcs2022_world_csv, usgs_mcs2022_salient_csv. NOTE: MCS 2026 still outstanding; only 2022 data available. This item stays open."
   },
   {
    "id": "usgs_historical_series",
@@ -149,7 +156,10 @@
    "url": "https://doi.org/10.1073/pnas.1701762114",
    "blocked_by": "PNAS HTTP 403; PubMed Central returned an HTML interstitial instead of a PDF",
    "licence_note": "",
-   "priority": 1
+   "priority": 1,
+   "status": "resolved",
+   "resolved_date": "2026-10-26",
+   "resolution": "PDF received 2026-10-26. Registered as zhao_2017."
   },
   {
    "id": "papers_schlenker_roberts2009",
@@ -162,7 +172,10 @@
    "url": "https://doi.org/10.1073/pnas.0906865106",
    "blocked_by": "PNAS HTTP 403; PMC interstitial",
    "licence_note": "",
-   "priority": 1
+   "priority": 1,
+   "status": "resolved",
+   "resolved_date": "2026-10-26",
+   "resolution": "PDF received 2026-10-26. Registered as schlenker_roberts_2009."
   },
   {
    "id": "papers_lobell2011",
@@ -189,7 +202,10 @@
    "url": "https://doi.org/10.1038/nature15725",
    "blocked_by": "Nature paywall; author-page PDF URL returned HTTP 404",
    "licence_note": "",
-   "priority": 1
+   "priority": 1,
+   "status": "resolved",
+   "resolved_date": "2026-10-26",
+   "resolution": "PDF received 2026-10-26 (Burke, Hsiang & Miguel 2015, Nature 527, CC BY 4.0 via eScholarship). Registered as burke_2015."
   },
   {
    "id": "papers_carleton2022",
