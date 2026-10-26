@@ -1111,7 +1111,7 @@
     }
    ],
    "total_bytes": 240719,
-   "notes": "See needs-user: the spreadsheet and the terms page text. The CC BY report (iea_energy_ai) carries the same headline numbers."
+   "notes": "See needs-user: the spreadsheet and the terms page text. The CC BY report (iea_energy_ai) carries the same headline numbers. Supplied by the editor on 2026-10-26: see iea_energy_ai_annex."
   },
   {
    "id": "lbnl_dc_2024",
@@ -3303,7 +3303,7 @@
    ],
    "files": [],
    "total_bytes": 0,
-   "notes": "",
+   "notes": "Supplied by the editor on 2026-10-26: see zhao_2017.",
    "role": "document"
   },
   {
@@ -3335,7 +3335,7 @@
    ],
    "files": [],
    "total_bytes": 0,
-   "notes": "",
+   "notes": "Supplied by the editor on 2026-10-26: see schlenker_roberts_2009.",
    "role": "document"
   },
   {
@@ -3367,7 +3367,7 @@
    ],
    "files": [],
    "total_bytes": 0,
-   "notes": "",
+   "notes": "Supplied by the editor on 2026-10-26: see burke_2015.",
    "role": "document"
   },
   {
@@ -4261,7 +4261,7 @@
     }
    ],
    "total_bytes": 17708002,
-   "notes": "Machine-readable data release (ScienceBase) is blocked, see usgs_mcs2026_data.",
+   "notes": "Machine-readable data release (ScienceBase) is blocked, see usgs_mcs2026_data. Edition v1.3 (May 2026) supplied by the editor on 2026-10-26: see usgs_mcs2026_pdf.",
    "landing_page": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026.pdf",
    "derived": [
     "usgs_mcs2026_world_production_reserves"
@@ -4331,7 +4331,7 @@
     }
    ],
    "total_bytes": 702243,
-   "notes": ""
+   "notes": "MCS 2026 PDF v1.3 supplied 2026-10-26: see usgs_mcs2026_pdf (the data-release CSVs are still not held)."
   },
   {
    "id": "usgs_mcs2025",
@@ -5993,6 +5993,403 @@
    "total_bytes": 12540558,
    "notes": "",
    "role": "document"
+  },
+  {
+   "id": "iea_energy_ai_annex",
+   "title": "IEA Energy & AI Data Annex",
+   "publisher": "International Energy Agency",
+   "url": "https://www.iea.org/data-and-statistics/data-product/energy-and-ai",
+   "domains": [
+    "D2"
+   ],
+   "supports": [
+    "DC",
+    "L5"
+   ],
+   "version": "data annex xlsx, received 2026-10-26",
+   "retrieved": "2026-10-26",
+   "status": "retrieved",
+   "licence": {
+    "name": "IEA Non-CC, internal calibration use only (section 3(a)(ii)(B)); attribution required",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "no",
+   "redistribution_note": "IEA Non-CC material: internal calibration use only, attribution required; nothing from the spreadsheet is committed or republished. The terms are as stated by the editor; Claude did not read the Terms text. Supplied by the editor outside the repository; the file is not in the working tree, so no size or sha256 is recorded and Claude did not read the saved file.",
+   "units": "TWh, GW",
+   "geography": "world and regions",
+   "time_span": "as in the annex",
+   "variables": [
+    "data-centre electricity demand by region",
+    "AI compute growth estimates"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "Data annex to IEA Energy and AI report. Contains data-centre electricity demand by region, AI compute growth estimates. Required attribution: 'Based on IEA data from IEA (2024) Energy and AI, https://www.iea.org/data-and-statistics, All rights reserved; as modified by F3 project.'",
+   "role": "data",
+   "year": 2024,
+   "local_path": "audit/data/raw/iea/Data_annex_Energy_and_AI.xlsx",
+   "date_acquired": "2026-10-26"
+  },
+  {
+   "id": "usgs_mcs2022_pdf",
+   "title": "USGS Mineral Commodity Summaries 2022",
+   "publisher": "US Geological Survey",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2022/mcs2022.pdf",
+   "domains": [
+    "D6"
+   ],
+   "supports": [
+    "M5"
+   ],
+   "version": "MCS 2022 PDF",
+   "retrieved": "2026-10-26",
+   "status": "retrieved",
+   "licence": {
+    "name": "Public domain (US Government work), as stated by the editor",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "Public domain is stated by the editor; no licence text was read from the saved file, so redistribution is not flagged yes (register test rule). Supplied by the editor outside the repository; the file is not in the working tree, so no size or sha256 is recorded and Claude did not read the saved file.",
+   "units": "tonnes",
+   "geography": "world and US",
+   "time_span": "2017 to 2021",
+   "variables": [
+    "world production",
+    "reserves",
+    "US salient statistics"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "2022 edition; MCS 2026 still outstanding. 206 pages, full commodities coverage.",
+   "role": "document",
+   "year": 2022,
+   "local_path": "audit/data/raw/usgs/mcs2022.pdf",
+   "date_acquired": "2026-10-26"
+  },
+  {
+   "id": "usgs_mcs2022_world_csv",
+   "title": "USGS MCS 2022 World Production & Reserves CSVs",
+   "publisher": "US Geological Survey",
+   "url": "https://www.sciencebase.gov/catalog/item/619f686cd34eb622f6924aba",
+   "domains": [
+    "D6"
+   ],
+   "supports": [
+    "M5"
+   ],
+   "version": "MCS 2022 data release CSVs",
+   "retrieved": "2026-10-26",
+   "status": "retrieved",
+   "licence": {
+    "name": "Public domain (US Government work), as stated by the editor",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "Public domain is stated by the editor; no licence text was read from the saved file, so redistribution is not flagged yes (register test rule). Supplied by the editor outside the repository; the file is not in the working tree, so no size or sha256 is recorded and Claude did not read the saved file.",
+   "units": "tonnes",
+   "geography": "countries",
+   "time_span": "2017 to 2021",
+   "variables": [
+    "world production by country",
+    "reserves by country"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "Machine-readable CSVs: one *_world.csv per commodity, world production and reserves by country. Paired with salient CSVs.",
+   "role": "data",
+   "year": 2022,
+   "local_path": "audit/data/raw/usgs/world/",
+   "date_acquired": "2026-10-26"
+  },
+  {
+   "id": "usgs_mcs2022_salient_csv",
+   "title": "USGS MCS 2022 Salient Statistics CSVs",
+   "publisher": "US Geological Survey",
+   "url": "https://www.sciencebase.gov/catalog/item/619f686cd34eb622f6924aba",
+   "domains": [
+    "D6"
+   ],
+   "supports": [
+    "M5"
+   ],
+   "version": "MCS 2022 data release CSVs",
+   "retrieved": "2026-10-26",
+   "status": "retrieved",
+   "licence": {
+    "name": "Public domain (US Government work), as stated by the editor",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "Public domain is stated by the editor; no licence text was read from the saved file, so redistribution is not flagged yes (register test rule). Supplied by the editor outside the repository; the file is not in the working tree, so no size or sha256 is recorded and Claude did not read the saved file.",
+   "units": "tonnes",
+   "geography": "US",
+   "time_span": "2017 to 2021",
+   "variables": [
+    "US production",
+    "imports",
+    "exports",
+    "apparent consumption"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "Machine-readable CSVs: one *_salient.csv per commodity, US salient statistics (production, imports, exports, apparent consumption).",
+   "role": "data",
+   "year": 2022,
+   "local_path": "audit/data/raw/usgs/salient/",
+   "date_acquired": "2026-10-26"
+  },
+  {
+   "id": "zhao_2017",
+   "title": "Zhao et al. 2017, Temperature increase reduces global yields of major crops in four independent estimates, PNAS 114:9326-9331",
+   "publisher": "PNAS",
+   "url": "https://doi.org/10.1073/pnas.1701762114",
+   "domains": [
+    "D4"
+   ],
+   "supports": [
+    "L3"
+   ],
+   "version": "PDF received 2026-10-26",
+   "retrieved": "2026-10-26",
+   "status": "retrieved",
+   "licence": {
+    "name": "PNAS open access, as stated by the editor",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "Open-access status is stated by the editor; the licence wording was not read from the file. Supplied by the editor outside the repository; the file is not in the working tree, so no size or sha256 is recorded and Claude did not read the saved file.",
+   "units": "% yield per K",
+   "geography": "global",
+   "time_span": "as in the paper",
+   "variables": [
+    "published yield-temperature sensitivities"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "Global meta-analysis. Key calibration reference for the crop-yield link. The per-degree figures supplied by the editor (wheat -6%, rice -3.2%, maize -7.4%, soybean -3.1% per degree C) are NOT yet verified against the PDF.",
+   "role": "document",
+   "year": 2017,
+   "local_path": "audit/data/raw/papers/zhao2017.pdf",
+   "date_acquired": "2026-10-26"
+  },
+  {
+   "id": "schlenker_roberts_2009",
+   "title": "Schlenker & Roberts 2009, Nonlinear temperature effects indicate severe damages to US crop yields under climate change, PNAS 106:15594-15598",
+   "publisher": "PNAS",
+   "url": "https://doi.org/10.1073/pnas.0906865106",
+   "domains": [
+    "D4"
+   ],
+   "supports": [
+    "L3"
+   ],
+   "version": "PDF received 2026-10-26",
+   "retrieved": "2026-10-26",
+   "status": "retrieved",
+   "licence": {
+    "name": "PNAS open access, as stated by the editor",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "Open-access status is stated by the editor; the licence wording was not read from the file. Supplied by the editor outside the repository; the file is not in the working tree, so no size or sha256 is recorded and Claude did not read the saved file.",
+   "units": "yield vs degree-days",
+   "geography": "US",
+   "time_span": "as in the paper",
+   "variables": [
+    "threshold nonlinearity of yield in temperature"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "US crops; threshold nonlinearity above 29 to 32 C. Reference for L3 nonlinear calibration. The threshold range is as supplied by the editor, not yet verified against the PDF.",
+   "role": "document",
+   "year": 2009,
+   "local_path": "audit/data/raw/papers/schlenker_roberts2009.pdf",
+   "date_acquired": "2026-10-26"
+  },
+  {
+   "id": "burke_2015",
+   "title": "Burke, Hsiang & Miguel 2015, Global non-linear effect of temperature on economic production, Nature 527(7577)",
+   "publisher": "Springer Nature (reprint via eScholarship, UC Berkeley)",
+   "url": "https://doi.org/10.1038/nature15725",
+   "domains": [
+    "D4"
+   ],
+   "supports": [
+    "L6",
+    "L7"
+   ],
+   "version": "PDF received 2026-10-26",
+   "retrieved": "2026-10-26",
+   "status": "retrieved",
+   "licence": {
+    "name": "CC BY 4.0 (eScholarship reprint), as stated by the editor",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "CC BY 4.0 via the eScholarship reprint is stated by the editor; the licence line was not read from the file, so not flagged yes. Supplied by the editor outside the repository; the file is not in the working tree, so no size or sha256 is recorded and Claude did not read the saved file.",
+   "units": "growth effect per K",
+   "geography": "global",
+   "time_span": "as in the paper",
+   "variables": [
+    "temperature-growth response"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "GDP peaks at 13 C and declines nonlinearly above; about 25% global income loss by 2100 under RCP8.5. Both figures are as supplied by the editor, not yet verified against the PDF. Primary calibration reference for the L6/L7 economic-damage link. Source Data still outstanding.",
+   "role": "document",
+   "year": 2015,
+   "local_path": "audit/data/raw/papers/burke2015.pdf",
+   "date_acquired": "2026-10-26"
+  },
+  {
+   "id": "usgs_mcs2026_pdf",
+   "title": "USGS Mineral Commodity Summaries 2026",
+   "publisher": "US Geological Survey",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026.pdf",
+   "domains": [
+    "D6"
+   ],
+   "supports": [
+    "M5"
+   ],
+   "version": "MCS 2026 v1.3 (May 2026) PDF",
+   "retrieved": "2026-10-26",
+   "status": "retrieved",
+   "licence": {
+    "name": "Public domain (US Government work), as stated by the editor",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "Public domain is stated by the editor; no licence text was read from the saved file, so not flagged yes (register test rule). An earlier campaign entry, usgs_mcs2026, holds the PDF retrieved 2026-10-22. Supplied by the editor outside the repository; no file is in the working tree, so no size or sha256 is recorded and Claude did not read it.",
+   "units": "tonnes",
+   "geography": "world and US",
+   "time_span": "2021 to 2025",
+   "variables": [
+    "world production",
+    "reserves",
+    "US salient statistics"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "2026 edition, Version 1.3 May 2026, 226 pages. Most current edition.",
+   "role": "document",
+   "year": 2026,
+   "local_path": "audit/data/raw/usgs/mcs2026.pdf",
+   "date_acquired": "2026-10-26"
+  },
+  {
+   "id": "jaegermeyr_2021",
+   "title": "Jaegermeyr et al. 2021, Climate impacts on global agriculture emerge earlier in new generation of climate and crop models, Nature Food 2:873-885",
+   "publisher": "Nature Food",
+   "url": "https://doi.org/10.1038/s43016-021-00400-y",
+   "domains": [
+    "D4"
+   ],
+   "supports": [
+    "L3"
+   ],
+   "version": "abstract page only",
+   "retrieved": "2026-10-26",
+   "status": "partial",
+   "licence": {
+    "name": "Subscription (Nature Food); abstract only accessed; full text requires institutional access",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "no",
+   "redistribution_note": "Subscription paper: not redistributable. Only the abstract was accessed. Supplied by the editor outside the repository; no file is in the working tree, so no size or sha256 is recorded and Claude did not read it.",
+   "units": "% yield change",
+   "geography": "global",
+   "time_span": "to end of century",
+   "variables": [
+    "crop yield change under climate scenarios"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "Maize shifted from +1% to -24% (SSP585) end-of-century. Emergence before 2040 in main breadbasket regions. Describes the ISIMIP3b dataset (see jaegermeyr_2021_isimip). The figures are as supplied by the editor from the abstract page and not checked against the full text.",
+   "role": "document",
+   "year": 2021,
+   "local_path": null,
+   "date_acquired": "2026-10-26"
+  },
+  {
+   "id": "jaegermeyr_2021_isimip",
+   "title": "Jaegermeyr et al. 2024, Pre-processed and bias-adjusted yield data from ISIMIP3b simulations of the Agriculture Sector",
+   "publisher": "ISIMIP Repository",
+   "url": "https://doi.org/10.48364/ISIMIP.910253",
+   "domains": [
+    "D4"
+   ],
+   "supports": [
+    "L3"
+   ],
+   "version": "ISIMIP Repository v1.0 (2024-08-08), not yet downloaded",
+   "retrieved": "2026-10-26",
+   "status": "partial",
+   "licence": {
+    "name": "CC0 1.0 Universal Public Domain Dedication, as stated by the editor",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "CC0 is stated by the editor; the licence line was not read from a saved file, so redistribution is not flagged yes (register test rule). Nothing is downloaded yet. Supplied by the editor outside the repository; no file is in the working tree, so no size or sha256 is recorded and Claude did not read it.",
+   "units": "relative yield change",
+   "geography": "global grid",
+   "time_span": "historical to 2100",
+   "variables": [
+    "yield change, 4 crops, 4 scenarios"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "ISIMIP Repository v1.0, published 2024-08-08. 864 datasets: yieldchange for maize/rice/soy/wheat under historical, ssp126, ssp370, ssp585 x multiple crop models x multiple climate models. CC0 per the editor. Download pending: subset selection needed before ingest.",
+   "role": "data",
+   "year": 2024,
+   "local_path": "audit/data/raw/isimip/",
+   "date_acquired": "2026-10-26"
+  },
+  {
+   "id": "wid_world",
+   "title": "World Inequality Database, Bulk Download",
+   "publisher": "World Inequality Lab",
+   "url": "https://wid.world/bulk-download/",
+   "domains": [
+    "D4"
+   ],
+   "supports": [
+    "L6",
+    "L7"
+   ],
+   "version": "wid_all_data.zip as downloaded 2026-10-26 (release date not stated in the README)",
+   "retrieved": "2026-10-26",
+   "status": "partial",
+   "licence": {
+    "name": "CC BY 4.0, as stated by the editor",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "CC BY 4.0 is stated by the editor; the README contains no licence text, so it is not verified from the saved file and redistribution is not flagged yes (register test rule). The zip is outside the repository and is not committed; no size or sha256 of the zip is recorded here.",
+   "units": "per variable (currency codes in the metadata files; shares are fractions)",
+   "geography": "countries, world regions and some subnational regions",
+   "time_span": "as in the data (not read)",
+   "variables": [
+    "income and wealth shares, averages and thresholds by percentile"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "Bulk download zip wid_all_data.zip (887 MB compressed, 6.86 GB uncompressed, 848 members), inspected in place from the user's Downloads folder without extracting and without reading any data CSV; only the member list and README.md were read. Layout is flat, no folders: README.md; WID_countries.csv (codes: alpha2, titlename, shortname, region, region2); WID_data_XX.csv and WID_metadata_XX.csv, 291 pairs by country or world-region code (XX; region codes also XX-MER for market exchange rates, PPP is the default), plus subnational pairs WID_data_US-XX (51), DE-XX (8), CN-XX (2) and a few others (for example OA-MER, OB-MER); one stray member named WID_data_Al.csv not yet explained. Largest member WID_data_FR.csv (69 MB). Data files are semicolon-separated with 7 columns (country, variable, percentile, year, value, age, pop); metadata files have 17 columns (descriptions, unit, source, method). Variable codes are a type letter + 5-letter concept + 3-digit age group + population-unit letter (sptinc992j = share of pre-tax national income, adults, equal-split); percentiles are group percentiles (p0p50, p90p100, p99p100 ...) or 127 generalized percentiles. The README states no licence and no release date: CC BY 4.0 is as stated by the editor. Next step: select a subset (variables and countries) before any CSV ingest.",
+   "role": "data",
+   "year": 2026,
+   "local_path": "audit/data/raw/wid/",
+   "date_acquired": "2026-10-26"
   }
  ],
  "failures": [
