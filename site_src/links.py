@@ -14,7 +14,7 @@ NODES = [
     {"id": "warming", "label": "Warming", "sub": "FaIR climate model", "status": "built", "box": [265, 10, 170, 64]},
     {"id": "world3", "label": "World3", "sub": "population, food, industry", "status": "built", "box": [10, 190, 180, 78]},
     {"id": "s3", "label": "AI economy S3", "sub": "levels unvalidated", "status": "built", "box": [510, 190, 180, 78]},
-    {"id": "dc", "label": "Data centres", "sub": "output withheld", "status": "withheld", "box": [510, 360, 180, 78]},
+    {"id": "dc", "label": "Data centres", "sub": "output withheld", "status": "built", "box": [510, 360, 180, 78]},
     {"id": "emissions", "label": "Emissions", "sub": "prescribed, not built", "status": "not-built", "box": [200, 392, 220, 70]},
 ]
 CURVES = {
@@ -51,9 +51,9 @@ LINKS = [
      "label": "S3 output feeding World3",
      "what": "Not built. S3's economy and World3's are two models of the same world and are not reconciled; nothing in the AI-race run changes anything in World3.",
      "met": [], "failed": [], "notcompared": ["No test: there is no link."], "effect": None, "methods": "methods.html#coupling"},
-    {"n": 5, "id": "s3-compute-to-data-centre-electricity", "from": "s3", "to": "dc", "status": "withheld",
+    {"n": 5, "id": "s3-compute-to-data-centre-electricity", "from": "s3", "to": "dc", "status": "built",
      "label": "S3 compute sets data-centre electricity",
-     "what": "Built in the AI-race run: S3 compute sets data-centre electricity demand, and supply limits compute. The outputs are withheld because they leave any plausible range, which is a property of S3's compute path, not a finding about the world.",
+     "what": "Built: S3 compute sets data-centre electricity demand, and supply limits compute (and, optionally and off by default, the electricity left for other users limits World3 industrial output, D-059). The compute and electricity outputs stay withheld in the Explorer because they leave any plausible range, which is a property of S3's compute path, not a finding about the world.",
      "met": ["The loop signs were tested before the results (tests/test_m2_slice.py)."],
      "failed": ["B1 sign: failed as written (a lower supply case had up to 17.8% more compute in 2038-2045).", "A2.6 step test failed (largest difference 0.565%, in data-centre electricity).", "A1.3: S3 levels unvalidated."],
      "notcompared": ["No independent test of modelled data-centre electricity against estimates exists before 2025.", "Compute and electricity values are withheld until the S3 compute path is validated (awaiting Epoch AI)."],

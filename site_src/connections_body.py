@@ -60,7 +60,6 @@ def list_html() -> str:
 
 LEGEND = ('<ul class="maplegend" aria-label="Line styles">'
           '<li><svg viewBox="0 0 44 10" aria-hidden="true" class="samp built"><line x1="2" y1="5" x2="42" y2="5" stroke-width="3.4"/></svg> Solid: built and tested</li>'
-          '<li><svg viewBox="0 0 44 10" aria-hidden="true" class="samp withheld"><line x1="2" y1="5" x2="42" y2="5" stroke-width="3.4" stroke-dasharray="1 6" stroke-linecap="round"/></svg> Dotted: built, outputs withheld</li>'
           '<li><svg viewBox="0 0 44 10" aria-hidden="true" class="samp not-built"><line x1="2" y1="5" x2="42" y2="5" stroke-width="3.4" stroke-dasharray="7 5"/></svg> Dashed: not built</li></ul>')
 
 
@@ -94,6 +93,6 @@ def body() -> str:
 <li><strong>Emissions are prescribed.</strong> The FaIR run replays one recorded emissions path (D-021); neither World3 nor the AI model changes it. The climate is the same in every scenario.</li>
 <li><strong>S3's economy and World3's are not reconciled.</strong> They are two models of the same world; connecting them is future work, not something the Explorer shows.</li>
 <li><strong>Warming has no health or yield effect.</strong> The Earth4All channels were left out by decision (D-049), to be revisited.</li>
-<li>S3 compute and data-centre electricity outputs are withheld until the S3 compute path is validated (awaiting Epoch AI).</li>
+<li>S3 compute and data-centre electricity outputs (link 5 is built, its values are not shown) are withheld until the S3 compute path is validated (awaiting Epoch AI).</li>
 </ul></section>
 """

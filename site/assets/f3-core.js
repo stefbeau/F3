@@ -382,7 +382,7 @@
   }
   function linksFinding(links) {
     var c = function (s) { return links.filter(function (l) { return l.status === s; }).length; };
-    return c("built") + " of " + links.length + " links between the models are built and tested; " + c("withheld") + " more is built with outputs withheld, and " + c("not-built") + " are not built";
+    return c("built") + " of " + links.length + " links between the models are built and tested; " + (c("withheld") ? c("withheld") + " more is built with outputs withheld, and " : "") + c("not-built") + " are not built";
   }
   function compareState(hash) {
     var def = { a: { levers: [1, 0, 0], damage: "central" }, b: { levers: [2, 1, 1], damage: "central" }, metric: "pop" };

@@ -68,7 +68,7 @@
   /* ---- chapter 4: the strip of seven links; control = which status to show ---- */
   function ch4() {
     var count = function (s) { return LINKS.links.filter(function (l) { return l.status === s; }).length; }, total = LINKS.links.length;
-    $("ch4_h").textContent = count("built") + " of " + total + " links between the models are built; " + count("withheld") + " more is built with outputs withheld, and " + count("not-built") + " are not built";
+    $("ch4_h").textContent = count("built") + " of " + total + " links between the models are built; " + (count("withheld") ? count("withheld") + " more is built with outputs withheld, and " : "") + count("not-built") + " are not built";
     seg($("c4_seg"), [{ value: "all", label: "All" }, { value: "built", label: "Built" }, { value: "withheld", label: "Withheld" }, { value: "not-built", label: "Not built" }], S.c4, function (v) { S.c4 = v; ch4(); });
     var node = {}; LINKS.nodes.forEach(function (n) { node[n.id] = n.label; });
     var dash = { built: "", withheld: ' stroke-dasharray="2 4"', "not-built": ' stroke-dasharray="6 4"' }, word = { built: "Built and tested", withheld: "Built, outputs withheld", "not-built": "Not built" };

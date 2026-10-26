@@ -43,8 +43,8 @@ LOOPS = (
     '<title id="ig_loops_t">Feedback loops: which links exist today and which are not built</title>'
     '<desc id="ig_loops_d">Boxes: warming from the climate model, World3, the AI model S3, data-centre electricity, and emissions. Solid arrows are links that are built and '
     'tested: warming lowers World3 industrial output (optional, off by default), and warming lowers S3 output. Dashed arrows are links that are not built: warming '
-    'effects on health and yield in World3, S3 output feeding World3, data-centre electricity feeding emissions, and World3 feeding emissions. The dotted arrow, '
-    'S3 compute to data-centre electricity, is built in the AI-race run but its outputs are withheld.</desc>'
+    'effects on health and yield in World3, S3 output feeding World3, data-centre electricity feeding emissions, and World3 feeding emissions. The arrow '
+    'S3 compute to data-centre electricity, is built, but its outputs are withheld in the Explorer.</desc>'
     + markers("lp")
     + box(75, 8, 160, 46, ["Warming", "climate model (FaIR)"])
     + box(0, 150, 140, 60, ["World3", "population,", "food, industry"])
@@ -59,8 +59,8 @@ LOOPS = (
     + link("lp", "s3-output-to-world3", "not-built", "M 168 180 L 142 180") + num(155, 163, 4)
     + link("lp", "data-centre-electricity-to-emissions", "not-built", "M 230 352 L 190 408") + num(238, 380, 6)
     + link("lp", "world3-to-emissions", "not-built", "M 50 212 L 95 408") + num(50, 300, 7)
-    # built in the AI-race run, outputs withheld (dotted)
-    + link("lp", "s3-compute-to-data-centre-electricity", "withheld", "M 240 212 L 240 288") + num(260, 250, 5)
+    # built (solid); values withheld in the Explorer
+    + link("lp", "s3-compute-to-data-centre-electricity", "built", "M 240 212 L 240 288") + num(260, 250, 5)
     + '</svg>'
 )
 
@@ -70,7 +70,7 @@ LOOPS_KEY = (
     '<li><strong>Built, solid:</strong> warming lowers the AI model\'s (S3) own output through the same damage function (the AI-race charts under Details on the Explorer).</li>'
     '<li><strong>Not built, dashed:</strong> any effect of warming on World3 health or yield. There is no health or yield effect of warming; the Earth4All channels were left out by decision (D-049).</li>'
     '<li><strong>Not built, dashed:</strong> the AI model feeding World3. S3\'s economy and World3\'s are two models of the same world and are not reconciled.</li>'
-    '<li><strong>Built in the AI-race run, outputs withheld, dotted:</strong> S3 compute sets data-centre electricity demand and supply limits compute. The values are withheld until S3\'s compute path is validated.</li>'
+    '<li><strong>Built, solid (values withheld):</strong> S3 compute sets data-centre electricity demand and supply limits compute. The values are withheld until S3\'s compute path is validated.</li>'
     '<li><strong>Not built, dashed:</strong> data-centre electricity feeding emissions.</li>'
     '<li><strong>Not built, dashed:</strong> World3 feeding emissions. Emissions are prescribed, so the climate path is the same for every scenario in the Explorer.</li>'
     '</ol>'

@@ -61,7 +61,7 @@ def test_roadmap_is_on_the_methods_page_and_only_the_built_links_are_solid():
     ps = paths(svg)
     assert len(ps) == 5
     solid = {re.search(r'data-link="([^"]+)"', p).group(1) for p in ps if "stroke-dasharray" not in p}
-    assert solid == BUILT
+    assert solid == BUILT - {"s3-compute-to-data-centre-electricity"}      # the roadmap draws the climate links only; link 5 (built, D-059) is on the map and the loop diagram
     assert all(re.search(r'data-built="yes"', p) for p in ps if "stroke-dasharray" not in p)
     assert all(re.search(r'data-built="no"', p) for p in ps if "stroke-dasharray" in p)
     assert 'href="connections.html"' in html and "emissions feedback" in svg.lower()

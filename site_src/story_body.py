@@ -65,7 +65,7 @@ def body() -> str:
 <section class="chapter card" id="ch4" aria-labelledby="ch4_h">
 <p class="kicker">Step 4 of 4: what is connected</p>
 <h2 id="ch4_h" class="finding">Few of the links between the models are built</h2>
-<p class="why">Five pieces, seven possible links. Solid lines are built and tested, dotted lines are built but their outputs are withheld, dashed lines are not built. Nothing in the Explorer depends on a dashed link.</p>
+<p class="why">Five pieces, seven possible links. Solid lines are built, dashed lines are not built. The compute and electricity values of link 5 stay withheld above. Nothing in the Explorer depends on a dashed link.</p>
 <div class="ctlrow"><span class="ctllab" id="c4_lab">Show links</span><div class="seg" id="c4_seg" role="group" aria-labelledby="c4_lab"></div></div>
 <ol class="nodes" aria-label="The five pieces">{"".join(f'<li class="node {n["status"]}"><strong>{n["label"]}</strong><span>{n["sub"]}</span></li>' for n in links.NODES)}</ol>
 <ol class="linkstrip" id="c4_list"></ol>

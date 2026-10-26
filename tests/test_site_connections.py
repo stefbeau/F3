@@ -32,7 +32,7 @@ def test_exactly_the_built_links_are_solid_not_built_dashed_withheld_dotted():
     assert len(paths) == 7
     tags = {m.group(1): m.group(0) for m in re.finditer(r'<path data-link="([^"]+)"[^>]*>', html)}
     built = {link for link, b in paths if b == "yes"}
-    assert built == {"fair-warming-to-world3-output", "fair-warming-to-s3-damage"}
+    assert built == {"fair-warming-to-world3-output", "fair-warming-to-s3-damage", "s3-compute-to-data-centre-electricity"}
     for link, b in paths:
         tag = tags[link]
         if b == "yes":
@@ -40,7 +40,7 @@ def test_exactly_the_built_links_are_solid_not_built_dashed_withheld_dotted():
         elif b == "no":
             assert 'stroke-dasharray="7 5"' in tag, tag
         else:
-            assert 'stroke-dasharray="1 6"' in tag and link == "s3-compute-to-data-centre-electricity", tag
+            raise AssertionError(f"no link is withheld any more (link 5 is built): {tag}")
     assert {entry["id"] for entry in linkdata()["links"] if entry["status"] == "built"} == built        # the JSON the inspector reads agrees with the drawing
 
 
@@ -65,7 +65,7 @@ def test_nodes_are_absolutely_positioned_and_the_list_replaces_the_map_below_900
 def test_map_has_a_text_alternative_legend_and_the_status_vocabulary():
     html = page()
     assert 'role="group" aria-label="Map of the seven links' in html
-    for word in ("Solid: built and tested", "Dotted: built, outputs withheld", "Dashed: not built"):
+    for word in ("Solid: built and tested", "Dashed: not built"):
         assert word in html
     assert 'aria-live="polite"' in html and 'id="inspector"' in html
 
@@ -111,7 +111,7 @@ def test_effect_numbers_are_computed_from_the_data(tmp_path):
     for row in s3["rows"]:
         assert row[2] == f"{d['runs'][f'central|{row[0]}|1']['damage_fraction'][-1] * 100:.1f}%"
     assert f"{d['climate']['warming'][-1]:.2f} K" in w3["note"] and none is None
-    assert finding.startswith("2 of 7 links") and "1 more is built with outputs withheld" in finding and "4 are not built" in finding
+    assert finding.startswith("3 of 7 links") and "withheld" not in finding and "4 are not built" in finding
 
 
 def test_connections_script_holds_no_model_numbers_and_the_social_module_is_absent():

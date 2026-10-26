@@ -15,7 +15,7 @@
   }
   function effectHtml(l) {
     var t = l.effect ? F3.effectTable(l.effect, D) : null;
-    if (!t) return '<h4>Effect numbers</h4><p class="note">' + (l.status === "withheld" ? "Withheld: the outputs of this link leave any plausible range until the S3 compute path is validated (awaiting Epoch AI)." : "None: this link is not built, so it has no effect in any Explorer run.") + "</p>";
+    if (!t) return '<h4>Effect numbers</h4><p class="note">' + (l.status === "not-built" ? "None: this link is not built, so it has no effect in any Explorer run." : "None shown: the outputs of this link are withheld in the Explorer because they leave any plausible range until the S3 compute path is validated (awaiting Epoch AI).") + "</p>";
     return "<h4>Effect numbers (computed from the data)</h4><div class=\"tblwrap\" tabindex=\"0\" role=\"region\" aria-label=\"Effect numbers\"><table class=\"efx\"><tr>" + t.head.map(function (h) { return "<th scope=\"col\">" + C.esc(h) + "</th>"; }).join("") + "</tr>" +
       t.rows.map(function (r) { return "<tr><th scope=\"row\">" + C.esc(r[0]) + "</th>" + r.slice(1).map(function (c) { return "<td>" + C.esc(c) + "</td>"; }).join("") + "</tr>"; }).join("") + "</table></div><p class=\"note\">" + C.esc(t.note) + "</p>";
   }
