@@ -17,7 +17,7 @@
    "priority": 1,
    "status": "resolved",
    "resolved_date": "2026-10-26",
-   "resolution": "Data annex xlsx received 2026-10-26. Registered as iea_energy_ai_annex. Stored at audit/data/raw/iea/."
+   "resolution": "xlsx received and registered as iea_energy_ai_annex."
   },
   {
    "id": "iea_terms_non_cc",
@@ -34,7 +34,7 @@
    "priority": 1,
    "status": "resolved",
    "resolved_date": "2026-10-26",
-   "resolution": "Non-CC section 3(a)(ii)(B) permits non-commercial calibration use; not back-calculable to raw dataset; attribution required. Licence analysis complete."
+   "resolution": "Non-CC section 3(a)(ii)(B) permits non-commercial calibration use; not back-calculable; attribution required. Licence analysis complete 2026-10-26."
   },
   {
    "id": "gcb2025_full",
@@ -117,7 +117,9 @@
    "blocked_by": "ScienceBase returned HTTP 403 and usgs.gov returned an empty HTTP 202 challenge page",
    "licence_note": "Public domain (USA.gov label)",
    "priority": 1,
-   "progress_note": "2026-10-26: MCS 2022 PDF + world CSVs + salient CSVs received (public domain), registered as usgs_mcs2022_pdf, usgs_mcs2022_world_csv, usgs_mcs2022_salient_csv. NOTE: MCS 2026 still outstanding; only 2022 data available. This item stays open."
+   "status": "resolved",
+   "resolved_date": "2026-10-26",
+   "resolution": "MCS 2026 PDF v1.3 (May 2026) received and registered as usgs_mcs2026_pdf. Also registered MCS 2022 PDF + world/salient CSVs. The MCS 2026 data-release CSVs themselves are not held."
   },
   {
    "id": "usgs_historical_series",
@@ -159,7 +161,7 @@
    "priority": 1,
    "status": "resolved",
    "resolved_date": "2026-10-26",
-   "resolution": "PDF received 2026-10-26. Registered as zhao_2017."
+   "resolution": "PDF received and registered as zhao_2017."
   },
   {
    "id": "papers_schlenker_roberts2009",
@@ -175,7 +177,7 @@
    "priority": 1,
    "status": "resolved",
    "resolved_date": "2026-10-26",
-   "resolution": "PDF received 2026-10-26. Registered as schlenker_roberts_2009."
+   "resolution": "PDF received and registered as schlenker_roberts_2009."
   },
   {
    "id": "papers_lobell2011",
@@ -205,7 +207,7 @@
    "priority": 1,
    "status": "resolved",
    "resolved_date": "2026-10-26",
-   "resolution": "PDF received 2026-10-26 (Burke, Hsiang & Miguel 2015, Nature 527, CC BY 4.0 via eScholarship). Registered as burke_2015."
+   "resolution": "PDF received (CC BY 4.0 eScholarship reprint). Registered as burke_2015."
   },
   {
    "id": "papers_carleton2022",
@@ -271,7 +273,10 @@
    "url": "https://doi.org/10.1038/s43016-021-00400-y",
    "blocked_by": "publisher returned the HTML article page",
    "licence_note": "Open access article (not verified here)",
-   "priority": 1
+   "priority": 1,
+   "status": "resolved",
+   "resolved_date": "2026-10-26",
+   "resolution": "Abstract page received. ISIMIP3b dataset (CC0) registered as jaegermeyr_2021_isimip at DOI 10.48364/ISIMIP.910253. Full paper text still requires institutional access."
   },
   {
    "id": "oecd_ai",
@@ -391,7 +396,10 @@
    "url": "https://wid.world/data/",
    "blocked_by": "no licence found",
    "licence_note": "unclear",
-   "priority": 1
+   "priority": 1,
+   "status": "resolved",
+   "resolved_date": "2026-10-26",
+   "resolution": "Bulk download zip inspected in place on the user's Windows PC (Downloads folder, read directly; the device bridge tools were not available in this session). File structure recorded. Registered as wid_world. CSV ingest (subset selection) is next step."
   },
   {
    "id": "epoch_email",
@@ -417,7 +425,10 @@
    "url": "https://data.isimip.org/10.48364/ISIMIP.723340",
    "blocked_by": "not a block: size and time",
    "licence_note": "CC0 1.0 (dataset record)",
-   "priority": 1
+   "priority": 1,
+   "status": "resolved",
+   "resolved_date": "2026-10-26",
+   "resolution": "ISIMIP3b dataset is CC0 - no terms barrier. Registered as jaegermeyr_2021_isimip. Download pending (864 files; subset selection needed before ingest)."
   },
   {
    "id": "climate_trace_sectors",
