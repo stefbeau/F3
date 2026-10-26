@@ -1,0 +1,31 @@
+{
+ "schema_version": 1,
+ "source_id": "wid_world",
+ "variable": "sptinc",
+ "percentiles": [
+  "p0p50",
+  "p90p100",
+  "p99p100"
+ ],
+ "countries_found": 374,
+ "rows_extracted": 71036,
+ "year_range": [
+  "1990",
+  "2024"
+ ],
+ "output_file": "audit/data/raw/wid/wid_sptinc_filtered.csv",
+ "date_processed": "2026-10-26",
+ "year_filter": "1990 to 2025",
+ "variable_codes_found": [
+  "sptincf992",
+  "sptinci992",
+  "sptinci996",
+  "sptinci999",
+  "sptincj992",
+  "sptincj999",
+  "sptincm992",
+  "sptinct992"
+ ],
+ "data_members_read": 423,
+ "note": "Rows kept where the variable code starts with sptinc, the percentile is one of the three listed and the year is in the filter. Nothing else from the zip was written."
+}
