@@ -1,0 +1,410 @@
+{
+ "id": "epoch_ai_company_revenue",
+ "title": "Annualized revenue reports of AI companies (Epoch AI)",
+ "description": "All revenue reports with an annualized revenue figure: company, date, annualized revenue in USD, type of figure, confidence.",
+ "built_by": "site_src/data_campaign.py",
+ "register": "audit/data/sources-register.json",
+ "sources": [
+  {
+   "id": "epoch_ai_companies",
+   "title": "Epoch AI: AI companies (revenue, funding, staff, compute spend)",
+   "version": "ZIP updated 2026-10-08",
+   "url": "https://epoch.ai/data/ai_companies.zip",
+   "licence": "Creative Commons Attribution (CC BY; the README links version 4.0)",
+   "licence_quote": "Epoch AI's data is free to use, distribute, and reproduce provided the source and authors are credited under the",
+   "redistribution": "yes"
+  }
+ ],
+ "source_files": [
+  {
+   "path": "epoch_ai_companies/ai_companies.zip",
+   "sha256": "78ee3083f0ad43536f5420b90e1a16c53bbdb4515e81c7573dc7b5151a4fa2be",
+   "bytes": 44538
+  }
+ ],
+ "retrieved": "2026-10-22",
+ "redistribution": "yes",
+ "attribution": "Epoch AI, https://epoch.ai/data (CC BY); values re-expressed as annual aggregates by F3.",
+ "units": "USD per year (annualized)",
+ "geography": "global (companies)",
+ "time_span": "2022 to 2026",
+ "variables": [
+  "company",
+  "date",
+  "annualized_revenue_usd",
+  "confidence"
+ ],
+ "supports": [
+  "AI",
+  "L4"
+ ],
+ "method": "ai_companies_revenue_reports.csv: rows with 'Annualized revenue (USD)' and a date, sorted by company and date. Source columns are not copied.",
+ "caveats": [
+  "Annualized run-rate figures from press and company statements, not audited revenue; Epoch's confidence column is kept."
+ ],
+ "data": {
+  "reports": [
+   {
+    "company": "Anthropic",
+    "date": "2023-10-01",
+    "annualized_revenue_usd": 100000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "Anthropic",
+    "date": "2024-01-01",
+    "annualized_revenue_usd": 87000000.0,
+    "confidence": "Confident"
+   },
+   {
+    "company": "Anthropic",
+    "date": "2024-12-31",
+    "annualized_revenue_usd": 1000000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "Anthropic",
+    "date": "2025-03-01",
+    "annualized_revenue_usd": 1400000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "Anthropic",
+    "date": "2025-03-31",
+    "annualized_revenue_usd": 2000000000.0,
+    "confidence": "Confident"
+   },
+   {
+    "company": "Anthropic",
+    "date": "2025-05-30",
+    "annualized_revenue_usd": 3000000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "Anthropic",
+    "date": "2025-07-01",
+    "annualized_revenue_usd": 4000000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "Anthropic",
+    "date": "2025-07-29",
+    "annualized_revenue_usd": 5000000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "Anthropic",
+    "date": "2025-10-21",
+    "annualized_revenue_usd": 7000000000.0,
+    "confidence": "Confident"
+   },
+   {
+    "company": "Anthropic",
+    "date": "2025-12-31",
+    "annualized_revenue_usd": 9000000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "Anthropic",
+    "date": "2026-02-12",
+    "annualized_revenue_usd": 14000000000.0,
+    "confidence": "Confident"
+   },
+   {
+    "company": "Anthropic",
+    "date": "2026-03-03",
+    "annualized_revenue_usd": 19000000000.0,
+    "confidence": "Confident"
+   },
+   {
+    "company": "Anthropic",
+    "date": "2026-04-06",
+    "annualized_revenue_usd": 30000000000.0,
+    "confidence": "Confident"
+   },
+   {
+    "company": "Anthropic",
+    "date": "2026-05-15",
+    "annualized_revenue_usd": 47000000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "Anthropic",
+    "date": "2026-07-31",
+    "annualized_revenue_usd": 65000000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "Cohere",
+    "date": "2023-12-31",
+    "annualized_revenue_usd": 13000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "Cohere",
+    "date": "2024-03-15",
+    "annualized_revenue_usd": 22000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "Cohere",
+    "date": "2025-02-24",
+    "annualized_revenue_usd": 70000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "Cohere",
+    "date": "2025-05-15",
+    "annualized_revenue_usd": 100000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "Cohere",
+    "date": "2025-10-20",
+    "annualized_revenue_usd": 150000000.0,
+    "confidence": "Confident"
+   },
+   {
+    "company": "Cohere",
+    "date": "2025-12-31",
+    "annualized_revenue_usd": 240000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "DeepSeek",
+    "date": "2026-07-14",
+    "annualized_revenue_usd": 450000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "DeepSeek",
+    "date": "2026-09-24",
+    "annualized_revenue_usd": 1000000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "MiniMax",
+    "date": "2026-02-28",
+    "annualized_revenue_usd": 150000000.0,
+    "confidence": "Confident"
+   },
+   {
+    "company": "MiniMax",
+    "date": "2026-08-26",
+    "annualized_revenue_usd": 800000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "Mistral AI",
+    "date": "2025-06-11",
+    "annualized_revenue_usd": 100000000.0,
+    "confidence": "Confident"
+   },
+   {
+    "company": "Mistral AI",
+    "date": "2026-01-31",
+    "annualized_revenue_usd": 400000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "Mistral AI",
+    "date": "2026-09-08",
+    "annualized_revenue_usd": 1000000000.0,
+    "confidence": "Confident"
+   },
+   {
+    "company": "Moonshot AI",
+    "date": "2026-04-30",
+    "annualized_revenue_usd": 200000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "Moonshot AI",
+    "date": "2026-06-30",
+    "annualized_revenue_usd": 300000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "Moonshot AI",
+    "date": "2026-08-31",
+    "annualized_revenue_usd": 1000000000.0,
+    "confidence": "Confident"
+   },
+   {
+    "company": "OpenAI",
+    "date": "2023-03-01",
+    "annualized_revenue_usd": 200000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "OpenAI",
+    "date": "2023-08-29",
+    "annualized_revenue_usd": 1000000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "OpenAI",
+    "date": "2023-10-10",
+    "annualized_revenue_usd": 1300000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "OpenAI",
+    "date": "2023-12-30",
+    "annualized_revenue_usd": 1600000000.0,
+    "confidence": "Confident"
+   },
+   {
+    "company": "OpenAI",
+    "date": "2023-12-31",
+    "annualized_revenue_usd": 2000000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "OpenAI",
+    "date": "2024-06-12",
+    "annualized_revenue_usd": 3400000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "OpenAI",
+    "date": "2024-08-15",
+    "annualized_revenue_usd": 3600000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "OpenAI",
+    "date": "2024-09-12",
+    "annualized_revenue_usd": 4000000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "OpenAI",
+    "date": "2024-12-31",
+    "annualized_revenue_usd": 5500000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "OpenAI",
+    "date": "2025-06-09",
+    "annualized_revenue_usd": 10000000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "OpenAI",
+    "date": "2025-07-30",
+    "annualized_revenue_usd": 12000000000.0,
+    "confidence": "Confident"
+   },
+   {
+    "company": "OpenAI",
+    "date": "2025-08-01",
+    "annualized_revenue_usd": 13000000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "OpenAI",
+    "date": "2025-12-18",
+    "annualized_revenue_usd": 19000000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "OpenAI",
+    "date": "2025-12-31",
+    "annualized_revenue_usd": 21400000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "OpenAI",
+    "date": "2026-02-28",
+    "annualized_revenue_usd": 25000000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "OpenAI",
+    "date": "2026-07-15",
+    "annualized_revenue_usd": 30000000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "OpenAI",
+    "date": "2026-09-30",
+    "annualized_revenue_usd": 50000000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "Z.ai (Zhipu)",
+    "date": "2022-07-01",
+    "annualized_revenue_usd": 8600000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "Z.ai (Zhipu)",
+    "date": "2023-07-01",
+    "annualized_revenue_usd": 17600000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "Z.ai (Zhipu)",
+    "date": "2024-04-01",
+    "annualized_revenue_usd": 12400000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "Z.ai (Zhipu)",
+    "date": "2024-10-01",
+    "annualized_revenue_usd": 37500000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "Z.ai (Zhipu)",
+    "date": "2025-04-01",
+    "annualized_revenue_usd": 53300000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "Z.ai (Zhipu)",
+    "date": "2025-10-01",
+    "annualized_revenue_usd": 153000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "Z.ai (Zhipu)",
+    "date": "2026-03-31",
+    "annualized_revenue_usd": 284000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "Z.ai (Zhipu)",
+    "date": "2026-08-31",
+    "annualized_revenue_usd": 1600000000.0,
+    "confidence": "Confident"
+   },
+   {
+    "company": "xAI",
+    "date": "2024-11-20",
+    "annualized_revenue_usd": 100000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "xAI",
+    "date": "2025-03-31",
+    "annualized_revenue_usd": 172000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "xAI",
+    "date": "2025-06-30",
+    "annualized_revenue_usd": 236000000.0,
+    "confidence": "Likely"
+   },
+   {
+    "company": "xAI",
+    "date": "2025-09-30",
+    "annualized_revenue_usd": 428000000.0,
+    "confidence": "Likely"
+   }
+  ],
+  "n_companies": 9
+ }
+}

@@ -1,0 +1,214 @@
+{
+ "id": "iea_critical_minerals_demand",
+ "title": "Demand for copper, lithium and cobalt: cleantech, other uses, total, secondary supply (IEA Critical Minerals Outlook)",
+ "description": "The scenario table of the IEA mineral pages: cleantech demand, other uses, total demand, secondary supply and primary supply requirements, in kt, for 2021, 2024 (2023 for cobalt), 2030 and 2040.",
+ "built_by": "site_src/data_campaign.py",
+ "register": "audit/data/sources-register.json",
+ "sources": [
+  {
+   "id": "iea_cmo2025",
+   "title": "IEA Global Critical Minerals Outlook 2025: report landing page and mineral pages with demand tables (copper, lithium, cobalt)",
+   "version": "published 2025-05-21; mineral pages as served 2026-10-22",
+   "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025",
+   "licence": "CC BY 4.0",
+   "licence_quote": "Published 21 May 2025 Licence CC BY 4.0",
+   "redistribution": "yes"
+  }
+ ],
+ "source_files": [
+  {
+   "path": "iea_cmo2025/copper-landing.html",
+   "sha256": "bbd214e3d62c1df2ec362e51190878a5786094b1113bf79988c8afb08f6b5388",
+   "bytes": 243486
+  },
+  {
+   "path": "iea_cmo2025/lithium-landing.html",
+   "sha256": "4bbcf3174b96237809038cf5f55fe67fc401b1610c49dfa2b0a0098298979df2",
+   "bytes": 243456
+  },
+  {
+   "path": "iea_cmo2025/cobalt-landing.html",
+   "sha256": "7cee299b092ccdc7bc8e02dc45c20c73f4665ee546dae7ff49b731bdd5ea70e4",
+   "bytes": 243954
+  }
+ ],
+ "retrieved": "2026-10-22",
+ "redistribution": "yes",
+ "attribution": "IEA (2025), Global Critical Minerals Outlook 2025 (copper, lithium pages); IEA (2024), Global Critical Minerals Outlook 2024 (cobalt page). CC BY 4.0.",
+ "units": "kt of contained metal per year; shares in %",
+ "geography": "world",
+ "time_span": "2021 to 2040",
+ "variables": [
+  "cleantech_demand_kt",
+  "other_uses_kt",
+  "total_demand_kt",
+  "secondary_supply_kt",
+  "primary_supply_requirements_kt",
+  "top3_mining_share_pct",
+  "top3_refining_share_pct"
+ ],
+ "supports": [
+  "M5",
+  "DC"
+ ],
+ "method": "The HTML table on each page is read with the standard-library HTML parser; thousands separators (thin spaces) are removed.",
+ "caveats": [
+  "Copper and lithium are the 2025 edition under the STEPS scenario (2021, 2024, 2030, 2040); the cobalt page is the 2024 edition under APS (2021, 2023, 2030, 2040) - not the same edition or scenario, so cobalt is not comparable year by year.",
+  "Nickel, graphite and rare-earth pages returned HTTP 403 and are missing."
+ ],
+ "data": {
+  "copper": {
+   "edition_and_scenario": "Global Critical Minerals Outlook 2025 (STEPS)",
+   "years": [
+    2021,
+    2024,
+    2030,
+    2040
+   ],
+   "cleantech_demand_kt": [
+    6002.0,
+    7737.0,
+    10910.0,
+    12162.0
+   ],
+   "other_uses_kt": [
+    18944.0,
+    18980.0,
+    20438.0,
+    21975.0
+   ],
+   "total_demand_kt": [
+    24946.0,
+    26717.0,
+    31348.0,
+    34137.0
+   ],
+   "secondary_supply_kt": [
+    4123.0,
+    4441.0,
+    5431.0,
+    8702.0
+   ],
+   "primary_supply_requirements_kt": [
+    20851.0,
+    22503.0,
+    25917.0,
+    25428.0
+   ],
+   "top3_mining_share_pct": [
+    46.0,
+    48.0,
+    50.0,
+    53.0
+   ],
+   "top3_refining_share_pct": [
+    57.0,
+    59.0,
+    60.0,
+    60.0
+   ]
+  },
+  "lithium": {
+   "edition_and_scenario": "Global Critical Minerals Outlook 2025 (STEPS)",
+   "years": [
+    2021,
+    2024,
+    2030,
+    2040
+   ],
+   "cleantech_demand_kt": [
+    38.0,
+    128.0,
+    369.0,
+    809.0
+   ],
+   "other_uses_kt": [
+    57.0,
+    77.0,
+    87.0,
+    119.0
+   ],
+   "total_demand_kt": [
+    95.0,
+    205.0,
+    455.0,
+    928.0
+   ],
+   "secondary_supply_kt": [
+    2.0,
+    7.0,
+    16.0,
+    82.0
+   ],
+   "primary_supply_requirements_kt": [
+    93.0,
+    198.0,
+    440.0,
+    846.0
+   ],
+   "top3_mining_share_pct": [
+    89.0,
+    77.0,
+    67.0,
+    69.0
+   ],
+   "top3_refining_share_pct": [
+    99.0,
+    96.0,
+    85.0,
+    85.0
+   ]
+  },
+  "cobalt": {
+   "edition_and_scenario": "Global Critical Minerals Outlook 2024 (APS)",
+   "years": [
+    2021,
+    2023,
+    2030,
+    2040
+   ],
+   "cleantech_demand_kt": [
+    36.0,
+    64.0,
+    177.0,
+    260.0
+   ],
+   "other_uses_kt": [
+    145.0,
+    150.0,
+    167.0,
+    194.0
+   ],
+   "total_demand_kt": [
+    181.0,
+    215.0,
+    344.0,
+    454.0
+   ],
+   "secondary_supply_kt": [
+    15.0,
+    24.0,
+    45.0,
+    131.0
+   ],
+   "primary_supply_requirements_kt": [
+    100.0,
+    166.0,
+    299.0,
+    323.0
+   ],
+   "top3_mining_share_pct": [
+    75.0,
+    77.0,
+    84.0,
+    84.0
+   ],
+   "top3_refining_share_pct": [
+    86.0,
+    88.0,
+    84.0,
+    85.0
+   ]
+  }
+ }
+}

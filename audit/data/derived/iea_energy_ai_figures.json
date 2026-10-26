@@ -1,0 +1,263 @@
+{
+ "id": "iea_energy_ai_figures",
+ "title": "Data-centre electricity figures from the IEA report Energy and AI (2025), with page references",
+ "description": "Sixteen headline figures (estimates for 2024, Base, Lift-Off, High Efficiency and Headwinds projections to 2035, regional shares, PUE) each with the report page where the sentence occurs and a check that the sentence is in the PDF text.",
+ "built_by": "site_src/data_campaign.py",
+ "register": "audit/data/sources-register.json",
+ "sources": [
+  {
+   "id": "iea_energy_ai",
+   "title": "IEA: Energy and AI (report, April 2025) with executive summary and the Key Questions on Energy and AI page",
+   "version": "report published 2025-04-10 (PDF 8.2 MB); Key Questions page updated 2026-04-16",
+   "url": "https://www.iea.org/reports/energy-and-ai",
+   "licence": "CC BY 4.0 (report)",
+   "licence_quote": "IEA (2025), Energy and AI , IEA, Paris https://www.iea.org/reports/energy-and-ai, Licence: CC BY 4.0",
+   "redistribution": "yes"
+  }
+ ],
+ "source_files": [
+  {
+   "path": "iea_energy_ai/EnergyandAI.pdf",
+   "sha256": "3956b80152d4aac6b659a09d0cd7671a4bd53efeeb067e4d50df4230701b33e4",
+   "bytes": 8213160
+  }
+ ],
+ "retrieved": "2026-10-22",
+ "redistribution": "yes",
+ "attribution": "IEA (2025), Energy and AI, IEA, Paris, https://www.iea.org/reports/energy-and-ai, Licence: CC BY 4.0. Figures transcribed with the sentence that contains them.",
+ "units": "TWh; % ; ratio; GW",
+ "geography": "world and regions",
+ "time_span": "2024 to 2035",
+ "variables": [
+  "id",
+  "quantity",
+  "value",
+  "unit",
+  "year",
+  "scope",
+  "page",
+  "evidence"
+ ],
+ "supports": [
+  "DC",
+  "L5",
+  "AI"
+ ],
+ "method": "Each fact is a verbatim sentence fragment looked up in the page-by-page text of the PDF (pdftotext -raw, whitespace collapsed); the build fails if a fragment is not found. Page = PDF page index (1-based), not the printed number.",
+ "caveats": [
+  "The IEA data product (spreadsheets) has Non-CC terms and is not used; only report text is transcribed.",
+  "Projections are the IEA's scenarios, not forecasts of F3."
+ ],
+ "data": {
+  "facts": [
+   {
+    "id": "dc_electricity_2024",
+    "quantity": "Global data-centre electricity consumption",
+    "value": 415,
+    "unit": "TWh",
+    "year": 2024,
+    "scope": "world, estimate",
+    "page": 63,
+    "pages_with_same_sentence": [
+     63
+    ],
+    "evidence": "estimated approximately 415 TWh for 2024 (Figure 2.10), which accounted for around 1.5%"
+   },
+   {
+    "id": "dc_share_2024",
+    "quantity": "Data centres' share of global electricity consumption",
+    "value": 1.5,
+    "unit": "%",
+    "year": 2024,
+    "scope": "world, estimate",
+    "page": 63,
+    "pages_with_same_sentence": [
+     63
+    ],
+    "evidence": "approximately 415 TWh for 2024 (Figure 2.10), which accounted for around 1.5%"
+   },
+   {
+    "id": "dc_growth_hist",
+    "quantity": "Annual growth of data-centre electricity consumption over the last five years",
+    "value": 12,
+    "unit": "% per year",
+    "year": 2024,
+    "scope": "world",
+    "page": 49,
+    "pages_with_same_sentence": [
+     49
+    ],
+    "evidence": "It has grown at 12% per year over the last five years"
+   },
+   {
+    "id": "dc_electricity_2030_base",
+    "quantity": "Data-centre electricity consumption, Base Case",
+    "value": 945,
+    "unit": "TWh",
+    "year": 2030,
+    "scope": "world, projection",
+    "page": 63,
+    "pages_with_same_sentence": [
+     63
+    ],
+    "evidence": "around 945 TWh by 2030 in the Base Case, representing just under 3% of total global electricity consumption in 2030"
+   },
+   {
+    "id": "dc_growth_2024_2030",
+    "quantity": "Annual growth 2024-2030, Base Case",
+    "value": 15,
+    "unit": "% per year",
+    "year": 2030,
+    "scope": "world, projection",
+    "page": 63,
+    "pages_with_same_sentence": [
+     63
+    ],
+    "evidence": "From 2024 to 2030, data centre electricity consumption grows by around 15% per year"
+   },
+   {
+    "id": "dc_electricity_2035_base",
+    "quantity": "Data-centre electricity consumption, Base Case",
+    "value": 1200,
+    "unit": "TWh",
+    "year": 2035,
+    "scope": "world, projection",
+    "page": 14,
+    "pages_with_same_sentence": [
+     14
+    ],
+    "evidence": "global data centre electricity consumption rising to around 1 200 TWh by 2035"
+   },
+   {
+    "id": "dc_electricity_2030_liftoff",
+    "quantity": "Data-centre electricity consumption, Lift-Off Case",
+    "value": 1260,
+    "unit": "TWh",
+    "year": 2030,
+    "scope": "world, projection (over)",
+    "page": 49,
+    "pages_with_same_sentence": [
+     49
+    ],
+    "evidence": "consumption reaches over 1 260 TWh by 2030"
+   },
+   {
+    "id": "dc_electricity_2030_higheff",
+    "quantity": "Data-centre electricity consumption, High Efficiency Case",
+    "value": 800,
+    "unit": "TWh",
+    "year": 2030,
+    "scope": "world, projection",
+    "page": 49,
+    "pages_with_same_sentence": [
+     49
+    ],
+    "evidence": "consumption reaches around 800 TWh by 2030"
+   },
+   {
+    "id": "dc_electricity_2030_headwinds",
+    "quantity": "Data-centre electricity consumption, Headwinds Case",
+    "value": 670,
+    "unit": "TWh",
+    "year": 2030,
+    "scope": "world, projection",
+    "page": 49,
+    "pages_with_same_sentence": [
+     49
+    ],
+    "evidence": "In the Headwinds Case, it reaches around 670 TWh"
+   },
+   {
+    "id": "dc_electricity_2035_range",
+    "quantity": "Range of data-centre electricity consumption across the four cases",
+    "value": "700 to 1 720",
+    "unit": "TWh",
+    "year": 2035,
+    "scope": "world, projection",
+    "page": 49,
+    "pages_with_same_sentence": [
+     49
+    ],
+    "evidence": "spanning 700 TWh to 1 720 TWh across the four cases"
+   },
+   {
+    "id": "dc_electricity_2035_higheff",
+    "quantity": "Data-centre electricity demand, High Efficiency Case",
+    "value": 970,
+    "unit": "TWh",
+    "year": 2035,
+    "scope": "world, projection",
+    "page": 68,
+    "pages_with_same_sentence": [
+     68
+    ],
+    "evidence": "global electricity demand from data centres reaching around 970 TWh by 2035"
+   },
+   {
+    "id": "dc_us_2024",
+    "quantity": "US data-centre electricity consumption",
+    "value": 180,
+    "unit": "TWh",
+    "year": 2024,
+    "scope": "United States, estimate",
+    "page": 57,
+    "pages_with_same_sentence": [
+     57
+    ],
+    "evidence": "Data centres accounted for around 180 TWh of electricity consumption in 2024 in the United States"
+   },
+   {
+    "id": "dc_shares_2024",
+    "quantity": "Shares of global data-centre electricity consumption: United States, China, Europe",
+    "value": "45, 25, 15",
+    "unit": "%",
+    "year": 2024,
+    "scope": "world, estimate",
+    "page": 14,
+    "pages_with_same_sentence": [
+     14
+    ],
+    "evidence": "The United States accounted for the largest share of global data centre electricity consumption in 2024 (45%), followed by China (25%) and Europe (15%)"
+   },
+   {
+    "id": "dc_europe_2024",
+    "quantity": "European data-centre electricity consumption",
+    "value": 70,
+    "unit": "TWh",
+    "year": 2024,
+    "scope": "Europe, estimate",
+    "page": 58,
+    "pages_with_same_sentence": [
+     58
+    ],
+    "evidence": "at an estimated 70 TWh in 2024"
+   },
+   {
+    "id": "pue_2024_2030",
+    "quantity": "Global weighted-average PUE, 2024 to 2030 (Base Case)",
+    "value": "1.41 to 1.29",
+    "unit": "ratio",
+    "year": 2030,
+    "scope": "world",
+    "page": 62,
+    "pages_with_same_sentence": [
+     62
+    ],
+    "evidence": "decreasing from 1.41 to 1.29 on average"
+   },
+   {
+    "id": "n_virginia_capacity",
+    "quantity": "Northern Virginia installed and under-development data-centre capacity",
+    "value": "over 5 GW installed, more than 3 GW under development",
+    "unit": "GW",
+    "year": 2024,
+    "scope": "Loudoun and Prince William Counties",
+    "page": 99,
+    "pages_with_same_sentence": [
+     99
+    ],
+    "evidence": "with over 5 GW of installed capacity and more than 3 GW under development"
+   }
+  ]
+ }
+}

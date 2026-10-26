@@ -1,0 +1,126 @@
+{
+ "id": "epoch_hardware_efficiency",
+ "title": "AI accelerator energy efficiency by release year: tensor FLOP/s per watt (Epoch AI)",
+ "description": "For each release year: best and median of (tensor FP16/BF16 FLOP/s divided by TDP in W), i.e. FLOP per joule at peak, over GPUs, TPUs and other accelerators in Epoch's hardware table; log-linear growth of the best.",
+ "built_by": "site_src/data_campaign.py",
+ "register": "audit/data/sources-register.json",
+ "sources": [
+  {
+   "id": "epoch_ml_hardware",
+   "title": "Epoch AI: Machine learning hardware (183 accelerators)",
+   "version": "ZIP updated 2026-10-21",
+   "url": "https://epoch.ai/data/ml_hardware.zip",
+   "licence": "Creative Commons Attribution (CC BY; the README links version 4.0)",
+   "licence_quote": "Epoch AI's data is free to use, distribute, and reproduce provided the source and authors are credited under the",
+   "redistribution": "yes"
+  }
+ ],
+ "source_files": [
+  {
+   "path": "epoch_ml_hardware/ml_hardware.zip",
+   "sha256": "00284e00e551460221945a460ad7fa015dd072724a4db6eed5d4633eff5022a2",
+   "bytes": 31902
+  }
+ ],
+ "retrieved": "2026-10-22",
+ "redistribution": "yes",
+ "attribution": "Epoch AI, https://epoch.ai/data (CC BY); values re-expressed as annual aggregates by F3.",
+ "units": "FLOP per joule (peak tensor FP16/BF16 FLOP/s per W of TDP)",
+ "geography": "global",
+ "time_span": "2016 to 2026 (release dates)",
+ "variables": [
+  "best_flop_per_joule",
+  "median_flop_per_joule",
+  "n_chips",
+  "best_chip"
+ ],
+ "supports": [
+  "L5",
+  "DC",
+  "AI"
+ ],
+ "method": "ml_hardware.csv rows with both 'Tensor-FP16/BF16 performance (FLOP/s)' and 'TDP (W)'; efficiency = performance / TDP. Grouped by release year. Growth = OLS of log10(best) on year over 2016-2025.",
+ "caveats": [
+  "Peak datasheet efficiency at 16-bit precision, not delivered FLOP per joule of a training run (utilisation, memory, networking and PUE reduce it by roughly an order of magnitude; the module's eta_0 is a delivered-compute figure, units differ).",
+  "Newer chips quote FP8/FP4 peaks that are not used here."
+ ],
+ "data": {
+  "by_release_year": [
+   {
+    "year": 2017,
+    "n_chips": 5,
+    "best_flop_per_joule": 448000000000.0,
+    "best_chip": "NVIDIA Tesla V100 PCIe 16 GB",
+    "median_flop_per_joule": 416666666666.6667
+   },
+   {
+    "year": 2018,
+    "n_chips": 7,
+    "best_flop_per_joule": 500000000000.0,
+    "best_chip": "NVIDIA Tesla V100 DGXS 16 GB",
+    "median_flop_per_joule": 448000000000.0
+   },
+   {
+    "year": 2019,
+    "n_chips": 1,
+    "best_flop_per_joule": 520000000000.0,
+    "best_chip": "NVIDIA Tesla V100S PCIe 32 GB",
+    "median_flop_per_joule": 520000000000.0
+   },
+   {
+    "year": 2020,
+    "n_chips": 6,
+    "best_flop_per_joule": 1040000000000.0,
+    "best_chip": "NVIDIA A100 PCIe",
+    "median_flop_per_joule": 780000000000.0
+   },
+   {
+    "year": 2021,
+    "n_chips": 3,
+    "best_flop_per_joule": 905000000000.0,
+    "best_chip": "Tesla D1 Dojo",
+    "median_flop_per_joule": 808823529411.7646
+   },
+   {
+    "year": 2022,
+    "n_chips": 10,
+    "best_flop_per_joule": 2160000000000.0,
+    "best_chip": "NVIDIA H100 PCIe",
+    "median_flop_per_joule": 1013350000000.0
+   },
+   {
+    "year": 2023,
+    "n_chips": 13,
+    "best_flop_per_joule": 2048000000000.0,
+    "best_chip": "Meta MTIA v1 (MTIA 100)",
+    "median_flop_per_joule": 1290263157894.7368
+   },
+   {
+    "year": 2024,
+    "n_chips": 9,
+    "best_flop_per_joule": 2415789473684.2104,
+    "best_chip": "Google TPU v6e Trillium",
+    "median_flop_per_joule": 1600000000000.0
+   },
+   {
+    "year": 2025,
+    "n_chips": 8,
+    "best_flop_per_joule": 2403125000000.0,
+    "best_chip": "Google TPU v7 Ironwood",
+    "median_flop_per_joule": 1921512987012.9868
+   },
+   {
+    "year": 2026,
+    "n_chips": 1,
+    "best_flop_per_joule": 750000000000.0,
+    "best_chip": "Meta MTIA 300",
+    "median_flop_per_joule": 750000000000.0
+   }
+  ],
+  "best_growth_2016_2025": {
+   "factor_per_year": 1.2822,
+   "doubling_time_years": 2.788,
+   "n_points": 9
+  }
+ }
+}

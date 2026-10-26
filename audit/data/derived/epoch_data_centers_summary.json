@@ -1,0 +1,202 @@
+{
+ "id": "epoch_data_centers_summary",
+ "title": "Frontier AI data centres: current power and capacity timeline (Epoch AI)",
+ "description": "95 tracked AI data centres: current power and H100e by country, and the sum over centres of power (MW) and H100e at each year end 2023-2030, using each centre's latest dated timeline entry on or before the date.",
+ "built_by": "site_src/data_campaign.py",
+ "register": "audit/data/sources-register.json",
+ "sources": [
+  {
+   "id": "epoch_data_centers",
+   "title": "Epoch AI: AI data centers (frontier data centre hub)",
+   "version": "ZIP updated 2026-10-20",
+   "url": "https://epoch.ai/data/data_centers/data_centers.zip",
+   "licence": "Creative Commons Attribution (CC BY; the README links version 4.0)",
+   "licence_quote": "Epoch AI's data is free to use, distribute, and reproduce provided the source and authors are credited under the",
+   "redistribution": "yes"
+  }
+ ],
+ "source_files": [
+  {
+   "path": "epoch_data_centers/data_centers.zip",
+   "sha256": "d815f5e2811e344196c64aaa941b85f761c0b2fe159a6e3cafc311d871841cb8",
+   "bytes": 117730
+  }
+ ],
+ "retrieved": "2026-10-22",
+ "redistribution": "yes",
+ "attribution": "Epoch AI, https://epoch.ai/data (CC BY); values re-expressed as annual aggregates by F3.",
+ "units": "MW; H100-equivalents; million gallons per day (water)",
+ "geography": "global (tracked sites)",
+ "time_span": "2018-12 to 2030-12 (dates after 2026-10-22 are Epoch projections)",
+ "variables": [
+  "current_power_mw",
+  "current_h100e",
+  "power_mw_at_year_end",
+  "h100e_at_year_end"
+ ],
+ "supports": [
+  "DC",
+  "L5",
+  "AI"
+ ],
+ "method": "data_centers.csv: sum of 'Current power (MW)' and 'Current H100 equivalents' by country. data_center_timelines.csv: for each date D, each centre contributes its row with the latest Date <= D (its own construction timeline); centres without a row by D contribute nothing. Water use (MGD) is only partly filled, so only the number of centres with a value is reported.",
+ "caveats": [
+  "Covers the large AI-focused sites Epoch tracks, not the world's data-centre fleet: it is a lower bound on AI capacity and an unrelated scope to the IEA's all-data-centre figures.",
+  "Rows dated after the retrieval date are projections from permits and construction status.",
+  "Power (MW) is facility power as modelled by Epoch.",
+  "Water use (MGD) is filled for only 9 to 20 of the sites at any date and the sum jumped between dates for that reason, so no water sum is published; only the count of sites with a value is."
+ ],
+ "data": {
+  "current_total_power_mw": 14203.4,
+  "current_total_h100e": 14752152,
+  "n_sites": 95,
+  "current_by_country": [
+   {
+    "country": "United States",
+    "n_sites": 77,
+    "current_power_mw": 11978.3,
+    "current_h100e": 12754555
+   },
+   {
+    "country": "Malaysia",
+    "n_sites": 3,
+    "current_power_mw": 1137.7,
+    "current_h100e": 1285527
+   },
+   {
+    "country": "China",
+    "n_sites": 5,
+    "current_power_mw": 731.3,
+    "current_h100e": 320440
+   },
+   {
+    "country": "United Kingdom",
+    "n_sites": 1,
+    "current_power_mw": 88.0,
+    "current_h100e": 123800
+   },
+   {
+    "country": "Finland",
+    "n_sites": 1,
+    "current_power_mw": 75.0,
+    "current_h100e": 48528
+   },
+   {
+    "country": "Indonesia",
+    "n_sites": 1,
+    "current_power_mw": 72.0,
+    "current_h100e": 84386
+   },
+   {
+    "country": "Norway",
+    "n_sites": 2,
+    "current_power_mw": 42.0,
+    "current_h100e": 50773
+   },
+   {
+    "country": "Australia",
+    "n_sites": 1,
+    "current_power_mw": 41.0,
+    "current_h100e": 46488
+   },
+   {
+    "country": "Portugal",
+    "n_sites": 1,
+    "current_power_mw": 33.0,
+    "current_h100e": 31834
+   },
+   {
+    "country": "Iceland",
+    "n_sites": 1,
+    "current_power_mw": 5.1,
+    "current_h100e": 5821
+   },
+   {
+    "country": "Sweden",
+    "n_sites": 1,
+    "current_power_mw": 0.0,
+    "current_h100e": 0
+   },
+   {
+    "country": "United Arab Emirates",
+    "n_sites": 1,
+    "current_power_mw": 0.0,
+    "current_h100e": 0
+   }
+  ],
+  "at_year_end": [
+   {
+    "date": "2023-12-31",
+    "projected": false,
+    "n_sites_with_entry": 46,
+    "power_mw": 509.0,
+    "it_power_mw": 401.0,
+    "h100e": 178102,
+    "n_sites_with_water_value": 10
+   },
+   {
+    "date": "2024-12-31",
+    "projected": false,
+    "n_sites_with_entry": 78,
+    "power_mw": 2548.0,
+    "it_power_mw": 2015.0,
+    "h100e": 1190882,
+    "n_sites_with_water_value": 20
+   },
+   {
+    "date": "2025-12-31",
+    "projected": false,
+    "n_sites_with_entry": 94,
+    "power_mw": 8604.1,
+    "it_power_mw": 6774.3,
+    "h100e": 5950950,
+    "n_sites_with_water_value": 18
+   },
+   {
+    "date": "2026-12-31",
+    "projected": true,
+    "n_sites_with_entry": 95,
+    "power_mw": 21850.4,
+    "it_power_mw": 16957.5,
+    "h100e": 19152770,
+    "n_sites_with_water_value": 11
+   },
+   {
+    "date": "2027-12-31",
+    "projected": true,
+    "n_sites_with_entry": 95,
+    "power_mw": 32336.9,
+    "it_power_mw": 24903.5,
+    "h100e": 34539614,
+    "n_sites_with_water_value": 11
+   },
+   {
+    "date": "2028-12-31",
+    "projected": true,
+    "n_sites_with_entry": 95,
+    "power_mw": 49553.5,
+    "it_power_mw": 37910.6,
+    "h100e": 66882198,
+    "n_sites_with_water_value": 10
+   },
+   {
+    "date": "2029-12-31",
+    "projected": true,
+    "n_sites_with_entry": 95,
+    "power_mw": 49753.5,
+    "it_power_mw": 38042.6,
+    "h100e": 67041750,
+    "n_sites_with_water_value": 10
+   },
+   {
+    "date": "2030-12-31",
+    "projected": true,
+    "n_sites_with_entry": 95,
+    "power_mw": 49943.5,
+    "it_power_mw": 38198.6,
+    "h100e": 67155797,
+    "n_sites_with_water_value": 9
+   }
+  ]
+ }
+}

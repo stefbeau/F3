@@ -73,6 +73,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-055 | Data-centre module: optional efficiency cap at the paper's 4e15 FLOP/J, default OFF | Provisional (delegated) 2026-10-22 | 2 |
 | D-056 | F3 Explorer v0.2 redesign: dark dashboard with story front door, dashboard, compare mode, connections map (branch `site-ux`) | Provisional (delegated) 2026-10-22 | 4 |
 | D-057 | Explorer: observed-history overlay (model versus reality) and pattern-scaled warming map (branch `site-history`, from `site-ux`) | Provisional (delegated) 2026-10-22 | 2 |
+| D-058 | Data retrieval campaign: sources, licences and derived series for links 3 to 7, the data-centre module and AI context (documents and data only, branch `data-campaign`) | Provisional (delegated) 2026-10-22 | 2 |
 
 ---
 
@@ -1329,6 +1330,21 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Consequences:** three external datasets and one pattern dataset enter the repository as derived annual or coarse values with licences recorded; the history comparison is not a validation and the Limitations page says so; A3.4(b) status (failed) and A2.1 status (failed) are quoted where they apply; the page and data grow slightly (static, D-009).
 - **What this does not change:** no test, tolerance, label or earlier decision; D-007, D-029, D-030, D-052 and D-056 stand; Pages is not enabled or run by this branch.
 - **Reversal cost:** low (site files and data only).
+- **Proposed by:** Claude (implementing the editor's brief).
+- **Decision:** Provisional (delegated); the editor reviews it in the milestone batch.
+- **Date:** 2026-10-22
+
+## D-058 — Data retrieval campaign: sources, licences and derived series for links 3 to 7, the data-centre module and AI context
+
+- **Status:** Provisional (delegated)
+- **Context:** Links 3 to 7 of the connections map (yield and health, labour, compute to electricity, emissions) and the data-centre module have no data in the repository beyond the sources of `docs/m5-plan.md` section 1, whose STOP items (WID, ILOSTAT, USGS content, LBNL and TSMC documents, AQUASTAT, WUE, a long labour-share series, mineral demand per unit) are mostly "document not read, terms not read". The data-centre module is calibrated on one number (485 TWh in 2025, D-033) and its demand leaves any plausible range after about 2027 (D-029, `docs/s3-supply-limited.md`). Editor instruction of 2026-10-22: run one long data-retrieval campaign, documents and data only.
+- **Purpose:** (1) close the "unread" status of the sources behind links 3 to 7 by reading each primary page and file, recording its licence in the source's own words; (2) give the data-centre module independent numbers (installed capacity, electricity, water, PUE, chip supply, compute) against which its output can be bounded; (3) deepen the AI context (compute, hardware, models, investment); (4) write, for each unbuilt link and for the data-centre module, a document that names the variables, functional forms from the literature, available calibration data, what is missing, a pass/fail test fixed before any result, and the status badge it would earn.
+- **Method:** each source is downloaded by script into its own directory outside the repository (`data-raw`, never committed), its SHA-256 is recorded, and the file is read by Python run with `-I`; nothing downloaded is executed. Every key number is cross-checked against a second source where one exists, and the difference is recorded. Derived annual or aggregate series that the licence allows to be redistributed are written to `audit/data/derived/*.json` by `site_src/data_campaign.py`, which regenerates them from the raw folder (path by argument or `F3_DATA_RAW`) and verifies the checksums against `audit/data/sources-register.json`. The register has a JSON schema and a test (`tests/test_data_register.py`).
+- **Licence rules:** (a) the licence text is **quoted** from the page that states it; (b) where no licence statement is found, or the statement is ambiguous, redistribution is recorded as `unclear`, the raw file stays in `data-raw`, and the source is listed for the editor; (c) only derived series from sources whose redistribution is `yes` are committed; (d) no licence is guessed from the publisher's general reputation; (e) paywalled, login-gated or blocked sources are not worked around (no credentials, no CAPTCHA, no scraping around a gate): they go to `audit/data/needs-user.json` with the exact document wanted and why; (f) a download that fails twice is recorded as a failure and the run moves on.
+- **What this does not change:** no model code, parameter, existing test, label, tolerance or earlier decision; no site file; nothing is published, merged or deployed. Obtaining a dataset is not a decision to use it: use in a sector still needs its own decision, and the STOP rule of `CLAUDE.md` for third-party-data use stays in force. The campaign settles what the sources say and allow, not what the model does with them.
+- **Consequences:** a register, derived series, a data inventory and seven link documents are added; `docs/STATUS.md` is updated; the link documents carry pass/fail criteria written before any calibration, with no results. Network access to some publishers is unreliable (earlier attempts returned HTTP 403); failures are recorded, not worked around.
+- **Alternatives considered:** download only what the unbuilt links strictly need (rejected: the editor asked for breadth and the cost of a second campaign is higher); commit raw files (rejected: size, and licences differ); one decision per source (rejected: one decision for the campaign, one register entry per source).
+- **Reversal cost:** none for the model (documents and data only); the branch can be dropped.
 - **Proposed by:** Claude (implementing the editor's brief).
 - **Decision:** Provisional (delegated); the editor reviews it in the milestone batch.
 - **Date:** 2026-10-22

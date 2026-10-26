@@ -1,0 +1,439 @@
+{
+ "schema_version": 1,
+ "campaign": "D-058",
+ "note": "Differences between two sources for the same quantity. Absolute values of NC-ND sources are not republished.",
+ "items": [
+  {
+   "id": "fair_pins",
+   "quantity": "sha256 of the four FaIR input files, re-downloaded from the pinned commit vs the pins in f3/data/fair_inputs.py",
+   "a": {
+    "source": "f3/data/fair_inputs.py",
+    "value": "pins"
+   },
+   "b": {
+    "source": "fair_inputs (this campaign)",
+    "value": "re-download"
+   },
+   "difference_b_minus_a_pct": null,
+   "comment": "identical for all four files: True ({'calibrated_constrained_parameters_calibration1.4.1.csv': True, 'species_configs_properties_calibration1.4.1.csv': True, 'volcanic_solar.csv': True, 'extensions_1750-2500.csv': True})"
+  },
+  {
+   "id": "hadcrut5_sha",
+   "quantity": "sha256 of HadCRUT.5.2.0.0 global annual summary: this campaign vs audit/data/sources-history.json",
+   "a": {
+    "source": "sources-history.json",
+    "value": "7f750b673bb34aad722736ee21f122b5ea692c99877fa0b1066df65e51f32c04"
+   },
+   "b": {
+    "source": "hadcrut5 (this campaign)",
+    "value": "7f750b673bb34aad722736ee21f122b5ea692c99877fa0b1066df65e51f32c04"
+   },
+   "difference_b_minus_a_pct": null,
+   "comment": "identical"
+  },
+  {
+   "id": "wpp_sha",
+   "quantity": "sha256 of WPP2024_TotalPopulationBySex.csv.gz: this campaign vs sources-history.json",
+   "a": {
+    "source": "sources-history.json",
+    "value": "66b84489fd7875b62de9b40d960b803b8c8439367c98deab89c2f770970925b9"
+   },
+   "b": {
+    "source": "wpp2024_totpop (this campaign)",
+    "value": "66b84489fd7875b62de9b40d960b803b8c8439367c98deab89c2f770970925b9"
+   },
+   "difference_b_minus_a_pct": null,
+   "comment": "identical"
+  },
+  {
+   "id": "hadcrut5_offset",
+   "quantity": "1850-1900 re-basing offset of HadCRUT5 (K)",
+   "a": {
+    "source": "sources-history.json (D-057)",
+    "value": -0.3594,
+    "unit": "K"
+   },
+   "b": {
+    "source": "hadcrut5_global_annual",
+    "value": 0.3594,
+    "unit": "K"
+   },
+   "difference_b_minus_a_pct": 0.0,
+   "comment": "same offset as D-057 (sign convention: subtracted)"
+  },
+  {
+   "id": "ember_total_gen_2024",
+   "quantity": "World total generation 2024 (TWh): Ember old long format vs new format",
+   "a": {
+    "source": "ember_yearly",
+    "value": 30912.5,
+    "unit": "TWh",
+    "year": 2024
+   },
+   "b": {
+    "source": "ember_release_global",
+    "value": 31070.562,
+    "unit": "TWh",
+    "year": 2024
+   },
+   "difference_b_minus_a_pct": 0.511,
+   "comment": "Same publisher, two download formats. The older long-format file is 0.5% lower than the July-2026-format file (a revision between releases); prefer the new format for generation, capacity and emissions. The new format has no demand series, so ember_electricity_world still takes demand from the older file."
+  },
+  {
+   "id": "ember_total_gen_2025",
+   "quantity": "World total generation 2025 (TWh): Ember old long format vs new format",
+   "a": {
+    "source": "ember_yearly",
+    "value": 31734.49,
+    "unit": "TWh",
+    "year": 2025
+   },
+   "b": {
+    "source": "ember_release_global",
+    "value": 31920.513,
+    "unit": "TWh",
+    "year": 2025
+   },
+   "difference_b_minus_a_pct": 0.586,
+   "comment": "Same publisher, two download formats. The older long-format file is 0.5% lower than the July-2026-format file (a revision between releases); prefer the new format for generation, capacity and emissions. The new format has no demand series, so ember_electricity_world still takes demand from the older file."
+  },
+  {
+   "id": "dc_share_iea_vs_ember",
+   "quantity": "Data-centre share of world electricity, 2024 (%)",
+   "a": {
+    "source": "iea_energy_ai (415 TWh / 'around 1.5%')",
+    "value": 1.5,
+    "unit": "%",
+    "year": 2024
+   },
+   "b": {
+    "source": "iea_energy_ai 415 TWh / ember_yearly world demand",
+    "value": 1.3424989890820864,
+    "unit": "%",
+    "year": 2024
+   },
+   "difference_b_minus_a_pct": -10.5,
+   "comment": "The IEA's 1.5% rests on its own denominator (about 27,700 TWh implied); Ember's world demand (generation plus net imports, 30,912 TWh) is larger, which gives 1.3%. A scope difference in the denominator, not an error in either."
+  },
+  {
+   "id": "dc_scale_epoch_vs_iea",
+   "quantity": "Power: Epoch's 95 tracked frontier AI data centres (current MW) vs the IEA's average load implied by 415 TWh a year (MW)",
+   "a": {
+    "source": "iea_energy_ai 415 TWh / 8760 h",
+    "value": 47374.42922374429,
+    "unit": "MW (average)",
+    "year": 2024
+   },
+   "b": {
+    "source": "epoch_data_centers_summary current_total_power_mw",
+    "value": 14203.4,
+    "unit": "MW (nameplate/modelled, 2026-10)",
+    "year": 2026
+   },
+   "difference_b_minus_a_pct": -70.019,
+   "comment": "Different scope and date: the IEA figure is the average load of all data centres in 2024; Epoch's is the power of 95 large AI sites in late 2026. The ratio (about 0.3) says tracked frontier sites already reach roughly a third of the IEA's 2024 global average data-centre load, not that either is wrong."
+  },
+  {
+   "id": "us_dc_iea_vs_lbnl",
+   "quantity": "US data-centre electricity: LBNL 2023 vs IEA 2024 (TWh)",
+   "a": {
+    "source": "lbnl_dc_2024 (text: 176 TWh by 2023, 4.4% of US electricity)",
+    "value": 176.0,
+    "unit": "TWh",
+    "year": 2023
+   },
+   "b": {
+    "source": "iea_energy_ai (around 180 TWh in 2024)",
+    "value": 180.0,
+    "unit": "TWh",
+    "year": 2024
+   },
+   "difference_b_minus_a_pct": 2.273,
+   "comment": "Different years (IEA 2024 vs LBNL 2023). LBNL reports 176 TWh in 2023 (4.4% of US electricity); the IEA reports about 180 TWh in 2024 (more than 4%). LBNL projects 325 to 580 TWh in 2028, i.e. growth of 13% to 27% a year from 2023 (computed here from its text), so a 2024 value only 2% above 2023 is at odds with its own trajectory: the two use different scope or method. They agree at the order of magnitude, not to better than about 20%."
+  },
+  {
+   "id": "co2_gcb_vs_owid_2023",
+   "quantity": "World fossil CO2 emissions 2023 (Mt CO2): Global Carbon Budget 2025 vs Our World in Data",
+   "a": {
+    "source": "gcb2025 extract (fossil_GtC x 3.664)",
+    "value": 38094.646575214385,
+    "unit": "Mt CO2",
+    "year": 2023
+   },
+   "b": {
+    "source": "owid_co2 world 'co2' column",
+    "value": 38094.039,
+    "unit": "Mt CO2",
+    "year": 2023
+   },
+   "difference_b_minus_a_pct": -0.002,
+   "comment": "OWID's world CO2 is built on the Global Carbon Project; they should agree to rounding (OWID may include cement carbonation, which GCB reports separately)."
+  },
+  {
+   "id": "co2_gcb_vs_ceds_2023",
+   "quantity": "World CO2 emissions 2023 (Mt CO2): Global Carbon Budget 2025 fossil vs CEDS v_2025_03_18 total",
+   "a": {
+    "source": "gcb2025 extract",
+    "value": 38094.646575214385,
+    "unit": "Mt CO2",
+    "year": 2023
+   },
+   "b": {
+    "source": "ceds_global_emissions CO2 (all sectors and fuels)",
+    "value": 38712.217039999996,
+    "unit": "Mt CO2",
+    "year": 2023
+   },
+   "difference_b_minus_a_pct": 1.621,
+   "comment": "CEDS is a bottom-up inventory scaled to energy statistics; it includes cement process CO2 and international shipping and aviation. A small gap is expected."
+  },
+  {
+   "id": "co2_gcb_vs_edgar_2024",
+   "quantity": "World fossil CO2 2024 (Mt CO2): Global Carbon Budget 2025 vs EDGAR/IEA",
+   "a": {
+    "source": "gcb2025 extract",
+    "value": 38599.188453717434,
+    "unit": "Mt CO2",
+    "year": 2024
+   },
+   "b": {
+    "source": "edgar2025_fossil_co2 (IEA-EDGAR CO2 v4)",
+    "value": "not republished (licence)",
+    "unit": "Mt CO2",
+    "year": 2024
+   },
+   "difference_b_minus_a_pct": 2.677,
+   "comment": "EDGAR values are CC BY-NC-ND, so only the relative difference is stored."
+  },
+  {
+   "id": "wdi_co2_is_edgar",
+   "quantity": "WDI EN.GHG.CO2.MT.CE.AR5 world 2024 vs EDGAR fossil CO2 2024",
+   "a": {
+    "source": "edgar2025_fossil_co2",
+    "value": "not republished (licence)"
+   },
+   "b": {
+    "source": "wdi_calibration EN.GHG.CO2.MT.CE.AR5",
+    "value": "not republished (licence)"
+   },
+   "difference_b_minus_a_pct": -0.0,
+   "comment": "The World Bank indicator is the EDGAR (IEA-EDGAR) series: the two world totals agree to the digits shown. Because EDGAR states those CO2 data are CC BY-NC-ND, the WDI series is excluded from the derived world file."
+  },
+  {
+   "id": "ch4_edgar_vs_ceds_2023",
+   "quantity": "World methane 2023 (Mt CH4): EDGAR (CO2eq / 28, GWP-100 AR5) vs CEDS",
+   "a": {
+    "source": "edgar_global_non_co2_by_sector (/28)",
+    "value": 338.26860714285715,
+    "unit": "Mt CH4",
+    "year": 2023
+   },
+   "b": {
+    "source": "ceds_global_emissions CH4",
+    "value": 346.885754,
+    "unit": "Mt CH4",
+    "year": 2023
+   },
+   "difference_b_minus_a_pct": 2.547,
+   "comment": "EDGAR includes wildfire/biomass sectors differently; both are anthropogenic inventories."
+  },
+  {
+   "id": "pop_wpp_vs_wdi_2023",
+   "quantity": "World population 2023: WPP 2024 (1 July) vs World Bank WDI",
+   "a": {
+    "source": "wpp2024_world_population",
+    "value": 8091734930.0,
+    "unit": "persons",
+    "year": 2023
+   },
+   "b": {
+    "source": "wdi_world_series SP.POP.TOTL",
+    "value": 8062923417.0,
+    "unit": "persons",
+    "year": 2023
+   },
+   "difference_b_minus_a_pct": -0.356,
+   "comment": "WDI's population comes from several sources including WPP; mid-year vs year-end conventions explain small gaps."
+  },
+  {
+   "id": "pop_wpp_vs_wdi_2024",
+   "quantity": "World population 2024: WPP 2024 (1 July) vs World Bank WDI",
+   "a": {
+    "source": "wpp2024_world_population",
+    "value": 8161972572.0,
+    "unit": "persons",
+    "year": 2024
+   },
+   "b": {
+    "source": "wdi_world_series SP.POP.TOTL",
+    "value": 8140897523.0,
+    "unit": "persons",
+    "year": 2024
+   },
+   "difference_b_minus_a_pct": -0.258,
+   "comment": "WDI's population comes from several sources including WPP; mid-year vs year-end conventions explain small gaps."
+  },
+  {
+   "id": "cereal_yield_fao_vs_wdi_2023",
+   "quantity": "World cereal yield 2023 (kg/ha): FAOSTAT 'Cereals, primary' vs WDI AG.YLD.CREL.KG",
+   "a": {
+    "source": "faostat_world_cereals",
+    "value": 4228.3,
+    "unit": "kg/ha",
+    "year": 2023
+   },
+   "b": {
+    "source": "wdi_world_series AG.YLD.CREL.KG",
+    "value": 4229.2831,
+    "unit": "kg/ha",
+    "year": 2023
+   },
+   "difference_b_minus_a_pct": 0.023,
+   "comment": "WDI uses FAO data but its 'cereals' aggregate excludes some items (for example it covers wheat, rice, maize, barley, oats, rye, millet, sorghum and mixed grains); differences of about 1% are definitional."
+  },
+  {
+   "id": "labour_share_pwt_vs_ilo_2019",
+   "quantity": "Cross-country median labour share 2019 (%): PWT 11.0 labsh x 100 vs ILO SDG 10.4.1",
+   "a": {
+    "source": "pwt_labour_share median",
+    "value": 52.12,
+    "unit": "% of GDP",
+    "year": 2019
+   },
+   "b": {
+    "source": "ilostat_labour_income_share median",
+    "value": 46.277,
+    "unit": "% of GDP",
+    "year": 2019
+   },
+   "difference_b_minus_a_pct": -11.211,
+   "comment": "Different definitions and samples (PWT adjusts for self-employed income and covers 100-140 countries; the ILO series is modelled for about 185 countries); a gap of several percentage points is expected. Neither is 'the' labour share."
+  },
+  {
+   "id": "owid_vs_epoch_compute_2025",
+   "quantity": "Largest 2025 training run: Epoch AI notable models vs OWID series (FLOP)",
+   "a": {
+    "source": "epoch_training_compute_by_year",
+    "value": 5.0000000000001e+26,
+    "unit": "FLOP",
+    "year": 2025
+   },
+   "b": {
+    "source": "owid_ai_compute (petaFLOP x 1e15)",
+    "value": 5e+26,
+    "unit": "FLOP",
+    "year": 2025
+   },
+   "difference_b_minus_a_pct": -0.0,
+   "comment": "OWID's chart is a processed copy of the Epoch data set; the gap is the data vintage (the OWID export predates Epoch's latest update) and any filtering to the 'notable' list."
+  },
+  {
+   "id": "mcs_edition_copper_2024",
+   "quantity": "World mine production copper 2024: MCS 2025 (estimate) vs MCS 2026 (revised)",
+   "a": {
+    "source": "usgs_mcs2025",
+    "value": 22600.0,
+    "unit": "(Data in thousand metric tons, copper content, unless otherwise specified)",
+    "year": 2024
+   },
+   "b": {
+    "source": "usgs_mcs2026",
+    "value": 23000.0,
+    "unit": "(Data in thousand metric tons, copper content, unless otherwise specified)",
+    "year": 2024
+   },
+   "difference_b_minus_a_pct": 1.77,
+   "comment": "Revision between USGS editions; unresolved if the 2025 edition table could not be parsed with the same method."
+  },
+  {
+   "id": "mcs_edition_lithium_2024",
+   "quantity": "World mine production lithium 2024: MCS 2025 (estimate) vs MCS 2026 (revised)",
+   "a": {
+    "source": "usgs_mcs2025",
+    "value": 204000.0,
+    "unit": "(Data in metric tons, lithium content, unless otherwise specified)",
+    "year": 2024
+   },
+   "b": {
+    "source": "usgs_mcs2026",
+    "value": 222000.0,
+    "unit": "(Data in metric tons, lithium content, unless otherwise specified)",
+    "year": 2024
+   },
+   "difference_b_minus_a_pct": 8.824,
+   "comment": "Revision between USGS editions; unresolved if the 2025 edition table could not be parsed with the same method."
+  },
+  {
+   "id": "mcs_edition_rare_earths_2024",
+   "quantity": "World mine production rare earths 2024: MCS 2025 (estimate) vs MCS 2026 (revised)",
+   "a": {
+    "source": "usgs_mcs2025",
+    "value": 376000.0,
+    "unit": "[Data in metric tons, rare-earth-oxide (REO) equivalent, unless otherwise specified]",
+    "year": 2024
+   },
+   "b": {
+    "source": "usgs_mcs2026",
+    "value": 380000.0,
+    "unit": "[Data in metric tons, rare-earth-oxide (REO) equivalent, unless otherwise specified]",
+    "year": 2024
+   },
+   "difference_b_minus_a_pct": 1.064,
+   "comment": "Revision between USGS editions; unresolved if the 2025 edition table could not be parsed with the same method."
+  },
+  {
+   "id": "mcs_edition_cobalt_2024",
+   "quantity": "World mine production cobalt 2024: MCS 2025 (estimate) vs MCS 2026 (revised)",
+   "a": {
+    "source": "usgs_mcs2025",
+    "value": 238000.0,
+    "unit": "(Data in metric tons, cobalt content, unless otherwise specified)",
+    "year": 2024
+   },
+   "b": {
+    "source": "usgs_mcs2026",
+    "value": 302000.0,
+    "unit": "(Data in metric tons, cobalt content, unless otherwise specified)",
+    "year": 2024
+   },
+   "difference_b_minus_a_pct": 26.891,
+   "comment": "Revision between USGS editions; unresolved if the 2025 edition table could not be parsed with the same method."
+  },
+  {
+   "id": "mcs_edition_nickel_2024",
+   "quantity": "World mine production nickel 2024: MCS 2025 (estimate) vs MCS 2026 (revised)",
+   "a": {
+    "source": "usgs_mcs2025",
+    "value": 3750000.0,
+    "unit": "(Data in metric tons, nickel content, unless otherwise specified)",
+    "year": 2024
+   },
+   "b": {
+    "source": "usgs_mcs2026",
+    "value": 3710000.0,
+    "unit": "(Data in metric tons, nickel content, unless otherwise specified)",
+    "year": 2024
+   },
+   "difference_b_minus_a_pct": -1.067,
+   "comment": "Revision between USGS editions; unresolved if the 2025 edition table could not be parsed with the same method."
+  },
+  {
+   "id": "mcs_edition_graphite_natural_2024",
+   "quantity": "World mine production graphite natural 2024: MCS 2025 (estimate) vs MCS 2026 (revised)",
+   "a": {
+    "source": "usgs_mcs2025",
+    "value": 1530000.0,
+    "unit": "(Data in metric tons unless otherwise specified)",
+    "year": 2024
+   },
+   "b": {
+    "source": "usgs_mcs2026",
+    "value": 1550000.0,
+    "unit": "(Data in metric tons unless otherwise specified)",
+    "year": 2024
+   },
+   "difference_b_minus_a_pct": 1.307,
+   "comment": "Revision between USGS editions; unresolved if the 2025 edition table could not be parsed with the same method."
+  }
+ ]
+}

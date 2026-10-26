@@ -1,0 +1,15 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://github.com/stefbeau/F3/audit/data/needs-user.schema.json",
+ "title": "F3 needs-user list (D-058)",
+ "description": "Documents and decisions the campaign could not obtain without the user: blocked, paywalled or login-gated sources and licence decisions.",
+ "type": "object",
+ "required": ["schema_version", "campaign", "items"],
+ "properties": {
+  "schema_version": {"const": 1},
+  "campaign": {"const": "D-058"},
+  "items": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["id", "kind", "wanted", "why", "supports", "url", "blocked_by", "priority"],
+   "properties": {"id": {"type": "string"}, "kind": {"type": "string"}, "wanted": {"type": "string", "minLength": 10}, "why": {"type": "string", "minLength": 10},
+                  "supports": {"type": "array", "items": {"type": "string", "enum": ["L3", "L4", "L5", "L6", "L7", "DC", "AI", "M5"]}}, "url": {"type": "string"}, "blocked_by": {"type": "string"}, "licence_note": {"type": "string"}, "priority": {"type": "integer", "enum": [1, 2, 3]}}}}
+ }
+}

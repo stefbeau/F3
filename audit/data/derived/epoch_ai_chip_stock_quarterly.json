@@ -1,0 +1,215 @@
+{
+ "id": "epoch_ai_chip_stock_quarterly",
+ "title": "Cumulative AI chip sales by quarter: H100-equivalents and thermal design power (Epoch AI)",
+ "description": "Sum over chip types of Epoch's cumulative sales estimates at each quarter end, 2022-Q1 to 2026-Q3: H100e compute, TDP of the chips (GW) and units; by manufacturer for the latest quarter.",
+ "built_by": "site_src/data_campaign.py",
+ "register": "audit/data/sources-register.json",
+ "sources": [
+  {
+   "id": "epoch_ai_chip_sales",
+   "title": "Epoch AI: Data on AI chip sales",
+   "version": "ZIP updated 2026-10-21",
+   "url": "https://epoch.ai/data/ai_chip_sales.zip",
+   "licence": "Creative Commons Attribution (CC BY; the README links version 4.0)",
+   "licence_quote": "Epoch AI's data is free to use, distribute, and reproduce provided the source and authors are credited under the",
+   "redistribution": "yes"
+  }
+ ],
+ "source_files": [
+  {
+   "path": "epoch_ai_chip_sales/ai_chip_sales.zip",
+   "sha256": "cf77316dcd324cb9df8431ae4091d03d941a579605d7b2b0b3afbac7cd6416b0",
+   "bytes": 27460
+  }
+ ],
+ "retrieved": "2026-10-22",
+ "redistribution": "yes",
+ "attribution": "Epoch AI, https://epoch.ai/data (CC BY); values re-expressed as annual aggregates by F3.",
+ "units": "H100-equivalents; GW (chip TDP); units",
+ "geography": "global",
+ "time_span": "2022-03-31 to 2026-09-30 (quarter ends)",
+ "variables": [
+  "h100e_median_sum",
+  "tdp_gw_median_sum",
+  "units_median_sum"
+ ],
+ "supports": [
+  "AI",
+  "L5",
+  "DC"
+ ],
+ "method": "File cumulative_timelines.csv has one row per chip type and quarter, cumulative from the chip's first sale. Medians are summed over chip types per end date. Percentiles are NOT summed (percentiles do not add), so the sums are sums of medians, close to the mean but not a median of the total.",
+ "caveats": [
+  "Cumulative sales, not installed base: retirements and stranded chips are not modelled.",
+  "Rows flagged 'Incomplete' (a chip with partial data) are counted in n_incomplete_rows.",
+  "TDP is chip power only; it excludes servers, networking, cooling and PUE, so it is a lower bound on facility power."
+ ],
+ "data": {
+  "by_quarter_end": [
+   {
+    "quarter_end": "2022-03-31",
+    "h100e_median_sum": 66883,
+    "tdp_gw_median_sum": 0.0848,
+    "units_median_sum": 212120,
+    "n_chip_types": 1,
+    "n_incomplete_rows": 0
+   },
+   {
+    "quarter_end": "2022-06-30",
+    "h100e_median_sum": 138356,
+    "tdp_gw_median_sum": 0.1755,
+    "units_median_sum": 438794,
+    "n_chip_types": 1,
+    "n_incomplete_rows": 0
+   },
+   {
+    "quarter_end": "2022-09-30",
+    "h100e_median_sum": 212498,
+    "tdp_gw_median_sum": 0.2661,
+    "units_median_sum": 660646,
+    "n_chip_types": 2,
+    "n_incomplete_rows": 0
+   },
+   {
+    "quarter_end": "2022-12-31",
+    "h100e_median_sum": 289699,
+    "tdp_gw_median_sum": 0.3456,
+    "units_median_sum": 834958,
+    "n_chip_types": 3,
+    "n_incomplete_rows": 0
+   },
+   {
+    "quarter_end": "2023-03-31",
+    "h100e_median_sum": 420480,
+    "tdp_gw_median_sum": 0.5068,
+    "units_median_sum": 1259119,
+    "n_chip_types": 7,
+    "n_incomplete_rows": 0
+   },
+   {
+    "quarter_end": "2023-06-30",
+    "h100e_median_sum": 665748,
+    "tdp_gw_median_sum": 0.7214,
+    "units_median_sum": 1720910,
+    "n_chip_types": 7,
+    "n_incomplete_rows": 0
+   },
+   {
+    "quarter_end": "2023-09-30",
+    "h100e_median_sum": 1059896,
+    "tdp_gw_median_sum": 1.0365,
+    "units_median_sum": 2382875,
+    "n_chip_types": 7,
+    "n_incomplete_rows": 0
+   },
+   {
+    "quarter_end": "2023-12-31",
+    "h100e_median_sum": 1595069,
+    "tdp_gw_median_sum": 1.4521,
+    "units_median_sum": 3255100,
+    "n_chip_types": 8,
+    "n_incomplete_rows": 0
+   },
+   {
+    "quarter_end": "2024-03-31",
+    "h100e_median_sum": 2423777,
+    "tdp_gw_median_sum": 2.1671,
+    "units_median_sum": 4756939,
+    "n_chip_types": 17,
+    "n_incomplete_rows": 0
+   },
+   {
+    "quarter_end": "2024-06-30",
+    "h100e_median_sum": 3456674,
+    "tdp_gw_median_sum": 3.0436,
+    "units_median_sum": 6501658,
+    "n_chip_types": 17,
+    "n_incomplete_rows": 0
+   },
+   {
+    "quarter_end": "2024-09-30",
+    "h100e_median_sum": 4763919,
+    "tdp_gw_median_sum": 4.1188,
+    "units_median_sum": 8574882,
+    "n_chip_types": 18,
+    "n_incomplete_rows": 0
+   },
+   {
+    "quarter_end": "2024-12-31",
+    "h100e_median_sum": 6693638,
+    "tdp_gw_median_sum": 5.4862,
+    "units_median_sum": 11004646,
+    "n_chip_types": 19,
+    "n_incomplete_rows": 0
+   },
+   {
+    "quarter_end": "2025-03-31",
+    "h100e_median_sum": 9271947,
+    "tdp_gw_median_sum": 7.0501,
+    "units_median_sum": 13372823,
+    "n_chip_types": 20,
+    "n_incomplete_rows": 0
+   },
+   {
+    "quarter_end": "2025-06-30",
+    "h100e_median_sum": 12203971,
+    "tdp_gw_median_sum": 8.6834,
+    "units_median_sum": 15653746,
+    "n_chip_types": 22,
+    "n_incomplete_rows": 0
+   },
+   {
+    "quarter_end": "2025-09-30",
+    "h100e_median_sum": 15913967,
+    "tdp_gw_median_sum": 10.6665,
+    "units_median_sum": 18108763,
+    "n_chip_types": 24,
+    "n_incomplete_rows": 0
+   },
+   {
+    "quarter_end": "2025-12-31",
+    "h100e_median_sum": 20331360,
+    "tdp_gw_median_sum": 13.0186,
+    "units_median_sum": 20614012,
+    "n_chip_types": 25,
+    "n_incomplete_rows": 0
+   },
+   {
+    "quarter_end": "2026-03-31",
+    "h100e_median_sum": 25321969,
+    "tdp_gw_median_sum": 15.694,
+    "units_median_sum": 23209921,
+    "n_chip_types": 25,
+    "n_incomplete_rows": 0
+   },
+   {
+    "quarter_end": "2026-06-30",
+    "h100e_median_sum": 31654723,
+    "tdp_gw_median_sum": 18.918,
+    "units_median_sum": 26298814,
+    "n_chip_types": 28,
+    "n_incomplete_rows": 0
+   },
+   {
+    "quarter_end": "2026-09-30",
+    "h100e_median_sum": 29108981,
+    "tdp_gw_median_sum": 16.5588,
+    "units_median_sum": 21313722,
+    "n_chip_types": 14,
+    "n_incomplete_rows": 14
+   }
+  ],
+  "latest_quarter_by_manufacturer": [
+   {
+    "manufacturer": "Nvidia",
+    "h100e_median_sum": 22150986,
+    "tdp_gw_median_sum": 13.133
+   },
+   {
+    "manufacturer": "Google",
+    "h100e_median_sum": 6957995,
+    "tdp_gw_median_sum": 3.4258
+   }
+  ]
+ }
+}

@@ -1,0 +1,447 @@
+{
+ "schema_version": 1,
+ "campaign": "D-058",
+ "items": [
+  {
+   "id": "iea_energy_ai_data",
+   "kind": "login",
+   "wanted": "IEA 'Energy and AI' data product spreadsheets (and 'Key Questions on Energy and AI', update 2026-04-16): installed capacity, PUE, load factor and electricity consumption by region",
+   "why": "Regional capacity and PUE series are the only data-centre capacity numbers outside the report text; they would constrain the data-centre module (D-032 describes the IEA numbers).",
+   "supports": [
+    "DC",
+    "L5"
+   ],
+   "url": "https://www.iea.org/data-and-statistics/data-product/energy-and-ai",
+   "blocked_by": "IEA login required ('You are either not logged in ... create an IEA account to download data')",
+   "licence_note": "IEA Terms of Use for Non-CC Material: probably not redistributable. Ask the IEA whether use as a private calibration reference is allowed.",
+   "priority": 1
+  },
+  {
+   "id": "iea_terms_non_cc",
+   "kind": "blocked page",
+   "wanted": "Text of the IEA 'Terms of Use for Non-CC Material' (https://www.iea.org/terms/...)",
+   "why": "To decide whether the IEA data product may be used at all.",
+   "supports": [
+    "DC",
+    "L5"
+   ],
+   "url": "https://www.iea.org/terms",
+   "blocked_by": "HTTP 403 to automated access",
+   "licence_note": "",
+   "priority": 1
+  },
+  {
+   "id": "gcb2025_full",
+   "kind": "click-through",
+   "wanted": "Global_Carbon_Budget_2025v1.0.xlsx and National_Fossil_Carbon_Emissions_2025v1.0.xlsx from the ICOS Carbon Portal (https://doi.org/10.18160/gcp-2025)",
+   "why": "Full budget including land and ocean sinks, atmospheric growth and 1750-2024 history; the repository holds only a 2015-2024 CO2 extract. The download is behind an ICOS licence-acceptance click-through that an agent does not accept for you.",
+   "supports": [
+    "L6",
+    "L7"
+   ],
+   "url": "https://www.icos-cp.eu/impact/science/global-carbon-budget/2025",
+   "blocked_by": "licence acceptance step on the ICOS portal",
+   "licence_note": "CC BY 4.0 per the ICOS data licence page",
+   "priority": 2
+  },
+  {
+   "id": "iiasa_ssp_db",
+   "kind": "login",
+   "wanted": "IIASA SSP Database (version 2.0) emissions and AR6 scenario explorer pathways for the SSP-RCP combinations used by FaIR",
+   "why": "Scenario emissions of CO2, CH4, N2O, SO2 and others by SSP for the emissions link; the FaIR extensions file already carries the ScenarioMIP set but its original source and licence are not stated.",
+   "supports": [
+    "L6",
+    "L7"
+   ],
+   "url": "https://tntcat.iiasa.ac.at/SspDb",
+   "blocked_by": "registration and terms acceptance required",
+   "licence_note": "",
+   "priority": 2
+  },
+  {
+   "id": "energy_institute_sr",
+   "kind": "email gate",
+   "wanted": "Energy Institute Statistical Review of World Energy 2026 data: EI-stats-review-all-data.xlsx (14 MB) or the consolidated CSV (19.5 MB)",
+   "why": "Long primary-energy, electricity and emissions history by country, an independent check of Ember and OWID.",
+   "supports": [
+    "L5",
+    "L7"
+   ],
+   "url": "https://www.energyinst.org/statistical-review/resources-and-data-downloads",
+   "blocked_by": "'Please enter your email to access the download'; direct file URL returned HTTP 403",
+   "licence_note": "Terms not read; check before any redistribution",
+   "priority": 3
+  },
+  {
+   "id": "top500_lists",
+   "kind": "login",
+   "wanted": "TOP500 June 2026 and November 2025 full list files (XML/Excel)",
+   "why": "Linpack performance and power of the largest systems (HPC, not AI clusters).",
+   "supports": [
+    "AI"
+   ],
+   "url": "https://top500.org/lists/top500/",
+   "blocked_by": "download needs a TOP500 account",
+   "licence_note": "Copyright notice only",
+   "priority": 3
+  },
+  {
+   "id": "irena_stats",
+   "kind": "blocked page",
+   "wanted": "IRENA renewable capacity statistics (IRENASTAT) download",
+   "why": "Capacity of solar and wind by country as a second source for Ember.",
+   "supports": [
+    "L5"
+   ],
+   "url": "https://www.irena.org/Data/Downloads/IRENASTAT",
+   "blocked_by": "HTTP 403",
+   "licence_note": "",
+   "priority": 3
+  },
+  {
+   "id": "usgs_mcs2026_data",
+   "kind": "bot challenge / 403",
+   "wanted": "USGS Mineral Commodity Summaries 2026 data release CSVs: MCS2026_Commodities_Data.csv (3.04 MB), MCS2026_T1_Mineral_Industry_Trends.csv, MCS2026_Fig2_Net_Import_Reliance.csv (DOI 10.5066/P1WKQ63T)",
+   "why": "Machine-readable world production and US salient statistics for 90 commodities, 2021-2025; the PDF tables were parsed instead with a sum check (see the derived file), but the CSV removes the parsing risk and gives all commodities.",
+   "supports": [
+    "M5",
+    "DC"
+   ],
+   "url": "https://doi.org/10.5066/P1WKQ63T",
+   "blocked_by": "ScienceBase returned HTTP 403 and usgs.gov returned an empty HTTP 202 challenge page",
+   "licence_note": "Public domain (USA.gov label)",
+   "priority": 1
+  },
+  {
+   "id": "usgs_historical_series",
+   "kind": "bot challenge / 403",
+   "wanted": "USGS Historical Statistics for Mineral and Material Commodities (Data Series 140): the copper, lithium, gallium, germanium, rare-earths and silicon workbooks",
+   "why": "Production, price and consumption histories back to 1900 for the S5 minerals module and the hindcast of any mineral index.",
+   "supports": [
+    "M5"
+   ],
+   "url": "https://www.usgs.gov/centers/national-minerals-information-center/historical-statistics-mineral-and-material-commodities",
+   "blocked_by": "empty HTTP 202 response",
+   "licence_note": "Public domain expected; confirm on the page",
+   "priority": 1
+  },
+  {
+   "id": "usgs_mcs2025_data",
+   "kind": "bot challenge / 403",
+   "wanted": "USGS MCS 2025 data release (DOI 10.5066/P13XCP3R)",
+   "why": "Same as above for the 2025 edition (revision comparison).",
+   "supports": [
+    "M5"
+   ],
+   "url": "https://doi.org/10.5066/P13XCP3R",
+   "blocked_by": "HTTP 403",
+   "licence_note": "",
+   "priority": 3
+  },
+  {
+   "id": "papers_zhao2017",
+   "kind": "blocked or paywalled",
+   "wanted": "Zhao et al. (2017) PNAS 114:9326-9331, full text and supplement (doi:10.1073/pnas.1701762114)",
+   "why": "Per-degree global yield losses (wheat, rice, maize, soybean) from four methods: the main published functional anchor for link 3.",
+   "supports": [
+    "L3"
+   ],
+   "url": "https://doi.org/10.1073/pnas.1701762114",
+   "blocked_by": "PNAS HTTP 403; PubMed Central returned an HTML interstitial instead of a PDF",
+   "licence_note": "",
+   "priority": 1
+  },
+  {
+   "id": "papers_schlenker_roberts2009",
+   "kind": "blocked or paywalled",
+   "wanted": "Schlenker and Roberts (2009) PNAS 106:15594-15598 (doi:10.1073/pnas.0906865106)",
+   "why": "Piecewise-linear degree-days model with the 29 C maize threshold; the standard nonlinear yield-temperature form.",
+   "supports": [
+    "L3"
+   ],
+   "url": "https://doi.org/10.1073/pnas.0906865106",
+   "blocked_by": "PNAS HTTP 403; PMC interstitial",
+   "licence_note": "",
+   "priority": 1
+  },
+  {
+   "id": "papers_lobell2011",
+   "kind": "paywalled",
+   "wanted": "Lobell, Schlenker and Costa-Roberts (2011) Science 333:616-620 (doi:10.1126/science.1204531)",
+   "why": "Observed global yield effects of 1980-2008 warming for maize and wheat.",
+   "supports": [
+    "L3"
+   ],
+   "url": "https://doi.org/10.1126/science.1204531",
+   "blocked_by": "paywall (not attempted)",
+   "licence_note": "",
+   "priority": 2
+  },
+  {
+   "id": "papers_burke2015",
+   "kind": "paywalled",
+   "wanted": "Burke, Hsiang and Miguel (2015) Nature 527:235-239 with Supplementary Information (doi:10.1038/nature15725)",
+   "why": "The temperature-growth response coefficients (D-007 records that its numbers were unreadable).",
+   "supports": [
+    "L3",
+    "L4"
+   ],
+   "url": "https://doi.org/10.1038/nature15725",
+   "blocked_by": "Nature paywall; author-page PDF URL returned HTTP 404",
+   "licence_note": "",
+   "priority": 1
+  },
+  {
+   "id": "papers_carleton2022",
+   "kind": "blocked",
+   "wanted": "Carleton et al. (2022) QJE 137:2037-2105 (doi:10.1093/qje/qjac020)",
+   "why": "Temperature-mortality response functions with adaptation by income and climate.",
+   "supports": [
+    "L3"
+   ],
+   "url": "https://doi.org/10.1093/qje/qjac020",
+   "blocked_by": "OUP HTTP 403",
+   "licence_note": "",
+   "priority": 2
+  },
+  {
+   "id": "papers_gasparrini2017",
+   "kind": "blocked",
+   "wanted": "Gasparrini et al. (2017) Lancet Planetary Health 1:e360-e367 (doi:10.1016/S2542-5196(17)30156-0)",
+   "why": "Projected temperature-related excess mortality by warming level.",
+   "supports": [
+    "L3"
+   ],
+   "url": "https://doi.org/10.1016/S2542-5196(17)30156-0",
+   "blocked_by": "HTTP 403",
+   "licence_note": "",
+   "priority": 2
+  },
+  {
+   "id": "papers_vicedo2021",
+   "kind": "article page only",
+   "wanted": "Vicedo-Cabrera et al. (2021) Nature Climate Change 11:492-500, full text PDF (doi:10.1038/s41558-021-01058-x)",
+   "why": "Fraction of heat-related deaths attributable to climate change by country.",
+   "supports": [
+    "L3"
+   ],
+   "url": "https://doi.org/10.1038/s41558-021-01058-x",
+   "blocked_by": "publisher returned the HTML article page, not the PDF",
+   "licence_note": "",
+   "priority": 2
+  },
+  {
+   "id": "papers_dunne2013",
+   "kind": "article page only",
+   "wanted": "Dunne et al. (2013) Nature Climate Change 3:563-566, full text PDF (doi:10.1038/nclimate1827)",
+   "why": "Labour capacity loss as a function of heat stress (WBGT).",
+   "supports": [
+    "L3",
+    "L4"
+   ],
+   "url": "https://doi.org/10.1038/nclimate1827",
+   "blocked_by": "publisher returned the HTML article page",
+   "licence_note": "",
+   "priority": 2
+  },
+  {
+   "id": "papers_jagermeyr2021",
+   "kind": "article page only",
+   "wanted": "Jagermeyr et al. (2021) Nature Food 2:873-885, full text PDF and Source Data (doi:10.1038/s43016-021-00400-y)",
+   "why": "Yield change by crop and global warming level from ISIMIP3 crop models; the abstract was read, the tables were not.",
+   "supports": [
+    "L3"
+   ],
+   "url": "https://doi.org/10.1038/s43016-021-00400-y",
+   "blocked_by": "publisher returned the HTML article page",
+   "licence_note": "Open access article (not verified here)",
+   "priority": 1
+  },
+  {
+   "id": "oecd_ai",
+   "kind": "blocked",
+   "wanted": "OECD Employment Outlook 2023 (AI and jobs) and the OECD terms and conditions page",
+   "why": "AI occupational exposure and displacement estimates for OECD countries, and the data terms.",
+   "supports": [
+    "L4"
+   ],
+   "url": "https://www.oecd.org/en/publications/oecd-employment-outlook-2023_08785bba-en.html",
+   "blocked_by": "HTTP 403",
+   "licence_note": "",
+   "priority": 2
+  },
+  {
+   "id": "faostat_food_balances",
+   "kind": "blocked",
+   "wanted": "FAOSTAT Food_Balances_E_All_Data_(Normalized).zip",
+   "why": "Food supply and use by commodity (the food-supply side of World3 agriculture calibration).",
+   "supports": [
+    "L3",
+    "L7"
+   ],
+   "url": "https://bulks-faostat.fao.org/production/Food_Balances_E_All_Data_(Normalized).zip",
+   "blocked_by": "HTTP 403",
+   "licence_note": "CC BY 4.0 per FAO database terms",
+   "priority": 3
+  },
+  {
+   "id": "ilostat_terms",
+   "kind": "blocked page",
+   "wanted": "ILOSTAT site copyright and bulk-download pages (https://ilostat.ilo.org/about/copyright-and-permissions/ and /data/bulk/)",
+   "why": "To confirm on ILOSTAT's own pages the CC BY 4.0 statement that was taken from the ILO rights-and-permissions page.",
+   "supports": [
+    "L4"
+   ],
+   "url": "https://ilostat.ilo.org/",
+   "blocked_by": "HTTP 403",
+   "licence_note": "CC BY 4.0 stated on ilo.org/rights-and-permissions",
+   "priority": 3
+  },
+  {
+   "id": "lbnl_record",
+   "kind": "bot challenge",
+   "wanted": "eScholarship record page of the LBNL report (https://escholarship.org/uc/item/32d6m0d1): licence label",
+   "why": "Only the PDF was read; whether the record carries a CC licence is unknown.",
+   "supports": [
+    "DC"
+   ],
+   "url": "https://escholarship.org/uc/item/32d6m0d1",
+   "blocked_by": "empty HTTP 202 response",
+   "licence_note": "",
+   "priority": 3
+  },
+  {
+   "id": "bgs_wms",
+   "kind": "unknown",
+   "wanted": "BGS World Mineral Statistics data files and the BGS data licence statement",
+   "why": "Production by country 1970-recent for many minerals, an independent second source for USGS.",
+   "supports": [
+    "M5"
+   ],
+   "url": "https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/",
+   "blocked_by": "landing page read; no data link or licence text found",
+   "licence_note": "",
+   "priority": 3
+  },
+  {
+   "id": "who_heat_health",
+   "kind": "not found",
+   "wanted": "A WHO or other stable file for heat-attributable mortality by country (the Lancet Countdown workbooks cover it under NC-SA)",
+   "why": "A redistributable heat-mortality dataset for the health link.",
+   "supports": [
+    "L3"
+   ],
+   "url": "https://www.who.int/data/gho",
+   "blocked_by": "no stable dataset identified",
+   "licence_note": "",
+   "priority": 2
+  },
+  {
+   "id": "lancet_countdown_nc_sa",
+   "kind": "licence decision",
+   "wanted": "Decision: may the Lancet Countdown 2025 workbooks (CC BY-NC-SA 4.0) be used as an internal reference for the health link?",
+   "why": "They are the best global heat-mortality and labour-capacity series found; share-alike and non-commercial terms conflict with F3's CC BY outputs, so nothing is derived or committed.",
+   "supports": [
+    "L3",
+    "L4"
+   ],
+   "url": "https://lancetcountdown.org/explore-our-data/",
+   "blocked_by": "licence",
+   "licence_note": "CC BY-NC-SA 4.0 (stated in each workbook's DATA GUIDANCE sheet)",
+   "priority": 1
+  },
+  {
+   "id": "aquastat_nc_sa",
+   "kind": "licence decision and file",
+   "wanted": "AQUASTAT main database CSV (water withdrawal by sector and country) and a decision on its CC BY-NC-SA 4.0 terms",
+   "why": "Needed for the water module; no bulk file link was found (SQL query service) and the terms are NC-SA.",
+   "supports": [
+    "M5"
+   ],
+   "url": "https://data.apps.fao.org/aquastat/",
+   "blocked_by": "licence and no bulk file",
+   "licence_note": "CC BY-NC-SA 4.0 (FAO catalogue record)",
+   "priority": 2
+  },
+  {
+   "id": "wid_terms",
+   "kind": "licence decision",
+   "wanted": "WID.world terms of use / data licence statement (ask the World Inequality Lab, or find the page the site hides): can derived series be redistributed?",
+   "why": "wid_all_data.zip (887 MB) was downloaded to the raw folder, but no licence statement was found on the pages read; the S7 inequality calibration is the use case. M5 plan STOP item 1 remains open.",
+   "supports": [
+    "L4",
+    "L7"
+   ],
+   "url": "https://wid.world/data/",
+   "blocked_by": "no licence found",
+   "licence_note": "unclear",
+   "priority": 1
+  },
+  {
+   "id": "epoch_email",
+   "kind": "decision",
+   "wanted": "Reply from Epoch AI to the 2026-10-17 message (if any)",
+   "why": "Not blocked: noted because this campaign shows Epoch's published datasets are CC BY and cover compute, chips and data centres; the GATE playground permission question (D-026) is separate and unchanged.",
+   "supports": [
+    "AI"
+   ],
+   "url": "https://epoch.ai/contact",
+   "blocked_by": "no reply as of 2026-10-22",
+   "licence_note": "",
+   "priority": 3
+  },
+  {
+   "id": "isimip_subset",
+   "kind": "size decision",
+   "wanted": "Approval to download a defined ISIMIP3b crop-yield subset (for example 2 crop models x maize, wheat, rice, soybean x irrigated and rainfed x 5 GCMs x historical/ssp126/ssp585, about 10 MB per dataset, an estimated 3 to 6 GB) and the CMIP6 global-mean temperature of the same GCMs",
+   "why": "Yield versus global warming level directly from crop-model output (CC0) is the data that would decide link 3's functional form; the API listing (1001 datasets) was saved.",
+   "supports": [
+    "L3"
+   ],
+   "url": "https://data.isimip.org/10.48364/ISIMIP.723340",
+   "blocked_by": "not a block: size and time",
+   "licence_note": "CC0 1.0 (dataset record)",
+   "priority": 1
+  },
+  {
+   "id": "climate_trace_sectors",
+   "kind": "size decision",
+   "wanted": "The other nine Climate TRACE sector zips (agriculture 14 GB, buildings 5.7 GB, forestry 5.2 GB, transportation 5.2 GB, waste 1.9 GB, manufacturing 0.5 GB, fossil fuel operations 0.12 GB, geometries 0.65 GB, ers_plan 0.04 GB)",
+   "why": "Source-level emissions; only power, mineral extraction and fluorinated gases were downloaded.",
+   "supports": [
+    "L6",
+    "L7"
+   ],
+   "url": "https://zenodo.org/records/20414751",
+   "blocked_by": "not a block: size",
+   "licence_note": "CC BY 4.0",
+   "priority": 3
+  },
+  {
+   "id": "stanford_ai_index_data",
+   "kind": "not found",
+   "wanted": "Stanford AI Index 2025/2026 public data (chart spreadsheets, Google Drive) and the 2026 report PDF",
+   "why": "Independent series on AI investment, compute and adoption; the 2025 PDF was saved but is CC BY-ND (no derivatives).",
+   "supports": [
+    "AI"
+   ],
+   "url": "https://hai.stanford.edu/ai-index",
+   "blocked_by": "data link not found on the pages read; report is CC BY-ND",
+   "licence_note": "CC BY-ND 4.0",
+   "priority": 3
+  },
+  {
+   "id": "unfccc_ghg",
+   "kind": "javascript portal",
+   "wanted": "UNFCCC GHG data portal national inventory submissions (Annex I time series, CRF tables)",
+   "why": "National inventories of CO2, CH4 and N2O by sector would give a second source for the non-CO2 emissions link beyond EDGAR and CEDS.",
+   "supports": [
+    "L6"
+   ],
+   "url": "https://unfccc.int/process-and-meetings/transparency-and-reporting/greenhouse-gas-data/ghg-data-unfccc",
+   "blocked_by": "the landing page is a 212-byte JavaScript shell; the data sit behind an interactive portal that the campaign did not drive",
+   "licence_note": "Terms not read",
+   "priority": 3
+  }
+ ]
+}

@@ -1,0 +1,639 @@
+{
+ "id": "epoch_training_compute_by_year",
+ "title": "Training compute of notable AI models by publication year (Epoch AI)",
+ "description": "Per publication year: number of notable models with a compute estimate, maximum, median and counts above 1e23 to 1e26 FLOP; the ten largest training runs; log-linear growth of the annual maximum.",
+ "built_by": "site_src/data_campaign.py",
+ "register": "audit/data/sources-register.json",
+ "sources": [
+  {
+   "id": "epoch_ai_models",
+   "title": "Epoch AI: Data on AI models (notable, frontier, large-scale, all)",
+   "version": "ZIP updated 2026-10-19",
+   "url": "https://epoch.ai/data/ai_models.zip",
+   "licence": "Creative Commons Attribution (CC BY; the README links version 4.0)",
+   "licence_quote": "Epoch AI's data is free to use, distribute, and reproduce provided the source and authors are credited under the",
+   "redistribution": "yes"
+  }
+ ],
+ "source_files": [
+  {
+   "path": "epoch_ai_models/ai_models.zip",
+   "sha256": "951034d4dd10c3189698599c8a9845c7d9328c48e357284f15613f013d32e291",
+   "bytes": 3340035
+  }
+ ],
+ "retrieved": "2026-10-22",
+ "redistribution": "yes",
+ "attribution": "Epoch AI, https://epoch.ai/data (CC BY); values re-expressed as annual aggregates by F3.",
+ "units": "FLOP (floating-point operations of the training run)",
+ "geography": "global",
+ "time_span": "2010 to 2026 (publication dates up to 2026-09-30)",
+ "variables": [
+  "n_models",
+  "max_flop",
+  "median_flop",
+  "counts above thresholds",
+  "top_10"
+ ],
+ "supports": [
+  "AI",
+  "L5",
+  "DC"
+ ],
+ "method": "Rows of notable_ai_models.csv with a numeric 'Training compute (FLOP)' and a parseable publication date; grouped by calendar year. Growth: ordinary least squares of log10(annual maximum) on year, 2016-2025 (a description of the annual maxima, not a forecast).",
+ "caveats": [
+  "Compute is Epoch's estimate; its 'Confidence' column grades each row (the file's own text says the estimate can be off by a factor 2, more for undisclosed models).",
+  "The maximum is a single model and moves in jumps; the growth factor is sensitive to the window."
+ ],
+ "data": {
+  "by_year": [
+   {
+    "year": 1950,
+    "n_models": 1,
+    "max_flop": 40.0,
+    "median_flop": 40.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 1957,
+    "n_models": 1,
+    "max_flop": 694894.9377361819,
+    "median_flop": 694894.9377361819,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 1959,
+    "n_models": 2,
+    "max_flop": 600000000.0,
+    "median_flop": 514200000.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 1960,
+    "n_models": 2,
+    "max_flop": 720000000.0,
+    "median_flop": 360003300.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 1962,
+    "n_models": 1,
+    "max_flop": 1559250.0,
+    "median_flop": 1559250.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 1963,
+    "n_models": 1,
+    "max_flop": 22500000.0,
+    "median_flop": 22500000.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 1965,
+    "n_models": 1,
+    "max_flop": 1080000.0,
+    "median_flop": 1080000.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 1966,
+    "n_models": 1,
+    "max_flop": 105917060.0,
+    "median_flop": 105917060.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 1975,
+    "n_models": 1,
+    "max_flop": 5184000.0,
+    "median_flop": 5184000.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 1980,
+    "n_models": 1,
+    "max_flop": 273738240.0,
+    "median_flop": 273738240.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 1983,
+    "n_models": 1,
+    "max_flop": 324000000.0,
+    "median_flop": 324000000.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 1986,
+    "n_models": 2,
+    "max_flop": 673920000.0,
+    "median_flop": 531360000.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 1987,
+    "n_models": 3,
+    "max_flop": 28328002560.0,
+    "median_flop": 27664065000.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 1988,
+    "n_models": 1,
+    "max_flop": 296425000.0,
+    "median_flop": 296425000.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 1989,
+    "n_models": 4,
+    "max_flop": 1496338054440.0,
+    "median_flop": 104220000000.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 1990,
+    "n_models": 3,
+    "max_flop": 78775200000.0,
+    "median_flop": 35811936000.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 1991,
+    "n_models": 1,
+    "max_flop": 75474000000.0,
+    "median_flop": 75474000000.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 1992,
+    "n_models": 2,
+    "max_flop": 18232157622832.703,
+    "median_flop": 9116105541416.352,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 1993,
+    "n_models": 2,
+    "max_flop": 12869570138112.0,
+    "median_flop": 6443552269056.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 1994,
+    "n_models": 5,
+    "max_flop": 18621900000000.0,
+    "median_flop": 453600000000.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 1995,
+    "n_models": 1,
+    "max_flop": 195544800000.0,
+    "median_flop": 195544800000.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 1996,
+    "n_models": 2,
+    "max_flop": 881733600000.0,
+    "median_flop": 453796608000.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 1997,
+    "n_models": 2,
+    "max_flop": 31512000000000.0,
+    "median_flop": 15771715800000.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 1998,
+    "n_models": 1,
+    "max_flop": 2810937600000.0,
+    "median_flop": 2810937600000.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 1999,
+    "n_models": 2,
+    "max_flop": 8013600000000.0,
+    "median_flop": 5938800000000.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 2000,
+    "n_models": 2,
+    "max_flop": 6339000000000000.0,
+    "median_flop": 3195405000000000.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 2001,
+    "n_models": 1,
+    "max_flop": 63000000000000.0,
+    "median_flop": 63000000000000.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 2003,
+    "n_models": 2,
+    "max_flop": 1666869200000000.0,
+    "median_flop": 899472730000000.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 2004,
+    "n_models": 2,
+    "max_flop": 2782080000000000.0,
+    "median_flop": 1391527115000000.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 2005,
+    "n_models": 2,
+    "max_flop": 115848000000000.0,
+    "median_flop": 59665040794152.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 2006,
+    "n_models": 1,
+    "max_flop": 745200000000000.0,
+    "median_flop": 745200000000000.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 2007,
+    "n_models": 2,
+    "max_flop": 1.4494464e+18,
+    "median_flop": 1.11124224e+18,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 2008,
+    "n_models": 1,
+    "max_flop": 1614600000.0,
+    "median_flop": 1614600000.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 2009,
+    "n_models": 5,
+    "max_flop": 4181852160000000.0,
+    "median_flop": 2452090060800000.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 2010,
+    "n_models": 5,
+    "max_flop": 5.396e+16,
+    "median_flop": 1221124128768000.0,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 2011,
+    "n_models": 5,
+    "max_flop": 5.2e+16,
+    "median_flop": 2.6e+16,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 2012,
+    "n_models": 8,
+    "max_flop": 6e+17,
+    "median_flop": 2.922984e+17,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 2013,
+    "n_models": 10,
+    "max_flop": 2.612736e+18,
+    "median_flop": 8.330688e+16,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 2014,
+    "n_models": 14,
+    "max_flop": 2.97600000001e+20,
+    "median_flop": 1.0142e+18,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 2015,
+    "n_models": 11,
+    "max_flop": 3.8e+20,
+    "median_flop": 7.004e+18,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 2016,
+    "n_models": 16,
+    "max_flop": 6.620000000001e+21,
+    "median_flop": 5.2728072e+18,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 2017,
+    "n_models": 20,
+    "max_flop": 8.43e+20,
+    "median_flop": 5.3922624e+18,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 2018,
+    "n_models": 24,
+    "max_flop": 8.74395e+21,
+    "median_flop": 1.73433236e+18,
+    "n_ge_1e23": 0,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 2019,
+    "n_models": 38,
+    "max_flop": 1.0773400001e+23,
+    "median_flop": 1.2165924e+20,
+    "n_ge_1e23": 1,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 2020,
+    "n_models": 33,
+    "max_flop": 3.14e+23,
+    "median_flop": 6.237e+20,
+    "n_ge_1e23": 2,
+    "n_ge_1e24": 0,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 2021,
+    "n_models": 62,
+    "max_flop": 2.047e+24,
+    "median_flop": 1.2494999999999998e+22,
+    "n_ge_1e23": 8,
+    "n_ge_1e24": 2,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 2022,
+    "n_models": 60,
+    "max_flop": 2.7415e+24,
+    "median_flop": 1.4805e+22,
+    "n_ge_1e23": 21,
+    "n_ge_1e24": 5,
+    "n_ge_1e25": 0,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 2023,
+    "n_models": 65,
+    "max_flop": 5.0000000001e+25,
+    "median_flop": 6.331e+22,
+    "n_ge_1e23": 27,
+    "n_ge_1e24": 10,
+    "n_ge_1e25": 4,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 2024,
+    "n_models": 46,
+    "max_flop": 3.8e+25,
+    "median_flop": 3.02e+24,
+    "n_ge_1e23": 39,
+    "n_ge_1e24": 35,
+    "n_ge_1e25": 6,
+    "n_ge_1e26": 0
+   },
+   {
+    "year": 2025,
+    "n_models": 40,
+    "max_flop": 5.0000000000001e+26,
+    "median_flop": 3.8730050000000007e+24,
+    "n_ge_1e23": 36,
+    "n_ge_1e24": 33,
+    "n_ge_1e25": 8,
+    "n_ge_1e26": 3
+   },
+   {
+    "year": 2026,
+    "n_models": 21,
+    "max_flop": 9.400000000000001e+26,
+    "median_flop": 5.8e+24,
+    "n_ge_1e23": 20,
+    "n_ge_1e24": 19,
+    "n_ge_1e25": 6,
+    "n_ge_1e26": 1
+   }
+  ],
+  "top_10": [
+   {
+    "model": "GPT-6 Astra",
+    "organization": "OpenAI",
+    "date": "2026-09-03",
+    "flop": 9.400000000000001e+26,
+    "confidence": "Likely"
+   },
+   {
+    "model": "Grok 4",
+    "organization": "xAI",
+    "date": "2025-07-09",
+    "flop": 5.0000000000001e+26,
+    "confidence": "Speculative"
+   },
+   {
+    "model": "GPT-4.5",
+    "organization": "OpenAI",
+    "date": "2025-02-27",
+    "flop": 3.8e+26,
+    "confidence": "Likely"
+   },
+   {
+    "model": "Grok 3",
+    "organization": "xAI",
+    "date": "2025-02-17",
+    "flop": 3.5000000000000006e+26,
+    "confidence": "Likely"
+   },
+   {
+    "model": "GPT-5",
+    "organization": "OpenAI",
+    "date": "2025-08-07",
+    "flop": 6.6e+25,
+    "confidence": "Speculative"
+   },
+   {
+    "model": "Llama 4 Behemoth (preview)",
+    "organization": "Meta AI",
+    "date": "2025-04-05",
+    "flop": 5.18400000000001e+25,
+    "confidence": "Likely"
+   },
+   {
+    "model": "Gemini 1.0 Ultra",
+    "organization": "Google DeepMind",
+    "date": "2023-12-06",
+    "flop": 5.0000000001e+25,
+    "confidence": "Speculative"
+   },
+   {
+    "model": "Composer 2.5",
+    "organization": "Cursor",
+    "date": "2026-05-18",
+    "flop": 3.87e+25,
+    "confidence": "Likely"
+   },
+   {
+    "model": "Llama 3.1-405B",
+    "organization": "Meta AI",
+    "date": "2024-07-23",
+    "flop": 3.8e+25,
+    "confidence": "Confident"
+   },
+   {
+    "model": "Claude 3.7 Sonnet",
+    "organization": "Anthropic",
+    "date": "2025-02-24",
+    "flop": 3.3499999999999998e+25,
+    "confidence": "Likely"
+   }
+  ],
+  "annual_max_growth_2016_2025": {
+   "factor_per_year": 4.0538,
+   "doubling_time_years": 0.495,
+   "n_points": 10
+  }
+ }
+}

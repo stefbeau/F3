@@ -1,0 +1,448 @@
+{
+ "id": "maddison_world_gdp_per_capita",
+ "title": "World GDP per capita 1820-2022 (Maddison Project Database 2023, regional sheet)",
+ "description": "World GDP per capita in 2011 international dollars as given in the MPD 2023 'Regional data' sheet, with regional GDP per capita.",
+ "built_by": "site_src/data_campaign.py",
+ "register": "audit/data/sources-register.json",
+ "sources": [
+  {
+   "id": "maddison2023",
+   "title": "Maddison Project Database 2023 (mpd2023_web.xlsx)",
+   "version": "MPD 2023, DataverseNL version 1 released 2024-04-26",
+   "url": "https://doi.org/10.34894/INZBF2",
+   "licence": "CC BY 4.0",
+   "licence_quote": "Maddison Project Database, version 2023 by Jutta Bolt and Jan Luiten van Zanden is licensed under a Creative Commons Attribution 4.0 International License",
+   "redistribution": "yes"
+  }
+ ],
+ "source_files": [
+  {
+   "path": "maddison2023/mpd2023_web.xlsx",
+   "sha256": "ecc5916ca12789b983fc4be437f8a354bbf4291323605324ac3e0aea4c57cbb6",
+   "bytes": 4903804
+  }
+ ],
+ "retrieved": "2026-10-22",
+ "redistribution": "yes",
+ "attribution": "Bolt, J. and van Zanden, J.L. (2024), Maddison style estimates of the evolution of the world economy: A new 2023 update, Journal of Economic Surveys, doi:10.1111/joes.12618. Maddison Project Database 2023 (CC BY 4.0).",
+ "units": "2011 international USD per person",
+ "geography": "World and 8 MPD regions",
+ "time_span": "1820 to 2022 (irregular early years)",
+ "variables": [
+  "world_gdp_per_capita",
+  "regional"
+ ],
+ "supports": [
+  "L7"
+ ],
+ "method": "Sheet 'Regional data': first column year, regional GDPpc columns 1-8 and 'World GDP pc' column 9, as published by the MPD authors (not recomputed).",
+ "caveats": [
+  "Early years are sparse (decades before 1870/1950); regional values rest on whatever countries have estimates."
+ ],
+ "data": {
+  "regions": [
+   "East Asia",
+   "Eastern Europe",
+   "Latin America",
+   "Middle East and North Africa",
+   "South and South East Asia",
+   "Sub Saharan Africa",
+   "Western Europe",
+   "Western Offshoots"
+  ],
+  "rows": [
+   {
+    "year": 1820,
+    "world": 1127.73,
+    "regional": [
+     911.16,
+     1044.54,
+     956.91,
+     885.9,
+     919.2,
+     1188.0,
+     2170.7,
+     2513.05
+    ]
+   },
+   {
+    "year": 1830,
+    "world": null,
+    "regional": [
+     846.0,
+     null,
+     925.0,
+     null,
+     934.9,
+     null,
+     2314.69,
+     2886.76
+    ]
+   },
+   {
+    "year": 1840,
+    "world": null,
+    "regional": [
+     849.0,
+     null,
+     1081.0,
+     null,
+     938.79,
+     null,
+     2528.16,
+     3167.86
+    ]
+   },
+   {
+    "year": 1850,
+    "world": 1300.5,
+    "regional": [
+     899.66,
+     1290.56,
+     1067.86,
+     null,
+     926.96,
+     null,
+     2670.19,
+     3474.41
+    ]
+   },
+   {
+    "year": 1860,
+    "world": null,
+    "regional": [
+     null,
+     null,
+     1588.0,
+     null,
+     888.65,
+     null,
+     3028.88,
+     4214.44
+    ]
+   },
+   {
+    "year": 1870,
+    "world": 1543.23,
+    "regional": [
+     993.62,
+     1518.35,
+     1292.88,
+     1085.22,
+     850.24,
+     1286.0,
+     3287.76,
+     4647.45
+    ]
+   },
+   {
+    "year": 1880,
+    "world": null,
+    "regional": [
+     null,
+     null,
+     1441.6,
+     null,
+     1062.87,
+     null,
+     3584.91,
+     6019.12
+    ]
+   },
+   {
+    "year": 1890,
+    "world": null,
+    "regional": [
+     1048.87,
+     1582.64,
+     1672.81,
+     null,
+     957.04,
+     null,
+     4079.03,
+     6480.96
+    ]
+   },
+   {
+    "year": 1900,
+    "world": 2265.47,
+    "regional": [
+     1086.28,
+     2015.99,
+     1713.76,
+     null,
+     997.55,
+     null,
+     4724.01,
+     7740.85
+    ]
+   },
+   {
+    "year": 1910,
+    "world": null,
+    "regional": [
+     1056.07,
+     2240.68,
+     2189.37,
+     null,
+     1144.26,
+     1687.83,
+     5121.35,
+     9354.69
+    ]
+   },
+   {
+    "year": 1920,
+    "world": 2493.32,
+    "regional": [
+     1215.62,
+     1374.99,
+     2332.37,
+     null,
+     1117.53,
+     null,
+     4869.03,
+     9741.42
+    ]
+   },
+   {
+    "year": 1930,
+    "world": null,
+    "regional": [
+     1296.05,
+     2506.88,
+     2687.6,
+     1600.0,
+     1308.06,
+     null,
+     6389.67,
+     10297.12
+    ]
+   },
+   {
+    "year": 1940,
+    "world": 3413.2,
+    "regional": [
+     1496.28,
+     3216.91,
+     2984.42,
+     2146.0,
+     1261.44,
+     null,
+     7160.77,
+     11620.5
+    ]
+   },
+   {
+    "year": 1950,
+    "world": 3360.16,
+    "regional": [
+     1109.44,
+     4133.08,
+     3678.35,
+     2287.56,
+     1069.71,
+     1326.62,
+     7239.91,
+     14773.21
+    ]
+   },
+   {
+    "year": 1960,
+    "world": 4403.65,
+    "regional": [
+     1725.52,
+     5865.58,
+     4698.25,
+     3102.63,
+     1294.93,
+     1578.2,
+     10928.71,
+     17471.51
+    ]
+   },
+   {
+    "year": 1970,
+    "world": 5970.66,
+    "regional": [
+     3030.77,
+     8330.07,
+     6193.18,
+     4790.02,
+     1545.88,
+     1968.36,
+     16096.74,
+     23209.65
+    ]
+   },
+   {
+    "year": 1980,
+    "world": 7239.19,
+    "regional": [
+     4191.32,
+     9783.95,
+     8611.51,
+     6731.18,
+     1897.43,
+     2036.63,
+     20870.26,
+     28786.76
+    ]
+   },
+   {
+    "year": 1990,
+    "world": 8210.97,
+    "regional": [
+     6089.84,
+     10091.27,
+     8054.83,
+     6431.52,
+     2573.68,
+     1812.68,
+     25367.22,
+     35619.38
+    ]
+   },
+   {
+    "year": 2000,
+    "world": 9903.86,
+    "regional": [
+     8152.88,
+     8833.69,
+     10132.75,
+     9658.66,
+     3427.4,
+     2009.19,
+     32593.17,
+     44321.32
+    ]
+   },
+   {
+    "year": 2010,
+    "world": 13121.59,
+    "regional": [
+     12862.35,
+     16320.27,
+     13356.44,
+     16565.37,
+     5364.83,
+     3204.65,
+     37420.33,
+     48083.18
+    ]
+   },
+   {
+    "year": 2015,
+    "world": 14713.45,
+    "regional": [
+     16298.29,
+     18062.73,
+     14328.68,
+     18401.54,
+     6704.33,
+     3523.81,
+     38740.28,
+     51453.06
+    ]
+   },
+   {
+    "year": 2016,
+    "world": 15029.05,
+    "regional": [
+     17048.79,
+     18301.77,
+     14074.38,
+     18831.98,
+     7084.09,
+     3477.27,
+     39299.83,
+     51890.56
+    ]
+   },
+   {
+    "year": 2017,
+    "world": 15416.33,
+    "regional": [
+     17909.39,
+     18917.46,
+     14102.67,
+     19067.09,
+     7407.74,
+     3474.03,
+     40116.64,
+     52692.23
+    ]
+   },
+   {
+    "year": 2018,
+    "world": 15814.85,
+    "regional": [
+     18785.07,
+     19560.43,
+     14103.1,
+     19221.93,
+     7778.02,
+     3480.81,
+     40640.99,
+     53866.64
+    ]
+   },
+   {
+    "year": 2019,
+    "world": 16091.45,
+    "regional": [
+     19580.74,
+     20051.04,
+     13957.89,
+     19088.29,
+     8027.97,
+     3488.16,
+     41090.76,
+     54730.81
+    ]
+   },
+   {
+    "year": 2020,
+    "world": 15461.19,
+    "regional": [
+     19749.51,
+     19578.58,
+     12865.5,
+     18227.41,
+     7590.15,
+     3335.99,
+     38162.53,
+     52617.65
+    ]
+   },
+   {
+    "year": 2021,
+    "world": 16282.98,
+    "regional": [
+     21157.31,
+     20696.99,
+     13610.79,
+     19162.69,
+     7983.72,
+     3398.58,
+     40164.14,
+     55576.02
+    ]
+   },
+   {
+    "year": 2022,
+    "world": 16676.75,
+    "regional": [
+     21728.52,
+     20656.27,
+     14028.04,
+     19874.8,
+     8377.07,
+     3436.6,
+     41323.03,
+     56567.89
+    ]
+   }
+  ]
+ }
+}

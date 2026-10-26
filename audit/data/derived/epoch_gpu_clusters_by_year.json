@@ -1,0 +1,162 @@
+{
+ "id": "epoch_gpu_clusters_by_year",
+ "title": "Largest GPU clusters and supercomputers by year of first operation (Epoch AI, to 2025-07)",
+ "description": "Per year of first operational date: number of clusters in the dataset, largest H100-equivalents, largest power capacity (MW), largest 16-bit OP/s.",
+ "built_by": "site_src/data_campaign.py",
+ "register": "audit/data/sources-register.json",
+ "sources": [
+  {
+   "id": "epoch_gpu_clusters",
+   "title": "Epoch AI: GPU clusters (supercomputers, 2010-2025)",
+   "version": "CSV updated 2026-03-13 (legacy dataset, superseded by the data centers hub for 2025 on)",
+   "url": "https://epoch.ai/data/gpu_clusters.csv",
+   "licence": "Creative Commons Attribution (CC BY; the README links version 4.0)",
+   "licence_quote": "Epoch AI's data is free to use, distribute, and reproduce provided the source and authors are credited under the",
+   "redistribution": "yes"
+  }
+ ],
+ "source_files": [
+  {
+   "path": "epoch_gpu_clusters/gpu_clusters.csv",
+   "sha256": "4cfab6db793cb4d39868812797756a712d01f8b337ee35341e53fe3c826c650f",
+   "bytes": 304311
+  }
+ ],
+ "retrieved": "2026-10-22",
+ "redistribution": "yes",
+ "attribution": "Epoch AI, https://epoch.ai/data (CC BY); values re-expressed as annual aggregates by F3.",
+ "units": "H100-equivalents; MW; OP/s",
+ "geography": "global",
+ "time_span": "2010 to 2025",
+ "variables": [
+  "n_clusters",
+  "max_h100e",
+  "max_power_mw",
+  "max_16bit_ops"
+ ],
+ "supports": [
+  "AI",
+  "DC"
+ ],
+ "method": "gpu_clusters.csv, rows with a parseable 'First Operational Date'; grouped by calendar year; maxima over clusters (power uses 'Power Capacity (MW)').",
+ "caveats": [
+  "Legacy dataset (last update 2026-03-13); 2025 coverage ends in July.",
+  "Reported and calculated power differ; the reported column is used where present."
+ ],
+ "data": {
+  "by_year": [
+   {
+    "year": 2010,
+    "n_clusters": 1,
+    "max_h100e": 4.0,
+    "max_power_mw": 8.0,
+    "max_16bit_ops": null
+   },
+   {
+    "year": 2011,
+    "n_clusters": 1,
+    "max_h100e": 1.0,
+    "max_power_mw": 2.0,
+    "max_16bit_ops": null
+   },
+   {
+    "year": 2012,
+    "n_clusters": 1,
+    "max_h100e": 20.0,
+    "max_power_mw": 1.0,
+    "max_16bit_ops": null
+   },
+   {
+    "year": 2013,
+    "n_clusters": 1,
+    "max_h100e": null,
+    "max_power_mw": 20.0,
+    "max_16bit_ops": null
+   },
+   {
+    "year": 2014,
+    "n_clusters": 3,
+    "max_h100e": 10.6,
+    "max_power_mw": 2.89,
+    "max_16bit_ops": null
+   },
+   {
+    "year": 2015,
+    "n_clusters": 1,
+    "max_h100e": 10.6,
+    "max_power_mw": 2.89,
+    "max_16bit_ops": null
+   },
+   {
+    "year": 2016,
+    "n_clusters": 5,
+    "max_h100e": 29.3,
+    "max_power_mw": 1.81,
+    "max_16bit_ops": 5.7912e+16
+   },
+   {
+    "year": 2017,
+    "n_clusters": 12,
+    "max_h100e": 1389.6,
+    "max_power_mw": 20.0,
+    "max_16bit_ops": 2.75e+18
+   },
+   {
+    "year": 2018,
+    "n_clusters": 46,
+    "max_h100e": 1091.5,
+    "max_power_mw": 11.5,
+    "max_16bit_ops": 2.16e+18
+   },
+   {
+    "year": 2019,
+    "n_clusters": 67,
+    "max_h100e": 600.0,
+    "max_power_mw": 3.0,
+    "max_16bit_ops": 7e+17
+   },
+   {
+    "year": 2020,
+    "n_clusters": 59,
+    "max_h100e": 1412.6,
+    "max_power_mw": 30.0,
+    "max_16bit_ops": 1.39776e+18
+   },
+   {
+    "year": 2021,
+    "n_clusters": 64,
+    "max_h100e": 3000.0,
+    "max_power_mw": 6.9,
+    "max_16bit_ops": 6e+18
+   },
+   {
+    "year": 2022,
+    "n_clusters": 36,
+    "max_h100e": 7882.8,
+    "max_power_mw": 40.0,
+    "max_16bit_ops": 1.4413056e+19
+   },
+   {
+    "year": 2023,
+    "n_clusters": 58,
+    "max_h100e": 14400.0,
+    "max_power_mw": 80.0,
+    "max_16bit_ops": 1.42488e+19
+   },
+   {
+    "year": 2024,
+    "n_clusters": 95,
+    "max_h100e": 100000.0,
+    "max_power_mw": 150.0,
+    "max_16bit_ops": 9.895e+19
+   },
+   {
+    "year": 2025,
+    "n_clusters": 25,
+    "max_h100e": 275795.9,
+    "max_power_mw": 352.35,
+    "max_16bit_ops": 2.729e+20
+   }
+  ]
+ }
+}
