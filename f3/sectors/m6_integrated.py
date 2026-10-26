@@ -96,6 +96,8 @@ class M6Config:
     s3_damage: str = "off"                       # off | low | central | high
     labor_from_world3: bool = False              # D-054 item 5: World3 labour-force index drives S3 labour (one-way; default off)
     electricity: bool = False
+    electricity_link: bool = False               # D-059: data-centre electricity limit -> World3 industrial output (one-way; needs electricity; default off)
+    _mutate_unit_elec_ratio: bool = False        # test hook only
     levers: R3Levers = field(default_factory=R3Levers)
     dc: DCParams = field(default_factory=DCParams)
     gate: GateParams = field(default_factory=GateParams)
@@ -105,13 +107,16 @@ class M6Config:
 
 def build_m6(cfg: M6Config, climate: Optional[ReplaySector] = None, climate_setup: ClimateSetup = ClimateSetup(n_members=20)) -> Model:
     sectors0, couplings0 = build_world3(cfg.parameter_set, None)
+    if cfg.electricity_link and not cfg.electricity:
+        raise ValueError("electricity_link needs electricity=True (the data-centre module supplies the ratio)")
     init = _initial_inputs(sectors0, T0)
     warming = None
     if cfg.world3_damage is not None:
         if climate is None:
             raise ValueError("the World3 damage coupling needs the recorded climate replay (D-051: no new FaIR run per scenario)")
         warming = lambda t: climate.output_at("warming", t)             # noqa: E731
-    group = World3Group(sectors0, couplings0, init, STATE_COLUMNS, damage_option=cfg.world3_damage, warming=warming)
+    group = World3Group(sectors0, couplings0, init, STATE_COLUMNS, damage_option=cfg.world3_damage, warming=warming,
+                         electricity_link=cfg.electricity_link, _mutate_unit_elec_ratio=cfg._mutate_unit_elec_ratio)
 
     damage_on = cfg.s3_damage != "off"
     s3 = S3AI(cfg.gate, rule=R3Rule(cfg.levers), electricity_limited=cfg.electricity, damage_option=cfg.s3_damage if damage_on else None,
@@ -134,6 +139,8 @@ def build_m6(cfg: M6Config, climate: Optional[ReplaySector] = None, climate_setu
                       Coupling("s3_ai", "compute_stock", "s4_datacentre", "compute_stock"),
                       Coupling("s3_ai", "hardware", "s4_datacentre", "hardware"),
                       Coupling("s4_datacentre", "supply_ratio", "s3_ai", "supply_ratio")]
+    if cfg.electricity_link:
+        couplings.append(Coupling("s4_datacentre", "industry_ratio", "world3", "elec_ratio"))
     if damage_on:
         couplings.append(Coupling("s6_climate", "warming", "s3_ai", "warming"))
     if cfg.labor_from_world3:

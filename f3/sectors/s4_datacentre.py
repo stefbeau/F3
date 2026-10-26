@@ -23,6 +23,11 @@ Optional efficiency cap (D-055, Provisional; default OFF)
 Hand check: ``eta_0`` is about 8.06e9 FLOP/J, so at S3's hardware ceiling
 ``H_max`` (1e5 times ``H0``) ``eta`` is 8.06e14, below the cap: with S3's own hardware limit the paper's cap cannot bind.
 
+Electricity link to World3 (D-059, Provisional; default OFF in M6)
+-------------------------------------------------------------------
+``industry_ratio = clip((supply x supply_scale - e_dc) / (supply_2025 - 485 TWh), 0, 1)``: the electricity left for everything but data centres,
+relative to its 2025 level. The M6 wiring (``M6Config.electricity_link``) feeds it to World3 as a multiplier on industrial output. No new coefficient.
+
 Loop B1 (electricity limit)
 ---------------------------
 Electricity available to data centres = ``dc_share_cap`` x total supply, where total supply is a recorded series (Earth4All.jl electricity
@@ -92,7 +97,7 @@ def supply_series(scenario: str = "TLTL") -> ReplaySector:
 class DataCentre(Sector):
     name = "s4_datacentre"
     inputs = {"compute_stock": "FLOP/year", "hardware": "FLOP/year/USD", "supply": "TWh/year"}
-    outputs = {"e_dc_demand": "TWh/year", "e_dc": "TWh/year", "supply_ratio": "1", "dc_available": "TWh/year"}
+    outputs = {"e_dc_demand": "TWh/year", "e_dc": "TWh/year", "supply_ratio": "1", "dc_available": "TWh/year", "industry_ratio": "1"}
     validation_status = ("Calibrated to 485 TWh in 2025 (a calibration point, not a validation); 415 TWh (2024) a reference; no independent "
                          "test of modelled data-centre electricity against estimates exists before 2025; the IEA 2030 figure (950 TWh) is a "
                          "report-only comparison. Values after about 2027 inherit S3's unvalidated output (D-029). " + BOUNDARY + ".")
@@ -104,7 +109,9 @@ class DataCentre(Sector):
     def reset(self, t0: float, t1: float, dt: float) -> None:
         if abs(t0 - 2025.0) > 1e-9:
             raise ValueError("the data-centre module starts in 2025 (D-020)")
-        self._out = {"e_dc_demand": self.dp.calibration_twh_2025, "e_dc": self.dp.calibration_twh_2025, "supply_ratio": 1.0, "dc_available": float("nan")}
+        self._out = {"e_dc_demand": self.dp.calibration_twh_2025, "e_dc": self.dp.calibration_twh_2025, "supply_ratio": 1.0, "dc_available": float("nan"),
+                     "industry_ratio": 1.0}
+        self._supply_ref = None
 
     def current_outputs(self) -> Dict[str, float]:
         return dict(self._out)
@@ -113,4 +120,15 @@ class DataCentre(Sector):
         e = e_dc_twh(ctx.input("compute_stock", t), ctx.input("hardware", t), self.gp, self.dp)
         avail = self.dp.dc_share_cap * ctx.input("supply", t) * self.dp.supply_scale
         ratio = 1.0 if (not math.isfinite(avail) or e <= 0.0) else min(1.0, avail / e)
-        self._out = {"e_dc_demand": e, "e_dc": e * ratio, "supply_ratio": ratio, "dc_available": avail}
+        if self._supply_ref is None:
+            self._supply_ref = ctx.input("supply", t)                    # unscaled recorded supply at the first step (2025)
+        self._out = {"e_dc_demand": e, "e_dc": e * ratio, "supply_ratio": ratio, "dc_available": avail,
+                     "industry_ratio": self._industry_ratio(t, e * ratio, ctx)}
+
+    def _industry_ratio(self, t: float, e_used: float, ctx: Context) -> float:
+        """D-059: electricity left for everything but data centres, relative to its 2025 level, clipped to [0, 1] (World3 industrial-output multiplier)."""
+        total = ctx.input("supply", t) * self.dp.supply_scale
+        if not math.isfinite(total):
+            return 1.0
+        base = self._supply_ref - self.dp.calibration_twh_2025
+        return min(1.0, max(0.0, (total - e_used) / base))
