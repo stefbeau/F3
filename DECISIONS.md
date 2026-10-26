@@ -74,6 +74,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-056 | F3 Explorer v0.2 redesign: dark dashboard with story front door, dashboard, compare mode, connections map (branch `site-ux`) | Provisional (delegated) 2026-10-22 | 4 |
 | D-057 | Explorer: observed-history overlay (model versus reality) and pattern-scaled warming map (branch `site-history`, from `site-ux`) | Provisional (delegated) 2026-10-22 | 2 |
 | D-058 | Data retrieval campaign: sources, licences and derived series for links 3 to 7, the data-centre module and AI context (documents and data only, branch `data-campaign`) | Provisional (delegated) 2026-10-22 | 2 |
+| D-059 | Electricity link: data-centre electricity limit (D-055 side) to World3 industrial output, default OFF (branch `feature/electricity-link`) | Provisional (delegated) 2026-10-26 | 2 |
 
 ---
 
@@ -1367,3 +1368,17 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Decision:** Approved / Rejected / Superseded by D-xxx
 - **Date:** YYYY-MM-DD
 ```
+
+---
+
+## D-059 — Electricity link: data-centre module to World3 industrial output
+
+- **Status:** Provisional (delegated)
+- **Context:** Editor instruction of 2026-10-26: implement the supply-limited electricity feed from the data-centre module (D-055) into World3's industrial energy input. World3 has no energy variable, so the feed needs a form.
+- **Decision:** the data-centre module publishes `industry_ratio = clip((supply x supply_scale - e_dc) / (supply_2025 - 485 TWh), 0, 1)`, the electricity left for everything except data centres relative to its 2025 level. World3 multiplies industrial output `io` by it from 2025, through the multiplier slot of D-051. Switch `M6Config.electricity_link`, default OFF, needs `electricity=True`. One-way (World3 does not feed S3 here), explicit coupling with a one-step lag (D-022). No new coefficient.
+- **Tests:** `tests/test_m6_electricity_link.py`, written and committed before the code.
+- **Limits, stated plainly:** an output multiplier is a proxy, not an energy-to-output model; it assumes industry's need for electricity is proportional to its 2025 level. S3 is unvalidated after about 2027 (D-029) and so is `e_dc`; the link inherits that and the recorded supply series is Earth4All.jl's, not World3's.
+- **Alternatives considered:** scaling the capital-output ratio `icor` (needs a new elasticity coefficient, so a STOP item); a proposal only.
+- **Reversal cost:** none (default off; every recorded result is unchanged, tested to 1e-9).
+- **Proposed by:** the editor (instruction); Claude (form and implementation).
+- **Date:** 2026-10-26

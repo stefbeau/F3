@@ -31,7 +31,8 @@ class World3Group(Sector):
     inputs: Mapping[str, str] = {}
 
     def __init__(self, sectors: Sequence[Sector], couplings, init_inputs: Mapping[str, Mapping[str, float]], state_names: Mapping[str, str],
-                 substep: float = SUBSTEP, damage_option: Optional[str] = None, warming=None, _mutate_zero_damage: bool = False):
+                 substep: float = SUBSTEP, damage_option: Optional[str] = None, warming=None, _mutate_zero_damage: bool = False,
+                 electricity_link: bool = False, _mutate_unit_elec_ratio: bool = False):
         self._sectors: Dict[str, Sector] = {s.name: s for s in sectors}
         self._order: List[str] = [s.name for s in sectors]
         self._substep = float(substep)
@@ -52,6 +53,11 @@ class World3Group(Sector):
                 raise ValueError("damage_option needs a warming source (a callable year -> K from the recorded replay)")
         self._damage_option = damage_option
         self._warming = warming
+        # D-059 electricity link: OFF unless electricity_link; the group then reads ``elec_ratio`` (data-centre module, 0..1) from the loop
+        self._elec_link = bool(electricity_link)
+        self._mutate_unit_elec_ratio = _mutate_unit_elec_ratio    # test hook: the sign test must fail when the ratio is forced to 1
+        if self._elec_link:
+            self.inputs = {"elec_ratio": "1"}
         self._mutate_zero_damage = _mutate_zero_damage            # test hook: the sign test must fail when the multiplier is forced to 1
         self._wiring: Dict[str, Dict[str, tuple]] = {n: {} for n in self._sectors}
         for c in couplings:
@@ -100,12 +106,12 @@ class World3Group(Sector):
         return out
 
     def advance(self, t: float, h: float, ctx: Optional[Context]) -> None:
-        if self._damage_option is not None:
-            # warming at the START of the loop step, held across its sub-steps (explicit coupling, D-022); multiplier 1 before 2025
-            from f3.sectors.damages import damage_fraction
+        if self._damage_option is not None or self._elec_link:
             mult = 1.0
-            if t >= DAMAGE_START_YEAR - 1e-9 and not self._mutate_zero_damage:
-                mult = 1.0 - damage_fraction(float(self._warming(t)), self._damage_option)
+            if self._damage_option is not None:
+                mult = self._damage_mult(t)
+            if self._elec_link and t >= DAMAGE_START_YEAR - 1e-9 and not self._mutate_unit_elec_ratio:
+                mult *= float(ctx.input("elec_ratio", t))
             self._sectors["w3_capital"].damage_mult = mult
         for j in range(self._n_sub):
             tt = t + j * self._h
@@ -116,3 +122,10 @@ class World3Group(Sector):
                 s.advance(tt, self._h, Context(s, self._wiring[n], snapshot, self._sectors))
                 pending[n] = dict(s.current_outputs())
             self._published = pending
+
+    def _damage_mult(self, t: float) -> float:
+        """Climate-damage multiplier from the warming at the START of the loop step, held across its sub-steps (explicit coupling, D-022); 1 before 2025."""
+        from f3.sectors.damages import damage_fraction
+        if t >= DAMAGE_START_YEAR - 1e-9 and not self._mutate_zero_damage:
+            return 1.0 - damage_fraction(float(self._warming(t)), self._damage_option)
+        return 1.0
