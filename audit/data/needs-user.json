@@ -48,7 +48,10 @@
    "url": "https://www.icos-cp.eu/impact/science/global-carbon-budget/2025",
    "blocked_by": "licence acceptance step on the ICOS portal",
    "licence_note": "CC BY 4.0 per the ICOS data licence page",
-   "priority": 2
+   "priority": 2,
+   "status": "blocked",
+   "resolution": "The ICOS licence page says CC BY 4.0, but each file sits behind a licence-accept click-through on data.icos-cp.eu, so you must download the two xlsx files yourself; version 1.0, doi:10.18160/gcp-2025.",
+   "resolved_date": "2026-10-26"
   },
   {
    "id": "iiasa_ssp_db",
@@ -62,7 +65,10 @@
    "url": "https://tntcat.iiasa.ac.at/SspDb",
    "blocked_by": "registration and terms acceptance required",
    "licence_note": "",
-   "priority": 2
+   "priority": 2,
+   "status": "blocked",
+   "resolution": "The database has moved to ssp.apps.ece.iiasa.ac.at and its licence (adapted CC BY 4.0) bars copying substantial portions; whether a login is needed to download was not established.",
+   "resolved_date": "2026-10-26"
   },
   {
    "id": "energy_institute_sr",
@@ -190,7 +196,10 @@
    "url": "https://doi.org/10.1126/science.1204531",
    "blocked_by": "paywall (not attempted)",
    "licence_note": "",
-   "priority": 2
+   "priority": 2,
+   "status": "blocked",
+   "resolution": "Science 333:616-620 is a subscription article (science.org HTTP 403); metadata confirmed via Crossref, text needs institutional access or a file from you.",
+   "resolved_date": "2026-10-26"
   },
   {
    "id": "papers_burke2015",
@@ -220,7 +229,10 @@
    "url": "https://doi.org/10.1093/qje/qjac020",
    "blocked_by": "OUP HTTP 403",
    "licence_note": "",
-   "priority": 2
+   "priority": 2,
+   "status": "blocked",
+   "resolution": "QJE 137:2037-2105 metadata confirmed via Crossref, but no Creative Commons licence is listed and the OUP page returned only navigation text; a PDF from you is needed.",
+   "resolved_date": "2026-10-26"
   },
   {
    "id": "papers_gasparrini2017",
@@ -233,7 +245,10 @@
    "url": "https://doi.org/10.1016/S2542-5196(17)30156-0",
    "blocked_by": "HTTP 403",
    "licence_note": "",
-   "priority": 2
+   "priority": 2,
+   "status": "blocked",
+   "resolution": "Crossref lists CC BY 4.0 for this Lancet Planetary Health article, so it is free to download, but the automated fetch was redirected and the PDF was not obtained; please download it.",
+   "resolved_date": "2026-10-26"
   },
   {
    "id": "papers_vicedo2021",
@@ -246,7 +261,10 @@
    "url": "https://doi.org/10.1038/s41558-021-01058-x",
    "blocked_by": "publisher returned the HTML article page, not the PDF",
    "licence_note": "",
-   "priority": 2
+   "priority": 2,
+   "status": "blocked",
+   "resolution": "Nature Climate Change 11:492-500 metadata confirmed via Crossref; no Creative Commons licence is listed and Nature needs a cookie handshake, so a PDF from you is needed.",
+   "resolved_date": "2026-10-26"
   },
   {
    "id": "papers_dunne2013",
@@ -260,7 +278,10 @@
    "url": "https://doi.org/10.1038/nclimate1827",
    "blocked_by": "publisher returned the HTML article page",
    "licence_note": "",
-   "priority": 2
+   "priority": 2,
+   "status": "blocked",
+   "resolution": "Nature Climate Change 3:563-566 metadata confirmed via Crossref; only Springer text-and-data-mining terms are listed and the page needs a cookie handshake, so a PDF from you is needed.",
+   "resolved_date": "2026-10-26"
   },
   {
    "id": "papers_jagermeyr2021",
@@ -289,7 +310,10 @@
    "url": "https://www.oecd.org/en/publications/oecd-employment-outlook-2023_08785bba-en.html",
    "blocked_by": "HTTP 403",
    "licence_note": "",
-   "priority": 2
+   "priority": 2,
+   "status": "blocked",
+   "resolution": "The OECD Employment Outlook 2023 page and terms returned HTTP 403 and Crossref lists no licence; the report and terms need a manual download.",
+   "resolved_date": "2026-10-26"
   },
   {
    "id": "faostat_food_balances",
@@ -355,7 +379,10 @@
    "url": "https://www.who.int/data/gho",
    "blocked_by": "no stable dataset identified",
    "licence_note": "",
-   "priority": 2
+   "priority": 2,
+   "status": "blocked",
+   "resolution": "No stable redistributable heat-mortality dataset has been identified, and I did not search further this round.",
+   "resolved_date": "2026-10-26"
   },
   {
    "id": "lancet_countdown_nc_sa",
@@ -382,7 +409,10 @@
    "url": "https://data.apps.fao.org/aquastat/",
    "blocked_by": "licence and no bulk file",
    "licence_note": "CC BY-NC-SA 4.0 (FAO catalogue record)",
-   "priority": 2
+   "priority": 2,
+   "status": "blocked",
+   "resolution": "The AQUASTAT bulk file is not available and its CC BY-NC-SA 4.0 terms need your licence decision before any use.",
+   "resolved_date": "2026-10-26"
   },
   {
    "id": "wid_terms",

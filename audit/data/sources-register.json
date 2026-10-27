@@ -1740,7 +1740,7 @@
     }
    ],
    "total_bytes": 458508,
-   "notes": "See needs-user (editor decision whether NC-SA data may be used for internal calibration only).",
+   "notes": "See needs-user (editor decision whether NC-SA data may be used for internal calibration only). 2026-10-26: no new access found; the CC BY-NC-SA 4.0 terms still need an editor decision before use.",
    "role": "document"
   },
   {
@@ -2122,7 +2122,7 @@
     }
    ],
    "total_bytes": 235413,
-   "notes": "",
+   "notes": "2026-10-26: the ICOS dataset page (doi:10.18160/gcp-2025, version 1.0, article doi:10.5194/essd-18-3211-2026) offers three xlsx files and a zip, each behind a licence_accept link on data.icos-cp.eu (click-through, inferred from the URLs). The ICOS data licence page states CC BY 4.0 for ICOS data; the dataset page itself names no licence.",
    "landing_page": "https://www.icos-cp.eu/impact/science/global-carbon-budget/2025"
   },
   {
@@ -2286,7 +2286,7 @@
    "id": "iiasa_ssp_db",
    "title": "IIASA SSP Database (Shared Socioeconomic Pathways) and AR6 scenario explorer: emissions pathways",
    "publisher": "IIASA",
-   "url": "https://tntcat.iiasa.ac.at/SspDb",
+   "url": "https://ssp.apps.ece.iiasa.ac.at/",
    "domains": [
     "D3"
    ],
@@ -2298,12 +2298,12 @@
    "retrieved": "2026-10-22",
    "status": "blocked",
    "licence": {
-    "name": "Registration and terms required (not read)",
+    "name": "IIASA SSP Scenario Explorer licence, adapted from CC BY 4.0 (restricts copying substantial portions of the data); read from the licence page on 2026-10-26",
     "quote": "",
     "quote_verified": false
    },
-   "redistribution": "unclear",
-   "redistribution_note": "Access requires an account and acceptance of terms; not attempted. The ScenarioMIP scenarios actually used by F3 reach the model through the FaIR extensions file (fair_inputs).",
+   "redistribution": "no",
+   "redistribution_note": "The licence page (summarised, not saved as a file) allows sharing parts and adapted material for scientific research, science communication or policy consultancy, but not copying a large share of the dataset; attribution and a modification notice are required. Treated as raw-only.",
    "units": "various",
    "geography": "world, regions",
    "time_span": "2005 to 2100",
@@ -2312,7 +2312,7 @@
    ],
    "files": [],
    "total_bytes": 0,
-   "notes": "See needs-user.",
+   "notes": "See needs-user. 2026-10-26: the old address tntcat.iiasa.ac.at/SspDb moves permanently to https://ssp.apps.ece.iiasa.ac.at/ (SSP Scenario Explorer; the SSP v2 2018 IAM quantification, an updated Basic Elements 2025 and a newer ScenarioMIP/CMIP7 explorer are listed). Whether a login is needed to download was not established; a Python/R data-access API is mentioned.",
    "role": "document"
   },
   {
@@ -3103,7 +3103,7 @@
     }
    ],
    "total_bytes": 108176,
-   "notes": "See needs-user.",
+   "notes": "See needs-user. Not re-searched on 2026-10-26: no stable heat-mortality dataset identified yet.",
    "role": "document"
   },
   {
@@ -3229,7 +3229,7 @@
     }
    ],
    "total_bytes": 501296,
-   "notes": "",
+   "notes": "Metadata checked against Crossref on 2026-10-26 (not the article text). Vicedo-Cabrera et al. (70 authors), The burden of heat-related mortality attributable to recent human-induced climate change, Nature Climate Change 11:492-500 (2021). Crossref lists only the Springer text-and-data-mining terms; no Creative Commons licence found. Nature requires a cookie handshake; not retrieved.",
    "role": "document"
   },
   {
@@ -3271,7 +3271,7 @@
     }
    ],
    "total_bytes": 288439,
-   "notes": "",
+   "notes": "Metadata checked against Crossref on 2026-10-26 (not the article text). Dunne, Stouffer and John, Reductions in labour capacity from heat stress under climate warming, Nature Climate Change 3:563-566 (2013). Crossref lists only the Springer text-and-data-mining terms. Not retrieved.",
    "role": "document"
   },
   {
@@ -3399,7 +3399,7 @@
    ],
    "files": [],
    "total_bytes": 0,
-   "notes": "",
+   "notes": "Metadata checked against Crossref on 2026-10-26 (not the article text). Carleton et al. (16 authors), Valuing the Global Mortality Consequences of Climate Change Accounting for Adaptation Costs and Benefits, QJE 137(4):2037-2105 (2022). Crossref lists the OUP standard publication model licence, not a Creative Commons licence; the OUP page returned only navigation text. Not retrieved.",
    "role": "document"
   },
   {
@@ -3431,7 +3431,7 @@
    ],
    "files": [],
    "total_bytes": 0,
-   "notes": "",
+   "notes": "Metadata checked against Crossref on 2026-10-26 (not the article text). Gasparrini et al. (45 authors), Projections of temperature-related excess mortality under climate change scenarios, Lancet Planetary Health 1:e360-e367 (2017). Crossref lists CC BY 4.0 (version of record), so the article should be freely downloadable; the automated fetch returned a redirect only. Licence not read from the file.",
    "role": "document"
   },
   {
@@ -4156,7 +4156,7 @@
    "variables": [],
    "files": [],
    "total_bytes": 0,
-   "notes": "See needs-user.",
+   "notes": "See needs-user. Metadata checked against Crossref on 2026-10-26 (not the article text). OECD Employment Outlook 2023, doi:10.1787/08785bba-en; Crossref lists no licence; the OECD page returned HTTP 403, so the terms were not read.",
    "role": "document"
   },
   {
@@ -6349,7 +6349,7 @@
    ],
    "files": [],
    "total_bytes": 0,
-   "notes": "ISIMIP Repository v1.0, published 2024-08-08. 864 datasets: yieldchange for maize/rice/soy/wheat under historical, ssp126, ssp370, ssp585 x multiple crop models x multiple climate models. CC0 per the editor. Download pending: subset selection needed before ingest.",
+   "notes": "ISIMIP Repository v1.0, published 2024-08-08. 864 datasets: yieldchange for maize/rice/soy/wheat under historical, ssp126, ssp370, ssp585 x multiple crop models x multiple climate models. CC0 per the editor. Download pending: subset selection needed before ingest. 2026-10-26: inventory from the repository API is in audit/data/isimip_subset_plan.json (864 datasets, about 11.8 GB).",
    "role": "data",
    "year": 2024,
    "local_path": "audit/data/raw/isimip/",
@@ -6385,11 +6385,43 @@
    ],
    "files": [],
    "total_bytes": 0,
-   "notes": "Bulk download zip wid_all_data.zip (887 MB compressed, 6.86 GB uncompressed, 848 members), inspected in place from the user's Downloads folder without extracting and without reading any data CSV; only the member list and README.md were read. Layout is flat, no folders: README.md; WID_countries.csv (codes: alpha2, titlename, shortname, region, region2); WID_data_XX.csv and WID_metadata_XX.csv, 291 pairs by country or world-region code (XX; region codes also XX-MER for market exchange rates, PPP is the default), plus subnational pairs WID_data_US-XX (51), DE-XX (8), CN-XX (2) and a few others (for example OA-MER, OB-MER); one stray member named WID_data_Al.csv not yet explained. Largest member WID_data_FR.csv (69 MB). Data files are semicolon-separated with 7 columns (country, variable, percentile, year, value, age, pop); metadata files have 17 columns (descriptions, unit, source, method). Variable codes are a type letter + 5-letter concept + 3-digit age group + population-unit letter (sptinc992j = share of pre-tax national income, adults, equal-split); percentiles are group percentiles (p0p50, p90p100, p99p100 ...) or 127 generalized percentiles. The README states no licence and no release date: CC BY 4.0 is as stated by the editor. Next step: select a subset (variables and countries) before any CSV ingest.",
+   "notes": "Bulk download zip wid_all_data.zip (887 MB compressed, 6.86 GB uncompressed, 848 members), inspected in place from the user's Downloads folder without extracting and without reading any data CSV; only the member list and README.md were read. Layout is flat, no folders: README.md; WID_countries.csv (codes: alpha2, titlename, shortname, region, region2); WID_data_XX.csv and WID_metadata_XX.csv, 291 pairs by country or world-region code (XX; region codes also XX-MER for market exchange rates, PPP is the default), plus subnational pairs WID_data_US-XX (51), DE-XX (8), CN-XX (2) and a few others (for example OA-MER, OB-MER); one stray member named WID_data_Al.csv not yet explained. Largest member WID_data_FR.csv (69 MB). Data files are semicolon-separated with 7 columns (country, variable, percentile, year, value, age, pop); metadata files have 17 columns (descriptions, unit, source, method). Variable codes are a type letter + 5-letter concept + 3-digit age group + population-unit letter (sptinc992j = share of pre-tax national income, adults, equal-split); percentiles are group percentiles (p0p50, p90p100, p99p100 ...) or 127 generalized percentiles. The README states no licence and no release date: CC BY 4.0 is as stated by the editor. Next step: select a subset (variables and countries) before any CSV ingest. 2026-10-26 extract: audit/data/raw/wid/wid_sptinc_filtered.csv (71,036 rows, 374 country/region codes, 1990 to 2024, p0p50, p90p100, p99p100; eight sptinc variable codes, see audit/data/wid_ingest_report.json), streamed from the zip without extracting it.",
    "role": "data",
    "year": 2026,
    "local_path": "audit/data/raw/wid/",
    "date_acquired": "2026-10-26"
+  },
+  {
+   "id": "papers_lobell2011",
+   "title": "Lobell, Schlenker and Costa-Roberts (2011), Climate Trends and Global Crop Production Since 1980, Science 333:616-620 (not retrieved)",
+   "publisher": "Science (AAAS)",
+   "url": "https://doi.org/10.1126/science.1204531",
+   "domains": [
+    "D4"
+   ],
+   "supports": [
+    "L3"
+   ],
+   "version": "not retrieved",
+   "retrieved": "2026-10-26",
+   "status": "blocked",
+   "licence": {
+    "name": "Not read (subscription article)",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "science.org returned HTTP 403 and Crossref lists no licence; the text was not read.",
+   "units": "n/a (published results)",
+   "geography": "global",
+   "time_span": "1980-2008",
+   "variables": [
+    "observed global yield effects of warming, maize and wheat"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "Metadata checked against Crossref on 2026-10-26 (not the article text). Crossref gives title, authors, journal, volume and pages as above and lists no licence.",
+   "role": "document"
   },
   {
    "id": "emdat",

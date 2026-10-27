@@ -1,0 +1,81 @@
+{
+ "schema_version": 1,
+ "doi": "10.48364/ISIMIP.910253",
+ "crop_models": [
+  "acea",
+  "crover",
+  "cygma1p74",
+  "dssat-pythia",
+  "epic-iiasa",
+  "isam",
+  "ldndc",
+  "lpjml",
+  "pdssat",
+  "pepic",
+  "promet",
+  "simplace-lintul5"
+ ],
+ "climate_models": [
+  "gfdl-esm4",
+  "ipsl-cm6a-lr",
+  "mpi-esm1-2-hr",
+  "mri-esm2-0",
+  "ukesm1-0-ll"
+ ],
+ "scenarios": [
+  "historical",
+  "ssp126",
+  "ssp370",
+  "ssp585"
+ ],
+ "crops": [
+  "mai",
+  "ric",
+  "soy",
+  "whe"
+ ],
+ "estimated_file_count": 864,
+ "estimated_size_gb": 11.8,
+ "inventory": {
+  "source": "ISIMIP repository API, https://data.isimip.org/api/v1/datasets/?path=ISIMIP3b/DerivedOutputData/Jaegermeyr2021, paginated on 2026-10-26; sizes are the repository's own size field per dataset",
+  "datasets_total": 864,
+  "by_scenario": {
+   "ssp126": 228,
+   "ssp585": 228,
+   "historical": 228,
+   "ssp370": 180
+  },
+  "by_crop": {
+   "mai": 216,
+   "ric": 216,
+   "soy": 216,
+   "whe": 216
+  },
+  "by_crop_model": {
+   "acea": 24,
+   "crover": 80,
+   "cygma1p74": 80,
+   "dssat-pythia": 80,
+   "epic-iiasa": 80,
+   "isam": 80,
+   "ldndc": 80,
+   "lpjml": 80,
+   "pdssat": 60,
+   "pepic": 80,
+   "promet": 80,
+   "simplace-lintul5": 60
+  },
+  "by_climate_model": {
+   "gfdl-esm4": 168,
+   "ipsl-cm6a-lr": 168,
+   "mpi-esm1-2-hr": 168,
+   "mri-esm2-0": 180,
+   "ukesm1-0-ll": 180
+  },
+  "size_gb_future_ssp_only": 7.96,
+  "datasets_future_ssp_only": 636,
+  "size_gb_historical_only": 3.84
+ },
+ "notes": "All 864 datasets of the DOI already match the requested selection: variable yieldchange only, four crops (mai maize, ric rice, soy soybean, whe wheat), scenarios historical, ssp126, ssp370 and ssp585, every crop model; nothing needs excluding. Not every combination exists: ssp370 has 180 datasets against 228 for each other scenario, and acea (24), pdssat (60) and simplace-lintul5 (60) are partial, so crop-model coverage is uneven. The page URL in the brief (product=SecondaryOutputData) is a different product; this DOI is a DerivedOutputData product (publication Jaegermeyr2021, soc 2015soc, sens default, bias adjustment w5e5). The counts are datasets; a dataset may hold more than one file, which was not checked, so estimated_file_count is a dataset count. The full set is about 11.8 GB, over the 5 GB budget of the earlier D-058 brief: a subset (for example one climate model, or future ssp only at 636 datasets) needs an editor decision before any download. Nothing was downloaded. Licence CC0 1.0 is as stated by the editor and was not read from a saved file.",
+ "date_planned": "2026-10-26"
+}
