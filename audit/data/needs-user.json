@@ -499,6 +499,105 @@
    "blocked_by": "the landing page is a 212-byte JavaScript shell; the data sit behind an interactive portal that the campaign did not drive",
    "licence_note": "Terms not read",
    "priority": 3
+  },
+  {
+   "id": "emdat",
+   "kind": "gap source",
+   "wanted": "EM-DAT International Disaster Database (CRED, UCLouvain) (https://www.emdat.be/)",
+   "why": "EM-DAT download (events, deaths, affected, damage by country) needs the editor's approval and, per the brief, a free registration; the Terms of Use page must be read first.",
+   "supports": [
+    "L3"
+   ],
+   "url": "https://www.emdat.be/",
+   "blocked_by": "registration (per the brief) and an unread terms page",
+   "licence_note": "Open access for non-commercial use (page statement); detailed terms of use not read",
+   "priority": 2
+  },
+  {
+   "id": "ihme_gbd",
+   "kind": "gap source",
+   "wanted": "IHME Global Burden of Disease Results Tool (https://vizhub.healthdata.org/gbd-results/)",
+   "why": "IHME GBD Results Tool: the terms page must be read and the download needs a registration and the editor's approval; derived numbers may not be republishable under non-commercial, no-derivatives terms.",
+   "supports": [
+    "L3",
+    "L4"
+   ],
+   "url": "https://vizhub.healthdata.org/gbd-results/",
+   "blocked_by": "HTTP 403 to automated access; registration for download",
+   "licence_note": "CC BY-NC-ND 4.0 as stated by the editor; NOT confirmed (the page returned HTTP 403)",
+   "priority": 2
+  },
+  {
+   "id": "nsidc_permafrost",
+   "kind": "gap source",
+   "wanted": "NSIDC GGD318 Circum-Arctic Map of Permafrost and Ground-Ice Conditions, Version 2 (https://nsidc.org/data/ggd318/versions/2)",
+   "why": "A permafrost map for L6/L7 permafrost carbon; the URL in the brief was corrected twice (G02171 is sea-ice charts, NSIDC-0422 is an Antarctic DEM), so the editor should confirm GGD318 is the intended dataset.",
+   "supports": [
+    "L6",
+    "L7"
+   ],
+   "url": "https://nsidc.org/data/ggd318/versions/2",
+   "blocked_by": "URL corrected; download not yet attempted (access is via FTP, not a web download).",
+   "licence_note": "No formal licence statement; citation required as a condition of use",
+   "priority": 2,
+   "status": "blocked",
+   "resolved_date": "2026-10-27",
+   "resolution": "URL corrected; download not yet attempted."
+  },
+  {
+   "id": "unhcr_refugees",
+   "kind": "gap source",
+   "wanted": "UNHCR Refugee Data Finder / refugee statistics (https://www.unhcr.org/refugee-statistics/)",
+   "why": "UNHCR refugee statistics: the page and its copyright page returned HTTP 403; read the terms and download manually if wanted.",
+   "supports": [
+    "L4"
+   ],
+   "url": "https://www.unhcr.org/refugee-statistics/",
+   "blocked_by": "HTTP 403 to automated access",
+   "licence_note": "Not read (CC BY as stated by the editor; both the page and the copyright page returned HTTP 403)",
+   "priority": 2
+  },
+  {
+   "id": "oecd_tiva",
+   "kind": "gap source",
+   "wanted": "OECD Trade in Value Added (TiVA) (https://www.oecd.org/sti/ind/measuring-trade-in-value-added.htm)",
+   "why": "OECD TiVA: the page returned HTTP 403, so the edition, coverage and terms are unread; check manually.",
+   "supports": [
+    "L4",
+    "L7"
+   ],
+   "url": "https://www.oecd.org/sti/ind/measuring-trade-in-value-added.htm",
+   "blocked_by": "HTTP 403 to automated access",
+   "licence_note": "Not read (page returned HTTP 403; brief says CC BY)",
+   "priority": 2
+  },
+  {
+   "id": "cset_export_control",
+   "kind": "gap source",
+   "wanted": "CSET export-control source (registered as the Tracking AI Chips report, https://cset.georgetown.edu/publication/tracking-ai-chips)",
+   "why": "Both URLs given in the brief returned HTTP 404; the registered report is Claude's best match, so the editor should confirm which CSET publication is meant.",
+   "supports": [
+    "AI",
+    "M5"
+   ],
+   "url": "https://cset.georgetown.edu/publication/tracking-ai-chips",
+   "blocked_by": "the URLs given return HTTP 404; the intended publication is not confirmed",
+   "licence_note": "Not read (the given URL returned HTTP 404)",
+   "priority": 2
+  },
+  {
+   "id": "entsoe_transparency",
+   "kind": "gap source",
+   "wanted": "ENTSO-E Transparency Platform (https://transparency.entsoe.eu/)",
+   "why": "ENTSO-E Transparency Platform: the page did not load for the fetch; read the terms and API-token requirement manually.",
+   "supports": [
+    "L5",
+    "DC"
+   ],
+   "url": "https://transparency.entsoe.eu/",
+   "blocked_by": "JavaScript application that returned an error",
+   "licence_note": "Not read (the page returned a client-side error); brief says CC BY 4.0",
+   "priority": 2
   }
  ]
 }

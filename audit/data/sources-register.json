@@ -6422,6 +6422,1138 @@
    "total_bytes": 0,
    "notes": "Metadata checked against Crossref on 2026-10-26 (not the article text). Crossref gives title, authors, journal, volume and pages as above and lists no licence.",
    "role": "document"
+  },
+  {
+   "id": "emdat",
+   "title": "EM-DAT International Disaster Database (CRED, UCLouvain)",
+   "publisher": "CRED, Universite catholique de Louvain",
+   "url": "https://www.emdat.be/",
+   "domains": [
+    "D4"
+   ],
+   "supports": [
+    "L3"
+   ],
+   "supports_proposed": [
+    "L3",
+    "L8"
+   ],
+   "version": "not checked",
+   "retrieved": "2026-10-27",
+   "status": "partial",
+   "licence": {
+    "name": "Open access for non-commercial use (page statement); detailed terms of use not read",
+    "quote": "open access for non-commercial use",
+    "quote_verified": false
+   },
+   "redistribution": "no",
+   "redistribution_note": "The landing page says only that the data are distributed in open access for non-commercial use; the Terms of Use and Privacy page (/terms-of-use-and-privacy/) was not read, so attribution, commercial limits and the registration requirement are unconfirmed. Treated as raw-only. No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "events, deaths, affected people, USD damage",
+   "geography": "global, by country",
+   "time_span": "1900 to present (as stated by the editor; not checked)",
+   "variables": [
+    "disaster events",
+    "deaths",
+    "affected population",
+    "economic damage"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "Data are hosted at public.emdat.be. The editor's brief says a free account is needed to download; the landing page does not mention registration, so that is unconfirmed. Documentation site doc.emdat.be not read. Not downloaded.",
+   "role": "data",
+   "year": 2026,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P1 gap"
+  },
+  {
+   "id": "spei_global",
+   "title": "SPEIbase: Global SPEI database (CSIC)",
+   "publisher": "Spanish National Research Council (CSIC), Pyrenean Institute of Ecology",
+   "url": "https://spei.csic.es/database.html",
+   "domains": [
+    "D4"
+   ],
+   "supports": [
+    "L3",
+    "M5"
+   ],
+   "supports_proposed": [
+    "L3",
+    "M5"
+   ],
+   "version": "SPEIbase v2.11 (CRU TS 4.09)",
+   "retrieved": "2026-10-27",
+   "status": "partial",
+   "licence": {
+    "name": "Open Database License (ODbL) 1.0; contents under the Database Contents License",
+    "quote": "made available under the Open Database License",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "The licence is ODbL 1.0, NOT CC BY 4.0 as the brief states: attribution is required and publicly used adapted versions must be shared under the ODbL (share-alike). Read from the database page as summarised by the fetch; no file saved, so not flagged yes. No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "dimensionless index (SPEI)",
+   "geography": "global, 0.5 degree grid (as stated by the editor)",
+   "time_span": "January 1901 to December 2024 (SPEIbase v2.11, built on CRU TS 4.09)",
+   "variables": [
+    "SPEI at time scales 1 to 48 months"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "Single netCDF4 (classic model) file per time scale for the whole world. The page has stale text (metadata section ends December 2011, details section mentions CRU TS 4.03); the version history names v2.11 as current. Not downloaded.",
+   "role": "data",
+   "year": 2026,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P1 gap"
+  },
+  {
+   "id": "gfw_forest_loss",
+   "title": "Global Forest Watch: Hansen/UMD annual tree cover loss",
+   "publisher": "World Resources Institute (Global Forest Watch / Global Nature Watch); University of Maryland (Hansen et al.)",
+   "url": "https://www.globalforestwatch.org/dashboards/global/",
+   "domains": [
+    "D3"
+   ],
+   "supports": [
+    "L3",
+    "L6",
+    "L7"
+   ],
+   "supports_proposed": [
+    "L3",
+    "L6",
+    "L7"
+   ],
+   "version": "not checked",
+   "retrieved": "2026-10-27",
+   "status": "partial",
+   "licence": {
+    "name": "CC BY 4.0 as stated by the editor; NOT confirmed (the terms page says each dataset carries its own licence)",
+    "quote": "each dataset carries its own license and restrictions",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "The GFW terms page (moved to globalnaturewatch.org/terms) says licensing is per dataset and names neither Hansen/UMD nor CC BY 4.0, so the licence of this dataset must be read on its own metadata page. Not flagged yes. No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "hectares per year",
+   "geography": "global, by country and driver (as stated by the editor)",
+   "time_span": "2001 to present (as stated by the editor; not checked)",
+   "variables": [
+    "annual tree cover loss",
+    "loss by driver"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "Access is via Google Earth Engine or the GFW API per the brief (not tested). The dashboard URL in the brief redirects site-wide to globalnaturewatch.org. Not downloaded.",
+   "role": "data",
+   "year": 2026,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P1 gap"
+  },
+  {
+   "id": "faostat_food_security",
+   "title": "FAOSTAT: Food Security and Nutrition indicators",
+   "publisher": "Food and Agriculture Organization of the United Nations",
+   "url": "https://www.fao.org/faostat/en/#data/FS",
+   "domains": [
+    "D4"
+   ],
+   "supports": [
+    "L3"
+   ],
+   "supports_proposed": [
+    "L3"
+   ],
+   "version": "not checked",
+   "retrieved": "2026-10-27",
+   "status": "partial",
+   "licence": {
+    "name": "CC BY 4.0 (FAO statistical databases terms, unless otherwise stated in the dataset metadata), plus FAO's added conditions",
+    "quote": "licensed under the Creative Commons Attribution-4.0 International licence",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "The FAO database terms page lists FAOSTAT as CC BY 4.0, NOT CC BY-NC 3.0 IGO as the brief states, unless the dataset's own metadata says otherwise (not checked for the FS domain). Added conditions: no use in promoting a commercial enterprise, no implied FAO endorsement, no misrepresentation. The FAOSTAT page itself returned no text, so the licence is read from the terms page, not from this dataset's page. No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "percent, million people, kcal per person per day",
+   "geography": "global, by country",
+   "time_span": "1999 to present (as stated by the editor; not checked)",
+   "variables": [
+    "prevalence of undernourishment",
+    "food insecurity experience scale",
+    "dietary energy supply"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "Terms page: https://www.fao.org/contact-us/terms/db-terms-of-use/en. Prescribed citation form: FAO, year of last update, database name, access date, URL, Licence: CC-BY-4.0. Not downloaded.",
+   "role": "data",
+   "year": 2026,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P1 gap"
+  },
+  {
+   "id": "fao_baci_trade",
+   "title": "BACI: International trade database at the product level (CEPII; from UN Comtrade)",
+   "publisher": "CEPII (Centre d'Etudes Prospectives et d'Informations Internationales)",
+   "url": "http://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37",
+   "domains": [
+    "D4"
+   ],
+   "supports": [
+    "L3"
+   ],
+   "supports_proposed": [
+    "L3"
+   ],
+   "version": "release 202601 (2026-01-30)",
+   "retrieved": "2026-10-27",
+   "status": "partial",
+   "licence": {
+    "name": "Etalab 2.0 (Open Licence)",
+    "quote": "Etalab 2.0",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "The CEPII page lists Etalab 2.0, NOT CC BY as the brief states; the licence text itself (linked PDF) was not read, so who may use it and any commercial limits are unconfirmed. The data originate from UN Comtrade, whose own terms were not checked. Not flagged yes. No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "trade value (USD thousand) and quantity (tonnes)",
+   "geography": "about 200 countries, bilateral flows",
+   "time_span": "1995 to 2024 (HS92); later HS editions start 1996 to 2022; release 202601 of 2026-01-30",
+   "variables": [
+    "bilateral trade flows by HS6 product (about 5000 products)"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "Corrections to the brief: BACI is a CEPII database covering ALL products at HS 6-digit level, not an FAO database and not agri-food only; a food subset must be selected by HS chapter. Suggested citation: Gaulier and Zignago (2010), CEPII Working Paper 2010-23. Not downloaded.",
+   "role": "data",
+   "year": 2026,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P1 gap"
+  },
+  {
+   "id": "ihme_gbd",
+   "title": "IHME Global Burden of Disease Results Tool",
+   "publisher": "Institute for Health Metrics and Evaluation (IHME), University of Washington",
+   "url": "https://vizhub.healthdata.org/gbd-results/",
+   "domains": [
+    "D4"
+   ],
+   "supports": [
+    "L3",
+    "L4"
+   ],
+   "supports_proposed": [
+    "L3",
+    "L4"
+   ],
+   "version": "not checked",
+   "retrieved": "2026-10-27",
+   "status": "blocked",
+   "licence": {
+    "name": "CC BY-NC-ND 4.0 as stated by the editor; NOT confirmed (the page returned HTTP 403)",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "no",
+   "redistribution_note": "The Results Tool and IHME's user-agreement page (healthdata.org) both returned HTTP 403, so no terms were read. The editor's licence (non-commercial, no derivatives) would bar publishing derived series; treated as raw-only until the terms are read. No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "DALYs, YLLs, YLDs, deaths (counts and rates)",
+   "geography": "global, by country, age and sex",
+   "time_span": "1990 to 2021 as stated by the editor; the latest GBD round was not checked",
+   "variables": [
+    "disease burden by cause, age, sex and location"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "Free download after registration, per the brief; not tested. Same tool as ihme_mental_health (separate entry by instruction). Not downloaded.",
+   "role": "data",
+   "year": 2024,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P1 gap"
+  },
+  {
+   "id": "grace_fo",
+   "title": "GRACE and GRACE-FO JPL Mascon terrestrial water storage anomalies",
+   "publisher": "NASA Jet Propulsion Laboratory (JPL) / PO.DAAC",
+   "url": "https://grace.jpl.nasa.gov/data/get-data/jpl_global_mascons/",
+   "domains": [
+    "D2"
+   ],
+   "supports": [
+    "M5",
+    "DC",
+    "L3"
+   ],
+   "supports_proposed": [
+    "M5",
+    "DC",
+    "L3"
+   ],
+   "version": "JPL RL06.3 Mascon v04 (RL06.3M.MSCN v04)",
+   "retrieved": "2026-10-27",
+   "status": "partial",
+   "licence": {
+    "name": "No formal licence stated; the page asks users to acknowledge and cite (Wiese et al. 2018; Watkins et al. 2015; Wiese et al. 2016; Landerer et al. 2020)",
+    "quote": "please acknowledge",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "The page states no licence, only an acknowledgement and citation request, so 'public domain (NASA)' as in the brief is not confirmed from it. Not flagged yes. No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "cm equivalent water thickness",
+   "geography": "global, 0.5 degree grid (720 x 360)",
+   "time_span": "GRACE (2002) and GRACE-FO records with gaps; exact span not on the page; anomalies relative to a 2004.0 to 2009.999 mean",
+   "variables": [
+    "liquid water equivalent thickness anomaly",
+    "gain factors"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "Correction to the brief: the current product on the page is RL06.3 v04, not RL06.1 (one processing-details heading still says RL06.1Mv03). DOI on the page: 10.5067/TEMSC-3MJC6 (the CRI-filtered Release 06 dataset, version 1.0); none is listed for v04. One self-contained netCDF per solution, updated for all months at each release; available via PO.DAAC. Not downloaded.",
+   "role": "data",
+   "year": 2026,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P1 gap"
+  },
+  {
+   "id": "nsidc_permafrost",
+   "title": "NSIDC GGD318 Circum-Arctic Map of Permafrost and Ground-Ice Conditions, Version 2 (Brown et al. 2002)",
+   "publisher": "NSIDC DAAC / Canadian Ice Service",
+   "url": "https://nsidc.org/data/ggd318/versions/2",
+   "domains": [
+    "D4"
+   ],
+   "supports": [
+    "L6",
+    "L7"
+   ],
+   "supports_proposed": [
+    "L6",
+    "L7"
+   ],
+   "version": "Version 2, DOI 10.7265/skbg-kf16 (the most recent version per the page; Version 1, DOI 10.7265/8d57-9f79, is retired)",
+   "retrieved": "2026-10-27",
+   "status": "partial",
+   "licence": {
+    "name": "No formal licence statement; citation required as a condition of use",
+    "quote": "As a condition of using these data, you must cite the use of this data set.",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "The NSIDC page states no licence, only a citation condition; 'public domain (NSIDC/NASA)' is not confirmed. No licence text was read from a saved file, so redistribution is not flagged yes (register test rule). No file was downloaded; metadata read from the NSIDC page on 2026-10-27.",
+   "units": "permafrost extent and ground-ice classes (map)",
+   "geography": "Northern Hemisphere, 20 N to 90 N",
+   "time_span": "not specified on the page (a map)",
+   "variables": [
+    "permafrost extent class",
+    "ground-ice content class"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "Brown et al. (2002) circumpolar permafrost and ground-ice map. Corrected from G02171 (a sea-ice chart product) which was an error in the D-060 brief. A second correction: the brief then gave NSIDC-0422 as the permafrost dataset, but https://nsidc.org/data/nsidc-0422 is 'Antarctic 1 km Digital Elevation Model (DEM) from Combined ERS-1 Radar and ICESat Laser Satellite Altimetry, Version 1' (Bamber et al. 2009), so it was NOT used. The permafrost map is data set GGD318 (landing page https://nsidc.org/data/GGD318), found by web search and confirmed on the Version 2 page. Formats: ESRI Shapefile and EASE-Grid (12.5 km, 25 km, 0.5 degree); access is via FTP (ftp://sidads.colorado.edu/pub/DATASETS/fgdc/ggd318_map_circumarctic/), not a direct web download. Not downloaded.",
+   "role": "data",
+   "year": 2026,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P2 gap"
+  },
+  {
+   "id": "nasa_sealevel_ar6",
+   "title": "NASA Sea Level Change Portal: IPCC AR6 sea level projection tool",
+   "publisher": "NASA Sea Level Change Team",
+   "url": "https://sealevel.nasa.gov/ipcc-ar6-sea-level-projection-tool",
+   "domains": [
+    "D4"
+   ],
+   "supports": [
+    "L3"
+   ],
+   "supports_proposed": [
+    "L3",
+    "L9"
+   ],
+   "version": "not checked",
+   "retrieved": "2026-10-27",
+   "status": "partial",
+   "licence": {
+    "name": "Not stated on the page (nasa.gov footer links only)",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "The fetched text held only navigation and footer links, no data terms; 'public domain (NASA)' is not confirmed. No licence text was read from a saved file, so redistribution is not flagged yes (register test rule). No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "metres of sea level rise",
+   "geography": "global and regional tide-gauge locations (as understood; not read)",
+   "time_span": "projections to 2150 (from memory, unverified)",
+   "variables": [
+    "sea level projections by scenario and location"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "The page body was not captured: no DOI or Zenodo record found. The underlying AR6 projections are published separately (from memory); the tool page itself is an interactive viewer, so a data download route is unconfirmed. Not downloaded.",
+   "role": "data",
+   "year": 2026,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P2 gap"
+  },
+  {
+   "id": "isric_wosis",
+   "title": "WoSIS: World Soil Information Service",
+   "publisher": "ISRIC, World Soil Information",
+   "url": "https://www.isric.org/explore/wosis",
+   "domains": [
+    "D4"
+   ],
+   "supports": [
+    "L3",
+    "L7"
+   ],
+   "supports_proposed": [
+    "L3",
+    "L7"
+   ],
+   "version": "not stated (snapshot identifier not on the page)",
+   "retrieved": "2026-10-27",
+   "status": "partial",
+   "licence": {
+    "name": "Per contributing data provider; no single licence named on the page (brief says CC BY 4.0, not confirmed)",
+    "quote": "in accordance with the licenses and data providers",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "The page names no licence and says data are provided in accordance with the licences of the data providers, so CC BY 4.0 is not confirmed. No licence text was read from a saved file, so redistribution is not flagged yes (register test rule). No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "soil properties",
+   "geography": "global, over 230,000 georeferenced profiles from 174 countries by mid-2025",
+   "time_span": "not stated",
+   "variables": [
+    "standardised soil profile properties"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "No dataset DOI on the page; it links the methods paper https://essd.copernicus.org/articles/16/4735/2024/ (documentation at docs.isric.org not read). Not downloaded.",
+   "role": "data",
+   "year": 2026,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P2 gap"
+  },
+  {
+   "id": "noaa_ocean_acid",
+   "title": "NOAA NCEI Ocean Carbon and Acidification Data System (OCADS)",
+   "publisher": "NOAA National Centers for Environmental Information",
+   "url": "https://www.ncei.noaa.gov/products/ocean-carbon-acidification-data-system",
+   "domains": [
+    "D4"
+   ],
+   "supports": [
+    "L3"
+   ],
+   "supports_proposed": [
+    "L3"
+   ],
+   "version": "not applicable (a data system, individual datasets have their own DOIs)",
+   "retrieved": "2026-10-27",
+   "status": "partial",
+   "licence": {
+    "name": "No licence or usage statement on the page (US government site); citation requested per dataset",
+    "quote": "indicate subset used",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "The page states no terms of reuse; 'public domain (NOAA)' as in the brief is not confirmed (the NOAA disclaimer page was not read). No licence text was read from a saved file, so redistribution is not flagged yes (register test rule). No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "ocean carbon and acidification observations",
+   "geography": "global ocean",
+   "time_span": "not stated (long-term archive; goal of more than 75 years)",
+   "variables": [
+    "ocean carbon and ocean acidification data collections"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "A banner reports intermittent degraded order fulfilment during a cloud migration. Which OCADS dataset serves L3 has not been chosen. Not downloaded.",
+   "role": "data",
+   "year": 2026,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P2 gap"
+  },
+  {
+   "id": "idmc_displacement",
+   "title": "IDMC Global Internal Displacement Database",
+   "publisher": "Internal Displacement Monitoring Centre (part of the Norwegian Refugee Council)",
+   "url": "https://www.internal-displacement.org/database",
+   "domains": [
+    "D8"
+   ],
+   "supports": [],
+   "supports_proposed": [
+    "L9"
+   ],
+   "version": "not checked",
+   "retrieved": "2026-10-27",
+   "status": "partial",
+   "licence": {
+    "name": "Not read; the terms-of-use page text did not load (brief says free for research)",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "Neither the database page nor its terms-of-use page returned any licence text, so 'free for research' is not confirmed. No licence text was read from a saved file, so redistribution is not flagged yes (register test rule). No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "new displacements, stock of IDPs",
+   "geography": "global, by country",
+   "time_span": "not read",
+   "variables": [
+    "internal displacement by cause (disasters, conflict)"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "Footer shows only a copyright line (2012 to 2026 IDMC). The page did not describe datasets or download options. Not downloaded.",
+   "role": "data",
+   "year": 2026,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P2 gap"
+  },
+  {
+   "id": "unhcr_refugees",
+   "title": "UNHCR Refugee Data Finder / refugee statistics",
+   "publisher": "UNHCR, the UN Refugee Agency",
+   "url": "https://www.unhcr.org/refugee-statistics/",
+   "domains": [
+    "D8"
+   ],
+   "supports": [
+    "L4"
+   ],
+   "supports_proposed": [
+    "L9",
+    "L4"
+   ],
+   "version": "not checked",
+   "retrieved": "2026-10-27",
+   "status": "blocked",
+   "licence": {
+    "name": "Not read (CC BY as stated by the editor; both the page and the copyright page returned HTTP 403)",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "HTTP 403 to automated access, so no licence text was read. No licence text was read from a saved file, so redistribution is not flagged yes (register test rule). No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "persons",
+   "geography": "global, by country of origin and asylum",
+   "time_span": "not read",
+   "variables": [
+    "refugees, asylum-seekers, other people in need of protection"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "Not downloaded.",
+   "role": "data",
+   "year": 2026,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P2 gap"
+  },
+  {
+   "id": "vdem",
+   "title": "V-Dem (Varieties of Democracy) dataset, version 16",
+   "publisher": "V-Dem Institute, University of Gothenburg",
+   "url": "https://v-dem.net/data/the-v-dem-dataset/",
+   "domains": [
+    "D8"
+   ],
+   "supports": [],
+   "supports_proposed": [
+    "L_SOC"
+   ],
+   "version": "v16, published March 2026",
+   "retrieved": "2026-10-27",
+   "status": "partial",
+   "licence": {
+    "name": "CC BY-SA 4.0 (Creative Commons Attribution-ShareAlike), per the V-Dem FAQ as summarised by the fetch",
+    "quote": "published under a Creative Commons Attribution-ShareAlike (CC BY-SA) 4.0 license",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "The licence is CC BY-SA 4.0, NOT CC BY 4.0 as the brief states: use, adaptation and commercial use are allowed with attribution, but derivatives must be shared under the same terms. Read from the page via the fetch, no file saved, so not flagged yes. No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "indices and indicators",
+   "geography": "global, country-year",
+   "time_span": "not stated on the page",
+   "variables": [
+    "democracy indices",
+    "country-year, country-date and coder-level data"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "Four dataset types listed: Country-Year Full+Others, Country-Year Core, Country-Date, Coder-Level. Coverage years not on the page. Not downloaded.",
+   "role": "data",
+   "year": 2026,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P2 gap"
+  },
+  {
+   "id": "world_values_survey",
+   "title": "World Values Survey Wave 7 (2017-2022)",
+   "publisher": "World Values Survey Association",
+   "url": "https://www.worldvaluessurvey.org/WVSDocumentationWV7.jsp",
+   "domains": [
+    "D8"
+   ],
+   "supports": [],
+   "supports_proposed": [
+    "L_SOC"
+   ],
+   "version": "not stated",
+   "retrieved": "2026-10-27",
+   "status": "partial",
+   "licence": {
+    "name": "Not stated on the page (footer: Copyright 2020 World Values Survey Association); brief says CC BY",
+    "quote": "Copyright @2020 World Values Survey Association",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "The captured page held a copyright notice only; download links and terms load through JavaScript and were not captured. CC BY is not confirmed. No licence text was read from a saved file, so redistribution is not flagged yes (register test rule). No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "survey responses",
+   "geography": "multi-country",
+   "time_span": "Wave 7, 2017 to 2022",
+   "variables": [
+    "values and beliefs survey microdata"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "The page also links the WVS/EVS Trend 1981-2022 and WVS/EVS Joint 2017 datasets. Registration requirement unknown. Not downloaded.",
+   "role": "data",
+   "year": 2026,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P2 gap"
+  },
+  {
+   "id": "imf_weo",
+   "title": "IMF World Economic Outlook database, October 2024 edition",
+   "publisher": "International Monetary Fund",
+   "url": "https://www.imf.org/en/Publications/WEO/weo-database/2024/October",
+   "domains": [
+    "D7"
+   ],
+   "supports": [
+    "L7"
+   ],
+   "supports_proposed": [
+    "L7",
+    "L_FIN"
+   ],
+   "version": "October 2024 (exact release date not on the page)",
+   "retrieved": "2026-10-27",
+   "status": "partial",
+   "licence": {
+    "name": "Not stated on the page (brief says CC BY 4.0; IMF copyright and usage terms not read)",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "The database page shows no licence; CC BY 4.0 is not confirmed and the IMF's copyright and usage page was not read. No licence text was read from a saved file, so redistribution is not flagged yes (register test rule). No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "macroeconomic series (national currency, USD, percent)",
+   "geography": "by country and country group",
+   "time_span": "not stated",
+   "variables": [
+    "selected macroeconomic series from the WEO statistical appendix"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "Data can be reached by country, by country group or as a full dataset download. This is the October 2024 edition as the brief gives it; whether a later edition exists was not checked. Not downloaded.",
+   "role": "data",
+   "year": 2024,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P2 gap"
+  },
+  {
+   "id": "oecd_tiva",
+   "title": "OECD Trade in Value Added (TiVA)",
+   "publisher": "OECD",
+   "url": "https://www.oecd.org/sti/ind/measuring-trade-in-value-added.htm",
+   "domains": [
+    "D5"
+   ],
+   "supports": [
+    "L4",
+    "L7"
+   ],
+   "supports_proposed": [
+    "L4",
+    "L7"
+   ],
+   "version": "not checked",
+   "retrieved": "2026-10-27",
+   "status": "blocked",
+   "licence": {
+    "name": "Not read (page returned HTTP 403; brief says CC BY)",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "HTTP 403 to automated access, so no licence text was read. No licence text was read from a saved file, so redistribution is not flagged yes (register test rule). No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "value added (USD)",
+   "geography": "countries and industries",
+   "time_span": "not read",
+   "variables": [
+    "trade in value added by industry and country"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "Not downloaded.",
+   "role": "data",
+   "year": 2026,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P2 gap"
+  },
+  {
+   "id": "iaea_pris",
+   "title": "IAEA Power Reactor Information System (PRIS)",
+   "publisher": "International Atomic Energy Agency",
+   "url": "https://pris.iaea.org/PRIS/home.aspx",
+   "domains": [
+    "D2"
+   ],
+   "supports": [
+    "L5",
+    "DC"
+   ],
+   "supports_proposed": [
+    "L5",
+    "DC"
+   ],
+   "version": "not checked",
+   "retrieved": "2026-10-27",
+   "status": "partial",
+   "licence": {
+    "name": "Not read; the page redirects to https://pris-stats.iaea.org/ which returned only the title PRIS Analytics",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "No terms text was captured, so 'public domain (IAEA)' as in the brief is not confirmed. No licence text was read from a saved file, so redistribution is not flagged yes (register test rule). No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "reactors, MW, GWh",
+   "geography": "global, by country and reactor",
+   "time_span": "not read",
+   "variables": [
+    "nuclear reactor status, capacity and generation"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "The old address redirects (HTTP 302) to pris-stats.iaea.org, a JavaScript application whose content was not captured. Not downloaded.",
+   "role": "data",
+   "year": 2026,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P2 gap"
+  },
+  {
+   "id": "aiid",
+   "title": "AI Incident Database (AIID)",
+   "publisher": "Responsible AI Collaborative",
+   "url": "https://incidentdatabase.ai/",
+   "domains": [
+    "D8"
+   ],
+   "supports": [
+    "AI"
+   ],
+   "supports_proposed": [
+    "AI",
+    "L_RISK"
+   ],
+   "version": "weekly snapshots (not downloaded)",
+   "retrieved": "2026-10-27",
+   "status": "partial",
+   "licence": {
+    "name": "CC BY-SA 4.0 for the incidents, quickadd, duplicates, taxa, classifications, entities and entity_relationships collections; not for submissions or the reports text field",
+    "quote": "Creative Commons attribution share-alike license",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "Read from the Terms of Use page via the fetch (no file saved). Share-alike applies. Excluded from the licence: the submissions collection, the reports collection's text field, and site-only content such as image and video sources; the terms also bar selling or commercially exploiting the Site without permission. Not flagged yes. No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "incident records",
+   "geography": "global",
+   "time_span": "not read",
+   "variables": [
+    "AI incidents, taxonomies, entities"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "A complete database snapshot is offered at /research/snapshots/; no API was found. GitHub repository: responsible-ai-collaborative/aiid. Not downloaded.",
+   "role": "data",
+   "year": 2026,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P2 gap"
+  },
+  {
+   "id": "cset_export_control",
+   "title": "CSET report: Tracking AI Chips: Assessing Location Verification as an Export Control Enforcement Tool (Feldgoise, Miller, Dohmen, September 2026)",
+   "publisher": "Center for Security and Emerging Technology, Georgetown University",
+   "url": "https://cset.georgetown.edu/publication/tracking-ai-chips",
+   "domains": [
+    "D8"
+   ],
+   "supports": [
+    "AI",
+    "M5"
+   ],
+   "supports_proposed": [
+    "AI",
+    "M5"
+   ],
+   "version": "September 2026, DOI 10.51593/20260002",
+   "retrieved": "2026-10-27",
+   "status": "partial",
+   "licence": {
+    "name": "All rights reserved (page footer); no reuse licence on the page",
+    "quote": "2026 Center for Security and Emerging Technology. All Rights Reserved.",
+    "quote_verified": false
+   },
+   "redistribution": "no",
+   "redistribution_note": "The page footer states all rights reserved and shows no Creative Commons licence, so nothing is redistributable (the PDF's own terms were not read). Read from the page on 2026-10-27; no file downloaded.",
+   "units": "not applicable (report)",
+   "geography": "United States export controls on AI chips",
+   "time_span": "not applicable",
+   "variables": [
+    "location verification of AI chips as an export-control enforcement tool (policy analysis, no downloadable dataset)"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "The URL given in the brief, https://cset.georgetown.edu/research/export-controls/, returns HTTP 404 (the earlier https://cset.georgetown.edu/publication/export-controls/ also did). A web search found this CSET report as the most recent export-control publication on AI chips; it is the page registered here, which is Claude's choice, not the editor's, since the brief did not name a publication. It offers a PDF and companion pieces but no dataset. Earlier CSET work found by the same search, not registered: Recommendations on Export Controls for Artificial Intelligence (June 2023); Managing the Chinese Military's Access to AI Chips. Not downloaded.",
+   "role": "document",
+   "year": 2026,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P2 gap"
+  },
+  {
+   "id": "entsoe_transparency",
+   "title": "ENTSO-E Transparency Platform",
+   "publisher": "ENTSO-E",
+   "url": "https://transparency.entsoe.eu/",
+   "domains": [
+    "D2"
+   ],
+   "supports": [
+    "L5",
+    "DC"
+   ],
+   "supports_proposed": [
+    "L5",
+    "DC"
+   ],
+   "version": "not checked",
+   "retrieved": "2026-10-27",
+   "status": "blocked",
+   "licence": {
+    "name": "Not read (the page returned a client-side error); brief says CC BY 4.0",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "The page rendered only an error message, so no terms were read. No licence text was read from a saved file, so redistribution is not flagged yes (register test rule). No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "MW, MWh",
+   "geography": "European power system",
+   "time_span": "not read",
+   "variables": [
+    "generation, load and cross-border flows"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "The platform is a JavaScript application; whether an API token is needed was not established. Not downloaded.",
+   "role": "data",
+   "year": 2026,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P2 gap"
+  },
+  {
+   "id": "ihme_mental_health",
+   "title": "IHME GBD Results Tool: mental disorders subset (same tool as ihme_gbd)",
+   "publisher": "Institute for Health Metrics and Evaluation (IHME), University of Washington",
+   "url": "https://vizhub.healthdata.org/gbd-results/",
+   "domains": [
+    "D4"
+   ],
+   "supports": [
+    "L4"
+   ],
+   "supports_proposed": [
+    "L4",
+    "L_MH"
+   ],
+   "version": "not checked",
+   "retrieved": "2026-10-27",
+   "status": "blocked",
+   "licence": {
+    "name": "CC BY-NC-ND 4.0 as stated by the editor; NOT confirmed (HTTP 403)",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "no",
+   "redistribution_note": "Same tool and same unread terms as ihme_gbd; treated as raw-only. No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "DALYs, YLDs, prevalence",
+   "geography": "global, by country, age and sex",
+   "time_span": "not checked",
+   "variables": [
+    "burden of mental disorders"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "Separate entry for clarity, by instruction. Covered by the ihme_gbd needs-user item. Not downloaded.",
+   "role": "data",
+   "year": 2024,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P2 gap"
+  },
+  {
+   "id": "who_air_quality",
+   "title": "WHO Global Health Observatory: air pollution",
+   "publisher": "World Health Organization",
+   "url": "https://www.who.int/data/gho/data/themes/air-pollution",
+   "domains": [
+    "D4"
+   ],
+   "supports": [
+    "L3",
+    "DC"
+   ],
+   "supports_proposed": [
+    "L3",
+    "DC"
+   ],
+   "version": "not stated",
+   "retrieved": "2026-10-27",
+   "status": "partial",
+   "licence": {
+    "name": "Not stated on the page (footer links to WHO terms of use and permissions and licensing, not read)",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "No licence text on the page; the linked WHO terms were not read. No licence text was read from a saved file, so redistribution is not flagged yes (register test rule). No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "deaths, ug/m3, share of population",
+   "geography": "global, by country",
+   "time_span": "burden of disease to 2021, cooking fuel to 2024 (headline figures on the page)",
+   "variables": [
+    "ambient and household air pollution exposure and burden of disease"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "Offers an ambient air quality database, modelled PM estimates, a household air pollution measurement database and a household energy database. Not downloaded.",
+   "role": "data",
+   "year": 2026,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P2 gap"
+  },
+  {
+   "id": "oecd_ai_observatory",
+   "title": "OECD.AI Policy Observatory: policy areas",
+   "publisher": "OECD",
+   "url": "https://oecd.ai/en/policy-areas",
+   "domains": [
+    "D5"
+   ],
+   "supports": [
+    "AI",
+    "L4"
+   ],
+   "supports_proposed": [
+    "AI",
+    "L4"
+   ],
+   "version": "not applicable",
+   "retrieved": "2026-10-27",
+   "status": "partial",
+   "licence": {
+    "name": "All rights reserved (page footer: (c) 2026 OECD); NOT CC BY as the brief suggests",
+    "quote": "2026 OECD. All rights reserved",
+    "quote_verified": false
+   },
+   "redistribution": "no",
+   "redistribution_note": "The footer states all rights reserved and links Terms & conditions (not read); no Creative Commons licence was seen, so nothing is redistributable. The page is a policy-area overview, not a dataset. No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "not applicable",
+   "geography": "OECD countries and others",
+   "time_span": "not applicable",
+   "variables": [
+    "AI policy areas; a Live data section exists at /en/data (not read)"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "Whether any downloadable dataset exists was not established. Not downloaded.",
+   "role": "document",
+   "year": 2026,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P2 gap"
+  },
+  {
+   "id": "acled",
+   "title": "ACLED (Armed Conflict Location and Event Data)",
+   "publisher": "ACLED",
+   "url": "https://acleddata.com/",
+   "domains": [
+    "D8"
+   ],
+   "supports": [
+    "L4"
+   ],
+   "supports_proposed": [
+    "L4",
+    "L_CONF"
+   ],
+   "version": "not checked",
+   "retrieved": "2026-10-27",
+   "status": "partial",
+   "licence": {
+    "name": "End User License Agreement, Content Usage Terms and Attribution Policy (not read); brief says CC BY-NC-SA 4.0, not confirmed",
+    "quote": "All the content and platforms on our site belong to ACLED.",
+    "quote_verified": false
+   },
+   "redistribution": "no",
+   "redistribution_note": "The terms page is an index to three documents (/eula, /contentusage, /attributionpolicy), none read; a login is required for the data, so the CC BY-NC-SA 4.0 in the brief is unconfirmed. Treated as raw-only. No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "events, fatalities",
+   "geography": "global",
+   "time_span": "not read",
+   "variables": [
+    "political violence and protest events"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "Data Export Tool, data files, API and an account system (my ACLED) exist. Access tiers not established. Not downloaded.",
+   "role": "data",
+   "year": 2026,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P2 gap"
+  },
+  {
+   "id": "fao_fishstat",
+   "title": "FAO FishStat (fisheries and aquaculture statistics)",
+   "publisher": "FAO Fisheries and Aquaculture Division",
+   "url": "https://www.fao.org/fishery/statistics/software/fishstatj/en",
+   "domains": [
+    "D4"
+   ],
+   "supports": [
+    "L3"
+   ],
+   "supports_proposed": [
+    "L3"
+   ],
+   "version": "not stated",
+   "retrieved": "2026-10-27",
+   "status": "partial",
+   "licence": {
+    "name": "Not stated on the page; FAO's statistical-database terms say CC BY 4.0 unless the dataset says otherwise (brief says CC BY-NC-SA)",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "The page held only site navigation. FAO's general database terms (https://www.fao.org/contact-us/terms/db-terms-of-use/en) give CC BY 4.0 for FAO statistical datasets unless specified otherwise in their metadata, which was not checked for FishStat, so the brief's CC BY-NC-SA is also unconfirmed. No licence text was read from a saved file, so redistribution is not flagged yes (register test rule). No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "tonnes",
+   "geography": "global, by country and species",
+   "time_span": "not stated",
+   "variables": [
+    "capture and aquaculture production"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "The page given is the FishStatJ software page; FishStat itself is at /fishery/fishstat/en. Not downloaded.",
+   "role": "data",
+   "year": 2026,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P2 gap"
+  },
+  {
+   "id": "isimip_hydrology",
+   "title": "ISIMIP3b global water sector simulations",
+   "publisher": "ISIMIP Repository (PIK / ISIMIP)",
+   "url": "https://data.isimip.org/?simulation_round=ISIMIP3b&sector=water_global",
+   "domains": [
+    "D2"
+   ],
+   "supports": [
+    "L3",
+    "M5"
+   ],
+   "supports_proposed": [
+    "L3",
+    "M5"
+   ],
+   "version": "ISIMIP3b (not checked)",
+   "retrieved": "2026-10-27",
+   "status": "partial",
+   "licence": {
+    "name": "CC0 1.0 as stated by the editor; NOT confirmed (the page was blocked by a bot check)",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "The page returned an Anubis bot-protection block. No licence text was read from a saved file, so redistribution is not flagged yes (register test rule). No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "various",
+   "geography": "global grid",
+   "time_span": "ISIMIP3b",
+   "variables": [
+    "global water model outputs (to be selected)"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "An API query with sector=water_global returned 1001 datasets whose first result is a biomes dataset, so that filter value does not appear to select the water sector (1001 may also be a cap); no usable inventory was made. A real inventory needs the correct filter. Not downloaded.",
+   "role": "data",
+   "year": 2026,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P2 gap"
+  },
+  {
+   "id": "unesco_uis",
+   "title": "UNESCO Institute for Statistics (UIS) data browser",
+   "publisher": "UNESCO Institute for Statistics",
+   "url": "http://uis.unesco.org/",
+   "domains": [
+    "D5"
+   ],
+   "supports": [
+    "L4"
+   ],
+   "supports_proposed": [
+    "L4"
+   ],
+   "version": "not stated",
+   "retrieved": "2026-10-27",
+   "status": "partial",
+   "licence": {
+    "name": "Not stated on the page (footer links to UNESCO terms of use, not read); brief says CC BY-SA",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "No licence text on the page. No licence text was read from a saved file, so redistribution is not flagged yes (register test rule). No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "units": "education, science and culture indicators",
+   "geography": "global, by country",
+   "time_span": "not stated",
+   "variables": [
+    "education indicators"
+   ],
+   "files": [],
+   "total_bytes": 0,
+   "notes": "The data sit in the UIS Data Browser (databrowser.uis.unesco.org), not on this page. Not downloaded.",
+   "role": "data",
+   "year": 2026,
+   "local_path": null,
+   "date_acquired": "2026-10-27",
+   "campaign_wave": "D-060 P2 gap"
   }
  ],
  "failures": [
