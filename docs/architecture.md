@@ -1,11 +1,11 @@
 # F3 architecture: links between sectors
 
-**Status of this page:** a list of proposed links from the D-059 gap analysis, written before any code or test. Nothing here is implemented, tested or approved. Only the editor approves decisions (CLAUDE.md); this page records proposals for his review.
+**Status of this page:** a list of proposed links from the D-060 gap analysis, written before any code or test. Nothing here is implemented, tested or approved. Only the editor approves decisions (CLAUDE.md); this page records proposals for his review.
 
 ## Existing links
 The links already built, and the campaign's own numbering L3 to L7, DC and M5 used for data planning, are described in `docs/coupling-interface.md`, `docs/m6-minimal-plan.md` and `docs/links/` (`L3.md` to `L7.md`, `DC.md`). The campaign numbering is **not** the numbering of the seven links on the Explorer connections page (`site_src/links.py`); the two schemes have not been reconciled. The electricity link from the data-centre module into World3 is D-059 in `DECISIONS.md` (merged).
 
-## Proposed new links (D-059 gap analysis)
+## Proposed new links (D-060 gap analysis)
 Each is **proposed, not yet implemented**. The one-line rationale says why the link might matter, not that it has been shown to.
 
 | Code | Name | Proposed link | Status | Rationale |
@@ -22,6 +22,6 @@ Each is **proposed, not yet implemented**. The one-line rationale says why the l
 | L_RISK | AI safety | incident rate and capability to catastrophic risk probability | proposed, not yet implemented | The scope includes AI's own risks, which no sector currently carries; any probability would be a labelled judgement, not a measurement. |
 
 ## Notes
-- **Data.** Candidate sources for these links are registered in `audit/data/sources-register.json` under campaign wave "D-059 P1 gap" and "D-059 P2 gap". Their licences are mostly unread or unconfirmed; see each entry. Obtaining a source is not a decision to use it.
+- **Data.** Candidate sources for these links are registered in `audit/data/sources-register.json` under campaign wave "D-060 P1 gap" and "D-060 P2 gap". Their licences are mostly unread or unconfirmed; see each entry. Obtaining a source is not a decision to use it.
 - **Schema.** The register schema's `supports` enum covers only L3 to L7, DC, AI and M5. For the new codes the register keeps the valid codes in `supports` and the full proposed list in `supports_proposed`, so the schema was not changed.
 - **No labels removed.** None of this changes D-029, D-030 or any validation label.

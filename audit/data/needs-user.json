@@ -530,16 +530,19 @@
   {
    "id": "nsidc_permafrost",
    "kind": "gap source",
-   "wanted": "NSIDC G02171 (given in the brief for permafrost): Canadian Ice Service Arctic Regional Sea Ice Charts in SIGRID-3 format, Version 2 (https://nsidc.org/data/g02171)",
-   "why": "A permafrost dataset for L6/L7: the NSIDC page given (G02171) is sea-ice charts; confirm the intended dataset (candidate G02190, unverified).",
+   "wanted": "NSIDC GGD318 Circum-Arctic Map of Permafrost and Ground-Ice Conditions, Version 2 (https://nsidc.org/data/ggd318/versions/2)",
+   "why": "A permafrost map for L6/L7 permafrost carbon; the URL in the brief was corrected twice (G02171 is sea-ice charts, NSIDC-0422 is an Antarctic DEM), so the editor should confirm GGD318 is the intended dataset.",
    "supports": [
     "L6",
     "L7"
    ],
-   "url": "https://nsidc.org/data/g02171",
-   "blocked_by": "the given URL is the wrong dataset",
+   "url": "https://nsidc.org/data/ggd318/versions/2",
+   "blocked_by": "URL corrected; download not yet attempted (access is via FTP, not a web download).",
    "licence_note": "No formal licence statement; citation required as a condition of use",
-   "priority": 2
+   "priority": 2,
+   "status": "blocked",
+   "resolved_date": "2026-10-27",
+   "resolution": "URL corrected; download not yet attempted."
   },
   {
    "id": "unhcr_refugees",
@@ -571,14 +574,14 @@
   {
    "id": "cset_export_control",
    "kind": "gap source",
-   "wanted": "CSET export controls page given in the brief (URL not found) (https://cset.georgetown.edu/publication/export-controls/)",
-   "why": "CSET export-control source: the given URL returned HTTP 404; say which CSET publication or dataset is meant.",
+   "wanted": "CSET export-control source (registered as the Tracking AI Chips report, https://cset.georgetown.edu/publication/tracking-ai-chips)",
+   "why": "Both URLs given in the brief returned HTTP 404; the registered report is Claude's best match, so the editor should confirm which CSET publication is meant.",
    "supports": [
     "AI",
     "M5"
    ],
-   "url": "https://cset.georgetown.edu/publication/export-controls/",
-   "blocked_by": "HTTP 404; the source is not identified",
+   "url": "https://cset.georgetown.edu/publication/tracking-ai-chips",
+   "blocked_by": "the URLs given return HTTP 404; the intended publication is not confirmed",
    "licence_note": "Not read (the given URL returned HTTP 404)",
    "priority": 2
   },

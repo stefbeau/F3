@@ -6464,7 +6464,7 @@
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P1 gap"
+   "campaign_wave": "D-060 P1 gap"
   },
   {
    "id": "spei_global",
@@ -6505,7 +6505,7 @@
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P1 gap"
+   "campaign_wave": "D-060 P1 gap"
   },
   {
    "id": "gfw_forest_loss",
@@ -6549,7 +6549,7 @@
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P1 gap"
+   "campaign_wave": "D-060 P1 gap"
   },
   {
    "id": "faostat_food_security",
@@ -6590,7 +6590,7 @@
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P1 gap"
+   "campaign_wave": "D-060 P1 gap"
   },
   {
    "id": "fao_baci_trade",
@@ -6629,7 +6629,7 @@
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P1 gap"
+   "campaign_wave": "D-060 P1 gap"
   },
   {
    "id": "ihme_gbd",
@@ -6670,7 +6670,7 @@
    "year": 2024,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P1 gap"
+   "campaign_wave": "D-060 P1 gap"
   },
   {
    "id": "grace_fo",
@@ -6714,13 +6714,13 @@
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P1 gap"
+   "campaign_wave": "D-060 P1 gap"
   },
   {
    "id": "nsidc_permafrost",
-   "title": "NSIDC G02171 (given in the brief for permafrost): Canadian Ice Service Arctic Regional Sea Ice Charts in SIGRID-3 format, Version 2",
+   "title": "NSIDC GGD318 Circum-Arctic Map of Permafrost and Ground-Ice Conditions, Version 2 (Brown et al. 2002)",
    "publisher": "NSIDC DAAC / Canadian Ice Service",
-   "url": "https://nsidc.org/data/g02171",
+   "url": "https://nsidc.org/data/ggd318/versions/2",
    "domains": [
     "D4"
    ],
@@ -6732,30 +6732,31 @@
     "L6",
     "L7"
    ],
-   "version": "Version 2, DOI 10.7265/9nbn-6a46",
+   "version": "Version 2, DOI 10.7265/skbg-kf16 (the most recent version per the page; Version 1, DOI 10.7265/8d57-9f79, is retired)",
    "retrieved": "2026-10-27",
-   "status": "blocked",
+   "status": "partial",
    "licence": {
     "name": "No formal licence statement; citation required as a condition of use",
     "quote": "As a condition of using these data, you must cite the use of this data set.",
     "quote_verified": false
    },
    "redistribution": "unclear",
-   "redistribution_note": "The page states no licence, only a citation condition; 'public domain (NSIDC/NASA)' as in the brief is not confirmed. No licence text was read from a saved file, so redistribution is not flagged yes (register test rule). No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
-   "units": "sea ice charts",
-   "geography": "Arctic regional charts",
-   "time_span": "1968 onward (Version 2 'extends the data back to 1968')",
+   "redistribution_note": "The NSIDC page states no licence, only a citation condition; 'public domain (NSIDC/NASA)' is not confirmed. No licence text was read from a saved file, so redistribution is not flagged yes (register test rule). No file was downloaded; metadata read from the NSIDC page on 2026-10-27.",
+   "units": "permafrost extent and ground-ice classes (map)",
+   "geography": "Northern Hemisphere, 20 N to 90 N",
+   "time_span": "not specified on the page (a map)",
    "variables": [
-    "sea ice concentration charts (not permafrost)"
+    "permafrost extent class",
+    "ground-ice content class"
    ],
    "files": [],
    "total_bytes": 0,
-   "notes": "MISMATCH WITH THE BRIEF: G02171 is a sea-ice chart product, not permafrost data, so it does not serve L6/L7 permafrost carbon. A permafrost dataset still has to be identified; NSIDC G02190 (Circum-Arctic Map of Permafrost and Ground-Ice Conditions) is a candidate from memory, unverified and not fetched. Not downloaded.",
+   "notes": "Brown et al. (2002) circumpolar permafrost and ground-ice map. Corrected from G02171 (a sea-ice chart product) which was an error in the D-060 brief. A second correction: the brief then gave NSIDC-0422 as the permafrost dataset, but https://nsidc.org/data/nsidc-0422 is 'Antarctic 1 km Digital Elevation Model (DEM) from Combined ERS-1 Radar and ICESat Laser Satellite Altimetry, Version 1' (Bamber et al. 2009), so it was NOT used. The permafrost map is data set GGD318 (landing page https://nsidc.org/data/GGD318), found by web search and confirmed on the Version 2 page. Formats: ESRI Shapefile and EASE-Grid (12.5 km, 25 km, 0.5 degree); access is via FTP (ftp://sidads.colorado.edu/pub/DATASETS/fgdc/ggd318_map_circumarctic/), not a direct web download. Not downloaded.",
    "role": "data",
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P2 gap"
+   "campaign_wave": "D-060 P2 gap"
   },
   {
    "id": "nasa_sealevel_ar6",
@@ -6795,7 +6796,7 @@
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P2 gap"
+   "campaign_wave": "D-060 P2 gap"
   },
   {
    "id": "isric_wosis",
@@ -6836,7 +6837,7 @@
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P2 gap"
+   "campaign_wave": "D-060 P2 gap"
   },
   {
    "id": "noaa_ocean_acid",
@@ -6875,7 +6876,7 @@
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P2 gap"
+   "campaign_wave": "D-060 P2 gap"
   },
   {
    "id": "idmc_displacement",
@@ -6912,7 +6913,7 @@
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P2 gap"
+   "campaign_wave": "D-060 P2 gap"
   },
   {
    "id": "unhcr_refugees",
@@ -6952,7 +6953,7 @@
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P2 gap"
+   "campaign_wave": "D-060 P2 gap"
   },
   {
    "id": "vdem",
@@ -6990,7 +6991,7 @@
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P2 gap"
+   "campaign_wave": "D-060 P2 gap"
   },
   {
    "id": "world_values_survey",
@@ -7027,7 +7028,7 @@
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P2 gap"
+   "campaign_wave": "D-060 P2 gap"
   },
   {
    "id": "imf_weo",
@@ -7067,7 +7068,7 @@
    "year": 2024,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P2 gap"
+   "campaign_wave": "D-060 P2 gap"
   },
   {
    "id": "oecd_tiva",
@@ -7108,7 +7109,7 @@
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P2 gap"
+   "campaign_wave": "D-060 P2 gap"
   },
   {
    "id": "iaea_pris",
@@ -7149,7 +7150,7 @@
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P2 gap"
+   "campaign_wave": "D-060 P2 gap"
   },
   {
    "id": "aiid",
@@ -7189,13 +7190,13 @@
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P2 gap"
+   "campaign_wave": "D-060 P2 gap"
   },
   {
    "id": "cset_export_control",
-   "title": "CSET export controls page given in the brief (URL not found)",
+   "title": "CSET report: Tracking AI Chips: Assessing Location Verification as an Export Control Enforcement Tool (Feldgoise, Miller, Dohmen, September 2026)",
    "publisher": "Center for Security and Emerging Technology, Georgetown University",
-   "url": "https://cset.georgetown.edu/publication/export-controls/",
+   "url": "https://cset.georgetown.edu/publication/tracking-ai-chips",
    "domains": [
     "D8"
    ],
@@ -7207,30 +7208,30 @@
     "AI",
     "M5"
    ],
-   "version": "not applicable",
+   "version": "September 2026, DOI 10.51593/20260002",
    "retrieved": "2026-10-27",
-   "status": "blocked",
+   "status": "partial",
    "licence": {
-    "name": "Not read (the given URL returned HTTP 404)",
-    "quote": "",
+    "name": "All rights reserved (page footer); no reuse licence on the page",
+    "quote": "2026 Center for Security and Emerging Technology. All Rights Reserved.",
     "quote_verified": false
    },
-   "redistribution": "unclear",
-   "redistribution_note": "The URL returned HTTP 404, so nothing was read. No licence text was read from a saved file, so redistribution is not flagged yes (register test rule). No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
-   "units": "not applicable",
-   "geography": "not applicable",
+   "redistribution": "no",
+   "redistribution_note": "The page footer states all rights reserved and shows no Creative Commons licence, so nothing is redistributable (the PDF's own terms were not read). Read from the page on 2026-10-27; no file downloaded.",
+   "units": "not applicable (report)",
+   "geography": "United States export controls on AI chips",
    "time_span": "not applicable",
    "variables": [
-    "export-control publications and data (unconfirmed)"
+    "location verification of AI chips as an export-control enforcement tool (policy analysis, no downloadable dataset)"
    ],
    "files": [],
    "total_bytes": 0,
-   "notes": "The URL in the brief does not exist; which CSET publication or dataset is meant is unknown. Not downloaded.",
+   "notes": "The URL given in the brief, https://cset.georgetown.edu/research/export-controls/, returns HTTP 404 (the earlier https://cset.georgetown.edu/publication/export-controls/ also did). A web search found this CSET report as the most recent export-control publication on AI chips; it is the page registered here, which is Claude's choice, not the editor's, since the brief did not name a publication. It offers a PDF and companion pieces but no dataset. Earlier CSET work found by the same search, not registered: Recommendations on Export Controls for Artificial Intelligence (June 2023); Managing the Chinese Military's Access to AI Chips. Not downloaded.",
    "role": "document",
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P2 gap"
+   "campaign_wave": "D-060 P2 gap"
   },
   {
    "id": "entsoe_transparency",
@@ -7271,7 +7272,7 @@
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P2 gap"
+   "campaign_wave": "D-060 P2 gap"
   },
   {
    "id": "ihme_mental_health",
@@ -7311,7 +7312,7 @@
    "year": 2024,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P2 gap"
+   "campaign_wave": "D-060 P2 gap"
   },
   {
    "id": "who_air_quality",
@@ -7352,7 +7353,7 @@
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P2 gap"
+   "campaign_wave": "D-060 P2 gap"
   },
   {
    "id": "oecd_ai_observatory",
@@ -7393,7 +7394,7 @@
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P2 gap"
+   "campaign_wave": "D-060 P2 gap"
   },
   {
    "id": "acled",
@@ -7433,7 +7434,7 @@
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P2 gap"
+   "campaign_wave": "D-060 P2 gap"
   },
   {
    "id": "fao_fishstat",
@@ -7472,7 +7473,7 @@
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P2 gap"
+   "campaign_wave": "D-060 P2 gap"
   },
   {
    "id": "isimip_hydrology",
@@ -7513,7 +7514,7 @@
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P2 gap"
+   "campaign_wave": "D-060 P2 gap"
   },
   {
    "id": "unesco_uis",
@@ -7552,7 +7553,7 @@
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-059 P2 gap"
+   "campaign_wave": "D-060 P2 gap"
   }
  ],
  "failures": [
