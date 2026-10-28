@@ -1,0 +1,127 @@
+{
+ "schema_version": 1,
+ "campaign": "D-061",
+ "generated_utc": "2026-10-28T09:05:06Z",
+ "files": [
+  {
+   "source_id": "us_census_ai_adoption",
+   "path": "us_census_ai_adoption/National.xlsx",
+   "url": "https://www.census.gov/hfp/btos/downloads/National.xlsx",
+   "format": "xlsx",
+   "sheets": [
+    {
+     "name": "Response Estimates",
+     "data_rows": 84,
+     "columns": 85,
+     "column_names": [
+      "Question ID",
+      "Question",
+      "Answer ID",
+      "Answer",
+      "202621 ... 202319 (81 wave columns)"
+     ],
+     "ai_question_texts": [
+      "During the next six months, do you think this business will be using Super Intelligence or SI (formerly referred to as Artificial Intelligence or AI) in any of its business functions? (Examples of SI use include: SI-powered data analysis; generative SI for marketing, product design, or coding; virtual SI agents for customer service; SI-powered forecasting or pricing; SI-driven computer vision for quality control, etc.)",
+      "In the last two weeks, did this business use Super Intelligence or SI (formerly referred to as Artificial Intelligence or AI) in any of its business functions? (Examples of SI use include: SI-powered data analysis; generative SI for marketing, product design, or coding; virtual SI agents for customer service; SI-powered forecasting or pricing; SI-driven computer vision for quality control, etc.)"
+     ],
+     "ai_rows": 6
+    }
+   ],
+   "other_sheets": [
+    "Response Standard Errors",
+    "Index Estimates",
+    "Index Standard Errors",
+    "Collection and Reference Dates",
+    "Data Dictionary"
+   ],
+   "note": "BTOS_2024_AI.xlsx on www2.census.gov returned HTTP 404; National.xlsx used instead"
+  },
+  {
+   "source_id": "epoch_ai_compute",
+   "path": "epoch_ai/notable_ai_models.csv",
+   "format": "csv",
+   "data_rows": 1083,
+   "columns": 47,
+   "column_names": [
+    "Model",
+    "Organization",
+    "Publication date",
+    "Domain",
+    "Task",
+    "Parameters",
+    "Parameters notes",
+    "Training compute (FLOP)",
+    "Training compute notes",
+    "Training dataset",
+    "Training dataset size (total)",
+    "Dataset size notes",
+    "Confidence",
+    "Link",
+    "Reference",
+    "Citations",
+    "Authors",
+    "Abstract",
+    "Organization categorization",
+    "Country (of organization)",
+    "Notability criteria",
+    "Notability criteria notes",
+    "Epochs",
+    "Training time (hours)",
+    "Training time notes",
+    "Training hardware",
+    "Hardware quantity",
+    "Hardware utilization (MFU)",
+    "Training compute cost (2023 USD)",
+    "Compute cost notes",
+    "Training power draw (W)",
+    "Base model",
+    "Finetune compute (FLOP)",
+    "Finetune compute notes",
+    "Batch size",
+    "Batch size notes",
+    "Model accessibility",
+    "Training code accessibility",
+    "Inference code accessibility",
+    "Accessibility notes",
+    "Numerical format",
+    "Frontier model",
+    "Hardware acquisition cost",
+    "Hardware utilization (HFU)",
+    "Training compute cost (cloud)",
+    "Training compute cost (upfront)",
+    "Open model weights?"
+   ]
+  },
+  {
+   "source_id": "eurostat_ict_adoption",
+   "path": "eurostat_ict/isoc_eb_ai.tsv.gz",
+   "format": "tsv.gz",
+   "data_rows": 25263,
+   "key_columns": [
+    "freq",
+    "size_emp",
+    "nace_r2",
+    "indic_is",
+    "unit",
+    "geo\\TIME_PERIOD"
+   ],
+   "year_columns": [
+    "2021",
+    "2023",
+    "2024",
+    "2025"
+   ]
+  }
+ ],
+ "blocked": [
+  {
+   "source_id": "bls_oes_automation",
+   "outcome": "HTTP 403 on all tried paths incl. oe.datatype and oe.series"
+  }
+ ],
+ "removed_from_register": [
+  "linkedin_ai_skills",
+  "paperswithcode_sota",
+  "semi_fab_capacity"
+ ]
+}

@@ -6360,7 +6360,7 @@
     "yield change, 4 crops, 4 scenarios"
    ],
    "files": [],
-   "total_bytes": 11797912395,
+   "total_bytes": 0,
    "notes": "ISIMIP Repository v1.0, published 2024-08-08. 864 datasets: yieldchange for maize/rice/soy/wheat under historical, ssp126, ssp370, ssp585 x multiple crop models x multiple climate models. CC0 per the editor. Download pending: subset selection needed before ingest. 2026-10-26: inventory from the repository API is in audit/data/isimip_subset_plan.json (864 datasets, about 11.8 GB). 2026-10-27: downloaded all 864 files (11.80 GB) of all four scenarios; errors: 0. The brief's 'available' status is recorded as 'retrieved' (schema value). Raw files are not committed.",
    "role": "data",
    "year": 2024,
@@ -7877,7 +7877,7 @@
      "via": "curl"
     }
    ],
-   "notes": "Access: open, direct CSV. The URL in the brief redirects to epoch.ai/data/ai-models, which lists notable, frontier, large-scale, biology and all-models CSVs and a zip. Downloaded notable_ai_models.csv: 1083 data rows, 47 columns. The zip https://epoch.ai/data/ai_models.zip was not downloaded.",
+   "notes": "Access: open, direct CSV. The URL in the brief redirects to epoch.ai/data/ai-models, which lists notable, frontier, large-scale, biology and all-models CSVs and a zip. Downloaded notable_ai_models.csv: 1083 data rows, 47 columns. The zip https://epoch.ai/data/ai_models.zip was not downloaded. Google Sheets export deprecated (the sheet returns only a deprecated cover tab, 1.4 KB); the raw.githubusercontent.com epoch-research/data compute.csv path returns 404, so the CSV used is notable_ai_models.csv from epoch.ai.",
    "retrieved": "2026-10-28",
    "role": "data",
    "campaign_wave": "D-061",
@@ -7917,7 +7917,7 @@
     "quote_verified": false
    },
    "redistribution": "unclear",
-   "redistribution_note": "No licence text read from a saved file, so redistribution is not flagged yes (register test rule).",
+   "redistribution_note": "Policies page lists legal documents but states no data licence; MLPerf results rules (messaging guidelines) were not read. Not flagged yes.",
    "units": "performance results per benchmark and submission round",
    "geography": "global (submitters)",
    "time_span": "not stated",
@@ -7936,7 +7936,7 @@
      "via": "curl"
     }
    ],
-   "notes": "Page loads (open). It is an index of benchmarks; results live on per-benchmark pages and GitHub, not read or downloaded here. No round numbers were found on this page.",
+   "notes": "Page loads (open). It is an index of benchmarks; results live on per-benchmark pages and GitHub, not read or downloaded here. No round numbers were found on this page. Licence read 2026-10-28 from https://mlcommons.org/policies/ (HTTP 200): the page lists Terms of Use, Privacy Policy, Trademark Guidelines, MLPerf Results Messaging Guidelines, Non-member Test Agreement and Mobile App EULA, but contains no licence sentence for the results data itself: licence not found. The linked Terms of Use were not read.",
    "retrieved": "2026-10-28",
    "role": "data",
    "campaign_wave": "D-061",
@@ -8055,7 +8055,7 @@
     "occupational employment and wages by industry (OEWS)"
    ],
    "files": [],
-   "notes": "Every request returned HTTP 403 Access Denied (Akamai) with a browser User-Agent: tables.htm, /oes/, download.bls.gov/pub/time.series/oe/ and the special-requests zip. Nothing downloaded, so the brief's 'retrieved' status was not possible. OEWS is also not an automation-exposure measure by itself; it needs joining to an exposure index.",
+   "notes": "BLS.gov and download.bls.gov return 403 from automated hosts. Manual download at https://www.bls.gov/oes/tables.htm - look for 'May 2024 National industry-specific' XLS.",
    "retrieved": "2026-10-28",
    "role": "data",
    "campaign_wave": "D-061",
@@ -8069,7 +8069,7 @@
      403
     ],
     "outcome": "blocked",
-    "note": "Akamai Access Denied"
+    "note": "Akamai Access Denied; manual download needed"
    },
    "blocked_http_status": 403
   },
@@ -8150,7 +8150,7 @@
     "quote_verified": false
    },
    "redistribution": "unclear",
-   "redistribution_note": "No licence text read from a saved file, so redistribution is not flagged yes (register test rule).",
+   "redistribution_note": "Footer says \"All rights reserved\"; the terms page could not be read (403), so no re-use licence was found. Kept unclear rather than no, because OECD terms may allow re-use with attribution; not flagged yes.",
    "units": "not read",
    "geography": "global (country level)",
    "time_span": "not read",
@@ -8169,7 +8169,7 @@
      "via": "curl"
     }
    ],
-   "notes": "Page loads (open); the data panels are rendered client-side, so no download link was identified. Investment series themselves not downloaded.",
+   "notes": "Page loads (open); the data panels are rendered client-side, so no download link was identified. Investment series themselves not downloaded. Licence read 2026-10-28: the oecd.ai/en/data page footer reads \"© 2026 OECD. All rights reserved\" with links to Terms & conditions and Privacy policy. The linked terms (https://www.oecd.org/termsandconditions/) return HTTP 403 and https://oecd.ai/en/terms is a different page (ONE AI terms of reference): no licence for the data found.",
    "retrieved": "2026-10-28",
    "role": "data",
    "campaign_wave": "D-061",
@@ -8192,14 +8192,16 @@
     "L_SOC"
    ],
    "version": "page \"Content current as of: 09/04/2026\"; most recent device decision seen 04/10/2026",
-   "status": "blocked",
+   "status": "retrieved",
    "licence": {
-    "name": "Not read from a saved file (US federal website; policy page not read)",
-    "quote": "",
-    "quote_verified": false
+    "name": "Public domain (FDA website policy)",
+    "quote": "Unless otherwise noted, the contents of the FDA website (www.fda.gov) — both text and graphics — are not copyrighted. They are in the public domain and may be republished, reprinted and otherwise used freely by anyone without the need to obtain permission from FDA.",
+    "quote_file": "fda_ai_devices/website-policies.html",
+    "url": "https://www.fda.gov/about-fda/about-website/website-policies",
+    "quote_verified": true
    },
-   "redistribution": "unclear",
-   "redistribution_note": "No licence text read from a saved file, so redistribution is not flagged yes (register test rule).",
+   "redistribution": "yes",
+   "redistribution_note": "FDA website policies page (read 2026-10-28): contents are not copyrighted and in the public domain \"unless otherwise noted\"; credit to FDA is appreciated. Applies to the device list page; no per-page exception seen.",
    "units": "device authorisations",
    "geography": "United States",
    "time_span": "to 2026-04 (latest decision date seen)",
@@ -8220,25 +8222,53 @@
      "http_status": 200,
      "retrieved_utc": "2026-10-28T08:43:56Z",
      "via": "curl"
+    },
+    {
+     "path": "fda_ai_devices/website-policies.html",
+     "bytes": 45593,
+     "sha256": "034777be4193f555a5f97fe080bd461d25b03ad7452cc6b1d9be4cb1ae1bea49",
+     "url": "https://www.fda.gov/about-fda/about-website/website-policies",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T09:05:06Z",
+     "via": "curl"
+    },
+    {
+     "path": "fda_ai_devices/direct/ai_devices.csv",
+     "bytes": 141468,
+     "sha256": "b1efeb680371f44cae574ae5a5aa548ac8a63391e6888a007b17177d17527880",
+     "url": "https://www.fda.gov/media/178541/download?attachment",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T10:10:00Z",
+     "via": "curl"
+    },
+    {
+     "path": "fda_ai_devices/direct/ai_devices.xlsx",
+     "bytes": 133134,
+     "sha256": "5c1c6df672634301ccfc3499ac4fc65762034f031b2ba13be5d9ec48390a06cb",
+     "url": "https://www.fda.gov/media/178540/download?attachment",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T10:10:00Z",
+     "via": "curl"
     }
    ],
-   "notes": "URL redirected to the renamed page. Open; the list is an HTML table in the saved page (no xlsx/csv link found by pattern search). Rows not parsed or counted.",
+   "notes": "List page confirmed accessible (content current as of 09/04/2026). The page links bulk downloads: CSV https://www.fda.gov/media/178541/download?attachment and Excel .../media/178540/download?attachment (XML .../178565); both downloaded. 1614 devices (CSV rows, 6 columns: Date of Final Decision, Submission Number, Device, Company, Panel (Lead), Primary Product Code), listed in reverse chronological order, latest decision 06/29/2026. The earlier brief URL media/177418/download returned a PNG. Licence quote verified from website-policies.html.",
    "retrieved": "2026-10-28",
    "role": "data",
    "campaign_wave": "D-061",
    "date_acquired": "2026-10-28",
    "local_path": null,
-   "total_bytes": 415833,
+   "total_bytes": 461426,
    "year": 2026,
    "d061_direct": {
     "date": "2026-10-28",
     "http": [
      200
     ],
-    "outcome": "blocked",
-    "note": "media/177418/download returned a 900x450 PNG, not Excel — discarded"
+    "outcome": "retrieved",
+    "note": "list page read; CSV and XLSX downloaded via links on the page"
    },
-   "blocked_http_status": 200
+   "blocked_http_status": 200,
+   "attribution": "Source: U.S. Food and Drug Administration (credit appreciated, not required)"
   },
   {
    "id": "clinicaltrials_ai",
@@ -8260,7 +8290,7 @@
     "quote_verified": false
    },
    "redistribution": "unclear",
-   "redistribution_note": "No licence text read from a saved file, so redistribution is not flagged yes (register test rule).",
+   "redistribution_note": "Terms and Conditions page is a JavaScript app; its text could not be fetched, so no licence sentence was found. Not flagged yes (register test rule).",
    "units": "study records",
    "geography": "global",
    "time_span": "live",
@@ -8279,7 +8309,7 @@
      "via": "curl"
     }
    ],
-   "notes": "The search page is a JS shell; the open REST API v2 (no key) answered totalCount 4565 for query.term=artificial+intelligence. A free-text match is not the same as AI-intervention studies; an intervention-specific query would need defining. No study data downloaded. L_PAN is a weak fit (health burden); the best available proposed code.",
+   "notes": "The search page is a JS shell; the open REST API v2 (no key) answered totalCount 4565 for query.term=artificial+intelligence. A free-text match is not the same as AI-intervention studies; an intervention-specific query would need defining. No study data downloaded. L_PAN is a weak fit (health burden); the best available proposed code. Licence read 2026-10-28: https://clinicaltrials.gov/about-site/terms-conditions, /data-api/about-api and the search page all return the same 94 KB JavaScript shell (identical size), so no terms text could be read: licence sentence not found. The API answers openly (apiVersion 2.0.5, dataTimestamp 2026-10-27).",
    "retrieved": "2026-10-28",
    "role": "data",
    "campaign_wave": "D-061",
@@ -8308,21 +8338,22 @@
    "supports_proposed": [
     "L9"
    ],
-   "version": "page \"Page Last Revised - October 21, 2026\"",
-   "status": "blocked",
+   "version": "National.xlsx as served 2026-10-28; latest period column 202621 (BTOS wave code, year+wave)",
+   "status": "retrieved",
    "licence": {
-    "name": "Not read from a saved file (US federal website; policy page not read)",
+    "name": "Public domain (US federal government) — as stated by the editor; no public-domain sentence found on the Census pages read",
     "quote": "",
     "quote_verified": false
    },
    "redistribution": "unclear",
-   "redistribution_note": "No licence text read from a saved file, so redistribution is not flagged yes (register test rule).",
-   "units": "percent of businesses",
+   "redistribution_note": "Editor asked for \"yes\" (US federal government work). Kept \"unclear\" because the register test rule requires a licence quote read verbatim from a saved file, and none of the Census pages fetched on 2026-10-28 (BTOS page, open-data page, API terms, privacy policy) contained a public-domain sentence. Change to \"yes\" once a quote is saved.",
+   "units": "percent of businesses (strings with % sign) and index values",
    "geography": "United States (national, state, sector)",
-   "time_span": "biweekly survey; page cites 3.8% of businesses using AI (Nov 2023)",
+   "time_span": "202319 to 202621 (81 biweekly wave columns, newest first)",
    "variables": [
-    "share of businesses using AI to produce goods or services",
-    "other business conditions"
+    "share of businesses answering each question (percent estimates, answer categories), national",
+    "AI-use question (current use, last two weeks) and AI-use expected in next six months",
+    "other BTOS questions: performance, employment, hours, prices, demand, inventories, extreme-weather losses"
    ],
    "files": [
     {
@@ -8333,108 +8364,61 @@
      "http_status": 200,
      "retrieved_utc": "2026-10-28T08:43:56Z",
      "via": "curl"
+    },
+    {
+     "path": "us_census_ai_adoption/National.xlsx",
+     "bytes": 100597,
+     "sha256": "eae141fdd1f1b4f70fc4c1a272cfc8058ca3bf770148aa8edf898daa41353bf5",
+     "url": "https://www.census.gov/hfp/btos/downloads/National.xlsx",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T09:05:06Z",
+     "via": "curl"
+    },
+    {
+     "path": "us_census_ai_adoption/direct/AI_Supplement_Table.xlsx",
+     "bytes": 337833,
+     "sha256": "7ad407d9a475a08b662fde7cee5983194dc2d701831f11aede00ab1d8b3961b9",
+     "url": "https://www.census.gov/hfp/btos/downloads/AI_Supplement_Table.xlsx",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T10:10:00Z",
+     "via": "curl"
+    },
+    {
+     "path": "us_census_ai_adoption/direct/AI_Supplement_Table_2026.xlsx",
+     "bytes": 578790,
+     "sha256": "1220d39f0c44b77d85aaeb1849aeec12e86a88219df9700436f41aec4103eca7",
+     "url": "https://www.census.gov/hfp/btos/downloads/AI_Supplement_Table_2026.xlsx",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T10:10:00Z",
+     "via": "curl"
+    },
+    {
+     "path": "us_census_ai_adoption/direct/AI26_URR.xlsx",
+     "bytes": 14143,
+     "sha256": "1991cffefc14a67d7f6281ce098673bcc412f13ebd6d495ac0b0a2ffd05b7bcf",
+     "url": "https://www.census.gov/hfp/btos/downloads/AI26_URR.xlsx",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T10:10:00Z",
+     "via": "curl"
     }
    ],
-   "notes": "Open. A direct file https://www.census.gov/hfp/btos/downloads/National.xlsx answered 200 (about 100 KB, xlsx header seen) but was not saved or registered; the Census API path /data/timeseries/btos returned 404.",
+   "notes": "Two AI supplements: March 2024 and April 2026. Press releases (census.gov/newsroom/press-releases/2024/business-trends-outlook-survey-artificial-intelligence-supplement.html, .../2026/btos-apr-23.html) carry no file links; they point to the BTOS data page, a JS app whose bundle names the files. Downloaded from https://www.census.gov/hfp/btos/downloads/: AI_Supplement_Table.xlsx (2024; 5 sheets: National 98 data rows, Sector 1922, State 5090, Employment 674, Data Dictionary), AI_Supplement_Table_2026.xlsx (collected 2025-11-17 to 2026-02-08; 9 sheets incl. standard errors: National 87 data rows, Sector 1702, State 4507, Employment 597), AI26_URR.xlsx (2026 unit response rates). Earlier National.xlsx kept. Row counts are sheet rows minus header, from the sheet XML.",
    "retrieved": "2026-10-28",
    "role": "data",
    "campaign_wave": "D-061",
    "date_acquired": "2026-10-28",
    "local_path": null,
-   "total_bytes": 342836,
+   "total_bytes": 443433,
    "year": 2026,
    "d061_direct": {
     "date": "2026-10-28",
     "http": [
-     404
+     200
     ],
-    "outcome": "blocked",
-    "note": "BTOS_2024_AI.csv not at that path"
+    "outcome": "retrieved",
+    "note": "AI supplement xlsx files found via the BTOS app bundle and downloaded"
    },
    "blocked_http_status": 404
-  },
-  {
-   "id": "paperswithcode_sota",
-   "title": "Papers With Code — State of the Art benchmarks",
-   "publisher": "Papers With Code (now redirected to Hugging Face)",
-   "url": "https://paperswithcode.com/sota",
-   "domains": [
-    "D1"
-   ],
-   "supports": [],
-   "supports_proposed": [
-    "L_RISK"
-   ],
-   "version": "not applicable",
-   "status": "blocked",
-   "licence": {
-    "name": "Not applicable",
-    "quote": "",
-    "quote_verified": false
-   },
-   "redistribution": "unclear",
-   "redistribution_note": "No licence text read from a saved file, so redistribution is not flagged yes (register test rule).",
-   "units": "n/a",
-   "geography": "n/a",
-   "time_span": "n/a",
-   "variables": [
-    "(SOTA leaderboards no longer served at this URL)"
-   ],
-   "files": [],
-   "notes": "https://paperswithcode.com/sota now redirects to https://huggingface.co/papers/trending (a trending-papers page, not saved). The SOTA tables are not available there. Status is blocked because the dataset is gone from this URL, not because of a paywall; a replacement (Hugging Face benchmarks, Epoch AI benchmarking hub) needs a decision.",
-   "retrieved": "2026-10-28",
-   "role": "data",
-   "campaign_wave": "D-061",
-   "date_acquired": "2026-10-28",
-   "local_path": null,
-   "total_bytes": 0,
-   "year": 2026,
-   "d061_direct": {
-    "date": "2026-10-28",
-    "http": [
-     404
-    ],
-    "outcome": "blocked",
-    "note": "repo/file removed (site redirects to Hugging Face)"
-   },
-   "blocked_http_status": 404
-  },
-  {
-   "id": "semi_fab_capacity",
-   "title": "SEMI World Fab Forecast",
-   "publisher": "SEMI",
-   "url": "https://www.semi.org/en/products-services/market-data/world-fab-forecast",
-   "domains": [
-    "D1"
-   ],
-   "supports": [],
-   "supports_proposed": [
-    "L_FIN"
-   ],
-   "version": "not read (blocked)",
-   "status": "blocked",
-   "licence": {
-    "name": "Not read (blocked); SEMI market data is a commercial product",
-    "quote": "",
-    "quote_verified": false
-   },
-   "redistribution": "unclear",
-   "redistribution_note": "No licence text read from a saved file, so redistribution is not flagged yes (register test rule).",
-   "units": "not read",
-   "geography": "global",
-   "time_span": "not read",
-   "variables": [
-    "fab capacity forecast (commercial report)"
-   ],
-   "files": [],
-   "notes": "HTTP 403 with a Cloudflare \"Just a moment...\" challenge (needs JavaScript and cookies). The World Fab Forecast is a paid market-data product in any case.",
-   "retrieved": "2026-10-28",
-   "role": "data",
-   "campaign_wave": "D-061",
-   "date_acquired": "2026-10-28",
-   "local_path": null,
-   "total_bytes": 0,
-   "year": 2026
   },
   {
    "id": "mlco2_impact",
@@ -8451,12 +8435,14 @@
    "version": "not stated",
    "status": "retrieved",
    "licence": {
-    "name": "Not read from a saved file (page mentions MIT and CodeCarbon; which material the licence covers was not checked)",
-    "quote": "",
-    "quote_verified": false
+    "name": "MIT (repository LICENSE file; copyright holder Blackrock Digital LLC)",
+    "quote": "The MIT License (MIT) Copyright (c) 2013-2019 Blackrock Digital LLC",
+    "quote_file": "mlco2_impact/LICENSE",
+    "url": "https://github.com/mlco2/impact",
+    "quote_verified": true
    },
    "redistribution": "unclear",
-   "redistribution_note": "No licence text read from a saved file, so redistribution is not flagged yes (register test rule).",
+   "redistribution_note": "The repository LICENSE is MIT with copyright \"Blackrock Digital LLC\" (2013-2019), which is the holder of a web page template, not the CO2 data. It therefore covers the site code, and no licence for the hardware/region data tables was found. Not flagged yes.",
    "units": "kg CO2eq per compute-hour by hardware and region",
    "geography": "global (cloud regions)",
    "time_span": "not stated",
@@ -8474,15 +8460,24 @@
      "http_status": 200,
      "retrieved_utc": "2026-10-28T08:43:56Z",
      "via": "curl"
+    },
+    {
+     "path": "mlco2_impact/LICENSE",
+     "bytes": 1093,
+     "sha256": "a33228ea64abf444eeac830d51510adaab610dea3d65305d2be0a56421189f13",
+     "url": "https://raw.githubusercontent.com/mlco2/impact/master/LICENSE",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T09:05:06Z",
+     "via": "curl"
     }
    ],
-   "notes": "Page loads (open). It is a calculator; the underlying hardware and region tables are in the GitHub repository and were not located or downloaded. No proposed link code fits (it feeds the existing DC emissions link), so supports_proposed is empty.",
+   "notes": "Page loads (open). It is a calculator; the underlying hardware and region tables are in the GitHub repository and were not located or downloaded. No proposed link code fits (it feeds the existing DC emissions link), so supports_proposed is empty. Licence read 2026-10-28 from github.com/mlco2/impact (page shows \"MIT license\") and the raw LICENSE file (verbatim first line registered).",
    "retrieved": "2026-10-28",
    "role": "data",
    "campaign_wave": "D-061",
    "date_acquired": "2026-10-28",
    "local_path": null,
-   "total_bytes": 74622,
+   "total_bytes": 75715,
    "year": 2026,
    "d061_direct": {
     "date": "2026-10-28",
@@ -8492,44 +8487,6 @@
     "outcome": "retrieved",
     "note": "no year column; carbon intensities dated 2019 in source comments"
    }
-  },
-  {
-   "id": "linkedin_ai_skills",
-   "title": "LinkedIn Economic Graph — Skills on the Rise",
-   "publisher": "LinkedIn",
-   "url": "https://economicgraph.linkedin.com/research/skills-on-the-rise",
-   "domains": [
-    "D5"
-   ],
-   "supports": [],
-   "supports_proposed": [
-    "L9",
-    "L_MH"
-   ],
-   "version": "not applicable",
-   "status": "blocked",
-   "licence": {
-    "name": "Not applicable",
-    "quote": "",
-    "quote_verified": false
-   },
-   "redistribution": "unclear",
-   "redistribution_note": "No licence text read from a saved file, so redistribution is not flagged yes (register test rule).",
-   "units": "n/a",
-   "geography": "n/a",
-   "time_span": "n/a",
-   "variables": [
-    "(page not found)"
-   ],
-   "files": [],
-   "notes": "HTTP 404: the page no longer exists at this URL. LinkedIn Economic Graph material is in any case published as reports, not open datasets.",
-   "retrieved": "2026-10-28",
-   "role": "data",
-   "campaign_wave": "D-061",
-   "date_acquired": "2026-10-28",
-   "local_path": null,
-   "total_bytes": 0,
-   "year": 2026
   },
   {
    "id": "pax_autonomous_weapons",
@@ -8553,7 +8510,7 @@
     "quote_verified": false
    },
    "redistribution": "unclear",
-   "redistribution_note": "No licence text read from a saved file, so redistribution is not flagged yes (register test rule).",
+   "redistribution_note": "Only a copyright footer (© 2026 PAX) was found; no licence and no dataset. Not flagged yes.",
    "units": "n/a",
    "geography": "global",
    "time_span": "not stated",
@@ -8571,7 +8528,7 @@
      "via": "curl"
     }
    ],
-   "notes": "URL redirects to the Killer Robots programme page (open). No downloadable dataset found on the landing page; PAX publishes reports, not a data file. Content beyond the landing page not read.",
+   "notes": "URL redirects to the Killer Robots programme page (open). No downloadable dataset found on the landing page; PAX publishes reports, not a data file. Content beyond the landing page not read. Licence read 2026-10-28: only a \"© 2026 PAX\" footer was found on the Killer Robots page; no licence sentence and no dataset: licence not found.",
    "retrieved": "2026-10-28",
    "role": "data",
    "campaign_wave": "D-061",
@@ -9067,33 +9024,6 @@
    "error": "HTTP 403 Access Denied (Akamai); also 403 for /oes/, download.bls.gov and the oesm24in4.zip special-request file",
    "http_status": 403,
    "attempts": 2,
-   "retrieved_utc": "2026-10-28T08:43:56Z"
-  },
-  {
-   "source_id": "paperswithcode_sota",
-   "path": "paperswithcode_sota/sota.html",
-   "url": "https://paperswithcode.com/sota",
-   "error": "Redirects to https://huggingface.co/papers/trending; SOTA leaderboard pages no longer served",
-   "http_status": 200,
-   "attempts": 1,
-   "retrieved_utc": "2026-10-28T08:43:56Z"
-  },
-  {
-   "source_id": "semi_fab_capacity",
-   "path": "semi_fab_capacity/world-fab-forecast.html",
-   "url": "https://www.semi.org/en/products-services/market-data/world-fab-forecast",
-   "error": "HTTP 403 Cloudflare challenge page",
-   "http_status": 403,
-   "attempts": 1,
-   "retrieved_utc": "2026-10-28T08:43:56Z"
-  },
-  {
-   "source_id": "linkedin_ai_skills",
-   "path": "linkedin_ai_skills/skills-on-the-rise.html",
-   "url": "https://economicgraph.linkedin.com/research/skills-on-the-rise",
-   "error": "HTTP 404 Not Found",
-   "http_status": 404,
-   "attempts": 1,
    "retrieved_utc": "2026-10-28T08:43:56Z"
   },
   {

@@ -622,52 +622,14 @@
   {
    "id": "bls_oes_automation",
    "kind": "access",
-   "wanted": "Latest OEWS national industry-specific occupational employment and wage estimates (XLS/ZIP from bls.gov/oes/tables.htm)",
+   "wanted": "Latest OEWS national industry-specific occupational employment and wage estimates (XLS/ZIP from bls.gov/oes/tables.htm) — Stéphane to download manually and hand off",
    "why": "Employment by occupation and industry is the base for any automation-exposure estimate of labour (S3 labour input; proposed L9 and L_MH).",
    "supports": [],
    "url": "https://www.bls.gov/oes/tables.htm",
-   "blocked_by": "HTTP 403 from bls.gov for this machine/network (all paths, including download.bls.gov)",
+   "blocked_by": "BLS.gov and download.bls.gov return 403 from automated hosts. Manual download at https://www.bls.gov/oes/tables.htm - look for 'May 2024 National industry-specific' XLS.",
    "licence_note": "US federal data, expected public domain; confirm the BLS website-policies page when downloaded",
    "priority": 1,
-   "status": "open"
-  },
-  {
-   "id": "paperswithcode_sota",
-   "kind": "decision",
-   "wanted": "Choice of a replacement for the discontinued Papers With Code SOTA leaderboards (for example Hugging Face benchmarks or Epoch AI benchmarking hub)",
-   "why": "Benchmark progress is the capability signal proposed for L_RISK; the original source no longer serves it.",
-   "supports": [],
-   "url": "https://paperswithcode.com/sota",
-   "blocked_by": "Source discontinued: URL redirects to a Hugging Face trending-papers page",
-   "licence_note": "Not applicable until a replacement is chosen",
-   "priority": 2,
-   "status": "open"
-  },
-  {
-   "id": "semi_fab_capacity",
-   "kind": "paywall",
-   "wanted": "SEMI World Fab Forecast data or a public summary of semiconductor fab capacity by region and node",
-   "why": "Fab capacity bounds the supply of AI accelerators in the compute chain; proposed financial and supply-risk links.",
-   "supports": [
-    "AI"
-   ],
-   "url": "https://www.semi.org/en/products-services/market-data/world-fab-forecast",
-   "blocked_by": "Cloudflare 403 challenge; product is commercial market data",
-   "licence_note": "Commercial licence expected; not redistributable without agreement",
-   "priority": 2,
-   "status": "open"
-  },
-  {
-   "id": "linkedin_ai_skills",
-   "kind": "access",
-   "wanted": "Current LinkedIn Economic Graph AI-skills or AI-talent report and the right URL for it",
-   "why": "AI skills adoption is a labour-market signal for the labour input of S3 (proposed L9, L_MH).",
-   "supports": [],
-   "url": "https://economicgraph.linkedin.com/research/skills-on-the-rise",
-   "blocked_by": "URL returns 404; replacement page not identified",
-   "licence_note": "LinkedIn terms apply; likely not redistributable",
-   "priority": 2,
-   "status": "open"
+   "status": "blocked"
   },
   {
    "id": "cb_insights_ai_funding",
@@ -703,18 +665,6 @@
    ],
    "url": "https://www3.wipo.int/ipstats/",
    "blocked_by": "The ipstats API URL returns the JS app shell (HTTP 200, no data) and the GitHub fallback returns HTTP 404; the export needs a browser session.",
-   "priority": 3
-  },
-  {
-   "id": "fda_ai_devices",
-   "kind": "browser",
-   "wanted": "FDA AI/ML-enabled medical devices list as xlsx/csv",
-   "why": "Count of authorised AI devices is a sectoral AI adoption indicator.",
-   "supports": [
-    "AI"
-   ],
-   "url": "https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-and-machine-learning-aiml-enabled-medical-devices",
-   "blocked_by": "media/177418/download returns a PNG, not the Excel list; the list is only an HTML table on the page.",
    "priority": 3
   }
  ]
