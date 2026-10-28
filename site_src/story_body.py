@@ -1,5 +1,6 @@
 """Markup of the story front door (index.html), D-056 stage 2. Four chapters, each: a finding title (written by story.js from the data), one annotated chart,
 one control. Nothing here holds a model number; the static text is the fallback shown before the script runs."""
+import ai_data
 import ig
 import index_body
 import links
@@ -15,6 +16,15 @@ def steps_nav() -> str:
     return f'<nav class="steps" id="steps" aria-label="Story steps, four chapters"><ol>{items}</ol></nav>'
 
 
+def ai_callout() -> str:
+    """Descriptive only: counts from the AI Impact page's data and a link. No claim about causes or about model results."""
+    s = ai_data.ai_stats(ai_data.load_extract())
+    return ('<div class="ai-callout"><p>F3 has also collected open data on AI itself: '
+            f'<strong>{s["oa_total"] / 1e6:.1f} million AI publications</strong> (OpenAlex), <strong>{s["epoch_models"]:,} notable AI models</strong> (Epoch AI) and '
+            f'<strong>{s["fda_devices"]:,} FDA AI-enabled medical devices</strong>. These are counts, not model output.</p>'
+            '<a href="ai.html" class="ai-callout-link">See the AI data &rarr;</a></div>')
+
+
 def body() -> str:
     return f"""
 <section class="hero">
@@ -23,6 +33,7 @@ def body() -> str:
 <p class="lead" id="hero_line">Four short steps, each with one chart and one control. Nothing here is a forecast.</p>
 <p class="cta"><a class="btn primary" href="#ch1">Start the story</a> <a class="btn" href="explorer.html">Skip to the Explorer</a></p>
 </section>
+{ai_callout()}
 <div class="banner" role="note"><strong class="big">{PUBLIC}</strong>Every curve is the output of a model run under stated assumptions. None is a prediction, none has a likelihood. Recorded test failures are shown next to the charts they affect and on the <a href="limitations.html">Limitations</a> page.</div>
 {steps_nav()}
 

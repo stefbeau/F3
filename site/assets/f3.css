@@ -256,3 +256,24 @@ table.efx th,table.efx td{overflow-wrap:normal;word-break:normal;hyphens:none}ta
 @media (max-width:899px){
   .dash[data-step=reliability] #p_history,.dash[data-step=reliability] #p_map,.dash[data-step=reliability] .dtabs{display:none}
 }
+/* AI Impact page (ai.html): tokens from the theme above; motion only when ai.js adds .ai-js */
+.ai-tiles{margin:12px 0}.ai-tiles .tile{padding:8px 12px}.ai-tiles .tk_v{font-size:1.5rem;line-height:1.15}
+.ai-section{margin:16px 0}
+.ai-js .ai-section{opacity:0;transform:translateY(12px);transition:opacity .4s,transform .4s}.ai-js .ai-section.visible{opacity:1;transform:none}
+.ai-chart-wrap{position:relative;margin:8px 0;max-width:100%}.ai-chart-wrap svg{display:block;width:100%;height:auto}
+.ai-grid{stroke:var(--line);stroke-width:1}.ai-tick{font-size:13px;fill:var(--mut)}.ai-note-t{font-size:13px;fill:var(--fg)}
+.ai-area{fill:var(--sa);opacity:.15}.ai-line{fill:none;stroke:var(--sa);stroke-width:2.5;stroke-linejoin:round}
+.ai-js .ai-line{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.4s ease}.ai-js .ai-line.drawn{stroke-dashoffset:0}
+.ai-rule{stroke:var(--fg);stroke-width:1;stroke-dasharray:4 3}
+.ai-dot{fill:var(--sa);stroke:var(--card);stroke-width:1.5;opacity:0}.ai-dot:hover,.ai-dot:focus{opacity:1;outline:none;stroke:var(--fg)}
+.ai-bar{fill:var(--sa);opacity:.7}.ai-bar.first{opacity:1}
+.ai-tip{position:absolute;pointer-events:none;background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:3px 8px;font-size:.875rem;white-space:nowrap}
+.ai-table{margin:6px 0}.ai-table table{font-size:.9rem;font-variant-numeric:tabular-nums}
+.ai-model-links{background:var(--card2);border-left:4px solid var(--sa);border-radius:0 8px 8px 0;padding:10px 14px;margin:12px 0}
+.ai-model-links h3{margin:0 0 .5em;font-size:.9rem;text-transform:uppercase;letter-spacing:.05em}
+.ai-model-links ul{margin:0;padding:0;list-style:none}.ai-model-links li{padding:3px 0}
+.ai-model-links code{padding:0 .3em;border-radius:3px;background:var(--card);border:1px solid var(--line)}
+.ai-model-links .proposed{color:var(--mut);font-size:.875rem}
+.ai-callout{background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin:12px 0}
+.ai-callout p{margin:0 0 .4em}.ai-callout-link{font-weight:600}
+@media (prefers-reduced-motion:reduce){.ai-js .ai-section,.ai-js .ai-line{transition:none}}

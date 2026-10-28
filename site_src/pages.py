@@ -8,13 +8,15 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import ai_body
+import ai_data
 import compare_body
 import connections_body
 import dashboard_body
 import ig
 import story_body
 
-NAV = [("index.html", "Story"), ("explorer.html", "Explorer"), ("compare.html", "Compare"), ("connections.html", "Connections"), ("methods.html", "Methods"), ("limitations.html", "Limitations"), ("sources.html", "Sources"), ("about.html", "About")]
+NAV = [("index.html", "Story"), ("explorer.html", "Explorer"), ("ai.html", "AI Impact"), ("compare.html", "Compare"), ("connections.html", "Connections"), ("methods.html", "Methods"), ("limitations.html", "Limitations"), ("sources.html", "Sources"), ("about.html", "About")]
 REPO_URL = "https://github.com/stefbeau/F3"
 
 SCROLL_FIX = ""
@@ -65,6 +67,12 @@ def compare_page(data: dict, stamp: dict, css: str) -> str:
     """Compare mode (D-056 stage 4)."""
     script = DATA_SCRIPT + asset_scripts("f3-core.js", "f3-charts.js", "compare.js")
     return page("F3 Explorer v0.2: Compare", "compare.html", compare_body.body(), css, stamp, script)
+
+
+def ai_page(data: dict, stamp: dict, css: str) -> str:
+    """AI Impact: counts from the committed OpenAlex extract and register constants; no model data, so no data script."""
+    script = asset_scripts("ai.js")
+    return page("F3 Explorer v0.2: AI Impact", "ai.html", ai_body.body(ai_data.get_all()), css, stamp, script)
 
 
 def connections_page(data: dict, stamp: dict, css: str) -> str:
@@ -336,7 +344,7 @@ def render_assets(here: Path) -> dict:
     face = ('@font-face{font-family:"Work Sans";font-style:normal;font-weight:100 900;font-display:swap;'
             'src:url(data:font/woff2;base64,' + font + ') format("woff2")}')
     out = {"assets/f3.css": css.replace("/*FONT*/", face)}
-    for src, dst in (("shell.js", "shell.js"), ("core.js", "f3-core.js"), ("charts.js", "f3-charts.js"), ("story.js", "story.js"), ("dashboard.js", "dashboard.js"), ("compare.js", "compare.js"), ("connections.js", "connections.js")):
+    for src, dst in (("shell.js", "shell.js"), ("core.js", "f3-core.js"), ("charts.js", "f3-charts.js"), ("story.js", "story.js"), ("dashboard.js", "dashboard.js"), ("compare.js", "compare.js"), ("connections.js", "connections.js"), ("ai.js", "ai.js")):
         out["assets/" + dst] = (here / src).read_text(encoding="utf-8")
     return out
 
@@ -347,6 +355,7 @@ def render_all(data: dict, stamp: dict, here: Path) -> dict:
     return {
         "index.html": index_page(data, stamp, css),
         "explorer.html": explorer_page(data, stamp, css),
+        "ai.html": ai_page(data, stamp, css),
         "compare.html": compare_page(data, stamp, css),
         "connections.html": connections_page(data, stamp, css),
         "methods.html": methods_page(data, stamp, css),
