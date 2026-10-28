@@ -1,0 +1,72 @@
+{
+  "campaign": "D-061 OpenAlex",
+  "date": "2026-10-28",
+  "source_id": "openalex_ai_publications",
+  "concept": {
+    "openalex_id": "C154945302",
+    "wikidata": "Q11660",
+    "name": "Artificial intelligence"
+  },
+  "calls": [
+    {
+      "name": "by_country",
+      "http": 200,
+      "groups": 200,
+      "truncated_at_200": true,
+      "works_total": 13670221
+    },
+    {
+      "name": "by_year",
+      "http": 200,
+      "groups": 25,
+      "year_range": [
+        2000,
+        2024
+      ],
+      "sum": 13670221
+    },
+    {
+      "name": "concept",
+      "http": 200,
+      "url": "concepts/C154945302"
+    }
+  ],
+  "brief_url_problems": [
+    "filter concepts.wikidata:Q11660 returned count 0",
+    "concepts/W11660 returned 404; concepts?filter=wikidata:Q11660 returned 400 (wikidata not a valid filter)"
+  ],
+  "total_ai_publications": 13670221,
+  "top5_countries": [
+    {
+      "code": "CN",
+      "name": "China",
+      "count": 2252080
+    },
+    {
+      "code": "US",
+      "name": "United States",
+      "count": 1847001
+    },
+    {
+      "code": "GB",
+      "name": "United Kingdom",
+      "count": 550902
+    },
+    {
+      "code": "IN",
+      "name": "India",
+      "count": 531510
+    },
+    {
+      "code": "DE",
+      "name": "Germany",
+      "count": 458812
+    }
+  ],
+  "licence": {
+    "name": "CC0 1.0",
+    "quote": "all data is CC0 — no license worries, ever.",
+    "quote_file": "openalex_ai_publications/api_overview.html",
+    "quote_verified": true
+  }
+}

@@ -8643,6 +8643,82 @@
    "local_path": "audit/data/raw/owid_ai/",
    "date_acquired": "2026-10-28",
    "notes": "Aggregates Epoch AI, CSET, NetBase Quid, IEA and others. 35 charts as of 2026-10-28. Each chart downloadable as CSV via grapher API. CC BY applies to OWID-produced data; third-party data subject to original licences. Verified 2026-10-28: the page lists 35 chart slugs (the carousel says 'Chart 1 of 35'). DOWNLOAD RESULT: none of the 12 grapher slugs named in the brief exists (HTTP 404, also with ?v=1). The 12 measures were matched by name to slugs listed on the page; 11 of those CSVs were downloaded to audit/data/raw/owid_ai/ (not in git, 154 KB) and 1 (test-scores-ai-capabilities-relative-human-performance) is blocked by OWID as non-redistributable (HTTP 403, not worked around). Per-slug mapping, confidence, rows, year range and columns are in audit/data/owid_ai_ingest_report.json. Weaker matches: data-centers-share-electricity-demand is a share of electricity demand, not the electricity used the brief asked for (low confidence); private-investment-in-artificial-intelligence, global-investment-in-generative-ai and share-working-adults-united-states-ai-work (US only, quarterly) are medium confidence. The supports field is empty because the proposed codes (L8, L9, L_FIN, L_SOC, L_RISK) are outside the register schema's enum; they are in supports_proposed, as for the other D-060 entries. This is separate from owid_ai_compute, owid_dc_share, owid_co2 and owid_energy, which were registered in the first campaign."
+  },
+  {
+   "id": "openalex_ai_publications",
+   "title": "OpenAlex AI Publications (works by country and by year)",
+   "publisher": "OurResearch (OpenAlex)",
+   "provider": "OpenAlex",
+   "url": "https://openalex.org",
+   "domains": [
+    "D1"
+   ],
+   "supports": [],
+   "supports_proposed": [],
+   "version": "API responses 2026-10-28; concept Artificial intelligence (C154945302, Wikidata Q11660), publication years 2000-2024",
+   "retrieved": "2026-10-28",
+   "status": "retrieved",
+   "licence": {
+    "name": "CC0 1.0",
+    "quote": "all data is CC0 — no license worries, ever.",
+    "quote_file": "openalex_ai_publications/api_overview.html",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "quote_verified": true
+   },
+   "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "redistribution": "yes",
+   "redistribution_note": "Sentence read verbatim in the saved OpenAlex API overview page (docs.openalex.org, 2026-10-28). The wording in the brief ('made available under the CC0 license') was not found; this is the wording the page uses.",
+   "units": "count of works",
+   "geography": "by country code (top 200 of about 247) and global",
+   "time_span": "2000-2024",
+   "variables": [
+    "AI publications per publication year",
+    "AI publications per country (any authorship institution)"
+   ],
+   "files": [
+    {
+     "path": "openalex_ai_publications/by_country.json",
+     "bytes": 20113,
+     "sha256": "64d388ff25855566669782a4f6777b2717601df590a642923dfdc5a2db19e57a",
+     "url": "https://api.openalex.org/works?filter=concepts.id:C154945302,publication_year:2000-2024&group_by=authorships.institutions.country_code&per_page=200",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T12:00:00Z",
+     "via": "curl"
+    },
+    {
+     "path": "openalex_ai_publications/by_year.json",
+     "bytes": 2870,
+     "sha256": "c6949ae9289761572b42452d7269be0d3f2acdeff7f9dbb3a590ff3fe40d6875",
+     "url": "https://api.openalex.org/works?filter=concepts.id:C154945302,publication_year:2000-2024&group_by=publication_year&per_page=50",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T12:00:00Z",
+     "via": "curl"
+    },
+    {
+     "path": "openalex_ai_publications/concept_meta.json",
+     "bytes": 838,
+     "sha256": "ec9383c566cd18b735dc8e59d573974919abff6b15cebcd5118b8b0aef230cea",
+     "url": "https://api.openalex.org/concepts/C154945302",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T12:00:00Z",
+     "via": "curl"
+    },
+    {
+     "path": "openalex_ai_publications/api_overview.html",
+     "bytes": 34484,
+     "sha256": "4144941b7d02446124b6eacc9b90ff0a777a0c26e0e010e64dbfc6e62f3b6617",
+     "url": "https://docs.openalex.org/how-to-use-the-api/api-overview",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T12:00:00Z",
+     "via": "curl"
+    }
+   ],
+   "role": "data",
+   "year": 2026,
+   "local_path": "audit/data/raw/openalex_ai_publications/",
+   "date_acquired": "2026-10-28",
+   "notes": "AI publications grouped by country and by year, 2000-2024. Concept filter: artificial intelligence, Wikidata Q11660 = OpenAlex concept C154945302. The brief's filter concepts.wikidata:Q11660 returns 0 works and concepts/W11660 is a 404; concepts.id:C154945302 gives 13,670,221 works. by_country.json: 200 country groups with counts, keys are OpenAlex country URLs; group-by is capped at 200 results and no paging (about 247 countries exist), so the smallest countries are missing, and a work with authors in several countries counts once per country, so country counts do not sum to the total. by_year.json: 25 years (2000-2024) with counts, summing to 13,670,221. Source for OECD.AI research charts; CC0 allows full redistribution.",
+   "total_bytes": 58305
   }
  ],
  "failures": [
