@@ -246,9 +246,9 @@
    "blocked_by": "HTTP 403",
    "licence_note": "",
    "priority": 2,
-   "status": "blocked",
-   "resolution": "Crossref lists CC BY 4.0 for this Lancet Planetary Health article, so it is free to download, but the automated fetch was redirected and the PDF was not obtained; please download it.",
-   "resolved_date": "2026-10-26"
+   "status": "resolved",
+   "resolution": "PDF downloaded from the author-deposited CC BY copy at QUT (the publisher site returns HTTP 403); registered as retrieved.",
+   "resolved_date": "2026-10-27"
   },
   {
    "id": "papers_vicedo2021",
@@ -402,13 +402,13 @@
    "id": "aquastat_nc_sa",
    "kind": "licence decision and file",
    "wanted": "AQUASTAT main database CSV (water withdrawal by sector and country) and a decision on its CC BY-NC-SA 4.0 terms",
-   "why": "Needed for the water module; no bulk file link was found (SQL query service) and the terms are NC-SA.",
+   "why": "Needed for the water module; no bulk file link was found (SQL query service) and the terms are NC-SA. Licence decision made 2026-10-27: acceptable; what remains is a way to get the data.",
    "supports": [
     "M5"
    ],
    "url": "https://data.apps.fao.org/aquastat/",
-   "blocked_by": "licence and no bulk file",
-   "licence_note": "CC BY-NC-SA 4.0 (FAO catalogue record)",
+   "blocked_by": "no bulk file (SQL-based query service); the licence decision is no longer a blocker",
+   "licence_note": "CC BY-NC-SA 4.0; non-commercial use confirmed acceptable by the editor 2026-10-27",
    "priority": 2,
    "status": "blocked",
    "resolution": "The AQUASTAT bulk file is not available and its CC BY-NC-SA 4.0 terms need your licence decision before any use.",
@@ -458,7 +458,7 @@
    "priority": 1,
    "status": "resolved",
    "resolved_date": "2026-10-26",
-   "resolution": "ISIMIP3b dataset is CC0 - no terms barrier. Registered as jaegermeyr_2021_isimip. Download pending (864 files; subset selection needed before ingest)."
+   "resolution": "ISIMIP3b dataset is CC0 - no terms barrier. Registered as jaegermeyr_2021_isimip. Download pending (864 files; subset selection needed before ingest). Update 2026-10-27: the full jaegermeyr_2021_isimip dataset (864 files, 11.8 GB, all four scenarios) was downloaded on the editor's instruction, so no subset selection is needed."
   },
   {
    "id": "climate_trace_sectors",
@@ -511,7 +511,10 @@
    "url": "https://www.emdat.be/",
    "blocked_by": "registration (per the brief) and an unread terms page",
    "licence_note": "Open access for non-commercial use (page statement); detailed terms of use not read",
-   "priority": 2
+   "priority": 2,
+   "status": "resolved",
+   "resolved_date": "2026-10-27",
+   "resolution": "File provided by Stéphane from emdat.be registration."
   },
   {
    "id": "ihme_gbd",
@@ -540,9 +543,9 @@
    "blocked_by": "URL corrected; download not yet attempted (access is via FTP, not a web download).",
    "licence_note": "No formal licence statement; citation required as a condition of use",
    "priority": 2,
-   "status": "blocked",
+   "status": "resolved",
    "resolved_date": "2026-10-27",
-   "resolution": "URL corrected; download not yet attempted."
+   "resolution": "Superseded by esa_cci_permafrost on the editor's instruction (GGD318 is FTP-only with an unconfirmed licence). Closed."
   },
   {
    "id": "unhcr_refugees",
@@ -598,6 +601,21 @@
    "blocked_by": "JavaScript application that returned an error",
    "licence_note": "Not read (the page returned a client-side error); brief says CC BY 4.0",
    "priority": 2
+  },
+  {
+   "id": "esa_cci_permafrost",
+   "kind": "download",
+   "wanted": "ESA CCI Permafrost v5.0 products (extent, ground temperature, active layer thickness) from CEDA, https://climate.esa.int/en/projects/permafrost/",
+   "why": "Permafrost state for L6/L7 permafrost-carbon; open access, so only the editor's decision on which products to download is needed (the extent product alone is 318 MB).",
+   "supports": [
+    "L6",
+    "L7"
+   ],
+   "url": "https://catalogue.ceda.ac.uk/uuid/c116848868054e18a9f5a51d68c3ad21",
+   "blocked_by": "nothing technical: public, no login; download not yet requested (the brief asked for a new item only if download is blocked, this one records that it is simply pending)",
+   "licence_note": "any user, any purpose, with acknowledgement (ESA CCI Permafrost terms and conditions, read 2026-10-27)",
+   "priority": 2,
+   "status": "open"
   }
  ]
 }

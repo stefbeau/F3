@@ -1690,14 +1690,14 @@
    "retrieved": "2026-10-22",
    "status": "blocked",
    "licence": {
-    "name": "CC BY-NC-SA 4.0 (catalogue record of the AQUASTAT Dissemination System)",
+    "name": "CC BY-NC-SA 4.0",
     "quote": "\"license_id\":\"CC-BY-NC-SA-4.0\"",
     "quote_file": "fao_aquastat/ckan-search.json",
     "url": "https://data.apps.fao.org/catalog/dataset/aquastat-ds",
     "quote_verified": true
    },
    "redistribution": "no",
-   "redistribution_note": "The catalogue lists the main AQUASTAT dissemination system as CC BY-NC-SA 4.0: share-alike and non-commercial, incompatible with F3's CC BY derived data. No bulk file link was found (data are served through an SQL-based query service), so no data were downloaded. Only the basin boundary layers are CC BY 4.0.",
+   "redistribution_note": "CC BY-NC-SA 4.0 (non-commercial, share-alike). The editor confirmed on 2026-10-27 that non-commercial use is acceptable for F3. Because the terms are share-alike and non-commercial, derived numbers are not flagged redistributable and the data are not combined into CC BY outputs without a further decision. The catalogue lists the main AQUASTAT dissemination system as CC BY-NC-SA 4.0: share-alike and non-commercial, incompatible with F3's CC BY derived data. No bulk file link was found (data are served through an SQL-based query service), so no data were downloaded. Only the basin boundary layers are CC BY 4.0.",
    "units": "km3/year, % of resources",
    "geography": "countries",
    "time_span": "1960s to recent",
@@ -1740,7 +1740,7 @@
     }
    ],
    "total_bytes": 458508,
-   "notes": "See needs-user (editor decision whether NC-SA data may be used for internal calibration only). 2026-10-26: no new access found; the CC BY-NC-SA 4.0 terms still need an editor decision before use.",
+   "notes": "See needs-user (editor decision whether NC-SA data may be used for internal calibration only). 2026-10-26: no new access found; the CC BY-NC-SA 4.0 terms still need an editor decision before use. Non-commercial use confirmed acceptable for F3. Status stays blocked: no bulk file is available (SQL-based query service), so nothing is downloaded.",
    "role": "document"
   },
   {
@@ -3413,26 +3413,38 @@
    "supports": [
     "L3"
    ],
-   "version": "not retrieved",
+   "version": "author-deposited copy (QUT ePrints 119307), downloaded 2026-10-27",
    "retrieved": "2026-10-22",
-   "status": "blocked",
+   "status": "retrieved",
    "licence": {
-    "name": "Not read",
+    "name": "CC BY 4.0 (Crossref version-of-record licence; Unpaywall lists the same for the repository copy)",
     "quote": "",
     "quote_verified": false
    },
    "redistribution": "unclear",
-   "redistribution_note": "The Lancet URL returned HTTP 403.",
+   "redistribution_note": "CC BY 4.0 per Crossref and Unpaywall, and the downloaded PDF contains the text 'CC BY' (checked by searching its text streams), but the exact licence sentence was not extracted and quoted, so redistribution is not flagged yes (register test rule). The publisher site returns HTTP 403 to scripted downloads; the file is the author-deposited copy at Queensland University of Technology (https://eprints.qut.edu.au/119307/1/119307.pdf), not the publisher's PDF.",
    "units": "n/a (published parameters and results)",
    "geography": "as in the paper",
    "time_span": "as in the paper",
    "variables": [
     "published results used for functional forms and parameter values"
    ],
-   "files": [],
-   "total_bytes": 0,
-   "notes": "Metadata checked against Crossref on 2026-10-26 (not the article text). Gasparrini et al. (45 authors), Projections of temperature-related excess mortality under climate change scenarios, Lancet Planetary Health 1:e360-e367 (2017). Crossref lists CC BY 4.0 (version of record), so the article should be freely downloadable; the automated fetch returned a redirect only. Licence not read from the file.",
-   "role": "document"
+   "files": [
+    {
+     "path": "papers/gasparrini2017.pdf",
+     "bytes": 549310,
+     "sha256": "9edd2cc5aefd1854bcbc2f906a0c73497c8cb4acaa44c6e768950a944ca937b6",
+     "url": "https://eprints.qut.edu.au/119307/1/119307.pdf",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-27T00:00:00Z"
+    }
+   ],
+   "total_bytes": 549310,
+   "notes": "Metadata checked against Crossref on 2026-10-26 (not the article text). Gasparrini et al. (45 authors), Projections of temperature-related excess mortality under climate change scenarios, Lancet Planetary Health 1:e360-e367 (2017). Crossref lists CC BY 4.0 (version of record), so the article should be freely downloadable; the automated fetch returned a redirect only. Licence not read from the file. 2026-10-27: PDF downloaded from the QUT repository copy (the brief's DOI 10.1016/S2542-5196(017)30002-4 is malformed and not used; the registered DOI 10.1016/S2542-5196(17)30156-0 is the paper). The brief's 'available' status is recorded as 'retrieved'. Not committed to git.",
+   "role": "document",
+   "doi": "10.1016/S2542-5196(17)30156-0",
+   "local_path": "audit/data/raw/papers/gasparrini2017.pdf",
+   "date_acquired": "2026-10-27"
   },
   {
    "id": "ilostat",
@@ -6331,16 +6343,16 @@
    "supports": [
     "L3"
    ],
-   "version": "ISIMIP Repository v1.0 (2024-08-08), not yet downloaded",
+   "version": "ISIMIP Repository v1.0 (2024-08-08), downloaded 2026-10-27",
    "retrieved": "2026-10-26",
-   "status": "partial",
+   "status": "retrieved",
    "licence": {
-    "name": "CC0 1.0 Universal Public Domain Dedication, as stated by the editor",
-    "quote": "",
+    "name": "CC0 1.0 Universal Public Domain Dedication (ISIMIP repository record rights field)",
+    "quote": "CC0 1.0 Universal Public Domain Dedication",
     "quote_verified": false
    },
    "redistribution": "unclear",
-   "redistribution_note": "CC0 is stated by the editor; the licence line was not read from a saved file, so redistribution is not flagged yes (register test rule). Nothing is downloaded yet. Supplied by the editor outside the repository; no file is in the working tree, so no size or sha256 is recorded and Claude did not read it.",
+   "redistribution_note": "The ISIMIP repository record of every file states CC0 1.0 and the ISIMIP terms of use ask for credit (cite the dataset DOI) and encourage offering co-authorship to the data providers. The rights field was read from the API, not from a saved licence file, so redistribution is not flagged yes (register test rule). 864 of 864 files downloaded to audit/data/raw/isimip/ (not in git); every file's size and sha512 were checked against the repository record; see audit/data/isimip_ingest_report.json for the manifest.",
    "units": "relative yield change",
    "geography": "global grid",
    "time_span": "historical to 2100",
@@ -6348,8 +6360,8 @@
     "yield change, 4 crops, 4 scenarios"
    ],
    "files": [],
-   "total_bytes": 0,
-   "notes": "ISIMIP Repository v1.0, published 2024-08-08. 864 datasets: yieldchange for maize/rice/soy/wheat under historical, ssp126, ssp370, ssp585 x multiple crop models x multiple climate models. CC0 per the editor. Download pending: subset selection needed before ingest. 2026-10-26: inventory from the repository API is in audit/data/isimip_subset_plan.json (864 datasets, about 11.8 GB).",
+   "total_bytes": 11797912395,
+   "notes": "ISIMIP Repository v1.0, published 2024-08-08. 864 datasets: yieldchange for maize/rice/soy/wheat under historical, ssp126, ssp370, ssp585 x multiple crop models x multiple climate models. CC0 per the editor. Download pending: subset selection needed before ingest. 2026-10-26: inventory from the repository API is in audit/data/isimip_subset_plan.json (864 datasets, about 11.8 GB). 2026-10-27: downloaded all 864 files (11.80 GB) of all four scenarios; errors: 0. The brief's 'available' status is recorded as 'retrieved' (schema value). Raw files are not committed.",
    "role": "data",
    "year": 2024,
    "local_path": "audit/data/raw/isimip/",
@@ -6385,7 +6397,7 @@
    ],
    "files": [],
    "total_bytes": 0,
-   "notes": "Bulk download zip wid_all_data.zip (887 MB compressed, 6.86 GB uncompressed, 848 members), inspected in place from the user's Downloads folder without extracting and without reading any data CSV; only the member list and README.md were read. Layout is flat, no folders: README.md; WID_countries.csv (codes: alpha2, titlename, shortname, region, region2); WID_data_XX.csv and WID_metadata_XX.csv, 291 pairs by country or world-region code (XX; region codes also XX-MER for market exchange rates, PPP is the default), plus subnational pairs WID_data_US-XX (51), DE-XX (8), CN-XX (2) and a few others (for example OA-MER, OB-MER); one stray member named WID_data_Al.csv not yet explained. Largest member WID_data_FR.csv (69 MB). Data files are semicolon-separated with 7 columns (country, variable, percentile, year, value, age, pop); metadata files have 17 columns (descriptions, unit, source, method). Variable codes are a type letter + 5-letter concept + 3-digit age group + population-unit letter (sptinc992j = share of pre-tax national income, adults, equal-split); percentiles are group percentiles (p0p50, p90p100, p99p100 ...) or 127 generalized percentiles. The README states no licence and no release date: CC BY 4.0 is as stated by the editor. Next step: select a subset (variables and countries) before any CSV ingest. 2026-10-26 extract: audit/data/raw/wid/wid_sptinc_filtered.csv (71,036 rows, 374 country/region codes, 1990 to 2024, p0p50, p90p100, p99p100; eight sptinc variable codes, see audit/data/wid_ingest_report.json), streamed from the zip without extracting it.",
+   "notes": "Bulk download zip wid_all_data.zip (887 MB compressed, 6.86 GB uncompressed, 848 members), inspected in place from the user's Downloads folder without extracting and without reading any data CSV; only the member list and README.md were read. Layout is flat, no folders: README.md; WID_countries.csv (codes: alpha2, titlename, shortname, region, region2); WID_data_XX.csv and WID_metadata_XX.csv, 291 pairs by country or world-region code (XX; region codes also XX-MER for market exchange rates, PPP is the default), plus subnational pairs WID_data_US-XX (51), DE-XX (8), CN-XX (2) and a few others (for example OA-MER, OB-MER); one stray member named WID_data_Al.csv not yet explained. Largest member WID_data_FR.csv (69 MB). Data files are semicolon-separated with 7 columns (country, variable, percentile, year, value, age, pop); metadata files have 17 columns (descriptions, unit, source, method). Variable codes are a type letter + 5-letter concept + 3-digit age group + population-unit letter (sptinc992j = share of pre-tax national income, adults, equal-split); percentiles are group percentiles (p0p50, p90p100, p99p100 ...) or 127 generalized percentiles. The README states no licence and no release date: CC BY 4.0 is as stated by the editor. Next step: select a subset (variables and countries) before any CSV ingest. 2026-10-26 extract: audit/data/raw/wid/wid_sptinc_filtered.csv (71,036 rows, 374 country/region codes, 1990 to 2024, p0p50, p90p100, p99p100; eight sptinc variable codes, see audit/data/wid_ingest_report.json), streamed from the zip without extracting it. variant: sptincj992 (pre-tax national income, equal-split adults). Extract overwritten on 2026-10-27 to hold only this variable (33,579 rows, 323 country/region codes, 1990 to 2024); see audit/data/wid_ingest_report.json.",
    "role": "data",
    "year": 2026,
    "local_path": "audit/data/raw/wid/",
@@ -6438,19 +6450,19 @@
     "L3",
     "L8"
    ],
-   "version": "not checked",
+   "version": "EM-DAT public table, version 2026-10-23, file created 2026-10-26 (supplied by the editor from his emdat.be registration)",
    "retrieved": "2026-10-27",
-   "status": "partial",
+   "status": "retrieved",
    "licence": {
     "name": "Open access for non-commercial use (page statement); detailed terms of use not read",
     "quote": "open access for non-commercial use",
     "quote_verified": false
    },
    "redistribution": "no",
-   "redistribution_note": "The landing page says only that the data are distributed in open access for non-commercial use; the Terms of Use and Privacy page (/terms-of-use-and-privacy/) was not read, so attribution, commercial limits and the registration requirement are unconfirmed. Treated as raw-only. No file was downloaded; metadata and licence were read from public pages on 2026-10-27.",
+   "redistribution_note": "The EM-DAT page says open access for non-commercial use; the Terms of Use page was not read, so attribution and commercial limits are unconfirmed. Treated as raw-only: the filtered extract is in audit/data/raw/emdat/ and is NOT committed to git, and no derived number should be published until the terms are read. File supplied by the editor; no file size or sha256 is recorded because the source xlsx is outside the repository.",
    "units": "events, deaths, affected people, USD damage",
-   "geography": "global, by country",
-   "time_span": "1900 to present (as stated by the editor; not checked)",
+   "geography": "global, 222 countries in the 1990-2024 filter",
+   "time_span": "2000 to 2026 in the file supplied (earliest Start Year 2000); the 1900-present range stated in the brief does not hold for this file",
    "variables": [
     "disaster events",
     "deaths",
@@ -6459,7 +6471,7 @@
    ],
    "files": [],
    "total_bytes": 0,
-   "notes": "Data are hosted at public.emdat.be. The editor's brief says a free account is needed to download; the landing page does not mention registration, so that is unconfirmed. Documentation site doc.emdat.be not read. Not downloaded.",
+   "notes": "Data are hosted at public.emdat.be. The editor's brief says a free account is needed to download; the landing page does not mention registration, so that is unconfirmed. Documentation site doc.emdat.be not read. Not downloaded. 2026-10-27: the editor supplied public_emdat_2026-10-26.xlsx (17,104 records). Extract of 16,191 rows for Start Year 1990 to 2024 (in practice 2000 to 2024) saved to audit/data/raw/emdat/emdat_filtered.csv, columns: disaster group/subgroup/type/subtype, ISO, country, region, start year, total deaths, total affected, total damage and adjusted damage ('000 US$). Report: audit/data/emdat_ingest_report.json. The brief's 'available' status is recorded as 'retrieved'.",
    "role": "data",
    "year": 2026,
    "local_path": null,
@@ -6717,10 +6729,10 @@
    "campaign_wave": "D-060 P1 gap"
   },
   {
-   "id": "nsidc_permafrost",
-   "title": "NSIDC GGD318 Circum-Arctic Map of Permafrost and Ground-Ice Conditions, Version 2 (Brown et al. 2002)",
-   "publisher": "NSIDC DAAC / Canadian Ice Service",
-   "url": "https://nsidc.org/data/ggd318/versions/2",
+   "id": "esa_cci_permafrost",
+   "title": "ESA CCI Permafrost (Permafrost_cci), Climate Research Data Package, version 5.0",
+   "publisher": "ESA Climate Change Initiative, Permafrost_cci project; hosted by CEDA",
+   "url": "https://climate.esa.int/en/projects/permafrost/",
    "domains": [
     "D4"
    ],
@@ -6732,31 +6744,35 @@
     "L6",
     "L7"
    ],
-   "version": "Version 2, DOI 10.7265/skbg-kf16 (the most recent version per the page; Version 1, DOI 10.7265/8d57-9f79, is retired)",
+   "version": "v5.0 (CRDP v4), published 2025-08-28; v4.0 also exists",
    "retrieved": "2026-10-27",
    "status": "partial",
    "licence": {
-    "name": "No formal licence statement; citation required as a condition of use",
-    "quote": "As a condition of using these data, you must cite the use of this data set.",
+    "name": "ESA CCI Permafrost terms and conditions: usable by any user for any purpose with acknowledgement (read from the licence PDF on 2026-10-27)",
+    "quote": "The CCI datasets held on the CCI Open Data Portal may be used by any user for any purpose, with the following terms and conditions",
+    "quote_file": "papers/esacci_permafrost_terms_and_conditions.pdf",
+    "url": "https://artefacts.ceda.ac.uk/licences/specific_licences/esacci_permafrost_terms_and_conditions.pdf",
     "quote_verified": false
    },
    "redistribution": "unclear",
-   "redistribution_note": "The NSIDC page states no licence, only a citation condition; 'public domain (NSIDC/NASA)' is not confirmed. No licence text was read from a saved file, so redistribution is not flagged yes (register test rule). No file was downloaded; metadata read from the NSIDC page on 2026-10-27.",
-   "units": "permafrost extent and ground-ice classes (map)",
-   "geography": "Northern Hemisphere, 20 N to 90 N",
-   "time_span": "not specified on the page (a map)",
+   "redistribution_note": "Read in full from the CEDA licence PDF: any user, any purpose, with (1) acknowledgement of the ESA CCI and the Permafrost CCI project and the data providers plus the dataset DOIs, (2) encouragement (not obligation) to share publications and consider co-authorship, (3) IPR stays with the producers, (4) no warranty. Nothing prohibits redistribution, but the PDF was not saved into the register's raw folder, so quote_verified is false and redistribution is not flagged yes (register test rule). No data downloaded.",
+   "units": "permafrost extent fraction, ground temperature (K or C), active layer thickness (m)",
+   "geography": "Northern Hemisphere (north of 30 N) and Antarctica, 1 km",
+   "time_span": "1997 to 2023 (v5.0; v4.0 covers 1997 to 2021)",
    "variables": [
-    "permafrost extent class",
-    "ground-ice content class"
+    "mean annual ground temperature",
+    "permafrost extent",
+    "active layer thickness"
    ],
    "files": [],
    "total_bytes": 0,
-   "notes": "Brown et al. (2002) circumpolar permafrost and ground-ice map. Corrected from G02171 (a sea-ice chart product) which was an error in the D-060 brief. A second correction: the brief then gave NSIDC-0422 as the permafrost dataset, but https://nsidc.org/data/nsidc-0422 is 'Antarctic 1 km Digital Elevation Model (DEM) from Combined ERS-1 Radar and ICESat Laser Satellite Altimetry, Version 1' (Bamber et al. 2009), so it was NOT used. The permafrost map is data set GGD318 (landing page https://nsidc.org/data/GGD318), found by web search and confirmed on the Version 2 page. Formats: ESRI Shapefile and EASE-Grid (12.5 km, 25 km, 0.5 degree); access is via FTP (ftp://sidads.colorado.edu/pub/DATASETS/fgdc/ggd318_map_circumarctic/), not a direct web download. Not downloaded.",
+   "notes": "Replaces GGD318 (Brown et al.) which had FTP-only access and unconfirmed licence. GGD318 NSIDC accession still noted here for reference: NSIDC GGD318 Circum-Arctic Map of Permafrost and Ground-Ice Conditions, Version 2, DOI 10.7265/skbg-kf16 (https://nsidc.org/data/ggd318/versions/2); the two earlier wrong NSIDC addresses were G02171 (sea-ice charts) and NSIDC-0422 (Antarctic DEM). Access: public, no registration needed per the CEDA record; HTTP at http://data.ceda.ac.uk/neodc/esacci/permafrost/data/ and anonymous FTP at ftp://anon-ftp.ceda.ac.uk/neodc/esacci/permafrost/data/. v5.0 DOIs: permafrost extent NH 10.5285/d235665772ec4b558e9a89ac85595e71 (28 files, 318 MB, NetCDF); ground temperature NH 10.5285/5675b0be944f45a8af0e7ddbeb47a011; active layer thickness NH 10.5285/a6fbedd8ee5b472c8e84e55f746c1704; Antarctic products have separate DOIs. Collection citation text on the ESA page says version 4 while the page lists v5.0 (an inconsistency on the page). Status partial because nothing is downloaded yet (access is open, so not blocked).",
    "role": "data",
    "year": 2026,
    "local_path": null,
    "date_acquired": "2026-10-27",
-   "campaign_wave": "D-060 P2 gap"
+   "campaign_wave": "D-060 P2 gap",
+   "landing_page": "https://catalogue.ceda.ac.uk/uuid/c116848868054e18a9f5a51d68c3ad21"
   },
   {
    "id": "nasa_sealevel_ar6",
@@ -7509,7 +7525,7 @@
    ],
    "files": [],
    "total_bytes": 0,
-   "notes": "An API query with sector=water_global returned 1001 datasets whose first result is a biomes dataset, so that filter value does not appear to select the water sector (1001 may also be a cap); no usable inventory was made. A real inventory needs the correct filter. Not downloaded.",
+   "notes": "An API query with sector=water_global returned 1001 datasets whose first result is a biomes dataset, so that filter value does not appear to select the water sector (1001 may also be a cap); no usable inventory was made. A real inventory needs the correct filter. Not downloaded. 2026-10-27: NOT downloaded. The brief asked for this entry to be marked available after the ISIMIP download, but the download was the Jaegermeyr2021 crop-yield dataset (jaegermeyr_2021_isimip); the water-sector hydrology data were never inventoried or fetched, so its status stays partial.",
    "role": "data",
    "year": 2026,
    "local_path": null,

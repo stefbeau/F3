@@ -7,8 +7,8 @@
   "p90p100",
   "p99p100"
  ],
- "countries_found": 374,
- "rows_extracted": 71036,
+ "countries_found": 323,
+ "rows_extracted": 33579,
  "year_range": [
   "1990",
   "2024"
@@ -17,15 +17,12 @@
  "date_processed": "2026-10-26",
  "year_filter": "1990 to 2025",
  "variable_codes_found": [
-  "sptincf992",
-  "sptinci992",
-  "sptinci996",
-  "sptinci999",
-  "sptincj992",
-  "sptincj999",
-  "sptincm992",
-  "sptinct992"
+  "sptincj992"
  ],
  "data_members_read": 423,
- "note": "Rows kept where the variable code starts with sptinc, the percentile is one of the three listed and the year is in the filter. Nothing else from the zip was written."
+ "note": "Rows kept where the variable code starts with sptinc, the percentile is one of the three listed and the year is in the filter. Nothing else from the zip was written.",
+ "rows_extracted_before_variant_filter": 71036,
+ "variant": "sptincj992",
+ "variant_note": "variant = sptincj992 (pre-tax national income, equal-split adults), confirmed by the editor 2026-10-27; the file was overwritten in place with only these rows. Before the filter the extract held 71,036 rows over 374 codes and eight variants.",
+ "date_variant_filtered": "2026-10-27"
 }
