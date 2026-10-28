@@ -622,7 +622,7 @@
   {
    "id": "bls_oes_automation",
    "kind": "access",
-   "wanted": "Latest OEWS national industry-specific occupational employment and wage estimates (XLS/ZIP from bls.gov/oes/tables.htm) — Stéphane to download manually and hand off",
+   "wanted": "Latest OEWS national industry-specific occupational employment and wage estimates (XLS/ZIP from bls.gov/oes/tables.htm)",
    "why": "Employment by occupation and industry is the base for any automation-exposure estimate of labour (S3 labour input; proposed L9 and L_MH).",
    "supports": [],
    "url": "https://www.bls.gov/oes/tables.htm",
@@ -630,6 +630,44 @@
    "licence_note": "US federal data, expected public domain; confirm the BLS website-policies page when downloaded",
    "priority": 1,
    "status": "blocked"
+  },
+  {
+   "id": "paperswithcode_sota",
+   "kind": "decision",
+   "wanted": "Choice of a replacement for the discontinued Papers With Code SOTA leaderboards (for example Hugging Face benchmarks or Epoch AI benchmarking hub)",
+   "why": "Benchmark progress is the capability signal proposed for L_RISK; the original source no longer serves it.",
+   "supports": [],
+   "url": "https://paperswithcode.com/sota",
+   "blocked_by": "Source discontinued: URL redirects to a Hugging Face trending-papers page",
+   "licence_note": "Not applicable until a replacement is chosen",
+   "priority": 2,
+   "status": "open"
+  },
+  {
+   "id": "semi_fab_capacity",
+   "kind": "paywall",
+   "wanted": "SEMI World Fab Forecast data or a public summary of semiconductor fab capacity by region and node",
+   "why": "Fab capacity bounds the supply of AI accelerators in the compute chain; proposed financial and supply-risk links.",
+   "supports": [
+    "AI"
+   ],
+   "url": "https://www.semi.org/en/products-services/market-data/world-fab-forecast",
+   "blocked_by": "Cloudflare 403 challenge; product is commercial market data",
+   "licence_note": "Commercial licence expected; not redistributable without agreement",
+   "priority": 2,
+   "status": "open"
+  },
+  {
+   "id": "linkedin_ai_skills",
+   "kind": "access",
+   "wanted": "Current LinkedIn Economic Graph AI-skills or AI-talent report and the right URL for it",
+   "why": "AI skills adoption is a labour-market signal for the labour input of S3 (proposed L9, L_MH).",
+   "supports": [],
+   "url": "https://economicgraph.linkedin.com/research/skills-on-the-rise",
+   "blocked_by": "URL returns 404; replacement page not identified",
+   "licence_note": "LinkedIn terms apply; likely not redistributable",
+   "priority": 2,
+   "status": "open"
   },
   {
    "id": "cb_insights_ai_funding",
@@ -642,18 +680,6 @@
    "licence_note": "Commercial report; not redistributable",
    "priority": 2,
    "status": "open"
-  },
-  {
-   "id": "eurostat_ict_adoption",
-   "kind": "manual",
-   "wanted": "Eurostat enterprise AI-use dataset isoc_eb_ai (bulk TSV)",
-   "why": "Enterprise AI adoption by country feeds the AI diffusion side of the labour link.",
-   "supports": [
-    "AI"
-   ],
-   "url": "https://ec.europa.eu/eurostat/web/digital-economy-and-society/data/database",
-   "blocked_by": "Brief URL (isoc_e_iuse_a bulk download) returns HTTP 404; the dataset does not exist. isoc_eb_ai was ingested earlier, so confirm whether that substitution is acceptable.",
-   "priority": 2
   },
   {
    "id": "wipo_ip_stats",
