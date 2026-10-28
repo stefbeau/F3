@@ -95,7 +95,10 @@
    "url": "https://top500.org/lists/top500/",
    "blocked_by": "download needs a TOP500 account",
    "licence_note": "Copyright notice only",
-   "priority": 3
+   "priority": 3,
+   "status": "blocked",
+   "blocked_update": "2026-10-28",
+   "resolution": "Re-tried 2026-10-28: the November 2024 xlsx and xml links return HTTP 200 with a 0-byte body (account needed); nothing downloaded."
   },
   {
    "id": "irena_stats",
@@ -108,7 +111,10 @@
    "url": "https://www.irena.org/Data/Downloads/IRENASTAT",
    "blocked_by": "HTTP 403",
    "licence_note": "",
-   "priority": 3
+   "priority": 3,
+   "status": "resolved",
+   "resolved_date": "2026-10-28",
+   "resolution": "Retrieved through IRENA's open PxWeb API (the www.irena.org download page is 403); 908,544 rows. Licence text still unread (terms pages return 403)."
   },
   {
    "id": "usgs_mcs2026_data",
@@ -151,7 +157,9 @@
    "url": "https://doi.org/10.5066/P13XCP3R",
    "blocked_by": "HTTP 403",
    "licence_note": "",
-   "priority": 3
+   "priority": 3,
+   "status": "blocked",
+   "resolution": "2026-10-28: the MCS 2025 PDF (already held, same checksum) was re-fetched; PDF only, data tables require extraction. The CSV data release (DOI 10.5066/P13XCP3R, ScienceBase) was not retrieved."
   },
   {
    "id": "papers_zhao2017",
@@ -327,7 +335,10 @@
    "url": "https://bulks-faostat.fao.org/production/Food_Balances_E_All_Data_(Normalized).zip",
    "blocked_by": "HTTP 403",
    "licence_note": "CC BY 4.0 per FAO database terms",
-   "priority": 3
+   "priority": 3,
+   "status": "resolved",
+   "resolved_date": "2026-10-28",
+   "resolution": "Food Balance Sheets bulk zip downloaded 2026-10-28 from bulks-faostat.fao.org (the API URLs fail, the static file works): 4.82 M rows, 213 areas, 2010 to 2023."
   },
   {
    "id": "ilostat_terms",
@@ -340,7 +351,10 @@
    "url": "https://ilostat.ilo.org/",
    "blocked_by": "HTTP 403",
    "licence_note": "CC BY 4.0 stated on ilo.org/rights-and-permissions",
-   "priority": 3
+   "priority": 3,
+   "status": "resolved",
+   "resolved_date": "2026-10-28",
+   "resolution": "The bulk-download and copyright pages still return 403, but the API (rplumber.ilo.org) works; added the all-sources occupation series (226,981 rows). The licence stays as already verified (CC BY 4.0, 3 May 2023 vintage)."
   },
   {
    "id": "lbnl_record",
@@ -353,7 +367,10 @@
    "url": "https://escholarship.org/uc/item/32d6m0d1",
    "blocked_by": "empty HTTP 202 response",
    "licence_note": "",
-   "priority": 3
+   "priority": 3,
+   "status": "blocked",
+   "blocked_update": "2026-10-28",
+   "resolution": "2026-10-28: eScholarship still answers with an empty HTTP 202 and emp.lbl.gov returns 403; licence label not obtained. (Tracking the Sun in the brief is a different, solar dataset.)"
   },
   {
    "id": "bgs_wms",
@@ -472,7 +489,10 @@
    "url": "https://zenodo.org/records/20414751",
    "blocked_by": "not a block: size",
    "licence_note": "CC BY 4.0",
-   "priority": 3
+   "priority": 3,
+   "status": "blocked",
+   "blocked_update": "2026-10-28",
+   "resolution": "2026-10-28: only ers_plan_global was fetched from downloads.climatetrace.org (release 5.11.0). The per-sector emission packages are behind a JavaScript tool and were not found, so the open question of the other sector zips (and their size) stands."
   },
   {
    "id": "stanford_ai_index_data",
@@ -485,7 +505,10 @@
    "url": "https://hai.stanford.edu/ai-index",
    "blocked_by": "data link not found on the pages read; report is CC BY-ND",
    "licence_note": "CC BY-ND 4.0",
-   "priority": 3
+   "priority": 3,
+   "status": "blocked",
+   "blocked_update": "2026-10-28",
+   "resolution": "2026-10-28: the public data is a Google Drive folder (link recorded in the register); I did not attempt to download it. Please download the folder manually. No data licence was stated on the page."
   },
   {
    "id": "unfccc_ghg",
@@ -498,7 +521,10 @@
    "url": "https://unfccc.int/process-and-meetings/transparency-and-reporting/greenhouse-gas-data/ghg-data-unfccc",
    "blocked_by": "the landing page is a 212-byte JavaScript shell; the data sit behind an interactive portal that the campaign did not drive",
    "licence_note": "Terms not read",
-   "priority": 3
+   "priority": 3,
+   "status": "blocked",
+   "blocked_update": "2026-10-28",
+   "resolution": "2026-10-28: the portal answers scripted requests with an Imperva bot challenge (212-byte shell); the data must be exported manually from the browser."
   },
   {
    "id": "emdat",
