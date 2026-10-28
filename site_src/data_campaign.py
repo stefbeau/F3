@@ -314,6 +314,26 @@ def b_epoch_rev(ctx: Ctx):
     return {"reports": rows, "n_companies": int(d["Company"].nunique())}
 
 
+@series("openalex_ai_by_year_country",
+        title="Publications tagged Artificial intelligence by year and by country (OpenAlex)",
+        description="Number of OpenAlex works tagged with the concept Artificial intelligence per publication year 2000-2024, and the 15 countries with the most such works by authors' institutions.",
+        sources=["openalex_ai_publications"], files=["openalex_ai_publications/by_year.json", "openalex_ai_publications/by_country.json"], units="works (publications)", geography="global; by country of authors' institutions",
+        time_span="2000 to 2024 (publication years)", variables=["by_year", "by_country", "total_works"], supports=["AI"],
+        attribution="OpenAlex (OurResearch), https://openalex.org (CC0 1.0); counts re-expressed as annual and per-country aggregates by F3. Retrieved 2026-10-28.",
+        method="by_year.json and by_country.json are OpenAlex group_by responses for concept C154945302 and publication years 2000-2024. Years are sorted; countries are sorted by count and cut at 15. The response's own total (meta.count) is kept as total_works.",
+        caveats=["Counts are of works that OpenAlex tags with the concept, not a share of all research and not a measure of quality or impact.",
+                 "A work with authors at institutions in several countries is counted once in each country, so country counts overlap; the country response is truncated at 200 groups and its counts sum to less than total_works.",
+                 "The file is retrieved 2026-10-28; the 'retrieved' field of this series is the campaign's build date."])
+def b_openalex(ctx: Ctx):
+    by_year = json.loads(ctx.verify("openalex_ai_publications/by_year.json").read_text(encoding="utf-8"))
+    by_country = json.loads(ctx.verify("openalex_ai_publications/by_country.json").read_text(encoding="utf-8"))
+    years = sorted(({"year": int(g["key"]), "count": int(g["count"])} for g in by_year["group_by"]), key=lambda x: x["year"])
+    groups = by_country["group_by"]
+    top = sorted(groups, key=lambda g: (-g["count"], g["key"]))[:15]
+    return {"total_works": int(by_year["meta"]["count"]), "country_groups_returned": len(groups), "country_groups_sum": int(sum(g["count"] for g in groups)),
+            "by_year": years, "by_country": [{"code": g["key"].rsplit("/", 1)[-1], "country": g["key_display_name"], "count": int(g["count"])} for g in top]}
+
+
 # ====================================================================================================================== D2 electricity
 EMBER_AREAS = ["World", "United States of America", "China", "India", "EU", "Ireland", "Netherlands", "Singapore", "Japan", "Germany", "United Kingdom", "Malaysia", "South Korea", "Sweden", "Norway", "Canada"]
 

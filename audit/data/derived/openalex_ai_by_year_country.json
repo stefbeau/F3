@@ -1,0 +1,234 @@
+{
+ "id": "openalex_ai_by_year_country",
+ "title": "Publications tagged Artificial intelligence by year and by country (OpenAlex)",
+ "description": "Number of OpenAlex works tagged with the concept Artificial intelligence per publication year 2000-2024, and the 15 countries with the most such works by authors' institutions.",
+ "built_by": "site_src/data_campaign.py",
+ "register": "audit/data/sources-register.json",
+ "sources": [
+  {
+   "id": "openalex_ai_publications",
+   "title": "OpenAlex AI Publications (works by country and by year)",
+   "version": "API responses 2026-10-28; concept Artificial intelligence (C154945302, Wikidata Q11660), publication years 2000-2024",
+   "url": "https://openalex.org",
+   "licence": "CC0 1.0",
+   "licence_quote": "all data is CC0 — no license worries, ever.",
+   "redistribution": "yes"
+  }
+ ],
+ "source_files": [
+  {
+   "path": "openalex_ai_publications/by_year.json",
+   "sha256": "c6949ae9289761572b42452d7269be0d3f2acdeff7f9dbb3a590ff3fe40d6875",
+   "bytes": 2870
+  },
+  {
+   "path": "openalex_ai_publications/by_country.json",
+   "sha256": "64d388ff25855566669782a4f6777b2717601df590a642923dfdc5a2db19e57a",
+   "bytes": 20113
+  }
+ ],
+ "retrieved": "2026-10-22",
+ "redistribution": "yes",
+ "attribution": "OpenAlex (OurResearch), https://openalex.org (CC0 1.0); counts re-expressed as annual and per-country aggregates by F3. Retrieved 2026-10-28.",
+ "units": "works (publications)",
+ "geography": "global; by country of authors' institutions",
+ "time_span": "2000 to 2024 (publication years)",
+ "variables": [
+  "by_year",
+  "by_country",
+  "total_works"
+ ],
+ "supports": [
+  "AI"
+ ],
+ "method": "by_year.json and by_country.json are OpenAlex group_by responses for concept C154945302 and publication years 2000-2024. Years are sorted; countries are sorted by count and cut at 15. The response's own total (meta.count) is kept as total_works.",
+ "caveats": [
+  "Counts are of works that OpenAlex tags with the concept, not a share of all research and not a measure of quality or impact.",
+  "A work with authors at institutions in several countries is counted once in each country, so country counts overlap; the country response is truncated at 200 groups and its counts sum to less than total_works.",
+  "The file is retrieved 2026-10-28; the 'retrieved' field of this series is the campaign's build date."
+ ],
+ "data": {
+  "total_works": 13670221,
+  "country_groups_returned": 200,
+  "country_groups_sum": 11211070,
+  "by_year": [
+   {
+    "year": 2000,
+    "count": 163844
+   },
+   {
+    "year": 2001,
+    "count": 169753
+   },
+   {
+    "year": 2002,
+    "count": 313712
+   },
+   {
+    "year": 2003,
+    "count": 270445
+   },
+   {
+    "year": 2004,
+    "count": 276362
+   },
+   {
+    "year": 2005,
+    "count": 326113
+   },
+   {
+    "year": 2006,
+    "count": 366976
+   },
+   {
+    "year": 2007,
+    "count": 384824
+   },
+   {
+    "year": 2008,
+    "count": 419269
+   },
+   {
+    "year": 2009,
+    "count": 457573
+   },
+   {
+    "year": 2010,
+    "count": 496080
+   },
+   {
+    "year": 2011,
+    "count": 525011
+   },
+   {
+    "year": 2012,
+    "count": 539124
+   },
+   {
+    "year": 2013,
+    "count": 558544
+   },
+   {
+    "year": 2014,
+    "count": 572666
+   },
+   {
+    "year": 2015,
+    "count": 582102
+   },
+   {
+    "year": 2016,
+    "count": 591619
+   },
+   {
+    "year": 2017,
+    "count": 602589
+   },
+   {
+    "year": 2018,
+    "count": 666558
+   },
+   {
+    "year": 2019,
+    "count": 729280
+   },
+   {
+    "year": 2020,
+    "count": 778595
+   },
+   {
+    "year": 2021,
+    "count": 834984
+   },
+   {
+    "year": 2022,
+    "count": 817771
+   },
+   {
+    "year": 2023,
+    "count": 931614
+   },
+   {
+    "year": 2024,
+    "count": 1294813
+   }
+  ],
+  "by_country": [
+   {
+    "code": "CN",
+    "country": "China",
+    "count": 2252080
+   },
+   {
+    "code": "US",
+    "country": "United States",
+    "count": 1847001
+   },
+   {
+    "code": "GB",
+    "country": "United Kingdom",
+    "count": 550902
+   },
+   {
+    "code": "IN",
+    "country": "India",
+    "count": 531510
+   },
+   {
+    "code": "DE",
+    "country": "Germany",
+    "count": 458812
+   },
+   {
+    "code": "JP",
+    "country": "Japan",
+    "count": 449714
+   },
+   {
+    "code": "FR",
+    "country": "France",
+    "count": 378517
+   },
+   {
+    "code": "CA",
+    "country": "Canada",
+    "count": 315819
+   },
+   {
+    "code": "IT",
+    "country": "Italy",
+    "count": 292353
+   },
+   {
+    "code": "AU",
+    "country": "Australia",
+    "count": 244062
+   },
+   {
+    "code": "KR",
+    "country": "South Korea",
+    "count": 234955
+   },
+   {
+    "code": "ES",
+    "country": "Spain",
+    "count": 218261
+   },
+   {
+    "code": "ID",
+    "country": "Indonesia",
+    "count": 210273
+   },
+   {
+    "code": "RU",
+    "country": "Russia",
+    "count": 182721
+   },
+   {
+    "code": "NL",
+    "country": "Netherlands",
+    "count": 161477
+   }
+  ]
+ }
+}
