@@ -615,7 +615,9 @@
    "blocked_by": "nothing technical: public, no login; download not yet requested (the brief asked for a new item only if download is blocked, this one records that it is simply pending)",
    "licence_note": "any user, any purpose, with acknowledgement (ESA CCI Permafrost terms and conditions, read 2026-10-27)",
    "priority": 2,
-   "status": "open"
+   "status": "resolved",
+   "resolved_date": "2026-10-28",
+   "resolution": "File provided by Stéphane from CEDA public download (no registration required)."
   }
  ]
 }
