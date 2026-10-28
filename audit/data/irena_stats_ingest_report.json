@@ -1,0 +1,31 @@
+{
+ "schema_version": 1,
+ "source_id": "irena_stats",
+ "date_processed": "2026-10-28",
+ "table": "IRENASTAT / Power Capacity and Generation / Country_ELECSTAT_2026_H2_PX (updated 2026-09-28)",
+ "api": "https://pxweb.irena.org/api/v1/en/IRENASTAT (PxWeb, open, no key)",
+ "method": "POST per chunk of 20 countries (a single all-cells query returns HTTP 403), response format csv, chunks concatenated with one header",
+ "chunks": 12,
+ "columns": [
+  "Country/area",
+  "Technology",
+  "Data Type",
+  "Grid connection",
+  "Year",
+  "Electricity statistics"
+ ],
+ "rows": 908544,
+ "countries_or_areas": 224,
+ "technologies": 26,
+ "year_min": "2000",
+ "year_max": "2025",
+ "table_dimensions": {
+  "Country/area": 224,
+  "Technology": 26,
+  "Data Type": 2,
+  "Grid connection": 3,
+  "Year": 26
+ },
+ "output_file": "audit/data/raw/irena_stats/irena_electricity_by_country.csv",
+ "committed_to_git": false
+}

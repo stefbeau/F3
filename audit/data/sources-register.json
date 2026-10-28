@@ -743,7 +743,7 @@
     }
    ],
    "total_bytes": 31777434,
-   "notes": "The 2026 report landing pages were saved; the 2026 report PDF link was not found on the pages read."
+   "notes": "The 2026 report landing pages were saved; the 2026 report PDF link was not found on the pages read. 2026-10-28: the report page https://hai.stanford.edu/ai-index/2025-ai-index-report links a public data folder on Google Drive (https://drive.google.com/drive/folders/1AxxxL9-AsaeMdDKtTNHCR1KqEJTsHCod, 'Access the Public Data'); the brief's URL aiindex.stanford.edu/report/ redirects to hai.stanford.edu/ai-index. Downloading a Google Drive folder was not attempted (it needs a browser or the Drive API), so no data file was retrieved. No licence statement was found for the data; the report itself is CC BY-ND 4.0."
   },
   {
    "id": "top500",
@@ -809,7 +809,7 @@
     }
    ],
    "total_bytes": 294069,
-   "notes": "HPC (Linpack, FP64) rather than AI training clusters; weak relevance to the AI-compute link."
+   "notes": "HPC (Linpack, FP64) rather than AI training clusters; weak relevance to the AI-compute link. 2026-10-28: download attempt failed. The URL in the brief (TOP500_202411_all.xlsx) and the list page's own links (TOP500_202411.xlsx, TOP500_202411_all.xml) all return HTTP 200 with an EMPTY body (0 bytes), which is consistent with the earlier finding that downloads need a TOP500 account (the cause was not confirmed). Nothing saved. The footer states 'Copyright 1993-2026 TOP500.org'; no licence statement exists to support the 'publicly available for research' wording in the brief."
   },
   {
    "id": "sia_sales",
@@ -1166,7 +1166,7 @@
     }
    ],
    "total_bytes": 4425509,
-   "notes": "First US-wide estimate to separate AI servers; the direct-water figure for 2023 is quoted in the report as hyperscale 'between 60 and 124 billion litres' (scenario range), see docs/links/DC.md.",
+   "notes": "First US-wide estimate to separate AI servers; the direct-water figure for 2023 is quoted in the report as hyperscale 'between 60 and 124 billion litres' (scenario range), see docs/links/DC.md. 2026-10-28: the eScholarship record (https://escholarship.org/uc/item/32d6m0d1) returns an empty HTTP 202 to scripted requests, and the brief's URL emp.lbl.gov/tracking-the-sun returns HTTP 403 (Tracking the Sun is, to my knowledge, LBNL's solar dataset rather than the data-centre study; not verified, the page was blocked). The report PDF at eta-publications.lbl.gov returns an empty 202 as well. No new file; the report registered earlier is unchanged.",
    "landing_page": "https://eta.lbl.gov/publications/2024-lbnl-data-center-energy-usage-report"
   },
   {
@@ -2003,10 +2003,19 @@
      "url": "https://zenodo.org/api/records/20414751",
      "http_status": 200,
      "retrieved_utc": "2026-10-22T18:03:24Z"
+    },
+    {
+     "path": "climate_trace/ers_plan_global.zip",
+     "bytes": 44999056,
+     "sha256": "50e0c6fd8a258123cf033ec23a89959bd0bcf67ced1a840b24581c93e9db2388",
+     "url": "https://downloads.climatetrace.org/latest/ers/ers_plan_global.zip",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T00:00:00Z",
+     "via": "direct download"
     }
    ],
-   "total_bytes": 328318058,
-   "notes": "Source-level power-plant data would allow data-centre-region grid emission factors; not done here.",
+   "total_bytes": 373317114,
+   "notes": "Source-level power-plant data would allow data-centre-region grid emission factors; not done here. 2026-10-28: the brief's URL climatetrace.org/downloads returns 404; the live page is https://climatetrace.org/data (release 5.11.0 of 2026-09-24, monthly emissions to July 2026), which says 'The data are licensed Creative Commons 4.0' without naming the variant. Added ers_plan_global.zip (45.0 MB; one 565 MB CSV, ers_plan_global_v5_11_0.csv, plus an about-the-data PDF) from downloads.climatetrace.org. Not fetched: geometries.gpkg.zip (654 MB), a reference file of geometries, not emissions data. The per-sector package URLs sit behind the page's JavaScript download tool and were not found, so no new sector emissions file was added.",
    "landing_page": "https://climatetrace.org/data"
   },
   {
@@ -3545,10 +3554,19 @@
      "url": "https://rplumber.ilo.org/data/indicator/?id=UNE_DEAP_SEX_AGE_RT_A&type=both&format=.csv",
      "http_status": 200,
      "retrieved_utc": "2026-10-22T18:11:48Z"
+    },
+    {
+     "path": "ilostat/EMP_TEMP_SEX_OCU_NB_A.csv",
+     "bytes": 50047372,
+     "sha256": "0d0e0bd67462454215a484dd2367e70c48c3166cf2e74b8878759424babf10cf",
+     "url": "https://rplumber.ilo.org/data/indicator/?id=EMP_TEMP_SEX_OCU_NB_A&type=label&format=.csv",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T00:00:00Z",
+     "via": "direct download"
     }
    ],
-   "total_bytes": 394065032,
-   "notes": "Confirms the M5 plan/D-008 note that the labour income share series starts in 2004.",
+   "total_bytes": 444112404,
+   "notes": "Confirms the M5 plan/D-008 note that the labour income share series starts in 2004. 2026-10-28: added EMP_TEMP_SEX_OCU_NB_A (employment by sex and occupation, all sources, thousands) via the ILO rplumber API, 50.0 MB, 226,981 complete rows, 295 areas, years 1969 to 2025, 39 occupation classes (ISCO-08 1-digit groups and skill levels 1 to 4). This differs from the registered EMP_2EMP_SEX_OCU_NB_A (ILO modelled estimates). The bulk-download page and copyright page return HTTP 403; the rplumber API works. A first request returned a truncated 15 MB file that stopped mid-row (cause unknown), so the download was repeated and the second, complete file kept.",
    "landing_page": "https://ilostat.ilo.org/",
    "derived": [
     "ilostat_labour_income_share",
@@ -4394,7 +4412,7 @@
     }
    ],
    "total_bytes": 10502636,
-   "notes": "",
+   "notes": "2026-10-28: re-downloaded https://pubs.usgs.gov/periodicals/mcs2025/mcs2025.pdf (10,431,998 bytes); its sha256 equals the file already registered, so nothing new. PDF only: the data tables need extraction. The brief's label usgs_mcs2025_data refers to the CSV data release (DOI 10.5066/P13XCP3R), which is still not held.",
    "derived": [
     "usgs_mcs2026_world_production_reserves"
    ]
@@ -5108,10 +5126,19 @@
      "url": "https://bulks-faostat.fao.org/production/Production_Crops_Livestock_E_All_Data_(Normalized).zip",
      "http_status": 200,
      "retrieved_utc": "2026-10-22T18:00:32Z"
+    },
+    {
+     "path": "faostat/FoodBalanceSheets_E_All_Data_(Normalized).zip",
+     "bytes": 54840802,
+     "sha256": "26200855ed5da3d0805e34219124e241d0e0bc6959d0995ebc77a10dd84cbaf1",
+     "url": "https://bulks-faostat.fao.org/production/FoodBalanceSheets_E_All_Data_(Normalized).zip",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T00:00:00Z",
+     "via": "direct download"
     }
    ],
-   "total_bytes": 36956237,
-   "notes": "",
+   "total_bytes": 91797039,
+   "notes": "2026-10-28: Food Balance Sheets bulk zip downloaded from https://bulks-faostat.fao.org/production/ (54.8 MB, 4 CSVs; the normalized data file is 633 MB uncompressed, 4,820,497 rows, 213 areas, years 2010 to 2023; columns Area Code, Area Code (M49), Area, Item Code, Item Code (FBS), Item, Element Code, Element, Year Code, Year, Unit, Value, Flag, Note). The brief asked for 1990 to 2023, but this file's data run only 2010 to 2023 (checked in the file); whether an older series exists as a separate FAOSTAT dataset was not checked. The brief's fenixservices API URL returns HTTP 521 and faostatservices.fao.org returns 401; the static bulk file works. Licence: CC BY 4.0 under FAO's database terms (already verified for this entry from db-terms-of-use.html). Status left at partial because other FAOSTAT domains (for example food security) are not downloaded.",
    "derived": [
     "faostat_world_cereals"
    ]
@@ -5391,7 +5418,7 @@
    "id": "irena_stats",
    "title": "IRENA renewable capacity statistics (not retrieved)",
    "publisher": "International Renewable Energy Agency",
-   "url": "https://www.irena.org/Data/Downloads/IRENASTAT",
+   "url": "https://pxweb.irena.org/pxweb/en/IRENASTAT",
    "domains": [
     "D8"
    ],
@@ -5399,24 +5426,38 @@
     "L5",
     "L7"
    ],
-   "version": "not retrieved",
-   "retrieved": "2026-10-22",
-   "status": "blocked",
+   "version": "IRENASTAT Country_ELECSTAT_2026_H2 (table updated 2026-09-28)",
+   "retrieved": "2026-10-28",
+   "status": "retrieved",
    "licence": {
-    "name": "Not read",
+    "name": "Not read: IRENA terms of use pages return HTTP 403",
     "quote": "",
     "quote_verified": false
    },
    "redistribution": "unclear",
-   "redistribution_note": "HTTP 403.",
-   "units": "n/a",
-   "geography": "n/a",
-   "time_span": "n/a",
-   "variables": [],
-   "files": [],
-   "total_bytes": 0,
-   "notes": "",
-   "role": "document"
+   "redistribution_note": "IRENA's terms-of-use pages (www.irena.org/Terms-of-Use) returned HTTP 403, so no licence text was read; the PxWeb API itself is open without a key. Redistribution not flagged yes (register test rule). The file is not committed.",
+   "units": "GWh (generation) and MW (installed capacity)",
+   "geography": "224 countries and areas",
+   "time_span": "2000 to 2025",
+   "variables": [
+    "electricity generation and installed capacity by technology (26) and grid connection"
+   ],
+   "files": [
+    {
+     "path": "irena_stats/irena_electricity_by_country.csv",
+     "bytes": 67727435,
+     "sha256": "9e03509d87d1c1565ee41c7759cfb328e84698b4a4f47f6bab15b0e9fe9d47ff",
+     "url": "https://pxweb.irena.org/api/v1/en/IRENASTAT/Power%20Capacity%20and%20Generation/Country_ELECSTAT_2026_H2_PX.px",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T00:00:00Z",
+     "via": "PxWeb API, 12 POST chunks"
+    }
+   ],
+   "total_bytes": 67727435,
+   "notes": "2026-10-28: the www.irena.org download page returns HTTP 403, but IRENA's open PxWeb API (pxweb.irena.org/api/v1/en/IRENASTAT) works. Table Country_ELECSTAT_2026_H2_PX, 908,544 rows, 224 countries/areas, 26 technologies, years 2000 to 2025; a single all-cells query returns HTTP 403 (size limit), so it was fetched in 12 chunks of 20 countries and joined under one header. The server sends Windows-1252; the file was re-encoded to UTF-8 (the only non-ASCII name is Turkiye). Two further tables (Region_ELECSTAT_2026_H2_PX, RE-SHARE_2026_H2_PX) and the Finance and Heat Generation folders were not fetched. Report: audit/data/irena_stats_ingest_report.json.",
+   "role": "document",
+   "local_path": "audit/data/raw/irena_stats/",
+   "date_acquired": "2026-10-28"
   },
   {
    "id": "unfccc_ghg",
@@ -5454,7 +5495,7 @@
     }
    ],
    "total_bytes": 212,
-   "notes": "",
+   "notes": "2026-10-28: https://di.unfccc.int/flex_annex1 returns a 212-byte page that loads an Imperva (Incapsula) bot-protection script and nothing else, so the bulk export option could not be looked for. Not worked around.",
    "role": "document"
   },
   {
@@ -8291,7 +8332,7 @@
    "redistribution_note": "No licence text read from a saved file, so redistribution is not flagged yes (register test rule).",
    "units": "study records",
    "geography": "global",
-   "time_span": "live",
+   "time_span": "study start dates 1996 to 2029 (later years are planned starts)",
    "variables": [
     "study records (JSON/CSV via API v2)",
     "conditions, interventions, status, dates"
@@ -8305,15 +8346,24 @@
      "http_status": 200,
      "retrieved_utc": "2026-10-28T08:43:56Z",
      "via": "curl"
+    },
+    {
+     "path": "clinicaltrials_ai/clinicaltrials_ai_full.csv",
+     "bytes": 17033467,
+     "sha256": "3ec92b2d3d5a2225d8676e9abec5158a44b9b5866993f8588e1980b7213ea4c3",
+     "url": "https://clinicaltrials.gov/api/v2/studies?query.term=artificial+intelligence&format=csv&pageSize=1000",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T00:00:00Z",
+     "via": "ClinicalTrials.gov API v2, 5 pages by x-next-page-token header"
     }
    ],
-   "notes": "The search page is a JS shell; the open REST API v2 (no key) answered totalCount 4565 for query.term=artificial+intelligence. A free-text match is not the same as AI-intervention studies; an intervention-specific query would need defining. No study data downloaded. L_PAN is a weak fit (health burden); the best available proposed code.",
+   "notes": "The search page is a JS shell; the open REST API v2 (no key) answered totalCount 4565 for query.term=artificial+intelligence. A free-text match is not the same as AI-intervention studies; an intervention-specific query would need defining. No study data downloaded. L_PAN is a weak fit (health burden); the best available proposed code. 2026-10-28: all 4,565 studies retrieved (totalCount 4565) with 0 duplicates, 5 pages of 1,000, saved to audit/data/raw/clinicaltrials_ai/clinicaltrials_ai_full.csv (30 columns, not in git). Start dates run 1996 to 2029 (1 row with no start date); years after 2026 are planned. In the CSV format only the first page has a header row and the next-page token is the x-next-page-token response header, not a JSON field. The query is free text, so matches are not necessarily AI-intervention studies. Licence/terms of the ClinicalTrials.gov data were not re-read this round; redistribution stays as before. Report: audit/data/clinicaltrials_ai_ingest_report.json.",
    "retrieved": "2026-10-28",
    "role": "data",
    "campaign_wave": "D-061",
    "date_acquired": "2026-10-28",
    "local_path": null,
-   "total_bytes": 94247,
+   "total_bytes": 17127714,
    "year": 2026,
    "d061_direct": {
     "date": "2026-10-28",
