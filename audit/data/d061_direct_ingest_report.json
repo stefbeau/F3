@@ -24,7 +24,7 @@
       "year_range": null
     },
     "eurostat_ict_adoption": {
-      "final_status": "blocked",
+      "final_status": "retrieved (isoc_eb_ai, earlier ingest); brief URL 404",
       "http": [
         404
       ],
@@ -46,14 +46,23 @@
       "note": "no year column; carbon intensities dated 2019 in source comments"
     },
     "us_census_ai_adoption": {
-      "final_status": "blocked",
+      "final_status": "retrieved",
       "http": [
-        404
+        200
       ],
-      "note": "BTOS_2024_AI.csv not at that path",
+      "path": "audit/data/raw/us_census_ai_adoption/direct/",
+      "files": [
+        "AI_Supplement_Table.xlsx",
+        "AI_Supplement_Table_2026.xlsx",
+        "AI26_URR.xlsx"
+      ],
       "rows": null,
       "columns": null,
-      "year_range": null
+      "year_range": [
+        2024,
+        2026
+      ],
+      "note": "see register notes for per-sheet row counts; supersedes the earlier 404"
     },
     "clinicaltrials_ai": {
       "final_status": "retrieved",
@@ -81,14 +90,18 @@
       "year_range": null
     },
     "fda_ai_devices": {
-      "final_status": "blocked",
+      "final_status": "retrieved",
       "http": [
         200
       ],
-      "note": "media/177418/download returned a 900x450 PNG, not Excel \u2014 discarded",
-      "rows": null,
-      "columns": null,
-      "year_range": null
+      "path": "audit/data/raw/fda_ai_devices/direct/ai_devices.csv",
+      "rows": 1614,
+      "columns": 6,
+      "year_range": [
+        1995,
+        2026
+      ],
+      "note": "CSV/XLSX links found on the list page; supersedes the earlier PNG result"
     },
     "wipo_ip_stats": {
       "final_status": "blocked",

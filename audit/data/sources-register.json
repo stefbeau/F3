@@ -7961,7 +7961,7 @@
     "L9"
    ],
    "version": "dataset ISOC_EB_AI, datastructure v45.0; columns 2021, 2023, 2024, 2025",
-   "status": "blocked",
+   "status": "retrieved",
    "licence": {
     "name": "Eurostat free re-use policy (source must be acknowledged)",
     "quote": "Reuse of statistical data, metadata, publications, and other dissemination tools published on this website for commercial or non-commercial purposes is authorised provided the source is acknowledged.",
@@ -8021,10 +8021,9 @@
     "http": [
      404
     ],
-    "outcome": "blocked",
-    "note": "isoc_e_iuse_a bulk file does not exist (enterprise AI dataset is isoc_eb_ai, see register)"
-   },
-   "blocked_http_status": 404
+    "outcome": "retrieved",
+    "note": "brief URL isoc_e_iuse_a returns 404; status stays retrieved on the earlier isoc_eb_ai ingest (25,263 rows)"
+   }
   },
   {
    "id": "bls_oes_automation",
