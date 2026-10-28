@@ -1,0 +1,105 @@
+{
+  "campaign": "D-061 direct ingest",
+  "date": "2026-10-28",
+  "sources": {
+    "epoch_ai_compute": {
+      "final_status": "blocked",
+      "http": [
+        404,
+        200
+      ],
+      "note": "primary 404; Google Sheets fallback returned 200 but only a 1.4 KB deprecated cover tab (no data rows) \u2014 discarded. Earlier notable_ai_models.csv ingest (epoch_ai) is unaffected.",
+      "rows": null,
+      "columns": null,
+      "year_range": null
+    },
+    "bls_oes_automation": {
+      "final_status": "blocked",
+      "http": [
+        403
+      ],
+      "note": "Akamai Access Denied",
+      "rows": null,
+      "columns": null,
+      "year_range": null
+    },
+    "eurostat_ict_adoption": {
+      "final_status": "blocked",
+      "http": [
+        404
+      ],
+      "note": "isoc_e_iuse_a bulk file does not exist (enterprise AI dataset is isoc_eb_ai, see register)",
+      "rows": null,
+      "columns": null,
+      "year_range": null
+    },
+    "mlco2_impact": {
+      "final_status": "retrieved",
+      "http": [
+        200
+      ],
+      "path": "audit/data/raw/mlco2_impact/direct/impact.csv",
+      "bytes": 12567,
+      "rows": 82,
+      "columns": 13,
+      "year_range": null,
+      "note": "no year column; carbon intensities dated 2019 in source comments"
+    },
+    "us_census_ai_adoption": {
+      "final_status": "blocked",
+      "http": [
+        404
+      ],
+      "note": "BTOS_2024_AI.csv not at that path",
+      "rows": null,
+      "columns": null,
+      "year_range": null
+    },
+    "clinicaltrials_ai": {
+      "final_status": "retrieved",
+      "http": [
+        200
+      ],
+      "path": "audit/data/raw/clinicaltrials_ai/direct/studies.csv",
+      "bytes": 3397864,
+      "rows": 1000,
+      "columns": 30,
+      "year_range": [
+        2000,
+        2027
+      ],
+      "note": "pageSize cap: 1000 of ~4565 matching studies (first page only, no pagination); free-text term, not AI-intervention-specific"
+    },
+    "paperswithcode_sota": {
+      "final_status": "blocked",
+      "http": [
+        404
+      ],
+      "note": "repo/file removed (site redirects to Hugging Face)",
+      "rows": null,
+      "columns": null,
+      "year_range": null
+    },
+    "fda_ai_devices": {
+      "final_status": "blocked",
+      "http": [
+        200
+      ],
+      "note": "media/177418/download returned a 900x450 PNG, not Excel \u2014 discarded",
+      "rows": null,
+      "columns": null,
+      "year_range": null
+    },
+    "wipo_ip_stats": {
+      "final_status": "blocked",
+      "http": [
+        200,
+        404
+      ],
+      "note": "API URL returned 200 but the 6 KB JS app shell, not CSV; fallback also 404",
+      "rows": null,
+      "columns": null,
+      "year_range": null
+    }
+  }
+}
