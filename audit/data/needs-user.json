@@ -48,10 +48,7 @@
    "url": "https://www.icos-cp.eu/impact/science/global-carbon-budget/2025",
    "blocked_by": "licence acceptance step on the ICOS portal",
    "licence_note": "CC BY 4.0 per the ICOS data licence page",
-   "priority": 2,
-   "status": "blocked",
-   "resolution": "The ICOS licence page says CC BY 4.0, but each file sits behind a licence-accept click-through on data.icos-cp.eu, so you must download the two xlsx files yourself; version 1.0, doi:10.18160/gcp-2025.",
-   "resolved_date": "2026-10-26"
+   "priority": 2
   },
   {
    "id": "iiasa_ssp_db",
@@ -65,10 +62,7 @@
    "url": "https://tntcat.iiasa.ac.at/SspDb",
    "blocked_by": "registration and terms acceptance required",
    "licence_note": "",
-   "priority": 2,
-   "status": "blocked",
-   "resolution": "The database has moved to ssp.apps.ece.iiasa.ac.at and its licence (adapted CC BY 4.0) bars copying substantial portions; whether a login is needed to download was not established.",
-   "resolved_date": "2026-10-26"
+   "priority": 2
   },
   {
    "id": "energy_institute_sr",
@@ -95,10 +89,7 @@
    "url": "https://top500.org/lists/top500/",
    "blocked_by": "download needs a TOP500 account",
    "licence_note": "Copyright notice only",
-   "priority": 3,
-   "status": "blocked",
-   "blocked_update": "2026-10-28",
-   "resolution": "Re-tried 2026-10-28: the November 2024 xlsx and xml links return HTTP 200 with a 0-byte body (account needed); nothing downloaded."
+   "priority": 3
   },
   {
    "id": "irena_stats",
@@ -111,10 +102,7 @@
    "url": "https://www.irena.org/Data/Downloads/IRENASTAT",
    "blocked_by": "HTTP 403",
    "licence_note": "",
-   "priority": 3,
-   "status": "resolved",
-   "resolved_date": "2026-10-28",
-   "resolution": "Retrieved through IRENA's open PxWeb API (the www.irena.org download page is 403); 908,544 rows. Licence text still unread (terms pages return 403)."
+   "priority": 3
   },
   {
    "id": "usgs_mcs2026_data",
@@ -157,9 +145,7 @@
    "url": "https://doi.org/10.5066/P13XCP3R",
    "blocked_by": "HTTP 403",
    "licence_note": "",
-   "priority": 3,
-   "status": "blocked",
-   "resolution": "2026-10-28: the MCS 2025 PDF (already held, same checksum) was re-fetched; PDF only, data tables require extraction. The CSV data release (DOI 10.5066/P13XCP3R, ScienceBase) was not retrieved."
+   "priority": 3
   },
   {
    "id": "papers_zhao2017",
@@ -204,10 +190,7 @@
    "url": "https://doi.org/10.1126/science.1204531",
    "blocked_by": "paywall (not attempted)",
    "licence_note": "",
-   "priority": 2,
-   "status": "blocked",
-   "resolution": "Science 333:616-620 is a subscription article (science.org HTTP 403); metadata confirmed via Crossref, text needs institutional access or a file from you.",
-   "resolved_date": "2026-10-26"
+   "priority": 2
   },
   {
    "id": "papers_burke2015",
@@ -237,10 +220,7 @@
    "url": "https://doi.org/10.1093/qje/qjac020",
    "blocked_by": "OUP HTTP 403",
    "licence_note": "",
-   "priority": 2,
-   "status": "blocked",
-   "resolution": "QJE 137:2037-2105 metadata confirmed via Crossref, but no Creative Commons licence is listed and the OUP page returned only navigation text; a PDF from you is needed.",
-   "resolved_date": "2026-10-26"
+   "priority": 2
   },
   {
    "id": "papers_gasparrini2017",
@@ -253,10 +233,7 @@
    "url": "https://doi.org/10.1016/S2542-5196(17)30156-0",
    "blocked_by": "HTTP 403",
    "licence_note": "",
-   "priority": 2,
-   "status": "resolved",
-   "resolution": "PDF downloaded from the author-deposited CC BY copy at QUT (the publisher site returns HTTP 403); registered as retrieved.",
-   "resolved_date": "2026-10-27"
+   "priority": 2
   },
   {
    "id": "papers_vicedo2021",
@@ -269,10 +246,7 @@
    "url": "https://doi.org/10.1038/s41558-021-01058-x",
    "blocked_by": "publisher returned the HTML article page, not the PDF",
    "licence_note": "",
-   "priority": 2,
-   "status": "blocked",
-   "resolution": "Nature Climate Change 11:492-500 metadata confirmed via Crossref; no Creative Commons licence is listed and Nature needs a cookie handshake, so a PDF from you is needed.",
-   "resolved_date": "2026-10-26"
+   "priority": 2
   },
   {
    "id": "papers_dunne2013",
@@ -286,10 +260,7 @@
    "url": "https://doi.org/10.1038/nclimate1827",
    "blocked_by": "publisher returned the HTML article page",
    "licence_note": "",
-   "priority": 2,
-   "status": "blocked",
-   "resolution": "Nature Climate Change 3:563-566 metadata confirmed via Crossref; only Springer text-and-data-mining terms are listed and the page needs a cookie handshake, so a PDF from you is needed.",
-   "resolved_date": "2026-10-26"
+   "priority": 2
   },
   {
    "id": "papers_jagermeyr2021",
@@ -318,10 +289,7 @@
    "url": "https://www.oecd.org/en/publications/oecd-employment-outlook-2023_08785bba-en.html",
    "blocked_by": "HTTP 403",
    "licence_note": "",
-   "priority": 2,
-   "status": "blocked",
-   "resolution": "The OECD Employment Outlook 2023 page and terms returned HTTP 403 and Crossref lists no licence; the report and terms need a manual download.",
-   "resolved_date": "2026-10-26"
+   "priority": 2
   },
   {
    "id": "faostat_food_balances",
@@ -335,10 +303,7 @@
    "url": "https://bulks-faostat.fao.org/production/Food_Balances_E_All_Data_(Normalized).zip",
    "blocked_by": "HTTP 403",
    "licence_note": "CC BY 4.0 per FAO database terms",
-   "priority": 3,
-   "status": "resolved",
-   "resolved_date": "2026-10-28",
-   "resolution": "Food Balance Sheets bulk zip downloaded 2026-10-28 from bulks-faostat.fao.org (the API URLs fail, the static file works): 4.82 M rows, 213 areas, 2010 to 2023."
+   "priority": 3
   },
   {
    "id": "ilostat_terms",
@@ -351,10 +316,7 @@
    "url": "https://ilostat.ilo.org/",
    "blocked_by": "HTTP 403",
    "licence_note": "CC BY 4.0 stated on ilo.org/rights-and-permissions",
-   "priority": 3,
-   "status": "resolved",
-   "resolved_date": "2026-10-28",
-   "resolution": "The bulk-download and copyright pages still return 403, but the API (rplumber.ilo.org) works; added the all-sources occupation series (226,981 rows). The licence stays as already verified (CC BY 4.0, 3 May 2023 vintage)."
+   "priority": 3
   },
   {
    "id": "lbnl_record",
@@ -367,10 +329,7 @@
    "url": "https://escholarship.org/uc/item/32d6m0d1",
    "blocked_by": "empty HTTP 202 response",
    "licence_note": "",
-   "priority": 3,
-   "status": "blocked",
-   "blocked_update": "2026-10-28",
-   "resolution": "2026-10-28: eScholarship still answers with an empty HTTP 202 and emp.lbl.gov returns 403; licence label not obtained. (Tracking the Sun in the brief is a different, solar dataset.)"
+   "priority": 3
   },
   {
    "id": "bgs_wms",
@@ -396,10 +355,7 @@
    "url": "https://www.who.int/data/gho",
    "blocked_by": "no stable dataset identified",
    "licence_note": "",
-   "priority": 2,
-   "status": "blocked",
-   "resolution": "No stable redistributable heat-mortality dataset has been identified, and I did not search further this round.",
-   "resolved_date": "2026-10-26"
+   "priority": 2
   },
   {
    "id": "lancet_countdown_nc_sa",
@@ -419,17 +375,14 @@
    "id": "aquastat_nc_sa",
    "kind": "licence decision and file",
    "wanted": "AQUASTAT main database CSV (water withdrawal by sector and country) and a decision on its CC BY-NC-SA 4.0 terms",
-   "why": "Needed for the water module; no bulk file link was found (SQL query service) and the terms are NC-SA. Licence decision made 2026-10-27: acceptable; what remains is a way to get the data.",
+   "why": "Needed for the water module; no bulk file link was found (SQL query service) and the terms are NC-SA.",
    "supports": [
     "M5"
    ],
    "url": "https://data.apps.fao.org/aquastat/",
-   "blocked_by": "no bulk file (SQL-based query service); the licence decision is no longer a blocker",
-   "licence_note": "CC BY-NC-SA 4.0; non-commercial use confirmed acceptable by the editor 2026-10-27",
-   "priority": 2,
-   "status": "blocked",
-   "resolution": "The AQUASTAT bulk file is not available and its CC BY-NC-SA 4.0 terms need your licence decision before any use.",
-   "resolved_date": "2026-10-26"
+   "blocked_by": "licence and no bulk file",
+   "licence_note": "CC BY-NC-SA 4.0 (FAO catalogue record)",
+   "priority": 2
   },
   {
    "id": "wid_terms",
@@ -475,7 +428,7 @@
    "priority": 1,
    "status": "resolved",
    "resolved_date": "2026-10-26",
-   "resolution": "ISIMIP3b dataset is CC0 - no terms barrier. Registered as jaegermeyr_2021_isimip. Download pending (864 files; subset selection needed before ingest). Update 2026-10-27: the full jaegermeyr_2021_isimip dataset (864 files, 11.8 GB, all four scenarios) was downloaded on the editor's instruction, so no subset selection is needed."
+   "resolution": "ISIMIP3b dataset is CC0 - no terms barrier. Registered as jaegermeyr_2021_isimip. Download pending (864 files; subset selection needed before ingest)."
   },
   {
    "id": "climate_trace_sectors",
@@ -489,10 +442,7 @@
    "url": "https://zenodo.org/records/20414751",
    "blocked_by": "not a block: size",
    "licence_note": "CC BY 4.0",
-   "priority": 3,
-   "status": "blocked",
-   "blocked_update": "2026-10-28",
-   "resolution": "2026-10-28: only ers_plan_global was fetched from downloads.climatetrace.org (release 5.11.0). The per-sector emission packages are behind a JavaScript tool and were not found, so the open question of the other sector zips (and their size) stands."
+   "priority": 3
   },
   {
    "id": "stanford_ai_index_data",
@@ -505,10 +455,7 @@
    "url": "https://hai.stanford.edu/ai-index",
    "blocked_by": "data link not found on the pages read; report is CC BY-ND",
    "licence_note": "CC BY-ND 4.0",
-   "priority": 3,
-   "status": "blocked",
-   "blocked_update": "2026-10-28",
-   "resolution": "2026-10-28: the public data is a Google Drive folder (link recorded in the register); I did not attempt to download it. Please download the folder manually. No data licence was stated on the page."
+   "priority": 3
   },
   {
    "id": "unfccc_ghg",
@@ -521,165 +468,6 @@
    "url": "https://unfccc.int/process-and-meetings/transparency-and-reporting/greenhouse-gas-data/ghg-data-unfccc",
    "blocked_by": "the landing page is a 212-byte JavaScript shell; the data sit behind an interactive portal that the campaign did not drive",
    "licence_note": "Terms not read",
-   "priority": 3,
-   "status": "blocked",
-   "blocked_update": "2026-10-28",
-   "resolution": "2026-10-28: the portal answers scripted requests with an Imperva bot challenge (212-byte shell); the data must be exported manually from the browser."
-  },
-  {
-   "id": "emdat",
-   "kind": "gap source",
-   "wanted": "EM-DAT International Disaster Database (CRED, UCLouvain) (https://www.emdat.be/)",
-   "why": "EM-DAT download (events, deaths, affected, damage by country) needs the editor's approval and, per the brief, a free registration; the Terms of Use page must be read first.",
-   "supports": [
-    "L3"
-   ],
-   "url": "https://www.emdat.be/",
-   "blocked_by": "registration (per the brief) and an unread terms page",
-   "licence_note": "Open access for non-commercial use (page statement); detailed terms of use not read",
-   "priority": 2,
-   "status": "resolved",
-   "resolved_date": "2026-10-27",
-   "resolution": "File provided by StÃ©phane from emdat.be registration."
-  },
-  {
-   "id": "ihme_gbd",
-   "kind": "gap source",
-   "wanted": "IHME Global Burden of Disease Results Tool (https://vizhub.healthdata.org/gbd-results/)",
-   "why": "IHME GBD Results Tool: the terms page must be read and the download needs a registration and the editor's approval; derived numbers may not be republishable under non-commercial, no-derivatives terms.",
-   "supports": [
-    "L3",
-    "L4"
-   ],
-   "url": "https://vizhub.healthdata.org/gbd-results/",
-   "blocked_by": "HTTP 403 to automated access; registration for download",
-   "licence_note": "CC BY-NC-ND 4.0 as stated by the editor; NOT confirmed (the page returned HTTP 403)",
-   "priority": 2
-  },
-  {
-   "id": "nsidc_permafrost",
-   "kind": "gap source",
-   "wanted": "NSIDC GGD318 Circum-Arctic Map of Permafrost and Ground-Ice Conditions, Version 2 (https://nsidc.org/data/ggd318/versions/2)",
-   "why": "A permafrost map for L6/L7 permafrost carbon; the URL in the brief was corrected twice (G02171 is sea-ice charts, NSIDC-0422 is an Antarctic DEM), so the editor should confirm GGD318 is the intended dataset.",
-   "supports": [
-    "L6",
-    "L7"
-   ],
-   "url": "https://nsidc.org/data/ggd318/versions/2",
-   "blocked_by": "URL corrected; download not yet attempted (access is via FTP, not a web download).",
-   "licence_note": "No formal licence statement; citation required as a condition of use",
-   "priority": 2,
-   "status": "resolved",
-   "resolved_date": "2026-10-27",
-   "resolution": "Superseded by esa_cci_permafrost on the editor's instruction (GGD318 is FTP-only with an unconfirmed licence). Closed."
-  },
-  {
-   "id": "unhcr_refugees",
-   "kind": "gap source",
-   "wanted": "UNHCR Refugee Data Finder / refugee statistics (https://www.unhcr.org/refugee-statistics/)",
-   "why": "UNHCR refugee statistics: the page and its copyright page returned HTTP 403; read the terms and download manually if wanted.",
-   "supports": [
-    "L4"
-   ],
-   "url": "https://www.unhcr.org/refugee-statistics/",
-   "blocked_by": "HTTP 403 to automated access",
-   "licence_note": "Not read (CC BY as stated by the editor; both the page and the copyright page returned HTTP 403)",
-   "priority": 2
-  },
-  {
-   "id": "oecd_tiva",
-   "kind": "gap source",
-   "wanted": "OECD Trade in Value Added (TiVA) (https://www.oecd.org/sti/ind/measuring-trade-in-value-added.htm)",
-   "why": "OECD TiVA: the page returned HTTP 403, so the edition, coverage and terms are unread; check manually.",
-   "supports": [
-    "L4",
-    "L7"
-   ],
-   "url": "https://www.oecd.org/sti/ind/measuring-trade-in-value-added.htm",
-   "blocked_by": "HTTP 403 to automated access",
-   "licence_note": "Not read (page returned HTTP 403; brief says CC BY)",
-   "priority": 2
-  },
-  {
-   "id": "cset_export_control",
-   "kind": "gap source",
-   "wanted": "CSET export-control source (registered as the Tracking AI Chips report, https://cset.georgetown.edu/publication/tracking-ai-chips)",
-   "why": "Both URLs given in the brief returned HTTP 404; the registered report is Claude's best match, so the editor should confirm which CSET publication is meant.",
-   "supports": [
-    "AI",
-    "M5"
-   ],
-   "url": "https://cset.georgetown.edu/publication/tracking-ai-chips",
-   "blocked_by": "the URLs given return HTTP 404; the intended publication is not confirmed",
-   "licence_note": "Not read (the given URL returned HTTP 404)",
-   "priority": 2
-  },
-  {
-   "id": "entsoe_transparency",
-   "kind": "gap source",
-   "wanted": "ENTSO-E Transparency Platform (https://transparency.entsoe.eu/)",
-   "why": "ENTSO-E Transparency Platform: the page did not load for the fetch; read the terms and API-token requirement manually.",
-   "supports": [
-    "L5",
-    "DC"
-   ],
-   "url": "https://transparency.entsoe.eu/",
-   "blocked_by": "JavaScript application that returned an error",
-   "licence_note": "Not read (the page returned a client-side error); brief says CC BY 4.0",
-   "priority": 2
-  },
-  {
-   "id": "esa_cci_permafrost",
-   "kind": "download",
-   "wanted": "ESA CCI Permafrost v5.0 products (extent, ground temperature, active layer thickness) from CEDA, https://climate.esa.int/en/projects/permafrost/",
-   "why": "Permafrost state for L6/L7 permafrost-carbon; open access, so only the editor's decision on which products to download is needed (the extent product alone is 318 MB).",
-   "supports": [
-    "L6",
-    "L7"
-   ],
-   "url": "https://catalogue.ceda.ac.uk/uuid/c116848868054e18a9f5a51d68c3ad21",
-   "blocked_by": "nothing technical: public, no login; download not yet requested (the brief asked for a new item only if download is blocked, this one records that it is simply pending)",
-   "licence_note": "any user, any purpose, with acknowledgement (ESA CCI Permafrost terms and conditions, read 2026-10-27)",
-   "priority": 2,
-   "status": "resolved",
-   "resolved_date": "2026-10-28",
-   "resolution": "File provided by Stéphane from CEDA public download (no registration required)."
-  },
-  {
-   "id": "bls_oes_automation",
-   "kind": "access",
-   "wanted": "Latest OEWS national industry-specific occupational employment and wage estimates (XLS/ZIP from bls.gov/oes/tables.htm)",
-   "why": "Employment by occupation and industry is the base for any automation-exposure estimate of labour (S3 labour input; proposed L9 and L_MH).",
-   "supports": [],
-   "url": "https://www.bls.gov/oes/tables.htm",
-   "blocked_by": "BLS.gov and download.bls.gov return 403 from automated hosts. Manual download at https://www.bls.gov/oes/tables.htm - look for 'May 2024 National industry-specific' XLS.",
-   "licence_note": "US federal data, expected public domain; confirm the BLS website-policies page when downloaded",
-   "priority": 1,
-   "status": "blocked",
-   "action": "Manual download required. Go to https://www.bls.gov/oes/tables.htm, find 'May 2024 National' XLS, download and place in audit/data/raw/bls_oes_automation/. All automated paths return 403."
-  },
-  {
-   "id": "cb_insights_ai_funding",
-   "kind": "login",
-   "wanted": "CB Insights State of AI report (or its public funding figures)",
-   "why": "AI venture funding and deal counts feed the investment side of the financial-stability link (proposed L_FIN).",
-   "supports": [],
-   "url": "https://www.cbinsights.com/research/report/ai-trends/",
-   "blocked_by": "Report not reachable without a CB Insights account (log-in / free-trial gate); URL redirects to the research index",
-   "licence_note": "Commercial report; not redistributable",
-   "priority": 2,
-   "status": "open"
-  },
-  {
-   "id": "wipo_ip_stats",
-   "kind": "browser",
-   "wanted": "WIPO AI patent statistics export (CSV from the IP Statistics Data Center)",
-   "why": "AI patent filings are an innovation-output indicator for the AI diffusion series.",
-   "supports": [
-    "AI"
-   ],
-   "url": "https://www3.wipo.int/ipstats/",
-   "blocked_by": "The ipstats API URL returns the JS app shell (HTTP 200, no data) and the GitHub fallback returns HTTP 404; the export needs a browser session.",
    "priority": 3
   }
  ]

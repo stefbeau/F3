@@ -322,24 +322,3 @@ Stéphane Beau confirmed three of the six consequences listed in 14.2. The text 
 | D-024: framework approved, thresholds set by the editor before the series are loaded | Before the M5 hindcast the editor sets thresholds; the age-structure numbers were already seen at approval and any age-structure threshold must say so; each criterion states what a failure triggers (D-024 Decision) |
 | D-025: Phase 3 entry conditions as drafted | M6 closes against the six conditions in D-025 |
 | M0 | Closed on 2026-10-08 (A0.1 to A0.5 met; see `docs/STATUS.md`) |
-
-## 15. Amendment of 2026-10-21, after D-049 (the M5 plan)
-
-The sections above are not rewritten. This section records what the editor's decisions of 2026-10-21 (D-049) change. Where this section and an approved decision differ, the decision governs.
-
-### 15.1 Order of work (replaces the order of M5 then M6 in sections 6 and 11 for what remains)
-M5 step 1 (warming-channel decision and wiring) and step 2 (S7 skeleton with documented illustrative parameters), then **M6 minimal integration (World3 + FaIR + S3)**, then **S5 minerals and water (M5 steps 3 and 4)**, then **S7 refinement**. **A5.4 (hindcast) is deferred until after M6.** The `docs/m5-plan.md` STOP items about licences and unread documents stay in force.
-
-### 15.2 M6 proceeds with S3 as built (text of `docs/m5-plan.md` section 5, applied)
-S3 failed A1.3 (D-029); its absolute output (`gwp`, capital, effective compute) is unvalidated against GATE after about 2027, and the Epoch AI reply is not awaited. Integration does **not** wait for it. Rules for M6:
-1. **S3 is wired in as built**, driven by R3 (D-028), a scenario-lever rule and not a GATE replica; its `validation_status` (D-029 text) is carried into every coupled run's metadata and every output that uses it.
-2. **Every M6 test that involves S3 is a structural test**: loop signs (R1, B1, B3, B4, B5), invariance (coupling off returns the stand-alone S3 result to 1e-9, A6.3), extreme conditions (A6.4), bounds and finiteness. **No M6 criterion compares S3's absolute output with GATE or with observed data.** The reference scenarios report S3 quantities **only as shapes and shares, never as levels**, until S3 is validated.
-3. **The known S3 failures travel with it**: A1.3 (composite), A1.4 (R3 poor), A2.6 (step 0.565% against 0.1%), the B1 and R1 sign failures of the slice, and the implausible electricity demand. The M6 test for B1 (A6.2) is written against an output and a window **fixed before the test**, with a note that the slice test failed; if B1 fails again it is recorded, not adjusted.
-4. **Mineral and water demand driven by S3's compute (B3, B4) are shown as shapes only**, labelled per D-029; the withheld-output rule of the Explorer (D-047) extends to them: **no absolute S5 demand from S3's compute path is displayed.**
-5. **If the Epoch reply comes**, it can change S3 without changing the M6 structure (integration tests are written against S3's interface; a re-run of A1.3 would be a separate dated update).
-6. **What this does not do:** it does not make S3 validated, remove a label, or change an acceptance criterion; **A6.1 (baseline scenario with the AI sector switched off reproduces full World3 within 2%) is independent of S3 and unaffected.**
-
-### 15.3 Labels and parameters
-- Warming channels `OWLCO2`, `WELE`, `WELY`, `CO2ELY` are omitted; wherever S1 (World3 population and food) results are shown, the label is **"no health or yield effect of warming"** (Explorer and Limitations).
-- Unsourced S7 and S5 parameters are allowed as **illustrative**, labelled on every output that uses them (A5.1 still requires each parameter's source or "illustrative" in the module's one-page document).
-

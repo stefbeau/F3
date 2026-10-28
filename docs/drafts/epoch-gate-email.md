@@ -1,4 +1,4 @@
-# DRAFT (finalised 2026-10-12). CORRECTION 2026-10-22: the editor sent an email to Epoch on 2026-10-17 through epoch.ai/contact (no reply as of 2026-10-22). The text actually sent is not in the repository; this file is the prepared version.
+# UNSENT DRAFT (finalised 2026-10-12). The editor sends it himself; nothing has been sent. Check the contact address on the playground page (research/gate-equations.md names info@epoch.ai) before sending.
 #
 # Traceability of every number below: audit/s3-gate-comparison.md (sections 2, 3, 7), audit/data/s3-gate-comparison.json, research/gate-equations.md (sections 9.1, 9.2, 10), DECISIONS.md D-026 and D-027.
 

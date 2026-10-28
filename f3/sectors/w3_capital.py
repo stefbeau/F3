@@ -86,8 +86,6 @@ class Capital(W3Sector):
     INPUT_ORDER = ("pop", "p2", "p3", "fcaor", "fioaa", "aiph", "al")
     inputs = {k: UNITS[k] for k in INPUT_ORDER}
     outputs = {k: UNITS[k] for k in ("io", "iopc", "so", "sopc", "cuf", "j", "lf")}
-    #: M6 climate-damage multiplier on industrial output (D-051). Exactly 1.0 unless the World3 group sets it; x * 1.0 is exact, so the OFF run is bit-identical.
-    damage_mult = 1.0
 
     def initial_state(self) -> np.ndarray:
         return np.array([INITS[n] for n in STATE_NAMES])
@@ -102,7 +100,7 @@ class Capital(W3Sector):
         cuf = T["cuf"](lufd)                                                        # Line 83 (subsystems.jl:120)
         # industrial subsector
         icor = clip(P["icor2"], P["icor1"], tsw, py)                                # Line 51 (:56)
-        io = ic * (1 - fcaor) * cuf / icor * self.damage_mult                       # Line 50 (:55); x damage multiplier (M6, D-051; 1.0 = off)
+        io = ic * (1 - fcaor) * cuf / icor                                          # Line 50 (:55)
         iopc = io / pop                                                             # Line 49 (:54)
         alic = clip(P["alic2"], P["alic1"], tsw, py)                                # Line 54 (:59)
         icdr = ic / alic                                                            # Line 53 (:58)

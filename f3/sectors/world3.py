@@ -107,17 +107,12 @@ def _s1_outputs(s1: S1Population) -> Dict[str, float]:
 
 
 def run_world3(parameter_set: str = "2004", t0: float = 1900.0, t1: float = 2100.0, dt: float = 0.25,
-               y0: Optional[Mapping[str, float]] = None, substep: Optional[float] = 0.0625, damage_option: Optional[str] = None,
-               warming=None, _mutate_zero_damage: bool = False) -> Tuple[Dict[str, np.ndarray], Results]:
+               y0: Optional[Mapping[str, float]] = None, substep: Optional[float] = 0.0625) -> Tuple[Dict[str, np.ndarray], Results]:
     """Run the full World3 model. Returns the 29 states by name at every loop-step boundary, and the loop results.
 
     D-031: by default the five World3 sectors form one group advanced with sub-steps of 0.0625 year inside each loop step
     (``substep=0.0625``). ``substep=None`` runs the five sectors directly in the loop at ``dt`` with plain start-of-step coupling (the
     M3 first version, whose A3.2 failure is recorded; kept for that record).
-
-    M6 (D-051): ``damage_option`` None (default, OFF) or low/central/high with ``warming`` a callable year -> K applies the D-007 level-of-output
-    damage to industrial output from 2025 (see ``world3_group.DAMAGE_COUPLING_LABEL``). The returned dict has the 29 states and, for the group
-    form only, ``io`` (industrial output). ``_mutate_zero_damage`` is a test hook.
     """
     sectors, couplings = build_world3(parameter_set, y0)
     init = _initial_inputs(sectors, t0)
@@ -130,9 +125,6 @@ def run_world3(parameter_set: str = "2004", t0: float = 1900.0, t1: float = 2100
             states.update(s.states())
         return states, res
     from f3.sectors.world3_group import World3Group
-    group = World3Group(sectors, couplings, init, STATE_COLUMNS, substep=substep, damage_option=damage_option, warming=warming,
-                        _mutate_zero_damage=_mutate_zero_damage)
+    group = World3Group(sectors, couplings, init, STATE_COLUMNS, substep=substep)
     res = Model([group], [], t0=t0, t1=t1, dt=dt).run()
-    out = {n: res.series[(group.name, n)] for n in STATE_COLUMNS}
-    out["io"] = res.series[(group.name, "io")]
-    return out, res
+    return {n: res.series[(group.name, n)] for n in STATE_COLUMNS}, res

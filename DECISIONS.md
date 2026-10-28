@@ -22,9 +22,9 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-003 | Internal time step | Approved | 0 |
 | D-004 | Reproduction tolerance | Approved | 0 |
 | D-005 | AI sector integration approach | Approved, with the amendment of 2026-10-08 (numeric criteria A1.2 to A1.6); amendment B (the three A1.3 settings replaced by the playground's shipped runs, with the addition on equation-10 years) approved 2026-10-09 | 2 |
-| D-006 | Critical minerals granularity in v0.1 | Approved 2026-10-21 (aggregate index in v0.1; named minerals in v0.2) | 2 |
+| D-006 | Critical minerals granularity in v0.1 | Proposed | 2 |
 | D-007 | Climate damage function | Approved 2026-10-12 (three level-effect options, default central) | 2 |
-| D-008 | Social tension historical proxy | Approved 2026-10-21 (option 3: no event-data backtest; tension labelled not validated) | 3 |
+| D-008 | Social tension historical proxy | Proposed (research needed) | 3 |
 | D-009 | Dashboard stack | Approved 2026-10-12 (static site, precomputed scenario grids) | 4 |
 | D-010 | Scientific robustness of Earth4All as a baseline | Approved | 1 |
 | D-011 | Earth4All reference implementation (supersedes D-002) | Approved | 0 |
@@ -53,28 +53,14 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-034 | Damage function action on S3 (Track A) | Provisional (delegated) | 2 |
 | D-035 | Reuse of one exact climate recording (Track A) | Provisional (delegated) | 2 |
 | D-036 | Demo 0 grid and levers (Track A) | Provisional (delegated) | 2 |
-| D-037 | Module names and structure of the four World3 sectors | Approved 2026-10-21 | 2 |
-| D-038 | The A3.2 failure at loop step 0.25 is recorded, not repaired (superseded in effect by D-031) | Superseded in effect by D-031 | 2 |
-| D-039 | Initial outputs of the coupled World3 sectors | Approved 2026-10-21 | 2 |
-| D-040 | The World3 group is one Sector wrapping the five sectors (the form D-031 takes) | Approved 2026-10-21 | 2 |
-| D-041 | A3.4(b) is recorded as failed and not repaired | Approved 2026-10-21 | 2 |
-| D-042 | N4: inputs to the reused Earth4All sectors in M4 (D-023 option C) | Approved for M4 2026-10-21 (revisit at M6) | 2 |
-| D-043 | Euler with a 1/64-year internal sub-step for the reused Earth4All sectors | Approved 2026-10-21 | 2 |
-| D-044 | Correction of the M4 recorded-input fixture grid (1/16 to 1/64 year), made after a result was seen | Approved 2026-10-21 | 2 |
-| D-045 | Fixture correction: S1 and World3 recorded inputs re-exported on the 1/64-year grid (no change) | Provisional (delegated) | 2 |
-| D-046 | F3 Explorer v0: World3 levers and runs for the static page (branch `site`) | Approved 2026-10-21 | 4 |
-| D-047 | F3 Explorer v0: page set, withheld S3 outputs and chart conventions (branch `site`) | Approved 2026-10-21 | 4 |
-| D-049 | M5 plan: warming channels omitted and labelled, illustrative parameters allowed, hindcast deferred, M6 before S5, S3 as built in M6 | Approved 2026-10-21 | 2 |
-| D-050 | S7 social module: trust dropped, inequality index (illustrative), changes relative to start only, S3 labour share relative fall as driver | Approved 2026-10-21 | 2 |
-| D-051 | M6 minimal integration: S7 output-only, one real coupling (climate damage to World3 industrial output), D-021 flagged for Phase 3 | Approved 2026-10-21 | 2 |
-| D-052 | F3 Explorer v0.1: stale-text fix, climate-damage control on the World3 panel, takeaway cards, presets, chart hover and download, infographics (branch `site-ux`) | Approved 2026-10-21 | 4 |
-| D-053 | S3 diagnostic and S3/World3 reconciliation study: documents and scripts only, nothing built | Provisional (delegated) 2026-10-21 | 2 |
-| D-054 | S3 diagnostic follow-up: blind brief not run, Epoch email sent 2026-10-17, supply-limited diagnostic first, then the efficiency cap and Option B | Approved 2026-10-22 | 2 |
-| D-055 | Data-centre module: optional efficiency cap at the paper's 4e15 FLOP/J, default OFF | Provisional (delegated) 2026-10-22 | 2 |
-| D-056 | F3 Explorer v0.2 redesign: dark dashboard with story front door, dashboard, compare mode, connections map (branch `site-ux`) | Provisional (delegated) 2026-10-22 | 4 |
-| D-057 | Explorer: observed-history overlay (model versus reality) and pattern-scaled warming map (branch `site-history`, from `site-ux`) | Provisional (delegated) 2026-10-22 | 2 |
-| D-058 | Data retrieval campaign: sources, licences and derived series for links 3 to 7, the data-centre module and AI context (documents and data only, branch `data-campaign`) | Provisional (delegated) 2026-10-22 | 2 |
-| D-059 | Electricity link: data-centre electricity limit (D-055 side) to World3 industrial output, default OFF (branch `feature/electricity-link`) | Provisional (delegated) 2026-10-26 | 2 |
+| D-037 | Module names and structure of the four World3 sectors | Provisional (delegated) | 2 |
+| D-038 | The A3.2 failure at loop step 0.25 is recorded, not repaired (superseded in effect by D-031) | Provisional (delegated) | 2 |
+| D-039 | Initial outputs of the coupled World3 sectors | Provisional (delegated) | 2 |
+| D-040 | The World3 group is one Sector wrapping the five sectors (the form D-031 takes) | Provisional (delegated) | 2 |
+| D-041 | A3.4(b) is recorded as failed and not repaired | Provisional (delegated) | 2 |
+| D-042 | N4: inputs to the reused Earth4All sectors in M4 (D-023 option C) | Provisional (delegated) | 2 |
+| D-043 | Euler with a 1/64-year internal sub-step for the reused Earth4All sectors | Provisional (delegated) | 2 |
+| D-044 | Correction of the M4 recorded-input fixture grid (1/16 to 1/64 year), made after a result was seen | Provisional (delegated) | 2 |
 
 ---
 
@@ -239,11 +225,10 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 
 ## D-006 — Critical minerals granularity in v0.1
 
-- **Status:** Approved (2026-10-21)
+- **Status:** Proposed
 - **Proposal:** One aggregate critical-minerals index in v0.1. Split into named minerals (candidates: copper, lithium, gallium, rare earths) in v0.2.
-- **Decision:** Approved by the editor ("approve all", 2026-10-21): one aggregate critical-minerals index in v0.1; named minerals (copper, lithium, gallium, rare earths) in v0.2.
-- **Date:** 2026-10-21
-- **Outcome note (2026-10-21, appended).** The index is built from USGS data (public domain per the plan). **The USGS report PDF has not been read, so every figure taken from it stays [unverified] until it is read.** M5 is unblocked on this decision but has not been started.
+- **Decision:** —
+- **Date:** —
 
 ## D-007 — Climate damage function
 
@@ -284,11 +269,11 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 
 ## D-008 — Social tension historical proxy
 
-- **Status:** Approved (2026-10-21)
+- **Status:** Proposed (research needed)
 - **Context:** The Social Tension Index needs observed data to backtest against.
 - **Proposal:** Research agent compares candidate datasets (political instability indices, protest-event data) on coverage since 1970, global scope and licensing, then proposes one.
-- **Decision:** Approved by the editor ("approve all", 2026-10-21), option 3 of the evidence note: no backtest of the social-tension index against event data. S7 is calibrated on its drivers (inequality, labour share) and tension is reported as a model-internal index.
-- **Date:** 2026-10-21
+- **Decision:** —
+- **Date:** —
 
 - **Evidence note (2026-10-08, Research agent role; the entry above is unchanged and the decision is still open).** Candidates compared on coverage since 1970, global scope and terms. The full rows and what was verified are in `research/SOURCES.md` (section "Research for the missing rows"). Only the UCDP row was checked against a primary page; the others rest on library-guide summaries and are unverified.
 
@@ -305,8 +290,6 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
   **Findings.** No candidate found combines global coverage, protest-type events and open terms from 1970. The only one with protest-type events before 1990 (CNTS) is paid, and its terms probably forbid publishing the underlying series, which conflicts with D-001's requirement to publish processed data under CC BY 4.0. UCDP is open and verified but measures armed conflict, not social tension, and has a coverage break at 1989 for two of its three datasets. Whether any of these measures "social tension" as Earth4All's index defines it (a smoothed index of inequality and well-being effects, not event counts) is not established: a proxy built from conflict events would be a different concept.
 
   **Options for the editor-in-chief (not recommendations to adopt without a check of the terms):** (1) build a composite from open sources only (UCDP armed conflict from 1970, GTD from 1970 if its terms allow, GDELT from 1979), accepting uneven coverage and that it measures violence, not tension; (2) obtain a CNTS licence and publish only derived, non-reversible indices if its terms permit; (3) do not backtest the social-tension index against events, and calibrate S7 on its drivers instead (inequality from WID and labour share from ILOSTAT, both with terms still unverified), reporting tension as a model-internal index. **Not done:** the terms of GTD, GDELT, ACLED, WID and ILOSTAT were not read from their own pages, so no option is yet cleared for publication.
-- **Outcome note (2026-10-21, appended).** Rules that follow from the approval: (1) **wherever the tension index is shown it is labelled "not validated against history"**; (2) **UCDP armed conflict (CC BY 4.0, 1946 onward) may be shown only as a labelled plausibility overlay, never as a calibration target**; (3) **the tension index is excluded from the D-024 backtest framework**; (4) **the terms of WID and ILOSTAT are still unverified, so reading their terms is a STOP-and-ask item before any use of either**; (5) **the long labour-share series starts only in 2004**. M5 is unblocked on this decision but has not been started.
-
 ## D-009 — Dashboard stack
 
 - **Status:** Approved (2026-10-12)
@@ -865,7 +848,6 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Proposed by:** Claude (Research and Validator roles)
 - **Decision:** Approved by Stéphane Beau, as drafted.
 - **Date:** 2026-10-09
-- **Note (2026-10-22, appended; nothing above changed).** The permission request was made: the editor sent an email to Epoch on 2026-10-17 through epoch.ai/contact. No reply as of 2026-10-22; permission is **not** granted, so the series are still read at test time from the hash-pinned copy and never committed. (D-054)
 
 ## D-027 — S3 production composite: test the paper's footnote-38 task grids as a labelled variant
 
@@ -929,7 +911,6 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Proposed by:** Claude (Validator role)
 - **Decision:** Approved by Stéphane Beau in session, as drafted.
 - **Date:** 2026-10-12
-- **Note (2026-10-22, appended; nothing above changed).** The email in item 2 was sent by the editor on 2026-10-17 through epoch.ai/contact; no reply as of 2026-10-22. F3 is not waiting for it; the blind re-derivation brief (`docs/s3-composite-blind.md`) is kept as a brief and not run (D-054). A1.3 stays failed and S3 stays labelled unvalidated after about 2027.
 
 ## D-030 — M2 step 1 closes with A2.1 failed; climate output labelled
 
@@ -1002,7 +983,6 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Cost of reversing it:** low to medium; constants and one wiring line, then re-run the grid (about 30 to 34 minutes for the 841-member climate recording only if the climate changes; the nine slice runs take seconds because climate is recorded once and replayed exactly).
 - **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
 - **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
-- **Review note (2026-10-21, appended; status stays Provisional).** The 5% data-centre supply cap and the tie of energy efficiency to S3's hardware curve are **assumptions and must be stated on the page** (and wherever the module's output is shown).
 
 ## D-034 — Damage function action on S3 (Track A)
 
@@ -1015,7 +995,6 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Cost of reversing it:** low (one function and one line in S3), plus a re-run of the grid.
 - **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
 - **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
-- **Review note (2026-10-21, appended; status stays Provisional).** The central and high damage coefficients are **derived** from published anchors (central 0.344% from the printed 3.1% at 3 C; high from the Howard and Sterner coefficients), not read as printed coefficients; **mark them "derived"** wherever they are shown.
 
 ## D-035 — Reuse of one exact climate recording (Track A)
 
@@ -1028,7 +1007,6 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Cost of reversing it:** none for results; the replay stops being exact the moment an emissions coupling is added.
 - **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
 - **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
-- **Review note (2026-10-21, appended; status stays Provisional).** **Add a test that fails if any sector feeds S6**: the replay of one recorded climate is exact only while S6 has no inputs.
 
 ## D-036 — Demo 0 grid and levers (Track A)
 
@@ -1045,18 +1023,18 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 ## D-037 — Module names and structure of the four World3 sectors
 
 - **Source:** Track B, `docs/tracks/track-b.md`, P1. Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
-- **Status:** Approved (2026-10-21)
-- **Date:** 2026-10-21
+- **Status:** Provisional (delegated)
+- **Date:** 2026-10-20
 - **Recommendation followed:** `f3/sectors/w3_agriculture.py`, `w3_capital.py`, `w3_resources.py`, `w3_pollution.py`, common code in `w3_common.py`, wiring in `world3.py`; each sector is a `Sector` with RK4 inside `advance`, algebraic outputs published at the end of `advance`.
 - **Alternatives considered:** `s2_`/`s5_` names from the spec's sector map (rejected: World3 capital and resources are not the spec's S2/S5, which M4 and M5 rebuild); one monolithic World3 module (rejected: A3.1 needs per-sector tests).
 - **Cost of reversing it:** renaming files and imports; no equation changes.
 - **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
-- **Decision:** Approved by the editor ("approve all", 2026-10-21).
+- **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
 
 ## D-038 — The A3.2 failure at loop step 0.25 is recorded, not repaired (superseded in effect by D-031)
 
 - **Source:** Track B, `docs/tracks/track-b.md`, P2. Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
-- **Status:** Superseded in effect by D-031
+- **Status:** Provisional (delegated)
 - **Date:** 2026-10-20
 - **Note (orchestrator, 2026-10-21):** at the time of the first result nothing was applied; the editor then approved D-031 (World3 group with 0.0625-year sub-steps), under which A3.2 is met. This block records the first disposition and is superseded in effect by D-031; it is kept for the record.
 - **Recommendation followed:** no change to the loop step, coupling scheme or criterion; strict xfails documented A3.2 (both sets), A3.3 (1974) and A3.4(b) (both sets).
@@ -1068,53 +1046,52 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 ## D-039 — Initial outputs of the coupled World3 sectors
 
 - **Source:** Track B, `docs/tracks/track-b.md`, P3. Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
-- **Status:** Approved (2026-10-21)
-- **Date:** 2026-10-21
+- **Status:** Provisional (delegated)
+- **Date:** 2026-10-20
 - **Recommendation followed:** the start-time inputs of the four sectors are computed from their initial states by iterating the wiring, which is acyclic at t0 (`f3/sectors/world3.py`), not seeded from recorded data. Initial state is the reference's own (D-019 Option C; pollution delay stages start at `pptd*ppgr0/3` from the sector's own 1900 tables, as the reference does).
 - **Alternatives considered:** seeding from recorded values (rejected: the full run would depend on fixtures).
 - **Cost of reversing it:** small, one function.
 - **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
-- **Decision:** Approved by the editor ("approve all", 2026-10-21).
+- **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
 
 ## D-040 — The World3 group is one Sector wrapping the five sectors (the form D-031 takes)
 
 - **Source:** Track B, `docs/tracks/track-b.md`, P4. Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
-- **Status:** Approved (2026-10-21)
-- **Date:** 2026-10-21
+- **Status:** Provisional (delegated)
+- **Date:** 2026-10-20
 - **Recommendation followed:** `f3/sectors/world3_group.py`: one `Sector` wraps S1 and the four World3 sectors and advances them with 0.0625-year sub-steps inside each 0.25-year loop step (the rule itself is D-031, approved by the editor); the Sector interface is unchanged.
 - **Alternatives considered:** a global 0.0625 step for World3-only runs (rejected: not needed).
 - **Cost of reversing it:** low; `run_world3(..., substep=None)` runs the sectors directly at the loop step (A3.2 then fails as recorded).
 - **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
-- **Decision:** Approved by the editor ("approve all", 2026-10-21).
+- **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
 
 ## D-041 — A3.4(b) is recorded as failed and not repaired
 
 - **Source:** Track B, `docs/tracks/track-b.md`, P5. Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
-- **Status:** Approved (2026-10-21)
-- **Date:** 2026-10-21
+- **Status:** Provisional (delegated)
+- **Date:** 2026-10-20
 - **Recommendation followed:** S1 inside the full run differs from S1 alone with recorded inputs by up to 1.019% (1974, `aiopc`) and 0.931% (2004, `fcfpc1`) against 0.25%; the criterion is not changed and the test stays a strict xfail. The track's reading (S1 responding to small differences in the other four sectors) is inferred, not tested.
 - **Alternatives considered:** restating the criterion to a looser number (a labelled post-hoc proposal; not applied).
 - **Cost of reversing it:** none (nothing applied).
 - **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
-- **Decision:** Approved by the editor ("approve all", 2026-10-21).
+- **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
 
 ## D-042 — N4: inputs to the reused Earth4All sectors in M4 (D-023 option C)
 
 - **Source:** Track C, `docs/tracks/track-c.md`, N4 (plan decision N4, delegated). Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
-- **Status:** Approved for M4 (2026-10-21)
-- **Date:** 2026-10-21
+- **Status:** Provisional (delegated)
+- **Date:** 2026-10-20
 - **Recommendation followed:** D-023 option C. Sector tests and the A4.5 group use the recorded Earth4All.jl series of the eight signals (`POP`, `GDPP`, `EGDPP`, `A20PA`, `OW`, `CAC`, `COFO`, `IPP`) through `ReplaySector`; no adapter was built (A4.5 needs none).
 - **Alternatives considered:** (A) recorded series only (no F3 population or climate in the economy); (B) adapters from the start (rejected: the working-age mapping and warming baseline of D-023 are open, and sector tests need exact inputs).
 - **Cost of reversing it:** low. Sectors read inputs by name through the loop context; switching means wiring other sectors' outputs to the same names and writing unit adapters (persons to Mp, S1 age bands to `A20PA`, FaIR temperature to `OW`); no sector code changes.
 - **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
-- **Decision:** Approved by the editor ("approve all", 2026-10-21).
-- **Note (2026-10-21, appended).** Revisit at M6 (adapters for population and climate).
+- **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
 
 ## D-043 — Euler with a 1/64-year internal sub-step for the reused Earth4All sectors
 
 - **Source:** Track C, `docs/tracks/track-c.md` and `docs/tracks/track-c-plan.md`. Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
-- **Status:** Approved (2026-10-21)
-- **Date:** 2026-10-21
+- **Status:** Provisional (delegated)
+- **Date:** 2026-10-20
 - **Rule (written in `docs/tracks/track-c-plan.md` before any run):** if a sector alone exceeds 2% at the loop step, use the largest rung of {RK4 0.125, 0.0625, 0.03125; Euler 1/64} at which every state and headline variable is within 2% in both scenarios.
 - **Measured:** RK4 exceeds 2% in seven of eight sectors (report section 1); no RK4 rung meets 2%; Euler 1/64 does (0.0000% with recorded inputs). D-003 and D-022 are not edited; loop step and interface unchanged. **Meaning:** the reused sectors reproduce the reference's own Euler discretisation (1/64-year sub-step), not a better integration of the same equations.
 - **Why:** the reference is Euler at 1/64 year and its own Euler error exceeds 2% near zero crossings and kinks, so only its own scheme reproduces it.
@@ -1122,235 +1099,19 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Cost of reversing it:** low (class default `SUBSTEP`). Cost of keeping: 7681 sub-steps per run in pure Python.
 - **Not decided here:** A4.5 failed under this rule (group coupling lag); the editor accepted that failure as recorded on 2026-10-21 (no criterion changed).
 - **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
-- **Decision:** Approved by the editor ("approve all", 2026-10-21).
+- **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
 
 ## D-044 — Correction of the M4 recorded-input fixture grid (1/16 to 1/64 year), made after a result was seen
 
 - **Source:** Track C, `docs/tracks/track-c.md`, log (correction of the first reading). Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
-- **Status:** Approved (2026-10-21)
-- **Date:** 2026-10-21
+- **Status:** Provisional (delegated)
+- **Date:** 2026-10-20
 - **What happened (the track's own account):** the first S0 run (sector alone, recorded inputs) used inputs exported on a 1/16-year grid and linearly interpolated, as the S1 and World3 fixtures are. It failed in output (TLTL), finance (both scenarios) and labour market (both) with errors that vanish when the inputs are the reference's own: `OGR` 2.56%, `UR`/`UNEM` 11.5%, `CFWB` 0.34% and others. Measured cause: the Euler reference reads its inputs at every 1/64-year step; a 1/16 grid carries them only every fourth step, so quantities that are differences of near-equal numbers (`OGR`, `ISR`, `UNEM`) move by the interpolation error.
 - **Recommendation followed:** the export (`audit/t0/earth4all_m4_export.jl`) was amended after the result was seen so that signals are on the full 1/64-year grid at 12 significant digits. **This is an amendment of a fixture after seeing a result, labelled as such.** The 2% tolerance, the criterion sets and the rule were not changed. With 1/64 signals the sector-alone run is 0.0000% for every state and headline variable of all eight sectors, both scenarios (the port reproduces the package's equations to rounding when fed its inputs).
 - **Alternatives considered:** keeping the 1/16 grid and reporting the failures (would have measured the interpolation, not the equations); relaxing the S0 tolerance (not allowed).
 - **Cost of reversing it:** none for the equations; re-exporting at a coarser grid reproduces the failures. Bears on how the earlier S1 and World3 fixtures (1/16 grid) should be read: not examined here.
 - **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
-- **Decision:** Approved by the editor ("approve all", 2026-10-21).
-- **Follow-up note (2026-10-21, appended).** The same correction was applied to the S1 and World3 recorded-input fixtures (D-045); it changed nothing, because those tests query their inputs only at points that were already on the old grid.
-
-## D-045 — Fixture correction: S1 and World3 recorded inputs re-exported on the 1/64-year grid
-
-- **Status:** Provisional (delegated)
-- **Date:** 2026-10-21
-- **Decision:** At the editor's instruction (2026-10-21, "fixture correction, no criterion change"), `tests/fixtures/s1_inputs_world3_{1974,2004}.csv` and `w3_signals_world3_{1974,2004}.csv` were re-exported from the same pinned solve (`audit/env`, D-017, default options) with `saveat = 1/64` and 12 significant digits (`audit/t0/world3_regrid_export.jl`); the reference files were not touched. Reading, outcome categories and prediction were written first (`docs/m3-fixture-regrid-reading.md`, commit `50b5bda`).
-- **Outcome:** **no change.** A3.1, A3.2, A3.3, A3.4(a), A3.4(b) and the S1 step-1.4 comparisons give textually identical results before and after (96 passed, 17 strict xfail); A3.4(b) still fails (1.019% and 0.931% against 0.25%). **No criterion, tolerance or rule was changed.**
-- **Why nothing changed (and a correction of the proposal's premise):** sector-alone runs at the 0.25-year loop step query inputs at multiples of 0.125 year, which are grid points of the old 1/16-year files, so no interpolation took place. Unlike the Earth4All case (D-044), where the reference reads its inputs every 1/64 year, this correction could not have had an effect.
-- **Alternatives considered:** leaving the fixtures as they were (they were already exact at every point the tests use).
-- **Cost of reversing it:** none for results; the four files grew from about 1.4 MB to about 8.5 MB, and reverting the commit restores the old files.
-- **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
 - **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
-- **Revert note (2026-10-21, appended; status unchanged).** At the editor's instruction the four re-exported fixture files were reverted to their previous versions (a new commit, history not rewritten) because the re-export changed no result and added about 7 MB. This entry, `docs/m3-fixture-regrid-reading.md` and the export script `audit/t0/world3_regrid_export.jl` are kept as the record of the negative result.
-
-## D-046 — F3 Explorer v0: World3 levers and runs for the static page (branch `site`)
-
-- **Status:** Approved (2026-10-21)
-- **Date:** 2026-10-21
-- **Decision:** The World3 panel of the Explorer page is a precomputed grid of 3 levers x 3 values = 27 runs, 1900-2100, 2004 parameter set (D-015), run with the D-031 group: initial non-renewable resources `nri` (0.5e12, 1e12 standard, 2e12), land yield factor after 1975 `lyf2` (1.0 standard, 1.5, 2.0), persistent-pollution generation factor after 1975 `ppgf21` (1.0 standard, 0.5, 0.25). Only the standard parameters have been compared with WorldDynamics.jl (A3.1, A3.2); the page states that runs with changed parameters have not been compared with anything.
-- **Recommendation followed:** the classic scenario levers (resources, agricultural technology, pollution control), one per sector, each with a measurable effect in a trial run before the choice was frozen; `ppgf22` has no effect here (technology switch off), so `ppgf21` is used. Details: `docs/site-explorer.md`.
-- **Alternatives considered:** other levers (`icor`, `alic`, policy-year timing, `dcfsn`); the 1974 set; more values per lever.
-- **Cost of reversing it:** low: edit `LEVERS` in `site/generate.py` and regenerate (about 70 seconds plus the recorded 841-member climate).
-- **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
-- **Decision:** Approved by the editor (v0 approved for publication, 2026-10-21).
-
-## D-047 — F3 Explorer v0: page set, withheld S3 outputs and chart conventions (branch `site`)
-
-- **Status:** Approved (2026-10-21)
-- **Date:** 2026-10-21
-- **Decision:** At the editor's instruction ("fix all", 2026-10-21): (1) the Explorer's AI-race panel **does not render** the S3 compute charts or the data-centre electricity chart and table (values reach about 1.4e40 FLOP/year and 7.4e9 TWh/year), with a visible note that they are withheld until the S3 compute path is validated (awaiting Epoch AI); the series stay in `site/data/explorer.json` and the generator; the damage table drops its "output in USD per year" column and shows shares of S3's own unvalidated output only; (2) the site has five self-contained pages (Explorer, Methods, Limitations, Sources, About) with a shared header and footer navigation, English only; (3) charts use readable tick formats, real-size text (minimum 13 px rendered), a colour-blind-safe palette with dash patterns and direct end labels, and a text summary on each chart; (4) generator and templates live in `site_src/`, so only pages and data are deployable.
-- **Recommendation followed:** the editor's list A to F of 2026-10-21. Details and checks: `docs/site-explorer.md`.
-- **Alternatives considered:** keeping the compute and electricity charts with a warning (rejected by the editor: the values are not plausible); a single long page (the editor asked for separate pages); a language switch (deferred, English only for v0).
-- **Cost of reversing it:** low: the withheld series are in the data, and re-enabling a chart is one function call in `site_src/explorer.js`.
-- **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
-- **Decision:** Approved by the editor (v0 approved for publication, 2026-10-21).
-
-## D-049 — M5 plan: warming channels omitted and labelled, illustrative parameters allowed, hindcast deferred, M6 before S5, S3 as built in M6
-
-- **Status:** Approved (2026-10-21)
-- **Context:** `docs/m5-plan.md` (written 2026-10-21) inventoried every input of M5 (S7 social, S5 minerals and water, warming channels in replaced sectors) and collected twelve STOP items. This entry records the editor's decisions on it. (The number D-048 is not used by any entry; the editor asked for D-049.)
-- **Decision:** Approved by the editor, 2026-10-21:
-  1. **Warming channels `OWLCO2`, `WELE`, `WELY`, `CO2ELY` are omitted and labelled** ("no health or yield effect of warming"). The label is shown on the Explorer and on the Limitations page whenever S1 (World3 population and food) results are shown. To be revisited later.
-  2. **Unsourced S7 and S5 parameters are allowed as "illustrative"**, with that label on every output that uses them. Sourced values replace them when the editor supplies documents.
-  3. **Hindcast A5.4 is deferred until after M6.**
-  4. **The M6 text of `docs/m5-plan.md` section 5 is applied as a dated amendment to `docs/phase-2-plan.md`** (S3 as built, structural tests only, shapes not levels).
-  5. **Order:** M5 steps 1 and 2, then M6 minimal integration (World3 + FaIR + S3), then S5 (steps 3 and 4), then S7 refinement.
-- **What this does not change:** no acceptance criterion, tolerance or validation label is relaxed; D-029 and D-030 labels stay; the withheld-output rule (D-047) stands; the STOP items of `docs/m5-plan.md` section 6 that concern licences and unread documents (WID, ILOSTAT, USGS report content, LBNL, TSMC, AQUASTAT, a long labour-share series) **remain STOP items** before any use of those sources: illustrative parameters do not authorise reading or using them.
-- **Alternatives considered:** building the warming channels (rejected for now: large coefficients, no F3 reference to test against); waiting for the unread documents before any S7 or S5 work (rejected: the skeleton needs none of them).
-- **Reversal cost:** low for 1 to 3 and 5 (labels, order); the amendment in 4 is a dated section and can be superseded by a later one.
-- **Proposed by:** Claude (plan); decided by the editor.
-- **Decision:** Approved by the editor, 2026-10-21.
-- **Date:** 2026-10-21
-
-## D-050 — S7 social module: scope after the editor's review of the parameter document
-
-- **Status:** Approved (2026-10-21)
-- **Context:** `docs/m5-s7-parameters.md` (A5.1) and `docs/m5-s7-tests.md` were written before any S7 code (branch `m5-s7`) and reviewed by the editor on 2026-10-21. The document said "33 parameters"; counting them gives **29** (an arithmetic error in the document, corrected on the branch).
-- **Decision:** Approved by the editor, 2026-10-21:
-  1. **The trust stock is dropped, with all its parameters** (`Tr0`, `tau_Tr`, `gTr_I`, `gTr_T`, `gTe_Tr`): 29 parameters become 24. The document, the test plan and the tests are updated **first**, then the module is written.
-  2. **The inequality output is renamed "inequality index (illustrative)" everywhere.** **S7 results are displayed only as changes relative to the start, never as absolute levels.** Every S7 output carries the labels of D-008 ("not validated against history"), D-029 (S3's output is unvalidated against GATE) and D-049 ("illustrative parameters").
-  3. **S3's labour share is accepted as the main driver, using only its relative fall from the start**; the S7 tests use given input paths.
-  4. **Each sign test must be shown to be able to fail on the real module** (the mutation check is run); any test failure is recorded with its size and nothing is adjusted.
-  5. **If the full suite is green apart from the existing strict xfails, `m5-s7` is merged into main and pushed; otherwise stop and report.**
-  6. **Next, a plan only:** `docs/m6-minimal-plan.md` (minimal integration of World3 + FaIR + S3, with S7 as output-only); no code.
-- **What this does not change:** no acceptance criterion or tolerance is relaxed; D-008, D-029, D-030, D-047 and D-049 stand; the STOP items about unread sources stay.
-- **Alternatives considered:** keeping trust (rejected: more invented parameters for a skeleton); showing absolute levels (rejected: they are illustrative).
-- **Reversal cost:** low (parameters and labels).
-- **Proposed by:** Claude; decided by the editor.
-- **Decision:** Approved by the editor, 2026-10-21.
-- **Date:** 2026-10-21
-
-## D-051 — M6 minimal integration: S7 output-only, one real coupling (climate damage to World3 industrial output), D-021 flagged for Phase 3
-
-- **Status:** Approved (2026-10-21)
-- **Context:** `docs/m6-minimal-plan.md` (2026-10-21) proposed integrating World3 + FaIR + S3 with S7 as output-only. This entry records the editor's decisions on it.
-- **Decision:** Approved by the editor, 2026-10-21:
-  1. **S7 stays output-only in M6** (option a of the plan): nothing reads it.
-  2. **Add ONE real coupling: climate damage to World3 industrial output.** A **switchable multiplier**, **default OFF** (so A6.1 stays clean), **ON in a named scenario**, applying the **D-007 damage function (default central)** to World3's industrial output, driven by FaIR warming. **No new coefficients**: only the sourced D-007 options, labelled as **level-of-output effects**. Tests are written first: A6.3 invariance (switch off equals stand-alone World3 to 1e-9); zero warming equals the baseline; a sign test (more warming lowers industrial output) with **output and window named in advance** and a **control run that can fail**; bounds and NaN over the full grid. **Failures are recorded with size; nothing is adjusted.** FaIR warming for this coupling comes from the **recorded replay** (emissions still prescribed, D-021 option A), so no new FaIR run per scenario.
-  3. **M6-minimal then proceeds per the plan:** tests first, wiring, A6.1 and A6.3 first, then A6.4, A6.2, A6.5 (the 841-member run once, in the background), reported in `audit/m6-integration-report.md`. **`docs/phase-2-review.md` is NOT written** as part of this.
-  4. **D-021 must be revisited before any Phase 3 Monte Carlo** (about 500 to 570 hours for a thousand runs with exact 841-member re-runs, one run being about 30 to 34 minutes). **Not decided now.**
-- **What this does not change:** no acceptance criterion or tolerance is relaxed; D-007, D-029, D-030, D-047, D-049 and D-050 stand; the damage function still acts on S3's output as before (the new coupling is additional).
-- **Alternatives considered:** S7 feedback into S3's investment, S1 or S2 (rejected by the editor for M6: every S7 parameter is illustrative); no real coupling at all (rejected: M6 would test only wiring).
-- **Reversal cost:** low (the multiplier is off by default; removing it leaves the sectors unchanged).
-- **Proposed by:** Claude (plan); decided by the editor.
-- **Decision:** Approved by the editor, 2026-10-21.
-- **Date:** 2026-10-21
-
----
-
-## D-052 — F3 Explorer v0.1: text fix, climate-damage control, takeaway cards, presets, chart reading and download, infographics
-
-- **Status:** Approved (2026-10-21)
-- **Context:** Editor decision 2026-10-21 ("Explorer v0.1", branch `site-ux` from main; not merged, the Pages workflow unchanged). The pages still said "local draft, not published"; the merged M6 coupling (D-051) can now be shown; the pages were hard to read at a glance.
-- **Decision (what is built, on `site-ux` only):**
-  1. **Stale text replaced** on every page: "Public draft, published 2026-10-21. Conditional scenarios, not forecasts." All other caveats are kept. The About page names the commit that contains the built pages.
-  2. **New coupled view:** the World3 panel gets a climate-damage control (off, low, central, high; default off) using the merged M6 coupling, `io = io_gross x (1 - Omega(T))`, D-007, warming from the recorded FaIR ensemble mean. The grid is precomputed: 27 lever runs x 4 damage states (108 runs). Whenever damage is on the panel shows, without a click: level-of-output effect, not the upper end of the literature; damage-on runs are NOT compared with WorldDynamics.jl (it has no climate damage); S3's economy and World3's are not reconciled; no health or yield effect of warming. **The social module is not shown on the site.**
-  3. **Takeaway cards** (one sentence and three stat tiles per panel) built by page JavaScript from the data; tests fail on hard-coded values.
-  4. **Presets** (each a grid point), Reset, dropdowns under "Custom", change-versus-standard chips, scenario state in the URL hash restored on load.
-  5. **Charts:** hover, touch and keyboard crosshair with values; PNG and CSV download (the downloads carry the caveat when damage is on).
-  6. **Infographics** as inline SVG with text alternatives: feedback-loop diagram (links that exist today solid, links not built dashed), a roadmap of what is connected, warming stripes of the FaIR mean labelled with the A2.1 failure, a traffic-light status badge per panel linking to Limitations.
-  7. **Layout:** sticky tab bar, "Read this first" box, tooltip definitions (S3, R3, FaIR, GATE, World3).
-  8. Methods, Limitations and Sources updated for the new coupling. Nothing is claimed beyond the tests.
-- **Choices made (delegated, reversible):** the roadmap draws the warming-to-S3 damage link solid as well as the new warming-to-World3 link, because it is built (M2 slice, B2); only links not built are dashed. The status badges use three levels with text labels (amber: a test failed by a small recorded margin or a variant is not compared; red: the main reference test failed and levels are unvalidated; green: reference tests met; no panel is green). The grid keeps four World3 series (population, industrial output, resources, pollution) to keep the page small.
-- **What this does not change:** no test, tolerance or earlier decision; D-007, D-029, D-030, D-046, D-047, D-049 and D-051 stand; S3 compute and data-centre electricity stay withheld; Pages is not enabled or run by this branch.
-- **Alternatives considered:** a live (in-browser) model (rejected, D-009: static site); showing the social module (excluded by the editor).
-- **Reversal cost:** low (site files only).
-- **Proposed by:** Claude (implementing the editor's brief).
-- **Decision:** Approved by the editor, 2026-10-21, after review of `site-ux` (32481b4), with two changes: the page order is title, public-draft banner, "Read this first", tab bar, then the World3, Climate and AI race panels, then "What is connected" and "Not shown"; and World3 industrial output is labelled "model dollars per year" (World3's own constant dollars), stated in Methods. The editor runs the Pages workflow; this branch does not.
-- **Date:** 2026-10-21
-
----
-
-## D-053 — S3 validation and S3/World3 reconciliation: diagnostic jobs (documents and scripts only)
-
-- **Status:** Provisional (delegated)
-- **Context:** Editor decision 2026-10-21: work on (1) S3 validation and (2) S3/World3 reconciliation, in that order. The first job is a diagnostic only.
-- **Decision (what is done, on branch `s3-diagnostic`):** (A) `docs/s3-diagnostic.md` and `audit/t0/s3_diagnostic.py` decompose where the implausible S3 and data-centre outputs come from (S3 on GATE's own investment path, S3 under R3, either through the data-centre module, and Epoch's stored runs through the same module), against **plausibility criteria written before the run**; the hypothesis that the cause is the data-centre module or R3 and not S3's core is tested, not assumed. (B) `docs/s3-composite-blind.md` is a **brief** for a blind re-derivation of the task-allocation composite (A1.3 gap); **it is not run.** (C) `docs/s3-world3-reconciliation.md` measures the shared quantities of S3 and World3 from 2025 to 2100 and lists options with tests, risks and cost, with one recommendation; **nothing is built.**
-- **What this does not change:** no sector, no validated test, no label, no tolerance; S3 stays recorded as failed A1.3 and unvalidated after about 2027 (D-029); the Explorer and the withheld outputs are unchanged; D-005, D-027, D-028 and D-051 stand. The suite is unchanged.
-- **Alternatives considered:** changing S3 or R3 first (rejected by the editor's instruction: diagnose before changing).
-- **Reversal cost:** none (documents and scripts).
-- **Proposed by:** the editor (job); Claude (execution).
-- **Decision:** Provisional (delegated).
-- **Date:** 2026-10-21
-
----
-
-## D-054 — S3 diagnostic follow-up: what is run, what is not, and the order of work
-
-- **Status:** Approved (2026-10-22)
-- **Context:** Editor decisions of 2026-10-22 on the S3 diagnostic of D-053 (`docs/s3-diagnostic.md`, `docs/s3-world3-reconciliation.md`).
-- **Decision (approved by the editor, 2026-10-22):**
-  1. **The blind composite re-derivation (`docs/s3-composite-blind.md`) is NOT run now** and is kept as a brief. **A1.3 stays failed and labelled** (D-027, D-029).
-  2. **Correction of the record:** the editor **sent the email to Epoch on 2026-10-17 through epoch.ai/contact**; **no reply as of 2026-10-22**; **F3 is not waiting for it.** STATUS and the documents that said "unsent" are corrected by dated notes (D-026, D-027 and D-029 each carry an appended note; nothing above them is edited). The text actually sent is not in the repository; `docs/drafts/epoch-gate-email.md` is the prepared version.
-  3. **Supply-limited diagnostic FIRST** (documents, no sector change): `docs/s3-supply-limited.md`, criteria written before the run, for the coupled slice (R3 + data-centre module + supply limit + damage) in the three settings and the damage options; it concludes which quantities could be shown on the Explorer as supply-limited runs with labels, and what the withheld-note should say instead of "awaiting Epoch AI". **The site is not changed.**
-  4. **Data-centre module: the paper's efficiency bound (4e15 FLOP/J, the value behind `C_L`) as a cap on `eta`, as a switchable change, default OFF** (so every recorded result is unchanged); tests first; its effect on the item-3 diagnostic is reported with the cap ON and OFF. Recorded as **D-055 (Provisional)**.
-  5. **Reconciliation Option B:** a World3 labour-force index (relative to 2025, derived from the ported states) drives S3's labour; one-way, default OFF, no new coefficient, one optional input on S3; tests first. **S3 and World3 economies remain NOT reconciled in level**, and the effect fades as automation saturates; labelled accordingly. If the index is not derivable from the ported states, stop and report.
-  6. **Order: 3, 4, 5.** Full suite with both caches set; merge and push only if green apart from the 45 strict xfails; otherwise stop.
-- **What this does not change:** no acceptance criterion, tolerance or label; D-005, D-027, D-029, D-051 and D-053 stand; the Explorer and the withheld outputs are unchanged.
-- **Reversal cost:** low (each change is a switch, default off).
-- **Proposed by:** the editor.
-- **Decision:** Approved by the editor, 2026-10-22.
-- **Date:** 2026-10-22
-- **Note (2026-10-22, appended; nothing above changed).** Item 5 asked that the label state that the effect of the labour index "fades as automation saturates". The pre-registered test of that reading **failed** (S3 output with the index at half of its 2025 value is 0.61 of baseline in 2031 and 0.50 in 2099), so the effect persists; it is recorded as a strict xfail (a 46th) and the label says "persists". The editor's merge condition ("green apart from the 45 strict xfails") is therefore not met as written, and the branch was **not merged**; see `docs/s3-world3-reconciliation.md` section 4 and STATUS.
-
----
-
-## D-055 — Data-centre module: optional efficiency cap at the paper's 4e15 FLOP/J
-
-- **Status:** Provisional (delegated)
-- **Context:** The S3 diagnostic (`docs/s3-diagnostic.md`, section 3) showed the module fails on GATE's own path: its efficiency `eta` scales with S3's hardware price-performance with no bound, while the paper's physical limit `C_L = 2e38` FLOP/year rests on a CMOS efficiency of 4e15 FLOP/J (arXiv:2503.04941, appendix D.3.2). Editor instruction of 2026-10-22 (D-054 item 4).
-- **Decision:** add `DCParams.eta_cap` (FLOP/J), default `None` (OFF): `eta = min(eta_0 x hardware / H0, eta_cap)` when set; the paper's value is `PAPER_ETA_CAP = 4e15`. With the cap OFF every number is unchanged (to 1e-9, tested against recorded results). The effect on the supply-limited diagnostic is reported with the cap ON and OFF (`docs/s3-supply-limited.md`). The cap changes demand only, not S3.
-- **Hand check before any run:** `eta_0` is about 8.06e9 FLOP/J; at the hardware ceiling `H_max = 1e23` (1e5 times `H0`) `eta` would be 8.06e14, below the cap, so the cap can bind only if hardware efficiency passes about 5e5 times `H0` (above `H_max`); **it may therefore never bind in S3's range.** If it never binds, the report says so and does not tune anything.
-- **What this does not change:** the module's calibration (485 TWh in 2025), PUE, the 5% supply cap (D-033), every recorded result with the cap OFF.
-- **Alternatives considered:** capping `Q` at `g(Q)` (rejected by the earlier arithmetic: it does not bound demand, `docs/s3-diagnostic.md` 3.4); cap on electricity demand directly (a new coefficient).
-- **Reversal cost:** none (default off).
-- **Proposed by:** the editor (instruction); Claude (implementation).
-- **Decision:** Provisional (delegated).
-- **Date:** 2026-10-22
-- **Note (2026-10-22, appended; nothing above changed).** Two statements in this entry were wrong and are corrected here, found when the tests were run: (1) "It changes demand only, not S3": the cap changes demand, and with the supply limit on the changed `supply_ratio` also changes S3 (loop B1); (2) the pre-written test reading said a binding cap lowers demand. The cap bounds the efficiency from above and demand is compute / eta, so a binding cap **raises** demand; the test reading was corrected (dated in the test file) and no code changed. The hand check (the paper's cap cannot bind inside S3's own hardware range) stands and is tested.
-
----
-
-## D-056 — F3 Explorer v0.2: story front door, dashboard, compare mode, connections map
-
-- **Status:** Provisional (delegated)
-- **Context:** Editor feedback on v0.1 (D-052), 2026-10-22: the site is not user friendly and offers too few visualization tools. Five mock-ups were compared on a design canvas; the editor chose the direction in the Explorer v0.2 brief.
-- **Decision (what is built, on `site-ux` only):**
-  1. **Shell and tokens:** dark dashboard theme and a light reading theme for story pages (toggle; follows `prefers-color-scheme`); baseline grey #6B7280, scenario A blue #1F78B4, scenario B orange #D95F02; Work Sans for the UI; minimum text 13 px; WCAG AA. Hex codes recorded in `docs/design-guidelines.md` (Proposed until the editor approves).
-  2. **Story front door:** four chapters (standard world turns down; add the heat; the AI race, automation timing only; what is connected), each with a finding title, one annotated chart and one control.
-  3. **Dashboard:** left rail with 5 presets, damage control, collapsed custom parameters and reset; at most 5 KPI tiles; one main chart with the standard run as dashed grey baseline; secondary charts and tests under Details; every chart has a finding title generated from data, a data table, PNG, CSV and a text alternative.
-  4. **Compare mode:** baseline vs scenario A vs scenario B, state in the URL hash, generated headline, overlay chart, diverging bar chart of the 2100 change, delta table (B minus A).
-  5. **Connections map as interface:** nodes and 7 numbered links with the solid, dashed and dotted vocabulary of D-052; an inspector per link; list form below 900 px.
-- **Rules kept:** every number comes from `site/data/explorer.json` (no new model numbers, no new runs); withheld outputs stay withheld; status badges, "Conditional scenarios, not forecasts", the damage notice (including "high is not the upper end of the literature"), A1.3 and A2.1 labels stay visible; no pie, donut, dual axis or 3D; at most 5 lines per chart; the social module stays off the site.
-- **Alternatives considered:** five mock-ups on a design canvas (the chosen one combines story front door and dashboard); polishing v0.1 only (rejected by the editor: too few visualization tools).
-- **Consequences:** a larger page and script (still static, D-009); tests for generated headlines and delta maths run in Node; v0.1 caveats are carried over and checked.
-- **What this does not change:** no test, tolerance, label or earlier decision; D-007, D-029, D-030, D-046, D-051 and D-052 stand; Pages is not enabled or run by this branch.
-- **Reversal cost:** low (site files only).
-- **Numbering:** may be renumbered on merge with `s3-supply`, where D-055 is the data-centre efficiency cap; the content stays identical.
-- **Proposed by:** Claude (implementing the editor's brief).
-- **Decision:** Provisional (delegated); the editor reviews it in the milestone batch.
-- **Date:** 2026-10-22
-- **Note (2026-10-22, appended; nothing above changed).** Built on `site-ux` as described, with these specifics: the story is `index.html` and the dashboard `explorer.html`; Compare and Connections are their own pages; four KPI tiles; Work Sans is embedded from the `@fontsource-variable/work-sans` package (OFL 1.1, entry in `NOTICE`, text in `licenses/WorkSans-OFL.txt`); the page data is also written as `site/data/explorer.js` so pages open from disk. The static loop and roadmap diagrams of D-052 are replaced by the connections map (the solid/dashed/dotted vocabulary and the built-links test are unchanged). Guidelines not met are listed in `docs/design-guidelines.md` section 11.
-
-## D-057 — Explorer: observed-history overlay and pattern-scaled warming map
-
-- **Status:** Provisional (delegated)
-- **Context:** Editor brief 2026-10-22 (called "D-056" in the brief; D-056 is already Explorer v0.2 on `site-ux`, so this is recorded as D-057, content as briefed; renumber freely). The Explorer shows model output only. Visitors cannot see how the models sit against observed history, and the warming result is a single global number with no geographic context.
-- **Decision (data and display layer only; no model code, no parameter, no new model run):**
-  1. **Observed history overlay** (Part A): world population (UN WPP), world GDP in constant prices (World Bank WDI NY.GDP.MKTP.KD) and global mean temperature anomaly (HadCRUT5, with GISTEMP as a cross-check) drawn next to the model series: World3 population against observed; World3 industrial output and observed GDP as indices on one common year (1990 = 1), no fitting, no rescaling beyond the index; FaIR ensemble hindcast band against HadCRUT5. Under each chart one sentence generated from the data gives the gap in the last common year and a test. Nothing is tuned to improve a match. A "Model versus reality" panel is added to the tab bar. Every series has a recorded source, version or retrieval date, licence, URL and checksum in `audit/data/sources-history.json`; a series whose licence forbids redistribution is linked, not shown; a failed download stops that series.
-  2. **Warming map** (Part B): regional warming = global warming (FaIR, per year, recorded ensemble mean, 5th and 95th percentile) x a local pattern coefficient (K per K of global warming) from a documented CMIP6 multi-model pattern. A coarse static file `site/data/warming-map.json` (coefficients plus metadata), coastlines from Natural Earth (public domain), simplified. Fallback if no redistributable licensed gridded pattern is found: AR6 reference regions. The map carries the mandatory label: "Illustrative downscaling of the global FaIR result. Not a regional climate projection. Pattern-scaling ignores regional feedbacks, aerosols, ocean dynamics." Only the global uncertainty is shown; pattern uncertainty is not, and the page says so. The map depends on the selected story only through the climate run; damage does not change warming, and the page says so.
-- **Reason:** credibility (the reader sees how far the models are from observed history) and geographic context, without claiming country-level model output.
-- **Alternatives considered and rejected:** country and industry results from the models (not possible: World3, FaIR and S3 are global); fitting or rescaling the model to observed series (would hide the gap; excluded); country-level damage or population maps (excluded by the brief).
-- **Consequences:** three external datasets and one pattern dataset enter the repository as derived annual or coarse values with licences recorded; the history comparison is not a validation and the Limitations page says so; A3.4(b) status (failed) and A2.1 status (failed) are quoted where they apply; the page and data grow slightly (static, D-009).
-- **What this does not change:** no test, tolerance, label or earlier decision; D-007, D-029, D-030, D-052 and D-056 stand; Pages is not enabled or run by this branch.
-- **Reversal cost:** low (site files and data only).
-- **Proposed by:** Claude (implementing the editor's brief).
-- **Decision:** Provisional (delegated); the editor reviews it in the milestone batch.
-- **Date:** 2026-10-22
-
-## D-058 — Data retrieval campaign: sources, licences and derived series for links 3 to 7, the data-centre module and AI context
-
-- **Status:** Provisional (delegated)
-- **Context:** Links 3 to 7 of the connections map (yield and health, labour, compute to electricity, emissions) and the data-centre module have no data in the repository beyond the sources of `docs/m5-plan.md` section 1, whose STOP items (WID, ILOSTAT, USGS content, LBNL and TSMC documents, AQUASTAT, WUE, a long labour-share series, mineral demand per unit) are mostly "document not read, terms not read". The data-centre module is calibrated on one number (485 TWh in 2025, D-033) and its demand leaves any plausible range after about 2027 (D-029, `docs/s3-supply-limited.md`). Editor instruction of 2026-10-22: run one long data-retrieval campaign, documents and data only.
-- **Purpose:** (1) close the "unread" status of the sources behind links 3 to 7 by reading each primary page and file, recording its licence in the source's own words; (2) give the data-centre module independent numbers (installed capacity, electricity, water, PUE, chip supply, compute) against which its output can be bounded; (3) deepen the AI context (compute, hardware, models, investment); (4) write, for each unbuilt link and for the data-centre module, a document that names the variables, functional forms from the literature, available calibration data, what is missing, a pass/fail test fixed before any result, and the status badge it would earn.
-- **Method:** each source is downloaded by script into its own directory outside the repository (`data-raw`, never committed), its SHA-256 is recorded, and the file is read by Python run with `-I`; nothing downloaded is executed. Every key number is cross-checked against a second source where one exists, and the difference is recorded. Derived annual or aggregate series that the licence allows to be redistributed are written to `audit/data/derived/*.json` by `site_src/data_campaign.py`, which regenerates them from the raw folder (path by argument or `F3_DATA_RAW`) and verifies the checksums against `audit/data/sources-register.json`. The register has a JSON schema and a test (`tests/test_data_register.py`).
-- **Licence rules:** (a) the licence text is **quoted** from the page that states it; (b) where no licence statement is found, or the statement is ambiguous, redistribution is recorded as `unclear`, the raw file stays in `data-raw`, and the source is listed for the editor; (c) only derived series from sources whose redistribution is `yes` are committed; (d) no licence is guessed from the publisher's general reputation; (e) paywalled, login-gated or blocked sources are not worked around (no credentials, no CAPTCHA, no scraping around a gate): they go to `audit/data/needs-user.json` with the exact document wanted and why; (f) a download that fails twice is recorded as a failure and the run moves on.
-- **What this does not change:** no model code, parameter, existing test, label, tolerance or earlier decision; no site file; nothing is published, merged or deployed. Obtaining a dataset is not a decision to use it: use in a sector still needs its own decision, and the STOP rule of `CLAUDE.md` for third-party-data use stays in force. The campaign settles what the sources say and allow, not what the model does with them.
-- **Consequences:** a register, derived series, a data inventory and seven link documents are added; `docs/STATUS.md` is updated; the link documents carry pass/fail criteria written before any calibration, with no results. Network access to some publishers is unreliable (earlier attempts returned HTTP 403); failures are recorded, not worked around.
-- **Alternatives considered:** download only what the unbuilt links strictly need (rejected: the editor asked for breadth and the cost of a second campaign is higher); commit raw files (rejected: size, and licences differ); one decision per source (rejected: one decision for the campaign, one register entry per source).
-- **Reversal cost:** none for the model (documents and data only); the branch can be dropped.
-- **Proposed by:** Claude (implementing the editor's brief).
-- **Decision:** Provisional (delegated); the editor reviews it in the milestone batch.
-- **Date:** 2026-10-22
-
----
 
 ---
 
@@ -1368,17 +1129,3 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Decision:** Approved / Rejected / Superseded by D-xxx
 - **Date:** YYYY-MM-DD
 ```
-
----
-
-## D-059 — Electricity link: data-centre module to World3 industrial output
-
-- **Status:** Provisional (delegated)
-- **Context:** Editor instruction of 2026-10-26: implement the supply-limited electricity feed from the data-centre module (D-055) into World3's industrial energy input. World3 has no energy variable, so the feed needs a form.
-- **Decision:** the data-centre module publishes `industry_ratio = clip((supply x supply_scale - e_dc) / (supply_2025 - 485 TWh), 0, 1)`, the electricity left for everything except data centres relative to its 2025 level. World3 multiplies industrial output `io` by it from 2025, through the multiplier slot of D-051. Switch `M6Config.electricity_link`, default OFF, needs `electricity=True`. One-way (World3 does not feed S3 here), explicit coupling with a one-step lag (D-022). No new coefficient.
-- **Tests:** `tests/test_m6_electricity_link.py`, written and committed before the code.
-- **Limits, stated plainly:** an output multiplier is a proxy, not an energy-to-output model; it assumes industry's need for electricity is proportional to its 2025 level. S3 is unvalidated after about 2027 (D-029) and so is `e_dc`; the link inherits that and the recorded supply series is Earth4All.jl's, not World3's.
-- **Alternatives considered:** scaling the capital-output ratio `icor` (needs a new elasticity coefficient, so a STOP item); a proposal only.
-- **Reversal cost:** none (default off; every recorded result is unchanged, tested to 1e-9).
-- **Proposed by:** the editor (instruction); Claude (form and implementation).
-- **Date:** 2026-10-26
