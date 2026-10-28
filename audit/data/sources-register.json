@@ -8409,89 +8409,6 @@
    "blocked_http_status": 404
   },
   {
-   "id": "paperswithcode_sota",
-   "title": "Papers With Code — State of the Art benchmarks",
-   "publisher": "Papers With Code (now redirected to Hugging Face)",
-   "url": "https://paperswithcode.com/sota",
-   "domains": [
-    "D1"
-   ],
-   "supports": [],
-   "supports_proposed": [
-    "L_RISK"
-   ],
-   "version": "not applicable",
-   "status": "blocked",
-   "licence": {
-    "name": "Not applicable",
-    "quote": "",
-    "quote_verified": false
-   },
-   "redistribution": "unclear",
-   "redistribution_note": "No licence text read from a saved file, so redistribution is not flagged yes (register test rule).",
-   "units": "n/a",
-   "geography": "n/a",
-   "time_span": "n/a",
-   "variables": [
-    "(SOTA leaderboards no longer served at this URL)"
-   ],
-   "files": [],
-   "notes": "https://paperswithcode.com/sota now redirects to https://huggingface.co/papers/trending (a trending-papers page, not saved). The SOTA tables are not available there. Status is blocked because the dataset is gone from this URL, not because of a paywall; a replacement (Hugging Face benchmarks, Epoch AI benchmarking hub) needs a decision.",
-   "retrieved": "2026-10-28",
-   "role": "data",
-   "campaign_wave": "D-061",
-   "date_acquired": "2026-10-28",
-   "local_path": null,
-   "total_bytes": 0,
-   "year": 2026,
-   "d061_direct": {
-    "date": "2026-10-28",
-    "http": [
-     404
-    ],
-    "outcome": "blocked",
-    "note": "repo/file removed (site redirects to Hugging Face)"
-   },
-   "blocked_http_status": 404
-  },
-  {
-   "id": "semi_fab_capacity",
-   "title": "SEMI World Fab Forecast",
-   "publisher": "SEMI",
-   "url": "https://www.semi.org/en/products-services/market-data/world-fab-forecast",
-   "domains": [
-    "D1"
-   ],
-   "supports": [],
-   "supports_proposed": [
-    "L_FIN"
-   ],
-   "version": "not read (blocked)",
-   "status": "blocked",
-   "licence": {
-    "name": "Not read (blocked); SEMI market data is a commercial product",
-    "quote": "",
-    "quote_verified": false
-   },
-   "redistribution": "unclear",
-   "redistribution_note": "No licence text read from a saved file, so redistribution is not flagged yes (register test rule).",
-   "units": "not read",
-   "geography": "global",
-   "time_span": "not read",
-   "variables": [
-    "fab capacity forecast (commercial report)"
-   ],
-   "files": [],
-   "notes": "HTTP 403 with a Cloudflare \"Just a moment...\" challenge (needs JavaScript and cookies). The World Fab Forecast is a paid market-data product in any case.",
-   "retrieved": "2026-10-28",
-   "role": "data",
-   "campaign_wave": "D-061",
-   "date_acquired": "2026-10-28",
-   "local_path": null,
-   "total_bytes": 0,
-   "year": 2026
-  },
-  {
    "id": "mlco2_impact",
    "title": "Machine Learning CO2 Impact calculator",
    "publisher": "ML CO2 Impact (mlco2 project)",
@@ -8547,44 +8464,6 @@
     "outcome": "retrieved",
     "note": "no year column; carbon intensities dated 2019 in source comments"
    }
-  },
-  {
-   "id": "linkedin_ai_skills",
-   "title": "LinkedIn Economic Graph — Skills on the Rise",
-   "publisher": "LinkedIn",
-   "url": "https://economicgraph.linkedin.com/research/skills-on-the-rise",
-   "domains": [
-    "D5"
-   ],
-   "supports": [],
-   "supports_proposed": [
-    "L9",
-    "L_MH"
-   ],
-   "version": "not applicable",
-   "status": "blocked",
-   "licence": {
-    "name": "Not applicable",
-    "quote": "",
-    "quote_verified": false
-   },
-   "redistribution": "unclear",
-   "redistribution_note": "No licence text read from a saved file, so redistribution is not flagged yes (register test rule).",
-   "units": "n/a",
-   "geography": "n/a",
-   "time_span": "n/a",
-   "variables": [
-    "(page not found)"
-   ],
-   "files": [],
-   "notes": "HTTP 404: the page no longer exists at this URL. LinkedIn Economic Graph material is in any case published as reports, not open datasets.",
-   "retrieved": "2026-10-28",
-   "role": "data",
-   "campaign_wave": "D-061",
-   "date_acquired": "2026-10-28",
-   "local_path": null,
-   "total_bytes": 0,
-   "year": 2026
   },
   {
    "id": "pax_autonomous_weapons",
@@ -9122,33 +9001,6 @@
    "error": "HTTP 403 Access Denied (Akamai); also 403 for /oes/, download.bls.gov and the oesm24in4.zip special-request file",
    "http_status": 403,
    "attempts": 2,
-   "retrieved_utc": "2026-10-28T08:43:56Z"
-  },
-  {
-   "source_id": "paperswithcode_sota",
-   "path": "paperswithcode_sota/sota.html",
-   "url": "https://paperswithcode.com/sota",
-   "error": "Redirects to https://huggingface.co/papers/trending; SOTA leaderboard pages no longer served",
-   "http_status": 200,
-   "attempts": 1,
-   "retrieved_utc": "2026-10-28T08:43:56Z"
-  },
-  {
-   "source_id": "semi_fab_capacity",
-   "path": "semi_fab_capacity/world-fab-forecast.html",
-   "url": "https://www.semi.org/en/products-services/market-data/world-fab-forecast",
-   "error": "HTTP 403 Cloudflare challenge page",
-   "http_status": 403,
-   "attempts": 1,
-   "retrieved_utc": "2026-10-28T08:43:56Z"
-  },
-  {
-   "source_id": "linkedin_ai_skills",
-   "path": "linkedin_ai_skills/skills-on-the-rise.html",
-   "url": "https://economicgraph.linkedin.com/research/skills-on-the-rise",
-   "error": "HTTP 404 Not Found",
-   "http_status": 404,
-   "attempts": 1,
    "retrieved_utc": "2026-10-28T08:43:56Z"
   },
   {
