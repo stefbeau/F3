@@ -7818,6 +7818,738 @@
    "local_path": null,
    "date_acquired": "2026-10-27",
    "campaign_wave": "D-060 P2 gap"
+  },
+  {
+   "id": "epoch_ai_compute",
+   "title": "Epoch AI — Notable AI Models & Compute",
+   "publisher": "Epoch AI",
+   "url": "https://epochai.org/data/notable-ai-models",
+   "landing_page": "https://epoch.ai/data/ai-models",
+   "domains": [
+    "D1"
+   ],
+   "supports": [
+    "AI"
+   ],
+   "supports_proposed": [
+    "L_RISK"
+   ],
+   "version": "page shows \"Updated Oct. 26, 2026\"; CSV has models published up to 2026-10-12",
+   "status": "retrieved",
+   "licence": {
+    "name": "Creative Commons Attribution (CC BY)",
+    "quote": "Epoch AI’s data is free to use, distribute, and reproduce provided the source and authors are credited under the Creative Commons Attribution license.",
+    "quote_file": "epoch_ai_compute/page.html",
+    "url": "https://epoch.ai/data/ai-models",
+    "quote_verified": true
+   },
+   "redistribution": "yes",
+   "redistribution_note": "Licence sentence read verbatim in the saved page; attribution to Epoch AI required.",
+   "attribution": "Epoch AI, \"Data on AI models\", epoch.ai (CC BY)",
+   "units": "FLOP, parameters, dataset size, hours",
+   "geography": "global (country of organisation given)",
+   "time_span": "1950-07-02 to 2026-10-12 (publication dates)",
+   "variables": [
+    "training compute (FLOP)",
+    "parameters",
+    "training dataset size",
+    "training time (hours)",
+    "organisation and country",
+    "domain, task, notability"
+   ],
+   "files": [
+    {
+     "path": "epoch_ai_compute/page.html",
+     "bytes": 145135,
+     "sha256": "9d0c075a7bf920735b84b3409bf4cb6dc635de7dd69a91ad318e372957fb2a67",
+     "url": "https://epoch.ai/data/ai-models",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T08:43:56Z",
+     "via": "curl"
+    },
+    {
+     "path": "epoch_ai/notable_ai_models.csv",
+     "bytes": 2267812,
+     "sha256": "e10d54d34f317c6fd80a54e7b02bbc6df41c169f185d8fcb094d78718db7f243",
+     "url": "https://epoch.ai/data/notable_ai_models.csv",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T08:43:56Z",
+     "via": "curl"
+    }
+   ],
+   "notes": "Access: open, direct CSV. The URL in the brief redirects to epoch.ai/data/ai-models, which lists notable, frontier, large-scale, biology and all-models CSVs and a zip. Downloaded notable_ai_models.csv: 1083 data rows, 47 columns. The zip https://epoch.ai/data/ai_models.zip was not downloaded. Google Sheets export deprecated (the sheet returns only a deprecated cover tab, 1.4 KB); the raw.githubusercontent.com epoch-research/data compute.csv path returns 404, so the CSV used is notable_ai_models.csv from epoch.ai.",
+   "retrieved": "2026-10-28",
+   "role": "data",
+   "campaign_wave": "D-061",
+   "date_acquired": "2026-10-28",
+   "local_path": null,
+   "total_bytes": 2412947,
+   "year": 2026,
+   "d061_direct": {
+    "date": "2026-10-28",
+    "http": [
+     404,
+     200
+    ],
+    "outcome": "blocked",
+    "note": "primary 404; Google Sheets fallback returned 200 but only a 1.4 KB deprecated cover tab (no data rows) — discarded. Earlier notable_ai_models.csv ingest (epoch_ai) is unaffected."
+   }
+  },
+  {
+   "id": "mlcommons_benchmarks",
+   "title": "MLCommons MLPerf Benchmarks",
+   "publisher": "MLCommons",
+   "url": "https://mlcommons.org/benchmarks/",
+   "domains": [
+    "D1"
+   ],
+   "supports": [
+    "AI"
+   ],
+   "supports_proposed": [
+    "L_RISK"
+   ],
+   "version": "not stated on the page",
+   "status": "partial",
+   "licence": {
+    "name": "Not stated on the page (page only mentions contributor licence agreements and the MLPerf trademark licence)",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "No licence text read from a saved file, so redistribution is not flagged yes (register test rule).",
+   "units": "performance results per benchmark and submission round",
+   "geography": "global (submitters)",
+   "time_span": "not stated",
+   "variables": [
+    "MLPerf inference and training results",
+    "AILuminate, AlgoPerf, Automotive benchmark pages"
+   ],
+   "files": [
+    {
+     "path": "mlcommons_benchmarks/page.html",
+     "bytes": 149813,
+     "sha256": "362b185d2522582ec7af3bc53a825426d676bbc77a9cab68d8b1b0f3ba094434",
+     "url": "https://mlcommons.org/benchmarks/",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T08:43:56Z",
+     "via": "curl"
+    }
+   ],
+   "notes": "Page loads (open). It is an index of benchmarks; results live on per-benchmark pages and GitHub, not read or downloaded here. No round numbers were found on this page.",
+   "retrieved": "2026-10-28",
+   "role": "data",
+   "campaign_wave": "D-061",
+   "date_acquired": "2026-10-28",
+   "local_path": null,
+   "total_bytes": 149813,
+   "year": 2026
+  },
+  {
+   "id": "eurostat_ict_adoption",
+   "title": "Eurostat — Artificial intelligence by size class of enterprise (isoc_eb_ai)",
+   "publisher": "Eurostat (European Commission)",
+   "url": "https://ec.europa.eu/eurostat/web/digital-economy-and-society/data/database",
+   "landing_page": "https://ec.europa.eu/eurostat/databrowser/view/isoc_eb_ai",
+   "domains": [
+    "D5"
+   ],
+   "supports": [
+    "AI"
+   ],
+   "supports_proposed": [
+    "L9"
+   ],
+   "version": "dataset ISOC_EB_AI, datastructure v45.0; columns 2021, 2023, 2024, 2025",
+   "status": "retrieved",
+   "licence": {
+    "name": "Eurostat free re-use policy (source must be acknowledged)",
+    "quote": "Reuse of statistical data, metadata, publications, and other dissemination tools published on this website for commercial or non-commercial purposes is authorised provided the source is acknowledged.",
+    "quote_file": "eurostat_ict_adoption/copyright.html",
+    "url": "https://ec.europa.eu/eurostat/web/main/help/copyright-notice",
+    "quote_verified": true
+   },
+   "redistribution": "yes",
+   "redistribution_note": "Re-use for commercial and non-commercial purposes authorised with acknowledgement, read verbatim in the saved copyright notice.",
+   "attribution": "Source: Eurostat, dataset isoc_eb_ai",
+   "units": "percent of enterprises (and other indicator units)",
+   "geography": "EU member states and others (36 geo codes)",
+   "time_span": "2021, 2023, 2024, 2025",
+   "variables": [
+    "enterprises using AI technologies by size class and NACE sector",
+    "AI purposes (E_AI_P*), technologies (E_AI_T*), obstacles and cloud/AI indicators"
+   ],
+   "files": [
+    {
+     "path": "eurostat_ict/isoc_eb_ai.tsv.gz",
+     "bytes": 270561,
+     "sha256": "69d74017968d4bcfbe5bfadcda5945d358a5dcbabaf1e6664e18ccb21845a8d3",
+     "url": "https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/isoc_eb_ai?format=TSV&compressed=true",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T08:43:56Z",
+     "via": "curl (SDMX 2.1 API)"
+    },
+    {
+     "path": "eurostat_ict_adoption/database-page-404.html",
+     "bytes": 161469,
+     "sha256": "a97bf5a1341f13c665e72af0a9a69958544ac8c165abe20299d6ac358ca3d57a",
+     "url": "https://ec.europa.eu/eurostat/web/digital-economy-and-society/data/database",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T08:43:56Z",
+     "via": "curl"
+    },
+    {
+     "path": "eurostat_ict_adoption/copyright.html",
+     "bytes": 177502,
+     "sha256": "6a393a3653b63cba876b0749ba07f0213b24c94c94bea1eeb8696acde6a91cdf",
+     "url": "https://ec.europa.eu/eurostat/web/main/help/copyright-notice",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T08:43:56Z",
+     "via": "curl"
+    }
+   ],
+   "notes": "The brief named dataset isoc_e_iuse_a: it is not available in the dissemination API, and the database page URL in the brief returns HTTP 404. The enterprise AI dataset is isoc_eb_ai (found via the SDMX dataflow API). Downloaded as TSV: 25263 data rows, 6 key columns + 4 year columns, 36 geo codes, 63 indicators. Values carry Eurostat flags and \":\" for missing.",
+   "retrieved": "2026-10-28",
+   "role": "data",
+   "campaign_wave": "D-061",
+   "date_acquired": "2026-10-28",
+   "local_path": null,
+   "total_bytes": 609532,
+   "year": 2026,
+   "d061_direct": {
+    "date": "2026-10-28",
+    "http": [
+     404
+    ],
+    "outcome": "retrieved",
+    "note": "brief URL isoc_e_iuse_a returns 404; status stays retrieved on the earlier isoc_eb_ai ingest (25,263 rows)"
+   }
+  },
+  {
+   "id": "bls_oes_automation",
+   "title": "BLS Occupational Employment and Wage Statistics (OEWS) tables",
+   "publisher": "US Bureau of Labor Statistics",
+   "url": "https://www.bls.gov/oes/tables.htm",
+   "domains": [
+    "D5"
+   ],
+   "supports": [],
+   "supports_proposed": [
+    "L9",
+    "L_MH"
+   ],
+   "version": "not read (blocked)",
+   "status": "blocked",
+   "licence": {
+    "name": "Not read (blocked). The brief states US public domain; not confirmed from a saved file",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "No licence text read from a saved file, so redistribution is not flagged yes (register test rule).",
+   "units": "employment and wages by occupation and industry",
+   "geography": "United States",
+   "time_span": "not read",
+   "variables": [
+    "occupational employment and wages by industry (OEWS)"
+   ],
+   "files": [],
+   "notes": "BLS.gov and download.bls.gov return 403 from automated hosts. Manual download at https://www.bls.gov/oes/tables.htm - look for 'May 2024 National industry-specific' XLS.",
+   "retrieved": "2026-10-28",
+   "role": "data",
+   "campaign_wave": "D-061",
+   "date_acquired": "2026-10-28",
+   "local_path": null,
+   "total_bytes": 0,
+   "year": 2026,
+   "d061_direct": {
+    "date": "2026-10-28",
+    "http": [
+     403
+    ],
+    "outcome": "blocked",
+    "note": "Akamai Access Denied; manual download needed"
+   },
+   "blocked_http_status": 403
+  },
+  {
+   "id": "wipo_ip_stats",
+   "title": "WIPO IP Statistics Data Center",
+   "publisher": "World Intellectual Property Organization",
+   "url": "https://www3.wipo.int/ipstats/",
+   "domains": [
+    "D8"
+   ],
+   "supports": [],
+   "supports_proposed": [
+    "L_FIN"
+   ],
+   "version": "not stated",
+   "status": "blocked",
+   "licence": {
+    "name": "Not read",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "No licence text read from a saved file, so redistribution is not flagged yes (register test rule).",
+   "units": "patent counts",
+   "geography": "global",
+   "time_span": "not read",
+   "variables": [
+    "patent applications and grants (AI patents not confirmed)"
+   ],
+   "files": [
+    {
+     "path": "wipo_ip_stats/page.html",
+     "bytes": 6483,
+     "sha256": "6e0006ab4628ed2e86f609424cd7984d17ad22485f08307f3da88b0d2d818685",
+     "url": "https://www3.wipo.int/ipstats/",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T08:43:56Z",
+     "via": "curl"
+    }
+   ],
+   "notes": "Page returns 200 but is a JavaScript single-page app (6 KB shell; no data or links in the HTML). Whether AI-patent statistics are downloadable without registration could NOT be confirmed without a browser session. No file downloaded.",
+   "retrieved": "2026-10-28",
+   "role": "data",
+   "campaign_wave": "D-061",
+   "date_acquired": "2026-10-28",
+   "local_path": null,
+   "total_bytes": 6483,
+   "year": 2026,
+   "d061_direct": {
+    "date": "2026-10-28",
+    "http": [
+     200,
+     404
+    ],
+    "outcome": "blocked",
+    "note": "API URL returned 200 but the 6 KB JS app shell, not CSV; fallback also 404"
+   },
+   "blocked_http_status": 404
+  },
+  {
+   "id": "oecd_ai_investment",
+   "title": "OECD.AI Live data — Investments in AI and data",
+   "publisher": "OECD.AI",
+   "url": "https://oecd.ai/en/data?selectedArea=investments-in-ai",
+   "domains": [
+    "D8"
+   ],
+   "supports": [],
+   "supports_proposed": [
+    "L_FIN"
+   ],
+   "version": "live data, no version stated",
+   "status": "partial",
+   "licence": {
+    "name": "Not read from a saved file",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "No licence text read from a saved file, so redistribution is not flagged yes (register test rule).",
+   "units": "not read",
+   "geography": "global (country level)",
+   "time_span": "not read",
+   "variables": [
+    "investments in AI and data",
+    "AI jobs and skills, compute, demographics, research (other Live data areas)"
+   ],
+   "files": [
+    {
+     "path": "oecd_ai_investment/page.html",
+     "bytes": 256059,
+     "sha256": "36355c611c9e3b22f68e605f81a7337260a862b7fc36f12fd1398f8c0b664d46",
+     "url": "https://oecd.ai/en/data?selectedArea=investments-in-ai",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T08:43:56Z",
+     "via": "curl"
+    }
+   ],
+   "notes": "Page loads (open); the data panels are rendered client-side, so no download link was identified. Investment series themselves not downloaded.",
+   "retrieved": "2026-10-28",
+   "role": "data",
+   "campaign_wave": "D-061",
+   "date_acquired": "2026-10-28",
+   "local_path": null,
+   "total_bytes": 256059,
+   "year": 2026
+  },
+  {
+   "id": "fda_ai_devices",
+   "title": "FDA AI-enabled Medical Devices list",
+   "publisher": "US Food and Drug Administration",
+   "url": "https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-and-machine-learning-aiml-enabled-medical-devices",
+   "landing_page": "https://www.fda.gov/medical-devices/artificial-intelligence-enabled-medical-devices/list-artificial-intelligence-enabled-medical-devices",
+   "domains": [
+    "D8"
+   ],
+   "supports": [],
+   "supports_proposed": [
+    "L_SOC"
+   ],
+   "version": "page \"Content current as of: 09/04/2026\"; most recent device decision seen 04/10/2026",
+   "status": "retrieved",
+   "licence": {
+    "name": "Public domain (US federal government)",
+    "quote": "Unless otherwise noted, the contents of the FDA website (www.fda.gov) — both text and graphics — are not copyrighted. They are in the public domain and may be republished, reprinted and otherwise used freely by anyone without the need to obtain permission from FDA.",
+    "quote_file": "fda_ai_devices/website-policies.html",
+    "url": "https://www.fda.gov/about-fda/about-website/website-policies",
+    "quote_verified": true
+   },
+   "redistribution": "yes",
+   "redistribution_note": "FDA website policies page (read 2026-10-28): contents are not copyrighted and in the public domain \"unless otherwise noted\"; credit to FDA is appreciated. Applies to the device list page; no per-page exception seen.",
+   "units": "device authorisations",
+   "geography": "United States",
+   "time_span": "to 2026-04 (latest decision date seen)",
+   "variables": [
+    "date of final decision",
+    "submission number",
+    "device",
+    "company",
+    "panel (lead)",
+    "product code"
+   ],
+   "files": [
+    {
+     "path": "fda_ai_devices/page.html",
+     "bytes": 415833,
+     "sha256": "ae9826410404172c144f3a1356f04c254dcccb4cebdaa4825de336d28d7bee7c",
+     "url": "https://www.fda.gov/medical-devices/artificial-intelligence-enabled-medical-devices/list-artificial-intelligence-enabled-medical-devices",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T08:43:56Z",
+     "via": "curl"
+    },
+    {
+     "path": "fda_ai_devices/direct/ai_devices.csv",
+     "bytes": 141468,
+     "sha256": "b1efeb680371f44cae574ae5a5aa548ac8a63391e6888a007b17177d17527880",
+     "url": "https://www.fda.gov/media/178541/download?attachment",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T10:10:00Z",
+     "via": "curl"
+    },
+    {
+     "path": "fda_ai_devices/direct/ai_devices.xlsx",
+     "bytes": 133134,
+     "sha256": "5c1c6df672634301ccfc3499ac4fc65762034f031b2ba13be5d9ec48390a06cb",
+     "url": "https://www.fda.gov/media/178540/download?attachment",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T10:10:00Z",
+     "via": "curl"
+    },
+    {
+     "path": "fda_ai_devices/website-policies.html",
+     "bytes": 45593,
+     "sha256": "034777be4193f555a5f97fe080bd461d25b03ad7452cc6b1d9be4cb1ae1bea49",
+     "url": "https://www.fda.gov/about-fda/about-website/website-policies",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T09:05:06Z",
+     "via": "curl"
+    }
+   ],
+   "notes": "1614 devices, 6 columns, decisions 1995–2026. CSV 141 KB, XLSX 133 KB. Content current as of 2026-09-04. Downloaded from the links on the list page: CSV https://www.fda.gov/media/178541/download?attachment, XLSX .../media/178540/download?attachment.",
+   "retrieved": "2026-10-28",
+   "role": "data",
+   "campaign_wave": "D-061",
+   "date_acquired": "2026-10-28",
+   "local_path": null,
+   "total_bytes": 415833,
+   "year": 2026,
+   "d061_direct": {
+    "date": "2026-10-28",
+    "http": [
+     200
+    ],
+    "outcome": "retrieved",
+    "note": "list page read; CSV and XLSX downloaded via links on the page"
+   },
+   "blocked_http_status": 200
+  },
+  {
+   "id": "clinicaltrials_ai",
+   "title": "ClinicalTrials.gov — studies matching \"artificial intelligence\"",
+   "publisher": "US National Library of Medicine",
+   "url": "https://clinicaltrials.gov/search?term=artificial+intelligence",
+   "domains": [
+    "D8"
+   ],
+   "supports": [],
+   "supports_proposed": [
+    "L_PAN"
+   ],
+   "version": "live registry; API v2 count on 2026-10-28: 4565 studies for the free-text term",
+   "status": "retrieved",
+   "licence": {
+    "name": "Not read from a saved file (brief expects public domain; Terms and Conditions page not read)",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "No licence text read from a saved file, so redistribution is not flagged yes (register test rule).",
+   "units": "study records",
+   "geography": "global",
+   "time_span": "live",
+   "variables": [
+    "study records (JSON/CSV via API v2)",
+    "conditions, interventions, status, dates"
+   ],
+   "files": [
+    {
+     "path": "clinicaltrials_ai/page.html",
+     "bytes": 94247,
+     "sha256": "c8f2db34b30c0fd6a31735436288114df705be51bf54fbaf2ad98f957f1af94d",
+     "url": "https://clinicaltrials.gov/search?term=artificial+intelligence",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T08:43:56Z",
+     "via": "curl"
+    }
+   ],
+   "notes": "The search page is a JS shell; the open REST API v2 (no key) answered totalCount 4565 for query.term=artificial+intelligence. A free-text match is not the same as AI-intervention studies; an intervention-specific query would need defining. No study data downloaded. L_PAN is a weak fit (health burden); the best available proposed code.",
+   "retrieved": "2026-10-28",
+   "role": "data",
+   "campaign_wave": "D-061",
+   "date_acquired": "2026-10-28",
+   "local_path": null,
+   "total_bytes": 94247,
+   "year": 2026,
+   "d061_direct": {
+    "date": "2026-10-28",
+    "http": [
+     200
+    ],
+    "outcome": "retrieved",
+    "note": "pageSize cap: 1000 of ~4565 matching studies (first page only, no pagination); free-text term, not AI-intervention-specific"
+   }
+  },
+  {
+   "id": "us_census_ai_adoption",
+   "title": "US Census Bureau Business Trends and Outlook Survey (BTOS)",
+   "publisher": "US Census Bureau",
+   "url": "https://www.census.gov/data/experimental-data-products/business-trends-and-outlook-survey.html",
+   "domains": [
+    "D5"
+   ],
+   "supports": [],
+   "supports_proposed": [
+    "L9"
+   ],
+   "version": "page \"Page Last Revised - October 21, 2026\"",
+   "status": "retrieved",
+   "licence": {
+    "name": "Not read from a saved file (US federal website; policy page not read)",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "No licence text read from a saved file, so redistribution is not flagged yes (register test rule).",
+   "units": "percent of businesses",
+   "geography": "United States (national, state, sector)",
+   "time_span": "biweekly survey; page cites 3.8% of businesses using AI (Nov 2023)",
+   "variables": [
+    "share of businesses using AI to produce goods or services",
+    "other business conditions"
+   ],
+   "files": [
+    {
+     "path": "us_census_ai_adoption/page.html",
+     "bytes": 342836,
+     "sha256": "a14494f1d6b2dbe23e59fa685b0a0e5e64712980ed3e835fe25fc431638ba9c7",
+     "url": "https://www.census.gov/data/experimental-data-products/business-trends-and-outlook-survey.html",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T08:43:56Z",
+     "via": "curl"
+    },
+    {
+     "path": "us_census_ai_adoption/direct/AI_Supplement_Table.xlsx",
+     "bytes": 337833,
+     "sha256": "7ad407d9a475a08b662fde7cee5983194dc2d701831f11aede00ab1d8b3961b9",
+     "url": "https://www.census.gov/hfp/btos/downloads/AI_Supplement_Table.xlsx",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T10:10:00Z",
+     "via": "curl"
+    },
+    {
+     "path": "us_census_ai_adoption/direct/AI_Supplement_Table_2026.xlsx",
+     "bytes": 578790,
+     "sha256": "1220d39f0c44b77d85aaeb1849aeec12e86a88219df9700436f41aec4103eca7",
+     "url": "https://www.census.gov/hfp/btos/downloads/AI_Supplement_Table_2026.xlsx",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T10:10:00Z",
+     "via": "curl"
+    },
+    {
+     "path": "us_census_ai_adoption/direct/AI26_URR.xlsx",
+     "bytes": 14143,
+     "sha256": "1991cffefc14a67d7f6281ce098673bcc412f13ebd6d495ac0b0a2ffd05b7bcf",
+     "url": "https://www.census.gov/hfp/btos/downloads/AI26_URR.xlsx",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T10:10:00Z",
+     "via": "curl"
+    }
+   ],
+   "notes": "Two AI supplements downloaded: AI_Supplement_Table.xlsx (2024, National 98 rows, Sector 1922, State 5090, Employment 674) and AI_Supplement_Table_2026.xlsx (2026 collection Nov 2025–Feb 2026, National 87 rows). Also AI26_URR.xlsx (response rates). Files found via the BTOS data-page JS bundle; the press releases carry no file links.",
+   "retrieved": "2026-10-28",
+   "role": "data",
+   "campaign_wave": "D-061",
+   "date_acquired": "2026-10-28",
+   "local_path": null,
+   "total_bytes": 342836,
+   "year": 2026,
+   "d061_direct": {
+    "date": "2026-10-28",
+    "http": [
+     200
+    ],
+    "outcome": "retrieved",
+    "note": "AI supplement xlsx files found via the BTOS app bundle and downloaded"
+   },
+   "blocked_http_status": 404
+  },
+  {
+   "id": "mlco2_impact",
+   "title": "Machine Learning CO2 Impact calculator",
+   "publisher": "ML CO2 Impact (mlco2 project)",
+   "url": "https://mlco2.github.io/impact/",
+   "domains": [
+    "D3"
+   ],
+   "supports": [
+    "DC"
+   ],
+   "supports_proposed": [],
+   "version": "not stated",
+   "status": "retrieved",
+   "licence": {
+    "name": "Not read from a saved file (page mentions MIT and CodeCarbon; which material the licence covers was not checked)",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "No licence text read from a saved file, so redistribution is not flagged yes (register test rule).",
+   "units": "kg CO2eq per compute-hour by hardware and region",
+   "geography": "global (cloud regions)",
+   "time_span": "not stated",
+   "variables": [
+    "hardware power draw",
+    "region carbon intensity",
+    "CO2eq estimate"
+   ],
+   "files": [
+    {
+     "path": "mlco2_impact/page.html",
+     "bytes": 74622,
+     "sha256": "10c02af76675350113deecd6d4c11c0544ab2aedef4a7e752ca9e2993d8da2d1",
+     "url": "https://mlco2.github.io/impact/",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T08:43:56Z",
+     "via": "curl"
+    }
+   ],
+   "notes": "Page loads (open). It is a calculator; the underlying hardware and region tables are in the GitHub repository and were not located or downloaded. No proposed link code fits (it feeds the existing DC emissions link), so supports_proposed is empty.",
+   "retrieved": "2026-10-28",
+   "role": "data",
+   "campaign_wave": "D-061",
+   "date_acquired": "2026-10-28",
+   "local_path": null,
+   "total_bytes": 74622,
+   "year": 2026,
+   "d061_direct": {
+    "date": "2026-10-28",
+    "http": [
+     200
+    ],
+    "outcome": "retrieved",
+    "note": "no year column; carbon intensities dated 2019 in source comments"
+   }
+  },
+  {
+   "id": "pax_autonomous_weapons",
+   "title": "PAX — Killer Robots programme (autonomous weapons)",
+   "publisher": "PAX (Netherlands)",
+   "url": "https://www.paxforpeace.nl/our-work/programmes/autonomous-weapons",
+   "landing_page": "https://paxforpeace.nl/what-we-do/programmes/killer-robots/",
+   "domains": [
+    "D8"
+   ],
+   "supports": [],
+   "supports_proposed": [
+    "L_CONF",
+    "L_RISK"
+   ],
+   "version": "not stated",
+   "status": "partial",
+   "licence": {
+    "name": "Not read",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "No licence text read from a saved file, so redistribution is not flagged yes (register test rule).",
+   "units": "n/a",
+   "geography": "global",
+   "time_span": "not stated",
+   "variables": [
+    "programme page and publications (no dataset identified)"
+   ],
+   "files": [
+    {
+     "path": "pax_autonomous_weapons/page.html",
+     "bytes": 188850,
+     "sha256": "9699550865019053810bd6c126ed1d65bc8f839e72a5739aa3917472da56aefc",
+     "url": "https://paxforpeace.nl/what-we-do/programmes/killer-robots/",
+     "http_status": 200,
+     "retrieved_utc": "2026-10-28T08:43:56Z",
+     "via": "curl"
+    }
+   ],
+   "notes": "URL redirects to the Killer Robots programme page (open). No downloadable dataset found on the landing page; PAX publishes reports, not a data file. Content beyond the landing page not read.",
+   "retrieved": "2026-10-28",
+   "role": "data",
+   "campaign_wave": "D-061",
+   "date_acquired": "2026-10-28",
+   "local_path": null,
+   "total_bytes": 188850,
+   "year": 2026
+  },
+  {
+   "id": "cb_insights_ai_funding",
+   "title": "CB Insights Research — State of AI",
+   "publisher": "CB Insights",
+   "url": "https://www.cbinsights.com/research/report/ai-trends/",
+   "domains": [
+    "D8"
+   ],
+   "supports": [],
+   "supports_proposed": [
+    "L_FIN"
+   ],
+   "version": "not read",
+   "status": "blocked",
+   "licence": {
+    "name": "Not read (commercial; page promotes a free trial and log-in)",
+    "quote": "",
+    "quote_verified": false
+   },
+   "redistribution": "unclear",
+   "redistribution_note": "No licence text read from a saved file, so redistribution is not flagged yes (register test rule).",
+   "units": "funding amounts and deal counts (report)",
+   "geography": "global",
+   "time_span": "not read",
+   "variables": [
+    "AI funding and deals (report)"
+   ],
+   "files": [],
+   "notes": "The report URL redirected to the general research index (https://www.cbinsights.com/research/). The page text shows \"free trial\", \"Contact sales\" and \"Log in\"; the report itself was not reached, so it is treated as gated.",
+   "retrieved": "2026-10-28",
+   "role": "data",
+   "campaign_wave": "D-061",
+   "date_acquired": "2026-10-28",
+   "local_path": null,
+   "total_bytes": 0,
+   "year": 2026
   }
  ],
  "failures": [
@@ -8261,6 +8993,24 @@
    "http_status": 403,
    "attempts": 2,
    "retrieved_utc": "2026-10-22T18:26:17Z"
+  },
+  {
+   "source_id": "bls_oes_automation",
+   "path": "bls_oes/tables.htm",
+   "url": "https://www.bls.gov/oes/tables.htm",
+   "error": "HTTP 403 Access Denied (Akamai); also 403 for /oes/, download.bls.gov and the oesm24in4.zip special-request file",
+   "http_status": 403,
+   "attempts": 2,
+   "retrieved_utc": "2026-10-28T08:43:56Z"
+  },
+  {
+   "source_id": "cb_insights_ai_funding",
+   "path": "cb_insights_ai_funding/ai-trends.html",
+   "url": "https://www.cbinsights.com/research/report/ai-trends/",
+   "error": "Redirects to the research index; the State of AI report was not reachable (log-in / trial prompts on the index)",
+   "http_status": 200,
+   "attempts": 1,
+   "retrieved_utc": "2026-10-28T08:43:56Z"
   }
  ],
  "cross_checks": [

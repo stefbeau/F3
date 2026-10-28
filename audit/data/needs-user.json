@@ -514,7 +514,7 @@
    "priority": 2,
    "status": "resolved",
    "resolved_date": "2026-10-27",
-   "resolution": "File provided by Stéphane from emdat.be registration."
+   "resolution": "File provided by StÃ©phane from emdat.be registration."
   },
   {
    "id": "ihme_gbd",
@@ -618,6 +618,43 @@
    "status": "resolved",
    "resolved_date": "2026-10-28",
    "resolution": "File provided by Stéphane from CEDA public download (no registration required)."
+  },
+  {
+   "id": "bls_oes_automation",
+   "kind": "access",
+   "wanted": "Latest OEWS national industry-specific occupational employment and wage estimates (XLS/ZIP from bls.gov/oes/tables.htm)",
+   "why": "Employment by occupation and industry is the base for any automation-exposure estimate of labour (S3 labour input; proposed L9 and L_MH).",
+   "supports": [],
+   "url": "https://www.bls.gov/oes/tables.htm",
+   "blocked_by": "BLS.gov and download.bls.gov return 403 from automated hosts. Manual download at https://www.bls.gov/oes/tables.htm - look for 'May 2024 National industry-specific' XLS.",
+   "licence_note": "US federal data, expected public domain; confirm the BLS website-policies page when downloaded",
+   "priority": 1,
+   "status": "blocked",
+   "action": "Manual download required. Go to https://www.bls.gov/oes/tables.htm, find 'May 2024 National' XLS, download and place in audit/data/raw/bls_oes_automation/. All automated paths return 403."
+  },
+  {
+   "id": "cb_insights_ai_funding",
+   "kind": "login",
+   "wanted": "CB Insights State of AI report (or its public funding figures)",
+   "why": "AI venture funding and deal counts feed the investment side of the financial-stability link (proposed L_FIN).",
+   "supports": [],
+   "url": "https://www.cbinsights.com/research/report/ai-trends/",
+   "blocked_by": "Report not reachable without a CB Insights account (log-in / free-trial gate); URL redirects to the research index",
+   "licence_note": "Commercial report; not redistributable",
+   "priority": 2,
+   "status": "open"
+  },
+  {
+   "id": "wipo_ip_stats",
+   "kind": "browser",
+   "wanted": "WIPO AI patent statistics export (CSV from the IP Statistics Data Center)",
+   "why": "AI patent filings are an innovation-output indicator for the AI diffusion series.",
+   "supports": [
+    "AI"
+   ],
+   "url": "https://www3.wipo.int/ipstats/",
+   "blocked_by": "The ipstats API URL returns the JS app shell (HTTP 200, no data) and the GitHub fallback returns HTTP 404; the export needs a browser session.",
+   "priority": 3
   }
  ]
 }
