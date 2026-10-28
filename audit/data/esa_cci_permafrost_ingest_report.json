@@ -1,0 +1,169 @@
+{
+ "file_count": 27,
+ "year_range": "1997-2023",
+ "product": "L4 permafrost fraction (pp), Northern Hemisphere",
+ "version": "v05.0",
+ "source_zip": "combined-1793175198767.zip",
+ "licence": "ESA CCI Permafrost Terms and Conditions (public, any purpose, acknowledgement required)",
+ "licence_url": "https://artefacts.ceda.ac.uk/licences/specific_licences/esacci_permafrost_terms_and_conditions.pdf",
+ "access": "Public — no registration required",
+ "doi": "10.5285/d235665772ec4b558e9a89ac85595e71",
+ "notes": "Provided by Stéphane from CEDA direct download 2026-10-28. Two model variants: ERA5_MODISLST_BIASCORRECTED (1997-2002) and MODISLST_CRYOGRID (2003-2023).",
+ "checked_by_claude": {
+  "date": "2026-10-28",
+  "zip_integrity": "zip test passed; 65 members, 27 of them .nc, the rest are directory entries",
+  "files_by_variant": {
+   "ERA5_MODISLST_BIASCORRECTED": {
+    "years": "1997-2002",
+    "files": 6
+   },
+   "MODISLST_CRYOGRID": {
+    "years": "2003-2023",
+    "files": 21
+   }
+  },
+  "years_contiguous": true,
+  "total_bytes": 332968953,
+  "not_checked": "The netCDF contents were not opened (no netCDF reader installed), so variable names, units, grid and the 'permafrost fraction' description come from the file names and the editor's note, not from the files.",
+  "doi_note": "The DOI is that of the v5.0 permafrost-extent Northern Hemisphere record on CEDA (read on 2026-10-27); that record listed 28 files and 318 MB, while this zip holds 27 files and 333 MB, so it may not be the same file set. Not reconciled."
+ },
+ "output_dir": "audit/data/raw/esa_cci_permafrost/",
+ "committed_to_git": false,
+ "files": [
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-ERA5_MODISLST_BIASCORRECTED-AREA4_PP-1997-fv05.0.nc",
+   "bytes": 12344393,
+   "sha256": "78520947964a1119349deb7a64af74659827186f4c3bf19239e150f7d20347eb"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-ERA5_MODISLST_BIASCORRECTED-AREA4_PP-1998-fv05.0.nc",
+   "bytes": 12496730,
+   "sha256": "31a29a37272b01dbc7f5d211b2ae5ec0498f64a67754ca8795eed41dc0f0d7b0"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-ERA5_MODISLST_BIASCORRECTED-AREA4_PP-1999-fv05.0.nc",
+   "bytes": 12216050,
+   "sha256": "026ab22551671dabec6355fa92de5aaa5c2d8c580bd5b33d61dc2233a044c34b"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-ERA5_MODISLST_BIASCORRECTED-AREA4_PP-2000-fv05.0.nc",
+   "bytes": 12289214,
+   "sha256": "b59ff96bc1f25eb028727ad59bf39a35b3c3b3710af635c93dd618b566d294da"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-ERA5_MODISLST_BIASCORRECTED-AREA4_PP-2001-fv05.0.nc",
+   "bytes": 12340369,
+   "sha256": "a182af32cfa96dd1754095be9acd43ff55c4dffe38c56cd11b2889c177826cf0"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-ERA5_MODISLST_BIASCORRECTED-AREA4_PP-2002-fv05.0.nc",
+   "bytes": 12245165,
+   "sha256": "3d9886438da16ca3e89e8e0898b9da7f66101da254cb2eb7066ac3eaf0474288"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2003-fv05.0.nc",
+   "bytes": 12206399,
+   "sha256": "9ad49895186f8f94cd78eaaa92b6cbb83f7d0e40d566f365f1a031dbd85bbaad"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2004-fv05.0.nc",
+   "bytes": 12255785,
+   "sha256": "e2c42300e6b8e3f13074a2ae60a81b6f05589a4f87c79bd092ec6e5c2d4c3b0c"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2005-fv05.0.nc",
+   "bytes": 12134268,
+   "sha256": "b586625c1a075458b1a88b206f97717177373c137d659044d5791ce5223c9599"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2006-fv05.0.nc",
+   "bytes": 12280944,
+   "sha256": "a858f0394422c252478eca024e2a5aafa10509263891bfe97cf48e248e6210d7"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2007-fv05.0.nc",
+   "bytes": 12166228,
+   "sha256": "94fbc9b669af79809f0d110796a5fdde74fd307887d77d1b9e637e09b7c1bb64"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2008-fv05.0.nc",
+   "bytes": 12348722,
+   "sha256": "b08b3ec0e3d19952d7df555bb98e4d080a48fdd357006ee8f77bd4a50cc71e51"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2009-fv05.0.nc",
+   "bytes": 12245206,
+   "sha256": "83d61c0ce4d31e816bc890dbdfddda7e5c5f90a74d1c89d394cddc47efb55c54"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2010-fv05.0.nc",
+   "bytes": 12297393,
+   "sha256": "32d0849903fd2c240cac622a1954fcd500d95884dc4aa63e83aac03d29a2dad2"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2011-fv05.0.nc",
+   "bytes": 12320373,
+   "sha256": "8c0b939b2ffeec0b8ff90dfab43da9c3ac2ad07692841a6fb96a9fcfdc7cd6c5"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2012-fv05.0.nc",
+   "bytes": 12521734,
+   "sha256": "453fa549761afe0ebddb8c6a7c73d28aebcd20da55ea106a18eaff00297c4f27"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2013-fv05.0.nc",
+   "bytes": 12560061,
+   "sha256": "e6c4000a422a48148b81d8b33ae9a118c44b9974b10c868d5fe25dec91867aab"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2014-fv05.0.nc",
+   "bytes": 12391170,
+   "sha256": "09def9a77135f5255110582e8d01ec3ede8cb63962f1ae1346a8c0c79e82c740"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2015-fv05.0.nc",
+   "bytes": 12232079,
+   "sha256": "f375cbaef0c28e178a8f975a1b4f607df294491c79c91266d1e994e7d67953d9"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2016-fv05.0.nc",
+   "bytes": 12275270,
+   "sha256": "dcc681f97dfb62240bdb91798c6402e2cfe6e5b1d6f6072747aa56efef22425c"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2017-fv05.0.nc",
+   "bytes": 12440747,
+   "sha256": "185ecb52550a7c13eee6b59bbe74098f6aef035a384daeace9eb38eb7199d56e"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2018-fv05.0.nc",
+   "bytes": 12477019,
+   "sha256": "a5a5163d18b6d27c05afaa8eae1a9a631ee80696d0f3db64cf77369d3f721613"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2019-fv05.0.nc",
+   "bytes": 12266630,
+   "sha256": "c87e68ce331220822b66393718ac19059b735704ebde40bfc09763c9271c47de"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2020-fv05.0.nc",
+   "bytes": 12363733,
+   "sha256": "edd53f7663ab52b0788ffeb77f308262f66786c150580c968b13612b2b904006"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2021-fv05.0.nc",
+   "bytes": 12417197,
+   "sha256": "1bbda8302638ffca558709daa6b13286788c298757d1dfeefd24e094d9b4bf7b"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2022-fv05.0.nc",
+   "bytes": 12387678,
+   "sha256": "333c13000b71a1d42c04c25c7354f1505212fbc0dab8777b59b29e2e99fa39ac"
+  },
+  {
+   "file": "ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2023-fv05.0.nc",
+   "bytes": 12448396,
+   "sha256": "be024ac8fda10f124932122271d4c41ba2685a0bb1b3c4768866ad382dc50f36"
+  }
+ ]
+}
