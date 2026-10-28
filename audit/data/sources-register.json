@@ -8550,6 +8550,49 @@
    "local_path": null,
    "total_bytes": 0,
    "year": 2026
+  },
+  {
+   "id": "owid_ai",
+   "title": "Our World in Data: Artificial Intelligence",
+   "publisher": "Our World in Data (Global Change Data Lab / Oxford Martin School)",
+   "provider": "Global Change Data Lab / Oxford Martin School",
+   "url": "https://ourworldindata.org/artificial-intelligence",
+   "domains": [
+    "D1"
+   ],
+   "supports": [],
+   "supports_proposed": [
+    "L8",
+    "L9",
+    "L_FIN",
+    "L_SOC",
+    "L_RISK"
+   ],
+   "version": "grapher CSV exports downloaded 2026-10-28",
+   "retrieved": "2026-10-28",
+   "status": "retrieved",
+   "licence": {
+    "name": "CC BY 4.0 (OWID-produced data); third-party data under the original licences",
+    "quote": "",
+    "url": "https://creativecommons.org/licenses/by/4.0/",
+    "quote_verified": false
+   },
+   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+   "redistribution": "unclear",
+   "redistribution_note": "The OWID AI page says its data and charts are open access under CC BY (linking CC BY 4.0), with third-party data governed by the original authors' licences; this was read from the page, not from a saved licence file, so redistribution is not flagged yes (register test rule). Each chart's origin was not checked, and OWID itself blocks CSV download for charts with non-redistributable data (one such chart was met, see notes). The files are not committed.",
+   "units": "various, per chart",
+   "geography": "global and by country, per chart",
+   "time_span": "per chart, 1950 to 2026 at most",
+   "variables": [
+    "AI compute, parameters, investment, adoption, jobs, publications, data-centre electricity share (11 charts downloaded)"
+   ],
+   "files": [],
+   "total_bytes": 134538,
+   "role": "data",
+   "year": 2026,
+   "local_path": "audit/data/raw/owid_ai/",
+   "date_acquired": "2026-10-28",
+   "notes": "Aggregates Epoch AI, CSET, NetBase Quid, IEA and others. 35 charts as of 2026-10-28. Each chart downloadable as CSV via grapher API. CC BY applies to OWID-produced data; third-party data subject to original licences. Verified 2026-10-28: the page lists 35 chart slugs (the carousel says 'Chart 1 of 35'). DOWNLOAD RESULT: none of the 12 grapher slugs named in the brief exists (HTTP 404, also with ?v=1). The 12 measures were matched by name to slugs listed on the page; 11 of those CSVs were downloaded to audit/data/raw/owid_ai/ (not in git, 154 KB) and 1 (test-scores-ai-capabilities-relative-human-performance) is blocked by OWID as non-redistributable (HTTP 403, not worked around). Per-slug mapping, confidence, rows, year range and columns are in audit/data/owid_ai_ingest_report.json. Weaker matches: data-centers-share-electricity-demand is a share of electricity demand, not the electricity used the brief asked for (low confidence); private-investment-in-artificial-intelligence, global-investment-in-generative-ai and share-working-adults-united-states-ai-work (US only, quarterly) are medium confidence. The supports field is empty because the proposed codes (L8, L9, L_FIN, L_SOC, L_RISK) are outside the register schema's enum; they are in supports_proposed, as for the other D-060 entries. This is separate from owid_ai_compute, owid_dc_share, owid_co2 and owid_energy, which were registered in the first campaign."
   }
  ],
  "failures": [
