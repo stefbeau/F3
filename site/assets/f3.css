@@ -106,6 +106,12 @@ svg.ig .ln.not-built{stroke:var(--mut)}
 svg.ig .ln.withheld{stroke:var(--warnl);stroke-width:4}
 svg.ig .numdot{fill:var(--fg)}svg.ig .numtxt{fill:var(--bg)}
 .igkey{font-size:.9rem}
+/* Average or spread? page (D-062): schematic curve and highlighted box. Solid = measured, dashed = predicted and untested. Accent colours, never the scenario colours. */
+svg.ig .zone{fill:var(--card2)}
+svg.ig .axis{stroke:var(--mut);stroke-width:1.4;fill:none}svg.ig .axis.zero{stroke-dasharray:3 4}
+svg.ig .cv{fill:none;stroke-width:4}svg.ig .cv.measured{stroke:var(--acc1)}svg.ig .cv.untested{stroke:var(--acc2);stroke-dasharray:7 5}
+svg.ig .dot{fill:var(--fg)}svg.ig .svgm{fill:var(--mut)}
+svg.ig .nodebox.hl{stroke:var(--acc1);stroke-width:3.2}
 /* ---- Explorer v0.2: story, segmented controls, chart cards (D-056) ---- */
 .kicker{margin:0;font-size:.875rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--mut)}
 .hero{padding:8px 0 4px}.hero h1{font-size:clamp(1.7rem,5vw,2.6rem);line-height:1.15;margin:.2em 0 .3em;max-width:22em}
