@@ -46,3 +46,19 @@ Latest information found for each topic, **as of 2026-10-08**. Each row gives a 
 | Topic | Source | Version / date | Use | Notes |
 |---|---|---|---|---|
 | Julia package versions | General registry, snapshot commits | `ec06aa53…` = 2024-04-25 (checked) | Reproducible environment | see `audit/REFERENCES.md` |
+
+## Sources used only on the "Average or spread?" page (D-062, Proposed)
+
+**None of these rows is verified.** Figures were read from search extracts on 2026-11-12; the primary pages were not opened. They support a hypothesis page, not the model.
+
+| Topic | Source | What the page takes from it | Verification |
+|---|---|---|---|
+| AI and skill gaps, customer support | Brynjolfsson, Li and Raymond, *Generative AI at Work*, https://www.nber.org/papers/w31161 | +14% average, +34% novices | search extract of the NBER page; not opened |
+| AI and skill gaps, consulting | Dell'Acqua et al., *Navigating the Jagged Technological Frontier*, https://ssrn.com/abstract=4573321 | +43% below average, +17% above | search extract of the working paper; not opened |
+| AI and skill gaps, entrepreneurs | Otis et al., *Management Science*, https://pubsonline.informs.org/doi/10.1287/mnsc.2024.06909 | low performers nearly 10% worse, high performers possibly over 15% better, no average effect | search extract of the journal page; not opened |
+| Rainfall variability | Zhang, Zhou and Wu, *Science* 2024, doi 10.1126/science.adp0212; page links the AAAS summary https://www.eurekalert.org/news-releases/1052174 | about 75% of land, +1.2% per decade | search extract of the summary; paper not opened |
+| Firm productivity divergence | Andrews, Criscuolo and Gal, OECD Productivity Working Paper 5, doi 10.1787/63629cc9-en; page links https://voxeu.org/article/productivity-slowdown-s-dirty-secret-growing-performance-gap | 2.8% against 0.6% a year, manufacturing, 2001 to 2013 | search extract of the authors' column; paper not opened |
+| Income gaps | Brookings, https://www.brookings.edu/articles/the-present-and-future-of-global-inequality | between-country gaps narrowed, within-country roughly constant since 2000 | search extract; not opened |
+| Political polarization | Boxell, Gentzkow and Shapiro, NBER w26669, https://www.nber.org/papers/w26669 | twelve OECD countries: largest rise in the United States, five smaller rises, six falls | search extract of the paper; not opened |
+| Heat extremes | IPCC AR6 WG1 SPM, as summarised at https://www.hko.gov.hk/en/climate_change/obs_global_extreme_weather.htm | hot extremes up, cold extremes down since the 1950s | search extract of the summary; IPCC text not opened |
+| Armed conflict | UCDP in *Journal of Peace Research*, https://academic.oup.com/jpr/advance-article/doi/10.1093/jopres/xjag046/8703754 | 65 state-based conflicts in 2025, 31 in 2010 | search extract; not opened; not compared with `audit/data/derived/ucdp_conflicts_per_year.json` |

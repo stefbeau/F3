@@ -16,7 +16,7 @@ import dashboard_body
 import ig
 import story_body
 
-NAV = [("index.html", "Story"), ("explorer.html", "Explorer"), ("ai.html", "AI Impact"), ("compare.html", "Compare"), ("connections.html", "Connections"), ("methods.html", "Methods"), ("limitations.html", "Limitations"), ("sources.html", "Sources"), ("about.html", "About")]
+NAV = [("index.html", "Story"), ("explorer.html", "Explorer"), ("ai.html", "AI Impact"), ("spread.html", "Spread"), ("compare.html", "Compare"), ("connections.html", "Connections"), ("methods.html", "Methods"), ("limitations.html", "Limitations"), ("sources.html", "Sources"), ("about.html", "About")]
 REPO_URL = "https://github.com/stefbeau/F3"
 
 SCROLL_FIX = ""
@@ -25,7 +25,7 @@ SCROLL_FIX = ""
 THEME_BOOT = ("(function(){var d=document.documentElement,k=d.getAttribute('data-kind'),t=d.getAttribute('data-theme');try{var s=localStorage.getItem('f3-theme');"
               "if(s==='dark'||s==='light')t=s;else if(k==='reading'&&matchMedia('(prefers-color-scheme: dark)').matches)t='dark'}catch(e){}d.setAttribute('data-theme',t)})();")
 EXTRA = {}          # audit/data/sources-history.json, loaded by render_all (D-057)
-READING = {"index.html", "methods.html", "limitations.html", "sources.html", "about.html"}
+READING = {"index.html", "spread.html", "methods.html", "limitations.html", "sources.html", "about.html"}
 
 
 def head(title: str, css: str, kind: str = "reading") -> str:
@@ -336,6 +336,12 @@ def about_page(data: dict, stamp: dict, css: str) -> str:
     return page("About - F3 Explorer v0.2", "about.html", body, css, stamp)
 
 
+def spread_page(data: dict, stamp: dict, css: str) -> str:
+    """Average or spread? (D-062, Proposed): a hypothesis page with three infographics. Nothing on it is F3 model output."""
+    import spread_body
+    return page("Average or spread? - F3 Explorer v0.2", "spread.html", spread_body.body(BANNER), css, stamp)
+
+
 def render_assets(here: Path) -> dict:
     """Static assets: the stylesheet with Work Sans embedded as base64 (no network request for fonts), and the shell script."""
     import base64
@@ -356,6 +362,7 @@ def render_all(data: dict, stamp: dict, here: Path) -> dict:
         "index.html": index_page(data, stamp, css),
         "explorer.html": explorer_page(data, stamp, css),
         "ai.html": ai_page(data, stamp, css),
+        "spread.html": spread_page(data, stamp, css),
         "compare.html": compare_page(data, stamp, css),
         "connections.html": connections_page(data, stamp, css),
         "methods.html": methods_page(data, stamp, css),

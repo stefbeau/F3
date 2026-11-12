@@ -51,6 +51,7 @@ The external review of Demo 0 is deferred until Demo 0 is ready (editor's decisi
 4. Whether to report the WorldDynamics.jl break (ModelingToolkit 9.22 to 9.41) upstream.
 5. Reading tasks the editor may do faster than automated access (publisher sites refused): the damage-function sections of Nordhaus, Howard and Sterner and Burke et al.; Herrington's Supporting Information; the LBNL and TSMC reports; the WID and ILOSTAT licences.
 6. Optional, pending, **still unsent** (question 4 on task grids and stored `compute` added 2026-10-12): email to Epoch AI (docs/drafts/epoch-gate-email.md) asking permission to use the shipped playground runs as test references and for result series for the two stress settings. Not sent. The plan does not depend on a reply; D-026 treats permission as not yet requested.
+7. **D-062 (Proposed, 2026-11-12): "Average or spread?" page** (`site/spread.html`, branch `site-spread`, not merged, not published). A hypothesis page with three infographics, adapted from your article; nothing on it is F3 output and its figures are unverified search extracts (`audit/decisions/D-062.md`). Approve, reject or change; merging and publishing are yours.
 
 ## Parallel tracks (launched 2026-10-12, then stopped by the editor the same day; standing delegation in CLAUDE.md)
 Each track works in its own git worktree and branch and writes `docs/tracks/<track>.md`; the orchestrator merges. Routine decisions are recorded as Provisional (delegated) and reviewed by the editor in one batch per milestone.
