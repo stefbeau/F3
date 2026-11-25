@@ -120,6 +120,15 @@ Status of each reported figure on the atlas pages (D-067). Updated by hand or by
 | Robots replace tasks more than occupations | P | IFR position paper (an industry body). |
 | First international safety standard for humanoids unfinished | S | News report. |
 
+## World models (page added 2026-11-25)
+| Figure on the page | Status | What the original says / note |
+|---|---|---|
+| AMI Labs $1.03 billion seed, $3.5 billion valuation; World Labs $1 billion | S | News reports (TechCrunch, Heise). |
+| No product; first partners in manufacturing, biomedicine, robotics | S | Same reports. |
+| V-JEPA 2: over 1 million hours of video, 62 hours of robot video, cup grasp 65% against 15%, 16 seconds against 4 minutes | P | The paper, of which about the first 40% was read (project notes of 2026-11-25); authors' own results on their own benchmark. |
+| H-JEPA: 18% to 73% on a simulated maze; no physical robot | P | Abstract and a technical overview, not the full paper. |
+| Shared-representation claim is contested | P | Abstracts of the paper and of its rebuttal. |
+
 ## Creative work and copyright
 | Figure on the page | Status | What the original says / note |
 |---|---|---|
@@ -134,3 +143,4 @@ Status of each reported figure on the atlas pages (D-067). Updated by hand or by
 - **2026-11-25, pass 1.** 55 figures or groups listed: 18 `O`, 7 `P`, 26 `S`, 2 `W`, 1 `X`, 1 n/a. Seven page changes: the e-waste period (was wrong), the OECD year, two caveats of the water study, the unsourced 3%, the EU amending law ("published"), the year of the Ethiopian study. No figure was removed. Open: the two "to check" items above, creative work, and every `S`.
 - **2026-11-25, Robots page added.** 9 rows: 4 `P`, 5 `S`. Not part of pass 1.
 - **2026-11-25, pass 2** (asked for by the editor the same evening). 20 pages opened or searched. Moved to `O`: WEO 2026's 1,000 TWh, the e-waste totals, the OECD G7 range, the IMF figures, Pew's 64%, the safety report's experts and countries, ITU's 2.2 billion. Moved to `P`: the African surveillance spending; creative work checked for the first time (four `P`, two `S`). Page changes: one quotation removed (creative), Getty's appeal added, Pew wording, the surveillance wording, the trial's sample size, six original sources added. **Could not be opened** (the tool needed an approval nobody answered): the UN voting record and the 2023 Ethiopian study. **Still secondary only:** the 70% emissions rise, 1,500 TWh in 2035, the 93 sites, the regional power mix, all water figures except the one-in-four study, Hyperion, copper, the budget requests, humanoid shipments, and the rest marked `S`.
+- **2026-11-25, World models page added** at the editor's request. 5 rows: 3 `P`, 2 `S`. The paper figures come from partial readings recorded in the project notes; no paper was read in full.

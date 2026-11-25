@@ -1496,6 +1496,7 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Proposed by:** the editor (instruction); Claude (form and implementation).
 - **Date:** 2026-11-25
 - **Approval (2026-11-25):** asked which decisions were still Provisional, Stéphane Beau answered in session: "solve decisions don't worry about license it's an academic project". Recorded as approval of this decision. The editor's words also settle the open item on third-party figures: "don't worry about license it's an academic project". Figures stay quoted with their source and a link; no further licence decision is required by the editor. The text above is unchanged apart from the status line.
+- **Outcome note (2026-11-25):** two topics were added after this decision at the editor's request in session: Robots (D-068) and World models ("We should also include the world models"). Thirteen topic pages; F3 output on three.
 
 ## D-068 — Story page in the atlas style; infographics on the atlas pages; a Robots topic
 
