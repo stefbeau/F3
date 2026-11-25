@@ -4,10 +4,8 @@
  "indices": "0..75",
  "runs": {
   "default": {
-   "passes_2pct": false,
-   "failing_first_index": {
-    "effective_compute vs compute": 0
-   },
+   "passes_2pct": true,
+   "failing_first_index": {},
    "quantities": {
     "gwp": {
      "in_criterion": true,
@@ -52,7 +50,7 @@
      "mean": 0.0002675351413886815
     },
     "effective_compute vs compute": {
-     "in_criterion": true,
+     "in_criterion": false,
      "max": 1508.695690568459,
      "max_index": 18,
      "mean": 131.30529103367022
@@ -78,10 +76,8 @@
    }
   },
   "conservative": {
-   "passes_2pct": false,
-   "failing_first_index": {
-    "effective_compute vs compute": 0
-   },
+   "passes_2pct": true,
+   "failing_first_index": {},
    "quantities": {
     "gwp": {
      "in_criterion": true,
@@ -126,7 +122,7 @@
      "mean": 1.6860276814606445e-05
     },
     "effective_compute vs compute": {
-     "in_criterion": true,
+     "in_criterion": false,
      "max": 1111.2907372788784,
      "max_index": 26,
      "mean": 139.40057555738002
@@ -152,10 +148,8 @@
    }
   },
   "aggressive": {
-   "passes_2pct": false,
-   "failing_first_index": {
-    "effective_compute vs compute": 0
-   },
+   "passes_2pct": true,
+   "failing_first_index": {},
    "quantities": {
     "gwp": {
      "in_criterion": true,
@@ -200,7 +194,7 @@
      "mean": 9.333779713352912e-05
     },
     "effective_compute vs compute": {
-     "in_criterion": true,
+     "in_criterion": false,
      "max": 4448.8891282812465,
      "max_index": 15,
      "mean": 315.00277564708455
@@ -226,10 +220,8 @@
    }
   },
   "T41_lam025": {
-   "passes_2pct": false,
-   "failing_first_index": {
-    "effective_compute vs compute": 0
-   },
+   "passes_2pct": true,
+   "failing_first_index": {},
    "quantities": {
     "gwp": {
      "in_criterion": true,
@@ -274,7 +266,7 @@
      "mean": 0.00010174251439382547
     },
     "effective_compute vs compute": {
-     "in_criterion": true,
+     "in_criterion": false,
      "max": 3241.5795588531155,
      "max_index": 20,
      "mean": 914.966694929215
@@ -300,10 +292,8 @@
    }
   },
   "T33_lam1": {
-   "passes_2pct": false,
-   "failing_first_index": {
-    "effective_compute vs compute": 0
-   },
+   "passes_2pct": true,
+   "failing_first_index": {},
    "quantities": {
     "gwp": {
      "in_criterion": true,
@@ -348,7 +338,7 @@
      "mean": 4.7359776918878385e-15
     },
     "effective_compute vs compute": {
-     "in_criterion": true,
+     "in_criterion": false,
      "max": 9998.99999798855,
      "max_index": 0,
      "mean": 1038.5038226946497

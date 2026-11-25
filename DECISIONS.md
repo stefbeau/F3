@@ -77,6 +77,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-059 | Electricity link: data-centre electricity limit (D-055 side) to World3 industrial output, default OFF (branch `feature/electricity-link`) | Provisional (delegated) 2026-10-26 | 2 |
 | D-062 | S3 variant P: the playground's production block, from Epoch AI's reply; compared with the A1.3 criterion unchanged | Approved 2026-11-25 | 2 |
 | D-063 | Reference runs for the GATE comparison after the loss of the playground bundle | Approved 2026-11-25 | 2 |
+| D-064 | A1.3: the compute row that counts is the raw stock (effective compute against stored `compute` reported only) | Approved 2026-11-25 | 2 |
 
 ---
 
@@ -238,6 +239,8 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
   (b) The premise of the equation-10 clause added in amendment B (stored compute divided by software exceeds C_L) is therefore **not supported**: that ratio is Q/S, and Q is not capped by C_L (eq. 10 caps g(Q), which the playground applies when it splits usable compute between training and runtime). The "playground differs from the paper" classification is **not applied to anything**.
   (c) The observation behind the clause came from an earlier misreading by the strategist (`research/gate-equations.md` section 6, item 4, which read the stored field as possibly g(Q) S); this work corrected it.
   (d) Which of the two compute rows counts for the A1.3 criterion (S3's raw stock Q, or effective compute g(Q) S, each against the stored `compute`) is left to the editor. It has no effect on the current result, because every compared row fails from the production composite onward (first failures 2026 to 2027). A1.3 is recorded as failed on all three shipped runs.
+- **Outcome note (2026-11-25).** The question left to the editor in outcome note (d) is ruled on in **D-064**: the compute row that counts in A1.3 is the raw stock; the effective-compute row is reported only. Amendment B's wording above is unchanged.
+
 
 ## D-006 — Critical minerals granularity in v0.1
 
@@ -1402,6 +1405,24 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Decision:** Approved by Stéphane Beau in session, as drafted ("yes" to "Do you approve D-063 as drafted?").
 - **Date:** 2026-11-25
 - **Outcome note (2026-11-25).** Implemented in `tests/gate_reference.py` (second source, sha256 per file, bundle first if present). Run against the new reference: the 9 recorded A1.3 failures of variants A, B and C101 fail again as recorded (strict xfail); the hash test, the A1.5 tests and the stress tests pass; **D-062 T1 FAILED in all three settings on one row only, "effective compute against stored `compute`", from index 0** (`audit/s3-playground-composite.md`).
+
+---
+
+## D-064 — A1.3: the compute row that counts is the raw stock
+
+- **Status:** Approved (2026-11-25)
+- **Context:** D-005 amendment B words the A1.3 comparison as S3's effective compute against the stored `compute` field. D-005's outcome note (d) found that the stored field is the raw stock Q and left to the editor which of the two compute rows counts. Epoch AI's reply confirms that the stored `compute` is the raw stock before the cap. The row "effective compute against stored `compute`" is therefore not like for like, and no model can pass it. Until now the choice changed no result, because every variant failed on other rows; with variant P (D-062) it decides the outcome of T1.
+- **Decision (the editor's ruling):** in A1.3, **the compute row that counts is S3's raw compute stock `Q` against the stored `compute`**. The row "effective compute `g(Q)·S` against stored `compute`" is **reported and not in the criterion**. Nothing else in A1.3 changes: the other quantities, the 2% tolerance, indices 0 to 75 and the three settings stay as approved.
+- **This changes an acceptance criterion after results were seen, and is recorded as such.** When the ruling was made the editor knew that T1 failed on that row only and that every other quantity was within 2% (`audit/s3-playground-composite.md`). The ground for the ruling is the definition of the stored field (measured in October, confirmed by Epoch), not the size of any difference.
+- **Consequences, measured 2026-11-25 against the D-063 reference:** T1 of D-062 **passes** in all three settings. The nine recorded A1.3 failures of variants A, B and C101 **still fail** (on output, capital, hardware, software and the raw stock) and stay strict xfails.
+- **Not decided here:** whether variant P becomes S3's default; the wording of the D-029 label; anything about R3. S3's default composite is still "A" and every label stays.
+- **What may be said:** "with GATE's own investment path supplied, S3 with variant P is within 2% of the reference runs for the quantities of A1.3 as amended by D-064". **Not:** that F3 reproduces GATE (the investment path is supplied, not solved), nor that the reference is the shipped bundle (D-063).
+- **Alternatives considered:** keep the row as worded (A1.3 could then never pass for any model); compare effective compute with `compute × software` built from the stored fields (a new derived reference quantity, more than the ruling needs).
+- **Cost of reversing:** one flag in `tests/s3_checks.py`.
+- **Sources:** D-005 amendment B and outcome note (d); `research/gate-equations.md` section 9.1; Epoch AI's reply (question 2); `audit/s3-playground-composite.md`.
+- **Proposed by:** Claude (the question); the editor (the ruling).
+- **Decision:** Approved by Stéphane Beau in session ("use raw compute").
+- **Date:** 2026-11-25
 
 ---
 

@@ -34,7 +34,7 @@ COMPARED = (
     ("software", "software", True),
     ("frac_automated", "frac_automated", True),
     ("compute_stock", "compute", True),            # stored `compute` is the raw stock Q (gate-equations 9.1, identity 1)
-    ("effective_compute", "compute", True),        # the pairing as amendment B words it; not like for like (9.2, item 2)
+    ("effective_compute", "compute", False),       # the pairing as amendment B words it; not like for like (9.2, item 2); reported, not in the criterion since the editor's ruling D-064 (2026-11-25)
     ("labor_share", "labor_share", False),
     ("runtime_compute_share", "runtime_compute_share", False),
     ("composite_tasks", "cognitive_ces_term", False),

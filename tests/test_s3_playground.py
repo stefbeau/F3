@@ -17,12 +17,13 @@ needs_bundle = pytest.mark.skipif(not gr.bundle_available(), reason=gr.skip_reas
 
 
 @needs_bundle
-@pytest.mark.xfail(strict=True, reason="T1 FAILED 2026-11-25 on one row only, 'effective_compute vs compute' from index 0 (not like for "
-                                       "like: the stored field is the raw stock); audit/s3-playground-composite.md section T1; "
-                                       "which pairing counts is the editor's call")
 @pytest.mark.parametrize("setting", list(SETTINGS_B))
 def test_t1_a13_criterion_variant_p(setting):
-    """T1: the A1.3 criterion, unchanged, with composite="P". A failure is a result to record, not to tune away."""
+    """T1: the A1.3 criterion with composite="P". A failure is a result to record, not to tune away.
+
+    History: FAILED on 2026-11-25 on one row only ("effective_compute vs compute", from index 0) while that row counted.
+    The editor then ruled (D-064) that the compute row that counts is the raw stock; the assertion below is unchanged and
+    reads the criterion's rows from ``tests.s3_checks.COMPARED``."""
     idx, params = SETTINGS_B[setting]
     runs = gr.load_runs()
     s3 = run_s3(replace(params, composite="P"), gr.investment_shares(runs[idx], 80))
@@ -33,16 +34,15 @@ def test_t1_a13_criterion_variant_p(setting):
 
 @needs_bundle
 @pytest.mark.parametrize("setting", list(SETTINGS_B))
-def test_posthoc_like_for_like_quantities_variant_p(setting):
-    """POST-HOC (added 2026-11-25 after T1's result was seen; NOT the A1.3 criterion and not a substitute for it): every
-    criterion quantity except the row 'effective_compute vs compute' within 2% at every index 0 to 75, and T1's only failing
-    row is that one. Guards the measured result against regressions until the editor rules on the pairing."""
+def test_effective_compute_row_is_reported_and_not_like_for_like(setting):
+    """D-064: the row "effective_compute vs compute" is reported, not in the criterion, and it is far outside 2% because the
+    stored field is the raw stock (confirmed by Epoch). If it ever came within 2% the pairing would need re-reading."""
     idx, params = SETTINGS_B[setting]
     runs = gr.load_runs()
-    s3 = run_s3(replace(params, composite="P"), gr.investment_shares(runs[idx], 80))
-    res = compare(s3, gr.field, runs[idx])
-    failing = {k for k, v in res.items() if v["in_criterion"] and not v["passes"]}
-    assert failing == {"effective_compute vs compute"}, f"P/{setting}: failing rows {sorted(failing)}"
+    res = compare(run_s3(replace(params, composite="P"), gr.investment_shares(runs[idx], 80)), gr.field, runs[idx])
+    row = res["effective_compute vs compute"]
+    assert row["in_criterion"] is False and row["first_index_over_tol"] == 0
+    assert res["compute_stock vs compute"]["in_criterion"] is True
 
 
 def test_t3a_no_automation_gives_labour():
