@@ -69,6 +69,7 @@ def test_t3c_composite_does_not_fall_when_compute_rises(f):
     assert np.all(np.diff(vals) >= -1e-6 * np.array(vals[:-1]))
 
 
-def test_t3d_default_composite_is_still_a():
+def test_t3d_default_composite():
+    """T3(d) as written on 2026-11-25 said the default was still "A". D-065 (same day, later) made "P" the default."""
     from f3.sectors.s3_ai import GateParams, playground_setting
-    assert GateParams().composite == "A" and playground_setting().composite == "A"
+    assert GateParams().composite == "P" and playground_setting().composite == "P"

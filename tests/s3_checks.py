@@ -20,6 +20,8 @@ SETTINGS_B = {
     "B1_conservative": (1, playground_setting(T_oom=38.0, r_H=1.0, r_S=1.0)),
     "B2_aggressive": (2, playground_setting(T_oom=33.0, r_H=7.1, r_S=2.0)),
 }
+#: the same three settings with composite "A", the default when the records of D-029, D-054 and D-055 were made (before D-065)
+SETTINGS_B_A = {k: (i, GateParams(**{**p.__dict__, "composite": "A"})) for k, (i, p) in SETTINGS_B.items()}
 #: report-only stress settings (D-005 amendment B, "Report-only stress runs"); lambda changed directly
 STRESS = {
     "slow_T41_lam0.25": playground_setting(T_oom=41.0, lam_H=0.25, lam_S=0.25),

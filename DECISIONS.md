@@ -78,6 +78,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-062 | S3 variant P: the playground's production block, from Epoch AI's reply; compared with the A1.3 criterion unchanged | Approved 2026-11-25 | 2 |
 | D-063 | Reference runs for the GATE comparison after the loss of the playground bundle | Approved 2026-11-25 | 2 |
 | D-064 | A1.3: the compute row that counts is the raw stock (effective compute against stored `compute` reported only) | Approved 2026-11-25 | 2 |
+| D-065 | Variant P becomes S3's default composite; S3's validation notice reworded | Provisional (delegated) | 2 |
 
 ---
 
@@ -939,6 +940,7 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Date:** 2026-10-12
 - **Note (2026-10-22, appended; nothing above changed).** The email in item 2 was sent by the editor on 2026-10-17 through epoch.ai/contact; no reply as of 2026-10-22. F3 is not waiting for it; the blind re-derivation brief (`docs/s3-composite-blind.md`) is kept as a brief and not run (D-054). A1.3 stays failed and S3 stays labelled unvalidated after about 2027.
 - **Outcome note (2026-11-25).** Epoch AI replied. The reply describes how the playground computes the composite; it differs from the paper's equations in several ways (`docs/s3-playground-composite.md`). **The cause named "unresolved" in fact 2 is now described by Epoch**; whether F3 stays within the A1.3 tolerance with it is the subject of D-062, which is the "new decision" item 2 requires for a further composite variant. The labelling rule (item 3) is unchanged by this note.
+- **Outcome note (2026-11-25, later).** D-062 to D-065: variant P passes A1.3 as amended by D-064 and is S3's default since D-065 (Provisional), which also rewords the notice of item 3. Variant A's failure recorded here is unchanged and still applies to everything computed with it, including the published Explorer.
 
 
 ## D-030 — M2 step 1 closes with A2.1 failed; climate output labelled
@@ -1422,6 +1424,27 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Sources:** D-005 amendment B and outcome note (d); `research/gate-equations.md` section 9.1; Epoch AI's reply (question 2); `audit/s3-playground-composite.md`.
 - **Proposed by:** Claude (the question); the editor (the ruling).
 - **Decision:** Approved by Stéphane Beau in session ("use raw compute").
+- **Date:** 2026-11-25
+
+---
+
+## D-065 — Variant P becomes S3's default composite; S3's validation notice reworded
+
+- **Status:** Provisional (delegated)
+- **Authority:** asked on 2026-11-25 whether P should become the default and what the label should then say, with a recommendation, the editor answered in session: "Just try to take the best possible and logical solution to make this quicker to work". This entry follows the recommendation given to him. It touches a validation label, which the standing delegation reserves for the editor: it is recorded as Provisional on the strength of that instruction, and **the editor confirms or reverses it at the next batch review.**
+- **Context:** variant P passes A1.3 as amended by D-064 against the D-063 reference; variant A (the default until now) fails it from 2026 to 2027. On 2026-11-25 the runs Epoch sent were also found equal, to rounding precision (largest difference 5.5e-16 over 28 fields), to the runs stored in the playground bundle now published on GitHub Pages (`audit/gate-runs-identity.md`).
+- **Decision:**
+  1. **`GateParams.composite` defaults to "P".** Variants A, B and C101 stay available and their recorded A1.3 failures stay as strict xfails.
+  2. **Recorded results made with variant A stay pinned to variant A** (`tests/s3_checks.SETTINGS_B_A`): the A1.3 record of D-029, the reading-4 record of D-054, the baseline of D-055. No recorded figure was regenerated.
+  3. **S3's validation notice is reworded** in `f3/sectors/s3_ai.py`, `README.md` and `MODEL_SPEC.md`. It now says: the default block is within 2% of the GATE reference runs for the A1.3 quantities when GATE's own investment path is supplied; F3 does not reproduce GATE (the optimisation is not implemented); **under F3's own investment rule S3's absolute output is UNVALIDATED and leaves plausible ranges within a few years**; results computed before 2026-11-25, including the published Explorer, used variant A, which failed A1.3 (D-029).
+  4. **The published site is not regenerated and nothing is published.** Its pages and data were computed with variant A and still carry the D-029 notice, which is true of them. The withheld outputs (S3 compute, data-centre electricity) stay withheld. A rebuild will pick up variant P and the new notice and needs the editor's approval before publication.
+- **Effect, measured** (`audit/s3-default-composite.md`): under R3 without the electricity limit, output in 2040 is about 87 times larger with P than with A and follows the default GATE run within a factor of 4 over the century; with the electricity limit it is about twice as large in 2040. Automation timing changes by at most one year. The implausible electricity demand is present with both variants. The D-054 "reading 4" (fading), which failed with A, holds with P.
+- **Not revised here (known inconsistencies):** documents and labels written for variant A that describe S3's behaviour under R3, in particular the statement that the labour effect "persists" (D-054, `docs/s3-world3-reconciliation.md`), the Track A figures, and `docs/s3-supply-limited.md`.
+- **Alternatives considered:** keep A as the default (the default would stay a block known not to match GATE's own results); switch the default and regenerate every recorded figure and the site at once (large, needs the 841-member climate recording and the editor's approval to publish); keep the old notice (it would say the default failed A1.3, which is no longer true of the default).
+- **Cost of reversing:** one default value and three notices; the pinned records make the reversal free of side effects on recorded results.
+- **Sources:** `audit/s3-playground-composite.md`; `audit/gate-runs-identity.md`; `audit/s3-default-composite.md`; D-029, D-054, D-055, D-062, D-063, D-064.
+- **Proposed by:** Claude
+- **Decision:** Provisional (delegated); the editor reviews it in the next batch.
 - **Date:** 2026-11-25
 
 ---
