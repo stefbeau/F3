@@ -25,3 +25,40 @@ In October 2026, comparison figures computed from the shipped bundle (sha256 `3a
 | `aggressive_run.json` | `968f48d2e8b525038bfd2d9a9c6559ffd85f2efdc1059fd07cc3e449cfe084be` |
 | `T41_lam025_run.json` | `ed70eedc47d48cae545b06a65d8180d169377ce94d5bcb626511211f0a4fb705` |
 | `T33_lam1_run.json` | `8728fd9bacffdfa9a68337f20ccf928b48257c3217c77fb4b2e0cdd81af27a42` |
+
+## Field-by-field check against the bundle now on GitHub Pages (2026-11-25)
+
+**Why.** On 2026-11-25 the live page https://epoch.ai/gate no longer loads the playground; it links to https://epoch-research.github.io/gate-playground/, which loads `gate.js` from the same folder. That file is **not** the D-026 bundle: 3,202,707 bytes, sha256 `24bae00ebfe0a59d62fab3fff2245657b414bfc0a423a706248301915a3c293e`, Last-Modified 2026-11-06 (a Wayback capture of 2026-11-10 has the same bytes). It was downloaded to a scratch folder outside the repository and is not committed. The D-026 pin is unchanged.
+
+**How.** `audit/t0/gate_playground_probe.py` **fails on this file as it stands**: its `main()` looks for the marker `// legacy/one-offs/gate/…`, which in this bundle reads `// src/gate/…`. The probe was not edited. Its own reader `balanced()` was called from a scratch script (not committed) with the marker `// src/gate/backend/cache.json`, as `tests/gate_reference.py` does for the old marker. The stored runs were then compared with the files in `.gate_cache/runs` (the D-063 hashes above, checked).
+
+**Result.**
+- **The bundle contains stored runs: 3 entries, 80 states each.**
+- **Matching.** Each entry's `modelParams` equals exactly one preset's `world_params` on all 42 parameters the two have in common (0 differences), and differs from the other two presets in 3. Entry 0 matches `default`, entry 1 matches `conservative` and entry 2 matches `aggressive`.
+- **Fields.** 28 fields are in both. `time`, `compute_allocation` and `chip_fabrication_scale_up` are only in the bundle; `epistemic_state` and `objective` are only in the files Epoch sent. Neither group was compared.
+- **Largest relative difference per field, over the three presets and all 80 states** (|bundle − sent| / |sent|; zero where both are zero):
+
+| Field | Largest | Field | Largest |
+|---|---|---|---|
+| `ai_value` | 4.0e-16 | `oom_compute` | 2.2e-16 |
+| `best_training_run` | 4.5e-16 | `physical_best_training_run` | 5.5e-16 |
+| `capital` | 4.1e-16 | `q_capital` | 4.1e-16 |
+| `capital_share` | 1.6e-16 | `q_compute` | 4.3e-16 |
+| `cognitive_ces_term` | 4.4e-16 | `q_consumption` | 0 (identical) |
+| `compute` | 4.4e-16 | `q_hardware_rnd` | 4.1e-16 |
+| `compute_investment` | 4.2e-16 | `q_runtime_compute` | 4.1e-16 |
+| `consumption` | 5.1e-16 | `q_software_rnd` | 5.1e-16 |
+| `effective_compute_investment` | 5.1e-16 | `q_training_compute` | 4.2e-16 |
+| `frac_automated` | 1.7e-16 | `runtime_compute` | 4.1e-16 |
+| `gwp` | 4.3e-16 | `runtime_compute_share` | 4.0e-16 |
+| `hardware` | 4.1e-16 | `software` | 3.7e-16 |
+| `labor` | 1.3e-16 | `tobin_q_compute` | 4.3e-16 |
+| `labor_share` | 4.1e-16 | `training_compute` | 5.0e-16 |
+
+- **Overall largest: 5.5e-16** (`physical_best_training_run`), about two to three units in the last place of a double. One field (`q_consumption`) is bit-identical; the others differ only at that level.
+
+**What this supports, and what it does not.**
+- **Supports, measured:** for the 28 common fields, the three presets Epoch sent equal the runs stored in the GitHub bundle to rounding precision. This is consistent with Epoch's statement of about 1e-16; that statement was about the shipped bundle, which this is not.
+- **Does not show** that the GitHub bundle's runs are the D-026 bundle's runs. That bundle cannot be read any more. The link between Epoch's files and it is still only the 67 figures above (largest difference 2.0e-11).
+- **Not compared:** the five fields present on one side only, and the two stress settings (they are not in the bundle).
+- **No pin, test or reference was changed.** The GitHub bundle is not used by any test: `tests/gate_reference.py` would only accept a file matching the D-026 pin.
