@@ -16,7 +16,7 @@ import dashboard_body
 import ig
 import story_body
 
-NAV = [("index.html", "Story"), ("explorer.html", "Explorer"), ("ai.html", "AI Impact"), ("compare.html", "Compare"), ("connections.html", "Connections"), ("methods.html", "Methods"), ("limitations.html", "Limitations"), ("sources.html", "Sources"), ("about.html", "About")]
+NAV = [("index.html", "Story"), ("explorer.html", "Explorer"), ("ai.html", "AI Impact"), ("atlas.html", "Atlas"), ("compare.html", "Compare"), ("connections.html", "Connections"), ("methods.html", "Methods"), ("limitations.html", "Limitations"), ("sources.html", "Sources"), ("about.html", "About")]
 REPO_URL = "https://github.com/stefbeau/F3"
 
 SCROLL_FIX = ""
@@ -26,6 +26,8 @@ THEME_BOOT = ("(function(){var d=document.documentElement,k=d.getAttribute('data
               "if(s==='dark'||s==='light')t=s;else if(k==='reading'&&matchMedia('(prefers-color-scheme: dark)').matches)t='dark'}catch(e){}d.setAttribute('data-theme',t)})();")
 EXTRA = {}          # audit/data/sources-history.json, loaded by render_all (D-057)
 READING = {"index.html", "methods.html", "limitations.html", "sources.html", "about.html"}
+import atlas  # noqa: E402  (atlas pages, D-067; it does not import this module)
+READING |= set(atlas.PAGE_NAMES)
 
 
 def head(title: str, css: str, kind: str = "reading") -> str:
@@ -362,4 +364,5 @@ def render_all(data: dict, stamp: dict, here: Path) -> dict:
         "limitations.html": limitations_page(data, stamp, css),
         "sources.html": sources_page(data, stamp, css),
         "about.html": about_page(data, stamp, css),
+        **atlas.render(data, stamp, page),
     }

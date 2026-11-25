@@ -1,5 +1,11 @@
 # F3 — Status
 
+## Update 2026-11-25 (later): atlas pages built on a branch, NOT merged, NOT published
+- **D-067 (Provisional, delegated):** twelve "Atlas" pages added to the site generator on branch `atlas-pages`: reported figures about AI's effects (power and climate, water, land and chips, work, health, learning and information, safety, military use, creative work, surveillance, nature and food) beside F3 output where F3 has any (warming and damage, automated fraction, World3 resources). Eight topics state that F3 does not model them. Withheld outputs stay withheld.
+- **Unverified:** the reported figures (read on 2026-11-25, mostly in secondary reports; register in `research/SOURCES.md`, section "Atlas"). **Site data not regenerated:** F3 numbers on the pages are the variant-A site data, and the pages say so.
+- **Tests:** `tests/test_site_atlas.py` (29, written first; two corrections to one check are recorded in the file and in D-067). Site tests: 177 passed. The full suite was not run for this change (no model code touched).
+- **Open for the editor:** D-067 itself; the third-party-figures question in it; publication.
+
 ## Update 2026-11-25: Epoch AI replied; a bad sync commit undone
 - **Epoch AI replied** (Anson Ho) to the email of 2026-10-17; the editor reported the reply on 2026-11-25. Statements below that say "no reply" are true as of their date (2026-10-22) and are left as written.
 - **What the reply contains.** A description of how the playground computes the task composite, with code excerpts (not committed); confirmation that the stored `compute` field is the raw stock Q before the cap; five runs produced with Epoch's own solver (the three presets regenerated and the two stress settings F3 asked for; not committed); no newer paper, model or published code is planned. **The reply does not state permission in words** for the use of the shipped runs as test references (D-062 records the editor's reading).
