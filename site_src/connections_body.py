@@ -93,6 +93,6 @@ def body() -> str:
 <li><strong>Emissions are prescribed.</strong> The FaIR run replays one recorded emissions path (D-021); neither World3 nor the AI model changes it. The climate is the same in every scenario.</li>
 <li><strong>S3's economy and World3's are not reconciled.</strong> They are two models of the same world; connecting them is future work, not something the Explorer shows.</li>
 <li><strong>Warming has no health or yield effect.</strong> The Earth4All channels were left out by decision (D-049), to be revisited.</li>
-<li>S3 compute and data-centre electricity outputs (link 5 is built, its values are not shown) are withheld until the S3 compute path is validated (awaiting Epoch AI).</li>
+<li>S3 compute and data-centre electricity outputs (link 5 is built, its values are not shown) are withheld: under F3's own investment rule they leave any plausible range; a build-rate limit is approved (D-066) and not built.</li>
 </ul></section>
 """

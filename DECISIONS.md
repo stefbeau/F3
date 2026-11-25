@@ -1461,6 +1461,7 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Batch review (2026-11-25):** Approved by Stéphane Beau in session ("approve all", on the recommendations of `docs/tracks/batch-review-2026-11-25.md`). The text above is unchanged.
 
 ---
+- **Outcome note (2026-11-25, evening):** the site data was regenerated with the default composite and the site's statements about S3 were reworded to this decision's notice (story, Explorer, Limitations, connections, AI Impact, atlas), after the editor answered the question "Do you approve rewording those statements to the approved D-065 notice?" with "rewors merge 20 and deploy". The climate recording was re-made (841 members) and equals the published one to about 1e-9 K; World3 is identical. Tests A1.4, A2.6, B1, R1 and B2 were recorded with the earlier composite and have not been re-run; the Limitations page says so.
 
 ## D-066 — Data-centre electricity module limited by the build rate of powered capacity
 

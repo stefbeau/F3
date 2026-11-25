@@ -59,7 +59,7 @@
     if (y05 !== null) ann.push({ x: y05, y: fr(sel)[AY.indexOf(y05)], text: "Half of tasks: " + y05, color: cols[F3.AI_S.indexOf(sel)], tcolor: cols[F3.AI_S.indexOf(sel)] });
     C.lineChart($("ch_s3"), { title: false, years: yrs, xstep: 5, tableStep: 5, unit: "Fraction of tasks automated (S3, levels unvalidated)", fmt: "fraction", ymin: 0, ymax: 1.02, file: "f3-story-ai-automation", label: "Automation fraction, 2025-2050", assume: F3.ASSUME.ai,
       series: F3.AI_S.map(function (s, i) { return { name: s + (s === sel ? " (selected)" : ""), label: s, color: cols[i], tcolor: cols[i], dash: DASH[i], width: s === sel ? 3.6 : 1.8, y: fr(s).slice(0, cut) }; }), annotations: ann,
-      summary: title + ". Shape only: S3's level is unvalidated after about 2027 (test A1.3 failed).", caveat: "S3 is unvalidated against GATE after about 2027 (test A1.3 failed); shape only." });
+      summary: title + ". Shape only: S3's level is unvalidated under F3's own investment rule.", caveat: "S3's level is unvalidated under F3's own investment rule; shape only." });
     $("ch_s3").querySelector(".plot").setAttribute("aria-label", title);
     var sp = F3.maxSpread(yrs, F3.AI_S.map(function (s) { return fr(s).slice(0, cut); }));
     $("c3_note").textContent = sp.gap < 0.005 ? "The three settings are the same to two decimals in every year shown." : "The three settings stay within " + sp.gap.toFixed(2) + " of each other in every year shown (largest gap in " + sp.year + "): the lines overlap because the settings barely differ in automation timing.";

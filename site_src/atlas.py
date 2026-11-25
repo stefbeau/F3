@@ -275,6 +275,8 @@ def f3_energy(d: dict) -> str:
     row = lambda yr: (f'<tr><th scope="row">{yr}</th><td>{cl["warming"][y.index(yr)]:.1f} K</td>'                                    # noqa: E731
                       f'<td>{cl["warming_p05"][y.index(yr)]:.1f} to {cl["warming_p95"][y.index(yr)]:.1f} K</td></tr>')
     dmg = lambda o, yr: f'{100 * d["runs"]["central|" + o + "|1"]["damage_fraction"][y.index(yr)]:.1f}%'                              # noqa: E731
+    import pages as _pages
+    dc30 = _pages._dc(d, 2030)
     drow = lambda o, name: f'<tr><th scope="row">{name}</th><td>{dmg(o, 2050)}</td><td>{dmg(o, 2100)}</td></tr>'                       # noqa: E731
     return f'''<section class="card at-f3" data-f3="model" aria-labelledby="f3h"><p class="kicker">F3 output · a conditional scenario, not a forecast</p>
 <h2 id="f3h">What F3’s model shows</h2>
@@ -286,7 +288,7 @@ def f3_energy(d: dict) -> str:
 <p><strong>Climate damage to output.</strong> With the damage switch on, F3 lowers economic output by a share that grows with warming:</p>
 <div class="tblwrap"><table><thead><tr><th scope="col">Damage option</th><th scope="col">2050</th><th scope="col">2100</th></tr></thead><tbody>{drow("low", "Low (Nordhaus 2017)")}{drow("central", "Central (Barrage and Nordhaus 2024)")}{drow("high", "High (Howard and Sterner 2017)")}</tbody></table></div>
 <p class="note">These are level-of-output effects. The high option is not the upper end of the literature: growth-effect estimates are larger and are not represented.</p>
-<p><strong>Data-centre electricity: withheld.</strong> F3 computes it but does not show it. In the recorded runs it leaves any plausible range: about 20,000 TWh in 2030, against the roughly 1,000 TWh the IEA expects. The cause is a growth sector with no physical limit on power. An approved change (decision D-066) will let data centres grow only as fast as powered capacity can be built. It is not built yet. See <a href="limitations.html#status-ai">Limitations</a>.</p>
+<p><strong>Data-centre electricity: withheld.</strong> F3 computes it but does not show it. In the site data it leaves any plausible range: about {dc30} TWh in 2030, against the roughly 1,000 TWh the IEA expects. The cause is a growth sector with no physical limit on power. An approved change (decision D-066) will let data centres grow only as fast as powered capacity can be built. It is not built yet. See <a href="limitations.html#status-ai">Limitations</a>.</p>
 </section>'''
 
 
@@ -294,14 +296,15 @@ def f3_work(d: dict) -> str:
     y = d["years"]
     fr = lambda s, yr: f'{100 * d["runs"][s + "|central|1"]["frac_automated"][y.index(yr)]:.0f}%'      # noqa: E731
     row = lambda s, name: f'<tr><th scope="row">{name}</th><td>{fr(s, 2030)}</td><td>{fr(s, 2040)}</td><td>{fr(s, 2050)}</td></tr>'      # noqa: E731
+    fa = d["runs"]["central|central|1"]["frac_automated"]
+    full = next((yr for yr, v in zip(y, fa) if v >= 0.99), "the end of the century")
     return f'''<section class="card at-f3" data-f3="model" aria-labelledby="f3h"><p class="kicker">F3 output · a conditional scenario, not a forecast</p>
 <h2 id="f3h">What F3’s model shows</h2>
 <p>F3’s AI-race sector is rebuilt from the GATE growth model of Epoch AI. One of its outputs is the fraction of all tasks in the economy that AI systems can perform:</p>
 <div class="tblwrap"><table><thead><tr><th scope="col">Setting</th><th scope="col">2030</th><th scope="col">2040</th><th scope="col">2050</th></tr></thead>
 <tbody>{row("low", "Slow race")}{row("central", "Central")}{row("race", "Fast race")}</tbody></table></div>
 <p class="note"><strong>Notice (AI sector):</strong> {esc(d["meta"]["s3_status"])}</p>
-<p class="note">These values come from the published site data, computed before decision D-065 changed the sector’s task composite. The site data has not been regenerated.</p>
-<p><strong>Why the two halves of this page disagree.</strong> The reported figures count today’s jobs that current tools could affect. The F3 sector is a growth model in which investment in computing automates tasks without friction: no hiring rules, no retraining time, no limit on electricity. It gives near-complete automation within about fifteen years. The reported evidence shows most firms measuring no effect yet. F3 exists to test which limits lie between those two pictures. The sector’s economic output is not shown on this site.</p>
+<p><strong>Why the two halves of this page disagree.</strong> The reported figures count today’s jobs that current tools could affect. The F3 sector is a growth model in which investment in computing automates tasks without friction: no hiring rules, no retraining time, no limit on electricity. In the central setting it reaches nearly all tasks by {full}. The reported evidence shows most firms measuring no effect yet. F3 exists to test which limits lie between those two pictures. The sector’s economic output is not shown on this site.</p>
 </section>'''
 
 
@@ -357,7 +360,7 @@ def story_tiles(d: dict) -> str:
     return ('<section class="st-block" aria-labelledby="st_f3_h"><h2 id="st_f3_h">The story in four numbers</h2><div class="at-tiles" id="story_tiles">'
             + tile("Step 1 · World3 standard run", f'{run["pop"][pk] / 1e9:.2f} billion', f'people at the peak, in {w["years"][pk]}' + cav("Amber: the standard run matches its reference; test A3.4(b) failed; runs with changed settings are not compared."), "f3")
             + tile("Step 2 · warming in 2100", f'{cl["warming"][-1]:.1f} K', f'FaIR ensemble mean; 5 to 95% range {cl["warming_p05"][-1]:.1f} to {cl["warming_p95"][-1]:.1f} K' + cav("Amber: test A2.1 failed; the run starts about 0.04 to 0.07 K below observed; emissions are prescribed, not modelled."), "f3")
-            + tile("Step 3 · tasks AI can perform, 2040", f"{100 * fa:.0f}%", "central setting" + cav("Red: the AI sector failed its test against GATE (A1.3), is unvalidated after about 2027 and does not reproduce GATE. Read the timing only."), "f3")
+            + tile("Step 3 · tasks AI can perform, 2040", f"{100 * fa:.0f}%", "central setting" + cav("Red: under F3’s own investment rule the AI sector’s levels are unvalidated; it does not reproduce GATE. Read the timing only."), "f3")
             + tile("Step 4 · links between the models", f"{built} of {len(links.LINKS)}", "are built; the rest are not" + cav("A record of what is connected, not a model result. Compute and electricity outputs of one built link are withheld."), "f3")
             + '</div><p class="small">F3 output: conditional scenarios, not forecasts. Each number carries its caveat; details are in its step below and on <a href="limitations.html">Limitations</a>.</p></section>')
 
@@ -776,7 +779,7 @@ def render(data: dict, stamp: dict, page) -> dict:
 <section class="at-stack"><h2>From F3’s model</h2>
 <div class="at-tiles" aria-label="F3 output, conditional scenarios">
 {tile("Warming in 2050", f'{cl["warming"][y.index(2050)]:.1f} K', f'above 1850 to 1900; 5 to 95% range {cl["warming_p05"][y.index(2050)]:.1f} to {cl["warming_p95"][y.index(2050)]:.1f} K' + cav("Amber: test A2.1 failed; the run starts about 0.04 to 0.07 K below observed."), "f3")}
-{tile("Tasks AI can perform, 2040", f"{100 * fa:.0f}%", "central setting of the AI-race sector" + cav("Red: unvalidated after about 2027; does not reproduce GATE."), "f3")}
+{tile("Tasks AI can perform, 2040", f"{100 * fa:.0f}%", "central setting of the AI-race sector" + cav("Red: levels unvalidated under F3’s own investment rule; does not reproduce GATE."), "f3")}
 {tile("Data-centre electricity", "Withheld", "the output leaves any plausible range", "f3")}
 </div><p class="small">Conditional scenarios, not forecasts. Notices and limits are on the <a href="atlas-energy.html">Power and climate</a> and <a href="atlas-work.html">Work and the economy</a> pages and on <a href="limitations.html">Limitations</a>.</p></section>
 <section class="at-stack"><h2>The thirteen areas</h2><div class="at-cards">{cards}</div></section>

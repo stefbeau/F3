@@ -146,7 +146,7 @@ def body(ai_data: dict) -> str:
 </section>
 <section class="ai-section" id="ai_d" aria-labelledby="ai_d_h">
 <h2 id="ai_d_h">In the F3 model</h2>
-<p>Nothing on this page feeds the Explorer. The AI-sector model (S3) is unvalidated against GATE after about 2027 (<a href="limitations.html#status-ai">Limitations</a>). Links that would connect AI to other parts of the model are only proposed so far:</p>
+<p>Nothing on this page feeds the Explorer. The AI-sector model (S3) has unvalidated levels under F3's own investment rule (<a href="limitations.html#status-ai">Limitations</a>). Links that would connect AI to other parts of the model are only proposed so far:</p>
 {links_box()}
 </section>
 <section class="card" id="ai_src" aria-labelledby="ai_src_h">

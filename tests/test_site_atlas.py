@@ -93,7 +93,9 @@ def test_work_page_shows_the_automated_fraction_with_the_s3_notice():
     for s in ("low", "central", "race"):
         for yr in (2030, 2040):
             assert f'{100 * d["runs"][s + "|central|1"]["frac_automated"][y.index(yr)]:.0f}%' in html, (s, yr)
-    assert "unvalidated against GATE after about 2027" in html and "does not reproduce GATE" in html      # D-029
+    # Updated 2026-11-25 with the regenerated data: the sector's notice is now the one approved in D-065 (the editor: "rewors merge 20 and deploy").
+    # The reading is unchanged: the page carries the sector's notice verbatim from the data file.
+    assert "UNVALIDATED" in html and "does not reproduce GATE" in html and __import__("html").escape(d["meta"]["s3_status"])[:60] in html
     assert "not a forecast" in html
 
 
