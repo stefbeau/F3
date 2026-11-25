@@ -75,6 +75,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-057 | Explorer: observed-history overlay (model versus reality) and pattern-scaled warming map (branch `site-history`, from `site-ux`) | Provisional (delegated) 2026-10-22 | 2 |
 | D-058 | Data retrieval campaign: sources, licences and derived series for links 3 to 7, the data-centre module and AI context (documents and data only, branch `data-campaign`) | Provisional (delegated) 2026-10-22 | 2 |
 | D-059 | Electricity link: data-centre electricity limit (D-055 side) to World3 industrial output, default OFF (branch `feature/electricity-link`) | Provisional (delegated) 2026-10-26 | 2 |
+| D-062 | S3 variant P: the playground's production block, from Epoch AI's reply; compared with the A1.3 criterion unchanged | Approved 2026-11-25 | 2 |
 
 ---
 
@@ -1353,6 +1354,29 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Proposed by:** Claude (implementing the editor's brief).
 - **Decision:** Provisional (delegated); the editor reviews it in the milestone batch.
 - **Date:** 2026-10-22
+
+---
+
+## D-062 — S3 variant P: the playground's production block, from Epoch AI's reply
+
+- **Status:** Approved (2026-11-25)
+- **Numbering:** D-060 and D-061 are in `audit/decisions/`; this entry takes the next free number.
+- **Context:** D-029 closed M1 with A1.3 failed, named the composite as the open difference with its cause unresolved, and required a new decision before any further composite variant. Epoch AI's reply (Anson Ho; to the email sent 2026-10-17; reported by the editor on 2026-11-25) describes how the playground computes the composite, with code excerpts, and attaches five runs made with Epoch's solver.
+- **Facts:**
+  1. *Measured, 2026-11-25.* A stand-alone re-implementation of the described composite step, fed each run's own stored states, reproduces the stored `cognitive_ces_term` of all five runs to a largest relative difference of 1.1e-12 over 80 periods. With 200, 500 or 1000 points for the tabulated inverse in place of 300, the default run differs by 4% to 7%.
+  2. *Stated by Epoch, not checked here.* The three regenerated presets equal the shipped series to about 1e-16.
+  3. *Not known when this was approved.* Whether S3 itself, with the variant and GATE's own investment path, stays within the A1.3 tolerance.
+- **Decision:**
+  1. **Add the playground's production block to S3 as labelled variant `P`** (`GateParams(composite="P")`), written as F3's own code from Epoch's description. The differences from the paper's equations are listed in `docs/s3-playground-composite.md`.
+  2. **Compare it with the A1.3 criterion unchanged** (same quantities, 2%, indices 0 to 75, the three settings of D-005 amendment B, GATE's own investment path as input). Readings and tests are in `docs/s3-playground-composite.md`, written before the code.
+  3. **The default stays "A"; the D-029 label stays; nothing that uses S3 changes.** Making `P` the default, changing or removing the label, and revisiting R3 are separate decisions for the editor after the results.
+  4. **Use of what Epoch sent.** The editor stated in session (2026-11-25) that no further permission is needed to use the runs Epoch sent as test references. They are read at test time from a local folder. **D-026 is unchanged: nothing from the bundle, the runs or the code excerpts is committed**, and only comparison figures are stored. (The editor's email to Epoch said the series would not be redistributed and no part of the file committed.)
+- **Alternatives considered:** leave S3 as it is and keep the label with the cause now described but untested (wastes the reply); replace variant A by the playground's block at once (changes every S3 result before the comparison is in); commit the runs as fixtures (D-026 item 5 requires permission in writing, which the reply does not state).
+- **Cost of reversing:** small. The variant is an option that nothing uses by default; removing it deletes one block of `s3_ai.py`, one test file and one script.
+- **Sources:** Epoch AI's reply and attachments (held by the editor, not in the repository); `docs/s3-playground-composite.md`; D-005 amendment B, D-026, D-027, D-029.
+- **Proposed by:** Claude
+- **Decision:** Approved by Stéphane Beau in session ("For 2, ok": add the playground's composite as a labelled variant and re-run A1.3 with the criteria unchanged).
+- **Date:** 2026-11-25
 
 ---
 
