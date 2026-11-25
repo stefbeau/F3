@@ -1,5 +1,7 @@
 # S3 with the supply limit on: which outputs stay inside stated bounds? (D-054 item 3; written 2026-10-22)
 
+> **Note 2026-11-25.** Every S3 figure in this document was computed with composite variant A, S3's default until D-065. The default is now variant P, which changes S3's results under R3 (`audit/s3-default-composite.md`). The text below is left as written and describes variant A.
+
 **Status:** method and pre-registered criteria, **committed before the script was run**. Results are added by dated sections; nothing above is edited afterwards. **Documents and a script only: no sector, test, label or site change.** Script: `audit/t0/s3_supply_limited.py`; figures: `audit/data/s3-supply-limited.json` (comparison figures; nothing from Epoch's bundle is read here).
 
 ## 1. Question
