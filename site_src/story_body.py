@@ -19,20 +19,23 @@ def steps_nav() -> str:
 def ai_callout() -> str:
     """Descriptive only: counts from the AI Impact page's data and a link. No claim about causes or about model results."""
     s = ai_data.ai_stats(ai_data.load_extract())
-    return ('<div class="ai-callout"><p>F3 has also collected open data on AI itself: '
-            f'<strong>{s["oa_total"] / 1e6:.1f} million AI publications</strong> (OpenAlex), <strong>{s["epoch_models"]:,} notable AI models</strong> (Epoch AI) and '
-            f'<strong>{s["fda_devices"]:,} FDA AI-enabled medical devices</strong>. These are counts, not model output.</p>'
-            '<a href="ai.html" class="ai-callout-link">See the AI data &rarr;</a></div>')
+    t = lambda k, n, d: f'<div class="at-tile"><span class="at-k">{k}</span><strong class="at-n">{n}</strong><span class="at-d">{d}</span></div>'      # noqa: E731
+    return ('<section class="st-block" aria-labelledby="st_data_h"><h2 id="st_data_h">Data F3 holds on AI itself</h2><div class="at-tiles">'
+            + t("AI publications", f'{s["oa_total"] / 1e6:.1f} million', "OpenAlex") + t("Notable AI models", f'{s["epoch_models"]:,}', "Epoch AI")
+            + t("AI-enabled medical devices", f'{s["fda_devices"]:,}', "US FDA list")
+            + '</div><p class="small">Counts, not model output. <a href="ai.html">See the AI data</a> · <a href="atlas.html">What is reported about AI’s effects: the Atlas</a></p></section>')
 
 
-def body() -> str:
+def body(tiles: str = "") -> str:
     return f"""
+<div class="story">
 <section class="hero">
 <p class="kicker">F3 Explorer v0.2: a story in four steps</p>
 <h1>The standard world turns down. Then we add the heat and the AI race.</h1>
 <p class="lead" id="hero_line">Four short steps, each with one chart and one control. Nothing here is a forecast.</p>
 <p class="cta"><a class="btn primary" href="#ch1">Start the story</a> <a class="btn" href="explorer.html">Skip to the Explorer</a></p>
 </section>
+{tiles}
 {ai_callout()}
 <div class="banner" role="note"><strong class="big">{PUBLIC}</strong>Every curve is the output of a model run under stated assumptions. None is a prediction, none has a likelihood. Recorded test failures are shown next to the charts they affect and on the <a href="limitations.html">Limitations</a> page.</div>
 {steps_nav()}
@@ -93,5 +96,6 @@ def body() -> str:
 </ul>
 <p class="cta"><a class="btn primary" href="explorer.html">Open the Explorer</a> <a class="btn" href="limitations.html">Read the Limitations</a></p>
 </section>
+</div>
 <noscript><div class="notice">The charts on this page are drawn by JavaScript from the precomputed data in <code>data/explorer.js</code>. Without JavaScript only the text is shown.</div></noscript>
 """

@@ -101,8 +101,22 @@ Status of each reported figure on the atlas pages (D-067). Updated by hand or by
 | 51 studies, mostly simulations; low-income countries under-represented | O | Rapid review for the UK FCDO (Athena Infonomics, Sept 2025), abstract page. |
 | First randomised trial: no short-run change in yields | W | Known only from the authors' social-media post about their working paper. |
 
+## Robots (page added 2026-11-25)
+| Figure on the page | Status | What the original says / note |
+|---|---|---|
+| 5.08 million industrial robots in 2025 (+9%); 603,000 installed (+11%); 655,000 in 2026 and 806,000 in 2029 forecast | P | IFR press release and president's report for World Robotics 2026 (the federation's own figures; the full report not opened). |
+| Humanoids shipped in the first half of 2026: 19,100 / 22,000 / 25,000 | S | Three analyst firms, read in their release or in news reports; they disagree. No public register exists. |
+| About 95% made in China; over 60% to entertainment, research and data collection | S | IDC and Counterpoint through news and a release. |
+| Fewer than 100 companies past trials through 2028 | S | Gartner through a news report. |
+| 500,000 a year by 2030; 26 million a year by 2040 | S | Market forecasts by research vendors. |
+| 74% of physical tasks, 34% of working hours, 0.3% cost-competitive; past wage and employment effects | P | Anthropic research page (key findings); the paper not opened. One company's study of US jobs. |
+| Effect on employment depends on the stage of adoption (20 EU countries) | P | BIS Working Paper 1334, summary page. |
+| Robots replace tasks more than occupations | P | IFR position paper (an industry body). |
+| First international safety standard for humanoids unfinished | S | News report. |
+
 ## Creative work and copyright
 Not checked in pass 1. All figures `S`.
 
 ## Log
 - **2026-11-25, pass 1.** 55 figures or groups listed: 18 `O`, 7 `P`, 26 `S`, 2 `W`, 1 `X`, 1 n/a. Seven page changes: the e-waste period (was wrong), the OECD year, two caveats of the water study, the unsourced 3%, the EU amending law ("published"), the year of the Ethiopian study. No figure was removed. Open: the two "to check" items above, creative work, and every `S`.
+- **2026-11-25, Robots page added.** 9 rows: 4 `P`, 5 `S`. Not part of pass 1.

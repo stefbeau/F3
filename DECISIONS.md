@@ -1496,6 +1496,18 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Proposed by:** the editor (instruction); Claude (form and implementation).
 - **Date:** 2026-11-25
 
+## D-068 — Story page in the atlas style; infographics on the atlas pages; a Robots topic
+
+- **Status:** Provisional (delegated), 2026-11-25. Not Approved. Built on branch `story-infographics-robots`; not merged; nothing published.
+- **Authority:** the editor's instruction in session on 2026-11-25: "I would like the original story of F3 to be formatted in style and UI as the latest adjustments. Also the site needs a bit more infographics. Finally we need a section about Robots as well".
+- **Decision:** (1) the story page keeps its four chapters, controls, charts, banner and status badges unchanged and gains the atlas layout: a block of four headline tiles read from `site/data/explorer.json` (population peak, warming in 2100, automated fraction in 2040, links built), the AI data counts as tiles, and a link to the Atlas. (2) Ten infographics are added to nine atlas pages (waffle grids, proportion bars, proportional circles, a timeline, a chain). They show reported figures only; none contains F3 output. Bar charts are now plain HTML rows so that they fit a phone. (3) A twelfth topic page, Robots, with F3 stated as "does not model this".
+- **Tested (`tests/test_site_atlas.py`, readings committed before the changes):** each infographic has a text alternative or is a list, a caption that says "Reported", and no F3 output; the Robots page shows the three analyst counts side by side and says estimates differ; the story tiles equal the data file. Site tests: 190 passed. The existing story tests pass unchanged.
+- **What is NOT verified:** the Robots figures other than the IFR's own release (see `audit/atlas-figure-review.md`); humanoid shipment counts are analyst estimates that disagree by almost a third. The pages were looked at once at phone width (three pages), before the last layout fix to bars and circles; the fix itself was not looked at.
+- **For the editor:** this decision; the four story tiles are a new presentation of outputs the story already draws, with the existing notices one step below, not beside each tile. Say if each tile should carry its notice.
+- **Reversal cost:** low. Revert the commit; no model code or data file is touched.
+- **Proposed by:** the editor (instruction); Claude (form and implementation).
+- **Date:** 2026-11-25
+
 ## D-xxx — Title
 
 - **Status:** Proposed
