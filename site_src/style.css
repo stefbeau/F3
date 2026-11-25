@@ -300,7 +300,7 @@ a.at-card{display:flex;flex-direction:column;gap:8px;background:var(--card);bord
 a.at-card:hover{border-color:var(--link)}a.at-card p{font-size:.92rem;color:var(--mut)}.at-go{color:var(--link);font-weight:600;font-size:.92rem;margin-top:auto}
 .at-state{align-self:flex-start;font-size:.82rem;font-weight:600;border-radius:999px;padding:2px 10px;border:1px solid var(--line);color:var(--mut)}
 .at-state.model{border-color:var(--acc2);color:var(--acc2)}
-.at-chart,.at-map{overflow-x:auto}.at-chart svg{display:block;width:100%;min-width:560px;height:auto}.at thead th{white-space:nowrap;overflow-wrap:normal}.at-map svg{display:block;width:100%;min-width:640px;height:auto}
+.at-chart,.at-map{overflow-x:auto}.at-chart svg{display:block;width:100%;min-width:280px;max-width:640px;height:auto}.at-f3 .at-chart svg{min-width:520px}.at thead th{white-space:nowrap;overflow-wrap:normal}.at-map svg{display:block;width:100%;min-width:640px;height:auto}
 .at-chart text{fill:var(--fg);font-family:inherit}.at-lab{font-size:13px}.at-val{font-size:13px;font-weight:600}.at-cap{font-size:13px;fill:var(--mut)!important}
 .at-bar{fill:var(--sa)}.at-bar.s{fill:var(--sb)}.at-bar.g{fill:var(--acc1)}.at-bar.m{fill:var(--base)}
 .at-grid{stroke:var(--line);stroke-width:1}.at-band{fill:var(--acc2);opacity:.22}.at-line{fill:none;stroke:var(--acc2);stroke-width:2.5}.at-dot{fill:var(--acc2)}
@@ -310,3 +310,24 @@ a.at-card:hover{border-color:var(--link)}a.at-card p{font-size:.92rem;color:var(
 .at-f3{border-left:4px solid var(--acc2);display:flex;flex-direction:column;gap:12px}.at-f3 .kicker{color:var(--acc2);font-weight:600;font-size:.85rem}
 .at-src{font-size:.9rem;color:var(--mut)}.at-src ol{margin:6px 0 0;padding-left:22px;display:flex;flex-direction:column;gap:4px}.at sup a{text-decoration:none;font-weight:600;padding:0 1px}
 .at-pager{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between}.at-pager a{display:inline-flex;align-items:center;min-height:40px;font-weight:600}
+/* Infographics on the atlas pages and the story page in the atlas style (2026-11-25). Fills carry meaning with position and labels as well as colour. */
+figure.at-ig{margin:0;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+figure.at-ig figcaption{font-size:.87rem;color:var(--mut);max-width:68ch}
+.at-w.a{fill:var(--sa)}.at-w.b{fill:var(--sb)}.at-w.e{fill:var(--card2);stroke:var(--line);stroke-width:1}
+.at-chart svg.at-waffle{min-width:280px;max-width:560px}
+.at-sw{display:inline-block;width:13px;height:13px;border-radius:2px;border:1px solid var(--line)}.at-sw.a{background:var(--sa)}.at-sw.b{background:var(--sb)}.at-sw.e{background:var(--card2)}
+ol.at-timeline{list-style:none;margin:0;padding:0 0 0 18px;border-left:3px solid var(--sa);display:flex;flex-direction:column;gap:14px}
+ol.at-timeline li{position:relative;display:flex;flex-direction:column;gap:2px}ol.at-timeline li::before{content:"";position:absolute;left:-27px;top:4px;width:13px;height:13px;border-radius:50%;background:var(--card);border:3px solid var(--sa)}
+ol.at-chain{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+ol.at-chain li{display:flex;flex-direction:column;gap:2px;border-top:4px solid var(--sb);padding-top:8px;min-width:0}ol.at-chain .at-n{font-size:1.25rem}
+.story{display:flex;flex-direction:column;gap:22px}.story>.card,.story>.banner,.story>nav.steps{margin:0}
+.story .hero h1{font-size:clamp(1.9rem,5vw,2.6rem);text-wrap:balance}
+.st-block{display:flex;flex-direction:column;gap:10px}.st-block h2{margin:0;font-size:1.3rem}.st-block p{margin:0}
+.story .rfl{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin:0}
+.story .rfl li{margin:0;background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.story .chapter.card{border-left:4px solid var(--acc2)}
+.at-bars{display:flex;flex-direction:column;gap:10px}.at-brow{display:grid;grid-template-columns:1fr auto;gap:2px 10px;align-items:center}
+.at-brow .at-lab{grid-column:1/-1;font-size:.87rem}.at-btrack{display:block;height:18px;background:var(--card2);border-radius:3px;min-width:0}
+.at-bfill{display:block;height:100%;border-radius:3px;background:var(--sa)}.at-bfill.s{background:var(--sb)}.at-bfill.g{background:var(--acc1)}.at-bfill.m{background:var(--base)}
+.at-brow .at-val{font-size:.87rem;font-weight:600;white-space:nowrap}.at-capline{font-size:.82rem;color:var(--mut)}
+.at-caveat{display:block;margin-top:6px;padding-top:6px;border-top:1px solid var(--line);font-size:.82rem;color:var(--amber-t);background:var(--amber-bg);border-radius:4px;padding:6px 8px}

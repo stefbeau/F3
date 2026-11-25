@@ -1,5 +1,12 @@
 # F3 — Status
 
+## Update 2026-11-25 (night): story restyled, infographics, Robots page: on a branch, NOT merged
+- **D-068 (Provisional, delegated)**, branch `story-infographics-robots` (it contains the review corrections of PR 18): the story page in the atlas layout with four headline tiles from the data file; ten infographics of reported figures on nine atlas pages; a twelfth topic, Robots (F3 does not model it). Site tests 190 passed; the story tests pass unchanged. The last layout fix (bars, circles) was not looked at in a browser. Nothing published.
+
+## Update 2026-11-25 (evening): atlas merged; first review of its figures against originals
+- **PR 17 merged** at the editor's instruction ("merge 17"); D-067 stays Provisional. Nothing published.
+- **Review pass 1** (`audit/atlas-figure-review.md`, branch `atlas-review-2026-11`): of 55 figures or groups, 18 read in the original, 7 in the publisher's or authors' release, 26 still secondary only, 2 weak, 1 was wrong and is corrected (e-waste period: 2020 to 2030, not 2023 to 2030). Creative work not checked. A monthly scheduled review continues the work and opens a pull request each time; it never merges.
+
 ## Update 2026-11-25 (later): atlas pages built on a branch, NOT merged, NOT published
 - **D-067 (Provisional, delegated):** twelve "Atlas" pages added to the site generator on branch `atlas-pages`: reported figures about AI's effects (power and climate, water, land and chips, work, health, learning and information, safety, military use, creative work, surveillance, nature and food) beside F3 output where F3 has any (warming and damage, automated fraction, World3 resources). Eight topics state that F3 does not model them. Withheld outputs stay withheld.
 - **Unverified:** the reported figures (read on 2026-11-25, mostly in secondary reports; register in `research/SOURCES.md`, section "Atlas"). **Site data not regenerated:** F3 numbers on the pages are the variant-A site data, and the pages say so.

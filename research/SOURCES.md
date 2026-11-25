@@ -149,3 +149,13 @@ Read on 2026-11-25. **Status of every entry: figure read in the linked page; NOT
 - `nf-rct`: Authors’ summary of a randomised field experiment on AI advice for smallholders (SSRN paper). https://tr.linkedin.com/in/ali-bakan-20579586
 - `nf-3ie`: 3ie rapid review, The use of AI in food and agriculture systems. https://www.grtd.fcdo.gov.uk/research/the-use-of-artificial-intelligence-in-food-and-agriculture-systems/
 - `nf-dte`: Down To Earth, AI offers promise for agriculture, but smallholders risk being left behind. https://www.downtoearth.org.in/agriculture/ai-offers-promise-for-agriculture-but-smallholder-farmers-risk-being-left-behind
+- `rb-ifr`: IFR press release, Five million robots now operate in factories globally (24 Sept 2026). https://ifr.org/ifr-press-releases/news/five-million-robots-now-operate-in-factories-globally
+- `rb-ifr2`: IFR President’s report with World Robotics 2026 figures. https://ifr.org/news/presidents-report-by-jane-heffner-3-2026/1st-
+- `rb-sag`: TechRepublic on Smart Analytics Global humanoid shipment estimates (Aug 2026). https://techrepublic.com/article/news-humanoid-robot-shipments-chinese-vendors
+- `rb-cp`: Counterpoint Research, humanoid robot shipments in the first half of 2026. https://counterpointresearch.com/xmlrpc.php/insights/global-humanoid-robot-shipments-soar-nearly-300-percent-yoy-in-h1-2026
+- `rb-idc`: HRD on humanoid robots at work, citing IDC and Gartner. https://www.hcamag.com/ca/news/general/humanoid-robots-are-starting-real-jobs-how-soon-will-they-replace-real-staff/594972
+- `rb-r247`: Robotics 24/7, Humanoid orders versus actual deployments (Oct 2026). https://www.robotics247.com/article/humanoid-orders-vs-actual-deployments-how-much-commercial-progress-is-really-happening
+- `rb-anth`: Anthropic, What work can robots do? (2026). https://www.anthropic.com/research/what-work-can-robots-do
+- `rb-bis`: BIS Working Paper 1334, Robots, ICT and employment (March 2026). https://www.bis.org/publ/work1334.htm
+- `rb-ifrpos`: IFR position paper, The impact of robots (Aug 2026). https://ifr.org/ifr-press-releases/news/new-ifr-position-paper-the-impact-of-robots
+- `rb-berg`: Berg Insight forecast of humanoid shipments to 2040. https://iconnect007.com/article/151498/humanoid-robot-shipments-to-reach-26-million-units-annually-by-2040/151495/milaero

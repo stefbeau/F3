@@ -16,7 +16,7 @@ from pathlib import Path
 
 READ_ON = "2026-11-25"
 LABEL = "Reported figures, not F3 model output"
-TOPICS = [("energy", "Power and climate"), ("water", "Water"), ("land", "Land, metals, chips and waste"), ("work", "Work and the economy"),
+TOPICS = [("energy", "Power and climate"), ("water", "Water"), ("land", "Land, metals, chips and waste"), ("work", "Work and the economy"), ("robots", "Robots"),
           ("health", "Health and science"), ("mind", "Learning, minds and information"), ("safety", "Safety, access and rules"),
           ("military", "Military use"), ("creative", "Creative work and copyright"), ("surveillance", "Surveillance"), ("nature", "Nature and food")]
 F3_STATE = {"energy": "model", "work": "model", "land": "model"}          # every other topic: "none"
@@ -44,18 +44,11 @@ def tile(k: str, n: str, d: str, cls: str = "") -> str:
 
 
 def bars(rows: list, unit: str, caption: str, vmax: float = None, w: int = 640) -> str:
+    """Horizontal bars as plain HTML rows, so they fit a phone without sideways scrolling. One scale per chart; the value is printed on each row."""
     vmax = vmax or max(v for _, v, _ in rows)
-    lh, top, left, right = 34, 8, 200, 110
-    h = top + lh * len(rows) + 26
-    out = [f'<svg viewBox="0 0 {w} {h}" role="img" aria-label="{esc(caption)}">']
-    for i, (lab, v, cls) in enumerate(rows):
-        y = top + i * lh
-        bw = max(2, (w - left - right) * v / vmax)
-        out.append(f'<text class="at-lab" x="{left - 10}" y="{y + 19}" text-anchor="end">{esc(lab)}</text>'
-                   f'<rect class="at-bar {cls}" x="{left}" y="{y + 5}" width="{bw:.1f}" height="20" rx="3"></rect>'
-                   f'<text class="at-val" x="{left + bw + 8:.1f}" y="{y + 20}">{v:,g} {unit}</text>')
-    out.append(f'<text class="at-cap" x="{left}" y="{h - 6}">{esc(caption)}</text></svg>')
-    return '<div class="at-chart">' + "".join(out) + "</div>"
+    out = "".join(f'<div class="at-brow"><span class="at-lab">{esc(lab)}</span><span class="at-btrack"><i class="at-bfill {cls}" style="width:{max(100 * v / vmax, 0.6):.1f}%"></i></span>'
+                  f'<span class="at-val">{v:,g} {unit}</span></div>' for lab, v, cls in rows)
+    return f'<div class="at-bars" role="img" aria-label="{esc(caption)}">{out}</div><p class="at-capline">{esc(caption)}</p>'
 
 
 MARK = {"g": '<svg class="at-mark" viewBox="0 0 16 16" aria-hidden="true"><circle class="g" cx="8" cy="8" r="7"></circle></svg>',
@@ -143,6 +136,16 @@ src('aj-act','Al Jazeera on what came into force with the EU AI Act in August 20
 src('brookings','Brookings, How to bridge the global AI divide','https://www.brookings.edu/articles/how-to-bridge-the-global-ai-divide/?hl=en-GB')
 src('aj-divide','Al Jazeera on the AI opportunity divide (ITU, Oct 2026)','https://www.aljazeera.com/amp/news/2026/10/25/ais-opportunity-divide-could-deepen-global-inequality-un-official-warns')
 src('undp','UNDP, The Next Great Divergence','https://www.undp.org/asia-pacific/next-great-divergence')
+src('rb-ifr', 'IFR press release, Five million robots now operate in factories globally (24 Sept 2026)', 'https://ifr.org/ifr-press-releases/news/five-million-robots-now-operate-in-factories-globally')
+src('rb-ifr2', 'IFR President’s report with World Robotics 2026 figures', 'https://ifr.org/news/presidents-report-by-jane-heffner-3-2026/1st-')
+src('rb-sag', 'TechRepublic on Smart Analytics Global humanoid shipment estimates (Aug 2026)', 'https://techrepublic.com/article/news-humanoid-robot-shipments-chinese-vendors')
+src('rb-cp', 'Counterpoint Research, humanoid robot shipments in the first half of 2026', 'https://counterpointresearch.com/xmlrpc.php/insights/global-humanoid-robot-shipments-soar-nearly-300-percent-yoy-in-h1-2026')
+src('rb-idc', 'HRD on humanoid robots at work, citing IDC and Gartner', 'https://www.hcamag.com/ca/news/general/humanoid-robots-are-starting-real-jobs-how-soon-will-they-replace-real-staff/594972')
+src('rb-r247', 'Robotics 24/7, Humanoid orders versus actual deployments (Oct 2026)', 'https://www.robotics247.com/article/humanoid-orders-vs-actual-deployments-how-much-commercial-progress-is-really-happening')
+src('rb-anth', 'Anthropic, What work can robots do? (2026)', 'https://www.anthropic.com/research/what-work-can-robots-do')
+src('rb-bis', 'BIS Working Paper 1334, Robots, ICT and employment (March 2026)', 'https://www.bis.org/publ/work1334.htm')
+src('rb-ifrpos', 'IFR position paper, The impact of robots (Aug 2026)', 'https://ifr.org/ifr-press-releases/news/new-ifr-position-paper-the-impact-of-robots')
+src('rb-berg', 'Berg Insight forecast of humanoid shipments to 2040', 'https://iconnect007.com/article/151498/humanoid-robot-shipments-to-reach-26-million-units-annually-by-2040/151495/milaero')
 src('chip-ti', 'TechInsights, Semiconductor Sustainability Outlook 2027', 'https://techinsights.com/ja/node/61968')
 src('chip-wef', 'World Economic Forum on water in semiconductor manufacturing', 'https://www.weforum.org/stories/2024/07/the-water-challenge-for-semiconductor-manufacturing-and-big-tech-what-needs-to-be-done/')
 src('chip-aj', 'Al Jazeera on chip manufacturing and Taiwan’s climate goals (2024)', 'https://www.aljazeera.com/economy/2024/12/25/taiwan-struggles-to-reconcile-climate-ambitions-and-chip-manufacturing')
@@ -181,6 +184,57 @@ src('nf-wbblog', 'World Bank blog, Can AI give small-scale producers the right a
 src('nf-rct', 'Authors’ summary of a randomised field experiment on AI advice for smallholders (SSRN paper)', 'https://tr.linkedin.com/in/ali-bakan-20579586')
 src('nf-3ie', '3ie rapid review, The use of AI in food and agriculture systems', 'https://www.grtd.fcdo.gov.uk/research/the-use-of-artificial-intelligence-in-food-and-agriculture-systems/')
 src('nf-dte', 'Down To Earth, AI offers promise for agriculture, but smallholders risk being left behind', 'https://www.downtoearth.org.in/agriculture/ai-offers-promise-for-agriculture-but-smallholder-farmers-risk-being-left-behind')
+
+
+# ------------------------------------------------------------------------------------------------------------ infographics (reported figures only)
+
+
+def fig(inner: str, caption: str) -> str:
+    return f'<figure class="at-ig">{inner}<figcaption>Reported figures. {caption}</figcaption></figure>'
+
+
+def legend(items: list) -> str:
+    return '<div class="at-legend">' + "".join(f'<span><i class="at-sw {cls}"></i>{esc(t)}</span>' for cls, t in items) + "</div>"
+
+
+def waffle(total: int, groups: list, cols: int, alt: str) -> str:
+    """A grid of ``total`` squares; ``groups`` is [(count, class)], filled in order, the rest empty."""
+    cell, gap = 16, 4
+    rows = -(-total // cols)
+    cls = [c for n, c in groups for _ in range(n)] + ["e"] * total
+    sq = "".join(f'<rect class="at-w {cls[i]}" x="{(i % cols) * (cell + gap)}" y="{(i // cols) * (cell + gap)}" width="{cell}" height="{cell}" rx="2"></rect>' for i in range(total))
+    return f'<div class="at-chart"><svg class="at-waffle" viewBox="0 0 {cols * (cell + gap) - gap} {rows * (cell + gap) - gap}" role="img" aria-label="{esc(alt)}">{sq}</svg></div>'
+
+
+def propbar(parts: list, alt: str) -> str:
+    """One bar split in proportion; ``parts`` is [(value, class)]."""
+    tot, x, out = sum(v for v, _ in parts), 0.0, []
+    for v, cls in parts:
+        wd = 600 * v / tot
+        out.append(f'<rect class="at-w {cls}" x="{x:.1f}" y="0" width="{max(wd - 2, 1.5):.1f}" height="36" rx="3"></rect>')
+        x += wd
+    return f'<div class="at-chart"><svg viewBox="0 0 600 36" role="img" aria-label="{esc(alt)}">{"".join(out)}</svg></div>'
+
+
+def dots(items: list, alt: str) -> str:
+    """Circles whose AREA is proportional to the value, stacked in rows so the drawing fits a phone; ``items`` is [(value, label, class)]."""
+    big = max(v for v, _, _ in items)
+    rmax, y, out = 70, 0.0, []
+    for v, lab, cls in items:
+        r = max(rmax * (v / big) ** 0.5, 3)
+        h = max(2 * r, 34) + 12
+        out.append(f'<circle class="at-w {cls}" cx="{rmax}" cy="{y + h / 2:.1f}" r="{r:.1f}"></circle><text class="at-val" x="{2 * rmax + 16}" y="{y + h / 2 - 2:.1f}">{v:,}</text>'
+                   f'<text class="at-cap" x="{2 * rmax + 16}" y="{y + h / 2 + 16:.1f}">{esc(lab)}</text>')
+        y += h
+    return f'<div class="at-chart"><svg viewBox="0 0 360 {y:.0f}" role="img" aria-label="{esc(alt)}">{"".join(out)}</svg></div>'
+
+
+def timeline(items: list) -> str:
+    return '<ol class="at-timeline">' + "".join(f"<li><strong>{esc(d)}</strong><span>{esc(t)}</span></li>" for d, t in items) + "</ol>"
+
+
+def chain(items: list) -> str:
+    return '<ol class="at-chain">' + "".join(f'<li><span class="at-k">{esc(k)}</span><strong class="at-n">{esc(n)}</strong><span class="at-d">{esc(d)}</span></li>' for k, n, d in items) + "</ol>"
 
 
 # ------------------------------------------------------------------------------------------------------------ F3 output blocks
@@ -258,6 +312,7 @@ NONE_TEXT = {
     "safety": "A link from AI capability and incident rates to catastrophic risk is on the list of proposed links (L_RISK). It is not built.",
     "military": "A link from resource and climate stress to armed conflict is on the list of proposed links (L_CONF). It is not built, and it would not represent military uses of AI.",
     "creative": "The AI sector treats all tasks in the economy as one continuum and has no separate creative sector, no prices for creative work and no law.",
+    "robots": "The AI sector represents automation through computing alone. It holds no stock of robots and no metals, batteries or electricity for building and running them.",
     "surveillance": "Nothing in the model represents surveillance, privacy or civil liberties.",
     "nature": "World3 models food and farmland in aggregate, with no effect of AI on yields and no biodiversity. Land and water use by data centres are planned as reported outputs (decision D-066, step E4), not built.",
 }
@@ -270,6 +325,27 @@ def f3_none(key: str) -> str:
 
 def f3_box(key: str, d: dict) -> str:
     return {"energy": f3_energy, "work": f3_work, "land": f3_land}[key](d) if key in F3_STATE else f3_none(key)
+
+
+def cav(text: str) -> str:
+    return f'<span class="at-caveat">{text}</span>'
+
+
+def story_tiles(d: dict) -> str:
+    """Four headline numbers for the story page, in the atlas tile style. All are series the story already draws; read from the data file."""
+    import links
+    w = d["world3"]
+    run = w["runs"][w["standard"] + "|off"]
+    pk = max(range(len(run["pop"])), key=lambda i: run["pop"][i])
+    y, cl = d["years"], d["climate"]
+    fa = d["runs"]["central|central|1"]["frac_automated"][y.index(2040)]
+    built = sum(1 for x in links.LINKS if x["status"] == "built")
+    return ('<section class="st-block" aria-labelledby="st_f3_h"><h2 id="st_f3_h">The story in four numbers</h2><div class="at-tiles" id="story_tiles">'
+            + tile("Step 1 · World3 standard run", f'{run["pop"][pk] / 1e9:.2f} billion', f'people at the peak, in {w["years"][pk]}' + cav("Amber: the standard run matches its reference; test A3.4(b) failed; runs with changed settings are not compared."), "f3")
+            + tile("Step 2 · warming in 2100", f'{cl["warming"][-1]:.1f} K', f'FaIR ensemble mean; 5 to 95% range {cl["warming_p05"][-1]:.1f} to {cl["warming_p95"][-1]:.1f} K' + cav("Amber: test A2.1 failed; the run starts about 0.04 to 0.07 K below observed; emissions are prescribed, not modelled."), "f3")
+            + tile("Step 3 · tasks AI can perform, 2040", f"{100 * fa:.0f}%", "central setting" + cav("Red: the AI sector failed its test against GATE (A1.3), is unvalidated after about 2027 and does not reproduce GATE. Read the timing only."), "f3")
+            + tile("Step 4 · links between the models", f"{built} of {len(links.LINKS)}", "are built; the rest are not" + cav("A record of what is connected, not a model result. Compute and electricity outputs of one built link are withheld."), "f3")
+            + '</div><p class="small">F3 output: conditional scenarios, not forecasts. Each number carries its caveat; details are in its step below and on <a href="limitations.html">Limitations</a>.</p></section>')
 
 
 # ------------------------------------------------------------------------------------------------------------ page shell
@@ -340,8 +416,10 @@ def render(data: dict, stamp: dict, page) -> dict:
     {bars([('2023',560,'s'),('2030',1200,'s')],'bn litres','IEA estimate and projection, billion litres a year')}</section>
     <section class="at-stack"><h2>What is happening</h2>
     <p>Only about a quarter of the water is used directly for cooling.{c(K,'nat-water')} The rest is consumed making the electricity and the chips. In seven US states, data centres depend on an estimated 3.4 trillion gallons of freshwater a year through their power supply.{c(K,'ceres')}</p>
-    <p>A 2026 study mapped all 9,347 operational data centres against local water balance. A quarter sit where demand outstrips supply for at least one month a year. The hotspots are the western United States, Spain, Italy, India and the Gulf states, and in Spain 64% of sites are affected.{c(K,'earth-water')}{c(K,'sf-water')}</p>
+    <p>A 2026 study mapped all 9,347 operational data centres against local water balance. A quarter sit where demand outstrips supply for at least one month a year. The authors use water conditions of 2001 to 2010 and call their shortfall estimates an upper bound, since reservoirs, transfers and desalination are not counted. The hotspots are the western United States, Spain, Italy, India and the Gulf states, and in Spain 64% of sites are affected.{c(K,'earth-water')}{c(K,'sf-water')}</p>
     <p>In Arizona every one of 149 rated sites is in an area of extremely high water stress.{c(K,'dcmap')} In Querétaro, Mexico, a data-centre hub is growing in a state hit hard by drought.{c(K,'qro')} Near Santiago, Chile, a project was planned on the capital's strained aquifer.{c(K,'chile')}</p></section>
+    {fig(propbar([(25, "a"), (75, "b")], "One bar split in two. About a quarter of the water data centres consume is used on site for cooling. About three quarters is consumed making their electricity and chips."), "About a quarter of the water is used on site for cooling; the rest is consumed making the electricity and the chips (IEA figures, read in a secondary report)." + c(K,'nat-water'))}
+    {legend([("a", "Cooling on site, about 25%"), ("b", "Electricity and chips, about 75%")])}
     <section class="at-stack"><h2>The ledger</h2>
     {ledger(['Newer cooling designs use far less water, and some operators report recycling or replacing what they draw.','AI is also used to manage water networks and detect leaks.'],
             ['Consumption doubling by 2030.'+c(K,'nat-water'),'Competition with homes and farms in dry regions. Data centres can usually secure supply in a shortage, so neighbours carry the risk.'+c(K,'sf-water')],
@@ -358,7 +436,7 @@ def render(data: dict, stamp: dict, page) -> dict:
     <section class="at-tiles">
     {tile('One campus','3,650 acres','about 15 km² of former farmland, Meta Hyperion in Louisiana'+c(K,'hyperion'),'acc')}
     {tile('Copper','1.1 m tonnes','a year for data centres by 2030, close to 3% of world demand'+c(K,'copper'),'stress')}
-    {tile('E-waste from generative AI','1.2 to 5 m tonnes','in total between 2023 and 2030'+c(K,'ewaste'),'stress')}
+    {tile('E-waste from generative AI','1.2 to 5 m tonnes','in total over 2020 to 2030, by scenario'+c(K,'ewaste'),'stress')}
     {tile('All e-waste','62 → 82 m tonnes','a year, 2022 to 2030 on current trends'+c(K,'ewaste3'),'acc')}
     </section>
     <section class="card at-stack"><h2>Electronic waste in context</h2>
@@ -367,7 +445,7 @@ def render(data: dict, stamp: dict, page) -> dict:
     <p><strong>Land.</strong> The largest campus under construction covers about 3,650 acres of former farmland after a 1,400-acre expansion in 2026.{c(K,'hyperion')} That is local land-use change on the scale of a small town.</p>
     <div class="at-flag">A claim to treat with care: no sourced figure for forest clearing by data centres was found for this atlas. The land figure above is for farmland.</div>
     <p><strong>Metals.</strong> Data centres could need about 1.1 million tonnes of copper a year by 2030. World demand for refined copper is about 28 million tonnes, and a shortfall is forecast for 2026.{c(K,'copper')}</p>
-    <p><strong>Waste.</strong> Servers and accelerators are replaced quickly. A study in Nature Computational Science projects 1.2 to 5 million tonnes of e-waste from generative AI between 2023 and 2030, and up to 2.5 million tonnes a year by 2030 in its high scenario.{c(K,'ewaste')}{c(K,'ewaste2')} That is a small share of all e-waste, but it contains lead, mercury and chromium as well as recoverable gold and copper.{c(K,'ewaste3')}</p>
+    <p><strong>Waste.</strong> Servers and accelerators are replaced quickly. A study in Nature Computational Science projects 1.2 to 5 million tonnes of e-waste from generative AI over 2020 to 2030, depending on the scenario, and up to 2.5 million tonnes a year by 2030 in its high scenario.{c(K,'ewaste')}{c(K,'ewaste2')} That is a small share of all e-waste, but it contains lead, mercury and chromium as well as recoverable gold and copper.{c(K,'ewaste3')}</p>
     <p><strong>Chips.</strong> Making the chips has its own footprint. One industry analyst puts emissions from chip fabrication at 178 million tonnes of CO₂-equivalent in 2026 and 197 million in 2027, with AI and memory demand growing faster than efficiency improves.{c(K,'chip-ti')} An average chip factory can use about 10 million US gallons of ultra-pure water a day.{c(K,'chip-wef')} In Taiwan one manufacturer alone used about 8% of the island’s electricity, according to a 2024 report.{c(K,'chip-aj')}</p></section>
     <section class="at-stack"><h2>The ledger</h2>
     {ledger(['Reuse and longer hardware lifetimes can cut the waste stream substantially; the study models such measures.'+c(K,'ewaste'),'Construction brings jobs and tax revenue to rural areas.'],
@@ -385,7 +463,7 @@ def render(data: dict, stamp: dict, page) -> dict:
     <section class="at-tiles">
     {tile('Workers exposed','1 in 4','are in an occupation with some exposure to generative AI'+c(K,'ilo'),'acc')}
     {tile('Highest exposure','3.3%','of world employment: 4.7% of women’s jobs, 2.4% of men’s'+c(K,'ilo'),'stress')}
-    {tile('Productivity','+0.25 to 0.6 pt','a year over ten years, OECD main estimate'+c(K,'oecd-tfp'),'gain')}
+    {tile('Productivity','+0.25 to 0.6 pt','a year over ten years, OECD estimate of 2024'+c(K,'oecd-tfp'),'gain')}
     {tile('Firms using AI','20%','in OECD countries in 2025: 52% of large firms, 17% of small ones'+c(K,'hazan'),'acc')}
     </section>
     <section class="card at-stack"><h2>Share of jobs exposed to generative AI, by region</h2>
@@ -395,6 +473,8 @@ def render(data: dict, stamp: dict, page) -> dict:
     <p>The ILO itself cautions that exposure scores are not predictions of job losses.{c(K,'ilo-caution')}</p>
     <p><strong>Growth.</strong> The OECD's main estimate is 0.25 to 0.6 percentage points of extra productivity growth a year over a decade, and up to 1.3 points for labour productivity in the most exposed G7 economies.{c(K,'oecd-tfp')}{c(K,'oecd-g7')} AI investment added an estimated half a point to US growth in 2025.{c(K,'imf-ar')} Yet most firms in surveys report no measurable effect on employment or productivity so far.{c(K,'cepr')}</p>
     <p><strong>Who gains.</strong> One estimate puts AI's measured gains at about 4.2% of GDP in high-income countries, 0.6% in middle-income countries and 0.1% in low-income ones.{c(K,'cepr')} Many developing countries risk disruption before they see benefits.{c(K,'ilo-wb')}</p></section>
+    {fig(waffle(100, [(3, "b"), (22, "a")], 20, "A grid of 100 squares, one per 1 percent of the world's workers. 25 are filled: workers in an occupation with some exposure to generative AI. Three of those are darker: the highest exposure category, 3.3 percent."), "Each square is 1% of the world’s workers. A quarter are in an occupation with some exposure to generative AI; 3.3% are in the highest category. Exposure is not a forecast of job loss." + c(K,'ilo'))}
+    {legend([("b", "Highest exposure, 3.3%"), ("a", "Some exposure"), ("e", "Not exposed")])}
     <section class="at-stack"><h2>The ledger</h2>
     {ledger(['Higher productivity where AI is adopted, and higher pay for workers with AI skills.'+c(K,'imf-ar'),'Past general-purpose technologies raised incomes and employment in the long run.'+c(K,'imf-katz')],
             ['Women’s jobs and clerical jobs are more exposed.'+c(K,'ilo'),'Fewer entry-level openings for people starting careers.'+c(K,'etf'),'Gains concentrate in rich countries and large firms.'+c(K,'cepr')],
@@ -402,6 +482,36 @@ def render(data: dict, stamp: dict, page) -> dict:
     </section>
     '''
     topic('work', 'Work and the economy', body, K)
+
+    # ---------------- robots
+    K = ["rb-ifr", "rb-ifr2", "rb-sag", "rb-cp", "rb-idc", "rb-r247", "rb-anth", "rb-bis", "rb-ifrpos", "rb-berg"]
+    body = f'''
+<header class="at-stack"><h1>Robots</h1>
+<p class="lead">AI is leaving the screen. Factory robots are at a record, and humanoid robots went from prototypes to tens of thousands shipped in a year. Most of those are not yet doing productive work.</p></header>
+<section class="at-tiles">
+{tile("Industrial robots at work", "5.08 million", "in factories worldwide in 2025, up 9%" + c(K, "rb-ifr2"), "acc")}
+{tile("Installed in 2025", "603,000", "a record; 806,000 a year forecast for 2029" + c(K, "rb-ifr"), "acc")}
+{tile("Humanoids shipped, first half of 2026", "19,100 to 25,000", "three analyst counts; about 95% made in China" + c(K, "rb-idc"), "stress")}
+{tile("Tasks where robots beat labour on cost", "0.3%", "of job tasks today, in one US study" + c(K, "rb-anth"), "gain")}
+</section>
+{fig(bars([("Smart Analytics Global", 19100, "s"), ("Counterpoint Research", 22000, "s"), ("IDC", 25000, "s")], "units", "Humanoid robots shipped worldwide, January to June 2026, by analyst firm"),
+     "Estimates differ by almost a third because there is no agreed definition or public register of shipments." + c(K, "rb-sag") + c(K, "rb-cp") + c(K, "rb-idc"))}
+<section class="at-stack"><h2>What is happening</h2>
+<p><strong>Factory robots.</strong> The stock of industrial robots passed five million in 2025, and factories installed more than 600,000 in a year for the first time.{c(K, "rb-ifr2")} The industry federation forecasts 655,000 installations in 2026 and 806,000 in 2029.{c(K, "rb-ifr")} These are fixed arms and similar machines doing set tasks.</p>
+<p><strong>Humanoids.</strong> Shipments in the first half of 2026 were three to five times those of a year earlier, depending on who counts.{c(K, "rb-sag")}{c(K, "rb-idc")} Two Chinese makers supply about three in four.{c(K, "rb-r247")} More than 60% went to entertainment, performance, research and data collection, not production lines.{c(K, "rb-cp")} One analyst expects that through 2028 fewer than 100 companies will take humanoid trials past the experimental stage.{c(K, "rb-idc")}</p>
+<p><strong>Forecasts span two orders of magnitude.</strong> One firm sees 500,000 humanoids a year by 2030; another sees 26 million a year by 2040.{c(K, "rb-sag")}{c(K, "rb-berg")} These are market forecasts by firms that sell research, and orders announced often differ from robots deployed.{c(K, "rb-r247")}</p>
+<p><strong>Work.</strong> A 2026 study by Anthropic estimates that today’s robots could perform three-quarters of physical tasks in the United States, covering 34% of working hours, mostly in controlled settings, and that they are cheaper than people for only 0.3% of tasks.{c(K, "rb-anth")} It finds that jobs more exposed to robots saw larger falls in wages and employment over fifty years, and that exposed workers are more often male, less educated and lower paid.{c(K, "rb-anth")} A study of 20 EU countries finds the effect depends on the stage: early adoption tends to add jobs, and the relation changes in sectors already robotised.{c(K, "rb-bis")} The industry federation’s own review says robots replace tasks more than whole occupations.{c(K, "rb-ifrpos")}</p>
+<p><strong>Safety.</strong> A fixed robot arm stops when power is cut. A humanoid balances actively and can fall. The first international safety standard for such robots is not finished.{c(K, "rb-idc")}</p></section>
+{fig(waffle(100, [(34, "a")], 20, "A grid of 100 squares. 34 are filled: the share of US working hours spent on physical tasks that present-day robots could perform. Less than one square would be filled for tasks where robots are cheaper than people, 0.3 percent."),
+     "Each square is 1% of US working hours. Filled: physical tasks present-day robots could perform (34%). Robots are cost-competitive for 0.3% of tasks, less than one square." + c(K, "rb-anth"))}
+{legend([("a", "Could be done by present-day robots"), ("e", "Other working hours")])}
+<section class="at-stack"><h2>The ledger</h2>
+{ledger(["Dangerous, dirty and repetitive tasks taken over by machines." + c(K, "rb-ifrpos"), "Higher productivity where robots are adopted, and in early adoption more jobs." + c(K, "rb-bis"), "Help in sectors short of workers."],
+        ["Lower wages and employment in the most exposed jobs, on past evidence." + c(K, "rb-anth"), "Exposure falls on lower-paid, less educated workers." + c(K, "rb-anth"), "Each robot needs metals, batteries, chips and electricity; no total was found for this atlas.", "New safety risks from machines that walk among people."],
+        ["How fast humanoids become useful outside controlled settings.", "Real numbers: shipments, deployments and prices are estimates that disagree.", "Whether cost falls enough to matter for most physical work, and when.", "The material and energy footprint of millions of robots."])}
+</section>
+'''
+    topic("robots", "Robots", body, K)
 
     # ---------------- health
     K=['aiindex','healio','epoc','stan-clin','single','f3data']
@@ -420,6 +530,7 @@ def render(data: dict, stamp: dict, page) -> dict:
     <p><strong>In the clinic.</strong> The tools gaining ground are those that fit existing work, such as AI scribes that write up consultations and systems that warn of sepsis.{c(K,'aiindex')} In one trial with 238 providers, scribes cut documentation time by nearly 10%.{c(K,'single')} A randomised trial found that physicians using AI alongside their usual resources made better treatment decisions.{c(K,'stan-clin')}</p>
     <p><strong>The evidence gap.</strong> Most devices reach the market through routes that need no new clinical trial.{c(K,'aiindex')} A 2026 census traced every cleared device: 34 of 1,357 were linked to a registered prospective trial, and three had published results on outcomes such as death or illness.{c(K,'epoc')}{c(K,'healio')}</p>
     <p><strong>In the lab.</strong> AI now designs proteins and models cells, and leading systems outscore most physicians on structured clinical tests. Nearly half of clinical AI studies still use simulated cases and not real patient data.{c(K,'aiindex')}</p></section>
+    {fig(dots([(1357, "cleared devices", "e"), (34, "with a registered trial", "a"), (3, "tested on patient outcomes", "b")], "Three circles sized by area. 1,357 AI medical devices cleared by the US regulator. 34 linked to a registered prospective trial. 3 with studies of patient outcomes."), "Circle areas are proportional. Devices cleared in the United States through 5 December 2025." + c(K,'healio'))}
     <section class="at-stack"><h2>The ledger</h2>
     {ledger(['Less paperwork for clinicians.'+c(K,'single'),'Better decisions in trials when doctors work with AI.'+c(K,'stan-clin'),'Faster discovery in biology and drug design.'+c(K,'aiindex')],
             ['Tools in use whose effect on patients has not been measured.'+c(K,'healio'),'Trials that exist are often small and leave out vulnerable groups.'+c(K,'healio'),'Risk of bias when tools are trained on unrepresentative data.'],
@@ -446,6 +557,7 @@ def render(data: dict, stamp: dict, page) -> dict:
     <p>Chatbots are part of daily life for most American teenagers, and use starts years before the minimum age on most services.{c(K,'npr-teens')} A survey of 39,761 Ontario students found that 57.7% of those who turned to AI for emotional support met the criteria for serious emotional problems, against 29.2% of those who did not.{c(K,'ottawa')} That is an association: distressed young people may simply seek support more. A Stanford study suggests AI companions may worsen loneliness for vulnerable users.{c(K,'stan-lonely')}</p></section>
     <section class="at-stack"><h2>Information</h2>
     <p>The World Economic Forum ranks misinformation and disinformation among the top short-term global risks. The evidence is mixed on whether deepfakes persuade better than other content, but they make it harder to know what is real and give liars a way to dismiss what is true.{c(K,'wef')} UK fact-checkers documented 112 pieces of AI-made or AI-altered misinformation seen tens of millions of times in fifteen months.{c(K,'fullfact')} A regulator's review found emerging evidence that language models can be politically persuasive.{c(K,'ofcom')}</p></section>
+    {fig(bars([("Used AI for emotional support", 57.7, "s"), ("Did not", 29.2, "m")], "%", "Share of Ontario students meeting criteria for serious emotional problems, by use of AI for emotional support", vmax=100), "An association in one survey of 39,761 students, not a cause: distressed students may seek support more." + c(K,'ottawa'))}
     <section class="at-stack"><h2>The ledger</h2>
     {ledger(['Tutoring at low cost, with measured gains in some trials.'+c(K,'reyes'),'Support that is available at any hour, which some adults report eases loneliness.'],
             ['Emotional reliance among young and vulnerable users.'+c(K,'stan-lonely'),'A flood of convincing fakes and falling trust in genuine material.'+c(K,'wef'),'Schoolwork that looks better without learning behind it.'+c(K,'iza-africa')],
@@ -462,7 +574,7 @@ def render(data: dict, stamp: dict, page) -> dict:
     <section class="at-tiles">
     {tile('Scientific assessment','100+ experts','from over 30 countries wrote the International AI Safety Report 2026'+c(K,'iasr'),'acc')}
     {tile('Company safety frameworks','12','published or updated by AI developers in 2025'+c(K,'iasr-soc'),'gain')}
-    {tile('AI computing capacity','3%','is in Africa and Latin America combined'+c(K,'brookings'),'stress')}
+    {tile('AI computing capacity','3%','is in Africa and Latin America combined; the article cites no source'+c(K,'brookings'),'stress')}
     {tile('People offline','2.2 billion','have no internet access at all'+c(K,'aj-divide'),'stress')}
     </section>
     <section class="at-stack"><h2>What the scientific assessment says</h2>
@@ -471,13 +583,7 @@ def render(data: dict, stamp: dict, page) -> dict:
     <section class="at-stack"><h2>Who has access</h2>
     <p>Only 32 countries host data centres specialised for AI.{c(K,'brookings')} Just 7% of African languages are represented in AI translation tools.{c(K,'aj-divide')} At the same time AI reached 1.2 billion users in three years, nearly 70% of them in developing countries.{c(K,'undp')} The UN Development Programme warns of a possible widening gap between countries, and says it is not inevitable.{c(K,'undp')}</p></section>
     <section class="card at-stack"><h2>How the first major law is arriving: the EU AI Act</h2>
-    <div class="tblwrap"><table>
-    <tr><th>Date</th><th>What applies</th></tr>
-    <tr><td>February 2025</td><td>Bans on prohibited practices; duty to promote AI literacy</td></tr>
-    <tr><td>August 2025</td><td>Obligations for providers of general-purpose AI models</td></tr>
-    <tr><td>August 2026</td><td>Transparency rules, including labelling of AI-generated content</td></tr>
-    <tr><td>December 2027 and August 2028</td><td>Rules for high-risk systems, postponed by an amending law adopted in July 2026</td></tr>
-    </table></div>
+    {fig(timeline([("February 2025", "Bans on prohibited practices; duty to promote AI literacy"), ("August 2025", "Obligations for providers of general-purpose AI models"), ("August 2026", "Transparency rules, including labelling of AI-generated content"), ("December 2027 and August 2028", "Rules for high-risk systems, postponed by an amending law published in July 2026")]), "Dates on which parts of the EU AI Act apply." + c(K,'fpf'))}
     <p class="small">Timeline from the Future of Privacy Forum and Al Jazeera.{c(K,'fpf')}{c(K,'aj-act')} Other countries are taking different approaches; this table shows one law, not a judgement on which approach is right.</p></section>
     <section class="at-stack"><h2>The ledger</h2>
     {ledger(['A shared scientific picture of the risks, backed by more than 30 countries.'+c(K,'iasr'),'More developers publishing how they intend to manage risk.'+c(K,'iasr-soc'),'Rapid uptake in developing countries.'+c(K,'undp')],
@@ -507,6 +613,8 @@ def render(data: dict, stamp: dict, page) -> dict:
 <p><strong>Does it protect civilians or endanger them?</strong> The evidence is disputed. Supporters argue that faster data processing can make targeting more precise and reduce human error, and a Pentagon spokesperson has said autonomous weapons might pose less risk to civilians than conventional ones.{c(K, "mil-perry")}{c(K, "mil-reuters")} Researchers who studied reporting from Gaza conclude that systems built to produce many targets quickly contributed to strikes that increased civilian harm, partly because of accuracy limits.{c(K, "mil-perry")} Human Rights Watch says adoption is outpacing the testing that lawful use depends on.{c(K, "mil-hrw")}</p>
 <p><strong>Rules.</strong> The UN General Assembly adopted a resolution on lethal autonomous weapons in December 2025 by 164 votes to 6. The United States, which had supported the 2023 and 2024 texts, voted against, with Russia, Israel, Belarus, Burundi and North Korea.{c(K, "mil-oj")} A second resolution on AI in the military domain passed its committee 166 to 5.{c(K, "mil-ac1")} States held their first UN exchange on military AI in Geneva in June 2026.{c(K, "mil-ac2")} In August 2026 the UN Secretary-General and the president of the Red Cross renewed their call for binding rules, and a review conference opened in Geneva on 16 November.{c(K, "mil-fortune")}{c(K, "mil-hurriyet")} The United States has said it is not convinced existing law is insufficient.{c(K, "mil-reuters")}</p>
 <p><strong>Nuclear weapons.</strong> Just over half of the nuclear-armed states have said explicitly that they will keep humans in control of decisions to use nuclear weapons.{c(K, "mil-sipri1")} SIPRI warns that military AI can raise the risk of escalation even when it is not built into nuclear systems.{c(K, "mil-sipri1")} A UN resolution on AI in nuclear command and control also passed in 2025, with the United States voting no.{c(K, "mil-ac1")}</p></section>
+{fig(propbar([(164, "a"), (7, "e"), (6, "b")], "One bar split in three. 164 states voted for the 2025 United Nations resolution on lethal autonomous weapons, 7 abstained and 6 voted against."), "UN General Assembly resolution 80/57, 1 December 2025." + c(K, "mil-oj"))}
+{legend([("a", "For: 164"), ("e", "Abstained: 7"), ("b", "Against: 6")])}
 <section class="at-stack"><h2>The ledger</h2>
 {ledger(["Faster processing of intelligence, and claims of greater precision." + c(K, "mil-perry"), "Cheap autonomous systems can defend against larger forces, as Ukraine’s use of drones shows.", "SIPRI also studies ways AI could reduce nuclear risk, for example in verification." + c(K, "mil-sipri2")],
         ["Reported civilian harm where systems generate targets faster than people can check them." + c(K, "mil-perry"), "An arms race: one request rising from millions to tens of billions in a year." + c(K, "mil-ars"), "Spread to more states and to armed groups." + c(K, "mil-carnegie")],
@@ -554,6 +662,8 @@ def render(data: dict, stamp: dict, page) -> dict:
 <p><strong>The global picture is dated.</strong> The most cited count is from 2019: at least 75 of 176 countries used AI for surveillance, and 51% of advanced democracies did so.{c(K, "sv-carnegie")}{c(K, "sv-aj")} One Chinese company supplied at least fifty countries, and US firms thirty-two.{c(K, "sv-bio")} The index records where the technology is present. It does not separate lawful from unlawful use.{c(K, "sv-carnegie")} No newer global count was found.</p>
 <p><strong>A 2026 study of Africa.</strong> Eleven countries have spent at least $2 billion on facial recognition and number-plate systems, with Nigeria, Mauritius and Kenya the largest buyers.{c(K, "sv-cms")}{c(K, "sv-allafrica")} The researchers say the systems are being installed without legal frameworks strong enough to protect rights, and in some countries with little terrorism or serious crime.{c(K, "sv-cms")}</p>
 <p><strong>Why governments buy it.</strong> Police see clear uses in finding suspects and analysing large volumes of data, and adoption by governments was expected.{c(K, "sv-bis")}</p></section>
+{fig(waffle(176, [(75, "b")], 22, "A grid of 176 squares, one per country studied. 75 are filled: countries using AI surveillance technology in the 2019 index."), "Each square is one of the 176 countries in the 2019 index. Filled: at least 75 using AI surveillance. The index does not separate lawful from unlawful use." + c(K, "sv-carnegie"))}
+{legend([("b", "Using AI surveillance (2019)"), ("e", "No use recorded")])}
 <section class="at-stack"><h2>The ledger</h2>
 {ledger(["Tools for finding suspects and missing people and for managing traffic and crowds." + c(K, "sv-bis")],
         ["Mass monitoring of public space, often without legal safeguards." + c(K, "sv-cms"), "Misidentification and bias in facial recognition.", "Use against critics and minorities; the 2019 index notes that authoritarian states are more prone to abuse." + c(K, "sv-aj")],
@@ -577,7 +687,7 @@ def render(data: dict, stamp: dict, page) -> dict:
 <p>A panel of conservation scientists and AI specialists picked 21 uses most likely to help: recognising species from images and sound, tracking the illegal wildlife trade, and easing conflict between people and wildlife.{c(K, "nf-scan")} The same panel names risks, among them tools designed far from the places they are used and the loss of field skills.{c(K, "nf-scan")}</p>
 <p>A 2026 paper in the Journal of Applied Ecology warns that uptake is outpacing oversight, and lists validation, data sovereignty and the environmental cost of the computing itself among the gaps.{c(K, "nf-jae")} South African scientists ranked AI among their top ten emerging issues, as both an opportunity and a risk.{c(K, "nf-conv")}</p></section>
 <section class="at-stack"><h2>Food</h2>
-<p>The World Bank reports early results of up to 38% higher yields and $580 more profit per hectare for Ethiopian smallholders using tailored AI advice.{c(K, "nf-wb")} One advisory tool serves more than 350,000 plots in seven African countries through a messaging app.{c(K, "nf-wbblog")}</p>
+<p>The World Bank reports early results of up to 38% higher yields and $580 more profit per hectare for Ethiopian smallholders using tailored AI advice. The figures come from a 2023 study, before today’s chat-based tools.{c(K, "nf-wb")} One advisory tool serves more than 350,000 plots in seven African countries through a messaging app.{c(K, "nf-wbblog")}</p>
 <p>The first randomised trial of AI advice for smallholders found that farmers valued the service but saw no short-run change in yields or costs.{c(K, "nf-rct")} A review of 51 studies found most evidence came from simulations and models, with low-income countries under-represented.{c(K, "nf-3ie")} Poor connectivity, cost and low digital literacy may leave smallholders behind while large farms gain.{c(K, "nf-dte")}</p></section>
 <section class="at-stack"><h2>The ledger</h2>
 {ledger(["Monitoring of species and habitats at a scale people cannot manage by hand." + c(K, "nf-scan"), "Farm advice that reaches smallholders by phone." + c(K, "nf-wbblog")],
@@ -603,32 +713,35 @@ def render(data: dict, stamp: dict, page) -> dict:
         "creative": "Courts are deciding whether training on creative work was lawful, and who gets paid.",
         "surveillance": "Facial recognition and predictive policing have spread widely, often ahead of legal safeguards.",
         "nature": "AI can monitor wildlife and advise farmers. Field evidence that it works is thin.",
+        "robots": "Factory robots are at a record and humanoids are shipping in the tens of thousands, mostly not yet to productive work.",
     }
     cards = "".join(f'<a class="at-card" href="atlas-{k}.html"><h3>{esc(t)}</h3><p>{blurbs[k]}</p>{state(k)}<span class="at-go">Read the page</span></a>' for k, t in TOPICS)
     y, cl = data["years"], data["climate"]
     fa = data["runs"]["central|central|1"]["frac_automated"][y.index(2040)]
     hub = f'''
 <header class="at-stack"><h1>What is AI doing to people and to the planet?</h1>
-<p class="lead">Eleven areas where the effects of artificial intelligence are being measured, each with what is gained, what it costs and what nobody knows yet. Where F3 models the topic, its output is shown beside the reported figures and kept apart from them.</p></header>
+<p class="lead">Twelve areas where the effects of artificial intelligence are being measured, each with what is gained, what it costs and what nobody knows yet. Where F3 models the topic, its output is shown beside the reported figures and kept apart from them.</p></header>
 <section class="at-stack"><h2>Reported</h2>
 <div class="at-tiles" aria-label="Reported headline figures">
 {tile("Electricity", "×2 by 2030", "data-centre power use, about 500 to 1,000 TWh a year", "acc")}
 {tile("Water", "560 → 1,200", "billion litres consumed a year, 2023 to 2030", "stress")}
 {tile("Jobs", "1 in 4", "workers in an occupation with some exposure to generative AI", "acc")}
 {tile("Medicine", "3 of 1,357", "cleared AI medical devices with published patient-outcome studies", "stress")}
-</div><p class="small">Sources are on the topic pages.</p></section>
+</div>
+{fig(chain([("Chips", "178 Mt CO₂e", "from chip fabrication in 2026"), ("Data centres", "93 sites, 50 GW", "large AI campuses tracked"), ("Electricity", "1,000 TWh", "a year by 2030, twice today"), ("Water", "1,200 bn litres", "a year by 2030"), ("Emissions", "+70%", "from data centres by 2030")]), "The physical chain behind AI, one reported figure per step. Sources are on the Power, Water and Land pages.")}
+</section>
 <section class="at-stack"><h2>From F3’s model</h2>
 <div class="at-tiles" aria-label="F3 output, conditional scenarios">
-{tile("Warming in 2050", f'{cl["warming"][y.index(2050)]:.1f} K', f'above 1850 to 1900; 5 to 95% range {cl["warming_p05"][y.index(2050)]:.1f} to {cl["warming_p95"][y.index(2050)]:.1f} K', "f3")}
-{tile("Tasks AI can perform, 2040", f"{100 * fa:.0f}%", "central setting of the AI-race sector; unvalidated", "f3")}
+{tile("Warming in 2050", f'{cl["warming"][y.index(2050)]:.1f} K', f'above 1850 to 1900; 5 to 95% range {cl["warming_p05"][y.index(2050)]:.1f} to {cl["warming_p95"][y.index(2050)]:.1f} K' + cav("Amber: test A2.1 failed; the run starts about 0.04 to 0.07 K below observed."), "f3")}
+{tile("Tasks AI can perform, 2040", f"{100 * fa:.0f}%", "central setting of the AI-race sector" + cav("Red: unvalidated after about 2027; does not reproduce GATE."), "f3")}
 {tile("Data-centre electricity", "Withheld", "the output leaves any plausible range", "f3")}
 </div><p class="small">Conditional scenarios, not forecasts. Notices and limits are on the <a href="atlas-energy.html">Power and climate</a> and <a href="atlas-work.html">Work and the economy</a> pages and on <a href="limitations.html">Limitations</a>.</p></section>
-<section class="at-stack"><h2>The eleven areas</h2><div class="at-cards">{cards}</div></section>
+<section class="at-stack"><h2>The twelve areas</h2><div class="at-cards">{cards}</div></section>
 <section class="at-stack" id="method"><h2>How to read the atlas</h2>
 <p><strong>Two kinds of numbers.</strong> Reported figures come from agencies, studies and news reports, each linked. F3 output comes from the model runs behind the <a href="explorer.html">Explorer</a>. They are never placed in the same chart or table.</p>
 <p><strong>Reported figures were read on {READ_ON}.</strong> Most were read in news reports or summaries, and the original study was not always opened. Projections get revised: the IEA’s 2030 figure for data-centre electricity moved from 945 TWh in April 2025 to about 1,000 TWh in November 2026.</p>
 <p><strong>Associations are not causes.</strong> Where a study shows only that two things occur together, the page says so. Where a common claim could not be supported, the page says that too.</p>
-<p><strong>Most topics are not in the model.</strong> F3 output appears on three of the eleven pages. On the other eight the page says plainly that F3 does not model the topic.</p>
+<p><strong>Most topics are not in the model.</strong> F3 output appears on three of the twelve pages. On the other nine the page says plainly that F3 does not model the topic.</p>
 <p><strong>Not covered yet:</strong> privacy law, effects on children’s development beyond the studies cited, energy and water used in training single models, and regional detail for most topics.</p>
 <p>The site’s <a href="ai.html">AI Impact</a> page shows the data F3 holds on AI research output and medical devices.</p></section>
 '''

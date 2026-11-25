@@ -93,7 +93,7 @@ DATA_SCRIPT = '<script src="data/explorer.js"></script>\n'
 def index_page(data: dict, stamp: dict, css: str) -> str:
     """The story front door (D-056)."""
     script = DATA_SCRIPT + asset_scripts("f3-core.js", "f3-charts.js", "story.js")
-    return page("F3 Explorer v0.2: the story", "index.html", story_body.body(), css, stamp, script)
+    return page("F3 Explorer v0.2: the story", "index.html", story_body.body(atlas.story_tiles(data)), css, stamp, script)
 
 
 def explorer_page(data: dict, stamp: dict, css: str) -> str:
