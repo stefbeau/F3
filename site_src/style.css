@@ -277,3 +277,36 @@ table.efx th,table.efx td{overflow-wrap:normal;word-break:normal;hyphens:none}ta
 .ai-callout{background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin:12px 0}
 .ai-callout p{margin:0 0 .4em}.ai-callout-link{font-weight:600}
 @media (prefers-reduced-motion:reduce){.ai-js .ai-section,.ai-js .ai-line{transition:none}}
+/* Atlas pages (D-067, Provisional): reported figures beside F3 output. Colours are the tokens above; reported marks use shape as well as colour. */
+nav.at-sub{display:flex;flex-wrap:wrap;gap:4px 14px;padding:8px 0 10px;border-bottom:1px solid var(--line);font-size:.9rem}
+nav.at-sub a{display:inline-flex;align-items:center;min-height:32px;text-decoration:none}
+nav.at-sub a[aria-current=location]{font-weight:700;color:var(--fg);border-bottom:2px solid var(--fg)}
+.at{display:flex;flex-direction:column;gap:28px;padding-top:14px}
+.at p{margin:0;max-width:68ch}.at h1{font-size:2rem;line-height:1.15;margin:0;text-wrap:balance}.at h2{font-size:1.3rem;margin:0;text-wrap:balance}.at h3{margin:0;font-size:1.02rem}
+.at .card{margin:0}
+.at-label{font-size:.85rem;color:var(--mut);border:1px solid var(--line);border-radius:6px;padding:6px 10px;background:var(--card);align-self:flex-start}
+.at-stack{display:flex;flex-direction:column;gap:12px;min-width:0}
+.at-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.at-tile{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.at-k{font-size:.82rem;font-weight:600;color:var(--mut)}.at-n{font-size:1.7rem;line-height:1.15;font-variant-numeric:tabular-nums}.at-d{font-size:.87rem;color:var(--mut);line-height:1.4}
+.at-tile.stress .at-n{color:var(--sb-t)}.at-tile.gain .at-n{color:var(--acc1)}.at-tile.acc .at-n{color:var(--sa-t)}
+.at-tile.f3{border-left:4px solid var(--acc2)}.at-tile.f3 .at-n{color:var(--acc2)}
+.at-ledger{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px}
+.at-ledger>div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.at-ledger h3{display:flex;align-items:center;gap:8px}.at-ledger ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:7px;font-size:.95rem}
+.at-mark{width:14px;height:14px;flex:none}.at-mark .g{fill:var(--acc1)}.at-mark .s{fill:var(--sb)}.at-mark .u{fill:var(--base)}
+.at-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+a.at-card{display:flex;flex-direction:column;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;text-decoration:none;color:var(--fg);min-width:0}
+a.at-card:hover{border-color:var(--link)}a.at-card p{font-size:.92rem;color:var(--mut)}.at-go{color:var(--link);font-weight:600;font-size:.92rem;margin-top:auto}
+.at-state{align-self:flex-start;font-size:.82rem;font-weight:600;border-radius:999px;padding:2px 10px;border:1px solid var(--line);color:var(--mut)}
+.at-state.model{border-color:var(--acc2);color:var(--acc2)}
+.at-chart,.at-map{overflow-x:auto}.at-chart svg{display:block;width:100%;min-width:560px;height:auto}.at thead th{white-space:nowrap;overflow-wrap:normal}.at-map svg{display:block;width:100%;min-width:640px;height:auto}
+.at-chart text{fill:var(--fg);font-family:inherit}.at-lab{font-size:13px}.at-val{font-size:13px;font-weight:600}.at-cap{font-size:13px;fill:var(--mut)!important}
+.at-bar{fill:var(--sa)}.at-bar.s{fill:var(--sb)}.at-bar.g{fill:var(--acc1)}.at-bar.m{fill:var(--base)}
+.at-grid{stroke:var(--line);stroke-width:1}.at-band{fill:var(--acc2);opacity:.22}.at-line{fill:none;stroke:var(--acc2);stroke-width:2.5}.at-dot{fill:var(--acc2)}
+.at-sea{fill:var(--card2)}.at-landp{fill:var(--line);stroke:var(--card);stroke-width:.6}.at-pb{fill:var(--sa);stroke:var(--card);stroke-width:1.2}.at-pw{fill:var(--sb);stroke:var(--card);stroke-width:1.2}
+.at-legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.87rem;color:var(--mut)}.at-legend span{display:inline-flex;align-items:center;gap:6px}
+.at-flag{border-left:4px solid var(--amber-b);background:var(--amber-bg);color:var(--amber-t);padding:10px 14px;border-radius:0 8px 8px 0;font-size:.95rem}
+.at-f3{border-left:4px solid var(--acc2);display:flex;flex-direction:column;gap:12px}.at-f3 .kicker{color:var(--acc2);font-weight:600;font-size:.85rem}
+.at-src{font-size:.9rem;color:var(--mut)}.at-src ol{margin:6px 0 0;padding-left:22px;display:flex;flex-direction:column;gap:4px}.at sup a{text-decoration:none;font-weight:600;padding:0 1px}
+.at-pager{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between}.at-pager a{display:inline-flex;align-items:center;min-height:40px;font-weight:600}

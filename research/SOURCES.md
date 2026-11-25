@@ -46,3 +46,106 @@ Latest information found for each topic, **as of 2026-10-08**. Each row gives a 
 | Topic | Source | Version / date | Use | Notes |
 |---|---|---|---|---|
 | Julia package versions | General registry, snapshot commits | `ec06aa53…` = 2024-04-25 (checked) | Reproducible environment | see `audit/REFERENCES.md` |
+
+## Atlas (D-067, Provisional): sources of the reported figures on the atlas pages
+
+Read on 2026-11-25. **Status of every entry: figure read in the linked page; NOT checked against the original study or dataset unless the link is the original.** Most links are news reports or summaries. Nothing from these sources is stored in the repository except the figures quoted on the pages, each with its link. World outline on the water page: Natural Earth 1:110m land (public domain), simplified.
+
+- `iea-weo`: IEA World Energy Outlook 2026, as reported by CNBC (19 Nov 2026). https://www.cnbc.com/2026/11/19/data-center-electricity-demand-iea.html
+- `iea-70`: IEA World Energy Outlook 2026 on emissions, as reported by the Irish Examiner. https://www.irishexaminer.com/world/arid-41939628.html
+- `iea-mix`: IEA on the 2030 power mix for data centres, as reported by Bernama. https://bernama.com/en/world/news.php?id=2636821
+- `iea-ai`: IEA, Energy and AI: AI and climate change. https://www.iea.org/reports/energy-and-ai/ai-and-climate-change
+- `iea-news`: IEA news release on data-centre electricity use in 2025. https://www.iea.org/news/data-centre-electricity-use-surged-in-2025-even-with-tightening-bottlenecks-driving-a-scramble-for-solutions
+- `tr-93`: TechRadar on the 93 large AI facilities tracked by the IEA. https://www.techradar.com/pro/power-demands-at-ai-data-centers-set-to-double-by-2030-adding-the-equivalent-of-another-great-britain-to-the-grid-as-an-extra-usd4-trillion-in-spending-kicks-in
+- `erock`: ERock prospectus (SEC filing) citing IEA on build times. https://www.sec.gov/Archives/edgar/data/0002110029/000119312526265898/d12401d424b4.htm
+- `nat-water`: Nature Africa on IEA water figures. https://www.nature.com/articles/d44148-026-00286-7
+- `earth-water`: Earth.com on the Stanford and Carnegie global water-stress map. https://www.earth.com/science/one-in-four-data-centers-are-located-in-water-stressed-regions/
+- `sf-water`: StudyFinds on the same study (Environmental Science & Technology, 2026). https://studyfinds.com/data-centers-strain-local-water-supplies/
+- `bb-water`: Bloomberg, AI is draining water from areas that need it most. https://www.bloomberg.com/graphics/2025-ai-impacts-data-centers-water-data/
+- `ceres`: Newsweek on the Ceres report on data centres and freshwater. https://www.newsweek.com/map-shows-states-using-the-most-water-for-data-centers-12374846
+- `dcmap`: dcmap.us, data-centre water stress by US state. https://dcmap.us/insights/water-stress/
+- `qro`: Tech Policy Press on data centres in Querétaro. https://www.techpolicy.press/many-latin-americans-living-near-data-centers-do-not-feel-welcome-in-the-future/
+- `chile`: American Geographical Society, water usage of AI data centres. https://ethicalgeo.org/the-cloud-is-drying-our-rivers-water-usage-of-ai-data-centers/
+- `sfex`: San Francisco Examiner on studies of AI water use. https://www.sfexaminer.com/news/technology/ai-water-use-studies-show-tech-may-be-thirstier-than-thought/article_3a0f3177-7b2d-4aea-96a9-2dfa2a0a5984.html
+- `hyperion`: Fortune on Meta Hyperion in Louisiana. https://fortune.com/2026/03/26/meta-ai-data-center-hyperion-louisiana/
+- `ewaste`: MIT Technology Review on the Nature Computational Science e-waste study. https://www.technologyreview.com/2024/10/28/1106316/ai-e-waste/amp/
+- `ewaste2`: IEEE Spectrum on generative AI and e-waste. https://spectrum.ieee.org/e-waste-2669544726
+- `ewaste3`: HPCwire on the global e-waste trend. https://www.hpcwire.com/2024/11/07/the-growing-e-waste-footprint-of-genai/
+- `copper`: Tom's Hardware on copper demand from data centres. https://www.tomshardware.com/tech-industry/why-copper-markets-are-feeling-the-pinch
+- `ilo`: ILO Working Paper 140, Generative AI and Jobs: a refined global index. https://www.ilo.org/node/706766
+- `ilo-caution`: ILO brief on what AI exposure indicators reveal. https://www.ilo.org/resource/news/ilo-releases-new-brief-ai-exposure-measurement
+- `ilo-wb`: ILO and World Bank paper on the uneven global impact of generative AI. https://ilo.org/resource/news/new-ilo%E2%80%93world-bank-paper-highlights-uneven-global-impact-generative-ai-jobs
+- `imf-katz`: IMF Finance & Development, AI and the economics of adjustment (June 2026). https://www.imf.org/en/publications/fandd/issues/series/analytical-series/straight-talk-artificial-intelligence-and-the-economics-of-adjustment-dan-katz
+- `etf`: European Training Foundation, AI and the job market. https://www.etf.europa.eu/en/node/12971
+- `bofa`: Bank of America Institute, AI and the future of work (ILO regional figures). https://institute.bankofamerica.com/content/dam/transformation/ai-and-future-of-work.pdf
+- `oecd-tfp`: OECD, Miracle or myth? Macroeconomic productivity gains from AI. https://www.oecd.org/en/publications/miracle-or-myth-assessing-the-macroeconomic-productivity-gains-from-artificial-intelligence_b524a072-en.html
+- `oecd-g7`: OECD, Macroeconomic productivity gains from AI in G7 economies. https://www.oecd.org/en/publications/macroeconomic-productivity-gains-from-artificial-intelligence-in-g7-economies_a5319ab5-en.html
+- `hazan`: Hazan, Does AI really boost productivity? (ENS-PSL, 2026). https://www.ens.psl.eu//sites/default/files/2026-05/Does%20AI%20Really%20Boost%20Productivity_.pdf
+- `imf-ar`: IMF Annual Report 2026, AI: deployment and disruption. https://www.imf.org/annual-report/2026/in-focus/ai-deployment-and-disruption/
+- `cepr`: CEPR VoxEU, AI's gains are large, rising and unevenly shared. https://cepr.org/index%2ephp/voxeu/columns/ais-gains-are-large-and-rising-unevenly-shared
+- `aiindex`: Stanford HAI, AI Index Report 2026: medicine. https://hai.stanford.edu/ai-index/2026-ai-index-report/medicine
+- `healio`: Healio on the 2026 census of FDA-cleared AI devices. https://www.healio.com/news/primary-care/20260821/most-ai-tools-cleared-by-fda-were-not-tested-on-clinical-outcomes
+- `epoc`: Epocrates synopsis of the PLOS Digital Health census. https://www.epocrates.com/online/article/ai-medical-device-clearance-skips-outcomes-data
+- `stan-clin`: Stanford Medicine on the State of Clinical AI report. https://medicine.stanford.edu/news/current-news/standard-news/clinical-ai-has-boomed.html
+- `single`: SingleCare, AI in healthcare statistics 2026. https://www.singlecare.com/blog/news/ai-in-healthcare-statistics/
+- `f3data`: F3 Explorer open data counts (OpenAlex, Epoch AI, FDA). https://stefbeau.github.io/F3/
+- `iza-tutor`: IZA discussion paper 19072 on AI tutoring (cites OECD 2026). https://docs.iza.org/dp19072.pdf
+- `iza-africa`: IZA discussion paper 19025, From chatbots to programs. https://docs.iza.org/dp19025.pdf
+- `reyes`: Contractor and Reyes, Experimental evidence on the learning impact of generative AI. https://conference.nber.org/conf_papers/f236743.pdf
+- `edweek`: Education Week, Is AI good or bad for learning? (Nov 2026). https://www.edweek.org/technology/is-ai-good-or-bad-for-learning-the-answer-isnt-so-simple/2026/11
+- `npr-teens`: NPR via OPB on teen and tween chatbot use. https://opb.org/article/2026/10/30/new-research-looks-at-teen-mental-health-and-ai-chatbot-use
+- `va`: Virginia JCOTS report, AI chatbots: companionship and minors. https://dls.virginia.gov/commissions/jcots/Materials/2026_AI_Chatbots_Report.pdf
+- `ottawa`: University of Ottawa on AI use for emotional support among students. https://www.uottawa.ca/en/news-all/uottawa-study-finds-ai-use-emotional-support-may-signal-youth-distress
+- `stan-lonely`: Stanford HAI on AI companions and loneliness. https://hai.stanford.edu/news/ai-companions-may-worsen-loneliness-for-vulnerable-users-stanford-study-finds
+- `wef`: World Economic Forum on AI and disinformation in 2026. https://www.weforum.org/stories/digital-trust-and-safety/ai-2026-jp
+- `fullfact`: Full Fact, AI-generated misinformation in the UK. https://fullfact.org/policy/reports/ai-generated-misinformation-in-the-uk-harm-context-and-classification/
+- `ofcom`: Ofcom literature review on online threats to elections (Oct 2026). https://www.ofcom.org.uk/siteassets/resources/documents/about-ofcom/structure-and-leadership/online-information-advisory-committee/a-literature-review-on-online-information-based-threats-to-elections.pdf
+- `digiday`: Digiday on the rise of deepfakes. https://digiday.com/media/the-rise-of-deepfakes-poses-a-new-trust-challenge-for-publishers/
+- `iasr`: International AI Safety Report 2026, press release. https://www.aap.com.au/aapreleases/cision20260203ae77099
+- `iasr-heise`: Heise on the International AI Safety Report 2026. https://heise.de/-11164043
+- `iasr-soc`: SOCRadar key facts from the International AI Safety Report 2026. https://socradar.io/blog/international-ai-safety-report-2026-key-facts/
+- `iasr-asis`: ASIS Security Management on the report. https://www.asisonline.org/security-management-magazine/latest-news/today-in-security/2026/february/2026-international-safety-report/
+- `iasr-au`: Australian government page on the report. https://www.industry.gov.au/publications/international-ai-safety-report-2026
+- `fpf`: Future of Privacy Forum, the AI Act timeline after the AI Omnibus. https://fpf.org/blog/the-ai-act-implementation-timeline-what-changes-under-the-ai-omnibus
+- `aj-act`: Al Jazeera on what came into force with the EU AI Act in August 2026. https://aljazeera.com/news/2026/8/6/what-came-into-force-with-the-eus-ai-act-this-week-and-what-didnt
+- `brookings`: Brookings, How to bridge the global AI divide. https://www.brookings.edu/articles/how-to-bridge-the-global-ai-divide/?hl=en-GB
+- `aj-divide`: Al Jazeera on the AI opportunity divide (ITU, Oct 2026). https://www.aljazeera.com/amp/news/2026/10/25/ais-opportunity-divide-could-deepen-global-inequality-un-official-warns
+- `undp`: UNDP, The Next Great Divergence. https://www.undp.org/asia-pacific/next-great-divergence
+- `chip-ti`: TechInsights, Semiconductor Sustainability Outlook 2027. https://techinsights.com/ja/node/61968
+- `chip-wef`: World Economic Forum on water in semiconductor manufacturing. https://www.weforum.org/stories/2024/07/the-water-challenge-for-semiconductor-manufacturing-and-big-tech-what-needs-to-be-done/
+- `chip-aj`: Al Jazeera on chip manufacturing and Taiwan’s climate goals (2024). https://www.aljazeera.com/economy/2024/12/25/taiwan-struggles-to-reconcile-climate-ambitions-and-chip-manufacturing
+- `mil-ac1`: Arms Control Today, U.S., Russia oppose UN resolutions on military use of AI (Dec 2025). https://www.armscontrol.org/act/2025-12/news/us-russia-oppose-un-resolutions-military-use-ai
+- `mil-oj`: Opinio Juris on General Assembly resolution 80/57 (Aug 2026). https://opiniojuris.org/2026/08/27/the-western-consensus-that-was-not-resolution-80-57-the-rolling-texts-human-control-substitution-and-the-structural-stakes-of-the-november-2026-ccw-review-conference/
+- `mil-ac2`: Arms Control Today, UN members discuss AI in the military domain (Jul/Aug 2026). https://www.armscontrol.org/node/15386
+- `mil-fortune`: Fortune on the joint UN and Red Cross statement (25 Aug 2026). https://www.fortune.com/2026/08/25/killer-robots-un-red-cross/
+- `mil-hurriyet`: Hürriyet Daily News on the Geneva review conference (Nov 2026). https://www.hurriyetdailynews.com/un-chief-urges-action-to-rein-in-merciless-autonomous-weapons-229462
+- `mil-reuters`: Reuters via Yahoo News, Nations meet at UN for killer-robot talks. https://www.yahoo.com/news/nations-meet-un-killer-robot-132715611.html
+- `mil-ars`: Ars Technica (via Harvard TagTeam) on the $54 billion drone request. https://tagteam.harvard.edu/hub_feeds/3382/feed_items/18141320
+- `mil-bbg`: Bloomberg (via Advisor Perspectives) on the $75 billion drone request. https://advisorperspectives.com/articles/2026/04/21/pentagon-seeks-75-billion-drones-defense-budget
+- `mil-dscoop`: DefenseScoop on the fiscal 2027 drone and counter-drone plan. https://defensescoop.com/2026/04/21/dod-plans-largest-ever-investment-drones-anti-drone-weapons/
+- `mil-carnegie`: Carnegie Endowment, testimony on AI in the military domain and human rights (Sept 2026). https://carnegieendowment.org/middle-east/posts/2026/09/on-artificial-intelligence-in-the-military-domain-and-the-implications-for-human-rights
+- `mil-hrw`: Human Rights Watch briefing for the UN exchanges (June 2026). https://www.hrw.org/news/2026/06/14/addressing-artificial-intelligence-in-the-military-domain
+- `mil-perry`: Perry World House, Designing lawful military AI. https://perryworldhouse.upenn.edu/news-and-insight/designing-lawful-military-ai-technical-and-legal-reflections-on-decision-support-and-autonomous-weapon-systems/
+- `mil-sipri1`: SIPRI, AI and nuclear escalation risk. https://www.sipri.org/node/7464
+- `mil-sipri2`: SIPRI, Pragmatic approaches to governance at the AI–nuclear nexus (2025). https://www.sipri.org/publications/2025/other-publications/pragmatic-approaches-governance-artificial-intelligence-nuclear-nexus
+- `mil-unric`: UN Regional Information Centre, AI in conflict. https://unric.org/en/ai-in-conflict-keeping-humanity-in-control/
+- `cr-pymnts`: PYMNTS, citing Reuters, on AI copyright cases in 2026. https://www.pymnts.com/cpi-posts/us-courts-poised-to-shape-the-future-of-ai-copyright-battles-in-2026/
+- `cr-cleary`: Cleary Gottlieb, The open questions in US generative AI copyright litigation. https://www.clearygottlieb.com/news-and-insights/publication-listing/the-open-questions-in-us-generative-ai-copyright-litigation
+- `cr-dj`: Daily Journal, Courts grapple with copyright limits as AI training lawsuits surge. https://dailyjournal.com/articles/389209-courts-grapple-with-copyright-limits-as-ai-training-lawsuits-surge
+- `cr-pg`: Press Gazette, Publishers versus AI: the legal rulings so far. https://pressgazette.co.uk/?p=246203
+- `cr-nrf`: Norton Rose Fulbright via PYMNTS, update on AI copyright cases (March 2026). https://www.pymnts.com/?p=3613558
+- `cr-week`: The Week, AI gains at creators’ expense. https://www.theweek.com/tech/ai-fair-use-copyrighted-media-trains-bots
+- `sv-carnegie`: Carnegie Endowment, The global expansion of AI surveillance (2019 index). https://carnegieendowment.org/2024/09/04/global-expansion-of-ai-surveillance-pub-79847
+- `sv-bio`: Biometric Update on the Carnegie index. https://www.biometricupdate.com/201909/carnegie-report-says-facial-recognition-and-ai-surveillance-spreading-faster-than-thought
+- `sv-aj`: Al Jazeera on the Carnegie index (2019). https://www.aljazeera.com/amp/news/2019/9/17/researchers-warn-of-increased-china-style-ai-surveillance
+- `sv-cms`: CMS Law on AI-enabled mass surveillance in Africa (April 2026). https://cms.law/en/gbr/publication/ai-enabled-mass-surveillance-in-africa-privacy-rights-and-regulatory-gaps
+- `sv-allafrica`: AllAfrica on smart-city surveillance across Africa (March 2026). https://allafrica.com/stories/202603180021.html
+- `sv-bis`: BankInfoSecurity on AI surveillance and policing. https://www.bankinfosecurity.com/blogs/ai-surveillance-tech-promises-safety-but-at-what-cost-p-2792
+- `nf-scan`: Reynolds et al., The potential for AI to revolutionize conservation: a horizon scan (Trends in Ecology & Evolution). https://www.cl.cam.ac.uk/~avsm2/2024-ai-conhorizon/
+- `nf-jae`: Ammar et al., AI and decision support in applied ecology (Journal of Applied Ecology, 2026). https://nora.nerc.ac.uk/id/eprint/541872/1/N541872JA.pdf
+- `nf-conv`: The Conversation (via SANBI), AI in nature conservation (June 2026). https://opus.sanbi.org/bitstreams/a9aaf849-ab16-4625-be6b-cacc0e2358c4/download
+- `nf-wb`: World Bank fact sheet, Harnessing AI for agricultural transformation. https://thedocs.worldbank.org/en/doc/5f6713ffe87d349fd09c40ec3803c7bb-0320012025/original/fact-sheet-harnessing-AI-for-agricultural-transformation.pdf
+- `nf-wbblog`: World Bank blog, Can AI give small-scale producers the right advice?. https://blogs.worldbank.org/en/agfood/can-ai-give-small-scale-producers-the-right-advice-
+- `nf-rct`: Authors’ summary of a randomised field experiment on AI advice for smallholders (SSRN paper). https://tr.linkedin.com/in/ali-bakan-20579586
+- `nf-3ie`: 3ie rapid review, The use of AI in food and agriculture systems. https://www.grtd.fcdo.gov.uk/research/the-use-of-artificial-intelligence-in-food-and-agriculture-systems/
+- `nf-dte`: Down To Earth, AI offers promise for agriculture, but smallholders risk being left behind. https://www.downtoearth.org.in/agriculture/ai-offers-promise-for-agriculture-but-smallholder-farmers-risk-being-left-behind

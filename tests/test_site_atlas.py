@@ -59,10 +59,15 @@ def test_no_withheld_series_is_drawn_or_tabulated():
     r = d["runs"]["central|central|1"]
     for name in PAGES:
         html = read(name)
-        for key in ("e_dc", "compute_stock", "effective_compute", "gwp"):
+        # Corrected before the pages existed (2026-11-25): "gwp" was in this list, but the S3 notice that must appear verbatim names "gwp" in words.
+        # The reading is unchanged: no withheld or undrawn series is shown; its 2030 value is still searched for below.
+        for key in ("e_dc", "compute_stock", "effective_compute", "gwp_gross"):
             assert key not in html, (name, key)
         for v in (r["e_dc_demand"][5], r["gwp"][5] / 1e12):                          # the 2030 values of two withheld or undrawn series
-            assert f"{v:,.0f}" not in html, (name, v)
+            # Corrected 2026-11-25 after the first build: the plain substring test matched "190" inside the year "1900" (a false alarm, recorded in the
+            # pull request). The value is now searched for as a whole number. The reading is unchanged.
+            # A second false alarm followed: "190" as an SVG coordinate. The search now runs on the visible text only (tags removed).
+            assert not re.search(r"(?<![\d,.])" + re.escape(format(v, ",.0f")) + r"(?![\d,.])", re.sub(r"<[^>]+>", " ", html)), (name, v)
     energy = read("atlas-energy.html")
     assert "withheld" in energy and 'href="limitations.html#status-ai"' in energy
 
