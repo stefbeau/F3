@@ -156,3 +156,12 @@ def test_story_page_uses_the_atlas_style_and_its_headline_tiles_come_from_the_da
     assert f'{d["climate"]["warming"][-1]:.1f} K' in t
     assert f'{100 * d["runs"]["central|central|1"]["frac_automated"][d["years"].index(2040)]:.0f}%' in t
     assert "Conditional scenarios, not forecasts" in html and 'href="limitations.html"' in html
+
+
+def test_each_story_tile_carries_its_own_caveat():                                  # editor's instruction of 2026-11-25, written before the change
+    html = read("index.html")
+    tiles = re.findall(r'<div class="at-tile f3">.*?</div>', re.search(r'id="story_tiles".*?</div>\s*<p', html, re.S).group(0), re.S)
+    assert len(tiles) == 4
+    for t, must in zip(tiles, ("A3.4", "A2.1", "unvalidated", "withheld")):
+        assert 'class="at-caveat"' in t and must in t, must
+    assert "does not reproduce GATE" in tiles[2] and "0.04 to 0.07 K" in tiles[1]
