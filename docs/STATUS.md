@@ -1,5 +1,9 @@
 # F3 — Status
 
+## Update 2026-11-25 (late): PR 19 merged; site deployed at the editor's instruction
+- **PR 19 merged** ("merge 19"); it contained PR 18, which GitHub now also shows as merged. Each story tile carries its own caveat, as the editor asked. D-067 and D-068 stay Provisional.
+- **Site published:** the editor wrote "I want to push the site live as well". The Pages workflow was started by hand on `main` at commit `576132f` and finished with status success (run of 2026-11-25 20:33 UTC). **Not checked:** the live pages themselves were not opened after the deployment. The published F3 numbers are still the variant-A site data (not regenerated since D-065); the pages say so. The footer still reads "Public draft, published 2026-10-21".
+
 ## Update 2026-11-25 (night): story restyled, infographics, Robots page: on a branch, NOT merged
 - **D-068 (Provisional, delegated)**, branch `story-infographics-robots` (it contains the review corrections of PR 18): the story page in the atlas layout with four headline tiles from the data file; ten infographics of reported figures on nine atlas pages; a twelfth topic, Robots (F3 does not model it). Site tests 190 passed; the story tests pass unchanged. The last layout fix (bars, circles) was not looked at in a browser. Nothing published.
 
