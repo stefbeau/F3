@@ -46,9 +46,11 @@ def nav(current: str, cls: str = "site") -> str:
 
 
 def footer(current: str, stamp: dict) -> str:
-    links = "".join(f'<a href="{h}">{t}</a>' for h, t in NAV)
-    return (f'<footer class="site"><nav aria-label="Footer">{links}<a href="{REPO_URL}">Source code on GitHub</a></nav>'
-            f'<div>Public draft, published 2026-10-21. Conditional scenarios, not forecasts. Built {stamp["date"]} from source commit <code>{stamp["commit"]}</code>.</div></footer>\n')
+    """One short block: what the site is, when it was last updated, and four links. The full navigation is at the top of every page."""
+    links = "".join(f'<a href="{h}">{t}</a>' for h, t in (("limitations.html", "Limitations"), ("sources.html", "Sources"), ("about.html", "About")))
+    return (f'<footer class="site"><div><strong>F3 Explorer v0.2.</strong> Public draft, published 2026-10-21. Conditional scenarios, not forecasts.</div>'
+            f'<nav aria-label="Footer">{links}<a href="{REPO_URL}">Source code on GitHub</a></nav>'
+            f'<div>Last updated {stamp["date"]}, from source commit <code>{stamp["commit"]}</code>.</div></footer>\n')
 
 
 def page(title: str, current: str, body: str, css: str, stamp: dict, script: str = "", kind: str = None, wide: bool = False) -> str:

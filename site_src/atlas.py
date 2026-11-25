@@ -146,6 +146,12 @@ src('rb-anth', 'Anthropic, What work can robots do? (2026)', 'https://www.anthro
 src('rb-bis', 'BIS Working Paper 1334, Robots, ICT and employment (March 2026)', 'https://www.bis.org/publ/work1334.htm')
 src('rb-ifrpos', 'IFR position paper, The impact of robots (Aug 2026)', 'https://ifr.org/ifr-press-releases/news/new-ifr-position-paper-the-impact-of-robots')
 src('rb-berg', 'Berg Insight forecast of humanoid shipments to 2040', 'https://iconnect007.com/article/151498/humanoid-robot-shipments-to-reach-26-million-units-annually-by-2040/151495/milaero')
+src('iea-weo-orig', 'IEA, World Energy Outlook 2026, overview and key findings', 'https://iea.org/reports/world-energy-outlook-2026/overview-and-key-findings')
+src('gem', 'ITU and UNITAR, Global E-waste Monitor 2024', 'https://www.itu.int/en/ITU-D/Environment/Pages/Publications/The-Global-E-waste-Monitor-2024.aspx')
+src('pew', 'Pew Research Center, Teens, social media and AI chatbots 2025 (fact sheet)', 'https://www.pewresearch.org/internet/fact-sheet/teens-and-internet-device-access-fact-sheet/')
+src('iasr-exec', 'International AI Safety Report 2026, executive summary', 'https://apo.org.au/sites/default/files/resource-files/2026-02/apo-nid333514_0.pdf')
+src('itu-ff', 'ITU, Facts and Figures 2025, press release', 'https://www.itu.int/en/mediacentre/Pages/PR-2025-11-17-facts-and-figures.aspx')
+src('sv-ids', 'Institute of Development Studies article on its report Smart city surveillance in Africa (March 2026)', 'https://www.ipsnews.net/2026/03/rapid-rise-of-smart-city-surveillance-tech-across-africa-to-spy-on-citizens/')
 src('chip-ti', 'TechInsights, Semiconductor Sustainability Outlook 2027', 'https://techinsights.com/ja/node/61968')
 src('chip-wef', 'World Economic Forum on water in semiconductor manufacturing', 'https://www.weforum.org/stories/2024/07/the-water-challenge-for-semiconductor-manufacturing-and-big-tech-what-needs-to-be-done/')
 src('chip-aj', 'Al Jazeera on chip manufacturing and Taiwan’s climate goals (2024)', 'https://www.aljazeera.com/economy/2024/12/25/taiwan-struggles-to-reconcile-climate-ambitions-and-chip-manufacturing')
@@ -374,12 +380,12 @@ def render(data: dict, stamp: dict, page) -> dict:
         out[name] = page("F3 Explorer v0.2: Atlas, " + title, "atlas.html", shell(name, body + f3_box(key, data) + refs(keys)), "", stamp, "", kind="reading")
 
     # ---------------- energy
-    K=['iea-weo','iea-70','iea-mix','iea-ai','iea-news','tr-93','erock']
+    K=['iea-weo','iea-70','iea-mix','iea-ai','iea-news','tr-93','erock', 'iea-weo-orig']
     body=f'''
     <header class="at-stack"><h1>Power and climate</h1>
     <p class="lead">AI runs on electricity. Demand from data centres is on course to double within four years, and in the two largest markets most of the new supply comes from gas and coal.</p></header>
     <section class="at-tiles">
-    {tile('Data-centre electricity','1,000 TWh','a year by 2030, up from about 500 today, then 1,500 by 2035'+c(K,'iea-weo'),'acc')}
+    {tile('Data-centre electricity','1,000 TWh','a year by 2030, up from about 500 today, then 1,500 by 2035'+c(K,'iea-weo')+c(K,'iea-weo-orig'),'acc')}
     {tile('Growth in 2025','17%','against 3% for all electricity demand'+c(K,'iea-weo'),'acc')}
     {tile('Carbon emissions','+70%','from data centres by 2030'+c(K,'iea-70'),'stress')}
     {tile('Under construction','50 GW','across 93 large AI sites tracked by the IEA'+c(K,'tr-93'),'acc')}
@@ -429,7 +435,7 @@ def render(data: dict, stamp: dict, page) -> dict:
     topic('water', 'Water', body, K)
 
     # ---------------- land
-    K=['hyperion','ewaste','ewaste2','ewaste3','copper','chip-ti','chip-wef','chip-aj']
+    K=['hyperion','ewaste','ewaste2','ewaste3','copper','chip-ti','chip-wef','chip-aj', 'gem']
     body=f'''
     <header class="at-stack"><h1>Land, metals, chips and waste</h1>
     <p class="lead">The cloud is made of buildings, copper and chips that are replaced every few years. Each leaves a physical trace.</p></header>
@@ -437,7 +443,7 @@ def render(data: dict, stamp: dict, page) -> dict:
     {tile('One campus','3,650 acres','about 15 km² of former farmland, Meta Hyperion in Louisiana'+c(K,'hyperion'),'acc')}
     {tile('Copper','1.1 m tonnes','a year for data centres by 2030, close to 3% of world demand'+c(K,'copper'),'stress')}
     {tile('E-waste from generative AI','1.2 to 5 m tonnes','in total over 2020 to 2030, by scenario'+c(K,'ewaste'),'stress')}
-    {tile('All e-waste','62 → 82 m tonnes','a year, 2022 to 2030 on current trends'+c(K,'ewaste3'),'acc')}
+    {tile('All e-waste','62 → 82 m tonnes','a year, 2022 to 2030 on current trends'+c(K,'gem'),'acc')}
     </section>
     <section class="card at-stack"><h2>Electronic waste in context</h2>
     {bars([('All e-waste, 2022',62,'m'),('All e-waste, 2030',82,'m'),('Generative AI, 2030 (high case)',2.5,'s')],'m tonnes a year','Global e-waste and the high scenario for generative AI, million tonnes a year')}</section>
@@ -540,14 +546,14 @@ def render(data: dict, stamp: dict, page) -> dict:
     topic('health', 'Health and science', body, K)
 
     # ---------------- mind
-    K=['iza-tutor','reyes','iza-africa','edweek','npr-teens','va','ottawa','stan-lonely','wef','fullfact','ofcom','digiday']
+    K=['iza-tutor','reyes','iza-africa','edweek','npr-teens','va','ottawa','stan-lonely','wef','fullfact','ofcom','digiday', 'pew']
     body=f'''
     <header class="at-stack"><h1>Learning, minds and information</h1>
     <p class="lead">AI has entered classrooms, bedrooms and news feeds faster than research can follow. The early evidence points both ways.</p></header>
     <section class="at-tiles">
     {tile('Students using AI weekly','45.5%','of 15-year-olds in OECD countries, to help them learn'+c(K,'iza-tutor'),'acc')}
     {tile('Measured learning gain','+0.25 SD','on a test taken without AI, in one randomised trial'+c(K,'reyes'),'gain')}
-    {tile('US teens using chatbots','64%','and nearly half of 9 to 12-year-olds have tried one'+c(K,'va'),'acc')}
+    {tile('US teens using chatbots','64%','aged 13 to 17 have used an AI chatbot, in a 2025 Pew survey'+c(K,'pew'),'acc')}
     {tile('Rigorous studies','52 of 1,686','education papers tested a specific intervention'+c(K,'edweek'),'stress')}
     </section>
     <section class="at-stack"><h2>Learning</h2>
@@ -567,15 +573,15 @@ def render(data: dict, stamp: dict, page) -> dict:
     topic('mind', 'Learning, minds and information', body, K)
 
     # ---------------- safety
-    K=['iasr','iasr-heise','iasr-soc','iasr-asis','iasr-au','fpf','aj-act','brookings','aj-divide','undp']
+    K=['iasr','iasr-heise','iasr-soc','iasr-asis','iasr-au','fpf','aj-act','brookings','aj-divide','undp', 'iasr-exec', 'itu-ff']
     body=f'''
     <header class="at-stack"><h1>Safety, access and rules</h1>
     <p class="lead">Capabilities are advancing faster than the means to control them, access to the technology is very uneven, and the first binding rules are arriving in stages.</p></header>
     <section class="at-tiles">
-    {tile('Scientific assessment','100+ experts','from over 30 countries wrote the International AI Safety Report 2026'+c(K,'iasr'),'acc')}
+    {tile('Scientific assessment','100+ experts','from over 30 countries wrote the International AI Safety Report 2026'+c(K,'iasr-exec'),'acc')}
     {tile('Company safety frameworks','12','published or updated by AI developers in 2025'+c(K,'iasr-soc'),'gain')}
     {tile('AI computing capacity','3%','is in Africa and Latin America combined; the article cites no source'+c(K,'brookings'),'stress')}
-    {tile('People offline','2.2 billion','have no internet access at all'+c(K,'aj-divide'),'stress')}
+    {tile('People offline','2.2 billion','have no internet access at all, ITU estimate for 2025'+c(K,'itu-ff'),'stress')}
     </section>
     <section class="at-stack"><h2>What the scientific assessment says</h2>
     <p>The International AI Safety Report 2026, chaired by Yoshua Bengio, sorts the risks of general-purpose AI into three groups: malicious use, malfunctions, and systemic risks.{c(K,'iasr-heise')} It reports growing real-world evidence for several of them, including deepfakes, help with cyberattacks and concerns about biological misuse.{c(K,'iasr-asis')}</p>
@@ -634,8 +640,8 @@ def render(data: dict, stamp: dict, page) -> dict:
 {tile("Lawsuits pending", "Dozens", "over text, images, music, code and news" + c(K, "cr-cleary"), "stress")}
 </section>
 <section class="at-stack"><h2>What is happening</h2>
-<p><strong>In the United States.</strong> Two federal judges issued the first substantive rulings in 2025, in cases brought by authors against Anthropic and Meta. Both treated training on books as fair use in the cases before them, and one judge called the use “quintessentially transformative”.{c(K, "cr-pymnts")} The rulings concerned training only and left open what happens when outputs resemble or compete with the originals.{c(K, "cr-week")} One of those cases still ended in a $1.5 billion settlement over how the books were obtained.{c(K, "cr-pymnts")} Decisions in further cases are expected, and the central question is not settled.{c(K, "cr-cleary")}</p>
-<p><strong>In the United Kingdom.</strong> Getty Images largely failed in November 2025 to obtain a ruling against Stability AI over training on its photographs.{c(K, "cr-pg")}</p>
+<p><strong>In the United States.</strong> Two federal judges issued the first substantive rulings in 2025, in cases brought by authors against Anthropic and Meta. Both treated training on books as fair use in the cases before them, and both judges found the use highly transformative.{c(K, "cr-pymnts")} The rulings concerned training only and left open what happens when outputs resemble or compete with the originals.{c(K, "cr-week")} One of those cases still ended in a $1.5 billion settlement over how the books were obtained.{c(K, "cr-pymnts")} Decisions in further cases are expected, and the central question is not settled.{c(K, "cr-cleary")}</p>
+<p><strong>In the United Kingdom.</strong> Getty Images largely failed in November 2025 to obtain a ruling against Stability AI over training on its photographs, and was later allowed to appeal part of the ruling.{c(K, "cr-pg")}</p>
 <p><strong>Licensing.</strong> Some disputes are turning into deals. Warner Music settled with two AI music companies and plans joint products with them.{c(K, "cr-pymnts")} Lawyers expect more licensing agreements between rights holders and developers.{c(K, "cr-nrf")}</p>
 <p><strong>Who owns the output.</strong> US law still requires a human author. Work produced entirely by AI is generally not protected, while work made with AI assistance may be.{c(K, "cr-nrf")}</p></section>
 <section class="at-stack"><h2>The ledger</h2>
@@ -647,14 +653,14 @@ def render(data: dict, stamp: dict, page) -> dict:
     topic("creative", "Creative work and copyright", body, K)
 
     # ---------------- surveillance
-    K = ["sv-carnegie", "sv-bio", "sv-aj", "sv-cms", "sv-allafrica", "sv-bis"]
+    K = ["sv-carnegie", "sv-bio", "sv-aj", "sv-cms", "sv-allafrica", "sv-bis", "sv-ids"]
     body = f'''
 <header class="at-stack"><h1>Surveillance</h1>
 <p class="lead">Cameras that recognise faces and software that predicts crime have spread to most regions. The same tools serve policing and repression.</p></header>
 <section class="at-tiles">
 {tile("Countries using AI surveillance", "75 of 176", "in the Carnegie index of 2019, the last global count found" + c(K, "sv-carnegie"), "stress")}
 {tile("Facial recognition", "64 countries", "in the same index; 56 with safe-city platforms, 52 with smart policing" + c(K, "sv-bio"), "acc")}
-{tile("Spent in 11 African countries", "$2 bn", "at least, on facial recognition and vehicle tracking" + c(K, "sv-allafrica"), "stress")}
+{tile("Spent in 11 African countries", "$2 bn", "at least, on smart-city surveillance bought mostly from Chinese firms" + c(K, "sv-ids"), "stress")}
 </section>
 <section class="card at-stack"><h2>Spending on AI surveillance in three African countries</h2>
 {bars([("Nigeria", 470, "s"), ("Mauritius", 456, "s"), ("Kenya", 219, "s")], "m USD", "2026 study of 11 countries, million US dollars to date")}</section>
@@ -688,7 +694,7 @@ def render(data: dict, stamp: dict, page) -> dict:
 <p>A 2026 paper in the Journal of Applied Ecology warns that uptake is outpacing oversight, and lists validation, data sovereignty and the environmental cost of the computing itself among the gaps.{c(K, "nf-jae")} South African scientists ranked AI among their top ten emerging issues, as both an opportunity and a risk.{c(K, "nf-conv")}</p></section>
 <section class="at-stack"><h2>Food</h2>
 <p>The World Bank reports early results of up to 38% higher yields and $580 more profit per hectare for Ethiopian smallholders using tailored AI advice. The figures come from a 2023 study, before today’s chat-based tools.{c(K, "nf-wb")} One advisory tool serves more than 350,000 plots in seven African countries through a messaging app.{c(K, "nf-wbblog")}</p>
-<p>The first randomised trial of AI advice for smallholders found that farmers valued the service but saw no short-run change in yields or costs.{c(K, "nf-rct")} A review of 51 studies found most evidence came from simulations and models, with low-income countries under-represented.{c(K, "nf-3ie")} Poor connectivity, cost and low digital literacy may leave smallholders behind while large farms gain.{c(K, "nf-dte")}</p></section>
+<p>The first randomised trial of AI advice for smallholders, with 1,935 rice farmers, found that farmers valued the service but saw no short-run change in yields or costs.{c(K, "nf-rct")} A review of 51 studies found most evidence came from simulations and models, with low-income countries under-represented.{c(K, "nf-3ie")} Poor connectivity, cost and low digital literacy may leave smallholders behind while large farms gain.{c(K, "nf-dte")}</p></section>
 <section class="at-stack"><h2>The ledger</h2>
 {ledger(["Monitoring of species and habitats at a scale people cannot manage by hand." + c(K, "nf-scan"), "Farm advice that reaches smallholders by phone." + c(K, "nf-wbblog")],
         ["Data centres’ own demand for power, water and land, covered on other pages.", "Tools and data controlled far from the communities concerned." + c(K, "nf-scan"), "A widening gap between large and small farms." + c(K, "nf-dte")],

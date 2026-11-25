@@ -11,7 +11,7 @@ Status of each reported figure on the atlas pages (D-067). Updated by hand or by
 |---|---|---|
 | Data-centre electricity grew 17% in 2025 against 3% for all demand | O | IEA news release for *Key Questions on Energy and AI* (2026). |
 | Five large technology companies spent more than $400 billion in 2025 | O | Same release. |
-| About 500 TWh today, 1,000 TWh in 2030 | S | World Energy Outlook 2026 (19 Nov 2026), read in four news reports that agree; the report itself not opened. The IEA's April 2026 report gives 485 TWh (2025) and 950 TWh (2030). |
+| About 500 TWh today, 1,000 TWh in 2030 | O | World Energy Outlook 2026, overview page (opened 2026-11-25, pass 2): consumption by data centres "doubles to reach 1 000 terawatt-hours by 2030 in the STEPS". The IEA's April 2026 report gives 485 TWh (2025) and 950 TWh (2030). |
 | 1,500 TWh in 2035 | S | One news report. |
 | Data-centre emissions up 70% by 2030 | S | WEO 2026 in three news reports. The IEA's 2025 report (original, opened) gives a different measure: indirect emissions up almost 80% over the decade in its Base Case. |
 | About 180 Mt CO2, 0.5% of combustion emissions | O | IEA, *Energy and AI* (2025), AI and climate change. |
@@ -35,7 +35,7 @@ Status of each reported figure on the atlas pages (D-067). Updated by hand or by
 |---|---|---|
 | 1.2 to 5 million tonnes of e-waste from generative AI | X | The paper's abstract (Wang et al., *Nature Computational Science*, 2024) says "during 2020–2030". The page said 2023 to 2030 (as some news reports do). Corrected 2026-11-25. |
 | Up to 2.5 million tonnes a year by 2030 | P | Publisher's release. |
-| 62 million tonnes of e-waste in 2022; 82 in 2030 | S | UN Global E-waste Monitor through news reports. |
+| 62 million tonnes of e-waste in 2022; 82 in 2030 | O | Global E-waste Monitor 2024, ITU page (pass 2): 62 billion kg in 2022, 82 billion kg projected for 2030. |
 | Hyperion 3,650 acres | S | Fortune. |
 | Copper 1.1 million tonnes a year, about 3% | S | Tom's Hardware. |
 | Chip fabrication 178 Mt CO2e (2026), 197 Mt (2027) | O | TechInsights (an industry analyst's own estimate). |
@@ -49,7 +49,9 @@ Status of each reported figure on the atlas pages (D-067). Updated by hand or by
 | One in four workers; 3.3% highest exposure; women 4.7%, men 2.4%; clerical most exposed | O | ILO Working Paper 140 (20 May 2025). |
 | Regional exposure shares (31.7%, 28.8%, 24.9%, 22%) | S | A bank's report citing the ILO; not on the ILO page opened. |
 | +0.25 to 0.6 points TFP, 0.4 to 0.9 labour productivity, a year over ten years | O | OECD (22 Nov 2024). The year was added to the page on 2026-11-25. |
-| G7 0.4 to 1.3 points; 20% of firms; IMF 40% and half a point; 4.2% / 0.6% / 0.1% of GDP | S | Not re-opened in this pass (one page could not be reached). |
+| G7 0.4 to 1.3 points of labour productivity a year over ten years | O | OECD (29 June 2025), for G7 countries with high exposure and wider adoption (pass 2). |
+| AI investment added 0.5 point to US growth in 2025; could top $2 trillion in 2026; AI-skilled workers earn more | O | IMF Annual Report 2026 (pass 2); the $2 trillion is "according to some external estimates". |
+| 20% of firms; IMF 40% of jobs; 4.2% / 0.6% / 0.1% of GDP; most firms report no effect | S | Not opened (one page unreachable twice). |
 
 ## Health and science
 | Figure on the page | Status | What the original says / note |
@@ -65,18 +67,22 @@ Status of each reported figure on the atlas pages (D-067). Updated by hand or by
 | 210 undergraduates, +0.25 SD on a test taken without AI | O | Contractor and Reyes (March 2026). The paper gives 0.27 and 0.20 SD for the one-week retention test in two places. |
 | 39,761 students; 57.7% against 29.2%; association only | P | University release (study in *JAMA Pediatrics*); cross-sectional. |
 | 112 AI-made items seen tens of millions of times, Jan 2025 to Mar 2026 | O | Full Fact report. |
-| 45.5% of 15-year-olds; 52 of 1,686 studies; 64% of US teens | S | Cited through other papers and news. |
+| 64% of US teens aged 13 to 17 have used an AI chatbot | O | Pew Research Center, survey of 1,458 teens, Sept to Oct 2025 (pass 2). The page now cites Pew and says "have used". |
+| 52 of 1,686 studies test an intervention | S | Confirmed in the news article (Education Week, on Stanford's AI Hub for Education); the repository itself not opened. |
+| 45.5% of 15-year-olds | S | Cited through another paper. |
 
 ## Safety, access and rules
 | Figure on the page | Status | What the original says / note |
 |---|---|---|
-| Three risk categories; no policy recommendations | P | A government page about the report; the report itself not opened. That page shows "3 February 2025" as the date; other sources say 3 February 2026. To check. |
-| 100+ experts, 30+ countries; 12 company frameworks | S | Press release and summaries. |
+| Three risk categories; no policy recommendations; published 3 February 2026 | P | Government page and several summaries. The "2025" on the Australian page is that page's error: the report's own summary is dated February 2026 (pass 2). |
+| Over 100 experts; nominees from more than 30 countries | O | The report's executive summary (pass 2). |
+| 12 company frameworks | S | Summaries only. |
 | 1.2 billion users in three years, nearly 70% in developing countries; "not inevitable" | O | UNDP page. |
 | 32 countries host AI-specialised data centres | S | Brookings, which cites a New York Times analysis (June 2025). |
 | 3% of AI compute in Africa and Latin America | W | Brookings gives no source. The page now says so. |
 | EU AI Act dates (Feb 2025, Aug 2025, Aug 2026, Dec 2027, Aug 2028) | S | Future of Privacy Forum; the Official Journal not opened. The amending law was published on 24 July 2026 (the page said "adopted in July"; corrected 2026-11-25). Not on the page: marking of AI-generated content by model providers is postponed to 2 Dec 2026. |
-| 2.2 billion offline; 7% of African languages | S | Al Jazeera citing the ITU. |
+| 2.2 billion people offline | O | ITU, Facts and Figures 2025 (pass 2). |
+| 7% of African languages in translation tools | S | Al Jazeera citing an ITU official. |
 
 ## Military use
 | Figure on the page | Status | What the original says / note |
@@ -91,7 +97,7 @@ Status of each reported figure on the atlas pages (D-067). Updated by hand or by
 | Figure on the page | Status | What the original says / note |
 |---|---|---|
 | 75 of 176 countries; 64 / 56 / 52; Huawei 50; US firms 32; 51% of advanced democracies; no lawful/unlawful distinction | O | Carnegie Endowment, 17 Sept 2019. The report gives 52 and, elsewhere, 53 for smart policing. |
-| $2 billion in 11 African countries; Nigeria 470, Mauritius 456, Kenya 219 | S | Law-firm and news summaries of an Institute of Development Studies report (March 2026); the report not opened. One summary says "over $2 billion on Chinese-built surveillance technology". |
+| At least $2 billion in 11 African countries; Nigeria 470, Mauritius 456, Kenya 219 | P | The institute's own article on its report *Smart city surveillance in Africa* (12 March 2026); the report not opened (pass 2). Page wording changed to "smart-city surveillance bought mostly from Chinese firms". |
 
 ## Nature and food
 | Figure on the page | Status | What the original says / note |
@@ -99,7 +105,7 @@ Status of each reported figure on the atlas pages (D-067). Updated by hand or by
 | 27 experts, 21 ideas from 104; named risks | O | Reynolds et al., *Trends in Ecology & Evolution*, 2024. |
 | Up to 38% yield, $580 a hectare (Ethiopia) | P | World Bank fact sheet; the underlying study is Liben et al. (2023), not opened. The page now gives that year. |
 | 51 studies, mostly simulations; low-income countries under-represented | O | Rapid review for the UK FCDO (Athena Infonomics, Sept 2025), abstract page. |
-| First randomised trial: no short-run change in yields | W | Known only from the authors' social-media post about their working paper. |
+| First randomised trial (1,935 rice farmers): no short-run change in yields | W | Still known only from the authors' post about their working paper; the paper was searched for and not reached (pass 2). |
 
 ## Robots (page added 2026-11-25)
 | Figure on the page | Status | What the original says / note |
@@ -115,8 +121,16 @@ Status of each reported figure on the atlas pages (D-067). Updated by hand or by
 | First international safety standard for humanoids unfinished | S | News report. |
 
 ## Creative work and copyright
-Not checked in pass 1. All figures `S`.
+| Figure on the page | Status | What the original says / note |
+|---|---|---|
+| Two 2025 rulings found training on books to be fair use; one case went to trial over pirated copies | P | A law firm's analysis of the rulings (Cleary Gottlieb, Jan 2026); the rulings not opened. The page quoted one judge with a phrase the analysis does not use; the quotation was removed on 2026-11-25 and replaced by "both judges found the use highly transformative". |
+| $1.5 billion settlement, about $3,000 a book | P | Same analysis; preliminary approval 17 Oct 2025. |
+| "Dozens" of lawsuits; no appeal court has decided the question | P | Same analysis (as of January 2026). |
+| Getty largely failed against Stability AI in the UK (Nov 2025) | P | Press Gazette's record of rulings. Added to the page: Getty was allowed to appeal part of the ruling (23 Dec 2025). |
+| Warner Music settlements with two AI music firms | S | News citing Reuters. |
+| Fully AI-made work generally not protected in the US | S | Law-firm summary read in a news digest. |
 
 ## Log
 - **2026-11-25, pass 1.** 55 figures or groups listed: 18 `O`, 7 `P`, 26 `S`, 2 `W`, 1 `X`, 1 n/a. Seven page changes: the e-waste period (was wrong), the OECD year, two caveats of the water study, the unsourced 3%, the EU amending law ("published"), the year of the Ethiopian study. No figure was removed. Open: the two "to check" items above, creative work, and every `S`.
 - **2026-11-25, Robots page added.** 9 rows: 4 `P`, 5 `S`. Not part of pass 1.
+- **2026-11-25, pass 2** (asked for by the editor the same evening). 20 pages opened or searched. Moved to `O`: WEO 2026's 1,000 TWh, the e-waste totals, the OECD G7 range, the IMF figures, Pew's 64%, the safety report's experts and countries, ITU's 2.2 billion. Moved to `P`: the African surveillance spending; creative work checked for the first time (four `P`, two `S`). Page changes: one quotation removed (creative), Getty's appeal added, Pew wording, the surveillance wording, the trial's sample size, six original sources added. **Could not be opened** (the tool needed an approval nobody answered): the UN voting record and the 2023 Ethiopian study. **Still secondary only:** the 70% emissions rise, 1,500 TWh in 2035, the 93 sites, the regional power mix, all water figures except the one-in-four study, Hyperion, copper, the budget requests, humanoid shipments, and the rest marked `S`.
