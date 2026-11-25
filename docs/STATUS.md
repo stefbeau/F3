@@ -1,5 +1,8 @@
 # F3 — Status
 
+## Update 2026-11-25 (22:22 UTC): site deployed
+- The Pages workflow, retried once at 22:20 UTC on `main` at commit `233a03e`, finished with status success. The public site now carries the regenerated data, the reworded S3 statements, the World models page and the shortened footer. **Not checked:** the live pages were not opened after the deployment.
+
 ## Update 2026-11-25 (21:40 UTC): PR 20 merged, data regenerated; DEPLOYMENT FAILED three times
 - **PR 20 merged** at the editor's instruction ("rewors merge 20 and deploy"): review pass 2, D-067 and D-068 approved, footer, World models page, **site data regenerated** with the default composite (variant P) and a re-made 841-member climate recording (equal to the published one to about 1e-9 K; World3 identical; automated fraction 85% to 86% in 2040, central), and the S3 status statements reworded to the D-065 notice (outcome note on D-065).
 - **Deployment NOT done.** The Pages workflow was started three times on `main` (`608e788`, 21:34, 21:35, 21:38 UTC) and failed each time at the deploy step with GitHub's message "Fetching artifact metadata failed ... Please re-run the deployment at a later time". The upload step succeeded each time. **The public site still shows the deployment of 20:33 UTC** (before the regeneration). To be retried.
