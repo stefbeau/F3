@@ -116,7 +116,7 @@ Notation is indicative. Final equations are fixed in v0.2 after the reproduction
 
 ### S3 — AI development & automation (core novelty)
 
-- **Validation status (D-029):** S3 as built (`f3/sectors/s3_ai.py`) failed test A1.3 against the GATE playground's shipped runs; its absolute output (gwp, capital, effective compute) is unvalidated against GATE after about 2027, and nothing may say it reproduces GATE. Its investment rule R3 (D-028) is a scenario-lever rule, not a GATE replica.
+- **Validation status (D-029, D-062 to D-065; reworded 2026-11-25):** S3's default production block (variant P, D-062, D-065) is within 2% of Epoch AI's GATE reference runs for the quantities of test A1.3 as amended by D-064, when GATE's own investment path is supplied (reference: D-063; audit/s3-playground-composite.md). It does not reproduce GATE: GATE's investment optimisation is not implemented. Under F3's own investment rule (R3) S3's absolute output (gwp, capital, compute, data-centre electricity demand) is UNVALIDATED and leaves plausible ranges within a few years (audit/s3-default-composite.md). Results computed before 2026-11-25, including the published Explorer, used variant A, which failed A1.3 (D-029). Its investment rule R3 (D-028) is a scenario-lever rule, not a GATE replica.
 
 - **Origin:** GATE (Epoch AI, 2025): compute-based AI development, automation framework, semi-endogenous growth.
 - **Key stocks:** Installed hardware compute (`C_hw`), algorithmic efficiency (`A_alg`), fraction of tasks automated (`f`).

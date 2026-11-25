@@ -79,7 +79,7 @@ class GateParams:
     K0: float = 450e12
     a_K: float = 1.0
     delta_K: float = 0.065
-    composite: str = "A"                 # production block: "A" 20,000 midpoints (default); "B" footnote-38 grids; "C101" 101-point case (D-027); "P" playground block (D-062)
+    composite: str = "P"                 # production block: "P" playground block (default since D-065; D-062); "A" 20,000 midpoints (the default until 2026-11-25); "B" footnote-38 grids; "C101" 101-point case (D-027)
     theta_scale: float = 1.0              # multiplies theta_H and theta_S; 0 switches R&D productivity off (test A1.5a)
 
     # derived ---------------------------------------------------------------------------------------------------------
@@ -354,8 +354,12 @@ def composite_for(L: float, f: float, C_I: float, C_T: float, p: GateParams) -> 
 
 
 VALIDATION_STATUS = (
-    "S3 failed test A1.3 against the GATE playground's shipped runs (D-029; audit/s3-gate-comparison.md). Its absolute output "
-    "(gwp, capital, effective compute) is unvalidated against GATE after about 2027. It does not reproduce GATE."
+    "S3's default production block (variant P, D-062, D-065) is within 2% of Epoch AI's GATE reference runs for the quantities "
+    "of test A1.3 as amended by D-064, when GATE's own investment path is supplied (reference: D-063; "
+    "audit/s3-playground-composite.md). It does not reproduce GATE: GATE's investment optimisation is not implemented. Under "
+    "F3's own investment rule (R3) S3's absolute output (gwp, capital, compute, data-centre electricity demand) is UNVALIDATED "
+    "and leaves plausible ranges within a few years (audit/s3-default-composite.md). Results computed before 2026-11-25, "
+    "including the published Explorer, used variant A, which failed A1.3 (D-029)."
 )
 
 

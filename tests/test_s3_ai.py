@@ -12,7 +12,7 @@ import numpy as np
 import pytest
 
 from tests import gate_reference as gr
-from tests.s3_checks import (COMPARED, SETTINGS_B, STRESS, TOL, a15_properties, compare, constant_shares, run_s3)
+from tests.s3_checks import (COMPARED, SETTINGS_B, SETTINGS_B_A, STRESS, TOL, a15_properties, compare, constant_shares, run_s3)
 
 needs_bundle = pytest.mark.skipif(not gr.bundle_available(), reason=gr.skip_reason())
 
@@ -26,8 +26,9 @@ def test_bundle_hash_is_pinned():
 @pytest.mark.xfail(strict=True, reason="A1.3 failed, see audit/s3-gate-comparison.md; production composite unresolved (D-027)")
 @pytest.mark.parametrize("setting", list(SETTINGS_B))
 def test_a13_criterion(setting):
-    """A1.3: every criterion quantity within +-2% at every period end 2025-2100, GATE's own investment path as input."""
-    idx, params = SETTINGS_B[setting]
+    """A1.3 for variant A (the default until D-065): every criterion quantity within +-2% at every period end 2025-2100,
+    GATE's own investment path as input. Variant P is tested in tests/test_s3_playground.py (T1)."""
+    idx, params = SETTINGS_B_A[setting]
     runs = gr.load_runs()
     s3 = run_s3(params, gr.investment_shares(runs[idx], 80))
     res = compare(s3, gr.field, runs[idx])

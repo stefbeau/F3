@@ -46,7 +46,7 @@ from f3.sectors.m6_integrated import M6Config, build_m6, run_m6
 from f3.sectors.s3_ai import GateParams, S3AI
 from f3.sectors.s3_rule_r3 import R3Rule
 from f3.sectors.world3 import STATE_COLUMNS, run_world3
-from tests.s3_checks import SETTINGS_B
+from tests.s3_checks import SETTINGS_B, SETTINGS_B_A
 
 FIX = Path(__file__).parent / "fixtures" / "s4_baseline_before_eta_cap.csv"
 TS = np.arange(2025.0, 2102.0)
@@ -58,8 +58,9 @@ def source(path):
 
 
 @lru_cache(maxsize=None)
-def run_on(kind: str, level: float = 1.0, setting: str = "B0_default", mutate: bool = False):
-    params = SETTINGS_B[setting][1]
+def run_on(kind: str, level: float = 1.0, setting: str = "B0_default", mutate: bool = False, recorded_variant: bool = False):
+    """``recorded_variant``: composite "A", with which the readings of 2026-10-22 were measured (before D-065)."""
+    params = (SETTINGS_B_A if recorded_variant else SETTINGS_B)[setting][1]
     paths = {"const": lambda t: 3.4e9 * level, "step": lambda t: 3.4e9 * (1.0 if t <= 2025.0 else level),
              "fall": lambda t: 3.4e9 * math.exp(-0.01 * (t - 2025.0) * level), "rise": lambda t: 3.4e9 * math.exp(0.01 * (t - 2025.0) * level)}
     s3 = S3AI(params, rule=R3Rule(), labor_input=True, _mutate_ignore_labor=mutate)
@@ -126,7 +127,7 @@ def test_the_sign_test_can_fail_control_and_mutation():
 # ------------------------------------------------------------------------------------------------------ 4. the effect fades
 @pytest.mark.xfail(strict=True, reason="Reading 4 FAILED (2026-10-22): the effect does NOT fade. A labour index held at 0.5 of its 2025 value from 2026 gives S3 gwp / baseline of 0.637 (2026), 0.609 (2031), 0.389 (2040), 0.321 (2050), 0.475 (2070), 0.496 (2099), i.e. a relative difference of 0.39 in 2031, 0.53 in 2070 and 0.50 in 2099 against the pre-registered 'smaller later'. The direct labour channel does weaken (labour share 0.58 in 2031, 0.001 in 2050), but lower early output lowers investment and the accumulated capital and compute stay about half (capital 0.49, compute stock 0.46 of baseline in 2099). Recorded, not adjusted; the editor's premise that it fades is wrong in this model.")
 def test_the_effect_fades_as_automation_saturates():
-    low, base = run_on("step", 0.5), run_on("const")
+    low, base = run_on("step", 0.5, recorded_variant=True), run_on("const", recorded_variant=True)
     d = {y: abs(low["gwp"][idx(y)] / base["gwp"][idx(y)] - 1.0) for y in (2031, 2070, 2099)}
     assert d[2070] < d[2031] and d[2099] < d[2031], d
     assert low["frac_automated"][idx(2070)] >= 0.999                                                   # the later years are in the saturated regime
@@ -134,13 +135,25 @@ def test_the_effect_fades_as_automation_saturates():
 
 def test_recorded_behaviour_after_the_failed_fade_reading():
     """POST-HOC description, written after the result and labelled so: what the data show instead of fading (a permanent halving of the index from 2026, R3 central).
-    The direct labour channel weakens (labour share falls to about zero) while the LEVEL effect persists through accumulated capital and compute."""
-    low, base = run_on("step", 0.5), run_on("const")
+    The direct labour channel weakens (labour share falls to about zero) while the LEVEL effect persists through accumulated capital and compute.
+    Measured with composite "A" (the default at the time); pinned to it since D-065."""
+    low, base = run_on("step", 0.5, recorded_variant=True), run_on("const", recorded_variant=True)
     assert base["labor_share"][idx(2031)] > 0.5 and base["labor_share"][idx(2050)] < 0.01
     for y in (2031, 2050, 2070, 2099):
         r = low["gwp"][idx(y)] / base["gwp"][idx(y)]
         assert 0.25 < r < 0.7, (y, r)
     assert low["capital"][idx(2099)] / base["capital"][idx(2099)] < 0.6 and low["compute_stock"][idx(2099)] / base["compute_stock"][idx(2099)] < 0.6
+
+
+def test_reading_4_with_the_default_composite_since_d065():
+    """Added 2026-11-25 after D-065 and after the result was seen (labelled so): the SAME assertions as reading 4, with the
+    default composite (variant P). They hold: with P the effect of a halved labour index on output does fade once automation
+    saturates. The record with variant A above is unchanged. The label and documents that say the effect "persists" describe
+    variant A and have not been revised (docs/STATUS.md, 2026-11-25)."""
+    low, base = run_on("step", 0.5), run_on("const")
+    d = {y: abs(low["gwp"][idx(y)] / base["gwp"][idx(y)] - 1.0) for y in (2031, 2070, 2099)}
+    assert d[2070] < d[2031] and d[2099] < d[2031], d
+    assert low["frac_automated"][idx(2070)] >= 0.999
 
 
 # ------------------------------------------------------------------------------------------------------ 5. A6.1 untouched, one-way

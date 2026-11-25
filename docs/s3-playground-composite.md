@@ -33,3 +33,6 @@ Confirmed by the reply, and already how S3 reads it: the stored `compute` field 
 - A pass of T1 would mean: **given GATE's own investment path, S3 with variant P is within 2% of the playground's shipped runs for the quantities of A1.3.** It would not mean that F3 "reproduces GATE": the investment path is supplied, not solved.
 - It would not change the default, remove the D-029 label, or validate R3. Each of those is a separate decision for the editor.
 - It says nothing about the size of S3's compute and electricity under R3 (`docs/STATUS.md`, "To revisit after the Epoch reply", item 4).
+
+## Later on 2026-11-25
+D-063 changed the reference of T1, D-064 the compute row that counts, and D-065 made variant P the default (so T3(d) now checks that the default is "P"). The text above is left as written.

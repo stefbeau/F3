@@ -32,7 +32,7 @@ from f3.core.replay import ReplaySector
 from f3.sectors.s3_ai import GateParams
 from f3.sectors.s4_datacentre import IEA_2025_TWH, J_PER_TWH, DataCentre, DCParams, e_dc_twh, eta_0, initial_compute_stock
 from f3.sectors.slice_m2 import ClimateReplay, SliceConfig, run_slice
-from tests.s3_checks import SETTINGS_B
+from tests.s3_checks import SETTINGS_B, SETTINGS_B_A
 
 FIX = Path(__file__).parent / "fixtures" / "s4_baseline_before_eta_cap.csv"
 YEARS = np.arange(2025.0, 2101.0)
@@ -55,8 +55,9 @@ def baseline():
 
 
 @lru_cache(maxsize=None)
-def slice_run(setting: str, cap):
-    params = SETTINGS_B[setting][1]
+def slice_run(setting: str, cap, recorded_variant: bool = False):
+    """``recorded_variant``: use composite "A", with which the committed baseline was recorded (before D-065)."""
+    params = (SETTINGS_B_A if recorded_variant else SETTINGS_B)[setting][1]
     return run_slice(SliceConfig(damage="central", gate=params, dc=DCParams(eta_cap=cap)), stand_in(), t1=2100.0)
 
 
@@ -73,7 +74,7 @@ def test_default_is_off_and_paper_value_is_exported():
 # ------------------------------------------------------------------------------------------------------ (1) OFF equals the recorded results
 @pytest.mark.parametrize("setting", list(SETTINGS_B))
 def test_off_equals_the_recorded_results_to_1e_9(setting):
-    res = slice_run(setting, None)
+    res = slice_run(setting, None, recorded_variant=True)
     ix = yearly(res)
     rows = baseline()[setting]
     assert len(rows) == len(ix)
