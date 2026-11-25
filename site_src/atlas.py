@@ -340,7 +340,7 @@ def render(data: dict, stamp: dict, page) -> dict:
     {bars([('2023',560,'s'),('2030',1200,'s')],'bn litres','IEA estimate and projection, billion litres a year')}</section>
     <section class="at-stack"><h2>What is happening</h2>
     <p>Only about a quarter of the water is used directly for cooling.{c(K,'nat-water')} The rest is consumed making the electricity and the chips. In seven US states, data centres depend on an estimated 3.4 trillion gallons of freshwater a year through their power supply.{c(K,'ceres')}</p>
-    <p>A 2026 study mapped all 9,347 operational data centres against local water balance. A quarter sit where demand outstrips supply for at least one month a year. The hotspots are the western United States, Spain, Italy, India and the Gulf states, and in Spain 64% of sites are affected.{c(K,'earth-water')}{c(K,'sf-water')}</p>
+    <p>A 2026 study mapped all 9,347 operational data centres against local water balance. A quarter sit where demand outstrips supply for at least one month a year. The authors use water conditions of 2001 to 2010 and call their shortfall estimates an upper bound, since reservoirs, transfers and desalination are not counted. The hotspots are the western United States, Spain, Italy, India and the Gulf states, and in Spain 64% of sites are affected.{c(K,'earth-water')}{c(K,'sf-water')}</p>
     <p>In Arizona every one of 149 rated sites is in an area of extremely high water stress.{c(K,'dcmap')} In Querétaro, Mexico, a data-centre hub is growing in a state hit hard by drought.{c(K,'qro')} Near Santiago, Chile, a project was planned on the capital's strained aquifer.{c(K,'chile')}</p></section>
     <section class="at-stack"><h2>The ledger</h2>
     {ledger(['Newer cooling designs use far less water, and some operators report recycling or replacing what they draw.','AI is also used to manage water networks and detect leaks.'],
@@ -358,7 +358,7 @@ def render(data: dict, stamp: dict, page) -> dict:
     <section class="at-tiles">
     {tile('One campus','3,650 acres','about 15 km² of former farmland, Meta Hyperion in Louisiana'+c(K,'hyperion'),'acc')}
     {tile('Copper','1.1 m tonnes','a year for data centres by 2030, close to 3% of world demand'+c(K,'copper'),'stress')}
-    {tile('E-waste from generative AI','1.2 to 5 m tonnes','in total between 2023 and 2030'+c(K,'ewaste'),'stress')}
+    {tile('E-waste from generative AI','1.2 to 5 m tonnes','in total over 2020 to 2030, by scenario'+c(K,'ewaste'),'stress')}
     {tile('All e-waste','62 → 82 m tonnes','a year, 2022 to 2030 on current trends'+c(K,'ewaste3'),'acc')}
     </section>
     <section class="card at-stack"><h2>Electronic waste in context</h2>
@@ -367,7 +367,7 @@ def render(data: dict, stamp: dict, page) -> dict:
     <p><strong>Land.</strong> The largest campus under construction covers about 3,650 acres of former farmland after a 1,400-acre expansion in 2026.{c(K,'hyperion')} That is local land-use change on the scale of a small town.</p>
     <div class="at-flag">A claim to treat with care: no sourced figure for forest clearing by data centres was found for this atlas. The land figure above is for farmland.</div>
     <p><strong>Metals.</strong> Data centres could need about 1.1 million tonnes of copper a year by 2030. World demand for refined copper is about 28 million tonnes, and a shortfall is forecast for 2026.{c(K,'copper')}</p>
-    <p><strong>Waste.</strong> Servers and accelerators are replaced quickly. A study in Nature Computational Science projects 1.2 to 5 million tonnes of e-waste from generative AI between 2023 and 2030, and up to 2.5 million tonnes a year by 2030 in its high scenario.{c(K,'ewaste')}{c(K,'ewaste2')} That is a small share of all e-waste, but it contains lead, mercury and chromium as well as recoverable gold and copper.{c(K,'ewaste3')}</p>
+    <p><strong>Waste.</strong> Servers and accelerators are replaced quickly. A study in Nature Computational Science projects 1.2 to 5 million tonnes of e-waste from generative AI over 2020 to 2030, depending on the scenario, and up to 2.5 million tonnes a year by 2030 in its high scenario.{c(K,'ewaste')}{c(K,'ewaste2')} That is a small share of all e-waste, but it contains lead, mercury and chromium as well as recoverable gold and copper.{c(K,'ewaste3')}</p>
     <p><strong>Chips.</strong> Making the chips has its own footprint. One industry analyst puts emissions from chip fabrication at 178 million tonnes of CO₂-equivalent in 2026 and 197 million in 2027, with AI and memory demand growing faster than efficiency improves.{c(K,'chip-ti')} An average chip factory can use about 10 million US gallons of ultra-pure water a day.{c(K,'chip-wef')} In Taiwan one manufacturer alone used about 8% of the island’s electricity, according to a 2024 report.{c(K,'chip-aj')}</p></section>
     <section class="at-stack"><h2>The ledger</h2>
     {ledger(['Reuse and longer hardware lifetimes can cut the waste stream substantially; the study models such measures.'+c(K,'ewaste'),'Construction brings jobs and tax revenue to rural areas.'],
@@ -385,7 +385,7 @@ def render(data: dict, stamp: dict, page) -> dict:
     <section class="at-tiles">
     {tile('Workers exposed','1 in 4','are in an occupation with some exposure to generative AI'+c(K,'ilo'),'acc')}
     {tile('Highest exposure','3.3%','of world employment: 4.7% of women’s jobs, 2.4% of men’s'+c(K,'ilo'),'stress')}
-    {tile('Productivity','+0.25 to 0.6 pt','a year over ten years, OECD main estimate'+c(K,'oecd-tfp'),'gain')}
+    {tile('Productivity','+0.25 to 0.6 pt','a year over ten years, OECD estimate of 2024'+c(K,'oecd-tfp'),'gain')}
     {tile('Firms using AI','20%','in OECD countries in 2025: 52% of large firms, 17% of small ones'+c(K,'hazan'),'acc')}
     </section>
     <section class="card at-stack"><h2>Share of jobs exposed to generative AI, by region</h2>
@@ -462,7 +462,7 @@ def render(data: dict, stamp: dict, page) -> dict:
     <section class="at-tiles">
     {tile('Scientific assessment','100+ experts','from over 30 countries wrote the International AI Safety Report 2026'+c(K,'iasr'),'acc')}
     {tile('Company safety frameworks','12','published or updated by AI developers in 2025'+c(K,'iasr-soc'),'gain')}
-    {tile('AI computing capacity','3%','is in Africa and Latin America combined'+c(K,'brookings'),'stress')}
+    {tile('AI computing capacity','3%','is in Africa and Latin America combined; the article cites no source'+c(K,'brookings'),'stress')}
     {tile('People offline','2.2 billion','have no internet access at all'+c(K,'aj-divide'),'stress')}
     </section>
     <section class="at-stack"><h2>What the scientific assessment says</h2>
@@ -476,7 +476,7 @@ def render(data: dict, stamp: dict, page) -> dict:
     <tr><td>February 2025</td><td>Bans on prohibited practices; duty to promote AI literacy</td></tr>
     <tr><td>August 2025</td><td>Obligations for providers of general-purpose AI models</td></tr>
     <tr><td>August 2026</td><td>Transparency rules, including labelling of AI-generated content</td></tr>
-    <tr><td>December 2027 and August 2028</td><td>Rules for high-risk systems, postponed by an amending law adopted in July 2026</td></tr>
+    <tr><td>December 2027 and August 2028</td><td>Rules for high-risk systems, postponed by an amending law published in July 2026</td></tr>
     </table></div>
     <p class="small">Timeline from the Future of Privacy Forum and Al Jazeera.{c(K,'fpf')}{c(K,'aj-act')} Other countries are taking different approaches; this table shows one law, not a judgement on which approach is right.</p></section>
     <section class="at-stack"><h2>The ledger</h2>
@@ -577,7 +577,7 @@ def render(data: dict, stamp: dict, page) -> dict:
 <p>A panel of conservation scientists and AI specialists picked 21 uses most likely to help: recognising species from images and sound, tracking the illegal wildlife trade, and easing conflict between people and wildlife.{c(K, "nf-scan")} The same panel names risks, among them tools designed far from the places they are used and the loss of field skills.{c(K, "nf-scan")}</p>
 <p>A 2026 paper in the Journal of Applied Ecology warns that uptake is outpacing oversight, and lists validation, data sovereignty and the environmental cost of the computing itself among the gaps.{c(K, "nf-jae")} South African scientists ranked AI among their top ten emerging issues, as both an opportunity and a risk.{c(K, "nf-conv")}</p></section>
 <section class="at-stack"><h2>Food</h2>
-<p>The World Bank reports early results of up to 38% higher yields and $580 more profit per hectare for Ethiopian smallholders using tailored AI advice.{c(K, "nf-wb")} One advisory tool serves more than 350,000 plots in seven African countries through a messaging app.{c(K, "nf-wbblog")}</p>
+<p>The World Bank reports early results of up to 38% higher yields and $580 more profit per hectare for Ethiopian smallholders using tailored AI advice. The figures come from a 2023 study, before today’s chat-based tools.{c(K, "nf-wb")} One advisory tool serves more than 350,000 plots in seven African countries through a messaging app.{c(K, "nf-wbblog")}</p>
 <p>The first randomised trial of AI advice for smallholders found that farmers valued the service but saw no short-run change in yields or costs.{c(K, "nf-rct")} A review of 51 studies found most evidence came from simulations and models, with low-income countries under-represented.{c(K, "nf-3ie")} Poor connectivity, cost and low digital literacy may leave smallholders behind while large farms gain.{c(K, "nf-dte")}</p></section>
 <section class="at-stack"><h2>The ledger</h2>
 {ledger(["Monitoring of species and habitats at a scale people cannot manage by hand." + c(K, "nf-scan"), "Farm advice that reaches smallholders by phone." + c(K, "nf-wbblog")],
