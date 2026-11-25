@@ -27,3 +27,8 @@ Earth4All.jl
   parameters.jl and initialisations.jl) and f3/sectors/e4a_common.py (semantics of src/functions.jl). The fixtures
   tests/fixtures/e4a_*.csv are numbers produced by running the package. The full MIT License text is in
   licenses/Earth4All.jl-MIT.txt. Nothing from the package's vensim_source/ or VensimOutput/ is copied (D-014).
+
+Work Sans (variable, latin subset, from the @fontsource-variable/work-sans package 5.3.0)
+  Copyright 2019 The Work Sans Project Authors (https://github.com/weiweihuanghuang/Work-Sans)
+  Licensed under the SIL Open Font License 1.1. The licence text is in licenses/WorkSans-OFL.txt.
+  Embedded in the Explorer stylesheet (site/assets/f3.css) so the static site needs no network request for fonts (D-056).

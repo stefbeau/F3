@@ -8,3 +8,9 @@ Thumbs.db
 .pytest_cache/
 .gate_cache/
 .fair_cache/
+
+# D-058/D-060 raw downloads stay out of git (only the small WID extract is tracked)
+audit/data/raw/*
+!audit/data/raw/wid/
+audit/data/raw/wid/*
+!audit/data/raw/wid/wid_sptinc_filtered.csv
