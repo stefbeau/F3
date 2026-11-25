@@ -76,6 +76,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-058 | Data retrieval campaign: sources, licences and derived series for links 3 to 7, the data-centre module and AI context (documents and data only, branch `data-campaign`) | Provisional (delegated) 2026-10-22 | 2 |
 | D-059 | Electricity link: data-centre electricity limit (D-055 side) to World3 industrial output, default OFF (branch `feature/electricity-link`) | Provisional (delegated) 2026-10-26 | 2 |
 | D-062 | S3 variant P: the playground's production block, from Epoch AI's reply; compared with the A1.3 criterion unchanged | Approved 2026-11-25 | 2 |
+| D-063 | Reference runs for the GATE comparison after the loss of the playground bundle | Proposed | 2 |
 
 ---
 
@@ -1378,6 +1379,28 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Proposed by:** Claude
 - **Decision:** Approved by Stéphane Beau in session ("For 2, ok": add the playground's composite as a labelled variant and re-run A1.3 with the criteria unchanged).
 - **Date:** 2026-11-25
+
+---
+
+## D-063 — Reference runs for the GATE comparison after the loss of the playground bundle
+
+- **Status:** Proposed
+- **Context:** A1.3 (D-005 amendment B) and test T1 of D-062 read three runs from a hash-pinned local copy of the playground bundle (D-026). On 2026-11-25 the bundle's URL returned 404, the Wayback Machine held no capture, and no copy was found on the editor's PC (D-026 outcome note). Without the bundle these tests skip and can never run. Epoch AI's reply includes the three presets regenerated with its own solver, and two further settings.
+- **Evidence:** `audit/gate-runs-identity.md`: all 67 comparison figures stored in October from the shipped bundle are reproduced from the runs Epoch sent to better than 1e-9 (largest difference 2.0e-11; same index of the largest difference for every quantity). This supports identity for the fields the comparison uses; it is not a field-by-field proof. Epoch's own statement (equal to about 1e-16) cannot be checked.
+- **Proposal:**
+  1. **The reference for A1.3 and for D-062 T1 becomes the three preset runs Epoch sent** (`default_run.json`, `conservative_run.json`, `aggressive_run.json`), read at test time from a local folder named by `F3_GATE_RUNS`, each **pinned by the sha256 recorded in `audit/gate-runs-identity.md`**. A missing folder is a stated skip; a changed hash is a visible failure. The bundle reader stays and takes precedence if a copy matching the D-026 pin is ever found.
+  2. **Nothing else changes:** same quantities, same 2%, same indices, same settings. The existing recorded failures of variants A, B and C101 stay recorded and are re-run against the new reference.
+  3. **The files are not committed** (D-026 item 1 and the editor's email to Epoch). Only comparison figures and hashes are stored. Attribution: "Reference values: Epoch AI, GATE runs produced with Epoch's solver and sent to the editor in November 2026".
+  4. **Every report that uses the new reference says** that it is the runs Epoch sent, that their identity with the shipped runs is supported by `audit/gate-runs-identity.md` and not proven, and that the shipped bundle is no longer available.
+  5. The two further settings stay report-only (no pre-set criterion in D-005).
+- **Not part of this decision:** which compute pairing counts in A1.3; whether variant P becomes the default; the wording of the D-029 label.
+- **Alternatives considered:** wait for the bundle to reappear or ask Epoch for it (can be done as well; no date); leave A1.3 permanently skipped (the open difference of D-029 could then never be closed by a test); commit the runs as fixtures (needs permission in writing, D-026 item 5).
+- **Cost of reversing:** small: the tests read from one of two sources; removing the second restores today's behaviour.
+- **Risk to name:** the only copy of the reference is now the attachment in the editor's mailbox and the copies made from it. It should be kept in at least two places.
+- **Sources:** `audit/gate-runs-identity.md`; `audit/data/gate-runs-identity.json`; D-005 amendment B, D-026, D-029, D-062.
+- **Proposed by:** Claude
+- **Decision:**
+- **Date:** 2026-11-25 (proposed)
 
 ---
 
