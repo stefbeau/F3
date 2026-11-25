@@ -76,7 +76,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-058 | Data retrieval campaign: sources, licences and derived series for links 3 to 7, the data-centre module and AI context (documents and data only, branch `data-campaign`) | Provisional (delegated) 2026-10-22 | 2 |
 | D-059 | Electricity link: data-centre electricity limit (D-055 side) to World3 industrial output, default OFF (branch `feature/electricity-link`) | Provisional (delegated) 2026-10-26 | 2 |
 | D-062 | S3 variant P: the playground's production block, from Epoch AI's reply; compared with the A1.3 criterion unchanged | Approved 2026-11-25 | 2 |
-| D-063 | Reference runs for the GATE comparison after the loss of the playground bundle | Proposed | 2 |
+| D-063 | Reference runs for the GATE comparison after the loss of the playground bundle | Approved 2026-11-25 | 2 |
 
 ---
 
@@ -1384,7 +1384,7 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 
 ## D-063 — Reference runs for the GATE comparison after the loss of the playground bundle
 
-- **Status:** Proposed
+- **Status:** Approved (2026-11-25)
 - **Context:** A1.3 (D-005 amendment B) and test T1 of D-062 read three runs from a hash-pinned local copy of the playground bundle (D-026). On 2026-11-25 the bundle's URL returned 404, the Wayback Machine held no capture, and no copy was found on the editor's PC (D-026 outcome note). Without the bundle these tests skip and can never run. Epoch AI's reply includes the three presets regenerated with its own solver, and two further settings.
 - **Evidence:** `audit/gate-runs-identity.md`: all 67 comparison figures stored in October from the shipped bundle are reproduced from the runs Epoch sent to better than 1e-9 (largest difference 2.0e-11; same index of the largest difference for every quantity). This supports identity for the fields the comparison uses; it is not a field-by-field proof. Epoch's own statement (equal to about 1e-16) cannot be checked.
 - **Proposal:**
@@ -1399,8 +1399,9 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Risk to name:** the only copy of the reference is now the attachment in the editor's mailbox and the copies made from it. It should be kept in at least two places.
 - **Sources:** `audit/gate-runs-identity.md`; `audit/data/gate-runs-identity.json`; D-005 amendment B, D-026, D-029, D-062.
 - **Proposed by:** Claude
-- **Decision:**
-- **Date:** 2026-11-25 (proposed)
+- **Decision:** Approved by Stéphane Beau in session, as drafted ("yes" to "Do you approve D-063 as drafted?").
+- **Date:** 2026-11-25
+- **Outcome note (2026-11-25).** Implemented in `tests/gate_reference.py` (second source, sha256 per file, bundle first if present). Run against the new reference: the 9 recorded A1.3 failures of variants A, B and C101 fail again as recorded (strict xfail); the hash test, the A1.5 tests and the stress tests pass; **D-062 T1 FAILED in all three settings on one row only, "effective compute against stored `compute`", from index 0** (`audit/s3-playground-composite.md`).
 
 ---
 

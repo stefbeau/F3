@@ -17,6 +17,9 @@ needs_bundle = pytest.mark.skipif(not gr.bundle_available(), reason=gr.skip_reas
 
 
 @needs_bundle
+@pytest.mark.xfail(strict=True, reason="T1 FAILED 2026-11-25 on one row only, 'effective_compute vs compute' from index 0 (not like for "
+                                       "like: the stored field is the raw stock); audit/s3-playground-composite.md section T1; "
+                                       "which pairing counts is the editor's call")
 @pytest.mark.parametrize("setting", list(SETTINGS_B))
 def test_t1_a13_criterion_variant_p(setting):
     """T1: the A1.3 criterion, unchanged, with composite="P". A failure is a result to record, not to tune away."""
@@ -26,6 +29,20 @@ def test_t1_a13_criterion_variant_p(setting):
     res = compare(s3, gr.field, runs[idx])
     failing = {k: v["first_index_over_tol"] for k, v in res.items() if v["in_criterion"] and not v["passes"]}
     assert not failing, f"P/{setting}: first index (year = 2025 + index) over {TOL:.0%} per quantity: {failing}"
+
+
+@needs_bundle
+@pytest.mark.parametrize("setting", list(SETTINGS_B))
+def test_posthoc_like_for_like_quantities_variant_p(setting):
+    """POST-HOC (added 2026-11-25 after T1's result was seen; NOT the A1.3 criterion and not a substitute for it): every
+    criterion quantity except the row 'effective_compute vs compute' within 2% at every index 0 to 75, and T1's only failing
+    row is that one. Guards the measured result against regressions until the editor rules on the pairing."""
+    idx, params = SETTINGS_B[setting]
+    runs = gr.load_runs()
+    s3 = run_s3(replace(params, composite="P"), gr.investment_shares(runs[idx], 80))
+    res = compare(s3, gr.field, runs[idx])
+    failing = {k for k, v in res.items() if v["in_criterion"] and not v["passes"]}
+    assert failing == {"effective_compute vs compute"}, f"P/{setting}: failing rows {sorted(failing)}"
 
 
 def test_t3a_no_automation_gives_labour():

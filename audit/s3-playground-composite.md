@@ -30,3 +30,14 @@ The first version of variant P reported the runtime-compute share as the elastic
 
 ## Labels
 Unchanged. The default composite is still "A"; the D-029 notice on S3 stays; nothing on the site changes.
+
+## T1 (added 2026-11-25, after D-063)
+T1 was run against the reference of D-063 (the three preset runs Epoch sent, hash-pinned; the playground bundle is no longer available, and identity with it is supported by `audit/gate-runs-identity.md`, not proven).
+
+**T1 FAILED in all three settings, on one row only: "effective compute against stored `compute`", from index 0.** Every other quantity of the criterion is within 2% at every index 0 to 75 (the figures are those of the table above, which used the same three files). The test is now a strict xfail with this reason, as the repository does for recorded failures; the assertion is unchanged.
+
+A **post-hoc** test, labelled as such and not a substitute for the criterion, was added after this result was seen: it asserts that the failing rows are exactly that one row (`test_posthoc_like_for_like_quantities_variant_p`).
+
+With the same reference, the nine recorded A1.3 failures of variants A, B and C101 fail again as recorded.
+
+The earlier statement in this file that T1 "was not run" is true of the first run and is superseded by this section.
