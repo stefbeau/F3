@@ -13,10 +13,10 @@ import pytest
 
 REPO = Path(__file__).resolve().parents[1]
 SITE = REPO / "site"
-TOPICS = ["energy", "water", "land", "work", "robots", "health", "mind", "safety", "military", "creative", "surveillance", "nature"]
+TOPICS = ["energy", "water", "land", "work", "robots", "worldmodels", "health", "mind", "safety", "military", "creative", "surveillance", "nature"]
 PAGES = ["atlas.html"] + [f"atlas-{t}.html" for t in TOPICS]
 F3_STATE = {"energy": "model", "work": "model", "land": "model", "water": "none", "health": "none", "mind": "none", "safety": "none",
-            "military": "none", "robots": "none", "creative": "none", "surveillance": "none", "nature": "none"}
+            "military": "none", "robots": "none", "worldmodels": "none", "creative": "none", "surveillance": "none", "nature": "none"}
 LABEL = "Reported figures, not F3 model output"
 
 
@@ -112,12 +112,12 @@ def test_the_hub_lists_every_topic_with_its_f3_state():
     html = read("atlas.html")
     for t in TOPICS:
         assert f'href="atlas-{t}.html"' in html, t
-    assert html.count('class="at-state model"') == 3 and html.count('class="at-state none"') == 9
+    assert html.count('class="at-state model"') == 3 and html.count('class="at-state none"') == 10
     assert 'href="ai.html"' in html and 'href="limitations.html"' in html
 
 
 # ---- added 2026-11-25 (editor's request: a Robots page, more infographics, the story in the same style), written before the changes
-IG_PAGES = {"atlas.html": 1, "atlas-water.html": 1, "atlas-work.html": 1, "atlas-robots.html": 2, "atlas-health.html": 1, "atlas-mind.html": 1,
+IG_PAGES = {"atlas.html": 1, "atlas-water.html": 1, "atlas-work.html": 1, "atlas-robots.html": 2, "atlas-worldmodels.html": 1, "atlas-health.html": 1, "atlas-mind.html": 1,
             "atlas-safety.html": 1, "atlas-military.html": 1, "atlas-surveillance.html": 1}
 
 
@@ -165,3 +165,10 @@ def test_each_story_tile_carries_its_own_caveat():                              
     for t, must in zip(tiles, ("A3.4", "A2.1", "unvalidated", "withheld")):
         assert 'class="at-caveat"' in t and must in t, must
     assert "does not reproduce GATE" in tiles[2] and "0.04 to 0.07 K" in tiles[1]
+
+
+def test_world_models_page_separates_measured_results_from_claims():                # editor's request of 2026-11-25, written before the page
+    html = read("atlas-worldmodels.html")
+    assert "F3 does not model this" in html
+    assert "65%" in html and "15%" in html                                          # the one robot result quoted, with its baseline
+    assert "no product" in html.lower() and "contested" in html.lower()
