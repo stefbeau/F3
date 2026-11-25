@@ -1,5 +1,7 @@
 # S3 investment rule R3 (D-028): method and choices
 
+> **Note 2026-11-25.** Every S3 figure in this document was computed with composite variant A, S3's default until D-065. The default is now variant P, which changes S3's results under R3 (`audit/s3-default-composite.md`). The text below is left as written and describes variant A.
+
 **Status:** written 2026-10-12, **before** the curves were fitted and **before** any A1.4 run. D-028 (approved 2026-10-12) chose R3 with R1's fitted curves as the default calibration. S3's equations are untouched; the rule only generates the six shares per period. Evidence for the shape of the curves: `docs/s3-investment-rule.md` section 1.
 
 ## 1. What the rule is

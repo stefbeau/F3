@@ -79,6 +79,7 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-063 | Reference runs for the GATE comparison after the loss of the playground bundle | Approved 2026-11-25 | 2 |
 | D-064 | A1.3: the compute row that counts is the raw stock (effective compute against stored `compute` reported only) | Approved 2026-11-25 | 2 |
 | D-065 | Variant P becomes S3's default composite; S3's validation notice reworded | Provisional (delegated) | 2 |
+| D-066 | Data-centre electricity module limited by the build rate of powered capacity | Proposed | 2 |
 
 ---
 
@@ -1446,6 +1447,20 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Proposed by:** Claude
 - **Decision:** Provisional (delegated); the editor reviews it in the next batch.
 - **Date:** 2026-11-25
+
+---
+
+## D-066 — Data-centre electricity module limited by the build rate of powered capacity
+
+- **Status:** Proposed
+- **Context:** with the electricity limit on, S3's installed compute asks for about 37,000 to 39,000 TWh in 2030 and the module grants a fixed 5% of supply; the investment rule does not see the shortfall (B1 sign failure, Track A); energy efficiency is tied to hardware price-performance (D-033). Measured in `audit/s3-default-composite.md`.
+- **Proposal:** `docs/electricity-module-proposal.md`. Step E1: powered capacity as a stock that grows at most `g_max` a year, with an outer share of supply (replaces the fixed 5% cap; neutral values reproduce today's module). Step E2: R3's compute share responds to the unpowered part of the compute stock (a labelled variant of R3, default off). Step E3: energy efficiency on its own path, separate from price-performance. Tests E-T1 to E-T7 are fixed in a test document before code. Emissions stay reported and are not fed to the climate sector (D-021).
+- **What is known already:** an exploratory prototype (`audit/t0/dc_build_rate_prototype.py`, not a model component) gives data-centre use of about 980 to 3,700 TWh in 2030 for build rates of 15% to 50% a year, and shows that long-run output stays implausible with steps E1 and E2 alone. The acceptance tests are therefore drafted with those figures already seen.
+- **Alternatives considered:** keep the share cap and lower it (still no dynamics, still the counter-loop); cap S3's compute directly (hides the physical reason); wait for the S3/World3 reconciliation (larger, and it does not replace an electricity module).
+- **Sources:** `docs/electricity-module-proposal.md`; `audit/s3-default-composite.md`; D-033, D-055, D-059; Track A records.
+- **Proposed by:** Claude, at the editor's request of 2026-11-25
+- **Decision:**
+- **Date:** 2026-11-25 (proposed)
 
 ---
 

@@ -1,5 +1,7 @@
 # S3 / World3 reconciliation: what is shared, how far apart, and the options (D-053 C; written 2026-10-21)
 
+> **Note 2026-11-25.** Every S3 figure in this document was computed with composite variant A, S3's default until D-065. The default is now variant P, which changes S3's results under R3 (`audit/s3-default-composite.md`). The text below is left as written and describes variant A.
+
 **Status:** section 1 (method) is committed **before** the measurement script was run; sections 2 onward are added after it, by dated sections, and nothing in section 1 is edited afterwards. **Nothing is built, no sector, test or label is changed.** Script: `audit/t0/s3_world3_measure.py`; figures: `audit/data/s3-world3-measure.json`.
 
 ## 1. What is measured (fixed before the run)

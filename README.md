@@ -2,8 +2,8 @@
 
 **An open global model of how the AI race interacts with the planet's limits and society's stability.**
 
-> **Status:** Phases 0 and 1 complete · Phase 2 (Couple) next · v0.1 specification in draft
-> F3 is under construction. No model results are published yet. The reference-model audits and the Phase 1 review are public: see [`audit/`](audit/) and [`docs/phase-1-review.md`](docs/phase-1-review.md).
+> **Status (2026-11-25):** Phases 0 and 1 complete · Phase 2 (Couple) in progress: World3, the climate sector, the AI sector, the data-centre module and a social-sector skeleton run in one loop; eight Earth4All sectors are ported and not yet wired in · v0.1 specification in draft
+> A **public draft Explorer (v0.2)** is published at https://stefbeau.github.io/F3/: conditional scenarios, not forecasts. Its AI-sector results were computed before 2026-11-25 with an earlier production block (see the S3 notice below). Where the project stands: [`docs/STATUS.md`](docs/STATUS.md). Audits: [`audit/`](audit/). Phase 1 review: [`docs/phase-1-review.md`](docs/phase-1-review.md).
 
 ---
 
@@ -58,9 +58,9 @@ Every assumption is recorded and approved in [DECISIONS.md](DECISIONS.md).
 |---|---|---|
 | 0 — Setup | Repository, specification, decision log | ✅ Done |
 | 1 — Reproduce & audit | World3 population sector in Python; Earth4All audited | ✅ Done 2026-10-08 ([review](docs/phase-1-review.md), [plan](docs/phase-1-plan.md), [audit findings](audit/T0-FINDINGS.md), [S1 port report](audit/s1-port-report.md)) |
-| 2 — Couple | AI sector linked to energy, materials, society | ⚪ Next: not started |
+| 2 — Couple | AI sector linked to energy, materials, society | 🟡 In progress: milestones M0 to M4 and a minimal integration (M6) done, with recorded test failures; minerals and water (part of M5) not started; Phase 2 review not written ([status](docs/STATUS.md)) |
 | 3 — Calibrate | Backtest and uncertainty analysis | ⚪ Not started |
-| 4 — Publish | Public scenario dashboard | ⚪ Not started |
+| 4 — Publish | Public scenario dashboard | 🟡 A public draft (Explorer v0.2) is online; the final dashboard is not started |
 
 ## Audits
 

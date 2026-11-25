@@ -1,5 +1,7 @@
 # S3 diagnostic: where do the implausible outputs come from? (D-053, Provisional; written 2026-10-21)
 
+> **Note 2026-11-25.** Every S3 figure in this document was computed with composite variant A, S3's default until D-065. The default is now variant P, which changes S3's results under R3 (`audit/s3-default-composite.md`). The text below is left as written and describes variant A.
+
 **Status:** method and pre-registered criteria, **committed before the diagnostic script was run**. Results are added below by dated sections; nothing above is edited afterwards. **Diagnostic only: no sector, no validated test and no label is changed.** Script: `audit/t0/s3_diagnostic.py`; figures: `audit/data/s3-diagnostic.json` (comparison figures only; no series from Epoch's bundle, D-026).
 
 ## 1. Question and hypothesis

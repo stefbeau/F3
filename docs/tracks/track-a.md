@@ -1,5 +1,7 @@
 # Track A log
 
+> **Note 2026-11-25.** Every S3 figure in this document was computed with composite variant A, S3's default until D-065. The default is now variant P, which changes S3's results under R3 (`audit/s3-default-composite.md`). The text below is left as written and describes variant A.
+
 ## 2026-10-17 IEA boundary: stop, then editor decision (option a)
 Plan committed first (`docs/tracks/track-a-plan.md`, aa40a45). IEA numbers and licence verified (see plan section 0); the formal accounting boundary was not. The track stopped and reported; the editor decided option (a) on 2026-10-17 (relayed by the orchestrator). Work continues from step 2. 485 TWh (2025) is a CALIBRATION point and 415 TWh (2024) a reference; neither is validation anywhere. 950 TWh (2030) is a report-only comparison. The crypto-mining exclusion is [unverified] and is labelled so on the page and in the report.
 
