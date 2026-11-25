@@ -327,6 +327,10 @@ def f3_box(key: str, d: dict) -> str:
     return {"energy": f3_energy, "work": f3_work, "land": f3_land}[key](d) if key in F3_STATE else f3_none(key)
 
 
+def cav(text: str) -> str:
+    return f'<span class="at-caveat">{text}</span>'
+
+
 def story_tiles(d: dict) -> str:
     """Four headline numbers for the story page, in the atlas tile style. All are series the story already draws; read from the data file."""
     import links
@@ -337,11 +341,11 @@ def story_tiles(d: dict) -> str:
     fa = d["runs"]["central|central|1"]["frac_automated"][y.index(2040)]
     built = sum(1 for x in links.LINKS if x["status"] == "built")
     return ('<section class="st-block" aria-labelledby="st_f3_h"><h2 id="st_f3_h">The story in four numbers</h2><div class="at-tiles" id="story_tiles">'
-            + tile("Step 1 · World3 standard run", f'{run["pop"][pk] / 1e9:.2f} billion', f'people at the peak, in {w["years"][pk]}', "f3")
-            + tile("Step 2 · warming in 2100", f'{cl["warming"][-1]:.1f} K', f'FaIR ensemble mean; 5 to 95% range {cl["warming_p05"][-1]:.1f} to {cl["warming_p95"][-1]:.1f} K', "f3")
-            + tile("Step 3 · tasks AI can perform, 2040", f"{100 * fa:.0f}%", "central setting; levels unvalidated", "f3")
-            + tile("Step 4 · links between the models", f"{built} of {len(links.LINKS)}", "are built; the rest are not", "f3")
-            + '</div><p class="small">F3 output: conditional scenarios, not forecasts. Each number has a status badge in its step below and on <a href="limitations.html">Limitations</a>.</p></section>')
+            + tile("Step 1 · World3 standard run", f'{run["pop"][pk] / 1e9:.2f} billion', f'people at the peak, in {w["years"][pk]}' + cav("Amber: the standard run matches its reference; test A3.4(b) failed; runs with changed settings are not compared."), "f3")
+            + tile("Step 2 · warming in 2100", f'{cl["warming"][-1]:.1f} K', f'FaIR ensemble mean; 5 to 95% range {cl["warming_p05"][-1]:.1f} to {cl["warming_p95"][-1]:.1f} K' + cav("Amber: test A2.1 failed; the run starts about 0.04 to 0.07 K below observed; emissions are prescribed, not modelled."), "f3")
+            + tile("Step 3 · tasks AI can perform, 2040", f"{100 * fa:.0f}%", "central setting" + cav("Red: the AI sector failed its test against GATE (A1.3), is unvalidated after about 2027 and does not reproduce GATE. Read the timing only."), "f3")
+            + tile("Step 4 · links between the models", f"{built} of {len(links.LINKS)}", "are built; the rest are not" + cav("A record of what is connected, not a model result. Compute and electricity outputs of one built link are withheld."), "f3")
+            + '</div><p class="small">F3 output: conditional scenarios, not forecasts. Each number carries its caveat; details are in its step below and on <a href="limitations.html">Limitations</a>.</p></section>')
 
 
 # ------------------------------------------------------------------------------------------------------------ page shell
@@ -728,8 +732,8 @@ def render(data: dict, stamp: dict, page) -> dict:
 </section>
 <section class="at-stack"><h2>From F3’s model</h2>
 <div class="at-tiles" aria-label="F3 output, conditional scenarios">
-{tile("Warming in 2050", f'{cl["warming"][y.index(2050)]:.1f} K', f'above 1850 to 1900; 5 to 95% range {cl["warming_p05"][y.index(2050)]:.1f} to {cl["warming_p95"][y.index(2050)]:.1f} K', "f3")}
-{tile("Tasks AI can perform, 2040", f"{100 * fa:.0f}%", "central setting of the AI-race sector; unvalidated", "f3")}
+{tile("Warming in 2050", f'{cl["warming"][y.index(2050)]:.1f} K', f'above 1850 to 1900; 5 to 95% range {cl["warming_p05"][y.index(2050)]:.1f} to {cl["warming_p95"][y.index(2050)]:.1f} K' + cav("Amber: test A2.1 failed; the run starts about 0.04 to 0.07 K below observed."), "f3")}
+{tile("Tasks AI can perform, 2040", f"{100 * fa:.0f}%", "central setting of the AI-race sector" + cav("Red: unvalidated after about 2027; does not reproduce GATE."), "f3")}
 {tile("Data-centre electricity", "Withheld", "the output leaves any plausible range", "f3")}
 </div><p class="small">Conditional scenarios, not forecasts. Notices and limits are on the <a href="atlas-energy.html">Power and climate</a> and <a href="atlas-work.html">Work and the economy</a> pages and on <a href="limitations.html">Limitations</a>.</p></section>
 <section class="at-stack"><h2>The twelve areas</h2><div class="at-cards">{cards}</div></section>

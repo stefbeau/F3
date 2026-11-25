@@ -1504,6 +1504,7 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Tested (`tests/test_site_atlas.py`, readings committed before the changes):** each infographic has a text alternative or is a list, a caption that says "Reported", and no F3 output; the Robots page shows the three analyst counts side by side and says estimates differ; the story tiles equal the data file. Site tests: 190 passed. The existing story tests pass unchanged.
 - **What is NOT verified:** the Robots figures other than the IFR's own release (see `audit/atlas-figure-review.md`); humanoid shipment counts are analyst estimates that disagree by almost a third. The pages were looked at once at phone width (three pages), before the last layout fix to bars and circles; the fix itself was not looked at.
 - **For the editor:** this decision; the four story tiles are a new presentation of outputs the story already draws, with the existing notices one step below, not beside each tile. Say if each tile should carry its notice.
+- **Editor's answer (2026-11-25, in session):** "each story should carry it's own caveat notice". Done the same day: each of the four story tiles, and the two F3 number tiles on the atlas overview, now carries its caveat inside the tile (test `test_each_story_tile_carries_its_own_caveat`, written first). The same message said "merge 19".
 - **Reversal cost:** low. Revert the commit; no model code or data file is touched.
 - **Proposed by:** the editor (instruction); Claude (form and implementation).
 - **Date:** 2026-11-25
