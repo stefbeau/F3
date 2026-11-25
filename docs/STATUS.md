@@ -1,5 +1,12 @@
 # F3 — Status
 
+## Update 2026-11-25: Epoch AI replied; a bad sync commit undone
+- **Epoch AI replied** (Anson Ho) to the email of 2026-10-17; the editor reported the reply on 2026-11-25. Statements below that say "no reply" are true as of their date (2026-10-22) and are left as written.
+- **What the reply contains.** A description of how the playground computes the task composite, with code excerpts (not committed); confirmation that the stored `compute` field is the raw stock Q before the cap; five runs produced with Epoch's own solver (the three presets regenerated and the two stress settings F3 asked for; not committed); no newer paper, model or published code is planned. **The reply does not state permission in words** for the use of the shipped runs as test references (D-062 records the editor's reading).
+- **What follows.** D-062 (approved 2026-11-25): the playground's production block is added to S3 as labelled variant `P` and compared with the A1.3 criterion unchanged. Reading and tests: `docs/s3-playground-composite.md`. Results: `audit/s3-playground-composite.md`. **The D-029 label on S3 stays** until the editor decides otherwise.
+- **Commit `5291b2d` (2026-10-28, "chore: sync files not included in merged PRs") is reverted.** It replaced 17 files by older copies (3,221 lines removed): `DECISIONS.md` lost D-045 to D-059, this page went back to an earlier state, and `f3/sectors/s3_ai.py`, `world3.py`, `world3_group.py`, `w3_capital.py`, the sources register and `needs-user.json` lost merged work. Measured in a clean checkout on 2026-11-25 (no FaIR data, no GATE bundle, PyWorld3 not installed): with that commit, 123 tests failed; after the revert, 606 passed, 0 failed, 35 skipped, 33 strict xfail, 2 errors (PyWorld3 missing). **Not checked:** whether anything in that commit was intended; the 186 lines it added are removed with it. The published site was not rebuilt.
+- **Still out of date, not corrected here:** `README.md` says Phase 2 is not started and that no results are published; the headline and milestone table below stop at 2026-10-22 and do not mention the data campaign (D-058 to D-061), the electricity link (D-059) or Explorer v0.2.
+
 **As of 2026-10-21 (F3 Explorer v0 merged into main, approved by the editor for publication, awaiting his Pages enablement; Tracks A, B and C merged; M5 unblocked but not started).** `DECISIONS.md` is authoritative for decisions; this page summarises. Keep it current: update it in the same commit as any change of status.
 
 ## Phases

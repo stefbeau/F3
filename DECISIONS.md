@@ -866,6 +866,8 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Decision:** Approved by Stéphane Beau, as drafted.
 - **Date:** 2026-10-09
 - **Note (2026-10-22, appended; nothing above changed).** The permission request was made: the editor sent an email to Epoch on 2026-10-17 through epoch.ai/contact. No reply as of 2026-10-22; permission is **not** granted, so the series are still read at test time from the hash-pinned copy and never committed. (D-054)
+- **Outcome note (2026-11-25).** Epoch AI (Anson Ho) replied to the email of 2026-10-17; the editor reported the reply on 2026-11-25. On question 3 the reply says that the two requested settings were run and attaches five runs (the three presets regenerated, and the two settings); **it does not state permission in words.** Item 5 of this decision is therefore not triggered: nothing from the bundle or from the runs Epoch sent is committed. The editor's reading of the reply for use at test time is recorded in D-062.
+
 
 ## D-027 — S3 production composite: test the paper's footnote-38 task grids as a labelled variant
 
@@ -930,6 +932,8 @@ Also consider the **WORLD7** model (Sverdrup et al.) as a reference for S5 metal
 - **Decision:** Approved by Stéphane Beau in session, as drafted.
 - **Date:** 2026-10-12
 - **Note (2026-10-22, appended; nothing above changed).** The email in item 2 was sent by the editor on 2026-10-17 through epoch.ai/contact; no reply as of 2026-10-22. F3 is not waiting for it; the blind re-derivation brief (`docs/s3-composite-blind.md`) is kept as a brief and not run (D-054). A1.3 stays failed and S3 stays labelled unvalidated after about 2027.
+- **Outcome note (2026-11-25).** Epoch AI replied. The reply describes how the playground computes the composite; it differs from the paper's equations in several ways (`docs/s3-playground-composite.md`). **The cause named "unresolved" in fact 2 is now described by Epoch**; whether F3 stays within the A1.3 tolerance with it is the subject of D-062, which is the "new decision" item 2 requires for a further composite variant. The labelling rule (item 3) is unchanged by this note.
+
 
 ## D-030 — M2 step 1 closes with A2.1 failed; climate output labelled
 
