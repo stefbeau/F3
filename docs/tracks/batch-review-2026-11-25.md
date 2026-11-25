@@ -21,7 +21,7 @@ Thirteen decisions are recorded as "Provisional (delegated)" and wait for the ed
 | D-065 | Variant P as S3's default; notice reworded | One default and three notices | **Confirm.** It touches a validation label, which is the editor's to decide. |
 
 ## Also open
-- **Proposed, not provisional:** D-006 (critical minerals granularity), D-008 (social-tension proxy), D-066 (electricity module by build rate).
+- **Proposed, not provisional:** D-066 (electricity module by build rate). *Correction, same day: this line first also listed D-006 and D-008. Both were already approved on 2026-10-21; I had read their status from the out-of-date register.*
 - **Documents written for variant A**, now carrying a dated note and not revised: `docs/s3-world3-reconciliation.md`, `docs/s3-supply-limited.md`, `docs/s3-diagnostic.md`, `docs/s3-investment-rule-r3.md`, `docs/tracks/track-a.md`. The statement that the labour effect "persists" (D-054) is true of variant A; with variant P the original fading reading holds.
 - **The published site** shows variant A results with the earlier notice. A rebuild needs the 841-member climate recording and the editor's approval to publish.
 - **D-024:** the editor sets the backtest thresholds before the hindcast.
