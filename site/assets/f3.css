@@ -330,3 +330,4 @@ ol.at-chain li{display:flex;flex-direction:column;gap:2px;border-top:4px solid v
 .at-brow .at-lab{grid-column:1/-1;font-size:.87rem}.at-btrack{display:block;height:18px;background:var(--card2);border-radius:3px;min-width:0}
 .at-bfill{display:block;height:100%;border-radius:3px;background:var(--sa)}.at-bfill.s{background:var(--sb)}.at-bfill.g{background:var(--acc1)}.at-bfill.m{background:var(--base)}
 .at-brow .at-val{font-size:.87rem;font-weight:600;white-space:nowrap}.at-capline{font-size:.82rem;color:var(--mut)}
+.at-caveat{display:block;margin-top:6px;padding-top:6px;border-top:1px solid var(--line);font-size:.82rem;color:var(--amber-t);background:var(--amber-bg);border-radius:4px;padding:6px 8px}
