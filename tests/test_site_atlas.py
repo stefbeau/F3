@@ -13,10 +13,10 @@ import pytest
 
 REPO = Path(__file__).resolve().parents[1]
 SITE = REPO / "site"
-TOPICS = ["energy", "water", "land", "work", "health", "mind", "safety", "military", "creative", "surveillance", "nature"]
+TOPICS = ["energy", "water", "land", "work", "robots", "health", "mind", "safety", "military", "creative", "surveillance", "nature"]
 PAGES = ["atlas.html"] + [f"atlas-{t}.html" for t in TOPICS]
 F3_STATE = {"energy": "model", "work": "model", "land": "model", "water": "none", "health": "none", "mind": "none", "safety": "none",
-            "military": "none", "creative": "none", "surveillance": "none", "nature": "none"}
+            "military": "none", "robots": "none", "creative": "none", "surveillance": "none", "nature": "none"}
 LABEL = "Reported figures, not F3 model output"
 
 
@@ -112,5 +112,47 @@ def test_the_hub_lists_every_topic_with_its_f3_state():
     html = read("atlas.html")
     for t in TOPICS:
         assert f'href="atlas-{t}.html"' in html, t
-    assert html.count('class="at-state model"') == 3 and html.count('class="at-state none"') == 8
+    assert html.count('class="at-state model"') == 3 and html.count('class="at-state none"') == 9
     assert 'href="ai.html"' in html and 'href="limitations.html"' in html
+
+
+# ---- added 2026-11-25 (editor's request: a Robots page, more infographics, the story in the same style), written before the changes
+IG_PAGES = {"atlas.html": 1, "atlas-water.html": 1, "atlas-work.html": 1, "atlas-robots.html": 2, "atlas-health.html": 1, "atlas-mind.html": 1,
+            "atlas-safety.html": 1, "atlas-military.html": 1, "atlas-surveillance.html": 1}
+
+
+@pytest.mark.parametrize("name", sorted(IG_PAGES))
+def test_infographics_have_a_text_alternative_and_a_caption_and_show_reported_figures_only(name):
+    html = read(name)
+    figs = re.findall(r'<figure class="at-ig"[^>]*>.*?</figure>', html, re.S)
+    assert len(figs) >= IG_PAGES[name], name
+    for f in figs:
+        assert "<figcaption>" in f and "Reported" in f, name                       # each says its figures are reported
+        assert re.search(r'role="img" aria-label="[^"]{40,}"', f) or "<ol" in f or "<ul" in f, name      # a drawing has a text alternative; a list is text
+        assert "at-f3" not in f and "F3 output" not in f, name                      # reported figures and F3 output never share a graphic
+
+
+def test_robots_page_states_scale_disagreement_and_that_f3_does_not_model_it():
+    html = read("atlas-robots.html")
+    assert "F3 does not model this" in html
+    for v in ("19,100", "22,000", "25,000"):                                        # three analyst counts for the same half-year, shown side by side
+        assert v in html, v
+    assert "estimates differ" in html.lower()
+    assert "5.08 million" in html or "5 million" in html
+
+
+def test_story_page_uses_the_atlas_style_and_its_headline_tiles_come_from_the_data_file():
+    d = data()
+    html = read("index.html")
+    assert 'class="story"' in html
+    tiles = re.search(r'<div class="at-tiles" id="story_tiles".*?</div>\s*<p', html, re.S)
+    assert tiles, "story tiles missing"
+    t = tiles.group(0)
+    assert t.count('class="at-tile f3"') == 4
+    w = d["world3"]
+    run = w["runs"][w["standard"] + "|off"]
+    pk = max(range(len(run["pop"])), key=lambda i: run["pop"][i])
+    assert f'{run["pop"][pk] / 1e9:.2f} billion' in t and str(w["years"][pk]) in t
+    assert f'{d["climate"]["warming"][-1]:.1f} K' in t
+    assert f'{100 * d["runs"]["central|central|1"]["frac_automated"][d["years"].index(2040)]:.0f}%' in t
+    assert "Conditional scenarios, not forecasts" in html and 'href="limitations.html"' in html
