@@ -46,9 +46,11 @@ def nav(current: str, cls: str = "site") -> str:
 
 
 def footer(current: str, stamp: dict) -> str:
-    links = "".join(f'<a href="{h}">{t}</a>' for h, t in NAV)
-    return (f'<footer class="site"><nav aria-label="Footer">{links}<a href="{REPO_URL}">Source code on GitHub</a></nav>'
-            f'<div>Public draft, published 2026-10-21. Conditional scenarios, not forecasts. Built {stamp["date"]} from source commit <code>{stamp["commit"]}</code>.</div></footer>\n')
+    """One short block: what the site is, when it was last updated, and four links. The full navigation is at the top of every page."""
+    links = "".join(f'<a href="{h}">{t}</a>' for h, t in (("limitations.html", "Limitations"), ("sources.html", "Sources"), ("about.html", "About")))
+    return (f'<footer class="site"><div><strong>F3 Explorer v0.2.</strong> Public draft, published 2026-10-21. Conditional scenarios, not forecasts.</div>'
+            f'<nav aria-label="Footer">{links}<a href="{REPO_URL}">Source code on GitHub</a></nav>'
+            f'<div>Last updated {stamp["date"]}, from source commit <code>{stamp["commit"]}</code>.</div></footer>\n')
 
 
 def page(title: str, current: str, body: str, css: str, stamp: dict, script: str = "", kind: str = None, wide: bool = False) -> str:
@@ -190,6 +192,14 @@ def methods_page(data: dict, stamp: dict, css: str) -> str:
 
 
 # --------------------------------------------------------------------------------------------------------------------
+def _dc(data: dict, year: int) -> str:
+    """Modelled data-centre demand in the central run, rounded to two significant figures (a withheld series: quoted in words only, never drawn)."""
+    from math import floor, log10
+    v = data["runs"]["central|central|1"]["e_dc_demand"][data["years"].index(year)]
+    r = round(v, -int(floor(log10(abs(v)))) + 1)
+    return f"{r:,.0f}" if r < 1e6 else f"{r / 1e6:,.1f} million" if r < 1e9 else f"{r / 1e9:,.1f} billion"
+
+
 def limitations_page(data: dict, stamp: dict, css: str) -> str:
     body = f"""
 <h1>Limitations</h1>
@@ -197,7 +207,7 @@ def limitations_page(data: dict, stamp: dict, css: str) -> str:
 {BANNER}
 
 <section class="card" id="status-ai"><h2>Tests that failed (recorded, not relaxed)</h2>
-<div class="failblock"><h3 class="fail">A1.3</h3><p class="note"><strong>What it checked:</strong> The AI sector (S3) against the three runs shipped by Epoch AI's GATE playground, within 2% at every year, with GATE's own investment path supplied</p><p><strong>Result:</strong> <strong>Failed</strong> for all three runs. Output first exceeds 2% in 2026-27; capital, hardware, software and compute from 2027-33. With Epoch's own task-composite supplied, every quantity matches, so the gap is S3's task-allocation step; its cause is unresolved. Three different discretisations of that step gave the same failure. S3's absolute output (output, capital, effective compute) is <strong>unvalidated after about 2027</strong>. S3 does <strong>not</strong> reproduce GATE.</p></div>
+<div class="failblock"><h3 class="fail">A1.3</h3><p class="note"><strong>What it checked:</strong> The AI sector (S3) against the reference runs of Epoch AI's GATE playground, within 2% at every year, with GATE's own investment path supplied</p><p><strong>Result:</strong> <strong>Met as amended</strong> for the default task composite (the playground's own method, D-062): within 2% for 76 years on the three reference runs Epoch AI sent (D-063), after the editor ruled that the raw compute stock is the like-for-like quantity (D-064). <strong>As first written it failed</strong> on that one row, and the three earlier composites failed on several quantities from 2026-27 (D-029); those failures stay recorded. The test supplies GATE's own investment path. Every run on this site uses F3's own investment rule (R3) instead, under which S3's absolute output is <strong>unvalidated</strong> and leaves plausible ranges within a few years. S3 does <strong>not</strong> reproduce GATE. The other AI-sector tests listed here (A1.4, A2.6, B1, R1, B2) were recorded with the earlier composite and have not been re-run with the default one.</p></div>
 <div class="failblock"><h3 class="fail">A1.4</h3><p class="note"><strong>What it checked:</strong> The investment rule R3 against GATE's own investment path (report only, no pass or fail)</p><p><strong>Result:</strong> <strong>Poor agreement.</strong> With Epoch's stored composite supplied, effective compute is 43% to 72% off at worst and output 13% to 20% off; hardware up to 35% off; investment shares up to 24 percentage points off (capital) and 55 (training share). R3 is a scenario-lever rule, not a GATE replica; it was fitted to the same three runs.</p></div>
 <div class="failblock" id="status-climate"><h3 class="fail">A2.1</h3><p class="note"><strong>What it checked:</strong> FaIR's ensemble-mean warming for 2015-2024 against HadCRUT5's mean 95% interval</p><p><strong>Result:</strong> <strong>Failed.</strong> FaIR gives 1.196 K above 1850-1900; the HadCRUT5 interval is 1.234 to 1.305 K. FaIR is 0.037 K below the lower edge and 0.073 K below the best estimate. 2023 and 2024 (outside the ensemble's calibration window) run 0.16 to 0.20 K low; the cause is untested. Scenario warming therefore starts about 0.04 to 0.07 K below observed for the current decade.</p></div>
 <div class="failblock"><h3 class="fail">A2.6</h3><p class="note"><strong>What it checked:</strong> Halving the loop step (0.25 to 0.125 year) changes the slice's outputs by at most 0.1%</p><p><strong>Result:</strong> <strong>Failed.</strong> Largest difference 0.565% in data-centre electricity (first above 0.1% in 2028); output 0.197%; compute 0.108%.</p></div>
@@ -210,7 +220,7 @@ def limitations_page(data: dict, stamp: dict, css: str) -> str:
 <section class="card" id="compared"><h2>What is, and is not, compared with anything</h2>
 <ul>
 <li><strong>World3:</strong> only the <em>standard</em> parameters, with climate damage off, were compared with WorldDynamics.jl. The Explorer's runs with changed parameters have not been compared with any reference. Extreme settings (for example a land yield factor of 2.0, which ends with a population of about 0.4 billion) show what the ported equations do under that input; nothing says it is right.</li>
-<li><strong>AI race:</strong> unvalidated against GATE after about 2027 (above). Compute and data-centre electricity outputs are withheld because they leave any plausible range (in the recorded runs modelled data-centre demand reaches about 7 billion TWh a year by 2100, against about 485 TWh in 2025; the earlier recorded figures were about 20,000 TWh in 2030 and 414,000 TWh in 2040); that is a property of S3's compute path, not a finding about the world.</li>
+<li><strong>AI race:</strong> levels unvalidated under F3's own investment rule (above). Compute and data-centre electricity outputs are withheld because they leave any plausible range (in the site data modelled data-centre demand is about {_dc(data, 2030)} TWh a year in 2030 and about {_dc(data, 2040)} in 2040, against about 485 TWh in 2025 and the roughly 1,000 TWh the IEA expects for 2030); that is a property of S3's compute path under this investment rule, not a finding about the world.</li>
 <li><strong>Data-centre module:</strong> 485 TWh (2025) is a <em>calibration point</em>, 415 TWh (2024) a reference value; neither validates the module, and no independent test of modelled data-centre electricity against estimates exists before 2025. The IEA's 950 TWh for 2030 is the IEA's projection under its own assumptions. The IEA's formal definition of a data centre could not be verified: whether crypto-mining load is excluded from its totals is <strong>[unverified]</strong>. The 5% cap on the share of electricity supply available to data centres and the tie of energy efficiency to S3's hardware curve are assumptions.</li>
 <li><strong>Climate:</strong> FaIR is used as published. Non-CO2 emissions and land-use CO2 are prescribed, not modelled. The ensemble was constrained to data through 2022. The band is the ensemble band only.</li>
 <li><strong>Damages:</strong> the three options are level-of-output effects (Nordhaus 2017, Barrage and Nordhaus 2024, Howard and Sterner 2017). <strong>"High" is not the upper end of the literature:</strong> growth-effect estimates (for example Burke, Hsiang and Miguel 2015, whose abstract reports about 23% lower average global incomes by 2100) are larger and are not represented; their coefficients were not readable in the copy obtained and are <strong>[unverified]</strong>. The central and high coefficients are <strong>derived</strong> from printed anchors, not read as printed coefficients. The temperature baseline of Nordhaus (2017) is not stated in the text read <strong>[unverified]</strong>; FaIR's baseline is 1850-1900 and no offset is applied. Shares are of S3's own output, whose level is unvalidated.</li>

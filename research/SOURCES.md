@@ -159,3 +159,16 @@ Read on 2026-11-25. **Status of every entry: figure read in the linked page; NOT
 - `rb-bis`: BIS Working Paper 1334, Robots, ICT and employment (March 2026). https://www.bis.org/publ/work1334.htm
 - `rb-ifrpos`: IFR position paper, The impact of robots (Aug 2026). https://ifr.org/ifr-press-releases/news/new-ifr-position-paper-the-impact-of-robots
 - `rb-berg`: Berg Insight forecast of humanoid shipments to 2040. https://iconnect007.com/article/151498/humanoid-robot-shipments-to-reach-26-million-units-annually-by-2040/151495/milaero
+- `iea-weo-orig`: IEA, World Energy Outlook 2026, overview and key findings. https://iea.org/reports/world-energy-outlook-2026/overview-and-key-findings
+- `gem`: ITU and UNITAR, Global E-waste Monitor 2024. https://www.itu.int/en/ITU-D/Environment/Pages/Publications/The-Global-E-waste-Monitor-2024.aspx
+- `pew`: Pew Research Center, Teens, social media and AI chatbots 2025 (fact sheet). https://www.pewresearch.org/internet/fact-sheet/teens-and-internet-device-access-fact-sheet/
+- `iasr-exec`: International AI Safety Report 2026, executive summary. https://apo.org.au/sites/default/files/resource-files/2026-02/apo-nid333514_0.pdf
+- `itu-ff`: ITU, Facts and Figures 2025, press release. https://www.itu.int/en/mediacentre/Pages/PR-2025-11-17-facts-and-figures.aspx
+- `sv-ids`: Institute of Development Studies article on its report Smart city surveillance in Africa (March 2026). https://www.ipsnews.net/2026/03/rapid-rise-of-smart-city-surveillance-tech-across-africa-to-spy-on-citizens/
+- `wm-tc`: TechCrunch, Yann LeCun’s AMI Labs raises $1.03B to build world models (9 March 2026). https://techcrunch.com/2026/03/09/yann-lecuns-ami-labs-raises-1-03-billion-to-build-world-models/
+- `wm-heise`: Heise, World model instead of LLM: LeCun’s startup receives 890 million euros. https://heise.de/-11206350
+- `wm-vjepa2`: Assran et al., V-JEPA 2 (Meta FAIR, June 2025), arXiv 2506.09985. https://arxiv.org/abs/2506.09985
+- `wm-hjepa`: H-JEPA (October 2026), arXiv 2610.06805. https://arxiv.org/abs/2610.06805
+- `wm-lecun`: LeCun, A path towards autonomous machine intelligence (2022). https://openreview.net/pdf?id=BZ5a1r-kVsf
+- `wm-platonic`: Balestriero and LeCun, paper on shared representations (October 2026), arXiv 2610.39302. https://arxiv.org/abs/2610.39302
+- `wm-rebuttal`: Rebuttal of that paper, arXiv 2611.16182. https://arxiv.org/abs/2611.16182

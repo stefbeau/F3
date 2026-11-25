@@ -11,5 +11,5 @@ def tip(term, text):
 S3, R3 = (tip("S3", "S3 is this project's AI-economy model: a re-implementation of the GATE equations for output, automation and compute, driven by a scenario investment rule. Its levels are unvalidated."),
           tip("R3", "R3 is the scenario-lever rule that sets how much S3 invests in compute, hardware research and software research. It is a lever, not a replica of GATE."))
 FAIR = tip("FaIR", "FaIR is the open climate model used here, with the published 841-member calibrated ensemble. Emissions are prescribed, so every scenario has the same climate.")
-GATE = tip("GATE", "GATE is Epoch AI's model of the economy under AI automation. F3 re-implemented its equations from the paper; the re-implementation does not reproduce GATE after about 2027.")
+GATE = tip("GATE", "GATE is Epoch AI's model of the economy under AI automation. F3 re-implemented its equations from the paper; with GATE's own investment path the re-implementation is within 2% of Epoch AI's reference runs, but F3 does not implement GATE's investment optimisation and does not reproduce GATE.")
 W3 = tip("World3", "World3 is the system-dynamics model behind The Limits to Growth: population, food, industry, resources and pollution, 1900 to 2100.")

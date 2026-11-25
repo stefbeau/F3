@@ -26,9 +26,9 @@ CLIMATE_DETAILS = f"""<details><summary>Caveats and details for the climate pane
 <li><strong>Climate (FaIR).</strong> FaIR climate starts about 0.04 to 0.07 K below observed for the current decade (D-030); non-CO2 emissions are prescribed, not modelled (D-021). The test of FaIR against HadCRUT5 for 2015-2024 failed (ensemble mean 0.037 K below the interval). <span id="s6status"></span></li>
 </ul></details>"""
 
-AI_STATUS = f"""<div class="notice" role="note"><strong>Status:</strong> the AI sector ({S3}) failed its test against {GATE} (A1.3): its absolute output is unvalidated after about 2027, and it does not reproduce GATE. Shapes are more reliable than levels. Not a forecast.</div>"""
+AI_STATUS = f"""<div class="notice" role="note"><strong>Status:</strong> the AI sector ({S3}) is within 2% of {GATE}'s reference runs when GATE's own investment path is supplied (test A1.3 as amended). Every run shown here uses F3's own investment rule instead: under it the absolute output is unvalidated and leaves plausible ranges within a few years. S3 does not reproduce GATE. Shapes are more reliable than levels. Not a forecast.</div>"""
 
-AI_WITHHELD = f"""<div class="withheld" role="note">Compute and electricity outputs are withheld until the S3 compute path is validated (awaiting Epoch AI); they currently leave any plausible range.</div>"""
+AI_WITHHELD = f"""<div class="withheld" role="note">Compute and electricity outputs are withheld until the S3 compute path is validated under F3's own investment rule; they currently leave any plausible range. A limit on how fast data-centre power can be built is approved (D-066) and not built yet.</div>"""
 
 AI_DAMAGE_NOTICE = f"""<div class="notice" role="note"><strong>The "high" damage option is NOT the upper end of the literature.</strong> All three options are level-of-output effects; growth-effect estimates are larger and are not represented (D-007). Shares are of S3's own output, whose level is unvalidated.</div>"""
 
@@ -42,7 +42,7 @@ AI_DETAILS = f"""<details><summary>All caveats for the AI-race panel, including 
 </ul>
 <h4>About the withheld compute and electricity charts (text kept from the earlier Demo 0 page)</h4>
 <ul>
-<li>Raw compute stock (FLOP/year, log scale) and automated fraction of tasks, for the three AI settings at the chosen damage option. Absolute compute is unvalidated against GATE after about 2027; shapes are more reliable than levels.</li>
+<li>Raw compute stock (FLOP/year, log scale) and automated fraction of tasks, for the three AI settings at the chosen damage option. Absolute compute is unvalidated under F3's own investment rule; shapes are more reliable than levels.</li>
 <li>Data-centre electricity, TWh per year, chosen AI setting, central damage. "Demand" is what the installed compute would draw; "used" is capped by the share of electricity supply available to data centres (5% of the recorded Earth4All.jl TLTL electricity production, a provisional assumption). The IEA points were 2024 (415, reference) and 2025 (485, calibration point); the 2030 point (950) is the IEA's projection, not a target. Values after about 2027 inherit S3's unvalidated output; the demand curve leaves any plausible range quickly, which is a property of S3's compute path, not a finding about the world.</li>
 <li>Supply binds from about 2027-2028 in this slice. The half-supply curve is not below the base curve in every year (see the recorded B1 failure below); the sign holds for the unlimited case.</li>
 <li>The series are kept in <code>data/explorer.json</code> and in the generator; they are not drawn.</li>

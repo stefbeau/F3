@@ -71,8 +71,8 @@ def body(tiles: str = "") -> str:
 <div class="ctlrow"><span class="ctllab" id="c3_lab">AI investment setting</span><div class="seg" id="c3_seg" role="group" aria-labelledby="c3_lab"></div></div>
 <div id="ch_s3" class="redframe"></div>
 <p class="note" id="c3_note"></p>
-<p class="status"><a class="badge red" href="limitations.html#status-ai"><span aria-hidden="true">&#9632;</span> Red: S3 failed its test against GATE (A1.3); levels are unvalidated, read the shape only</a></p>
-<div class="withheld" role="note">Compute and electricity outputs are withheld until the S3 compute path is validated (awaiting Epoch AI); they currently leave any plausible range.</div>
+<p class="status"><a class="badge red" href="limitations.html#status-ai"><span aria-hidden="true">&#9632;</span> Red: under F3's own investment rule S3's levels are unvalidated (test A1.3 is met only with GATE's investment path); read the shape only</a></p>
+<div class="withheld" role="note">Compute and electricity outputs are withheld until the S3 compute path is validated under F3's own investment rule; they currently leave any plausible range. A limit on how fast data-centre power can be built is approved (D-066) and not built yet.</div>
 <p class="next"><a href="#ch4">Next: what is connected</a></p>
 </section>
 

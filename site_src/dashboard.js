@@ -103,7 +103,7 @@
     $("setting_text").textContent = "AI setting: " + s + " (" + D.meta.settings[s] + "). Damage option: " + d + " (" + D.meta.damage_sources[d] + ").";
     var fr = function (n) { return D.runs[F3.aiKey(n, d)].frac_automated; }, t = F3.automationFinding(AY, fr(s), s);
     C.lineChart($("ch_auto"), { title: t, years: yrs, xstep: 5, tableStep: 5, unit: "Fraction of tasks automated (S3, levels unvalidated)", fmt: "fraction", ymin: 0, ymax: 1.02, file: "f3-ai-automation-damage-" + d, label: "Automation fraction, three AI settings, 2025-2050", assume: F3.ASSUME.ai,
-      caveat: "S3 is unvalidated against GATE after about 2027 (test A1.3 failed); shape only.", summary: t + ". Shape only, 2025 to 2050: S3 is unvalidated against GATE after about 2027 (test A1.3 failed).",
+      caveat: "S3's level is unvalidated under F3's own investment rule; shape only.", summary: t + ". Shape only, 2025 to 2050: S3's level is unvalidated under F3's own investment rule (test A1.3 failed).",
       series: F3.AI_S.map(function (n, i) { return { name: n + (n === s ? " (selected)" : ""), label: n, color: cols[i], tcolor: cols[i], dash: DASH[i], width: n === s ? 3.6 : 1.8, y: fr(n).slice(0, cut) }; }) });
     var full = function (n) { var j = fr(n).findIndex(function (v) { return v >= 0.999; }); return j < 0 ? "not within " + AY[AY.length - 1] : AY[j]; };
     $("auto_note").textContent = "Axis shows 2025-2050. First year at 1.0: low " + full("low") + ", central " + full("central") + ", race " + full("race") + " (a year after 2050 is beyond the axis).";

@@ -14,7 +14,7 @@ TESTS = [
     ("A3.4(b)", "Population sector inside the full run equals the same sector alone with recorded inputs, within 0.25%", "Failed: up to 0.931% (2004 set)", "failed", "status-world3"),
     ("M6", "Damage coupling: off equals stand-alone World3 to 1e-9; zero warming equals baseline; more warming lowers output; no NaN or negative values", "Met (these runs are not compared with WorldDynamics.jl)", "met", "status-world3"),
     ("A2.1", "FaIR ensemble-mean warming 2015-2024 against HadCRUT5", "Failed: 0.037 K below the interval", "failed", "status-climate"),
-    ("A1.3", "S3 against GATE's three runs within 2% at every year", "Failed: levels unvalidated after about 2027", "failed", "status-ai"),
+    ("A1.3", "S3 against GATE's three reference runs within 2% at every year, with GATE's own investment path", "Met as amended (D-064) for the default composite; levels under F3's own investment rule stay unvalidated", "met", "status-ai"),
     ("A1.4", "Investment rule R3 against GATE's investment path (report only)", "Poor agreement", "failed", "status-ai"),
     ("A2.6", "Halving the loop step changes the slice's outputs by at most 0.1%", "Failed: 0.565% (data-centre electricity)", "failed", "status-ai"),
     ("B1 sign", "Lowering electricity supply lowers compute growth", "Failed as written", "failed", "status-ai"),
@@ -89,7 +89,7 @@ def tests_table() -> str:
 BADGES = (
     '<p class="badges"><a class="badge amber" href="limitations.html#status-world3"><span aria-hidden="true">&#9650;</span> World3: standard run matches its reference; A3.4(b) failed; changed runs not compared</a> '
     '<a class="badge amber" href="limitations.html#status-climate"><span aria-hidden="true">&#9650;</span> Climate: A2.1 failed by 0.037 K</a> '
-    '<a class="badge red" href="limitations.html#status-ai"><span aria-hidden="true">&#9632;</span> AI race: A1.3 failed, levels unvalidated</a></p>'
+    '<a class="badge red" href="limitations.html#status-ai"><span aria-hidden="true">&#9632;</span> AI race: levels unvalidated under F3&#39;s investment rule</a></p>'
 )
 
 

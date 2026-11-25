@@ -162,7 +162,7 @@
     world3: { href: "methods.html#grids", text: "Assumptions: World3 levers, units and what was compared" },
     w3damage: { href: "methods.html#coupling", text: "Assumptions: the climate-damage coupling" },
     climate: { href: "limitations.html#status-climate", text: "Assumptions and limits: FaIR, prescribed emissions, test A2.1" },
-    ai: { href: "limitations.html#status-ai", text: "Assumptions and limits: S3 is unvalidated (test A1.3)" },
+    ai: { href: "limitations.html#status-ai", text: "Assumptions and limits: S3's levels are unvalidated" },
     aidamage: { href: "limitations.html#compared", text: "Assumptions and limits: the damage options and what was not compared" },
     history: { href: "methods.html#history-overlay", text: "Assumptions and limits: a comparison with history, not a validation" },
     map: { href: "methods.html#warming-map", text: "Assumptions and limits: illustrative downscaling, how the map is made" }

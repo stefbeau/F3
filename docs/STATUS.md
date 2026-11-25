@@ -1,5 +1,11 @@
 # F3 — Status
 
+## Update 2026-11-25 (clean-up): decisions approved, second review pass, footer; data regeneration NOT done
+- **D-067 and D-068 Approved** by the editor in session ("solve decisions don't worry about license it's an academic project"); the same words settle the third-party-figures question: figures stay quoted with source and link.
+- **Review pass 2** (`audit/atlas-figure-review.md`): 76 rows now: 25 read in the original, 16 in the publisher's or authors' release, 31 secondary only, 2 weak, 1 corrected, 1 n/a. Two originals could not be opened (UN voting record, the 2023 Ethiopian study).
+- **Footer** shortened to one statement, four links and the date of the last update.
+- **Site data NOT regenerated.** The 841-member climate recording is being re-made in the cloud session. Regenerating with the default composite (variant P, D-065) would put new AI-sector numbers beside about twenty statements on the site that still describe the earlier composite ("failed A1.3", "unvalidated after about 2027", "awaiting Epoch AI"). Rewording those is a change of validation labels, reserved for the editor: **waiting for his word.**
+
 ## Update 2026-11-25 (late): PR 19 merged; site deployed at the editor's instruction
 - **PR 19 merged** ("merge 19"); it contained PR 18, which GitHub now also shows as merged. Each story tile carries its own caveat, as the editor asked. D-067 and D-068 stay Provisional.
 - **Site published:** the editor wrote "I want to push the site live as well". The Pages workflow was started by hand on `main` at commit `576132f` and finished with status success (run of 2026-11-25 20:33 UTC). **Not checked:** the live pages themselves were not opened after the deployment. The published F3 numbers are still the variant-A site data (not regenerated since D-065); the pages say so. The footer still reads "Public draft, published 2026-10-21".
