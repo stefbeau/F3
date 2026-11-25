@@ -19,13 +19,30 @@ needs_bundle = pytest.mark.skipif(not gr.bundle_available(), reason=gr.skip_reas
 @needs_bundle
 @pytest.mark.parametrize("setting", list(SETTINGS_B))
 def test_t1_a13_criterion_variant_p(setting):
-    """T1: the A1.3 criterion, unchanged, with composite="P". A failure is a result to record, not to tune away."""
+    """T1: the A1.3 criterion with composite="P". A failure is a result to record, not to tune away.
+
+    History: FAILED on 2026-11-25 on one row only ("effective_compute vs compute", from index 0) while that row counted.
+    The editor then ruled (D-064) that the compute row that counts is the raw stock; the assertion below is unchanged and
+    reads the criterion's rows from ``tests.s3_checks.COMPARED``."""
     idx, params = SETTINGS_B[setting]
     runs = gr.load_runs()
     s3 = run_s3(replace(params, composite="P"), gr.investment_shares(runs[idx], 80))
     res = compare(s3, gr.field, runs[idx])
     failing = {k: v["first_index_over_tol"] for k, v in res.items() if v["in_criterion"] and not v["passes"]}
     assert not failing, f"P/{setting}: first index (year = 2025 + index) over {TOL:.0%} per quantity: {failing}"
+
+
+@needs_bundle
+@pytest.mark.parametrize("setting", list(SETTINGS_B))
+def test_effective_compute_row_is_reported_and_not_like_for_like(setting):
+    """D-064: the row "effective_compute vs compute" is reported, not in the criterion, and it is far outside 2% because the
+    stored field is the raw stock (confirmed by Epoch). If it ever came within 2% the pairing would need re-reading."""
+    idx, params = SETTINGS_B[setting]
+    runs = gr.load_runs()
+    res = compare(run_s3(replace(params, composite="P"), gr.investment_shares(runs[idx], 80)), gr.field, runs[idx])
+    row = res["effective_compute vs compute"]
+    assert row["in_criterion"] is False and row["first_index_over_tol"] == 0
+    assert res["compute_stock vs compute"]["in_criterion"] is True
 
 
 def test_t3a_no_automation_gives_labour():

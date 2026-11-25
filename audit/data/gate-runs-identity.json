@@ -1,0 +1,15 @@
+{
+ "figures_compared": 67,
+ "largest_relative_difference": 2.0048851467890927e-11,
+ "largest_at": "stored composite / B0_default / compute_stock vs compute / max",
+ "figures_identical_to_1e-9": 67,
+ "max_index_mismatches": 0,
+ "noise_floor": 1e-12,
+ "figures_below_noise_floor_that_disagree": 0,
+ "sha256": {
+  "default_run.json": "bff0cbadf5f9fd8c0725cb4015d724a81aeccc547e9f252000a444d0ffb3e863",
+  "conservative_run.json": "a36a022c68f9f444f91a785cc6ecae907d5360c5be771667f117f184a731f0f3",
+  "aggressive_run.json": "968f48d2e8b525038bfd2d9a9c6559ffd85f2efdc1059fd07cc3e449cfe084be"
+ },
+ "stored_figures_from_bundle_sha256": "3afe8e4df5260ee062d987ce38a984fc37b488b6dcb5596a317b1fde106c55bf"
+}
