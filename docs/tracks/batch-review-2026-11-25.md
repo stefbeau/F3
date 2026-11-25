@@ -1,5 +1,7 @@
 # Batch review for the editor (prepared 2026-11-25)
 
+> **Outcome (2026-11-25):** the editor replied "approve all". The thirteen decisions below are Approved as recommended (D-065 confirmed), and D-066 is Approved. Recorded in `DECISIONS.md`.
+
 Thirteen decisions are recorded as "Provisional (delegated)" and wait for the editor. **The recommendations below come from reading each decision's text and its stated cost of reversing; I did not re-run or re-audit the work behind them.** A reply of "approve all as recommended" is enough; any line can be taken out.
 
 | ID | What it decides | Cost of reversing (as recorded) | Recommendation |

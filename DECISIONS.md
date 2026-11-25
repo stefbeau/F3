@@ -48,11 +48,11 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-029 | M1 closed with A1.3 failed; S3's composite is a known open difference | Approved 2026-10-12 | 1 |
 | D-030 | M2 step 1 closes with A2.1 failed; climate output labelled | Approved 2026-10-12 | 2 |
 | D-031 | World3 sector group advanced with internal sub-steps of 0.0625 year inside the 0.25-year loop | Approved 2026-10-20 | 2 |
-| D-032 | Data-centre boundary for the F3 data-centre module (IEA Energy and AI, descriptive) | Provisional (delegated) | 2 |
-| D-033 | Data-centre module form, calibration, supply and coupling (Track A) | Provisional (delegated) | 2 |
-| D-034 | Damage function action on S3 (Track A) | Provisional (delegated) | 2 |
-| D-035 | Reuse of one exact climate recording (Track A) | Provisional (delegated) | 2 |
-| D-036 | Demo 0 grid and levers (Track A) | Provisional (delegated) | 2 |
+| D-032 | Data-centre boundary for the F3 data-centre module (IEA Energy and AI, descriptive) | Approved 2026-11-25 (batch review) | 2 |
+| D-033 | Data-centre module form, calibration, supply and coupling (Track A) | Approved 2026-11-25 (batch review) | 2 |
+| D-034 | Damage function action on S3 (Track A) | Approved 2026-11-25 (batch review) | 2 |
+| D-035 | Reuse of one exact climate recording (Track A) | Approved 2026-11-25 (batch review) | 2 |
+| D-036 | Demo 0 grid and levers (Track A) | Approved 2026-11-25 (batch review) | 2 |
 | D-037 | Module names and structure of the four World3 sectors | Approved 2026-10-21 | 2 |
 | D-038 | The A3.2 failure at loop step 0.25 is recorded, not repaired (superseded in effect by D-031) | Superseded in effect by D-031 | 2 |
 | D-039 | Initial outputs of the coupled World3 sectors | Approved 2026-10-21 | 2 |
@@ -61,25 +61,25 @@ Every assumption, parameter choice and design choice in F3 is recorded here. Not
 | D-042 | N4: inputs to the reused Earth4All sectors in M4 (D-023 option C) | Approved for M4 2026-10-21 (revisit at M6) | 2 |
 | D-043 | Euler with a 1/64-year internal sub-step for the reused Earth4All sectors | Approved 2026-10-21 | 2 |
 | D-044 | Correction of the M4 recorded-input fixture grid (1/16 to 1/64 year), made after a result was seen | Approved 2026-10-21 | 2 |
-| D-045 | Fixture correction: S1 and World3 recorded inputs re-exported on the 1/64-year grid (no change) | Provisional (delegated) | 2 |
+| D-045 | Fixture correction: S1 and World3 recorded inputs re-exported on the 1/64-year grid (no change) | Approved 2026-11-25 (batch review) | 2 |
 | D-046 | F3 Explorer v0: World3 levers and runs for the static page (branch `site`) | Approved 2026-10-21 | 4 |
 | D-047 | F3 Explorer v0: page set, withheld S3 outputs and chart conventions (branch `site`) | Approved 2026-10-21 | 4 |
 | D-049 | M5 plan: warming channels omitted and labelled, illustrative parameters allowed, hindcast deferred, M6 before S5, S3 as built in M6 | Approved 2026-10-21 | 2 |
 | D-050 | S7 social module: trust dropped, inequality index (illustrative), changes relative to start only, S3 labour share relative fall as driver | Approved 2026-10-21 | 2 |
 | D-051 | M6 minimal integration: S7 output-only, one real coupling (climate damage to World3 industrial output), D-021 flagged for Phase 3 | Approved 2026-10-21 | 2 |
 | D-052 | F3 Explorer v0.1: stale-text fix, climate-damage control on the World3 panel, takeaway cards, presets, chart hover and download, infographics (branch `site-ux`) | Approved 2026-10-21 | 4 |
-| D-053 | S3 diagnostic and S3/World3 reconciliation study: documents and scripts only, nothing built | Provisional (delegated) 2026-10-21 | 2 |
+| D-053 | S3 diagnostic and S3/World3 reconciliation study: documents and scripts only, nothing built | Approved 2026-11-25 (batch review) | 2 |
 | D-054 | S3 diagnostic follow-up: blind brief not run, Epoch email sent 2026-10-17, supply-limited diagnostic first, then the efficiency cap and Option B | Approved 2026-10-22 | 2 |
-| D-055 | Data-centre module: optional efficiency cap at the paper's 4e15 FLOP/J, default OFF | Provisional (delegated) 2026-10-22 | 2 |
-| D-056 | F3 Explorer v0.2 redesign: dark dashboard with story front door, dashboard, compare mode, connections map (branch `site-ux`) | Provisional (delegated) 2026-10-22 | 4 |
-| D-057 | Explorer: observed-history overlay (model versus reality) and pattern-scaled warming map (branch `site-history`, from `site-ux`) | Provisional (delegated) 2026-10-22 | 2 |
-| D-058 | Data retrieval campaign: sources, licences and derived series for links 3 to 7, the data-centre module and AI context (documents and data only, branch `data-campaign`) | Provisional (delegated) 2026-10-22 | 2 |
-| D-059 | Electricity link: data-centre electricity limit (D-055 side) to World3 industrial output, default OFF (branch `feature/electricity-link`) | Provisional (delegated) 2026-10-26 | 2 |
+| D-055 | Data-centre module: optional efficiency cap at the paper's 4e15 FLOP/J, default OFF | Approved 2026-11-25 (batch review) | 2 |
+| D-056 | F3 Explorer v0.2 redesign: dark dashboard with story front door, dashboard, compare mode, connections map (branch `site-ux`) | Approved 2026-11-25 (batch review) | 4 |
+| D-057 | Explorer: observed-history overlay (model versus reality) and pattern-scaled warming map (branch `site-history`, from `site-ux`) | Approved 2026-11-25 (batch review) | 2 |
+| D-058 | Data retrieval campaign: sources, licences and derived series for links 3 to 7, the data-centre module and AI context (documents and data only, branch `data-campaign`) | Approved 2026-11-25 (batch review) | 2 |
+| D-059 | Electricity link: data-centre electricity limit (D-055 side) to World3 industrial output, default OFF (branch `feature/electricity-link`) | Approved 2026-11-25 (batch review) | 2 |
 | D-062 | S3 variant P: the playground's production block, from Epoch AI's reply; compared with the A1.3 criterion unchanged | Approved 2026-11-25 | 2 |
 | D-063 | Reference runs for the GATE comparison after the loss of the playground bundle | Approved 2026-11-25 | 2 |
 | D-064 | A1.3: the compute row that counts is the raw stock (effective compute against stored `compute` reported only) | Approved 2026-11-25 | 2 |
-| D-065 | Variant P becomes S3's default composite; S3's validation notice reworded | Provisional (delegated) | 2 |
-| D-066 | Data-centre electricity module limited by the build rate of powered capacity | Proposed | 2 |
+| D-065 | Variant P becomes S3's default composite; S3's validation notice reworded | Approved 2026-11-25 (batch review) | 2 |
+| D-066 | Data-centre electricity module limited by the build rate of powered capacity | Approved 2026-11-25 | 2 |
 
 ---
 
@@ -995,7 +995,7 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 ## D-032 — Data-centre boundary for the F3 data-centre module (IEA Energy and AI, descriptive)
 
 - **Source:** Track A, `docs/tracks/track-a.md` on branch `track-a` (not merged into main; Demo 0 held), block P-A1. Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
-- **Status:** Provisional (delegated)
+- **Status:** Approved 2026-11-25 (batch review; recorded as Provisional (delegated) until then)
 - **Date:** 2026-10-17
 - **Decision:** "Data centre" means a facility housing servers, storage systems, networking equipment and associated components (cooling, power distribution, UPS, lighting), as the IEA's Energy and AI describes it. The module's `E_dc` is compared with the IEA's totals on that descriptive boundary only. Whether crypto-mining load is excluded from the IEA totals is [unverified] (no IEA text read states it; a secondary source says it is). 485 TWh (2025) is a calibration point, 415 TWh (2024) a reference value, 950 TWh (2030) a report-only comparison; none is called validation.
 - **Recommendation followed:** the editor's option (a), 2026-10-17, after the track reported that the formal boundary could not be verified.
@@ -1003,11 +1003,12 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Cost of reversing it:** low. The boundary only fixes the calibration constant `eta_0` and the labels; a different boundary re-calibrates one constant, re-runs the grid (about 30 to 34 minutes per loop run with 841 members) and changes label text.
 - **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
 - **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
+- **Batch review (2026-11-25):** Approved by Stéphane Beau in session ("approve all", on the recommendations of `docs/tracks/batch-review-2026-11-25.md`). The text above is unchanged.
 
 ## D-033 — Data-centre module form, calibration, supply and coupling (Track A)
 
 - **Source:** Track A, `docs/tracks/track-a.md` on branch `track-a` (not merged into main; Demo 0 held), block P-A2. Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
-- **Status:** Provisional (delegated)
+- **Status:** Approved 2026-11-25 (batch review; recorded as Provisional (delegated) until then)
 - **Date:** 2026-10-17
 - **Decision:** `E_dc = compute_stock / eta_hw * PUE` (spec S4), with `compute_stock` = S3's raw compute stock Q, `eta_hw = eta_0 * H(t)/H(2025)` (S3's hardware price-performance drives energy efficiency; an assumption), PUE = 1.4 (between the IEA's ranges 1.1-1.2 and 1.5-1.7, Key Questions), `eta_0` calibrated once so E_dc(2025) = 485 TWh (calibration point, not validation). Supply = recorded Earth4All.jl electricity production `ene.EP` (pinned 16f37d0, scenario TLTL, exported by `audit/t0/earth4all_supply_export.jl` to `f3/data/earth4all_electricity_supply.csv`; no Vensim file). Data centres may use 5% of that supply (`dc_share_cap`, an assumption; 485 TWh is about 1.5% of the series' 2025 value of about 32,600 TWh). `supply_ratio = min(1, available/demand)` multiplies S3's usable compute (not the stocks), lagging by one year under explicit coupling. Emissions: prescribed (D-021); no electricity-to-emissions coupling is implemented (the plan names none beyond D-021).
 - **Recommendation followed:** the plan's M2 deliverable form; simplest reading of spec S4.
@@ -1016,11 +1017,12 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
 - **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
 - **Review note (2026-10-21, appended; status stays Provisional).** The 5% data-centre supply cap and the tie of energy efficiency to S3's hardware curve are **assumptions and must be stated on the page** (and wherever the module's output is shown).
+- **Batch review (2026-11-25):** Approved by Stéphane Beau in session ("approve all", on the recommendations of `docs/tracks/batch-review-2026-11-25.md`). The text above is unchanged.
 
 ## D-034 — Damage function action on S3 (Track A)
 
 - **Source:** Track A, `docs/tracks/track-a.md` on branch `track-a` (not merged into main; Demo 0 held), block P-A3. Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
-- **Status:** Provisional (delegated)
+- **Status:** Approved 2026-11-25 (batch review; recorded as Provisional (delegated) until then)
 - **Date:** 2026-10-17
 - **Decision:** D-007 options as level-of-output multipliers on S3 gross output: `gwp = gwp_gross * (1 - c T^2)`, c = 0.236% (low), 0.344% (central, derived from printed anchors), 1.00375% (high, (0.595 x 1.25 + 0.260)%); T = FaIR ensemble-mean warming above 1850-1900 on 1 January, no offset; damage cap 0.99; default central. The damaged output is what feeds investment (damages lower investment in dollars). Growth-effect case not represented; "high" is not the upper end of the literature.
 - **Recommendation followed:** D-007 as approved and its appended text.
@@ -1029,11 +1031,12 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
 - **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
 - **Review note (2026-10-21, appended; status stays Provisional).** The central and high damage coefficients are **derived** from published anchors (central 0.344% from the printed 3.1% at 3 C; high from the Howard and Sterner coefficients), not read as printed coefficients; **mark them "derived"** wherever they are shown.
+- **Batch review (2026-11-25):** Approved by Stéphane Beau in session ("approve all", on the recommendations of `docs/tracks/batch-review-2026-11-25.md`). The text above is unchanged.
 
 ## D-035 — Reuse of one exact climate recording (Track A)
 
 - **Source:** Track A, `docs/tracks/track-a.md` on branch `track-a` (not merged into main; Demo 0 held), block P-A4. Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
-- **Status:** Provisional (delegated)
+- **Status:** Approved 2026-11-25 (batch review; recorded as Provisional (delegated) until then)
 - **Date:** 2026-10-17
 - **Decision:** Because emissions are prescribed, S6 has no inputs in this slice and its output is identical for every lever. The Demo 0 grid records `S6Climate` once with all 841 members (D-021 option a: exact re-run each year) and replays it in each run; S3 reads warming only at the start of each year, where the replayed value equals the sector's published value. Tests and development use the first 20 members and say so. Not valid once any sector feeds S6.
 - **Recommendation followed:** the editor's instruction to reuse climate where exact.
@@ -1042,11 +1045,12 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
 - **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
 - **Review note (2026-10-21, appended; status stays Provisional).** **Add a test that fails if any sector feeds S6**: the replay of one recorded climate is exact only while S6 has no inputs.
+- **Batch review (2026-11-25):** Approved by Stéphane Beau in session ("approve all", on the recommendations of `docs/tracks/batch-review-2026-11-25.md`). The text above is unchanged.
 
 ## D-036 — Demo 0 grid and levers (Track A)
 
 - **Source:** Track A, `docs/tracks/track-a.md` on branch `track-a` (not merged into main; Demo 0 held), block P-A5. Moved into this register by the orchestrator on 2026-10-21 at the editor's instruction; text as drafted by the track (the track did not edit this file).
-- **Status:** Provisional (delegated)
+- **Status:** Approved 2026-11-25 (batch review; recorded as Provisional (delegated) until then)
 - **Date:** 2026-10-17
 - **Decision:** AI settings: low = initial_ai_share 0.5 x fitted, central = R3 defaults, race = 1.5 x fitted with decay_speed 0.5; damage low/central/high; plus supply 0.5 x and unlimited for central/central. 11 runs, 2025-2100. Chosen before any result was seen.
 - **Recommendation followed:** the briefing (small documented set).
@@ -1054,6 +1058,7 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Cost of reversing it:** low; edit `SETTINGS` in `dashboard/demo0/generate.py` and regenerate.
 - **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
 - **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
+- **Batch review (2026-11-25):** Approved by Stéphane Beau in session ("approve all", on the recommendations of `docs/tracks/batch-review-2026-11-25.md`). The text above is unchanged.
 
 ## D-037 — Module names and structure of the four World3 sectors
 
@@ -1152,7 +1157,7 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 
 ## D-045 — Fixture correction: S1 and World3 recorded inputs re-exported on the 1/64-year grid
 
-- **Status:** Provisional (delegated)
+- **Status:** Approved 2026-11-25 (batch review; recorded as Provisional (delegated) until then)
 - **Date:** 2026-10-21
 - **Decision:** At the editor's instruction (2026-10-21, "fixture correction, no criterion change"), `tests/fixtures/s1_inputs_world3_{1974,2004}.csv` and `w3_signals_world3_{1974,2004}.csv` were re-exported from the same pinned solve (`audit/env`, D-017, default options) with `saveat = 1/64` and 12 significant digits (`audit/t0/world3_regrid_export.jl`); the reference files were not touched. Reading, outcome categories and prediction were written first (`docs/m3-fixture-regrid-reading.md`, commit `50b5bda`).
 - **Outcome:** **no change.** A3.1, A3.2, A3.3, A3.4(a), A3.4(b) and the S1 step-1.4 comparisons give textually identical results before and after (96 passed, 17 strict xfail); A3.4(b) still fails (1.019% and 0.931% against 0.25%). **No criterion, tolerance or rule was changed.**
@@ -1162,6 +1167,7 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Proposed by:** Claude (delegated, standing delegation of 2026-10-12)
 - **Decision:** Provisional (delegated); not approved. The editor reviews all Provisional decisions in one batch at each milestone and may reverse any.
 - **Revert note (2026-10-21, appended; status unchanged).** At the editor's instruction the four re-exported fixture files were reverted to their previous versions (a new commit, history not rewritten) because the re-export changed no result and added about 7 MB. This entry, `docs/m3-fixture-regrid-reading.md` and the export script `audit/t0/world3_regrid_export.jl` are kept as the record of the negative result.
+- **Batch review (2026-11-25):** Approved by Stéphane Beau in session ("approve all", on the recommendations of `docs/tracks/batch-review-2026-11-25.md`). The text above is unchanged.
 
 ## D-046 — F3 Explorer v0: World3 levers and runs for the static page (branch `site`)
 
@@ -1263,7 +1269,7 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 
 ## D-053 — S3 validation and S3/World3 reconciliation: diagnostic jobs (documents and scripts only)
 
-- **Status:** Provisional (delegated)
+- **Status:** Approved 2026-11-25 (batch review; recorded as Provisional (delegated) until then)
 - **Context:** Editor decision 2026-10-21: work on (1) S3 validation and (2) S3/World3 reconciliation, in that order. The first job is a diagnostic only.
 - **Decision (what is done, on branch `s3-diagnostic`):** (A) `docs/s3-diagnostic.md` and `audit/t0/s3_diagnostic.py` decompose where the implausible S3 and data-centre outputs come from (S3 on GATE's own investment path, S3 under R3, either through the data-centre module, and Epoch's stored runs through the same module), against **plausibility criteria written before the run**; the hypothesis that the cause is the data-centre module or R3 and not S3's core is tested, not assumed. (B) `docs/s3-composite-blind.md` is a **brief** for a blind re-derivation of the task-allocation composite (A1.3 gap); **it is not run.** (C) `docs/s3-world3-reconciliation.md` measures the shared quantities of S3 and World3 from 2025 to 2100 and lists options with tests, risks and cost, with one recommendation; **nothing is built.**
 - **What this does not change:** no sector, no validated test, no label, no tolerance; S3 stays recorded as failed A1.3 and unvalidated after about 2027 (D-029); the Explorer and the withheld outputs are unchanged; D-005, D-027, D-028 and D-051 stand. The suite is unchanged.
@@ -1272,6 +1278,7 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Proposed by:** the editor (job); Claude (execution).
 - **Decision:** Provisional (delegated).
 - **Date:** 2026-10-21
+- **Batch review (2026-11-25):** Approved by Stéphane Beau in session ("approve all", on the recommendations of `docs/tracks/batch-review-2026-11-25.md`). The text above is unchanged.
 
 ---
 
@@ -1297,7 +1304,7 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 
 ## D-055 — Data-centre module: optional efficiency cap at the paper's 4e15 FLOP/J
 
-- **Status:** Provisional (delegated)
+- **Status:** Approved 2026-11-25 (batch review; recorded as Provisional (delegated) until then)
 - **Context:** The S3 diagnostic (`docs/s3-diagnostic.md`, section 3) showed the module fails on GATE's own path: its efficiency `eta` scales with S3's hardware price-performance with no bound, while the paper's physical limit `C_L = 2e38` FLOP/year rests on a CMOS efficiency of 4e15 FLOP/J (arXiv:2503.04941, appendix D.3.2). Editor instruction of 2026-10-22 (D-054 item 4).
 - **Decision:** add `DCParams.eta_cap` (FLOP/J), default `None` (OFF): `eta = min(eta_0 x hardware / H0, eta_cap)` when set; the paper's value is `PAPER_ETA_CAP = 4e15`. With the cap OFF every number is unchanged (to 1e-9, tested against recorded results). The effect on the supply-limited diagnostic is reported with the cap ON and OFF (`docs/s3-supply-limited.md`). The cap changes demand only, not S3.
 - **Hand check before any run:** `eta_0` is about 8.06e9 FLOP/J; at the hardware ceiling `H_max = 1e23` (1e5 times `H0`) `eta` would be 8.06e14, below the cap, so the cap can bind only if hardware efficiency passes about 5e5 times `H0` (above `H_max`); **it may therefore never bind in S3's range.** If it never binds, the report says so and does not tune anything.
@@ -1308,12 +1315,13 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Decision:** Provisional (delegated).
 - **Date:** 2026-10-22
 - **Note (2026-10-22, appended; nothing above changed).** Two statements in this entry were wrong and are corrected here, found when the tests were run: (1) "It changes demand only, not S3": the cap changes demand, and with the supply limit on the changed `supply_ratio` also changes S3 (loop B1); (2) the pre-written test reading said a binding cap lowers demand. The cap bounds the efficiency from above and demand is compute / eta, so a binding cap **raises** demand; the test reading was corrected (dated in the test file) and no code changed. The hand check (the paper's cap cannot bind inside S3's own hardware range) stands and is tested.
+- **Batch review (2026-11-25):** Approved by Stéphane Beau in session ("approve all", on the recommendations of `docs/tracks/batch-review-2026-11-25.md`). The text above is unchanged.
 
 ---
 
 ## D-056 — F3 Explorer v0.2: story front door, dashboard, compare mode, connections map
 
-- **Status:** Provisional (delegated)
+- **Status:** Approved 2026-11-25 (batch review; recorded as Provisional (delegated) until then)
 - **Context:** Editor feedback on v0.1 (D-052), 2026-10-22: the site is not user friendly and offers too few visualization tools. Five mock-ups were compared on a design canvas; the editor chose the direction in the Explorer v0.2 brief.
 - **Decision (what is built, on `site-ux` only):**
   1. **Shell and tokens:** dark dashboard theme and a light reading theme for story pages (toggle; follows `prefers-color-scheme`); baseline grey #6B7280, scenario A blue #1F78B4, scenario B orange #D95F02; Work Sans for the UI; minimum text 13 px; WCAG AA. Hex codes recorded in `docs/design-guidelines.md` (Proposed until the editor approves).
@@ -1331,10 +1339,11 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Decision:** Provisional (delegated); the editor reviews it in the milestone batch.
 - **Date:** 2026-10-22
 - **Note (2026-10-22, appended; nothing above changed).** Built on `site-ux` as described, with these specifics: the story is `index.html` and the dashboard `explorer.html`; Compare and Connections are their own pages; four KPI tiles; Work Sans is embedded from the `@fontsource-variable/work-sans` package (OFL 1.1, entry in `NOTICE`, text in `licenses/WorkSans-OFL.txt`); the page data is also written as `site/data/explorer.js` so pages open from disk. The static loop and roadmap diagrams of D-052 are replaced by the connections map (the solid/dashed/dotted vocabulary and the built-links test are unchanged). Guidelines not met are listed in `docs/design-guidelines.md` section 11.
+- **Batch review (2026-11-25):** Approved by Stéphane Beau in session ("approve all", on the recommendations of `docs/tracks/batch-review-2026-11-25.md`). The text above is unchanged.
 
 ## D-057 — Explorer: observed-history overlay and pattern-scaled warming map
 
-- **Status:** Provisional (delegated)
+- **Status:** Approved 2026-11-25 (batch review; recorded as Provisional (delegated) until then)
 - **Context:** Editor brief 2026-10-22 (called "D-056" in the brief; D-056 is already Explorer v0.2 on `site-ux`, so this is recorded as D-057, content as briefed; renumber freely). The Explorer shows model output only. Visitors cannot see how the models sit against observed history, and the warming result is a single global number with no geographic context.
 - **Decision (data and display layer only; no model code, no parameter, no new model run):**
   1. **Observed history overlay** (Part A): world population (UN WPP), world GDP in constant prices (World Bank WDI NY.GDP.MKTP.KD) and global mean temperature anomaly (HadCRUT5, with GISTEMP as a cross-check) drawn next to the model series: World3 population against observed; World3 industrial output and observed GDP as indices on one common year (1990 = 1), no fitting, no rescaling beyond the index; FaIR ensemble hindcast band against HadCRUT5. Under each chart one sentence generated from the data gives the gap in the last common year and a test. Nothing is tuned to improve a match. A "Model versus reality" panel is added to the tab bar. Every series has a recorded source, version or retrieval date, licence, URL and checksum in `audit/data/sources-history.json`; a series whose licence forbids redistribution is linked, not shown; a failed download stops that series.
@@ -1347,10 +1356,11 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Proposed by:** Claude (implementing the editor's brief).
 - **Decision:** Provisional (delegated); the editor reviews it in the milestone batch.
 - **Date:** 2026-10-22
+- **Batch review (2026-11-25):** Approved by Stéphane Beau in session ("approve all", on the recommendations of `docs/tracks/batch-review-2026-11-25.md`). The text above is unchanged.
 
 ## D-058 — Data retrieval campaign: sources, licences and derived series for links 3 to 7, the data-centre module and AI context
 
-- **Status:** Provisional (delegated)
+- **Status:** Approved 2026-11-25 (batch review; recorded as Provisional (delegated) until then)
 - **Context:** Links 3 to 7 of the connections map (yield and health, labour, compute to electricity, emissions) and the data-centre module have no data in the repository beyond the sources of `docs/m5-plan.md` section 1, whose STOP items (WID, ILOSTAT, USGS content, LBNL and TSMC documents, AQUASTAT, WUE, a long labour-share series, mineral demand per unit) are mostly "document not read, terms not read". The data-centre module is calibrated on one number (485 TWh in 2025, D-033) and its demand leaves any plausible range after about 2027 (D-029, `docs/s3-supply-limited.md`). Editor instruction of 2026-10-22: run one long data-retrieval campaign, documents and data only.
 - **Purpose:** (1) close the "unread" status of the sources behind links 3 to 7 by reading each primary page and file, recording its licence in the source's own words; (2) give the data-centre module independent numbers (installed capacity, electricity, water, PUE, chip supply, compute) against which its output can be bounded; (3) deepen the AI context (compute, hardware, models, investment); (4) write, for each unbuilt link and for the data-centre module, a document that names the variables, functional forms from the literature, available calibration data, what is missing, a pass/fail test fixed before any result, and the status badge it would earn.
 - **Method:** each source is downloaded by script into its own directory outside the repository (`data-raw`, never committed), its SHA-256 is recorded, and the file is read by Python run with `-I`; nothing downloaded is executed. Every key number is cross-checked against a second source where one exists, and the difference is recorded. Derived annual or aggregate series that the licence allows to be redistributed are written to `audit/data/derived/*.json` by `site_src/data_campaign.py`, which regenerates them from the raw folder (path by argument or `F3_DATA_RAW`) and verifies the checksums against `audit/data/sources-register.json`. The register has a JSON schema and a test (`tests/test_data_register.py`).
@@ -1362,6 +1372,7 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Proposed by:** Claude (implementing the editor's brief).
 - **Decision:** Provisional (delegated); the editor reviews it in the milestone batch.
 - **Date:** 2026-10-22
+- **Batch review (2026-11-25):** Approved by Stéphane Beau in session ("approve all", on the recommendations of `docs/tracks/batch-review-2026-11-25.md`). The text above is unchanged.
 
 ---
 
@@ -1431,7 +1442,7 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 
 ## D-065 — Variant P becomes S3's default composite; S3's validation notice reworded
 
-- **Status:** Provisional (delegated)
+- **Status:** Approved 2026-11-25 (batch review; recorded as Provisional (delegated) until then)
 - **Authority:** asked on 2026-11-25 whether P should become the default and what the label should then say, with a recommendation, the editor answered in session: "Just try to take the best possible and logical solution to make this quicker to work". This entry follows the recommendation given to him. It touches a validation label, which the standing delegation reserves for the editor: it is recorded as Provisional on the strength of that instruction, and **the editor confirms or reverses it at the next batch review.**
 - **Context:** variant P passes A1.3 as amended by D-064 against the D-063 reference; variant A (the default until now) fails it from 2026 to 2027. On 2026-11-25 the runs Epoch sent were also found equal, to rounding precision (largest difference 5.5e-16 over 28 fields), to the runs stored in the playground bundle now published on GitHub Pages (`audit/gate-runs-identity.md`).
 - **Decision:**
@@ -1447,20 +1458,21 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Proposed by:** Claude
 - **Decision:** Provisional (delegated); the editor reviews it in the next batch.
 - **Date:** 2026-11-25
+- **Batch review (2026-11-25):** Approved by Stéphane Beau in session ("approve all", on the recommendations of `docs/tracks/batch-review-2026-11-25.md`). The text above is unchanged.
 
 ---
 
 ## D-066 — Data-centre electricity module limited by the build rate of powered capacity
 
-- **Status:** Proposed
+- **Status:** Approved (2026-11-25)
 - **Context:** with the electricity limit on, S3's installed compute asks for about 37,000 to 39,000 TWh in 2030 and the module grants a fixed 5% of supply; the investment rule does not see the shortfall (B1 sign failure, Track A); energy efficiency is tied to hardware price-performance (D-033). Measured in `audit/s3-default-composite.md`.
 - **Proposal:** `docs/electricity-module-proposal.md`. Step E1: powered capacity as a stock that grows at most `g_max` a year, with an outer share of supply (replaces the fixed 5% cap; neutral values reproduce today's module). Step E2: R3's compute share responds to the unpowered part of the compute stock (a labelled variant of R3, default off). Step E3: energy efficiency on its own path, separate from price-performance. Tests E-T1 to E-T7 are fixed in a test document before code. Emissions stay reported and are not fed to the climate sector (D-021).
 - **What is known already:** an exploratory prototype (`audit/t0/dc_build_rate_prototype.py`, not a model component) gives data-centre use of about 980 to 3,700 TWh in 2030 for build rates of 15% to 50% a year, and shows that long-run output stays implausible with steps E1 and E2 alone. The acceptance tests are therefore drafted with those figures already seen.
 - **Alternatives considered:** keep the share cap and lower it (still no dynamics, still the counter-loop); cap S3's compute directly (hides the physical reason); wait for the S3/World3 reconciliation (larger, and it does not replace an electricity module).
 - **Sources:** `docs/electricity-module-proposal.md`; `audit/s3-default-composite.md`; D-033, D-055, D-059; Track A records.
 - **Proposed by:** Claude, at the editor's request of 2026-11-25
-- **Decision:**
-- **Date:** 2026-11-25 (proposed)
+- **Decision:** Approved by Stéphane Beau in session ("approve all"): the scope and the order of the steps. The first ranges of `g_max` and `outer_share`, whether step E2 may change R3, and the labels of the new outputs are still his to set, as section 6 of the proposal says; step E1 starts with its test document.
+- **Date:** 2026-11-25
 
 ---
 
@@ -1485,7 +1497,7 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 
 ## D-059 — Electricity link: data-centre module to World3 industrial output
 
-- **Status:** Provisional (delegated)
+- **Status:** Approved 2026-11-25 (batch review; recorded as Provisional (delegated) until then)
 - **Context:** Editor instruction of 2026-10-26: implement the supply-limited electricity feed from the data-centre module (D-055) into World3's industrial energy input. World3 has no energy variable, so the feed needs a form.
 - **Decision:** the data-centre module publishes `industry_ratio = clip((supply x supply_scale - e_dc) / (supply_2025 - 485 TWh), 0, 1)`, the electricity left for everything except data centres relative to its 2025 level. World3 multiplies industrial output `io` by it from 2025, through the multiplier slot of D-051. Switch `M6Config.electricity_link`, default OFF, needs `electricity=True`. One-way (World3 does not feed S3 here), explicit coupling with a one-step lag (D-022). No new coefficient.
 - **Tests:** `tests/test_m6_electricity_link.py`, written and committed before the code.
@@ -1494,3 +1506,4 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Reversal cost:** none (default off; every recorded result is unchanged, tested to 1e-9).
 - **Proposed by:** the editor (instruction); Claude (form and implementation).
 - **Date:** 2026-10-26
+- **Batch review (2026-11-25):** Approved by Stéphane Beau in session ("approve all", on the recommendations of `docs/tracks/batch-review-2026-11-25.md`). The text above is unchanged.
