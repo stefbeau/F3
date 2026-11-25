@@ -1,5 +1,11 @@
 # F3 — Status
 
+## Update 2026-11-25 (21:40 UTC): PR 20 merged, data regenerated; DEPLOYMENT FAILED three times
+- **PR 20 merged** at the editor's instruction ("rewors merge 20 and deploy"): review pass 2, D-067 and D-068 approved, footer, World models page, **site data regenerated** with the default composite (variant P) and a re-made 841-member climate recording (equal to the published one to about 1e-9 K; World3 identical; automated fraction 85% to 86% in 2040, central), and the S3 status statements reworded to the D-065 notice (outcome note on D-065).
+- **Deployment NOT done.** The Pages workflow was started three times on `main` (`608e788`, 21:34, 21:35, 21:38 UTC) and failed each time at the deploy step with GitHub's message "Fetching artifact metadata failed ... Please re-run the deployment at a later time". The upload step succeeded each time. **The public site still shows the deployment of 20:33 UTC** (before the regeneration). To be retried.
+- **Tests:** site tests 195 passed. The full suite was started and cut off by a time limit after 22 tests (13 skipped, 8 passed, 1 expected failure): **not completed**. Model code was not changed in this pull request.
+- **Not re-run with the default composite:** A1.4, A2.6, B1, R1, B2 (the Limitations page says so).
+
 ## Update 2026-11-25 (clean-up): decisions approved, second review pass, footer; data regeneration NOT done
 - **D-067 and D-068 Approved** by the editor in session ("solve decisions don't worry about license it's an academic project"); the same words settle the third-party-figures question: figures stay quoted with source and link.
 - **Review pass 2** (`audit/atlas-figure-review.md`): 76 rows now: 25 read in the original, 16 in the publisher's or authors' release, 31 secondary only, 2 weak, 1 corrected, 1 n/a. Two originals could not be opened (UN voting record, the 2023 Ethiopian study).
