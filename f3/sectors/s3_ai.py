@@ -79,7 +79,7 @@ class GateParams:
     K0: float = 450e12
     a_K: float = 1.0
     delta_K: float = 0.065
-    composite: str = "A"                 # production block: "A" 20,000 midpoints (default); "B" footnote-38 grids; "C101" 101-point case (D-027)
+    composite: str = "A"                 # production block: "A" 20,000 midpoints (default); "B" footnote-38 grids; "C101" 101-point case (D-027); "P" playground block (D-062)
     theta_scale: float = 1.0              # multiplies theta_H and theta_S; 0 switches R&D productivity off (test A1.5a)
 
     # derived ---------------------------------------------------------------------------------------------------------
@@ -266,7 +266,84 @@ def task_composite_C101(L: float, f: float, C_I: float, C_T: float, p: GateParam
     return _grouped_composite(L, f, C_I, C_T, p, *_GRID_C)
 
 
+# -- variant "P": the playground's production block (D-062) --------------------------------------------------------------
+# Written from Epoch AI's description of its implementation (reply of Anson Ho to the editor, received November 2026;
+# docs/s3-playground-composite.md). F3's own code; none of Epoch's code is copied. It differs from eqs. 15, 16, 26 to 28 and
+# footnote 39 as the paper states them, in the five ways listed in that document.
+PG_INVERSE_POINTS = 300       # points of the grid on which f^-1 is tabulated
+PG_INVERSE_MARGIN_OOM = 5.0   # the grid runs from log10 C_T(0) - 5 to log10 T + 5
+PG_SEARCH = 200               # cutoffs i/200 tried by the planner (playground setting; the paper's footnote 38 says 20)
+PG_INTEGRAL = 1000            # points of the left Riemann sum over tasks (playground setting; footnote 38 says 100)
+_PG_INVERSE: Dict[tuple, tuple] = {}
+
+
+def _playground_inverse_grid(p: GateParams) -> tuple:
+    """(x, f(x)) on the playground's grid, keeping only the points where f increases."""
+    key = (p.T_oom, p.flop_gap_frac, p.f_init, p.iota_max_oom, p.m, p.C_T0)
+    if key not in _PG_INVERSE:
+        x = np.linspace(math.log10(p.C_T0) - PG_INVERSE_MARGIN_OOM, p.T_oom + PG_INVERSE_MARGIN_OOM, PG_INVERSE_POINTS)
+        y = np.array([automated_fraction(10.0 ** v, p) for v in x])
+        keep = np.concatenate(([True], np.diff(y) > 0))
+        _PG_INVERSE[key] = (x[keep], y[keep])
+    return _PG_INVERSE[key]
+
+
+def playground_training_oom(i: np.ndarray, p: GateParams) -> np.ndarray:
+    """log10 of the training requirement of task i as the playground computes it: the grid point BELOW the exact f^-1(i)
+    (0 below the grid's first value, +inf above its last)."""
+    xu, yu = _playground_inverse_grid(p)
+    i = np.atleast_1d(np.asarray(i, dtype=float))
+    out = np.zeros_like(i)
+    out[i > yu[-1]] = np.inf
+    inside = (i >= yu[0]) & (i <= yu[-1])
+    out[inside] = xu[np.clip(np.searchsorted(yu, i[inside]) - 1, 0, len(xu) - 1)]
+    return out
+
+
+def _playground_at_cutoff(L: float, C: float, theta: float, C_T: float, p: GateParams) -> tuple:
+    """Composite and the compute share of it when tasks [0, theta) are done by AI only and (theta, 1] by humans only."""
+    rho = p.rho
+    idx = np.arange(theta * PG_INTEGRAL)
+    if idx[-1] == theta * PG_INTEGRAL:
+        idx = idx[:-1]
+    i = idx / PG_INTEGRAL
+    with np.errstate(over="ignore"):
+        R = np.maximum(10.0 ** playground_training_oom(i, p) / C_T, 1.0) ** p.m * 10.0 ** (p.gamma_0 + p.gamma_1 * i)
+    H = float(np.sum(R ** (rho / (rho - 1.0)))) / PG_INTEGRAL
+    comp = (C / H) ** rho * H if C > 0.0 and H > 0.0 else 0.0
+    lab = (1.0 - theta) ** (1.0 - rho) * L ** rho if theta < 1.0 else 0.0
+    return (comp + lab) ** (1.0 / rho), (comp / (comp + lab) if comp > 0.0 else 0.0)
+
+
+def playground_composite(L: float, f: float, C: float, C_T: float, p: GateParams) -> tuple:
+    """Variant P. Returns (T, share of runtime compute in T).
+
+    The planner tries the cutoffs i/PG_SEARCH that do not exceed f, takes a geometric interpolation of the two neighbouring
+    cutoffs at f itself, and keeps the largest composite. ``C`` is effective runtime compute (eFLOP/year). The share is the
+    elasticity of T with respect to C at the cutoff kept (for the interpolated point, the same weights as the interpolation).
+    """
+    out, share = L, 0.0
+    best, best_share = L, 0.0
+    if C <= 0.0:
+        return best, best_share
+    for k in range(1, PG_SEARCH + 1):
+        theta = k / PG_SEARCH
+        if theta > f:
+            nxt, s_nxt = _playground_at_cutoff(L, C, theta, C_T, p)
+            a, b = PG_SEARCH * (theta - f), PG_SEARCH * (f - (theta - 1.0 / PG_SEARCH))
+            out, share = out ** a * nxt ** b, a * share + b * s_nxt
+            if out > best:
+                best, best_share = out, share
+            break
+        out, share = _playground_at_cutoff(L, C, theta, C_T, p)
+        if out > best:
+            best, best_share = out, share
+    return best, best_share
+
+
 def composite_for(L: float, f: float, C_I: float, C_T: float, p: GateParams) -> tuple:
+    if p.composite == "P":
+        raise ValueError("variant P has its own timing and is evaluated in S3AI.advance (playground_composite)")
     if p.composite == "A":
         return task_composite(L, f, C_I, C_T, p)
     if p.composite == "B":
@@ -306,7 +383,18 @@ class S3AI(Sector):
         "runtime_compute_share": "1",
     }
 
-    def __init__(self, params: Optional[GateParams] = None, name: Optional[str] = None, rule=None, stored_T=None):
+    #: label of the optional World3 labour-force link (D-054 item 5)
+    LABOR_INDEX_LABEL = (
+        "S3's labour follows World3's labour force as an index relative to 2025 (one-way; default off; no new coefficient). Only the RELATIVE change is used: "
+        "S3's economy and World3's are NOT reconciled in level. The direct labour channel weakens as automation saturates (S3's labour share falls to about zero by 2050 in the central run), but a lower labour index lowers early output "
+        "and with it investment, so the effect on S3's output level persists for the whole run and does not fade (measured: an index held at half of its 2025 value gives 0.61 of the "
+        "output in 2031 and 0.50 in 2099). S3's level stays unvalidated against GATE after about 2027 (D-029). "
+        "POST-RESULT RELABEL: this wording replaces the pre-registered statement that the effect fades as automation saturates; that reading failed and is kept as a strict xfail (D-054, 2026-10-22)."
+    )
+
+    def __init__(self, params: Optional[GateParams] = None, name: Optional[str] = None, rule=None, stored_T=None,
+                 electricity_limited: bool = False, damage_option: Optional[str] = None, labor_input: bool = False,
+                 _mutate_ignore_labor: bool = False):
         """``rule``: an object with ``shares(f, u) -> dict`` (D-028); when given, S3 has no inputs and generates its own shares.
         ``stored_T``: DIAGNOSTIC ONLY, a sequence of composite task inputs supplied period by period in place of the production
         block (used to separate the open composite difference from everything else); never a model option."""
@@ -315,6 +403,21 @@ class S3AI(Sector):
         self.stored_T = stored_T
         if rule is not None:
             self.inputs = {}
+        # M2 slice options (Track A). Both default off, in which case every number is bit-identical to the M1 sector.
+        self.electricity_limited = electricity_limited      # usable compute scaled by the input ``supply_ratio`` (loop B1)
+        self.damage_option = damage_option                  # None or "low"/"central"/"high": output scaled by 1 - Omega(warming) (loop B2)
+        if electricity_limited:
+            self.inputs = {**self.inputs, "supply_ratio": "1"}
+        self.labor_input = labor_input                      # D-054 item 5: input ``labor_force`` (jobs) sets S3's labour as an index relative to 2025; default off
+        self._mutate_ignore_labor = _mutate_ignore_labor    # test hook: the sign test must fail when the input is read and ignored
+        self._lf0 = None
+        if labor_input:
+            self.inputs = {**self.inputs, "labor_force": "jobs"}
+        if damage_option is not None:
+            from f3.sectors.damages import check_option
+            check_option(damage_option)
+            self.inputs = {**self.inputs, "warming": "K"}
+            self.outputs = {**self.outputs, "gwp_gross": "USD/year", "damage_fraction": "1"}
         if self.p.mu != 0.0:
             raise NotImplementedError("S3 implements mu = 0 only (gate-equations 9.3, item 7)")
         if name is not None:
@@ -331,9 +434,11 @@ class S3AI(Sector):
             raise ValueError("initial effective compute must be below C_L")
         self._t0 = t0
         self._k = 0
+        self._lf0 = None
         self.Q = C0 / (1.0 - C0 / p.C_L)
         self.H, self.S, self.K = p.H0, p.S0, p.K0
         self.C_T, self.C_Tphys, self.L = p.C_T0, p.C_T0, p.L0
+        self._runtime_prev = p.runtime_compute_init
         self._out = {
             "gwp": p.Y0, "capital": p.K0, "labor": p.L0, "hardware": p.H0, "software": p.S0,
             "frac_automated": p.f_init, "compute_stock": self.Q, "usable_compute": C0, "effective_compute": C0 * p.S0,
@@ -341,6 +446,9 @@ class S3AI(Sector):
             "runtime_compute": p.runtime_compute_init, "composite_tasks": p.L0, "labor_share": float("nan"),
             "runtime_compute_share": float("nan"),
         }
+        if self.damage_option is not None:
+            self._out["gwp_gross"] = p.Y0
+            self._out["damage_fraction"] = 0.0
         self.history = {n: [] for n in list(self.outputs) + ["q_consumption_in", "Q_over_CL", "I_compute_usd", "I_compute_units"]}
 
     def current_outputs(self) -> Dict[str, float]:
@@ -353,22 +461,42 @@ class S3AI(Sector):
         k = self._k
         # (a) automation, with the one-period lag
         f = automated_fraction(self.C_T * p.inference_multiplier, p)
-        gQ = usable_compute(self.Q, p.C_L)
+        gQ_cap = usable_compute(self.Q, p.C_L)
+        ratio = ctx.input("supply_ratio", t) if self.electricity_limited else 1.0
+        gQ = gQ_cap * ratio                                  # electricity-limited usable compute (ratio = 1: unchanged)
         if self.rule is not None:
-            q = self.rule.shares(f, gQ / p.C_L)
+            q = self.rule.shares(f, gQ_cap / p.C_L)
         else:
             q = {n: ctx.input(n, t) for n in SHARE_NAMES}
         if abs(sum(q[n] for n in SHARE_NAMES[:5]) - 1.0) > 1e-9 or min(q.values()) < -1e-12:
             raise ValueError(f"investment shares at t={t} must be >= 0 and the first five must sum to 1: {q}")
         # (b) output
-        L_k = p.L0 * math.exp(p.g_L * (k + 1))
+        if self.labor_input:
+            lf = ctx.input("labor_force", t)                  # value at the START of the period (explicit coupling, D-022)
+            if not (math.isfinite(lf) and lf > 0.0):
+                raise ValueError(f"labor_force at t={t} must be finite and positive, got {lf}")
+            if self._lf0 is None:
+                self._lf0 = lf                                # the first value read (2025) is the base of the index
+            L_k = p.L0 if self._mutate_ignore_labor else p.L0 * lf / self._lf0
+        else:
+            L_k = p.L0 * math.exp(p.g_L * (k + 1))
         training = q["q_training_compute"] * gQ
         runtime = gQ - training
         if self.stored_T is not None:
             T, p_over_w = float(self.stored_T[k]), 0.0
+        elif p.composite == "P":
+            # playground timing (D-062): labour, software and C_T at the start of the period; runtime compute chosen last period
+            T, _ = playground_composite(self.L, f, self.S * self._runtime_prev, self.C_T, p)
+            p_over_w = 0.0
         else:
             T, p_over_w = composite_for(L_k, f, runtime, self.C_T, p)
-        gwp = p.A * T ** (1.0 - p.alpha) * self.K ** p.alpha
+        gwp_gross = p.A * T ** (1.0 - p.alpha) * self.K ** p.alpha
+        if self.damage_option is not None:
+            from f3.sectors.damages import damage_fraction
+            dmg = damage_fraction(ctx.input("warming", t), self.damage_option)
+            gwp = gwp_gross * (1.0 - dmg)
+        else:
+            gwp = gwp_gross
         rt_share = (1.0 - p.alpha) * p_over_w * runtime / (L_k + p_over_w * runtime) if runtime > 0 else 0.0
         # (c) investments in dollars
         I_Q, I_K = q["q_compute"] * gwp, q["q_capital"] * gwp
@@ -385,6 +513,10 @@ class S3AI(Sector):
         self.C_T = self.C_T + training * S0
         self.C_Tphys = self.C_Tphys + training
         self.Q, self.H, self.S, self.K, self.L = Q1, H1, S1, K1, L_k
+        self._runtime_prev = runtime
+        if self.stored_T is None and p.composite == "P":
+            # reported share: the composite evaluated on the period-end states with this period's automated fraction
+            rt_share = (1.0 - p.alpha) * playground_composite(L_k, f, S1 * runtime, self.C_T, p)[1]
         self._k = k + 1
         gQ1 = usable_compute(Q1, p.C_L)
         self._out = {
@@ -394,6 +526,9 @@ class S3AI(Sector):
             "runtime_compute": runtime, "composite_tasks": T, "labor_share": 1.0 - p.alpha - rt_share,
             "runtime_compute_share": rt_share,
         }
+        if self.damage_option is not None:
+            self._out["gwp_gross"] = gwp_gross
+            self._out["damage_fraction"] = dmg
         for n in self.outputs:
             self.history[n].append(self._out[n])
         for n in SHARE_NAMES:

@@ -22,7 +22,7 @@
 - **Safe to start now, independent of S3's open difference:** FaIR alone (A2.1) and the `s6_climate` sector, and the loop-structure tests (A2.3 signs, A2.4 to A2.6).
 - **Buildable, but outputs must be labelled per D-029:** the data-centre electricity module, the damage function, the coupled slice and Demo 0.
 - **Blocked:** nothing is blocked outright. Two things are blocked on other decisions, not on S3: the damage part waits for **D-007**, and Demo 0's format needs the small format decision in plan section 10.
-- **What would change this:** an answer from Epoch (email unsent) that resolves the composite would turn the "partly" rows into "no" and allow absolute S3 numbers to be shown after a re-run of A1.3. Until then, D-029 governs.
+- **What would change this:** an answer from Epoch (email sent by the editor on 2026-10-17, no reply as of 2026-10-22) that resolves the composite would turn the "partly" rows into "no" and allow absolute S3 numbers to be shown after a re-run of A1.3. Until then, D-029 governs.
 
 ## Recommendation for the first M2 step
 
