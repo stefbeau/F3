@@ -1,5 +1,19 @@
 # F3 — Status
 
+## Update 2026-11-26 (night): link 7 variant B, links 3 and 4 built on the branch, NOT merged
+
+- **Link 7 variant B (post-hoc, labelled):** hindcast met on a reference run chosen against observed GDP (largest 9.4%); join-step reading FAILED for four of six runs (recorded). The first form's hindcast failure stands. `audit/link7-variant-b.md`.
+- **Link 3:** warming to land yield built (Zhao et al. 2017, abstract only), off by default, all readings met; land yield -4.7% to -11.1% in 2100. Health not built.
+- **Link 4:** built under a caller-given growth cap, off by default, all readings met; the cap binds every year from 2027, so the result is the cap, not S3. `audit/link3-link4.md`.
+- All seven links now have code; links 3 (health), 4 (S3 content) and 7 (level for non-reference runs) are incomplete in the ways stated. The site still shows links 3, 4, 6 and 7 as not built: changing that is the editor's call.
+- Everything here is Provisional (delegated) and awaits the editor's batch review. PR 25 is open.
+
+## Update 2026-11-26 (late): PR 24 merged; link 7 built on a branch, NOT merged; its hindcast FAILED
+- **PR 24 (link 6) merged** at the editor's instruction.
+- **Link 7 (World3 to emissions):** one-way, off by default; branch `link7-world3-emissions`. Six readings met. **L7-T1 hindcast FAILED** against the editor's 10%: 14 of 55 years outside, -27.2% in 2024. The link steps fossil CO2 down by 34% at the join. Warming in 2100: 1.76 to 2.29 K across five World3 settings (prescribed: 2.86 K), a consequence of World3's falling industrial output. `audit/link7-world3-emissions.md`.
+- **For the editor:** whether a link whose hindcast failed may be shown at all, and with what label; whether to try another form (a new, labelled post-hoc proposal, not a change of the failed test).
+- **Not done:** links 3 and 4; 22 of the 27 lever settings; the full suite; any site change.
+
 ## Update 2026-11-26 (night): PRs 21, 22, 23 merged; link 6 built on a branch, NOT merged
 - **Merged at the editor's instruction** ("merge 21, 22 and 23"): the plan for links 3, 4, 6, 7; step E1; step E2. PR 22 was merged through PR 23, which contained it. (The line below saying they were not merged is true as of its time.)
 - **Link 6 (D-069, approved in part):** data-centre electricity to emissions, one-way, off by default; branch `link6-dc-emissions`. All six readings met. With 841 members: **+0.02 to +0.05 K in 2100**, about one fortieth of the ensemble's 5 to 95% spread. Upper reading (baseline held at the 2025 level). `audit/link6-dc-emissions.md`.

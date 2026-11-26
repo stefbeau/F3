@@ -26,13 +26,19 @@ DAMAGE_COUPLING_LABEL = (
 )
 
 
+#: link 3: loss of land yield per kelvin of global mean warming after 2025 (Zhao et al. 2017, PNAS 114, 9326, abstract: wheat 6.0%, rice 3.2%, maize 7.4%,
+#: soybean 3.1%, without CO2 fertilisation, adaptation or genetic improvement). low = smallest, high = largest, central = plain mean of the four. Provisional.
+YIELD_LOSS_PER_K = {"low": 0.031, "central": 0.04925, "high": 0.074}
+
+
 class World3Group(Sector):
     name = "world3"
     inputs: Mapping[str, str] = {}
 
     def __init__(self, sectors: Sequence[Sector], couplings, init_inputs: Mapping[str, Mapping[str, float]], state_names: Mapping[str, str],
                  substep: float = SUBSTEP, damage_option: Optional[str] = None, warming=None, _mutate_zero_damage: bool = False,
-                 electricity_link: bool = False, _mutate_unit_elec_ratio: bool = False):
+                 electricity_link: bool = False, _mutate_unit_elec_ratio: bool = False,
+                 yield_option: Optional[str] = None, _mutate_unit_yield: bool = False, ai_uplift=None):
         self._sectors: Dict[str, Sector] = {s.name: s for s in sectors}
         self._order: List[str] = [s.name for s in sectors]
         self._substep = float(substep)
@@ -44,6 +50,7 @@ class World3Group(Sector):
                 self._state_owner[n] = s.name
         self.outputs = {n: "state" for n in self._state_owner}
         self.outputs["io"] = "dollars/year"                       # World3 industrial output, published for the M6 tests
+        self.outputs["ly"] = "kg/hectare/year"                   # land yield, published for link 3
         self.outputs["lf"] = "jobs"                               # labour force (p2 + p3) x lfpf, derived from the published states (D-054 item 5)
         # M6 climate-damage coupling (D-051): OFF unless damage_option is given; warming is a callable year -> K (recorded FaIR replay)
         if damage_option is not None:
@@ -52,6 +59,17 @@ class World3Group(Sector):
             if warming is None:
                 raise ValueError("damage_option needs a warming source (a callable year -> K from the recorded replay)")
         self._damage_option = damage_option
+        # link 3 (D-069): warming to land yield, OFF unless yield_option is given; health is not built
+        if yield_option is not None:
+            if yield_option not in YIELD_LOSS_PER_K:
+                raise ValueError(f"yield_option must be one of {sorted(YIELD_LOSS_PER_K)}")
+            if warming is None:
+                raise ValueError("yield_option needs a warming source (a callable year -> K)")
+        self._yield_option = yield_option
+        self._mutate_unit_yield = _mutate_unit_yield            # test hook: the sign test must fail when the multiplier is forced to 1
+        self.yield_mult_history = []
+        # link 4 (D-069): bounded AI uplift on industrial output, OFF unless ai_uplift (a callable year -> factor) is given
+        self._ai_uplift = ai_uplift
         self._warming = warming
         # D-059 electricity link: OFF unless electricity_link; the group then reads ``elec_ratio`` (data-centre module, 0..1) from the loop
         self._elec_link = bool(electricity_link)
@@ -98,20 +116,30 @@ class World3Group(Sector):
         self._h = h
         self._published = {n: dict(s.current_outputs()) for n, s in self._sectors.items()}
         self._sectors["w3_capital"].damage_mult = 1.0
+        self._sectors["w3_agriculture"].yield_mult = 1.0
+        self.yield_mult_history = []
 
     def current_outputs(self) -> Dict[str, float]:
         out = self._states_now()
         out["io"] = float(self._published["w3_capital"]["io"])
+        out["ly"] = float(self._published["w3_agriculture"]["ly"])
         out["lf"] = (out["p2"] + out["p3"]) * self._sectors["w3_capital"].params["lfpf"]      # same fraction as the capital sector's Line 80
         return out
 
     def advance(self, t: float, h: float, ctx: Optional[Context]) -> None:
-        if self._damage_option is not None or self._elec_link:
+        ym = 1.0
+        if self._yield_option is not None and t >= DAMAGE_START_YEAR - 1e-9 and not self._mutate_unit_yield:
+            ym = max(0.0, 1.0 - YIELD_LOSS_PER_K[self._yield_option] * (float(self._warming(t)) - float(self._warming(DAMAGE_START_YEAR))))
+        self._sectors["w3_agriculture"].yield_mult = ym
+        self.yield_mult_history.append(ym)
+        if self._damage_option is not None or self._elec_link or self._ai_uplift is not None:
             mult = 1.0
             if self._damage_option is not None:
                 mult = self._damage_mult(t)
             if self._elec_link and t >= DAMAGE_START_YEAR - 1e-9 and not self._mutate_unit_elec_ratio:
                 mult *= float(ctx.input("elec_ratio", t))
+            if self._ai_uplift is not None and t >= DAMAGE_START_YEAR - 1e-9:
+                mult *= float(self._ai_uplift(t))
             self._sectors["w3_capital"].damage_mult = mult
         for j in range(self._n_sub):
             tt = t + j * self._h
