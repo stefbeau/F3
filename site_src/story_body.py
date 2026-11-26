@@ -78,8 +78,8 @@ def body(tiles: str = "") -> str:
 
 <section class="chapter card" id="ch4" aria-labelledby="ch4_h">
 <p class="kicker">Step 4 of 4: what is connected</p>
-<h2 id="ch4_h" class="finding">Few of the links between the models are built</h2>
-<p class="why">Five pieces, seven possible links. Solid lines are built, dashed lines are not built. The compute and electricity values of link 5 stay withheld above. Nothing in the Explorer depends on a dashed link.</p>
+<h2 id="ch4_h" class="finding">Three links are built and shown; four more are built with outputs withheld</h2>
+<p class="why">Five pieces, seven possible links. Solid lines are built and tested. Dotted lines are built and tested too, but they are off by default and none of their output is shown here. The compute and electricity values of link 5 stay withheld above. Nothing in the Explorer depends on a dotted link.</p>
 <div class="ctlrow"><span class="ctllab" id="c4_lab">Show links</span><div class="seg" id="c4_seg" role="group" aria-labelledby="c4_lab"></div></div>
 <ol class="nodes" aria-label="The five pieces">{"".join(f'<li class="node {n["status"]}"><strong>{n["label"]}</strong><span>{n["sub"]}</span></li>' for n in links.NODES)}</ol>
 <ol class="linkstrip" id="c4_list"></ol>
@@ -91,7 +91,7 @@ def body(tiles: str = "") -> str:
 <h2 id="rf_h">Read this first</h2>
 <ul class="rfl">
 <li class="rf"><strong>Scenarios, not forecasts.</strong> Each curve is one model run under stated assumptions. It has no probability and says nothing about what will happen.</li>
-<li class="rf"><strong>Only one link between the pieces is built:</strong> warming lowers World3 industrial output, through a damage function, switched off by default. The AI model and World3 are two models of the same world and are not connected or reconciled.</li>
+<li class="rf"><strong>Only one link between World3 and the climate is used on this site:</strong> warming lowers World3 industrial output, through a damage function, switched off by default. The AI model and World3 are two models of the same world and are not reconciled. Four further links were built and tested in November 2026; they are off by default and none of their output is shown here (see the <a href="connections.html">connections map</a>).</li>
 <li class="rf"><strong>Check the status badges.</strong> The climate run missed its test against observations by a small margin, the AI model's levels are unvalidated, and World3 was compared with its reference only for the standard run. Compute and electricity outputs are withheld.</li>
 </ul>
 <p class="cta"><a class="btn primary" href="explorer.html">Open the Explorer</a> <a class="btn" href="limitations.html">Read the Limitations</a></p>

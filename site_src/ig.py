@@ -40,25 +40,25 @@ def link(prefix: str, ident: str, status: str, d: str) -> str:
 
 LOOPS = (
     '<svg id="ig_loops" viewBox="0 0 310 464" role="img" aria-labelledby="ig_loops_t ig_loops_d" class="ig">'
-    '<title id="ig_loops_t">Feedback loops: which links exist today and which are not built</title>'
+    '<title id="ig_loops_t">Feedback loops: which links are built and tested, and which are built with outputs withheld</title>'
     '<desc id="ig_loops_d">Boxes: warming from the climate model, World3, the AI model S3, data-centre electricity, and emissions. Solid arrows are links that are built and '
-    'tested: warming lowers World3 industrial output (optional, off by default), and warming lowers S3 output. Dashed arrows are links that are not built: warming '
-    'effects on health and yield in World3, S3 output feeding World3, data-centre electricity feeding emissions, and World3 feeding emissions. The arrow '
-    'S3 compute to data-centre electricity, is built, but its outputs are withheld in the Explorer.</desc>'
+    'tested: warming lowers World3 industrial output (optional, off by default), and warming lowers S3 output. Dotted arrows are links that are built and tested but off by default, with no output shown on this site: warming '
+    'effects on yield in World3 (health is not built), S3 output feeding World3, data-centre electricity feeding emissions, and World3 feeding emissions. The arrow '
+    'S3 compute to data-centre electricity, is built, but its values are withheld in the Explorer.</desc>'
     + markers("lp")
     + box(75, 8, 160, 46, ["Warming", "climate model (FaIR)"])
     + box(0, 150, 140, 60, ["World3", "population,", "food, industry"])
     + box(170, 150, 140, 60, ["S3 (AI race)", "economy,", "automation"])
     + box(170, 290, 140, 60, ["Data-centre", "electricity", "(output withheld)"], "nodebox withheldbox")
-    + box(65, 410, 180, 46, ["Emissions", "prescribed, not modelled"], "nodebox notbuilt")
+    + box(65, 410, 180, 46, ["Emissions", "prescribed in the Explorer"], "nodebox withheldbox")
     # built (solid)
     + link("lp", "fair-warming-to-world3-output", "built", "M 105 54 L 70 148") + num(67, 98, 1)
     + link("lp", "fair-warming-to-s3-damage", "built", "M 205 54 L 240 148") + num(242, 98, 2)
-    # not built (dashed)
-    + link("lp", "fair-warming-to-world3-health-yield", "not-built", "M 130 54 L 110 148") + num(139, 100, 3)
-    + link("lp", "s3-output-to-world3", "not-built", "M 168 180 L 142 180") + num(155, 163, 4)
-    + link("lp", "data-centre-electricity-to-emissions", "not-built", "M 230 352 L 190 408") + num(238, 380, 6)
-    + link("lp", "world3-to-emissions", "not-built", "M 50 212 L 95 408") + num(50, 300, 7)
+    # built, outputs withheld (dotted): off by default, not used by the Explorer
+    + link("lp", "fair-warming-to-world3-health-yield", "withheld", "M 130 54 L 110 148") + num(139, 100, 3)
+    + link("lp", "s3-output-to-world3", "withheld", "M 168 180 L 142 180") + num(155, 163, 4)
+    + link("lp", "data-centre-electricity-to-emissions", "withheld", "M 230 352 L 190 408") + num(238, 380, 6)
+    + link("lp", "world3-to-emissions", "withheld", "M 50 212 L 95 408") + num(50, 300, 7)
     # built (solid); values withheld in the Explorer
     + link("lp", "s3-compute-to-data-centre-electricity", "built", "M 240 212 L 240 288") + num(260, 250, 5)
     + '</svg>'
@@ -68,11 +68,11 @@ LOOPS_KEY = (
     '<ol class="igkey">'
     '<li><strong>Built, solid:</strong> warming lowers World3 industrial output through the D-007 damage function. A level-of-output effect, <strong>off by default</strong>; set it with the climate-damage control on the <a href="explorer.html">Explorer</a>.</li>'
     '<li><strong>Built, solid:</strong> warming lowers the AI model\'s (S3) own output through the same damage function (the AI-race charts under Details on the Explorer).</li>'
-    '<li><strong>Not built, dashed:</strong> any effect of warming on World3 health or yield. There is no health or yield effect of warming; the Earth4All channels were left out by decision (D-049).</li>'
-    '<li><strong>Not built, dashed:</strong> the AI model feeding World3. S3\'s economy and World3\'s are two models of the same world and are not reconciled.</li>'
+    '<li><strong>Built, dotted (outputs withheld):</strong> warming lowering World3 land yield, off by default and not used by the Explorer. Health is not built. In the Explorer there is no health or yield effect of warming (D-049).</li>'
+    '<li><strong>Built, dotted (outputs withheld):</strong> the AI model feeding World3 under a growth cap chosen by hand; the cap decides the result. S3\'s economy and World3\'s are two models of the same world and are not reconciled.</li>'
     '<li><strong>Built, solid (values withheld):</strong> S3 compute sets data-centre electricity demand and supply limits compute. The values are withheld until S3\'s compute path is validated.</li>'
-    '<li><strong>Not built, dashed:</strong> data-centre electricity feeding emissions.</li>'
-    '<li><strong>Not built, dashed:</strong> World3 feeding emissions. Emissions are prescribed, so the climate path is the same for every scenario in the Explorer.</li>'
+    '<li><strong>Built, dotted (outputs withheld):</strong> data-centre electricity feeding emissions; an upper reading, off by default.</li>'
+    '<li><strong>Built, dotted (outputs withheld):</strong> World3 feeding emissions, off by default; its first hindcast failed and the second construction is post-hoc. In the Explorer, emissions are prescribed, so the climate path is the same for every scenario.</li>'
     '</ol>'
 )
 
@@ -80,24 +80,24 @@ ROADMAP = (
     '<svg id="ig_roadmap" viewBox="0 0 310 316" role="img" aria-labelledby="ig_roadmap_t ig_roadmap_d" class="ig">'
     '<title id="ig_roadmap_t">What is connected: World3, climate and the AI model</title>'
     '<desc id="ig_roadmap_d">Three pieces: climate (FaIR), World3 and the AI model S3. Solid arrows: climate warming to World3 industrial output (the first coupling, off by default) '
-    'and climate warming to S3 output. Dashed arrows are not built: S3 and World3 exchanging values, and an emissions feedback that would let the economy change the climate.</desc>'
+    'and climate warming to S3 output. Dotted arrows are built and tested but off by default, with no output shown on this site: S3 passing its uplift to World3, and an emissions feedback that lets the economy change the climate.</desc>'
     + markers("rm")
     + box(75, 8, 160, 46, ["Climate", "FaIR, 841 members"])
     + box(0, 150, 140, 46, ["World3", "1900 to 2100"])
     + box(170, 150, 140, 46, ["S3 (AI race)", "levels unvalidated"])
-    + box(65, 262, 180, 46, ["Emissions feedback", "not built"], "nodebox notbuilt")
+    + box(65, 262, 180, 46, ["Emissions feedback", "built, not shown"], "nodebox withheldbox")
     + link("rm", "fair-warming-to-world3-output", "built", "M 105 54 L 70 148")
     + link("rm", "fair-warming-to-s3-damage", "built", "M 205 54 L 240 148")
-    + link("rm", "s3-and-world3-exchange", "not-built", "M 168 173 L 142 173")
-    + link("rm", "world3-to-emissions-feedback", "not-built", "M 60 198 L 105 260")
-    + link("rm", "s3-to-emissions-feedback", "not-built", "M 250 198 L 205 260")
+    + link("rm", "s3-and-world3-exchange", "withheld", "M 168 173 L 142 173")
+    + link("rm", "world3-to-emissions-feedback", "withheld", "M 60 198 L 105 260")
+    + link("rm", "s3-to-emissions-feedback", "withheld", "M 250 198 L 205 260")
     + '<text x="100" y="118" font-size="13" class="svgt b">first coupling</text>'
     + '</svg>'
 )
 
 ROADMAP_KEY = (
     '<ul class="igkey"><li><strong>Solid:</strong> built and tested. The first coupling is climate damage to World3 industrial output (default off); the warming-to-S3 link is the AI-race run\'s damage option.</li>'
-    '<li><strong>Dashed:</strong> not built. Nothing here claims that the AI model changes World3 or that either changes the climate.</li></ul>'
+    '<li><strong>Dotted:</strong> built and tested, off by default, outputs withheld (November 2026, provisional). Nothing on this site claims that the AI model changes World3 or that either changes the climate.</li></ul>'
 )
 
 STRIPES = (

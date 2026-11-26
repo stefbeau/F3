@@ -60,14 +60,15 @@ def list_html() -> str:
 
 LEGEND = ('<ul class="maplegend" aria-label="Line styles">'
           '<li><svg viewBox="0 0 44 10" aria-hidden="true" class="samp built"><line x1="2" y1="5" x2="42" y2="5" stroke-width="3.4"/></svg> Solid: built and tested</li>'
-          '<li><svg viewBox="0 0 44 10" aria-hidden="true" class="samp not-built"><line x1="2" y1="5" x2="42" y2="5" stroke-width="3.4" stroke-dasharray="7 5"/></svg> Dashed: not built</li></ul>')
+          '<li><svg viewBox="0 0 44 10" aria-hidden="true" class="samp not-built"><line x1="2" y1="5" x2="42" y2="5" stroke-width="3.4" stroke-dasharray="7 5"/></svg> Dashed: not built (none at present)</li>'
+          '<li><svg viewBox="0 0 44 10" aria-hidden="true" class="samp withheld"><line x1="2" y1="5" x2="42" y2="5" stroke-width="3.4" stroke-dasharray="1 6" stroke-linecap="round"/></svg> Dotted: built, outputs withheld</li></ul>')
 
 
 def body() -> str:
     return f"""
 <div class="banner compact" role="note"><strong class="big">{PUBLIC}</strong>Every curve is the output of a model run under stated assumptions. None is a prediction, none has a likelihood. See <a href="limitations.html">Limitations</a>.</div>
 <h1 class="headline" id="headline">What is connected</h1>
-<p class="lead">Five pieces, seven numbered links. Select a link to see what it does, the effect numbers computed from the data, and which tests it met, failed or was not compared with. Nothing in the Explorer depends on a dashed link.</p>
+<p class="lead">Five pieces, seven numbered links. Select a link to see what it does, the effect numbers computed from the data, and which tests it met, failed or was not compared with. Nothing in the Explorer depends on a dotted link: those four are tested and off by default, and none of their output is shown on this site.</p>
 {LEGEND}
 <div class="conn">
 <div class="mapwrap">{map_html()}</div>
@@ -88,11 +89,12 @@ def body() -> str:
 <li><a href="explorer.html#tab=history">Model versus reality</a> sets World3 and the FaIR hindcast against observed population, world output and temperature. A comparison with history, not a validation.</li>
 <li><a href="explorer.html#tab=map">Warming map</a> scales the global FaIR warming (the source of links 1 and 2) to 58 regions with fixed coefficients. Illustrative, not a regional projection; the same for every scenario.</li>
 </ul></section>
-<section class="card" id="notbuilt"><h2>Why most links are not built</h2>
+<section class="card" id="notbuilt"><h2>Why four links are built but not shown</h2>
 <ul>
-<li><strong>Emissions are prescribed.</strong> The FaIR run replays one recorded emissions path (D-021); neither World3 nor the AI model changes it. The climate is the same in every scenario.</li>
-<li><strong>S3's economy and World3's are not reconciled.</strong> They are two models of the same world; connecting them is future work, not something the Explorer shows.</li>
-<li><strong>Warming has no health or yield effect.</strong> The Earth4All channels were left out by decision (D-049), to be revisited.</li>
+<li><strong>They are provisional.</strong> Links 3, 4, 6 and 7 were built in November 2026 with tests written first. Each is a switch that is off by default, and their results await the editor's review (D-069). Until then no number from them appears on this site.</li>
+<li><strong>Emissions are prescribed in the Explorer.</strong> The FaIR run replays one recorded emissions path (D-021). Links 6 and 7 can change that path in a separate run, but no Explorer scenario uses them, so the climate is the same in every scenario here.</li>
+<li><strong>S3's economy and World3's are not reconciled.</strong> They are two models of the same world. Link 4 passes S3's uplift to World3 only under a growth cap chosen by hand, and the cap decides the result; it is not something the Explorer shows.</li>
+<li><strong>Warming has no health or yield effect in the Explorer.</strong> Link 3 adds a yield effect in a separate run; a health effect is not built. The Earth4All channels were left out by decision (D-049).</li>
 <li>S3 compute and data-centre electricity outputs (link 5 is built, its values are not shown) are withheld: under F3's own investment rule they leave any plausible range; a build-rate limit is approved (D-066) and not built.</li>
 </ul></section>
 """
