@@ -42,3 +42,9 @@ World3 is run with the 21 extracted values (18 exist in F3's port under the same
 - **L7N-T2** with the intensity fitted on it, the hindcast of fossil CO2 1970 to 2024 is within 10% in every year.
 - **L7N-T3** the step from the prescribed 2025 value to the computed 2026 value is within 5%.
 If T1 fails, the run is not used as a reference and T2 and T3 are reported only.
+
+## Link 6, added after the first run (POST-HOC, labelled): a build rate that follows the IEA
+Seen before writing this: with 15% a year throughout, electricity is 926 TWh in 2030 (L6V-T1 met) but 1,863 TWh in 2035 against the IEA's 1,200 (L6V-T2 FAILED), and CO2 is 347 Mt in 2030 and 637 Mt in 2035 against 320 and 300 (L6V-T3 FAILED on 2035). Those failures stand. Proposal: `IEA_BASE_SCHEDULE` = 15% a year from 2025, then 4.9% a year from 2030 (my arithmetic: (1200 / 945)^(1/5) - 1), kept after 2035 for want of any later figure. **This is a calibration to the IEA Base Case, not a validation against it.**
+- **L6C-T1** a schedule with the single entry (2025, 15%) gives the same electricity as the plain 15% setting (1e-12); no schedule is the committed behaviour.
+- **L6C-T2** with the schedule, electricity is within 10% of 945 TWh in 2030 and of 1,200 TWh in 2035 (near to true by construction).
+- **L6C-T3** CO2 within 30% of 300 Mt in 2035. My arithmetic before running says about +35%, so I expect this to fail: the link's intensity is the world average of the Earth4All path (0.34 kg/kWh in 2035), and the IEA's implied figure for data centres is 0.25.

@@ -122,7 +122,8 @@ def test_l7n_t2_hindcast_within_10_percent():
     m = l7()
     io, obs = m.world3_io(**m.NEBEL_PARTIAL), m.observed_ffi_gt()
     a, b = m.fit_intensity(obs, io)
-    err = [abs(io[y] * np.exp(a + b * (y - 2000)) / obs[y] - 1.0) for y in range(1970, 2025)]
+    # corrected 2026-11-26 before the first run: fit_intensity returns k(t) = exp(a + b t) with t the calendar year (my test had t - 2000); the reading is unchanged
+    err = [abs(io[y] * np.exp(a + b * y) / obs[y] - 1.0) for y in range(1970, 2025)]
     assert max(err) <= 0.10
 
 
@@ -130,3 +131,22 @@ def test_l7n_t3_join_step_within_5_percent():
     m = l7()
     io = m.world3_io(**m.NEBEL_PARTIAL)
     assert abs(m.replacement_gt_b(io)[2026] / m.prescribed_ffi_gt(2025) - 1.0) <= 0.05
+
+
+# ---- link 6, post-hoc: build rate that follows the IEA Base Case (calibration, not validation) ----
+def test_l6c_t1_single_entry_schedule_equals_the_plain_setting():
+    from f3.sectors import link6_dc_emissions as m
+    a, b = m.electricity_used_twh(0.15), m.electricity_used_twh(0.15, schedule=((2025.0, 0.15),))
+    assert all(abs(a[y] - b[y]) <= 1e-12 * a[y] for y in a)
+
+
+def test_l6c_t2_electricity_follows_the_iea_base_case():
+    from f3.sectors import link6_dc_emissions as m
+    u = m.electricity_used_twh(0.15, schedule=m.IEA_BASE_SCHEDULE)
+    assert abs(u[2030] / 945.0 - 1.0) <= 0.10 and abs(u[2035] / 1200.0 - 1.0) <= 0.10
+
+
+def test_l6c_t3_co2_2035_within_30_percent_of_iea():
+    from f3.sectors import link6_dc_emissions as m
+    u, k = m.electricity_used_twh(0.15, schedule=m.IEA_BASE_SCHEDULE), m.intensity_kg_per_kwh()
+    assert abs(u[2035] * k[2035] / 300.0 - 1.0) <= 0.30
