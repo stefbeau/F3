@@ -1,5 +1,8 @@
 # F3 — Status
 
+## Update 2026-11-26: plan for links 3, 4, 6 and 7 (D-069, Proposed)
+- `docs/links-3-4-6-7-plan.md`: where each unbuilt link stands, the order proposed (E1, then 6, 7, 3, 4), the steps, and the choice each needs from the editor. **Nothing is built.**
+
 ## Update 2026-11-25 (22:22 UTC): site deployed
 - The Pages workflow, retried once at 22:20 UTC on `main` at commit `233a03e`, finished with status success. The public site now carries the regenerated data, the reworded S3 statements, the World models page and the shortened footer. **Not checked:** the live pages were not opened after the deployment.
 
