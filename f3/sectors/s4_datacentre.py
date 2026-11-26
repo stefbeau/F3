@@ -66,6 +66,8 @@ class DCParams:
     calibration_twh_2025: float = IEA_2025_TWH
     dc_share_cap: float = 0.05        # share of total electricity supply available to data centres (Provisional P-A2)
     supply_scale: float = 1.0         # scenario lever on the supply series; math.inf = unlimited
+    g_max: float = math.inf           # step E1 (D-066): largest growth of powered capacity per year (0.30 = 30% a year); math.inf = OFF (the committed behaviour)
+    outer_share: float = None         # step E1: share of total supply open to data centres when given; None = use dc_share_cap
     eta_cap: float = None             # FLOP/J upper bound on the energy efficiency (D-055); None = OFF (the committed behaviour); PAPER_ETA_CAP is the paper's value
 
 
@@ -112,13 +114,25 @@ class DataCentre(Sector):
         self._out = {"e_dc_demand": self.dp.calibration_twh_2025, "e_dc": self.dp.calibration_twh_2025, "supply_ratio": 1.0, "dc_available": float("nan"),
                      "industry_ratio": 1.0}
         self._supply_ref = None
+        if not (self.dp.g_max >= 0.0):                                   # also catches NaN
+            raise ValueError(f"g_max must be zero or positive, got {self.dp.g_max}")
+        self._powered = self.dp.calibration_twh_2025                     # step E1: powered capacity P, TWh/year, starts at the calibration point
+        self.powered_history = []                                        # P after each step (diagnostic; not an output of the sector)
 
     def current_outputs(self) -> Dict[str, float]:
         return dict(self._out)
 
     def advance(self, t: float, h: float, ctx: Context) -> None:
         e = e_dc_twh(ctx.input("compute_stock", t), ctx.input("hardware", t), self.gp, self.dp)
-        avail = self.dp.dc_share_cap * ctx.input("supply", t) * self.dp.supply_scale
+        share = self.dp.dc_share_cap if self.dp.outer_share is None else self.dp.outer_share
+        avail = share * ctx.input("supply", t) * self.dp.supply_scale
+        if math.isfinite(self.dp.g_max):                                 # step E1: P grows only when demand exceeds it, by at most g_max a year; it never falls
+            if e > self._powered:
+                self._powered = min(e, self._powered * (1.0 + self.dp.g_max) ** h)
+            avail = min(self._powered, avail)
+            self.powered_history.append(self._powered)
+        else:
+            self.powered_history.append(float("nan"))
         ratio = 1.0 if (not math.isfinite(avail) or e <= 0.0) else min(1.0, avail / e)
         if self._supply_ref is None:
             self._supply_ref = ctx.input("supply", t)                    # unscaled recorded supply at the first step (2025)

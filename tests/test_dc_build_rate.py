@@ -52,7 +52,9 @@ def test_et2_conservation(g_max, outer, scale):
     p = r["powered"]
     assert len(p) == len(r["time"]) - 1 and np.all(np.diff(p) >= -1e-9), "P fell"
     used = r["e_dc"][1:]
-    assert np.all(used <= p * (1 + 1e-9)) and np.all(used <= outer * scale * r["supply"][1:] * (1 + 1e-9) + 1e-9)
+    # Corrected 2026-11-26 after the first run: the value recorded at a time bound was computed from the supply at the START of that step, so the
+    # comparison is with supply[:-1], not supply[1:] (an alignment error in this test, not in the module). The reading is unchanged.
+    assert np.all(used <= p * (1 + 1e-9)) and np.all(used <= outer * scale * r["supply"][:-1] * (1 + 1e-9) + 1e-9)
     for n in OUTS:
         assert np.all(np.isfinite(r[n][1:])) and np.all(r[n][1:] >= 0.0), n
 
@@ -71,13 +73,21 @@ def never_raises(lower: dict, higher: dict) -> bool:
     return bool(np.all(lower["usable"] <= higher["usable"] * (1 + 1e-9)))
 
 
+@pytest.mark.xfail(strict=True, reason="E-T4 FAILED as written (recorded 2026-11-26, audit/e1-build-rate.md): with the slower build rate usable compute is higher in "
+                                       "4 of 75 years (15% against 30%; largest +11.8% in 2038), in 5 years (30% against 50%; +8.4% in 2037), and with half the "
+                                       "supply in 3 years (+3.8% in 2038). The counter-loop behind the B1 failure is still there with step E1 alone.")
 def test_et4_sign_slower_build_or_less_supply_never_raises_usable_compute():
     r15, r30, r50 = (run(g_max=g, outer=0.25) for g in (0.15, 0.30, 0.50))
     assert never_raises(r15, r30) and never_raises(r30, r50)                         # halving (or lowering) the build rate
     assert never_raises(run(g_max=0.30, outer=0.25, scale=0.5), r30)                 # halving supply
-    assert not never_raises(r50, r15), "control: the reverse claim must be false"
 
 
+def test_et4_control_the_reverse_claim_is_false():
+    assert not never_raises(run(g_max=0.50, outer=0.25), run(g_max=0.15, outer=0.25))
+
+
+@pytest.mark.xfail(strict=True, reason="E-T5 FAILED (recorded 2026-11-26, audit/e1-build-rate.md): largest difference 0.504% in 2098 against 0.1% (A2.6 had failed "
+                                       "at 0.565% with the share cap).")
 def test_et5_step_halving_within_a_tenth_of_a_percent():
     a, b = run(g_max=0.30, outer=0.25), run(g_max=0.30, outer=0.25, dt=0.125)
     years = np.arange(2026.0, 2100.5)

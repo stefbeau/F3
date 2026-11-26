@@ -1482,6 +1482,7 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 ## Template for new entries
 
 ```
+- **Outcome note (2026-11-26), step E1:** built with the prototype's values as provisional settings after the editor answered "Yes" in session (build rates 15%, 30%, 50% a year; outer share 25%; default off). E-T1, E-T2 and E-T3 met. **E-T4 (sign) FAILED as written** and **E-T5 (step halving) FAILED** (0.504% against 0.1%); both recorded as strict expected failures. Results: `audit/e1-build-rate.md`. The ranges of `g_max` and `outer_share` are still to be justified; no label changed.
 
 ## D-067 — Atlas pages: reported figures about AI's effects, shown beside F3 output
 
