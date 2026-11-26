@@ -1,0 +1,20 @@
+{
+ "post_hoc": true,
+ "document": "docs/link7-variant-b.md",
+ "reference_levers": {
+  "nri": 2000000000000.0,
+  "lyf2": 1.0,
+  "ppgf21": 0.25
+ },
+ "rms_log_distance_to_gdp": 0.0770000112629529,
+ "rms_log_distance_standard_run": 0.1774935139380099,
+ "gdp_series": "World GDP, constant 2015 USD, World Bank (site/data/history.json, D-057)",
+ "a": -3.8665398827000685,
+ "b": -0.0105597717489095,
+ "form": "k_B(t) = exp(a + b t) on the reference run; join factor h per run",
+ "largest_relative_error": 0.09408893850383238,
+ "year_of_largest": 1998,
+ "years_outside_10_percent": 0,
+ "rms_relative_error": 0.04713839800163735,
+ "fitted_on": "2026-11-26"
+}

@@ -101,6 +101,7 @@ class Agriculture(W3Sector):
     PARAMETER_SETS = PARAMETER_SETS
     INPUT_ORDER = ("pop", "io", "iopc", "ppolx")
     inputs = {k: UNITS[k] for k in INPUT_ORDER}
+    yield_mult = 1.0                 # link 3 (warming to land yield): multiplier on Line 103; 1.0 = off (the committed behaviour)
     outputs = {k: UNITS[k] for k in ("fpc", "f", "fioaa", "aiph", "al", "ly")}
 
     def initial_state(self) -> np.ndarray:
@@ -118,7 +119,7 @@ class Agriculture(W3Sector):
         lymc = T["lymc"](aiph)                                                        # Line 102 (:102)
         lymap = clip(T["lymap2"](io / P["io70"]), T["lymap1"](io / P["io70"]), tsw, py)   # Lines 105-107 (:105-107)
         lyf = clip(P["lyf2"], P["lyf1"], tsw, py)                                     # Line 104 (:104)
-        ly = lyf * lfert * lymc * lymap                                               # Line 103 (:103)
+        ly = lyf * lfert * lymc * lymap * self.yield_mult                                               # Line 103 (:103)
         alai = clip(P["alai2"], P["alai1"], tsw, py)                                  # Line 100 (:100)
         # land development
         lfc = al / P["palt"]                                                          # Line 84 (:66)

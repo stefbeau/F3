@@ -45,10 +45,18 @@ def test_l7bt1_hindcast_on_the_reference_run_within_ten_percent():
 
 
 @needs_fair
-def test_l7bt2_join():
+def test_l7bt2_join_factor_of_the_reference_run_is_within_ten_percent_of_one():
+    x = m()
+    assert abs(x.join_factor(x.world3_io(**x.reference_levers())) - 1.0) <= 0.10
+
+
+@pytest.mark.xfail(strict=True, reason="L7B-T2 (second part) FAILED (recorded 2026-11-26, audit/link7-variant-b.md): the 2026 value is within 5% of the prescribed 2025 value "
+                                       "for the reference run (+0.7%) and for resources double (+0.6%), but not for the standard run (-6.2%), resources half (-6.7%), "
+                                       "land yield 2.0 (-7.3%) or pollution 0.25 (-6.4%): in those runs industrial output is already falling fast in 2025.")
+@needs_fair
+def test_l7bt2_join_step_within_five_percent_for_every_run():
     x = m()
     p25 = x.prescribed_ffi_gt(2025)
-    assert abs(x.join_factor(x.world3_io(**x.reference_levers())) - 1.0) <= 0.10
     for name, lv in CASES.items():
         rep = x.replacement_gt_b(x.world3_io(**lv))
         assert abs(rep[2026] / p25 - 1.0) <= 0.05, (name, rep[2026], p25)

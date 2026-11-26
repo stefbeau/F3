@@ -93,3 +93,51 @@ def climate(replace: Optional[Dict[int, float]], extra: Optional[Dict[int, float
     co2 = f.concentration.sel(specie="CO2").values[:, 0, :]
     return {"years": np.arange(2025, 2101), "warming": a[keep].mean(axis=1), "warming_p05": np.percentile(a[keep], 5, axis=1),
             "warming_p95": np.percentile(a[keep], 95, axis=1), "co2_concentration": co2[keep].mean(axis=1)}
+
+
+# ------------------------------------------------------------------------------------------------------------------------------------------
+# Variant B (POST-HOC, docs/link7-variant-b.md): written after the first form failed its hindcast. The first form above is unchanged.
+PARAMS_B_JSON = Path(__file__).resolve().parents[1] / "data" / "link7_intensity_b.json"
+LEVER_GRID = {"nri": (0.5e12, 1.0e12, 2.0e12), "lyf2": (1.0, 1.5, 2.0), "ppgf21": (1.0, 0.5, 0.25)}          # the Explorer's 27 settings (D-046)
+
+
+def select_reference(gdp: Dict[int, float]) -> Tuple[Dict[str, float], float]:
+    """The lever setting whose industrial output, indexed to 1970, is closest to observed GDP indexed to 1970 over 1970-2024 (RMS of log differences).
+    The emissions series is not read."""
+    import itertools
+    best = None
+    for combo in itertools.product(*LEVER_GRID.values()):
+        lv = dict(zip(LEVER_GRID, combo))
+        io = world3_io(**lv)
+        d = np.array([math.log(io[y] / io[1970]) - math.log(gdp[y] / gdp[1970]) for y in FIT_YEARS])
+        rms = float(np.sqrt((d ** 2).mean()))
+        if best is None or rms < best[1] - 1e-15:
+            best = (lv, rms)
+    return best
+
+
+def reference_levers() -> Dict[str, float]:
+    return dict(json.loads(PARAMS_B_JSON.read_text(encoding="utf-8"))["reference_levers"])
+
+
+def params_b() -> Tuple[float, float]:
+    p = json.loads(PARAMS_B_JSON.read_text(encoding="utf-8"))
+    return float(p["a"]), float(p["b"])
+
+
+def prescribed_ffi_gt(year: int) -> float:
+    from f3.sectors.s6_climate import ClimateSetup, inputs
+    e = inputs().emissions_for(ClimateSetup()).query("scenario == 'medium-extension'")
+    return float(e.loc[e["variable"] == "CO2 FFI", f"{year}.5"].iloc[0])
+
+
+def join_factor(io: Dict[int, float]) -> float:
+    """h: the constant that makes this run's 2025 value equal the prescribed 2025 value."""
+    a, b = params_b()
+    return prescribed_ffi_gt(2025) / (io[2025] * math.exp(a + b * 2025))
+
+
+def replacement_gt_b(io: Dict[int, float]) -> Dict[int, float]:
+    a, b = params_b()
+    h = join_factor(io)
+    return {y: io[y] * math.exp(a + b * y) * h for y in range(FIRST_YEAR, LAST_YEAR + 1)}
