@@ -469,7 +469,8 @@ class S3AI(Sector):
         ratio = ctx.input("supply_ratio", t) if self.electricity_limited else 1.0
         gQ = gQ_cap * ratio                                  # electricity-limited usable compute (ratio = 1: unchanged)
         if self.rule is not None:
-            q = self.rule.shares(f, gQ_cap / p.C_L)
+            aware = getattr(getattr(self.rule, "levers", None), "power_aware", False)      # step E2 (D-066), default off
+            q = self.rule.shares(f, gQ_cap / p.C_L, power_ratio=ratio) if aware else self.rule.shares(f, gQ_cap / p.C_L)
         else:
             q = {n: ctx.input(n, t) for n in SHARE_NAMES}
         if abs(sum(q[n] for n in SHARE_NAMES[:5]) - 1.0) > 1e-9 or min(q.values()) < -1e-12:

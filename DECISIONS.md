@@ -1482,6 +1482,8 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 ## Template for new entries
 
 ```
+- **Outcome note (2026-11-26), step E1:** built with the prototype's values as provisional settings after the editor answered "Yes" in session (build rates 15%, 30%, 50% a year; outer share 25%; default off). E-T1, E-T2 and E-T3 met. **E-T4 (sign) FAILED as written** and **E-T5 (step halving) FAILED** (0.504% against 0.1%); both recorded as strict expected failures. Results: `audit/e1-build-rate.md`. The ranges of `g_max` and `outer_share` are still to be justified; no label changed.
+- **Outcome note (2026-11-26), step E2 (first form):** built as the lever `power_aware` of R3, default off, after the editor asked to proceed "in proper order". All five readings met, including the sign reading that fails without E2. **Long-run output is still implausible and is higher with E2 on** (about 290 million trillion USD in 2099 against 24 million); the cause was not investigated. Results: `audit/e2-power-aware.md`. The second form (the freed share builds power) is not built: it needs a cost of power capacity. R3 as approved in D-028 is unchanged when the lever is off.
 
 ## D-067 — Atlas pages: reported figures about AI's effects, shown beside F3 output
 
