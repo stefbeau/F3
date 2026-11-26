@@ -1517,13 +1517,14 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 
 ## D-069 — Order and method for links 3, 4, 6 and 7 of the connections map
 
-- **Status:** Proposed (2026-11-26)
+- **Status:** Approved in part (2026-11-26): the order, steps E1 and E2 before the links, and link 6 with the two recommended choices. The choices for links 7, 3 and 4 remain open.
 - **Context:** the editor asked on 2026-11-26 to "complete the steps for connections 3, 4, 6 and 7". Each needs at least one choice reserved for him (a new parameter, a tolerance, a FaIR budget). Plan: `docs/links-3-4-6-7-plan.md`.
 - **Proposal:** build in the order E1 (D-066), link 6, link 7, link 3 (yield only), link 4 (only if a new measurement supports it). Every link is a switch that is off by default, with its tests fixed before code and its switch-off invariance tested.
 - **The editor's choices, one per step:** `g_max` and `outer_share` for E1; the carbon-intensity source for link 6; the FaIR budget (all 841 members or fewer); the emission-factor method and the hindcast tolerance for link 7; the yield response range for link 3; whether link 4 goes ahead.
 - **Alternatives considered:** building link 4 first (rejected: its measured factor reaches millions); replacing the prescribed emissions outright (rejected for now: non-CO2 and land use have no source in F3); building health with a global-mean function (rejected: no defensible form).
 - **Proposed by:** Claude, at the editor's request.
 - **Date:** 2026-11-26
+- **Approval and outcome (2026-11-26):** the editor wrote "Do this in proper order" and then "merge 21, 22 and 23, and link 6 with your recommendations" (intensity from the recorded Earth4All run; all 841 members; six scenarios). **Link 6 is built as a one-way link, off by default** (`f3/sectors/link6_dc_emissions.py`); all six readings met; results in `audit/link6-dc-emissions.md`: +0.02 to +0.05 K in 2100, about one fortieth of the ensemble's spread. **Two things done differently from the plan, for the editor's review (Provisional):** the six scenarios are three build rates by two supply cases (not three AI settings, which E1 showed do not set electricity use); the baseline is the 2025 level held constant. The site is unchanged.
 
 ## D-xxx — Title
 

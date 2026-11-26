@@ -52,6 +52,7 @@ class ClimateSetup:
     gcb_to: int = 2024
     co2_scale_after: Optional[int] = None    # test hook (S4): multiply CO2 emissions by ``co2_factor`` from this year
     co2_factor: float = 1.0
+    co2_ffi_extra: Optional[tuple] = None    # link 6: ((year, Gt CO2), ...) added to the prescribed CO2 FFI of that calendar year; None = OFF (the committed behaviour)
 
 
 class _Inputs:
@@ -78,6 +79,10 @@ class _Inputs:
             cols = [c for c in e.columns[4:] if float(c) >= setup.co2_scale_after]
             m = e["variable"].isin(["CO2 FFI", "CO2 AFOLU"])
             e.loc[m, cols] = e.loc[m, cols] * setup.co2_factor
+        if setup.co2_ffi_extra:                                         # link 6 (one-way): an addition to fossil CO2, by calendar year
+            m = e["variable"] == "CO2 FFI"
+            for yr, gt in setup.co2_ffi_extra:
+                e.loc[m, f"{int(yr)}.5"] = e.loc[m, f"{int(yr)}.5"] + float(gt)
         return e
 
 
