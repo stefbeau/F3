@@ -9,6 +9,8 @@
 - **E1 (D-066):** data-centre power limited by a powered-capacity stock that grows at most `g_max` a year, default off. Branch `e1-build-rate`. Readings committed before the code. **Met:** off equals recorded (106 existing tests pass unchanged), conservation, extremes. **FAILED and recorded:** the sign reading E-T4 (a slower build rate raises usable compute in 3 to 5 years around 2035 to 2038, by up to 11.8%) and step halving E-T5 (0.504% against 0.1%).
 - **Report only:** use in 2030 is 976 TWh at 15% a year, 1,801 at 30%, 3,683 at 50%. S3 still demands 52 to 153 times what is powered in 2040.
 - **Not done:** E2, E3, E4; the full suite; any site change. Labels unchanged.
+## Update 2026-11-26: plan for links 3, 4, 6 and 7 (D-069, Proposed)
+- `docs/links-3-4-6-7-plan.md`: where each unbuilt link stands, the order proposed (E1, then 6, 7, 3, 4), the steps, and the choice each needs from the editor. **Nothing is built.**
 
 ## Update 2026-11-25 (22:22 UTC): site deployed
 - The Pages workflow, retried once at 22:20 UTC on `main` at commit `233a03e`, finished with status success. The public site now carries the regenerated data, the reworded S3 statements, the World models page and the shortened footer. **Not checked:** the live pages were not opened after the deployment.
