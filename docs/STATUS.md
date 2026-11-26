@@ -1,5 +1,11 @@
 # F3 — Status
 
+## Update 2026-11-26 (night): PRs 21, 22, 23 merged; link 6 built on a branch, NOT merged
+- **Merged at the editor's instruction** ("merge 21, 22 and 23"): the plan for links 3, 4, 6, 7; step E1; step E2. PR 22 was merged through PR 23, which contained it. (The line below saying they were not merged is true as of its time.)
+- **Link 6 (D-069, approved in part):** data-centre electricity to emissions, one-way, off by default; branch `link6-dc-emissions`. All six readings met. With 841 members: **+0.02 to +0.05 K in 2100**, about one fortieth of the ensemble's 5 to 95% spread. Upper reading (baseline held at the 2025 level). `audit/link6-dc-emissions.md`.
+- **For the editor:** the baseline assumption; the choice of the six scenarios; whether the site's connections page should call link 6 built (it is one-way and not used by the Explorer).
+- **Not done:** links 7, 3, 4; E3, E4; the full suite; any site change.
+
 ## Update 2026-11-26 (evening): step E2 built on a branch, NOT merged; PRs 21 and 22 NOT merged
 - **E2 (D-066, first form):** R3 lever `power_aware`, default off; branch `e2-power-aware-rule`, built on the E1 branch. All five readings met; with E2 on the sign reading holds for usable compute and the compute stock. **Long-run output stays implausible and is higher with E2 on**; cause not investigated (`audit/e2-power-aware.md`).
 - **PRs 21 (plan for links 3, 4, 6, 7) and 22 (E1) are open.** A merge was attempted after the editor's "Do this in proper order" and was refused by the session's safeguard because the instruction did not name the pull requests. Waiting for an instruction that names them.
