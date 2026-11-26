@@ -36,6 +36,7 @@ class R3Levers:
     split: Tuple[float, float, float] = (1.0, 1.0, 1.0)   # relative weights of compute, hardware R&D, software R&D
     capital_scale: float = 1.0
     training_scale: float = 1.0
+    power_aware: bool = False                # step E2 (D-066), a labelled variant, default off: the compute share is multiplied by the powered share of installed compute
 
 
 class R3Rule:
@@ -58,7 +59,7 @@ class R3Rule:
         w = min(1.0, (f - 0.9) / 0.1) if f < 1.0 - 1e-9 else 1.0
         return (1.0 - w) * self._curve_f(share, 0.9) + w * self._curve_u(share, u)
 
-    def shares(self, f: float, u: float) -> Dict[str, float]:
+    def shares(self, f: float, u: float, power_ratio: float = 1.0) -> Dict[str, float]:
         lv = self.levers
         q = {n: self.fitted(n, f, u) for n in FITTED}
         total = sum(q[n] for n in AI)
@@ -85,4 +86,9 @@ class R3Rule:
                 q[n] /= s
             s = 1.0
         q["q_consumption"] = 1.0 - s
+        if lv.power_aware:                                   # step E2: do not buy compute that cannot be powered; the freed share is consumed
+            r = min(1.0, max(0.0, float(power_ratio)))
+            moved = q["q_compute"] * (1.0 - r)
+            q["q_compute"] -= moved
+            q["q_consumption"] += moved
         return q

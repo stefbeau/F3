@@ -1,5 +1,10 @@
 # F3 — Status
 
+## Update 2026-11-26 (evening): step E2 built on a branch, NOT merged; PRs 21 and 22 NOT merged
+- **E2 (D-066, first form):** R3 lever `power_aware`, default off; branch `e2-power-aware-rule`, built on the E1 branch. All five readings met; with E2 on the sign reading holds for usable compute and the compute stock. **Long-run output stays implausible and is higher with E2 on**; cause not investigated (`audit/e2-power-aware.md`).
+- **PRs 21 (plan for links 3, 4, 6, 7) and 22 (E1) are open.** A merge was attempted after the editor's "Do this in proper order" and was refused by the session's safeguard because the instruction did not name the pull requests. Waiting for an instruction that names them.
+- **Next in order: link 6.** It needs two choices from the editor (carbon-intensity source; FaIR budget).
+
 ## Update 2026-11-26 (later): step E1 of the electricity module built on a branch, NOT merged
 - **E1 (D-066):** data-centre power limited by a powered-capacity stock that grows at most `g_max` a year, default off. Branch `e1-build-rate`. Readings committed before the code. **Met:** off equals recorded (106 existing tests pass unchanged), conservation, extremes. **FAILED and recorded:** the sign reading E-T4 (a slower build rate raises usable compute in 3 to 5 years around 2035 to 2038, by up to 11.8%) and step halving E-T5 (0.504% against 0.1%).
 - **Report only:** use in 2030 is 976 TWh at 15% a year, 1,801 at 30%, 3,683 at 50%. S3 still demands 52 to 153 times what is powered in 2040.
