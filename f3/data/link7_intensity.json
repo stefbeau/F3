@@ -1,0 +1,17 @@
+{
+ "a": -12.312757465488135,
+ "b": -0.006305550724430163,
+ "form": "k(t) = exp(a + b t), Gt CO2 per World3 model dollar",
+ "fit_years": [
+  1970,
+  2024
+ ],
+ "activity": "World3 industrial output, 2004 parameter set, standard levers, D-031 group",
+ "observed": "CO2 FFI given to FaIR (pinned extensions file, GCB 2025 for 2023-2024); not stored",
+ "in_sample": true,
+ "largest_relative_error": 0.27209719528309284,
+ "year_of_largest": 2024,
+ "years_outside_10_percent": 14,
+ "rms_relative_error": 0.09301519571783395,
+ "fitted_on": "2026-11-26"
+}

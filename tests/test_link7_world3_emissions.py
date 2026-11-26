@@ -19,6 +19,8 @@ def l7():
     return m
 
 
+@pytest.mark.xfail(strict=True, reason="L7-T1 FAILED (recorded 2026-11-26, audit/link7-world3-emissions.md): 14 of 55 years outside the editor's 10%; largest "
+                                       "difference -27.2% in 2024. World3's standard industrial output falls after about 2015 while observed fossil CO2 kept rising.")
 @needs_fair
 def test_l7t1_hindcast_within_ten_percent_every_year():
     m = l7()
