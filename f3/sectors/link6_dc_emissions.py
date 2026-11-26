@@ -39,15 +39,19 @@ def intensity_kg_per_kwh() -> Dict[int, float]:
     return {int(round(t)): float(v) for t, v in zip(d["time"], co2 / d["energy.EP"] * 1000.0)}   # Gt/TWh x 1000 = kg/kWh
 
 
+#: POST-HOC calibration to the IEA Base Case (Energy and AI, 2025): 15% a year to 2030, then 4.9% a year ((1200 / 945)^(1/5) - 1), kept after 2035. Not a validation.
+IEA_BASE_SCHEDULE = ((2025.0, 0.15), (2030.0, 0.049))
+
+
 @lru_cache(maxsize=None)
-def _electricity(g_max: float, outer_share: float, supply_scale: float, power_aware: bool) -> tuple:
+def _electricity(g_max: float, outer_share: float, supply_scale: float, power_aware: bool, schedule: Optional[tuple] = None) -> tuple:
     from f3.core.model import Coupling, Model
     from f3.sectors.s3_ai import GateParams, S3AI
     from f3.sectors.s3_rule_r3 import R3Levers, R3Rule
     from f3.sectors.s4_datacentre import DataCentre, DCParams, supply_series
     gp = GateParams()
     s3 = S3AI(gp, rule=R3Rule(R3Levers(power_aware=power_aware)), electricity_limited=True)
-    dc = DataCentre(gp, DCParams(supply_scale=supply_scale, g_max=g_max, outer_share=outer_share))
+    dc = DataCentre(gp, DCParams(supply_scale=supply_scale, g_max=g_max, outer_share=outer_share, g_max_schedule=schedule))
     cp = [Coupling("earth4all_supply", "supply", "s4_datacentre", "supply"), Coupling("s3_ai", "compute_stock", "s4_datacentre", "compute_stock"),
           Coupling("s3_ai", "hardware", "s4_datacentre", "hardware"), Coupling("s4_datacentre", "supply_ratio", "s3_ai", "supply_ratio")]
     with warnings.catch_warnings():
@@ -57,11 +61,11 @@ def _electricity(g_max: float, outer_share: float, supply_scale: float, power_aw
     return tuple((y, float(e[(t > y + 1e-9) & (t <= y + 1.0 + 1e-9)].mean())) for y in range(2025, 2100))   # mean rate over the calendar year
 
 
-def electricity_used_twh(g_max: float, outer_share: float = 0.25, supply_scale: float = 1.0, power_aware: bool = False) -> Dict[int, float]:
+def electricity_used_twh(g_max: float, outer_share: float = 0.25, supply_scale: float = 1.0, power_aware: bool = False, schedule: Optional[tuple] = None) -> Dict[int, float]:
     """Data-centre electricity used, TWh in each calendar year 2025 to 2099, with the build-rate limit of step E1 (it must be finite)."""
     if not np.isfinite(g_max):
         raise ValueError("link 6 needs the build-rate limit of step E1 (a finite g_max): without it the electricity is not bounded")
-    return dict(_electricity(float(g_max), float(outer_share), float(supply_scale), bool(power_aware)))
+    return dict(_electricity(float(g_max), float(outer_share), float(supply_scale), bool(power_aware), tuple(schedule) if schedule else None))
 
 
 def extra_co2_gt(used_twh: Dict[int, float]) -> Dict[int, float]:

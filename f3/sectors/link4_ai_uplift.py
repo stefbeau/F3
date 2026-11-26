@@ -42,6 +42,12 @@ def s3_uplift(ai_off: bool = False, g_max: float = 0.30, outer_share: float = 0.
     return {2025 + i: v / u[0] for i, v in enumerate(u)}
 
 
+#: growth caps taken from published 10-year estimates of AI's effect on yearly productivity growth; extending them to 2100 and to World3 industrial output is an
+#: extrapolation. acemoglu_2024: Acemoglu (2024), US, via a secondary table; oecd_low / oecd_high: Filippucci et al. (OECD, 2024), total factor productivity;
+#: goldman_world: Goldman Sachs (2023), world, via the same secondary table. Provisional.
+SOURCED_CAPS = {"acemoglu_2024": 0.0007, "oecd_low": 0.0025, "oecd_high": 0.006, "goldman_world": 0.0125}
+
+
 def bounded_uplift(u: Dict[int, float], cap: float) -> Dict[int, float]:
     """U_b(2025) = 1; U_b(t) = min(U(t), U_b(t-1) x (1 + cap)). ``cap`` is required: it is an assumption the caller must state."""
     if not (cap >= 0.0):

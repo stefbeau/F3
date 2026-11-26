@@ -67,6 +67,7 @@ class DCParams:
     dc_share_cap: float = 0.05        # share of total electricity supply available to data centres (Provisional P-A2)
     supply_scale: float = 1.0         # scenario lever on the supply series; math.inf = unlimited
     g_max: float = math.inf           # step E1 (D-066): largest growth of powered capacity per year (0.30 = 30% a year); math.inf = OFF (the committed behaviour)
+    g_max_schedule: tuple = None      # optional ((year_from, rate), ...): the build rate in force from each year; None = g_max throughout (the committed behaviour)
     outer_share: float = None         # step E1: share of total supply open to data centres when given; None = use dc_share_cap
     eta_cap: float = None             # FLOP/J upper bound on the energy efficiency (D-055); None = OFF (the committed behaviour); PAPER_ETA_CAP is the paper's value
 
@@ -128,7 +129,12 @@ class DataCentre(Sector):
         avail = share * ctx.input("supply", t) * self.dp.supply_scale
         if math.isfinite(self.dp.g_max):                                 # step E1: P grows only when demand exceeds it, by at most g_max a year; it never falls
             if e > self._powered:
-                self._powered = min(e, self._powered * (1.0 + self.dp.g_max) ** h)
+                g = self.dp.g_max
+                if self.dp.g_max_schedule:
+                    for y0, rate in self.dp.g_max_schedule:
+                        if t >= y0 - 1e-9:
+                            g = rate
+                self._powered = min(e, self._powered * (1.0 + g) ** h)
             avail = min(self._powered, avail)
             self.powered_history.append(self._powered)
         else:
