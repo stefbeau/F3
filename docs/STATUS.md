@@ -1,5 +1,12 @@
 # F3 — Status
 
+## Update 2026-11-26 (search): sources added for links 3, 4, 6, 7 on branch `links-unlock-search`, NOT merged, site unchanged
+
+- Unlocked: link 3 health (Bressler 2021); link 6 to 2035 (IEA, as a post-hoc calibration).
+- Not unlocked: link 4 (sourced caps still decide the result); link 7 (published recalibration, partial copy, failed).
+- Corrected: "upper reading" for the yield link was wrong. Five new recorded failures. `audit/links-unlock.md`.
+- The live site still says "Health is not built" and "upper reading"; both need the editor's word to change.
+
 ## Update 2026-11-26 (later): PR 25 merged; site shows links 3, 4, 6, 7 as built with outputs withheld (PR open, NOT deployed)
 
 - PR 25 merged at the editor's instruction. All seven links have code on `main`.

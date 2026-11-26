@@ -31,6 +31,18 @@ DAMAGE_COUPLING_LABEL = (
 YIELD_LOSS_PER_K = {"low": 0.031, "central": 0.04925, "high": 0.074}
 
 
+#: link 3, health: increase in the global mortality rate at 1, 2, 3, 4 and 5 degC above pre-industrial (Bressler 2021, Nature Communications 12, 4467, Fig. 6;
+#: read through a parsing tool, not by eye). Zero at 0 degC, linear between the tabulated degrees, held above 5 degC. Provisional.
+MORTALITY_INCREASE = {"central": (0.001, 0.002, 0.013, 0.037, 0.070), "high": (0.003, 0.013, 0.045, 0.101, 0.180), "low": (0.000, -0.003, -0.007, -0.012, -0.018)}
+
+
+def mortality_increase(warming_k: float, option: str) -> float:
+    xs, ys = (0.0, 1.0, 2.0, 3.0, 4.0, 5.0), (0.0,) + MORTALITY_INCREASE[option]
+    w = min(max(float(warming_k), 0.0), 5.0)
+    i = min(int(w), 4)
+    return ys[i] + (ys[i + 1] - ys[i]) * (w - xs[i])
+
+
 class World3Group(Sector):
     name = "world3"
     inputs: Mapping[str, str] = {}
@@ -38,7 +50,8 @@ class World3Group(Sector):
     def __init__(self, sectors: Sequence[Sector], couplings, init_inputs: Mapping[str, Mapping[str, float]], state_names: Mapping[str, str],
                  substep: float = SUBSTEP, damage_option: Optional[str] = None, warming=None, _mutate_zero_damage: bool = False,
                  electricity_link: bool = False, _mutate_unit_elec_ratio: bool = False,
-                 yield_option: Optional[str] = None, _mutate_unit_yield: bool = False, ai_uplift=None):
+                 yield_option: Optional[str] = None, _mutate_unit_yield: bool = False, ai_uplift=None,
+                 mortality_option: Optional[str] = None, _mutate_unit_mortality: bool = False):
         self._sectors: Dict[str, Sector] = {s.name: s for s in sectors}
         self._order: List[str] = [s.name for s in sectors]
         self._substep = float(substep)
@@ -68,6 +81,15 @@ class World3Group(Sector):
         self._yield_option = yield_option
         self._mutate_unit_yield = _mutate_unit_yield            # test hook: the sign test must fail when the multiplier is forced to 1
         self.yield_mult_history = []
+        # link 3, health (D-069): temperature-related mortality, OFF unless mortality_option is given
+        if mortality_option is not None:
+            if mortality_option not in MORTALITY_INCREASE:
+                raise ValueError(f"mortality_option must be one of {sorted(MORTALITY_INCREASE)}")
+            if warming is None:
+                raise ValueError("mortality_option needs a warming source (a callable year -> K)")
+        self._mortality_option = mortality_option
+        self._mutate_unit_mortality = _mutate_unit_mortality
+        self.mortality_mult_history = []
         # link 4 (D-069): bounded AI uplift on industrial output, OFF unless ai_uplift (a callable year -> factor) is given
         self._ai_uplift = ai_uplift
         self._warming = warming
@@ -118,6 +140,8 @@ class World3Group(Sector):
         self._sectors["w3_capital"].damage_mult = 1.0
         self._sectors["w3_agriculture"].yield_mult = 1.0
         self.yield_mult_history = []
+        self._sectors["s1_population"]._sector.mortality_mult = 1.0
+        self.mortality_mult_history = []
 
     def current_outputs(self) -> Dict[str, float]:
         out = self._states_now()
@@ -132,6 +156,11 @@ class World3Group(Sector):
             ym = max(0.0, 1.0 - YIELD_LOSS_PER_K[self._yield_option] * (float(self._warming(t)) - float(self._warming(DAMAGE_START_YEAR))))
         self._sectors["w3_agriculture"].yield_mult = ym
         self.yield_mult_history.append(ym)
+        mm = 1.0
+        if self._mortality_option is not None and t >= DAMAGE_START_YEAR - 1e-9 and not self._mutate_unit_mortality:
+            mm = (1.0 + mortality_increase(float(self._warming(t)), self._mortality_option)) / (1.0 + mortality_increase(float(self._warming(DAMAGE_START_YEAR)), self._mortality_option))
+        self._sectors["s1_population"]._sector.mortality_mult = mm
+        self.mortality_mult_history.append(mm)
         if self._damage_option is not None or self._elec_link or self._ai_uplift is not None:
             mult = 1.0
             if self._damage_option is not None:

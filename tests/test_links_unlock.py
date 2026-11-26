@@ -94,10 +94,12 @@ def test_l6v_t1_electricity_2030_within_10_percent_of_iea():
     assert abs(dc()[1][2030] / 945.0 - 1.0) <= 0.10
 
 
+@pytest.mark.xfail(strict=True, reason="L6V-T2 FAILED (recorded 2026-11-26, audit/links-unlock.md): 1,863 TWh in 2035 against the IEA's 1,200 (+55%); a constant 15% a year overshoots after 2030. Tolerance unchanged.")
 def test_l6v_t2_electricity_2035_within_25_percent_of_iea():
     assert abs(dc()[1][2035] / 1200.0 - 1.0) <= 0.25
 
 
+@pytest.mark.xfail(strict=True, reason="L6V-T3 FAILED on 2035 (recorded 2026-11-26): 347 Mt in 2030 against 320 (+8%, inside 30%) but 637 Mt in 2035 against 300 (+112%). Tolerance unchanged.")
 def test_l6v_t3_co2_within_30_percent_of_iea():
     mt = dc()[2]
     assert abs(mt[2030] / 320.0 - 1.0) <= 0.30 and abs(mt[2035] / 300.0 - 1.0) <= 0.30
@@ -113,11 +115,13 @@ def l7():
     return m
 
 
+@pytest.mark.xfail(strict=True, reason="L7N-T1 FAILED (recorded 2026-11-26): rms log distance to observed GDP 0.2457 for the partial, unverified copy of Recalibration23 against 0.1775 for the standard run. It is not used as a reference.")
 def test_l7n_t1_closer_to_observed_gdp_than_the_standard_run():
     m = l7()
     assert m.gdp_distance(m.world3_io(**m.NEBEL_PARTIAL)) < 0.1775
 
 
+@pytest.mark.xfail(strict=True, reason="L7N-T2 FAILED (recorded 2026-11-26, reported only since T1 failed): largest hindcast error 40.1% (2024), 35 of 55 years outside 10%.")
 def test_l7n_t2_hindcast_within_10_percent():
     m = l7()
     io, obs = m.world3_io(**m.NEBEL_PARTIAL), m.observed_ffi_gt()
@@ -127,6 +131,7 @@ def test_l7n_t2_hindcast_within_10_percent():
     assert max(err) <= 0.10
 
 
+@pytest.mark.xfail(strict=True, reason="L7N-T3 FAILED (recorded 2026-11-26, reported only): step of -5.6% at the join against 5%.")
 def test_l7n_t3_join_step_within_5_percent():
     m = l7()
     io = m.world3_io(**m.NEBEL_PARTIAL)

@@ -230,6 +230,8 @@ class PopulationSector:
         m2 = interpolate(le, T["m2"])                                        # Line 8
         m3 = interpolate(le, T["m3"])                                        # Line 12
         m4 = interpolate(le, T["m4"])                                        # Line 16
+        if self.mortality_mult != 1.0:                                       # link 3, health (D-069): 1.0 = off, the committed behaviour
+            m1, m2, m3, m4 = (m * self.mortality_mult for m in (m1, m2, m3, m4))
         d1, d2, d3, d4 = p1 * m1, p2 * m2, p3 * m3, p4 * m4                  # Lines 3, 7, 11, 15
         mat1 = p1 * (1.0 - m1) / 15.0                                        # Line 5
         mat2 = p2 * (1.0 - m2) / 30.0                                        # Line 9
@@ -242,6 +244,8 @@ class PopulationSector:
                     mat3=mat3, dr=dr, br=br)
 
     # ---- right-hand side ----------------------------------------------------------------------------
+    mortality_mult = 1.0             # link 3, health: multiplier on the mortality of the four age groups; set by World3Group, 1.0 = off
+
     def rhs(self, t: float, y: np.ndarray, inputs: Inputs, t_switch: Optional[float] = None) -> np.ndarray:
         P = self.params
         fpc, sopc, iopc, ppolx = inputs.at(t)

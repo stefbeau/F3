@@ -31,10 +31,11 @@ def _world3_io(levers: Tuple[Tuple[str, float], ...]) -> tuple:
     from f3.sectors.world3_group import World3Group
     sectors, couplings = build_world3("2004")
     for s in sectors:
-        if hasattr(s, "params"):
-            for k, v in levers:
-                if k in s.params:
-                    s.params[k] = v
+        for holder in (s, getattr(s, "_sector", None)):          # the population sector keeps its parameters on the wrapped object
+            if holder is not None and getattr(holder, "params", None):
+                for k, v in levers:
+                    if k in holder.params:
+                        holder.params[k] = v
     g = World3Group(sectors, couplings, _initial_inputs(sectors, 1900.0), STATE_COLUMNS, damage_option=None, warming=None)
     res = Model([g], [], t0=1900.0, t1=2100.0, dt=0.25).run()
     io = res.series[(g.name, "io")]
@@ -141,3 +142,25 @@ def replacement_gt_b(io: Dict[int, float]) -> Dict[int, float]:
     a, b = params_b()
     h = join_factor(io)
     return {y: io[y] * math.exp(a + b * y) * h for y in range(FIRST_YEAR, LAST_YEAR + 1)}
+
+
+# ---- a reference run calibrated by others (docs/links-unlock-tests.md, L7N) ----
+#: 21 of the 35 recalibrated parameters of Nebel et al. (2023), J. Industrial Ecology, Table 2 (CC BY 4.0), from ONE machine extraction that was not cross-checked.
+#: pptd is applied to pptd1 and pptd2, alic1 to alic1 and alic2, faipm to fipm. A PARTIAL and UNVERIFIED copy of Recalibration23, not that calibration.
+NEBEL_PARTIAL = {"alic1": 15.24, "alic2": 15.24, "pptd1": 116.38, "pptd2": 116.38, "hsid": 38.24, "lpd": 33.84, "ppgf1": 1.53, "lfpf": 1.02, "alln": 1351.20,
+                 "palt": 4.22e9, "nri": 1.30e12, "imti": 11.06, "imef": 0.11, "pl": 0.10, "frpm": 0.02, "sfpc": 233.69, "fipm": 0.001, "sd": 0.06, "mtfn": 9.45,
+                 "amti": 0.77, "sad": 13.38, "fspd": 0.61, "uildt": 0.53}
+
+
+def observed_gdp() -> Dict[int, float]:
+    from pathlib import Path
+    h = json.loads((Path(__file__).resolve().parents[2] / "site" / "data" / "history.json").read_text(encoding="utf-8"))["gdp"]
+    return {int(y): float(v) for y, v in zip(h["years"], h["trillion_usd_2015"])}
+
+
+def gdp_distance(io: Dict[int, float]) -> float:
+    """RMS of the log differences between industrial output and observed world GDP, both indexed to 1970, over 1970-2024 (the measure of select_reference)."""
+    g = observed_gdp()
+    ys = [y for y in FIT_YEARS if y in g]
+    d = [math.log(io[y] / io[1970]) - math.log(g[y] / g[1970]) for y in ys]
+    return float(np.sqrt(np.mean(np.square(d))))

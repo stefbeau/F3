@@ -27,3 +27,6 @@ All readings met (L4-T1 to L4-T5, the control, and the no-default check).
 | 5% a year | 2027 to 2099, every year | 3.23 / 35.2 | +14.8% / +108% / +50% | +11.6% / +19% |
 
 **Plain statement.** The cap binds in every year from 2027. S3 contributes nothing to these results except the first year; the table is the answer to "what if AI added 1%, 2% or 5% a year to World3's industrial output", and nothing more. The link runs and is tested, but it carries no information from S3 until S3's level is bounded by something measured. With a 5% cap World3 overshoots harder: output is higher in 2050 and the gain shrinks by 2100. One-way; the two economies are not reconciled.
+
+
+> **Correction, 2026-11-26.** The phrase "Upper reading for the four crops" above is not supported: a study that includes observed adaptation (Hultgren et al. 2025) finds losses that are not smaller. See `audit/links-unlock.md`. The original text is left in place.
