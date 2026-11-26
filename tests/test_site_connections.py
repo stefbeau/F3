@@ -38,9 +38,12 @@ def test_exactly_the_built_links_are_solid_not_built_dashed_withheld_dotted():
         if b == "yes":
             assert "stroke-dasharray" not in tag, tag
         elif b == "no":
-            assert 'stroke-dasharray="7 5"' in tag, tag
+            raise AssertionError(f"no link is 'not built' any more: {tag}")
         else:
-            raise AssertionError(f"no link is withheld any more (link 5 is built): {tag}")
+            assert 'stroke-dasharray="1 6"' in tag, tag
+    # 2026-11-26 (editor: "merge 25. Apply all changes to F3 site"): links 3, 4, 6 and 7 now exist in code, tested and off by default, with no output shown on the site;
+    # they move from 'not built' (dashed) to 'built, outputs withheld' (dotted, the third status of D-052). The three solid links are unchanged.
+    assert {link for link, b in paths if b == "withheld"} == {"fair-warming-to-world3-health-yield", "s3-output-to-world3", "data-centre-electricity-to-emissions", "world3-to-emissions"}
     assert {entry["id"] for entry in linkdata()["links"] if entry["status"] == "built"} == built        # the JSON the inspector reads agrees with the drawing
 
 
@@ -65,7 +68,7 @@ def test_nodes_are_absolutely_positioned_and_the_list_replaces_the_map_below_900
 def test_map_has_a_text_alternative_legend_and_the_status_vocabulary():
     html = page()
     assert 'role="group" aria-label="Map of the seven links' in html
-    for word in ("Solid: built and tested", "Dashed: not built"):
+    for word in ("Solid: built and tested", "Dotted: built, outputs withheld", "Dashed: not built"):
         assert word in html
     assert 'aria-live="polite"' in html and 'id="inspector"' in html
 
@@ -111,7 +114,8 @@ def test_effect_numbers_are_computed_from_the_data(tmp_path):
     for row in s3["rows"]:
         assert row[2] == f"{d['runs'][f'central|{row[0]}|1']['damage_fraction'][-1] * 100:.1f}%"
     assert f"{d['climate']['warming'][-1]:.2f} K" in w3["note"] and none is None
-    assert finding.startswith("3 of 7 links") and "withheld" not in finding and "4 are not built" in finding
+    # reading changed 2026-11-26 with the status of links 3, 4, 6 and 7 (see the note in the first test)
+    assert finding.startswith("3 of 7 links") and "4 more are built with outputs withheld" in finding and "not built" not in finding
 
 
 def test_connections_script_holds_no_model_numbers_and_the_social_module_is_absent():
@@ -119,3 +123,17 @@ def test_connections_script_holds_no_model_numbers_and_the_social_module_is_abse
     assert not re.search(r"\d+\.\d{2,}", src)
     visible = re.sub(r"<script.*?</script>", "", page(), flags=re.S)
     assert not re.search(r"\bS7\b|social module|inequality index", visible)
+
+
+def test_the_four_withheld_links_say_they_are_off_and_not_in_the_explorer_and_show_no_number():
+    """Reading written 2026-11-26 before the page text: each of links 3, 4, 6 and 7 says it is off by default and not used by the Explorer, records at least one
+    reading met, and names what is missing or failed (link 3: health not built; link 4: the cap; link 7: the first hindcast failure and the post-hoc label)."""
+    by = {e["n"]: e for e in linkdata()["links"]}
+    for n in (3, 4, 6, 7):
+        e = by[n]
+        assert e["status"] == "withheld" and e["effect"] is None and e["met"]
+        assert e["what"].startswith("Built, outputs withheld") and "off by default" in e["what"] and "Explorer" in e["what"]
+    assert "Health is not built" in by[3]["what"] and "abstract" in " ".join(by[3]["notcompared"])
+    assert "cap" in by[4]["what"] and "not S3" in " ".join(by[4]["failed"] + by[4]["notcompared"] + [by[4]["what"]])
+    assert any("upper reading" in x for x in by[6]["notcompared"])
+    assert any("hindcast" in x.lower() and "failed" in x.lower() for x in by[7]["failed"]) and "post-hoc" in " ".join(by[7]["what"].split())

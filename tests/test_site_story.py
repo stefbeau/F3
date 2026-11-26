@@ -60,7 +60,7 @@ def test_links_vocabulary_solid_dashed_dotted_and_seven_links():
     assert len(data["links"]) == 7 and [l["n"] for l in data["links"]] == list(range(1, 8))
     built = {l["id"] for l in data["links"] if l["status"] == "built"}
     assert built == {"fair-warming-to-world3-output", "fair-warming-to-s3-damage", "s3-compute-to-data-centre-electricity"}
-    assert {l["status"] for l in data["links"]} == {"built", "not-built"}
+    assert {l["status"] for l in data["links"]} == {"built", "withheld"}                      # 2026-11-26: links 3, 4, 6, 7 are built with outputs withheld
     assert [n["id"] for n in data["nodes"]] == ["warming", "world3", "s3", "dc", "emissions"]
     # the story strip and the connections map agree on which links are built
     ex = (SITE / "connections.html").read_text(encoding="utf-8")

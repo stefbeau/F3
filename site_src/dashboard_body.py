@@ -153,7 +153,7 @@ def body() -> str:
 {tests_table()}
 </details>
 <section class="connected" id="connected"><h3>What is connected</h3>
-<p>Only three links are built: warming lowers World3 industrial output (off by default), warming lowers S3's own output, and S3 compute sets data-centre electricity demand (its values are withheld above). Four are not built. Solid and dashed lines say which. <a href="connections.html">Open the connections map</a> to inspect each of the seven links.</p>
+<p>Three links are built and used here: warming lowers World3 industrial output (off by default), warming lowers S3's own output, and S3 compute sets data-centre electricity demand (its values are withheld above). Four more are built and tested but off by default, and nothing on this page uses them. Solid and dotted lines say which. <a href="connections.html">Open the connections map</a> to inspect each of the seven links.</p>
 </section>
 {B.NOT_SHOWN}
 {B.SOURCES}

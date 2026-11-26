@@ -1,5 +1,11 @@
 # F3 — Status
 
+## Update 2026-11-26 (later): PR 25 merged; site shows links 3, 4, 6, 7 as built with outputs withheld (PR open, NOT deployed)
+
+- PR 25 merged at the editor's instruction. All seven links have code on `main`.
+- Site (branch `site-links-3-4-6-7`): the four links are dotted ("built, outputs withheld"), with their readings met and failed; no number from them is shown; Explorer unchanged. 196 site tests pass.
+- Not done: deployment (needs the editor's word), the full test suite, the editor's batch review of the Provisional choices of D-069.
+
 ## Update 2026-11-26 (night): link 7 variant B, links 3 and 4 built on the branch, NOT merged
 
 - **Link 7 variant B (post-hoc, labelled):** hindcast met on a reference run chosen against observed GDP (largest 9.4%); join-step reading FAILED for four of six runs (recorded). The first form's hindcast failure stands. `audit/link7-variant-b.md`.

@@ -63,7 +63,7 @@ def test_roadmap_is_on_the_methods_page_and_only_the_built_links_are_solid():
     solid = {re.search(r'data-link="([^"]+)"', p).group(1) for p in ps if "stroke-dasharray" not in p}
     assert solid == BUILT - {"s3-compute-to-data-centre-electricity"}      # the roadmap draws the climate links only; link 5 (built, D-059) is on the map and the loop diagram
     assert all(re.search(r'data-built="yes"', p) for p in ps if "stroke-dasharray" not in p)
-    assert all(re.search(r'data-built="no"', p) for p in ps if "stroke-dasharray" in p)
+    assert all(re.search(r'data-built="withheld"', p) for p in ps if "stroke-dasharray" in p)      # 2026-11-26: the three other arrows are built with outputs withheld (dotted)
     assert 'href="connections.html"' in html and "emissions feedback" in svg.lower()
 
 
@@ -76,8 +76,8 @@ def test_both_diagrams_have_text_alternatives_and_readable_text_and_use_only_tok
         sizes = [float(x) for x in re.findall(r'font-size="([0-9.]+)"', svg)]
         assert sizes and min(sizes) >= 13
         assert not re.search(r"#[0-9a-fA-F]{3,6}\b|rgb\(", svg), "colours must come from CSS variables"
-    assert "Not built, dashed" in (SITE / "connections.html").read_text(encoding="utf-8")        # the key keeps its text alternative
-    assert "Dashed:" in (SITE / "methods.html").read_text(encoding="utf-8")
+    assert "Built, dotted (outputs withheld)" in (SITE / "connections.html").read_text(encoding="utf-8")        # the key keeps its text alternative
+    assert "Dotted:" in (SITE / "methods.html").read_text(encoding="utf-8")
 
 
 def test_stylesheet_styles_the_diagram_links_with_the_theme_tokens():
