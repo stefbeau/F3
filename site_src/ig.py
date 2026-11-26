@@ -43,7 +43,7 @@ LOOPS = (
     '<title id="ig_loops_t">Feedback loops: which links are built and tested, and which are built with outputs withheld</title>'
     '<desc id="ig_loops_d">Boxes: warming from the climate model, World3, the AI model S3, data-centre electricity, and emissions. Solid arrows are links that are built and '
     'tested: warming lowers World3 industrial output (optional, off by default), and warming lowers S3 output. Dotted arrows are links that are built and tested but off by default, with no output shown on this site: warming '
-    'effects on yield in World3 (health is not built), S3 output feeding World3, data-centre electricity feeding emissions, and World3 feeding emissions. The arrow '
+    'effects on yield and mortality in World3, S3 output feeding World3, data-centre electricity feeding emissions, and World3 feeding emissions. The arrow '
     'S3 compute to data-centre electricity, is built, but its values are withheld in the Explorer.</desc>'
     + markers("lp")
     + box(75, 8, 160, 46, ["Warming", "climate model (FaIR)"])
@@ -68,7 +68,7 @@ LOOPS_KEY = (
     '<ol class="igkey">'
     '<li><strong>Built, solid:</strong> warming lowers World3 industrial output through the D-007 damage function. A level-of-output effect, <strong>off by default</strong>; set it with the climate-damage control on the <a href="explorer.html">Explorer</a>.</li>'
     '<li><strong>Built, solid:</strong> warming lowers the AI model\'s (S3) own output through the same damage function (the AI-race charts under Details on the Explorer).</li>'
-    '<li><strong>Built, dotted (outputs withheld):</strong> warming lowering World3 land yield, off by default and not used by the Explorer. Health is not built. In the Explorer there is no health or yield effect of warming (D-049).</li>'
+    '<li><strong>Built, dotted (outputs withheld):</strong> warming lowering World3 land yield and raising mortality, off by default and not used by the Explorer. In the Explorer there is no health or yield effect of warming (D-049).</li>'
     '<li><strong>Built, dotted (outputs withheld):</strong> the AI model feeding World3 under a growth cap chosen by hand; the cap decides the result. S3\'s economy and World3\'s are two models of the same world and are not reconciled.</li>'
     '<li><strong>Built, solid (values withheld):</strong> S3 compute sets data-centre electricity demand and supply limits compute. The values are withheld until S3\'s compute path is validated.</li>'
     '<li><strong>Built, dotted (outputs withheld):</strong> data-centre electricity feeding emissions; an upper reading, off by default.</li>'

@@ -133,7 +133,12 @@ def test_the_four_withheld_links_say_they_are_off_and_not_in_the_explorer_and_sh
         e = by[n]
         assert e["status"] == "withheld" and e["effect"] is None and e["met"]
         assert e["what"].startswith("Built, outputs withheld") and "off by default" in e["what"] and "Explorer" in e["what"]
-    assert "Health is not built" in by[3]["what"] and "abstract" in " ".join(by[3]["notcompared"])
+    # reading changed 2026-11-26 (editor: "merge 27 and yes"): the health half is built (Bressler 2021) and the phrase "upper reading" for yield was wrong and is withdrawn
+    assert "Health is not built" not in by[3]["what"] and "mortality" in by[3]["what"] and "abstract" in " ".join(by[3]["notcompared"])
+    # my test was wrong (same day): the project rule is to correct openly, so the withdrawn phrase must stay visible with its correction, not vanish
+    assert "upper reading; that was wrong" in " ".join(by[3]["notcompared"]) and "not read by eye" in " ".join(by[3]["notcompared"])
+    assert any("IEA" in x and "FAILED" in x for x in by[6]["failed"]) and any("recalibration" in x.lower() and "FAILED" in x for x in by[7]["failed"])
+    assert "published" in by[4]["what"]
     assert "cap" in by[4]["what"] and "not S3" in " ".join(by[4]["failed"] + by[4]["notcompared"] + [by[4]["what"]])
     assert any("upper reading" in x for x in by[6]["notcompared"])
     assert any("hindcast" in x.lower() and "failed" in x.lower() for x in by[7]["failed"]) and "post-hoc" in " ".join(by[7]["what"].split())
