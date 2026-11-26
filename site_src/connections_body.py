@@ -94,7 +94,7 @@ def body() -> str:
 <li><strong>They are provisional.</strong> Links 3, 4, 6 and 7 were built in November 2026 with tests written first. Each is a switch that is off by default, and their results await the editor's review (D-069). Until then no number from them appears on this site.</li>
 <li><strong>Emissions are prescribed in the Explorer.</strong> The FaIR run replays one recorded emissions path (D-021). Links 6 and 7 can change that path in a separate run, but no Explorer scenario uses them, so the climate is the same in every scenario here.</li>
 <li><strong>S3's economy and World3's are not reconciled.</strong> They are two models of the same world. Link 4 passes S3's uplift to World3 only under a growth cap chosen by hand, and the cap decides the result; it is not something the Explorer shows.</li>
-<li><strong>Warming has no health or yield effect in the Explorer.</strong> Link 3 adds a yield effect in a separate run; a health effect is not built. The Earth4All channels were left out by decision (D-049).</li>
+<li><strong>Warming has no health or yield effect in the Explorer.</strong> Link 3 adds a yield effect and a mortality effect in a separate run. The Earth4All channels were left out by decision (D-049).</li>
 <li>S3 compute and data-centre electricity outputs (link 5 is built, its values are not shown) are withheld: under F3's own investment rule they leave any plausible range; a build-rate limit is approved (D-066) and not built.</li>
 </ul></section>
 """
