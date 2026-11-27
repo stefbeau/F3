@@ -37,5 +37,27 @@
 - Text at 13 px or more; scenario and accent colours from the stylesheet tokens only; no page script holds a model number (the existing scan in `tests/test_site_v02_core.py` covers the two page scripts).
 - Tests: `tests/test_site_tornado_dumbbell.py`.
 
-## 4. Results
-*(Filled in after the build; see the end of this file.)*
+## 4. Results (2026-11-27, after the build)
+
+**Tests.** `tests/test_site_tornado_dumbbell.py`: 22 passed. All site tests: 218 passed (196 before this change). The full suite was not run: no model code was touched. All readings R-T1 to R-T6 and R-D1 to R-D4 are met; none was changed after the code was written.
+
+**What the range chart shows for the standard run, damage off, in 2100** (printed by the page functions from the data file; each line is lowest to highest, widest first):
+
+| Measure | Setting | Lowest | at | Highest | at |
+|---|---|---|---|---|---|
+| Population | Land yield factor after 1975 | 369 million | 2.0 | 3.5 billion | standard (1.0) |
+| Population | Non-renewable resources at the start | 2.51 billion | half | 3.5 billion | standard |
+| Population | Pollution generation factor after 1975 | 3.33 billion | 0.25 | 3.5 billion | standard (1.0) |
+| Population | Climate damage to industrial output | 3.45 billion | high | 3.5 billion | off |
+| Industrial output | Non-renewable resources at the start | 6.3 billion | half | 342 billion | double |
+| Persistent pollution | Non-renewable resources at the start | 0.108 | half | 6.56 | double |
+
+Read with care: a higher land yield factor gives a much LOWER 2100 population in these runs, and the standard value is the highest of the three for population. That is what the published runs contain (runs with changed parameters are not compared with WorldDynamics.jl); the chart only makes it visible. It is not a finding about the world.
+
+**What the dumbbell shows for the default pair** (A: Standard, central damage; B: Combined, central damage; 2100, change against the standard run): industrial output -2.8% against +238.1% (240.8 points apart), persistent pollution -1.3% against +162.8%, resources remaining +1.2% against +103.8%, population -0.5% against -72.5%. The same numbers as the bars and the delta table.
+
+**Checked live** (headless Chrome through the DevTools protocol, `file://`, 390 and 1280 px, dark and light): no page-level horizontal overflow; no chart text below 13 px and none outside its SVG; no console or script errors; the measure selector redraws the range chart; the chart follows the rail (tested at levers 2.1.1 with central damage); the data table opens; the CSV carries raw numbers and the caveats; A equal to B equal to the baseline shows the "nothing to draw" card. Screenshots: `docs/img/explorer-v03-explorer-range-*.png`, `explorer-v03-compare-dumbbell-*.png`.
+
+**Not checked:** a physical phone, a screen reader, a colour-blindness simulation, the PNG download, any browser other than headless Chrome.
+
+**Two display choices made on the way** (no reading touched): the range chart prints fractions with three significant figures, so the two ends of a narrow range do not print as the same number; grid lines and the reference mark are drawn across each bar or pair only, so no line runs through a label.

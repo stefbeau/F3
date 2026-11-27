@@ -285,6 +285,88 @@
     var src = c.sel ? c.plot.querySelector('path.reg[data-id="' + c.sel + '"]') : null, d = src ? src.getAttribute("d") : "";
     c.plot.querySelectorAll("path.ring, path.ringhalo").forEach(function (q) { q.setAttribute("d", d); });
   }
+  /* ---------- range chart ("tornado", D-070): one row per setting, a bar from the lowest to the highest value among that setting's values, a line at the chosen run. The spec is F3.tornadoSpec ---------- */
+  function tornadoChart(el, spec) {
+    var c = mount(el, spec); spec.kind = "tornado"; c.spec = spec;
+    var wrap = c.plot, W = Math.max(300, Math.floor(wrap.clientWidth || 340)), FS = 13, L = 14, Rr = W - 14, bh = 18, ul = wrapText(spec.unit, W - 24), T = 44 + (ul.length - 1) * 16, B = 34;
+    var fm = F3.FMT[spec.fmt], sc = scen(), fg = tok("--fg"), mut = tok("--mut"), line = tok("--line"), card = tok("--card"), vals = [], g = "";
+    if (F3.isNum(spec.here)) vals.push(spec.here);
+    spec.rows.forEach(function (r) { if (r.lo) vals.push(r.lo.v, r.hi.v); });
+    var lay = spec.rows.map(function (r) {                                            /* text first: the label and the caption wrap to the card width, so a row is as tall as its text */
+      var cap = !r.lo ? F3.NA + " for this setting" : r.swing === 0 ? "No change: " + fm(r.lo.v) + " with every value of this setting" : fm(r.lo.v) + " at " + r.lo.setting + " to " + fm(r.hi.v) + " at " + r.hi.setting;
+      return { r: r, lab: wrapText(r.label, W - 28), cap: wrapText(cap, W - 28) };
+    });
+    var H = T + B; lay.forEach(function (k) { k.y = H - B; k.h = k.lab.length * 16 + 8 + bh + 6 + k.cap.length * 16 + 14; H += k.h; });
+    var lo = vals.length ? Math.min.apply(null, vals) : 0, hi = vals.length ? Math.max.apply(null, vals) : 1, pad = (hi - lo) * 0.06 || Math.abs(hi) * 0.05 || 1;
+    lo -= pad; hi += pad;
+    var X = function (v) { return L + (v - lo) / (hi - lo) * (Rr - L); }, gridX = [];
+    niceTicks(lo, hi, W < 520 ? 3 : 5).forEach(function (v) {
+      var x = X(v), anchor = x < 46 ? "start" : x > W - 46 ? "end" : "middle";
+      gridX.push(x); g += '<text x="' + x + '" y="' + (H - 12) + '" text-anchor="' + anchor + '" font-size="' + FS + '" fill="' + mut + '">' + esc(fm(v)) + "</text>";
+    });
+    g += unitSvg(ul, 8, FS, fg);
+    var hx = F3.isNum(spec.here) ? X(spec.here) : null, halo = ' stroke="' + card + '" stroke-width="4" paint-order="stroke"';
+    lay.forEach(function (k) {
+      var r = k.r, y = k.y + 4;
+      k.lab.forEach(function (t, i) { g += '<text x="' + L + '" y="' + (y + 13 + i * 16) + '" font-size="' + FS + '" font-weight="600" fill="' + fg + '"' + halo + '>' + esc(t) + "</text>"; });
+      y += k.lab.length * 16 + 8;
+      gridX.forEach(function (x) { g += '<line x1="' + x + '" x2="' + x + '" y1="' + (y - 3) + '" y2="' + (y + bh + 3) + '" stroke="' + line + '"/>'; });   /* grid across the bar only, so no line runs through a label */
+      if (r.lo) {
+        var x1 = X(r.lo.v), w = Math.max(X(r.hi.v) - x1, 3);
+        g += '<rect x="' + (r.swing === 0 ? x1 - 1.5 : x1) + '" y="' + y + '" width="' + w + '" height="' + bh + '" rx="2" fill="' + sc.acc1 + '"/>';
+      }
+      if (hx !== null) g += '<line x1="' + hx + '" x2="' + hx + '" y1="' + (y - 5) + '" y2="' + (y + bh + 5) + '" stroke="' + fg + '" stroke-width="2.2"/>';
+      if (r.lo) {
+        r.points.forEach(function (p) { if (F3.isNum(p.v)) g += '<circle cx="' + X(p.v) + '" cy="' + (y + bh / 2) + '" r="3.6" fill="' + card + '" stroke="' + fg + '" stroke-width="1.4"/>'; });   /* every value of the setting, so the middle one is visible too */
+      }
+      y += bh + 6;
+      k.cap.forEach(function (t, i) { g += '<text x="' + L + '" y="' + (y + 12 + i * 16) + '" font-size="' + FS + '" fill="' + (r.lo ? mut : fg) + '"' + halo + '>' + esc(t) + "</text>"; });
+    });
+    if (hx !== null) {
+      var right = hx > W * 0.45;                                                  /* the chosen-run line is drawn across each bar only, so it never runs through a label or a caption */
+      g += '<text x="' + (right ? hx - 6 : hx + 6) + '" y="' + (T - 10) + '" text-anchor="' + (right ? "end" : "start") + '" font-size="' + FS + '" font-weight="600" fill="' + fg + '" stroke="' + card + '" stroke-width="3" paint-order="stroke">' + esc("Chosen run: " + fm(spec.here)) + "</text>";
+    } else g += '<text x="' + L + '" y="' + (T - 10) + '" font-size="' + FS + '" font-weight="600" fill="' + fg + '">' + esc("Chosen run: " + F3.NA) + "</text>";
+    wrap.innerHTML = '<svg viewBox="0 0 ' + W + " " + H + '" width="' + W + '" height="' + H + '" role="img" aria-label="' + esc((spec.title || "") + ". " + (spec.summary || "")) + '"><title>' + esc(spec.title || "") + "</title><desc>" + esc(spec.summary || "") + "</desc>" + g + "</svg>";
+    setText(c, spec);
+    c.plot.removeAttribute("tabindex");
+    c.rd.textContent = "The vertical mark on each bar is the chosen run. A bar runs from the lowest to the highest value among that setting's values; the dots are the values. The axis does not start at zero.";
+    c.legend.innerHTML = '<span><i class="sw" style="background:' + sc.acc1 + '"></i>Range among one setting\'s values, the others as chosen</span><span><svg viewBox="0 0 34 10" aria-hidden="true"><line x1="17" y1="0" x2="17" y2="10" stroke="' + fg + '" stroke-width="3"/></svg>Chosen run</span>';
+    tableHtml(c, spec.table.head, spec.table.rows);
+  }
+  /* ---------- dumbbell (D-070): one row per measure, scenario A (circle) and scenario B (square) on one axis of change against the baseline, a line between them, a visible zero line. The spec is F3.dumbbellSpec ---------- */
+  function dumbbellChart(el, spec) {
+    var c = mount(el, spec); spec.kind = "dumbbell"; c.spec = spec;
+    var wrap = c.plot, W = Math.max(300, Math.floor(wrap.clientWidth || 340)), FS = 13, room = 86, L = 12 + room, Rr = W - 12 - room, ul = wrapText(spec.unit, W - 24), T = 30 + (ul.length - 1) * 16, B = 34, rowH = 84;
+    var sc = scen(), fg = tok("--fg"), mut = tok("--mut"), line = tok("--line"), card = tok("--card"), H = T + spec.rows.length * rowH + B, vals = [0], g = "";
+    spec.rows.forEach(function (r) { if (F3.isNum(r.a)) vals.push(r.a); if (F3.isNum(r.b)) vals.push(r.b); });
+    var lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals);
+    if (hi === lo) { hi = lo + 1; lo = lo - 1; }
+    var X = function (v) { return L + (v - lo) / (hi - lo) * (Rr - L); }, zx = X(0), pct = function (v) { return F3.signedPct(v / 100); }, gridX = [];
+    niceTicks(lo, hi, 3).forEach(function (v) {
+      var x = X(v); gridX.push(x); g += '<text x="' + x + '" y="' + (H - 12) + '" text-anchor="middle" font-size="' + FS + '" fill="' + mut + '">' + esc(v + "%") + "</text>";
+    });
+    g += unitSvg(ul, 8, FS, fg);
+    spec.rows.forEach(function (r, i) {
+      var y0 = T + i * rowH, yc = y0 + 40, an = F3.isNum(r.a), bn = F3.isNum(r.b);
+      gridX.forEach(function (x) { g += '<line x1="' + x + '" x2="' + x + '" y1="' + (yc - 12) + '" y2="' + (yc + 12) + '" stroke="' + line + '"/>'; });
+      g += '<line x1="' + zx + '" x2="' + zx + '" y1="' + (yc - 15) + '" y2="' + (yc + 15) + '" stroke="' + fg + '" stroke-width="2.2"/>';
+      g += '<text x="12" y="' + (y0 + 17) + '" font-size="' + FS + '" font-weight="600" fill="' + fg + '" stroke="' + card + '" stroke-width="3" paint-order="stroke">' + esc(r.label) + "</text>";
+      var xa = an ? X(r.a) : null, xb = bn ? X(r.b) : null;
+      if (an && bn) g += '<line x1="' + xa + '" x2="' + xb + '" y1="' + yc + '" y2="' + yc + '" stroke="' + mut + '" stroke-width="3"/>';
+      if (an) g += '<circle cx="' + xa + '" cy="' + yc + '" r="7" fill="' + sc.a + '" stroke="' + card + '" stroke-width="1.6"/>';
+      if (bn) g += '<rect x="' + (xb - 6.5) + '" y="' + (yc - 6.5) + '" width="13" height="13" fill="' + sc.b + '" stroke="' + card + '" stroke-width="1.6"/>';
+      /* value labels sit outside the pair: the mark further left is labelled on its left, the other on its right, so the two labels never collide */
+      var aLeft = an && bn ? xa <= xb : true, lab = function (x, txt, left, col) { return '<text x="' + (left ? x - 12 : x + 12) + '" y="' + (yc + 4.5) + '" text-anchor="' + (left ? "end" : "start") + '" font-size="' + FS + '" font-weight="600" fill="' + col + '" stroke="' + card + '" stroke-width="3" paint-order="stroke">' + esc(txt) + "</text>"; };
+      g += lab(an ? xa : zx, "A " + (an ? pct(r.a) : F3.NA), aLeft, sc.aT) + lab(bn ? xb : zx, "B " + (bn ? pct(r.b) : F3.NA), !aLeft, sc.bT);
+      g += '<text x="12" y="' + (y0 + 72) + '" font-size="' + FS + '" fill="' + mut + '" stroke="' + card + '" stroke-width="3" paint-order="stroke">' + esc("B minus A: " + spec.gapText(r.gap)) + "</text>";
+    });
+    wrap.innerHTML = '<svg viewBox="0 0 ' + W + " " + H + '" width="' + W + '" height="' + H + '" role="img" aria-label="' + esc((spec.title || "") + ". " + (spec.summary || "")) + '"><title>' + esc(spec.title || "") + "</title><desc>" + esc(spec.summary || "") + "</desc>" + g + "</svg>";
+    setText(c, spec);
+    c.plot.removeAttribute("tabindex");
+    c.rd.textContent = "The thick vertical mark in each row is zero: no change against the standard run (damage off). Rows are ordered by the distance between A and B.";
+    c.legend.innerHTML = '<span><svg viewBox="0 0 16 16" aria-hidden="true" style="width:16px"><circle cx="8" cy="8" r="6.5" fill="' + sc.a + '"/></svg>' + esc(spec.names.a) + ' (circle)</span><span><svg viewBox="0 0 16 16" aria-hidden="true" style="width:16px"><rect x="1.5" y="1.5" width="13" height="13" fill="' + sc.b + '"/></svg>' + esc(spec.names.b) + " (square)</span>";
+    tableHtml(c, spec.table.head, spec.table.rows);
+  }
   /* ---------- downloads ---------- */
   function download(blob, name) { var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000); }
   function csvFor(c) {
@@ -296,6 +378,14 @@
       notes.forEach(function (x) { out.push("# " + x); });
       if (tb.rows.some(function (r) { return !F3.isNum(r.k); })) out.push("# An empty cell means no value, not zero.");
       return out.join("\n") + "\n";
+    }
+    if (s.csv) {                                                                   /* range chart and dumbbell: the spec carries its own raw rows; a missing value is an empty cell */
+      var qq = function (x) { x = String(x); return /[",\n]/.test(x) ? '"' + x.replace(/"/g, '""') + '"' : x; }, gap = false;
+      var ls = [s.csv.head.map(qq).join(",")];
+      s.csv.rows.forEach(function (r) { ls.push(r.map(function (v) { if (v === null || v === undefined) { gap = true; return ""; } return qq(v); }).join(",")); });
+      notes.forEach(function (x) { ls.push("# " + x); });
+      if (gap) ls.push("# An empty cell means no value, not zero.");
+      return ls.join("\n") + "\n";
     }
     if (s.kind === "stripes") return F3.csvOf(s.years, [{ name: s.valueName, y: s.values }], notes);
     if (s.kind === "line") {
@@ -325,5 +415,5 @@
     };
     img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(new XMLSerializer().serializeToString(svg));
   }
-  window.F3C = { tok: tok, scen: scen, mount: mount, lineChart: lineChart, barChart: barChart, stripes: stripes, regionMap: regionMap, esc: esc, csvFor: csvFor };
+  window.F3C = { tok: tok, scen: scen, mount: mount, lineChart: lineChart, barChart: barChart, stripes: stripes, regionMap: regionMap, tornadoChart: tornadoChart, dumbbellChart: dumbbellChart, esc: esc, csvFor: csvFor };
 })();

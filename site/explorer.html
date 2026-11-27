@@ -41,6 +41,10 @@
 <details id="details"><summary>Details: more charts, the climate and AI-race runs, tests and caveats</summary>
 <h3>More World3 charts</h3>
 <div id="ch_io"></div><div id="ch_nr"></div><div id="ch_pol"></div>
+<h3>Which setting moves the result most?</h3>
+<p class="note">Starting from the run chosen in the rail, this chart changes one setting at a time and leaves the others as chosen. Each bar runs from the lowest to the highest value among that setting's values, and the mark on it is the chosen run. It is the range among the settings this page offers: <strong>not an uncertainty range and not a sensitivity analysis of the model</strong>. Combined effects are not shown here; use <a href="compare.html">Compare</a> for combinations.</p>
+<div class="ctlrow"><span class="ctllab" id="tornado_lab">Measure</span><div class="seg" id="tornado_seg" role="group" aria-labelledby="tornado_lab"></div></div>
+<div id="ch_tornado"></div>
 <div class="notice" role="note"><strong>Status:</strong> the standard run with climate damage off matches WorldDynamics.jl (tests A3.1 and A3.2 met); test A3.4(b) failed; runs with changed parameters, and all runs with climate damage on, are not compared with anything (WorldDynamics.jl has no climate damage). Population, industrial output, resources and pollution, 1900-2100; precomputed grid, 3 levers x 3 values x 4 damage states. <strong>No health or yield effect of warming</strong> is modelled.</div>
 <details><summary>What this panel is, and its test status</summary>
 <ul id="w3status"></ul>
@@ -192,7 +196,7 @@
 </div>
 
 </main>
-<footer class="site"><div><strong>F3 Explorer v0.2.</strong> Public draft, published 2026-10-21. Conditional scenarios, not forecasts.</div><nav aria-label="Footer"><a href="limitations.html">Limitations</a><a href="sources.html">Sources</a><a href="about.html">About</a><a href="https://github.com/stefbeau/F3">Source code on GitHub</a></nav><div>Last updated 2026-11-26, from source commit <code>5993910</code>.</div></footer>
+<footer class="site"><div><strong>F3 Explorer v0.2.</strong> Public draft, published 2026-10-21. Conditional scenarios, not forecasts.</div><nav aria-label="Footer"><a href="limitations.html">Limitations</a><a href="sources.html">Sources</a><a href="about.html">About</a><a href="https://github.com/stefbeau/F3">Source code on GitHub</a></nav><div>Last updated 2026-11-27, from source commit <code>8b918b9</code>.</div></footer>
 <script src="assets/shell.js"></script>
 <script src="data/explorer.js"></script>
 <script src="assets/f3-core.js"></script>

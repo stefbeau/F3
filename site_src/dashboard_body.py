@@ -120,6 +120,10 @@ def body() -> str:
 <details id="details"><summary>Details: more charts, the climate and AI-race runs, tests and caveats</summary>
 <h3>More World3 charts</h3>
 <div id="ch_io"></div><div id="ch_nr"></div><div id="ch_pol"></div>
+<h3>Which setting moves the result most?</h3>
+<p class="note">Starting from the run chosen in the rail, this chart changes one setting at a time and leaves the others as chosen. Each bar runs from the lowest to the highest value among that setting's values, and the mark on it is the chosen run. It is the range among the settings this page offers: <strong>not an uncertainty range and not a sensitivity analysis of the model</strong>. Combined effects are not shown here; use <a href="compare.html">Compare</a> for combinations.</p>
+<div class="ctlrow"><span class="ctllab" id="tornado_lab">Measure</span><div class="seg" id="tornado_seg" role="group" aria-labelledby="tornado_lab"></div></div>
+<div id="ch_tornado"></div>
 {B.W3_STATUS}
 {B.W3_DETAILS}
 <h3>Climate ({FAIR})</h3>

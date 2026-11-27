@@ -31,6 +31,7 @@ def body() -> str:
 <div class="ctlrow"><span class="ctllab" id="metric_lab">Overlay chart shows</span><div class="seg" id="metric_seg" role="group" aria-labelledby="metric_lab"></div></div>
 <div id="ch_over"></div>
 <div id="ch_bars"></div>
+<div id="ch_dumb"></div>
 <div class="notice" id="identical_note" role="note"></div>
 <h2 class="h2s">Table: scenario values and differences in <span id="tbl_year">2100</span></h2>
 <div class="tblwrap" tabindex="0" role="region" aria-label="Delta table, scrolls sideways on a narrow screen"><table class="delta" id="tb_delta"></table></div>

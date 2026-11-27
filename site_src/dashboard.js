@@ -74,6 +74,18 @@
     sec("ch_pol", "ppolx", "Persistent pollution index", tpo, "Pollution index (1 = 1970 level)", "index", { ymin: 0 }, "world3-pollution", tpo + ".");
   }
 
+  /* ---------- range chart (D-070, in Details): which setting moves the chosen measure most, one setting at a time around the chosen run ---------- */
+  var TM = F3.COMPARE_METRICS[0].id;
+  function buildTornado() {
+    $("tornado_seg").innerHTML = F3.COMPARE_METRICS.map(function (m) { return '<button type="button" class="segb" data-v="' + m.id + '" aria-pressed="false">' + C.esc(m.label.replace(/ \(.*\)/, "")) + "</button>"; }).join("");
+    $("tornado_seg").querySelectorAll("button").forEach(function (b) { b.onclick = function () { TM = b.dataset.v; drawTornado(); }; });
+  }
+  function drawTornado() {
+    var st = readState();
+    $("tornado_seg").querySelectorAll("button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.v === TM)); });
+    C.tornadoChart($("ch_tornado"), F3.tornadoSpec(W, st.levers, st.damage, TM));
+  }
+
   /* ---------- climate and AI race (in Details) ---------- */
   function stripes() { C.stripes($("ch_stripes"), F3.stripesSpec(D.climate, AY)); }
   function drawClimate() {
@@ -189,9 +201,10 @@
   }
   $("actionbar").querySelectorAll("button").forEach(function (b) { b.onclick = function () { setStep(b.dataset.step); }; });
 
-  function refresh() { pushHash(); drawW3(); drawHistory(); drawAI(); }
-  function all() { drawW3(); drawHistory(); drawMap(); drawClimate(); drawAI(); signs(); stripes(); }
+  function refresh() { pushHash(); drawW3(); drawTornado(); drawHistory(); drawAI(); }
+  function all() { drawW3(); drawTornado(); drawHistory(); drawMap(); drawClimate(); drawAI(); signs(); stripes(); }
   buildControls();
+  buildTornado();
   initMap();
   writeState(F3.decodeState(location.hash, NL));
   showTab(tabFromHash(), false);
