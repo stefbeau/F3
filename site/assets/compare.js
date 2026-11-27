@@ -66,6 +66,10 @@
       fmt: function (v) { return F3.signedPct(v / 100); }, tickFmt: function (v) { return v + "%"; }, unit: "Change in " + WY[N] + " value against the standard run (%)", catHead: "Measure",
       zeroNote: "The vertical line is zero: no change against the standard run (damage off).", file: "f3-compare-change-vs-baseline", caveat: cavTxt, assume: F3.ASSUME.w3damage,
       summary: tb + ". " + NAMES.a + " is " + nm.a + "; " + NAMES.b + " is " + nm.b + ". Warming is identical in all three and is not drawn." });
+    /* dumbbell (D-070): the same changes on one axis, A and B joined, rows ordered by the distance between them */
+    var ds = F3.dumbbellSpec(WY, rows, NAMES, nm, cavTxt);
+    if (!ds.rows.length) { $("ch_dumb")._c = null; $("ch_dumb").innerHTML = "<h3 class=\"ct\">" + C.esc(ds.title) + "</h3><p class=\"note\">Nothing to draw: every measure equals the standard run.</p>"; }
+    else C.dumbbellChart($("ch_dumb"), ds);
     var ident = rows.filter(function (r) { return r.identical; }).map(function (r) { return r.label; });
     $("identical_note").textContent = ident.length ? "Identical in the baseline, A and B and therefore not drawn: " + ident.join("; ") + ". Emissions are prescribed, so every scenario has the same warming; the damage option changes output, not temperature." : "";
     $("identical_note").style.display = ident.length ? "block" : "none";

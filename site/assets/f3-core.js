@@ -253,6 +253,77 @@
     if (best === null) return "Both scenarios match the standard run in " + end + " on every measure shown";
     return "Against the standard run, the largest " + end + " change is " + best.label.toLowerCase() + " in " + best.who + " (" + signedPct(best.d) + ")";
   }
+  /* ---------- range chart ("tornado") and dumbbell (D-070); readings in docs/site-tornado-dumbbell.md; tests/test_site_tornado_dumbbell.py ---------- */
+  var METRIC_UNIT = { pop: "People", io: "Model dollars per year (World3's own constant dollars)", nrfr: "Fraction of starting stock", ppolx: "Pollution index (1 = 1970 level)" };
+  var RANGE_CAVEAT = "One setting is changed at a time and the others stay as chosen, so combined effects are not shown (the Compare page shows combinations). " +
+    "Each bar is the range among the settings the Explorer offers: not an uncertainty range, not a likelihood and not a sensitivity analysis of the model. " +
+    "The climate-damage options are a level-of-output effect and high is not the upper end of the literature. Damage-on runs and runs with changed parameters are not compared with WorldDynamics.jl. " +
+    "There is no health or yield effect of warming. Model runs, not a forecast.";
+  function plainLabel(s) { return String(s).replace(/ \(.*\)/, ""); }
+  function lowerFirst(s) { s = String(s); return s.charAt(0).toLowerCase() + s.slice(1); }
+  /* One row per setting of the rail (the World3 levers, then the climate-damage option): the lowest and highest value the measure takes in the last year when that ONE setting
+     goes through all its values and every other setting stays as chosen. Rows are sorted by the width of that range, widest first; a row with fewer than two values has no width and goes last. */
+  function tornadoSpec(W, levers, damage, metricId) {
+    var m = COMPARE_METRICS.filter(function (x) { return x.id === metricId; })[0] || COMPARE_METRICS[0], n = W.years.length - 1, end = W.years[n];
+    var fmtName = m.fmt === "fraction" ? "index" : m.fmt, f = FMT[fmtName];          /* three significant figures, so the two ends of a narrow range do not print as the same number */
+    var val = function (lv, d) { var r = W.runs[runKey(lv, d)]; return r && isNum(r[m.series][n]) ? r[m.series][n] : null; };
+    var here = val(levers, damage);
+    var mk = function (id, label, pts, k) {
+      var lo = null, hi = null, cnt = 0;
+      pts.forEach(function (p) { if (!isNum(p.v)) return; cnt++; if (lo === null || p.v < lo.v) lo = p; if (hi === null || p.v > hi.v) hi = p; });   /* a missing value is left out of the range, never read as zero */
+      var ok = cnt >= 2;
+      return { id: id, label: label, points: pts, lo: ok ? { setting: lo.setting, v: lo.v } : null, hi: ok ? { setting: hi.setting, v: hi.v } : null, swing: ok ? hi.v - lo.v : null, k: k };
+    };
+    var rows = W.levers.map(function (l, i) {
+      return mk(l.param, l.label, l.values.map(function (x, j) { var lv = levers.slice(); lv[i] = j; return { setting: l.value_labels[j], v: val(lv, damage), chosen: j === levers[i] }; }), i);
+    });
+    rows.push(mk("damage", "Climate damage to industrial output", (W.damage_states || DMG_STATES).map(function (d) { return { setting: "damage " + d, v: val(levers, d), chosen: d === damage }; }), rows.length));
+    rows.sort(function (a, b) {
+      var an = isNum(a.swing), bn = isNum(b.swing);
+      if (an !== bn) return an ? -1 : 1;
+      if (an && a.swing !== b.swing) return b.swing - a.swing;
+      return a.k - b.k;                                                               /* equal widths keep the order of the data file */
+    });
+    rows.forEach(function (r) { delete r.k; });
+    var what = lowerFirst(plainLabel(m.label)), top = rows[0], title;
+    if (!isNum(top.swing)) title = plainLabel(m.label) + " in " + end + " has " + NA + " for the settings compared";
+    else if (top.swing === 0) title = "None of the settings changes " + what + " in " + end + ": it stays at " + f(here);
+    else title = "Changing one setting at a time, " + lowerFirst(top.label) + " moves " + end + " " + what + " the most: from " + f(top.lo.v) + " at " + top.lo.setting + " to " + f(top.hi.v) + " at " + top.hi.setting;
+    var num = function (v) { return isNum(v) ? v : null; };
+    return { kind: "tornado", metric: { id: m.id, label: m.label, fmt: fmtName }, fmt: fmtName, year: end, here: here, rows: rows, title: title, summary: title + ". " + RANGE_CAVEAT, caveat: RANGE_CAVEAT,
+      unit: METRIC_UNIT[m.id] + ", " + end, file: "f3-range-" + m.id + "-" + levers.join("") + "-damage-" + damage, assume: assumeFor("world3", damage),
+      table: { head: ["Setting changed", "Lowest " + end + " value", "at", "Highest " + end + " value", "at", "Range"],
+        rows: rows.map(function (r) { return r.lo ? [r.label, f(r.lo.v), r.lo.setting, f(r.hi.v), r.hi.setting, f(r.swing)] : [r.label, NA, NA, NA, NA, NA]; }) },
+      csv: { head: ["setting_changed", "lowest_value", "lowest_at", "highest_value", "highest_at", "range", "chosen_run_value"],
+        rows: rows.map(function (r) { return r.lo ? [r.label, r.lo.v, r.lo.setting, r.hi.v, r.hi.setting, r.swing, num(here)] : [r.label, null, null, null, null, null, num(here)]; }) } };
+  }
+  /* Dumbbell: one row per measure that differs from the baseline; A and B as their change against the standard run (%), the gap in percentage points, rows sorted by the gap, widest first.
+     rows are those of compareRows, so every number is the bars' and the table's number. */
+  function dumbbellSpec(years, rows, names, descr, caveat) {
+    var end = years[years.length - 1];
+    var out = rows.filter(function (r) { return !r.identical; }).map(function (r, i) {
+      return { id: r.id, label: plainLabel(r.label), a: scale(r.dA, 100), b: scale(r.dB, 100), gap: isNum(r.dA) && isNum(r.dB) ? (r.dB - r.dA) * 100 : null, k: i };
+    });
+    out.sort(function (p, q) {
+      var pn = isNum(p.gap), qn = isNum(q.gap);
+      if (pn !== qn) return pn ? -1 : 1;
+      if (pn && Math.abs(p.gap) !== Math.abs(q.gap)) return Math.abs(q.gap) - Math.abs(p.gap);
+      return p.k - q.k;
+    });
+    out.forEach(function (r) { delete r.k; });
+    var top = out[0], title;
+    if (!out.length) title = names.a + " and " + names.b + " match the standard run in " + end + " on every measure shown";
+    else if (!isNum(top.gap)) title = names.a + " and " + names.b + " cannot be compared in " + end + ": a value is missing (" + NA + ")";
+    else if (Math.abs(top.gap) < 0.05) title = names.a + " and " + names.b + " coincide in " + end + ": the same change against the standard run on every measure shown";
+    else title = "In " + end + ", " + names.a + " and " + names.b + " are furthest apart on " + lowerFirst(top.label) + ": " + signedPct(top.a / 100) + " against " + signedPct(top.b / 100) + " relative to the standard run, " + Math.abs(top.gap).toFixed(1) + " percentage points apart";
+    var pts = function (g) { return isNum(g) ? (Math.abs(g) < 0.05 ? "0.0" : (g > 0 ? "+" : "") + g.toFixed(1)) + " points" : NA; };
+    var cav = (caveat ? caveat + " " : "") + "Changes are relative to the standard run with damage off. The measures have different units, so they are compared as percentages; the order is by the distance between A and B.";
+    return { kind: "dumbbell", year: end, rows: out, names: names, title: title, caveat: cav, file: "f3-compare-dumbbell", assume: ASSUME.w3damage, unit: "Change in " + end + " value against the standard run (%)",
+      summary: title + ". " + names.a + " is " + descr.a + "; " + names.b + " is " + descr.b + ". Warming is identical in all three and is not drawn. " + cav + " Model runs, not forecasts.",
+      gapText: pts,
+      table: { head: ["Measure, " + end, names.a + " vs baseline", names.b + " vs baseline", "B minus A"], rows: out.map(function (r) { return [r.label, signedPct(scale(r.a, 0.01)), signedPct(scale(r.b, 0.01)), pts(r.gap)]; }) },
+      csv: { head: ["measure", "A_change_pct", "B_change_pct", "B_minus_A_points"], rows: out.map(function (r) { return [r.label, r.a, r.b, r.gap]; }) } };
+  }
   /* ---------- observed history and the warming map (D-057); readings in docs/history-comparison.md and docs/warming-map.md; tests/test_site_history.py ---------- */
   /* World3 values sit at 1 January: the calendar-year value is the mean of the value at the start and at the end of the year. */
   function calYear(a, years, y) {
@@ -409,6 +480,7 @@
     csvOf: csvOf, damageNotice: damageNotice, popFinding: popFinding, industryFinding: industryFinding, resourcesFinding: resourcesFinding, pollutionFinding: pollutionFinding,
     calYear: calYear, historyPopGap: historyPopGap, historyIoGap: historyIoGap, historyTempGap: historyTempGap, SEQ: SEQ, seqColor: seqColor, mapTakeaway: mapTakeaway, regionReadout: regionReadout, mapTable: mapTable, regionCentre: regionCentre, mapOrder: mapOrder, mapNeighbour: mapNeighbour, mapValueTable: mapValueTable, mapSpec: mapSpec,
     ASSUME: ASSUME, assumeFor: assumeFor, temperatureFinding: temperatureFinding, stripesFinding: stripesFinding, stripesSpec: stripesSpec, automationFinding: automationFinding, aiDamageFinding: aiDamageFinding, damageEffect: damageEffect, damageBarsFinding: damageBarsFinding,
-    w3Kpis: w3Kpis, COMPARE_METRICS: COMPARE_METRICS, compareRows: compareRows, compareHeadline: compareHeadline, compareState: compareState, effectTable: effectTable, linksFinding: linksFinding, signedFmt: signedFmt, overlayFinding: overlayFinding, barsFinding: barsFinding, encodeCompare: encodeCompare, scenarioName: scenarioName
+    w3Kpis: w3Kpis, COMPARE_METRICS: COMPARE_METRICS, compareRows: compareRows, compareHeadline: compareHeadline, compareState: compareState, effectTable: effectTable, linksFinding: linksFinding, signedFmt: signedFmt, overlayFinding: overlayFinding, barsFinding: barsFinding, encodeCompare: encodeCompare, scenarioName: scenarioName,
+    METRIC_UNIT: METRIC_UNIT, RANGE_CAVEAT: RANGE_CAVEAT, tornadoSpec: tornadoSpec, dumbbellSpec: dumbbellSpec
   };
 });

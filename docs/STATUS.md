@@ -1,5 +1,11 @@
 # F3 — Status
 
+## Update 2026-11-27: two new chart types on branch `site-tornado-dumbbell` (D-070, Provisional), NOT merged, NOT deployed
+
+- Explorer, under Details: a range chart, "Which setting moves the result most?" (one setting at a time around the chosen run). Compare: a dumbbell of A against B. Display layer only, drawn from the published data file; no model code, run or number changed.
+- Tests written first (22); site tests 218 passed. The full suite was not run. Checked in headless Chrome at 390 and 1280 px; not on a phone, not with a screen reader.
+- For the editor: D-070; whether to merge and deploy. `docs/site-tornado-dumbbell.md`.
+
 ## Update 2026-11-26 (search): sources added for links 3, 4, 6, 7 on branch `links-unlock-search`, NOT merged, site unchanged
 
 - Unlocked: link 3 health (Bressler 2021); link 6 to 2035 (IEA, as a post-hoc calibration).
