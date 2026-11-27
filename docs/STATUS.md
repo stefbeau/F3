@@ -1,5 +1,12 @@
 # F3 — Status
 
+## Update 2026-11-27 (later): PR 29 merged and the site deployed at the editor's instruction
+
+- The editor wrote "merge and deploy". PR 29 merged (merge commit `da26ffd`). The Pages workflow, started by hand on `main` at 02:39 UTC, finished with status success.
+- **Checked after the deployment:** the live Explorer page has the heading "Which setting moves the result most?" and its "not an uncertainty range and not a sensitivity analysis" sentence, and its footer names source commit `9144646`. **Not checked live:** the Compare page, the charts as drawn in a browser on the public site, a phone.
+- The `python-tests` CI run on the merged branch was still in progress at merge time; its result is not recorded here.
+- D-070 stays Provisional (delegated): "merge and deploy" is recorded as an instruction, not as approval of the decision. (The line below saying "NOT merged, NOT deployed" is true as of its time.)
+
 ## Update 2026-11-27: two new chart types on branch `site-tornado-dumbbell` (D-070, Provisional), NOT merged, NOT deployed
 
 - Explorer, under Details: a range chart, "Which setting moves the result most?" (one setting at a time around the chosen run). Compare: a dumbbell of A against B. Display layer only, drawn from the published data file; no model code, run or number changed.

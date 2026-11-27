@@ -1545,6 +1545,7 @@ Entered 2026-10-21 under the standing delegation of 2026-10-12 (`CLAUDE.md`). **
 - **Cost of reversing:** revert the commits of branch `site-tornado-dumbbell`; nothing else depends on them.
 - **Proposed by:** Claude, at the editor's request.
 - **Date:** 2026-11-27
+- **Outcome note (2026-11-27):** the editor wrote "merge and deploy". PR 29 merged (`da26ffd`); the Pages workflow ran on `main` with status success; the live Explorer page was fetched and carries the range chart's heading and note. Status unchanged: Provisional (delegated).
 
 ## D-xxx — Title
 
